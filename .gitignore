@@ -1,0 +1,23 @@
+# Build artifacts
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+desktop.ini
+
+# Build/dist
+dist/
+build/
+.cache/
+
+# Local env
+.env
+.env.local
