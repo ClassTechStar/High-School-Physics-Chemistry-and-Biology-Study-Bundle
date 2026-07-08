@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中物化生语数英学习大礼包 - 项目介绍</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="presentation.css">
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Cover -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content cover">
+                <canvas id="cover-particles" class="cover-canvas"></canvas>
+                <div class="badge">广东高考六科智能备考平台</div>
+                <h1>高中物化生语数英<br>学习大礼包</h1>
+                <p class="subtitle">130+款交互式学习工具 · 六科知识图谱 · AI赋能智能备考</p>
+                <div class="stats-row">
+                    <div class="stat">
+                        <span class="number" data-count="130">0</span>
+                        <span class="label">精品工具</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-count="6">0</span>
+                        <span class="label">学科覆盖</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-count="168">0</span>
+                        <span class="label">知识节点</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-count="1208">0</span>
+                        <span class="label">真题收录</span>
+                    </div>
+                </div>
+                <div class="subject-icons">
+                    <span class="subject physics"><span class="s-icon">⚡</span>物理</span>
+                    <span class="subject chemistry"><span class="s-icon">🧪</span>化学</span>
+                    <span class="subject biology"><span class="s-icon">🧬</span>生物</span>
+                    <span class="subject chinese"><span class="s-icon">📚</span>语文</span>
+                    <span class="subject math"><span class="s-icon">📐</span>数学</span>
+                    <span class="subject english"><span class="s-icon">📖</span>英语</span>
+                </div>
+                <div class="visual-preview-row">
+                    <div class="mini-demo physics-mini">
+                        <canvas id="mini-physics" width="80" height="50"></canvas>
+                        <span>抛物线模拟</span>
+                    </div>
+                    <div class="mini-demo chemistry-mini">
+                        <div class="mini-equation">Fe₂O₃ + CO → Fe + CO₂</div>
+                        <span>方程配平</span>
+                    </div>
+                    <div class="mini-demo biology-mini">
+                        <svg viewBox="0 0 60 40" class="mini-dna">
+                            <path d="M10,5 Q30,15 10,25 Q-10,35 10,45" stroke="#7CB342" fill="none" stroke-width="2"/>
+                            <path d="M50,5 Q30,15 50,25 Q70,35 50,45" stroke="#7CB342" fill="none" stroke-width="2"/>
+                            <line x1="10" y1="12" x2="50" y2="12" stroke="#7CB342" stroke-width="1"/>
+                            <line x1="10" y1="20" x2="50" y2="20" stroke="#7CB342" stroke-width="1"/>
+                            <line x1="10" y1="28" x2="50" y2="28" stroke="#7CB342" stroke-width="1"/>
+                            <line x1="10" y1="36" x2="50" y2="36" stroke="#7CB342" stroke-width="1"/>
+                        </svg>
+                        <span>DNA双螺旋</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Project Overview -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2>📋 项目简介</h2>
+                <div class="intro-content-enhanced">
+                    <div class="intro-main">
+                        <div class="highlight-box-enhanced">
+                            <p class="intro-text-large">专为<strong>广东高考六科考生</strong>打造的一站式学习平台，整合130+款交互式学习工具，覆盖物理、化学、生物、语文、数学、英语六大学科的核心知识点与高考考点。深度融合"一体两翼"智能备考架构，数据驱动精准提分。</p>
+                            <div class="intro-tags">
+                                <span class="tag">AI赋能</span>
+                                <span class="tag">一体两翼架构</span>
+                                <span class="tag">广东卷定制</span>
+                                <span class="tag">六科全覆盖</span>
+                                <span class="tag">2022-2026考情</span>
+                            </div>
+                        </div>
+                        <div class="workflow-diagram">
+                            <h4>🔄 学习流程</h4>
+                            <div class="workflow-steps">
+                                <div class="wf-step">
+                                    <div class="wf-icon">📖</div>
+                                    <div class="wf-label">知识图谱</div>
+                                    <div class="wf-desc">168个知识点</div>
+                                </div>
+                                <div class="wf-arrow">→</div>
+                                <div class="wf-step">
+                                    <div class="wf-icon">🎯</div>
+                                    <div class="wf-label">一轮夯基</div>
+                                    <div class="wf-desc">模块化覆盖</div>
+                                </div>
+                                <div class="wf-arrow">→</div>
+                                <div class="wf-step">
+                                    <div class="wf-icon">📝</div>
+                                    <div class="wf-label">二轮提能</div>
+                                    <div class="wf-desc">情境化训练</div>
+                                </div>
+                                <div class="wf-arrow">→</div>
+                                <div class="wf-step">
+                                    <div class="wf-icon">🏆</div>
+                                    <div class="wf-label">精准备考</div>
+                                    <div class="wf-desc">直击广东高考</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-grid-enhanced">
+                        <div class="feature-card-enhanced">
+                            <div class="fci physics-bg">📚</div>
+                            <h3>系统化知识体系</h3>
+                            <p>42章节知识梳理，重难点全覆盖，包含典型例题与常见误区分析</p>
+                            <div class="fc-stats">
+                                <span>6章物理</span>
+                                <span>6章化学</span>
+                                <span>6章生物</span>
+                                <span>12章数学</span>
+                                <span>6章语文</span>
+                                <span>5章英语</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci chemistry-bg">🧪</div>
+                            <h3>交互式实验模拟</h3>
+                            <p>虚拟实验环境，Canvas/SVG可视化，安全高效地探索科学原理</p>
+                            <div class="fc-stats">
+                                <span>抛体运动</span>
+                                <span>电化学反应</span>
+                                <span>生态模拟</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci biology-bg">📝</div>
+                            <h3>针对性练习系统</h3>
+                            <p>小题型专练，难度分级，自动记录错题本，智能推荐复习</p>
+                            <div class="fc-stats">
+                                <span>离子共存</span>
+                                <span>系谱图判断</span>
+                                <span>曲线解读</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced featured">
+                            <div class="fci highlight-bg">🎯</div>
+                            <h3>广东卷备考专属</h3>
+                            <p>基于广东卷命题规律设计，工业流程题、遗传题等专项突破</p>
+                            <div class="fc-stats">
+                                <span>工艺流程</span>
+                                <span>实验设计</span>
+                                <span>高频考点</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-grid-enhanced" style="margin-top: 20px;">
+                        <div class="feature-card-enhanced">
+                            <div class="fci highlight-bg">🧠</div>
+                            <h3>学习路径推荐</h3>
+                            <p>知识图谱×题库联动，智能推荐个性化学习路径</p>
+                            <div class="fc-stats">
+                                <span>168个知识点</span>
+                                <span>1208题真题库</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci chemistry-bg">📝</div>
+                            <h3>答题模板库</h3>
+                            <p>42套答题模板，六科全覆盖，规范答题格式</p>
+                            <div class="fc-stats">
+                                <span>73题情境题</span>
+                                <span>43题框架题</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci biology-bg">🔗</div>
+                            <h3>知识图谱联动</h3>
+                            <p>六科知识图谱互联，跨学科知识点可视化关联</p>
+                            <div class="fc-stats">
+                                <span>42章节</span>
+                                <span>六科全覆盖</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced featured">
+                            <div class="fci physics-bg">📱</div>
+                            <h3>PWA离线支持</h3>
+                            <p>Service Worker缓存，离线可用，随时随地学习</p>
+                            <div class="fc-stats">
+                                <span>离线可用</span>
+                                <span>秒开体验</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Physics Tools -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2>⚡ 物理工具 <span class="tool-count">多款精品工具</span></h2>
+                <div class="tools-showcase-enhanced">
+                    <div class="tool-detail-card-enhanced">
+                        <div class="tool-header-enhanced physics-header">
+                            <span class="tool-icon-lg">⚡</span>
+                            <div>
+                                <h3>物理公式智能计算器</h3>
+                                <p class="tool-subtitle">语音输入 · 智能解析 · 分步展示</p>
+                            </div>
+                        </div>
+                        <div class="tool-body-enhanced">
+                            <div class="tool-demo-panel">
+                                <div class="demo-interface calculator-mockup">
+                                    <div class="mockup-title-bar">
+                                        <span class="dot red"></span>
+                                        <span class="dot yellow"></span>
+                                        <span class="dot green"></span>
+                                        <span class="window-title">物理公式计算器</span>
+                                    </div>
+                                    <div class="mockup-content">
+                                        <div class="calc-display">
+                                            <div class="formula-input">F = ma</div>
+                                            <div class="calc-result">F = ? N</div>
+                                        </div>
+                                        <div class="calc-inputs">
+                                            <div class="input-group">
+                                                <label>m =</label>
+                                                <input type="text" value="5" readonly> kg
+                                            </div>
+                                            <div class="input-group">
+                                                <label>a =</label>
+                                                <input type="text" value="9.8" readonly> m/s²
+                                            </div>
+                                        </div>
+                                        <div class="calc-actions">
+                                            <button class="btn-calc voice-btn">🎤 语音输入</button>
+                                            <button class="btn-calc calc-btn primary">计算</button>
+                                        </div>
+                                        <div class="calc-steps">
+                                            <div class="step-item">
+                                                <span class="step-num">①</span>
+                                                <span>已知: m=5kg, a=9.8m/s²</span>
+                                            </div>
+                                            <div class="step-item">
+                                                <span class="step-num">②</span>
+                                                <span>公式: F = ma</span>
+                                            </div>
+                                            <div class="step-item highlight-step">
+                                                <span class="step-num">③</span>
+                                                <span>F = 5 × 9.8 = 49N ✓</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tool-features-list">
+                                <ul>
+                                    <li><strong>语音输入识别</strong> - Web Speech API支持，说出公式即可</li>
+                                    <li><strong>全公式覆盖</strong> - 力学、电磁学、光学、热学、原子物理</li>
+                                    <li><strong>智能单位换算</strong> - 自动处理单位转换问题</li>
+                                    <li><strong>分步计算展示</strong> - 清晰展示解题思路和过程</li>
+                                    <li><strong>历史记录保存</strong> - localStorage持久化存储</li>
+                                </ul>
+                                <div class="supported-formulas">
+                                    <h5>支持的公式类别：</h5>
+                                    <div class="formula-tags">
+                                        <span>F=ma 牛顿第二定律</span>
+                                        <span>v=v₀+at 运动学</span>
+                                        <span>E=½mv² 动能</span>
+                                        <span>p=mv 动量</span>
+                                        <span>W=Flcosθ 功</span>
+                                        <span>F=kq₁q₂/r² 库仑力</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-detail-card-enhanced">
+                        <div class="tool-header-enhanced physics-header">
+                            <span class="tool-icon-lg">🎯</span>
+                            <div>
+                                <h3>抛物线运动模拟器</h3>
+                                <p class="tool-subtitle">Canvas动态可视化 · 参数可调 · 多场景预设</p>
+                            </div>
+                        </div>
+                        <div class="tool-body-enhanced reverse-layout">
+                            <div class="tool-features-list">
+                                <ul>
+                                    <li><strong>Canvas实时渲染</strong> - 流畅的轨迹动画效果</li>
+                                    <li><strong>参数可调节</strong> - 发射角度、初速度实时调整</li>
+                                    <li><strong>多场景预设</strong> - 斜抛、平抛、自由落体等</li>
+                                    <li><strong>数据面板</strong> - 实时显示位移、速度、时间</li>
+                                    <li><strong>对比模式</strong> - 不同参数下的轨迹对比</li>
+                                </ul>
+                                <div class="physics-scenarios">
+                                    <h5>预设场景：</h5>
+                                    <div class="scenario-cards">
+                                        <div class="sc-card active">
+                                            <span>🏹</span>
+                                            <span>斜抛运动</span>
+                                        </div>
+                                        <div class="sc-card">
+                                            <span>💨</span>
+                                            <span>平抛运动</span>
+                                        </div>
+                                        <div class="sc-card">
+                                            <span>🍎</span>
+                                            <span>自由落体</span>
+                                        </div>
+                                        <div class="sc-card">
+                                            <span>🎪</span>
+                                            <span>竖直上抛</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tool-demo-panel">
+                                <div class="projectile-demo-enhanced">
+                                    <canvas id="projectile-canvas-full" width="350" height="220"></canvas>
+                                    <div class="projectile-controls">
+                                        <div class="control-row">
+                                            <label>角度 θ:</label>
+                                            <input type="range" min="0" max="90" value="45" id="angle-slider">
+                                            <span id="angle-value">45°</span>
+                                        </div>
+                                        <div class="control-row">
+                                            <label>速度 v₀:</label>
+                                            <input type="range" min="10" max="50" value="30" id="velocity-slider">
+                                            <span id="velocity-value">30m/s</span>
+                                        </div>
+                                    </div>
+                                    <div class="data-readout">
+                                        <div class="data-item">
+                                            <span class="data-label">最大高度</span>
+                                            <span class="data-value" id="max-height">22.96m</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-label">水平射程</span>
+                                            <span class="data-value" id="range-value">91.84m</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-label">飞行时间</span>
+                                            <span class="data-value" id="flight-time">4.33s</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Chemistry Tools -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2>🧪 化学工具 <span class="tool-count">14款</span></h2>
+                <div class="tools-grid-enhanced">
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">⚖️</div>
+                        <h4>化学方程式智能配平</h4>
+                        <p>自动配平，即时反馈，原子守恒验证</p>
+                        <div class="tile-example">
+                            <code>H₂ + O₂ → H₂O</code>
+                            <span class="arrow">→</span>
+                            <code class="balanced">2H₂ + O₂ → 2H₂O</code>
+                        </div>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">📖</div>
+                        <h4>化学小题型专练</h4>
+                        <p>广东卷高频热点专练，生成8-10题练习</p>
+                        <div class="tile-example">
+                            <span class="quiz-type">离子共存</span>
+                            <span class="quiz-type">阿伏伽德罗常数</span>
+                            <span class="quiz-type">电化学</span>
+                        </div>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">🛡️</div>
+                        <h4>化学实验安全评判</h4>
+                        <p>规则引擎+AI评分，安全隐患智能识别</p>
+                        <div class="tile-example">
+                            <div class="safety-items">
+                                <span class="safe">✓ 正确操作</span>
+                                <span class="danger">✗ 危险行为</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-tile featured-tile">
+                        <div class="tile-icon chemistry-gradient">🔋</div>
+                        <h4>电化学动态示意</h4>
+                        <p>原电池/电解池切换，电子离子流向可视化</p>
+                        <div class="tile-example electrochem-demo">
+                            <svg viewBox="0 0 150 80" class="cell-svg">
+                                <rect x="10" y="10" width="55" height="60" fill="#e3f2fd" stroke="#1976d2" rx="4"/>
+                                <rect x="85" y="10" width="55" height="60" fill="#fce4ec" stroke="#c62828" rx="4"/>
+                                <text x="37" y="48" text-anchor="middle" font-size="10" fill="#1976d2">Zn(负极)</text>
+                                <text x="112" y="48" text-anchor="middle" font-size="10" fill="#c62828">Cu(正极)</text>
+                                <line x1="65" y1="40" x2="85" y2="40" stroke="#333" stroke-width="2"/>
+                                <path d="M68,35 Q75,30 82,35" fill="none" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrow)"/>
+                                <text x="75" y="25" text-anchor="middle" font-size="8" fill="#ff9800">e⁻</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">🔄</div>
+                        <h4>工艺流程节点卡片</h4>
+                        <p>拖拽排序练习，正确性验证</p>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">📝</div>
+                        <h4>化学方程式速录本</h4>
+                        <p>分类检索，PDF导出，收藏管理</p>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">🛢️</div>
+                        <h4>有机物转化图绘制</h4>
+                        <p>官能团转化关系可视化绘制</p>
+                        <div class="tile-example org-chain">
+                            <span>CH₃CH₂OH</span> → <span>CH₃CHO</span> → <span>CH₃COOH</span>
+                        </div>
+                    </div>
+                    <div class="tool-tile gd-badge">
+                        <div class="tile-icon chemistry-gradient">🏭</div>
+                        <h4>工业流程核心反应提取</h4>
+                        <p>广东卷备考利器，自动提取关键反应</p>
+                        <span class="gd-tag">广东卷</span>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">🧪</div>
+                        <h4>反应历程分析</h4>
+                        <p>反应机理探索，活化能计算</p>
+                    </div>
+                    <div class="tool-tile">
+                        <div class="tile-icon chemistry-gradient">📊</div>
+                        <h4>化学计量计算</h4>
+                        <p>守恒法应用，物质的量浓度计算</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Chemistry Core Tool -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2>🏭 化学核心工具详解 — 工业流程分析</h2>
+                <div class="process-analyzer-demo">
+                    <div class="pa-left">
+                        <div class="pa-tool-info">
+                            <div class="pa-badge">⭐ 广东卷必备工具</div>
+                            <h3>工业流程核心反应提取工具</h3>
+                            <p class="pa-desc">针对广东高考化学工艺流程大题（通常12-14分）设计的专项训练工具。自动分析工业生产流程文本，提取核心化学反应，识别氧化还原关系，检测循环物质。</p>
+                        </div>
+                        <div class="pa-capabilities">
+                            <div class="cap-item">
+                                <div class="cap-num">01</div>
+                                <div class="cap-text">
+                                    <h5>核心反应智能提取</h5>
+                                    <p>NLP技术解析流程文本，自动识别关键化学反应方程式</p>
+                                </div>
+                            </div>
+                            <div class="cap-item">
+                                <div class="cap-num">02</div>
+                                <div class="cap-text">
+                                    <h5>氧化还原深度分析</h5>
+                                    <p>电子转移数目与方向可视化，氧化剂还原剂标注</p>
+                                </div>
+                            </div>
+                            <div class="cap-item">
+                                <div class="cap-num">03</div>
+                                <div class="cap-text">
+                                    <h5>循环物质智能检测</h5>
+                                    <p>自动识别流程中循环利用的反应物，标记循环路径</p>
+                                </div>
+                            </div>
+                            <div class="cap-item">
+                                <div class="cap-num">04</div>
+                                <div class="cap-text">
+                                    <h5>考点自动生成</h5>
+                                    <p>基于广东卷真题规律，自动生成配套考点清单</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa-right">
+                        <div class="process-flow-diagram">
+                            <h4>📊 工业流程示例：硫酸工业制取</h4>
+                            <svg viewBox="0 0 400 280" class="flow-svg">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                                    </marker>
+                                    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- Node 1: 原料 -->
+                                <rect x="140" y="10" width="120" height="40" rx="8" fill="url(#nodeGrad)"/>
+                                <text x="200" y="35" text-anchor="middle" fill="white" font-size="12">硫铁矿 (FeS₂)</text>
+                                
+                                <!-- Arrow -->
+                                <line x1="200" y1="50" x2="200" y2="80" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                                
+                                <!-- Node 2: 焙烧 -->
+                                <rect x="130" y="85" width="140" height="45" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                                <text x="200" y="105" text-anchor="middle" fill="#e65100" font-size="11" font-weight="bold">沸腾炉焙烧</text>
+                                <text x="200" y="122" text-anchor="middle" fill="#666" font-size="9">4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂</text>
+                                
+                                <!-- Arrow -->
+                                <line x1="200" y1="130" x2="200" y2="160" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                                
+                                <!-- Node 3: 氧化 -->
+                                <rect x="130" y="165" width="140" height="45" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                                <text x="200" y="185" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="bold">接触室催化氧化</text>
+                                <text x="200" y="202" text-anchor="middle" fill="#666" font-size="9">2SO₂ + O₂ ⇌ 2SO₃ (V₂O₅)</text>
+                                
+                                <!-- Arrow -->
+                                <line x1="200" y1="210" x2="200" y2="240" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                                
+                                <!-- Node 4: 吸收 -->
+                                <rect x="130" y="245" width="140" height="35" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                                <text x="200" y="267" text-anchor="middle" fill="#1565c0" font-size="11" font-weight="bold">吸收塔: SO₃ + H₂O → H₂SO₄</text>
+                                
+                                <!-- Side annotations -->
+                                <g transform="translate(290, 95)">
+                                    <rect x="0" y="0" width="100" height="30" rx="4" fill="#ffebee" stroke="#e53935"/>
+                                    <text x="50" y="20" text-anchor="middle" fill="#c62828" font-size="9">🔥 高温条件</text>
+                                </g>
+                                <g transform="translate(290, 175)">
+                                    <rect x="0" y="0" width="100" height="30" rx="4" fill="#fff8e1" stroke="#ffa000"/>
+                                    <text x="50" y="20" text-anchor="middle" fill="#ff6f00" font-size="9">🌡️ 400-500°C</text>
+                                </g>
+                            </svg>
+                            
+                            <div class="analysis-results">
+                                <h5>🔬 分析结果</h5>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="ri-label">核心反应数</span>
+                                        <span class="ri-value">3个</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="ri-label">氧化还原反应</span>
+                                        <span class="ri-value">2个</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="ri-label">涉及元素</span>
+                                        <span class="ri-value">Fe, S, O, H</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="ri-label">预估分值</span>
+                                        <span class="ri-value highlight">12-14分</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Biology Tools -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2>🧬 生物工具 <span class="tool-count">多款精品工具</span></h2>
+                <div class="bio-tools-grid">
+                    <div class="bio-tool-card large-bio">
+                        <div class="btc-header genetics-header">
+                            <span class="btc-icon">🧬</span>
+                            <h3>生物遗传性状模拟器</h3>
+                        </div>
+                        <div class="btc-body">
+                            <div class="genetics-demo">
+                                <svg viewBox="0 0 300 180" class="punnett-svg">
+                                    <!-- Punnett Square -->
+                                    <rect x="80" y="30" width="140" height="120" fill="none" stroke="#7CB342" stroke-width="2"/>
+                                    <line x1="150" y1="30" x2="150" y2="150" stroke="#7CB342" stroke-width="1"/>
+                                    <line x1="80" y1="90" x2="220" y2="90" stroke="#7CB342" stroke-width="1"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="115" y="20" text-anchor="middle" font-size="14" fill="#7CB342" font-weight="bold">A</text>
+                                    <text x="185" y="20" text-anchor="middle" font-size="14" fill="#7CB342" font-weight="bold">a</text>
+                                    <text x="65" y="65" text-anchor="middle" font-size="14" fill="#7CB342" font-weight="bold">A</text>
+                                    <text x="65" y="125" text-anchor="middle" font-size="14" fill="#7CB342" font-weight="bold">a</text>
+                                    
+                                    <!-- Results -->
+                                    <text x="115" y="65" text-anchor="middle" font-size="13" fill="#333">AA</text>
+                                    <text x="185" y="65" text-anchor="middle" font-size="13" fill="#333">Aa</text>
+                                    <text x="115" y="125" text-anchor="middle" font-size="13" fill="#333">Aa</text>
+                                    <text x="185" y="125" text-anchor="middle" font-size="13" fill="#333">aa</text>
+                                    
+                                    <!-- Ratio -->
+                                    <text x="150" y="170" text-anchor="middle" font-size="12" fill="#666">分离比: 3:1 (显性:隐性)</text>
+                                </svg>
+                            </div>
+                            <div class="btc-features">
+                                <p>孟德尔定律验证，基因型频率计算，Hardy-Weinberg平衡探究</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-tool-card">
+                        <div class="btc-header eco-header">
+                            <span class="btc-icon">🌍</span>
+                            <h3>生态动态系统模拟</h3>
+                        </div>
+                        <div class="btc-body compact">
+                            <div class="eco-chart-mini">
+                                <svg viewBox="0 0 200 100" class="population-curve">
+                                    <path d="M10,80 Q50,20 100,50 Q150,80 190,40" fill="none" stroke="#27ae60" stroke-width="2"/>
+                                    <circle cx="50" cy="32" r="4" fill="#27ae60"/>
+                                    <circle cx="100" cy="50" r="4" fill="#27ae60"/>
+                                    <circle cx="150" cy="67" r="4" fill="#27ae60"/>
+                                    <text x="100" y="95" text-anchor="middle" font-size="9" fill="#666">种群数量变化曲线</text>
+                                </svg>
+                            </div>
+                            <p>种群动态建模，能量流动分析</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-tool-card">
+                        <div class="btc-header mind-header">
+                            <span class="btc-icon">🗺️</span>
+                            <h3>概念图生成器</h3>
+                        </div>
+                        <div class="btc-body compact">
+                            <div class="mindmap-mini">
+                                <div class="mm-center">细胞</div>
+                                <div class="mm-node n1">细胞膜</div>
+                                <div class="mm-node n2">细胞核</div>
+                                <div class="mm-node n3">细胞质</div>
+                            </div>
+                            <p>思维导图构建，知识网络可视化</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-tool-card featured-bio">
+                        <div class="btc-header pedi-header">
+                            <span class="btc-icon">👨‍👩‍👧</span>
+                            <h3>遗传系谱图练习器</h3>
+                            <span class="featured-tag">必练</span>
+                        </div>
+                        <div class="btc-body compact">
+                            <div class="pedigree-mini">
+                                <svg viewBox="0 0 120 80" class="pedigree-small">
+                                    <circle cx="60" cy="12" r="8" class="pm-male"/>
+                                    <circle cx="35" cy="35" r="8" class="pm-female"/>
+                                    <circle cx="85" cy="35" r="8" class="pm-male"/>
+                                    <circle cx="25" cy="62" r="8" class="pm-male pm-affected"/>
+                                    <circle cx="50" cy="62" r="8" class="pm-female"/>
+                                    <circle cx="75" cy="62" r="8" class="pm-male"/>
+                                    <circle cx="100" cy="62" r="8" class="pm-female"/>
+                                    <line x1="60" y1="20" x2="35" y2="27" stroke="#999" stroke-width="1"/>
+                                    <line x1="60" y1="20" x2="85" y2="27" stroke="#999" stroke-width="1"/>
+                                    <line x1="35" y1="43" x2="25" y2="54" stroke="#999" stroke-width="1"/>
+                                    <line x1="35" y1="43" x2="50" y2="54" stroke="#999" stroke-width="1"/>
+                                    <line x1="85" y1="43" x2="75" y2="54" stroke="#999" stroke-width="1"/>
+                                    <line x1="85" y1="43" x2="100" y2="54" stroke="#999" stroke-width="1"/>
+                                </svg>
+                            </div>
+                            <p>20+种类型，智能判断遗传方式</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-tool-card">
+                        <div class="btc-header photo-header">
+                            <span class="btc-icon">📈</span>
+                            <h3>光合/呼吸曲线解读</h3>
+                        </div>
+                        <div class="btc-body compact">
+                            <div class="curve-mini">
+                                <svg viewBox="0 0 160 80" class="photo-curve">
+                                    <line x1="20" y1="60" x2="150" y2="60" stroke="#ccc" stroke-width="1"/>
+                                    <line x1="20" y1="10" x2="20" y2="70" stroke="#ccc" stroke-width="1"/>
+                                    <path d="M20,60 Q40,55 60,40 Q90,15 130,25 Q145,30 150,35" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                                    <path d="M20,60 Q40,58 60,52 Q90,42 130,48 Q145,51 150,53" fill="none" stroke="#3498db" stroke-width="2"/>
+                                    <text x="85" y="78" text-anchor="middle" font-size="8" fill="#666">光照强度</text>
+                                    <circle cx="90" cy="22" r="3" fill="#e74c3c"/>
+                                    <text x="98" y="20" font-size="7" fill="#e74c3c">净光合</text>
+                                    <circle cx="110" cy="46" r="3" fill="#3498db"/>
+                                    <text x="118" y="44" font-size="7" fill="#3498db">呼吸</text>
+                                </svg>
+                            </div>
+                            <p>坐标图分析，曲线类型判断</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-tool-card">
+                        <div class="btc-header exp-header">
+                            <span class="btc-icon">🔬</span>
+                            <h3>实验设计模板</h3>
+                        </div>
+                        <div class="btc-body compact">
+                            <div class="exp-template-mini">
+                                <div class="et-step">目的</div>
+                                <span>→</span>
+                                <div class="et-step">原理</div>
+                                <span>→</span>
+                                <div class="et-step">步骤</div>
+                                <span>→</span>
+                                <div class="et-step">结论</div>
+                            </div>
+                            <p>规范书写，模板化训练</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Biology Pedigree Deep Dive -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h2>👨‍👩‍👧 生物核心工具详解 — 遗传系谱图</h2>
+                <div class="pedigree-deep-dive">
+                    <div class="pd-left">
+                        <div class="pd-intro">
+                            <div class="pd-badge">🎯 高考重点题型</div>
+                            <h3>遗传系谱图练习器</h3>
+                            <p>遗传系谱图分析是高考生物的<strong>必考重难点</strong>，通常占6-10分。本工具提供20+种不同类型的系谱图，涵盖常染色体显/隐性遗传、伴X染色体显/隐性遗传等各种组合。</p>
+                        </div>
+                        <div class="pd-types-grid">
+                            <h5>支持的系谱图类型：</h5>
+                            <div class="type-tags">
+                                <span class="type-tag">常染色体显性</span>
+                                <span class="type-tag">常染色体隐性</span>
+                                <span class="type-tag">伴X显性</span>
+                                <span class="type-tag">伴X隐性</span>
+                                <span class="type-tag">伴Y遗传</span>
+                                <span class="type-tag">细胞质遗传</span>
+                                <span class="type-tag">从显性</span>
+                                <span class="type-tag">不完全显性</span>
+                            </div>
+                        </div>
+                        <div class="pd-features">
+                            <div class="pdf-item">
+                                <span class="pdf-icon">✅</span>
+                                <div>
+                                    <strong>智能判断</strong>
+                                    <p>根据系谱图特征自动推断遗传方式</p>
+                                </div>
+                            </div>
+                            <div class="pdf-item">
+                                <span class="pdf-icon">📝</span>
+                                <div>
+                                    <strong>分步推导</strong>
+                                    <p>详细展示解题思路和推理过程</p>
+                                </div>
+                            </div>
+                            <div class="pdf-item">
+                                <span class="pdf-icon">❌</span>
+                                <div>
+                                    <strong>错误分析</strong>
+                                    <p>针对错误答案给出具体原因分析</p>
+                                </div>
+                            </div>
+                            <div class="pdf-item">
+                                <span class="pdf-icon">🎲</span>
+                                <div>
+                                    <strong>无限出题</strong>
+                                    <p>随机生成新题目，反复练习巩固</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pd-right">
+                        <div class="pedigree-example-large">
+                            <h4>示例：常染色体隐性遗传系谱图</h4>
+                            <svg viewBox="0 0 380 280" class="pedigree-large-svg">
+                                <!-- Generation I -->
+                                <circle cx="190" cy="30" r="18" class="pl-male"/>
+                                <text x="190" y="35" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Ⅰ-1</text>
+                                
+                                <circle cx="100" cy="80" r="18" class="pl-female"/>
+                                <text x="100" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Ⅰ-2</text>
+                                
+                                <circle cx="280" cy="80" r="18" class="pl-female"/>
+                                <text x="280" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Ⅰ-3</text>
+                                
+                                <!-- Generation II -->
+                                <circle cx="60" cy="150" r="18" class="pl-male"/>
+                                <text x="60" y="155" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅱ-1</text>
+                                
+                                <circle cx="140" cy="150" r="18" class="pl-female"/>
+                                <text x="140" y="155" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅱ-2</text>
+                                
+                                <circle cx="240" cy="150" r="18" class="pl-male pl-affected"/>
+                                <text x="240" y="155" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅱ-3</text>
+                                
+                                <circle cx="320" cy="150" r="18" class="pl-female"/>
+                                <text x="320" y="155" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅱ-4</text>
+                                
+                                <!-- Generation III -->
+                                <circle cx="60" cy="230" r="18" class="pl-male pl-affected"/>
+                                <text x="60" y="235" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅲ-1</text>
+                                
+                                <circle cx="140" cy="230" r="18" class="pl-female"/>
+                                <text x="140" y="235" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅲ-2</text>
+                                
+                                <circle cx="240" cy="230" r="18" class="pl-male"/>
+                                <text x="240" y="235" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅲ-3</text>
+                                
+                                <circle cx="320" cy="230" r="18" class="pl-female pl-affected"/>
+                                <text x="320" y="235" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Ⅲ-4</text>
+                                
+                                <!-- Connection lines -->
+                                <line x1="190" y1="48" x2="100" y2="62" stroke="#888" stroke-width="1.5"/>
+                                <line x1="190" y1="48" x2="280" y2="62" stroke="#888" stroke-width="1.5"/>
+                                
+                                <line x1="100" y1="98" x2="60" y2="132" stroke="#888" stroke-width="1.5"/>
+                                <line x1="100" y1="98" x2="140" y2="132" stroke="#888" stroke-width="1.5"/>
+                                
+                                <line x1="280" y1="98" x2="240" y2="132" stroke="#888" stroke-width="1.5"/>
+                                <line x1="280" y1="98" x2="320" y2="132" stroke="#888" stroke-width="1.5"/>
+                                
+                                <line x1="60" y1="168" x2="60" y2="212" stroke="#888" stroke-width="1.5"/>
+                                <line x1="140" y1="168" x2="140" y2="212" stroke="#888" stroke-width="1.5"/>
+                                <line x1="240" y1="168" x2="240" y2="212" stroke="#888" stroke-width="1.5"/>
+                                <line x1="320" y1="168" x2="320" y2="212" stroke="#888" stroke-width="1.5"/>
+                                
+                                <!-- Horizontal sibling lines -->
+                                <line x1="78" y1="150" x2="122" y2="150" stroke="#888" stroke-width="1"/>
+                                <line x1="258" y1="150" x2="302" y2="150" stroke="#888" stroke-width="1"/>
+                                <line x1="78" y1="230" x2="122" y2="230" stroke="#888" stroke-width="1"/>
+                                <line x1="258" y1="230" x2="302" y2="230" stroke="#888" stroke-width="1"/>
+                            </svg>
+                            
+                            <div class="pedigree-analysis">
+                                <div class="analysis-question">
+                                    <h5>❓ 问题：该病的遗传方式是？</h5>
+                                    <div class="answer-reveal">
+                                        <span class="correct-answer">✓ 常染色体隐性遗传</span>
+                                    </div>
+                                </div>
+                                <div class="reasoning-steps">
+                                    <h5>📝 推理依据：</h5>
+                                    <ol>
+                                        <li>"无中生有" → 隐性遗传病</li>
+                                        <li>男女患病概率相近 → 常染色体遗传</li>
+                                        <li>患者父母均正常但携带致病基因</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="legend-enhanced">
+                                <div class="le-item">
+                                    <svg width="24" height="24"><circle cx="12" cy="12" r="10" fill="#4A90D9"/></svg>
+                                    <span>正常男性</span>
+                                </div>
+                                <div class="le-item">
+                                    <svg width="24" height="24"><circle cx="12" cy="12" r="10" fill="#E91E63"/></svg>
+                                    <span>正常女性</span>
+                                </div>
+                                <div class="le-item">
+                                    <svg width="24" height="24"><circle cx="12" cy="12" r="10" fill="#E74C3C"/></svg>
+                                    <span>患者</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Technical Architecture -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h2>🏗️ 技术架构</h2>
+                <div class="architecture-enhanced">
+                    <div class="arch-visual">
+                        <svg viewBox="0 0 600 320" class="arch-diagram">
+                            <!-- Layer 1: Presentation -->
+                            <rect x="50" y="20" width="500" height="55" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                            <text x="300" y="45" text-anchor="middle" font-size="14" fill="#1565c0" font-weight="bold">前端展示层 (Presentation)</text>
+                            <text x="300" y="65" text-anchor="middle" font-size="11" fill="#666">HTML5 · CSS3 · JavaScript ES6+</text>
+                            
+                            <!-- Arrows down -->
+                            <path d="M300,75 L300,95" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
+                            
+                            <!-- Layer 2: Visualization -->
+                            <rect x="50" y="100" width="500" height="55" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                            <text x="300" y="125" text-anchor="middle" font-size="14" fill="#e65100" font-weight="bold">可视化引擎层 (Visualization)</text>
+                            <text x="300" y="145" text-anchor="middle" font-size="11" fill="#666">Canvas API · SVG · CSS Animations · WebGL</text>
+                            
+                            <!-- Arrows down -->
+                            <path d="M300,155 L300,175" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
+                            
+                            <!-- Layer 3: Interaction -->
+                            <rect x="50" y="180" width="500" height="55" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                            <text x="300" y="205" text-anchor="middle" font-size="14" fill="#2e7d32" font-weight="bold">交互功能层 (Interaction)</text>
+                            <text x="300" y="225" text-anchor="middle" font-size="11" fill="#666">Web Speech API · Drag & Drop · localStorage · Regex Engine</text>
+                            
+                            <!-- Arrows down -->
+                            <path d="M300,235 L300,255" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
+                            
+                            <!-- Layer 4: Data -->
+                            <rect x="50" y="260" width="500" height="50" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+                            <text x="300" y="285" text-anchor="middle" font-size="14" fill="#c2185b" font-weight="bold">数据存储层 (Data Storage)</text>
+                            <text x="300" y="303" text-anchor="middle" font-size="11" fill="#666">JSON Knowledge Base · localStorage Cache</text>
+                            
+                            <!-- Side labels -->
+                            <g transform="translate(10, 47)">
+                                <text x="0" y="5" font-size="9" fill="#999">用户界面</text>
+                            </g>
+                            <g transform="translate(10, 127)">
+                                <text x="0" y="5" font-size="9" fill="#999">图形渲染</text>
+                            </g>
+                            <g transform="translate(10, 207)">
+                                <text x="0" y="5" font-size="9" fill="#999">业务逻辑</text>
+                            </g>
+                            <g transform="translate(10, 285)">
+                                <text x="0" y="5" font-size="9" fill="#999">持久化</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="archArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="tech-specs">
+                        <div class="spec-card">
+                            <h4>📦 项目规模</h4>
+                            <div class="spec-stats">
+                                <div class="spec-stat">
+                                    <span class="spec-num">53000+</span>
+                                    <span class="spec-label">代码行数</span>
+                                </div>
+                                <div class="spec-stat">
+                                    <span class="spec-num">42</span>
+                                    <span class="spec-label">独立模块</span>
+                                </div>
+                                <div class="spec-stat">
+                                    <span class="spec-num">13</span>
+                                    <span class="spec-label">JSON数据文件</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spec-card">
+                            <h4>🔧 核心技术栈</h4>
+                            <div class="tech-stack-list">
+                                <div class="ts-item">
+                                    <span class="ts-name">HTML5/CSS3</span>
+                                    <span class="ts-desc">语义化标签，Flexbox/Grid布局，CSS变量</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">JavaScript ES6+</span>
+                                    <span class="ts-desc">模块化对象，箭头函数，解构赋值</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">Canvas API</span>
+                                    <span class="ts-desc">抛体动画，粒子系统，图表绑定</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">SVG</span>
+                                    <span class="ts-desc">系谱图，分子结构，流程图</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">Web Speech API</span>
+                                    <span class="ts-desc">语音识别输入公式</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">PWA / Service Worker</span>
+                                    <span class="ts-desc">离线缓存，秒开体验，v6版本</span>
+                                </div>
+                                <div class="ts-item">
+                                    <span class="ts-name">CommonUtils</span>
+                                    <span class="ts-desc">通用工具库，模块化复用</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Guangdong Exam Value -->
+        <div class="slide" id="slide-9">
+            <div class="slide-content">
+                <h2>🎯 广东卷备考价值</h2>
+                <div class="value-section-enhanced">
+                    <div class="value-cards-row">
+                        <div class="value-card-enhanced vce-1">
+                            <div class="vce-icon">🎯</div>
+                            <h3>针对性训练</h3>
+                            <p>根据广东卷命题规律设计，覆盖常考点与高频考点</p>
+                            <div class="vce-data">
+                                <span>覆盖率 95%+</span>
+                            </div>
+                        </div>
+                        <div class="value-card-enhanced vce-2">
+                            <div class="vce-icon">📊</div>
+                            <h3>数据驱动分析</h3>
+                            <p>基于历年真题分析，生成个性化练习建议</p>
+                            <div class="vce-data">
+                                <span>真题库 2018-2026</span>
+                            </div>
+                        </div>
+                        <div class="value-card-enhanced vce-3">
+                            <div class="vce-icon">⏱️</div>
+                            <h3>高效学习</h3>
+                            <p>交互式练习，即时反馈，告别题海战术</p>
+                            <div class="vce-data">
+                                <span>效率提升 3x</span>
+                            </div>
+                        </div>
+                        <div class="value-card-enhanced vce-4 featured-vce">
+                            <div class="vce-icon">🏆</div>
+                            <h3>状元之选</h3>
+                            <p>整合130+款工具，全方位覆盖物化生语数英考点</p>
+                            <div class="vce-data">
+                                <span>六科全覆盖</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exam-focus-area">
+                        <h4>📌 广东卷高频考点分布</h4>
+                        <div class="focus-charts">
+                            <div class="focus-chart">
+                                <h5>化学高频题型</h5>
+                                <div class="bar-chart">
+                                    <div class="bar-item">
+                                        <span class="bar-label">工艺流程</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style="width:92%">12-14分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">实验探究</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style="width:85%">14-15分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">有机合成</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style="width:78%">10-12分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">原理综合</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style="width:70%">14-16分</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="focus-chart">
+                                <h5>生物高频题型</h5>
+                                <div class="bar-chart">
+                                    <div class="bar-item">
+                                        <span class="bar-label">遗传计算</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bio-fill" style="width:88%">8-10分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">实验设计</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bio-fill" style="width:82%">12-15分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">代谢调节</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bio-fill" style="width:75%">10-12分</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-item">
+                                        <span class="bar-label">生态分析</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bio-fill" style="width:68%">8-10分</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="exam-tips-enhanced">
+                            <h4>💡 备考策略建议</h4>
+                            <div class="tips-grid">
+                                <div class="tip-card">
+                                    <span class="tip-icon">🏭</span>
+                                    <div class="tip-content">
+                                        <strong>化学工艺流程</strong>
+                                        <p>使用「工业流程核心反应提取」工具，每天练习1道流程题</p>
+                                    </div>
+                                </div>
+                                <div class="tip-card">
+                                    <span class="tip-icon">👨‍👩‍👧</span>
+                                    <div class="tip-content">
+                                        <strong>遗传系谱图</strong>
+                                        <p>使用「系谱图练习器」，掌握20+种类型的判读技巧</p>
+                                    </div>
+                                </div>
+                                <div class="tip-card">
+                                    <span class="tip-icon">⚡</span>
+                                    <div class="tip-content">
+                                        <strong>物理计算</strong>
+                                        <p>结合「公式计算器」和「抛物线模拟」理解物理过程</p>
+                                    </div>
+                                </div>
+                                <div class="tip-card">
+                                    <span class="tip-icon">📈</span>
+                                    <div class="tip-content">
+                                        <strong>曲线分析</strong>
+                                        <p>使用「光合/呼吸曲线训练」提升坐标图解读能力</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Roadmap -->
+        <div class="slide" id="slide-10">
+            <div class="slide-content">
+                <h2>🚀 未来规划</h2>
+                <div class="roadmap-enhanced">
+                    <div class="timeline">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">已完成</div>
+                                <h4>基础平台搭建</h4>
+                                <p>130+款核心工具开发完成，知识库搭建完毕</p>
+                                <div class="tl-details">
+                                    <span>53000+ 行代码</span>
+                                    <span>42 个功能模块</span>
+                                    <span>168 个知识节点</span>
+                                    <span>6 个知识图谱</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">第一阶段</div>
+                                <h4>功能优化完善</h4>
+                                <p>优化现有工具UI/UX，增加更多交互功能和动效</p>
+                                <div class="tl-details">
+                                    <span>130+款工具</span>
+                                    <span>六科全覆盖</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">第二阶段</div>
+                                <h4>智能推荐系统</h4>
+                                <p>基于错题记录和学习数据，AI智能推荐学习路径（learning-path-recommender.js）</p>
+                                <div class="tl-details">
+                                    <span>知识图谱×题库联动</span>
+                                    <span>个性化推荐</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">第三阶段</div>
+                                <h4>真题库集成</h4>
+                                <p>接入历年高考真题（2018-2026），实时评估备考水平</p>
+                                <div class="tl-details">
+                                    <span style="background: rgba(39,174,96,0.15); color: #27ae60;">1208 道真题</span>
+                                    <span style="background: rgba(39,174,96,0.15); color: #27ae60;">9年覆盖</span>
+                                    <span style="background: rgba(39,174,96,0.15); color: #27ae60;">实时评估</span>
+                                    <span style="background: rgba(39,174,96,0.15); color: #27ae60;">智能推荐</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">第四阶段</div>
+                                <h4>PWA跨平台支持</h4>
+                                <p>PWA移动端适配（manifest.json + sw.js），离线可用，Service Worker v6</p>
+                                <div class="tl-details">
+                                    <span>离线缓存</span>
+                                    <span>秒开体验</span>
+                                    <span>全平台适配</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="tl-marker">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-phase">数据标准化</div>
+                                <h4>知识点标准词表</h4>
+                                <p>建立统一的knowledgePoints词表，168 canonical + 207 aliases</p>
+                                <div class="tl-details">
+                                    <span>168个标准词</span>
+                                    <span>207个别名</span>
+                                    <span>六科统一</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item current last">
+                            <div class="tl-marker">●</div>
+                            <div class="tl-content">
+                                <div class="tl-phase phase-active">题库扩充</div>
+                                <h4>题库持续扩充</h4>
+                                <p>1208题真题库持续完善，新增情境题与框架题</p>
+                                <div class="tl-details">
+                                    <span>73题情境题</span>
+                                    <span>43题框架题</span>
+                                    <span>42套模板</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: New Highlights -->
+        <div class="slide" id="slide-11">
+            <div class="slide-content">
+                <h2>✨ 新增亮点功能</h2>
+                <div class="intro-content-enhanced">
+                    <div class="feature-grid-enhanced">
+                        <div class="feature-card-enhanced">
+                            <div class="fci highlight-bg">🧠</div>
+                            <h3>学习路径推荐系统</h3>
+                            <p>知识图谱×题库智能联动，基于知识点掌握程度推荐个性化学习路径</p>
+                            <div class="fc-stats">
+                                <span>learning-path-recommender.js</span>
+                                <span>168个知识点映射</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci physics-bg">📖</div>
+                            <h3>知识点标准词表</h3>
+                            <p>统一knowledgePoints词表，标准化知识点命名，支持多别名检索</p>
+                            <div class="fc-stats">
+                                <span>168 canonical</span>
+                                <span>207 aliases</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci chemistry-bg">📝</div>
+                            <h3>答题模板库</h3>
+                            <p>42套标准化答题模板，六科全覆盖，规范答题格式与步骤</p>
+                            <div class="fc-stats">
+                                <span>42套模板</span>
+                                <span>六科全覆盖</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci biology-bg">🎯</div>
+                            <h3>情境题与框架题</h3>
+                            <p>73题情境题 + 43题框架题，紧贴广东高考新题型趋势</p>
+                            <div class="fc-stats">
+                                <span>73题情境题</span>
+                                <span>43题框架题</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-grid-enhanced" style="margin-top: 20px;">
+                        <div class="feature-card-enhanced">
+                            <div class="fci physics-bg">🔬</div>
+                            <h3>跨学科前沿科技</h3>
+                            <p>22+12个跨学科前沿科技主题，拓展科学视野</p>
+                            <div class="fc-stats">
+                                <span>22个物理化学</span>
+                                <span>12个生物前沿</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced featured">
+                            <div class="fci highlight-bg">📱</div>
+                            <h3>PWA离线支持</h3>
+                            <p>Service Worker v6缓存策略，离线可用，秒开体验</p>
+                            <div class="fc-stats">
+                                <span>manifest.json</span>
+                                <span>sw.js v6</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci chemistry-bg">📊</div>
+                            <h3>真题库升级</h3>
+                            <p>1208道真题覆盖2018-2026年，9年真题全面解析</p>
+                            <div class="fc-stats">
+                                <span>1208道真题</span>
+                                <span>9年覆盖</span>
+                            </div>
+                        </div>
+                        <div class="feature-card-enhanced">
+                            <div class="fci biology-bg">⚡</div>
+                            <h3>工具规模扩展</h3>
+                            <p>从85款扩展到130+款，53000+行代码，42个独立模块</p>
+                            <div class="fc-stats">
+                                <span>53000+行代码</span>
+                                <span>13个JSON文件</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Ending -->
+        <div class="slide" id="slide-12">
+            <div class="slide-content cover ending">
+                <canvas id="ending-particles" class="cover-canvas"></canvas>
+                <div class="badge">立即开始学习</div>
+                <h1>高中物化生语数英<br>学习大礼包</h1>
+                <p class="promo-text">物化生语数英六科全覆盖 · 130+款工具助考 · 广东卷备考利器</p>
+                <div class="final-stats">
+                    <div class="fs-item">
+                        <span class="fs-num">130+</span>
+                        <span class="fs-label">精品工具</span>
+                    </div>
+                    <div class="fs-divider"></div>
+                    <div class="fs-item">
+                        <span class="fs-num">168</span>
+                        <span class="fs-label">知识节点</span>
+                    </div>
+                    <div class="fs-divider"></div>
+                    <div class="fs-item">
+                        <span class="fs-num">1208</span>
+                        <span class="fs-label">真题收录</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="index.html" class="btn-primary btn-large">🚀 打开学习工具</a>
+                    <a href="promo.html" class="btn-secondary btn-large">📖 了解更多详情</a>
+                </div>
+                <div class="file-location">
+                    <p>📁 文件位置：</p>
+                    <code>C:\Users\18948\Documents\HSPCB\</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn">◀ 上一页</button>
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+        </div>
+        <button class="nav-btn" id="next-btn">下一页 ▶</button>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            document.getElementById('current-slide').textContent = index + 1;
+            document.getElementById('progress').style.width = ((index + 1) / totalSlides * 100) + '%';
+            
+            if (index === 0 || index === totalSlides - 1) {
+                initParticles(index === 0 ? 'cover-particles' : 'ending-particles');
+            }
+            if (index === 2) {
+                setTimeout(() => drawProjectileFull(), 100);
+            }
+            if (index === 0) {
+                animateCounters();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.getElementById('next-btn').addEventListener('click', nextSlide);
+        document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+
+        // Particle system for covers
+        let particleCanvas, particleCtx, particles;
+        
+        function initParticles(canvasId) {
+            particleCanvas = document.getElementById(canvasId);
+            if (!particleCanvas) return;
+            particleCtx = particleCanvas.getContext('2d');
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+            
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * particleCanvas.width,
+                    y: Math.random() * particleCanvas.height,
+                    radius: Math.random() * 3 + 1,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    color: ['#667eea', '#764ba2', '#4A90D9', '#48A9A6', '#7CB342'][Math.floor(Math.random() * 5)]
+                });
+            }
+            animateParticles();
+        }
+
+        function animateParticles() {
+            if (!particleCtx) return;
+            particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if (p.x < 0 || p.x > particleCanvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > particleCanvas.height) p.vy *= -1;
+                
+                particleCtx.beginPath();
+                particleCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                particleCtx.fillStyle = p.color;
+                particleCtx.globalAlpha = 0.4;
+                particleCtx.fill();
+            });
+            
+            // Draw connections
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        particleCtx.beginPath();
+                        particleCtx.moveTo(p1.x, p1.y);
+                        particleCtx.lineTo(p2.x, p2.y);
+                        particleCtx.strokeStyle = '#667eea';
+                        particleCtx.globalAlpha = 0.1 * (1 - dist / 120);
+                        particleCtx.stroke();
+                    }
+                });
+            });
+            
+            particleCtx.globalAlpha = 1;
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('.stat .number[data-count]').forEach(el => {
+                const target = parseInt(el.dataset.count);
+                let current = 0;
+                const increment = target / 40;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+
+        // Mini physics canvas on cover
+        function drawMiniPhysics() {
+            const canvas = document.getElementById('mini-physics');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 80, 50);
+            
+            ctx.strokeStyle = '#4A90D9';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(5, 45);
+            for (let x = 5; x < 78; x++) {
+                const t = (x - 5) / 20;
+                const y = 45 - 15 * t + 2 * t * t;
+                if (y < 48 && y > 5) ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            
+            ctx.fillStyle = '#E74C3C';
+            ctx.beginPath();
+            ctx.arc(72, 22, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Full projectile simulator
+        function drawProjectileFull() {
+            const canvas = document.getElementById('projectile-canvas-full');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const angleSlider = document.getElementById('angle-slider');
+            const velocitySlider = document.getElementById('velocity-slider');
+            
+            if (!angleSlider || !velocitySlider) return;
+            
+            const angle = parseInt(angleSlider.value);
+            const velocity = parseInt(velocitySlider.value);
+            const radAngle = angle * Math.PI / 180;
+            const g = 9.8;
+            
+            const vx = velocity * Math.cos(radAngle);
+            const vy = velocity * Math.sin(radAngle);
+            const totalTime = 2 * vy / g;
+            const maxHeight = (vy * vy) / (2 * g);
+            const range = vx * totalTime;
+            
+            document.getElementById('angle-value').textContent = angle + '°';
+            document.getElementById('velocity-value').textContent = velocity + 'm/s';
+            document.getElementById('max-height').textContent = maxHeight.toFixed(2) + 'm';
+            document.getElementById('range-value').textContent = range.toFixed(2) + 'm';
+            document.getElementById('flight-time').textContent = totalTime.toFixed(2) + 's';
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Grid
+            ctx.strokeStyle = '#eee';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x < canvas.width; x += 35) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 35) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+            
+            // Ground
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height - 20);
+            ctx.lineTo(canvas.width, canvas.height - 20);
+            ctx.stroke();
+            
+            // Scale trajectory to fit
+            const scale = Math.min(canvas.width / (range * 1.2), (canvas.height - 40) / (maxHeight * 1.3));
+            const startX = 20;
+            const startY = canvas.height - 20;
+            
+            // Draw trajectory
+            ctx.strokeStyle = '#4A90D9';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            for (let t = 0; t <= totalTime; t += 0.02) {
+                const x = vx * t;
+                const y = vy * t - 0.5 * g * t * t;
+                const px = startX + x * scale;
+                const py = startY - y * scale;
+                
+                if (t === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+            
+            // Current position dot
+            const midT = totalTime / 2;
+            const mx = vx * midT;
+            const my = vy * midT - 0.5 * g * midT * midT;
+            ctx.fillStyle = '#E74C3C';
+            ctx.beginPath();
+            ctx.arc(startX + mx * scale, startY - my * scale, 5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Labels
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Arial';
+            ctx.fillText('v₀', startX - 15, startY - 5);
+            ctx.fillText('θ', startX + 15, startY + 12);
+            ctx.fillText(`H=${maxHeight.toFixed(1)}m`, startX + range * scale / 2 - 20, startY - maxHeight * scale - 5);
+        }
+
+        // Slider event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const angleSlider = document.getElementById('angle-slider');
+            const velocitySlider = document.getElementById('velocity-slider');
+            if (angleSlider) angleSlider.addEventListener('input', drawProjectileFull);
+            if (velocitySlider) velocitySlider.addEventListener('input', drawProjectileFull);
+        });
+
+        showSlide(0);
+        setTimeout(() => {
+            drawMiniPhysics();
+            animateCounters();
+        }, 100);
+    </script>
+</body>
+</html>
