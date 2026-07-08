@@ -1,0 +1,636 @@
+{
+  "subject": "英语",
+  "chapters": [
+    {
+      "id": "m1",
+      "name": "语法知识",
+      "topics": [
+        {
+          "id": "t1",
+          "name": "时态与语态",
+          "keyPoints": [
+            "高考重点考查的8种时态：一般现在时、一般过去时、一般将来时、现在完成时、过去完成时、现在进行时、过去进行时、将来进行时",
+            "现在完成时与一般过去时的区别：现在完成时强调对现在的影响或结果，一般过去时只陈述过去的事实",
+            "被动语态的基本结构：be + 过去分词，注意不同时态中be动词的变化",
+            "不能使用被动语态的情况：不及物动词(happen, appear等)、系动词(taste, smell等)、某些固定短语",
+            "主动形式表被动意义：need/want/require doing, be worth doing, sell/wash/write等表示主语属性"
+          ],
+          "formulas": [
+            "一般现在时(被动): am/is/are + done",
+            "一般过去时(被动): was/were + done",
+            "一般将来时(被动): will be + done",
+            "现在完成时(被动): have/has been + done",
+            "过去完成时(被动): had been + done",
+            "现在进行时(被动): am/is/are being + done",
+            "含有情态动词的被动: 情态动词 + be + done"
+          ],
+          "commonMistakes": [
+            "现在完成时与一般过去时混淆，现在完成时强调对现在的影响，一般过去时只陈述过去事实",
+            "不及物动词(happen, appear等)误用被动语态",
+            "被动语态中be动词的时态形式与主动句时态不一致"
+          ],
+          "examTips": "时态题先看时间状语和上下文时间参照，语态题先判断主谓关系是主动还是被动。短文改错和语法填空中，时态语态错误是最常见的考点之一。"
+        },
+        {
+          "id": "t2",
+          "name": "非谓语动词",
+          "keyPoints": [
+            "非谓语动词的三种形式：不定式(to do)、动名词(doing)、分词(doing/done)",
+            "不定式作状语常表目的、结果或原因；动名词具有名词性质，可作主语、宾语等",
+            "分词作状语时，其逻辑主语必须与句子主语一致；现在分词(doing)表主动/进行，过去分词(done)表被动/完成",
+            "感官动词(see/hear/watch等)和使役动词(let/make/have)后用省略to的不定式作宾补",
+            "有些动词后只能接动名词作宾语(avoid, consider, enjoy, finish, mind, suggest等)，有些只能接不定式(decide, hope, want, refuse等)"
+          ],
+          "formulas": [
+            "分词作状语: Doing/Having done/Done + ..., 主句 (主语一致规则)",
+            "with复合结构: with + 宾语 + doing/done/to do/adj./adv./prep.",
+            "动名词复合结构: 形容词性物主代词/名词所有格 + doing",
+            "不定式主动表被动: The problem is difficult to solve.",
+            "but/except后省略to: do nothing but do; have no choice but to do"
+          ],
+          "commonMistakes": [
+            "句子已有谓语动词时未用非谓语形式，导致一个句子出现两个谓语",
+            "分词作状语时逻辑主语与句子主语不一致（悬垂分词错误）",
+            "现在分词(doing表主动)与过去分词(done表被动)选择错误"
+          ],
+          "examTips": "非谓语动词是高考语法填空和短文改错的核心考点。做题时先判断句子是否已有谓语（有谓语则用非谓语），再判断与逻辑主语的主被动关系和时问先后关系。"
+        },
+        {
+          "id": "t3",
+          "name": "从句",
+          "keyPoints": [
+            "定语从句关系词的选择：关系代词(that, which, who, whom, whose)和关系副词(when, where, why)",
+            "名词性从句：主语从句、宾语从句、表语从句、同位语从句，引导词包括that, whether/if, wh-疑问词",
+            "状语从句九大类：时间、地点、原因、目的、结果、条件、让步、比较、方式",
+            "that在定语从句中作主语或宾语不可省略（非限制性定语从句除外），在名词性从句中不作成分",
+            "what与that的区别：what在名词性从句中充当成分（主语/宾语/表语），that不充当任何成分"
+          ],
+          "formulas": [
+            "限制性定语从句: 先行词 + which/that/who/whom/whose/when/where/why + 从句",
+            "非限制性定语从句: ... , which/who/whom/where/when + 从句 (不用that)",
+            "主语从句: That/Whether/Wh-词 + 谓语 + ...",
+            "强调句型: It is/was + 被强调部分 + that/who + 其余部分",
+            "时间状语从句: when/while/as (同时), before/after (先后), since (自从), until/till (直到)",
+            "让步状语从句: although/though/even if/even though/while/wh-ever词"
+          ],
+          "commonMistakes": [
+            "定语从句中that与which混用，非限制性定语从句误用that（应用which）",
+            "what与that在名词性从句中混用（what充当成分，that不充当成分）",
+            "定语从句关系词选择错误，未根据先行词和从句成分判断"
+          ],
+          "examTips": "定语从句解题三步法：找先行词→判断在从句中的成分→选关系词。what只能引导名词性从句，不能引导定语从句。as引导定语从句(常与such/the same连用)是易错点。"
+        },
+        {
+          "id": "t4",
+          "name": "虚拟语气",
+          "keyPoints": [
+            "虚拟语气的基本概念：表示与事实相反或不太可能实现的假设、愿望、建议等",
+            "if条件句虚拟：与现在相反(If...did/were..., ...would do)；与过去相反(If...had done..., ...would have done)；与将来相反(If...were to do/should do..., ...would do)",
+            "名词性从句中的虚拟：(should) do形式，常见动词有suggest, insist, order, demand, require等",
+            "wish/if only/as if/as though引导的虚拟根据时间用相应形式",
+            "It is (high/about) time that...从句用一般过去时或should do（should不能省略）"
+          ],
+          "formulas": [
+            "与现在事实相反: If + S + did/were, S + would/could/might + do",
+            "与过去事实相反: If + S + had done, S + would/could/might + have done",
+            "与将来事实相反: If + S + were to do/should do, S + would/could/might + do",
+            "wish后从句: 与现在相反用did/were；与过去相反用had done；与将来相反用would/could do",
+            "as if/though从句: 用虚拟语气，时态向后推一级",
+            "suggest等动词后的that从句: (should) + do"
+          ],
+          "commonMistakes": [
+            "if条件句虚拟时态形式选择错误（与现在/过去/将来相反的动词形式混淆）",
+            "suggest表示'暗示'时不虚拟，insist表示'坚持认为'时不虚拟，未区分词义",
+            "倒装虚拟（Had/Were/Should+主语开头省略if）未识别"
+          ],
+          "examTips": "虚拟语气在语法填空中常考if从句和suggest类动词后that从句的动词形式。倒装虚拟（Had/Were/Should + 主语开头，省略if）是高级考点。注意：suggest表示'暗示'时不虚拟，insist表示'坚持认为'时不虚拟。"
+        },
+        {
+          "id": "t5",
+          "name": "倒装与强调",
+          "keyPoints": [
+            "完全倒装：谓语动词全部提到主语之前（Here comes the bus. / Out rushed the children.）",
+            "部分倒装：将助动词/情态动词/be动词提到主语之前（Only then did I realize... / Never have I...）",
+            "否定词/半否定词位于句首触发部分倒装：never, seldom, hardly, scarcely, no sooner, not until, by no means等",
+            "Only + 状语位于句首时，主句需要部分倒装（注意是主句倒装，从句不倒装）",
+            "强调句It is/was...that/who...：去掉It is/was...that/who后句子依然完整，用于强调除谓语外的任何成分"
+          ],
+          "formulas": [
+            "部分倒装: 否定词/Only + 状语 + 助动词/情态动词/be + 主语 + 动词原形",
+            "完全倒装: 地点/时间副词 + 谓语 + 主语 (主语为代词时不用倒装: Here you are.)",
+            "Not until + 时间/从句 + 助动词 + 主语 + 动词原形",
+            "So + adj./adv. + 倒装 + that... / Such + n. + 倒装 + that...",
+            "Hardly had + S + done + when + S + did",
+            "No sooner had + S + done + than + S + did",
+            "强调句: It is/was + 被强调部分 + that/who + 句子的其余部分"
+          ],
+          "commonMistakes": [
+            "Not until句型中not until后不倒装，主句倒装，二者关系搞反",
+            "Only+状语在句首时，误将从句倒装（应只倒装主句）",
+            "强调句与it作形式主语的结构混淆（去掉It is/was...that后，强调句完整，形式主语结构缺成分）"
+          ],
+          "examTips": "倒装题判断方法：看句首是否有否定词/Only/So/Such等标志词。Not until句型中not until后面不倒装，主句倒装。强调句型与it作形式主语的区分：去掉It is/was...that后，强调句成分完整，形式主语结构则缺少成分。"
+        },
+        {
+          "id": "t6",
+          "name": "情态动词",
+          "keyPoints": [
+            "情态动词基本含义：can/could(能力/可能性)，may/might(或许/允许)，must(必须/一定)，should/ought to(应该)，need(需要)，dare(敢于)",
+            "情态动词 + have done表示对过去的推测或虚拟：must have done(一定做了)，can't/couldn't have done(不可能做了)，may/might have done(可能做了)",
+            "should/ought to have done(本应该做而未做)，shouldn't have done(本不该做却做了)，needn't have done(本不必做却做了)",
+            "could have done(本能够做而未做/could not have done不可能做了)，might have done(本可以做而未做)",
+            "shall用于第二/三人称表命令、警告、允诺；will/would可表意愿、习惯、倾向"
+          ],
+          "formulas": [
+            "对过去肯定推测: must have done (只用于肯定句)",
+            "对过去否定推测: can't/couldn't have done",
+            "对过去可能推测: may/might have done",
+            "对现在的推测: must/can't/may + do/be doing",
+            "should have done = 本应该做(实际未做)",
+            "shouldn't have done = 本不该做(实际做了)",
+            "needn't have done = 本不必做(实际做了)",
+            "could have done = 本能够做(实际未做)"
+          ],
+          "commonMistakes": [
+            "must表推测只用于肯定句，否定推测误用mustn't（应用can't/couldn't）",
+            "should have done（本应该做未做）与should do（应该做）混淆",
+            "need作实义动词(need to do)和情态动词(need do)的用法混淆"
+          ],
+          "examTips": "must表推测只用于肯定句，否定推测用can't/couldn't。注意need作实义动词(need to do)和情态动词(need do)的区别。dare作情态动词多用于否定句和疑问句。"
+        },
+        {
+          "id": "t7",
+          "name": "冠词与介词",
+          "keyPoints": [
+            "定冠词the的用法：特指、唯一事物、上文提过的事物、序数词/最高级前、乐器前、姓氏复数前",
+            "不定冠词a/an的用法：泛指、第一次提到、职业身份前、固定搭配（have a rest, take a walk等）",
+            "零冠词（不用冠词）：专有名词、三餐、球类、学科、星期月份、不可数名词泛指等",
+            "常见介词时空表达：at(点)/on(面/天)/in(空间内/时间段)，since(自从)/for(持续)，by(到...为止/通过)",
+            "介词固定搭配是高考重点：动词+介词(look at, depend on)、形容词+介词(be good at, be interested in)、名词+介词(reason for, solution to)"
+          ],
+          "formulas": [
+            "a用于辅音音素开头的词前，an用于元音音素开头的词前（注意是音素不是字母: an hour, a university）",
+            "by + 交通工具(by bus); on + 具体交通(on the bus/on foot)",
+            "at/in/on时间: at 6:00 / at noon; in the morning / in 2024; on Monday / on June 1st",
+            "表示'...的': of (无生命所有), 's (有生命所有)",
+            "with表伴随/用工具, by表方式/被, through表通过/经由"
+          ],
+          "commonMistakes": [
+            "a与an的判断按字母而非音素（如an hour中h不发音用an，a university中u发/j/用a）",
+            "抽象名词具体化时漏加冠词（如a success表示'一件成功的事'）",
+            "介词固定搭配记忆不准，特别是动词+介词和形容词+介词组合"
+          ],
+          "examTips": "冠词题注意固定搭配中的冠词使用（如in the morning但at night），以及抽象名词具体化时前面加a/an（a success, a pleasure）。介词题主要靠固定搭配积累，重点记忆动词+介词和形容词+介词组合。"
+        },
+        {
+          "id": "t8",
+          "name": "主谓一致",
+          "keyPoints": [
+            "语法一致原则：单数主语用单数谓语，复数主语用复数谓语",
+            "意义一致原则：family, team, class, group等集合名词根据语义（整体/成员）决定单复数",
+            "就近一致原则：either...or..., neither...nor..., not only...but also..., there be句型中谓语与最近的主语一致",
+            "就远一致原则：with, together with, along with, as well as, except, besides, including等连接的主语与最前面的名词一致",
+            "特殊一致：the +形容词表一类人用复数(the poor are...)，表示数量的词作主语以整体看待用单数(Ten dollars is enough.)"
+          ],
+          "formulas": [
+            "Either A or B + 谓语(与B一致)",
+            "Neither A nor B + 谓语(与B一致)",
+            "Not only A but also B + 谓语(与B一致)",
+            "There be A and B + 谓语(与A一致)",
+            "A with/together with/as well as B + 谓语(与A一致)",
+            "Many a + 单数名词 + 单数谓语",
+            "More than one + 单数名词 + 单数谓语",
+            "分数/百分数 + of + 名词 (谓语与of后的名词一致)",
+            "A number of + 复数名词 + 复数谓语; The number of + 复数名词 + 单数谓语"
+          ],
+          "commonMistakes": [
+            "就近一致与就远一致原则混淆（either...or是就近，with...是就远）",
+            "A number of + 复数名词(谓语复数)与The number of + 复数名词(谓语单数)混淆",
+            "主语中插入with/together with等短语时，谓语误与插入语中的名词一致"
+          ],
+          "examTips": "主谓一致在语法填空和短文改错中经常出现。解题关键：先找出真正的主语（排除插入语和修饰成分），再根据主语确定谓语形式。注意就近/就远一致原则的区分，不要混淆。"
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "name": "词汇与短语",
+      "topics": [
+        {
+          "id": "t1",
+          "name": "高频词汇",
+          "keyPoints": [
+            "高考3500词汇是基础，其中高频词约1500个需重点掌握，包括多义词的各个义项",
+            "一词多义现象：如run(跑/经营/运转)，charge(收费/充电/指控/负责)，raise(举起/筹集/抚养/提出)等",
+            "同根词家族：如-compete/competition/competitive/competitor/competence，掌握词根词缀规律可批量记忆",
+            "阅读高频词：affect/effect, access/assess, consist/insist, respect/aspect/inspect等易混淆词汇",
+            "写作升级词汇：用高级词汇替代基础词汇，如significant代替important, benefit代替be good for"
+          ],
+          "formulas": [
+            "前缀变义: un-/dis-/in-/im-/ir- = 否定; re- = 再/重新; pre- = 前; mis- = 错误",
+            "后缀变性: -tion/-sion/-ment/-ness = 名词; -ful/-less/-ive/-ous/-able = 形容词; -ize/-ify/-en = 动词; -ly = 副词",
+            "合成词: 名词+名词(bookstore), 形容词+名词(blackboard), 动词+副词(breakdown)"
+          ],
+          "commonMistakes": [
+            "一词多义只记一个含义，如charge只记'收费'忽略'充电/指控'",
+            "易混词汇未辨析清楚，如affect(动词，影响)与effect(名词，效果)",
+            "死记硬背单词而不结合例句和语境"
+          ],
+          "examTips": "背单词不要死记硬背，要结合例句和语境记忆。利用艾宾浩斯遗忘曲线定期复习。高考完形填空常考近义词辨析，建议建立自己的易混词汇对比表。"
+        },
+        {
+          "id": "t2",
+          "name": "短语动词",
+          "keyPoints": [
+            "短语动词（phrasal verbs）由动词+副词/介词构成，意义往往不等于各部分之和",
+            "高考高频短语动词：take off(起飞/脱下/成功)，give up(放弃)，put off(推迟)，turn down(拒绝/调低)，make up(编造/弥补/化妆)",
+            "同一动词+不同介词意义不同：look at(看)/look for(寻找)/look after(照顾)/look into(调查)/look forward to(期待)",
+            "及物短语动词的宾语位置：名词可放在中间或后面(turn the light off / turn off the light)；代词必须放在中间(turn it off)",
+            "常见come/get/go/look/make/put/take/turn系列短语动词是高考完形填空和语法填空重点"
+          ],
+          "formulas": [
+            "动词 + 副词 (及物, 宾语可放中间或后面): put off, turn on, take off, give up",
+            "动词 + 介词 (及物, 宾语只能放在后面): look at, depend on, listen to, wait for",
+            "动词 + 副词 + 介词: look forward to, come up with, put up with, get along with",
+            "动词 + 名词 + 介词: take care of, make use of, pay attention to, catch sight of"
+          ],
+          "commonMistakes": [
+            "代词作宾语时未放在动词和副词中间（turn it off而非turn off it）",
+            "短语动词按字面直译，忽略其引申义（如take off不只有'脱下'还有'起飞/成功'）",
+            "look forward to中to是介词，后接doing而非do"
+          ],
+          "examTips": "短语动词的记忆要分系列进行，以核心动词(如take, get, put, look等)为线索归纳。做题时根据上下文确定短语动词的意思，注意不要按字面直译。"
+        },
+        {
+          "id": "t3",
+          "name": "词义辨析",
+          "keyPoints": [
+            "近义词辨析是完形填空的重难点：如see/look/watch/notice/observe均与'看'相关但用法不同",
+            "动词辨析：say/speak/talk/tell, hear/listen, bring/take/fetch/carry, borrow/lend, receive/accept",
+            "名词辨析：sound/voice/noise, accident/incident/event, journey/trip/travel/tour/voyage, cause/reason/excuse",
+            "形容词辨析：alone/lonely, alive/living/live, likely/possible/probable, common/ordinary/usual/normal",
+            "副词辨析：hard/hardly, late/lately, high/highly, near/nearly, most/mostly"
+          ],
+          "formulas": [
+            "具体语境判断法：根据上下文语义、搭配习惯、感情色彩来判断应选词汇",
+            "固定搭配法：许多词汇有固定搭配，如make a decision, take measures, pay attention等",
+            "排除法：先排除明显不合适的选项，再比较剩余选项的细微差异",
+            "词义范围法：上位词(泛指)与下位词(特指)的区分，如animal(动物)与dog(狗)"
+          ],
+          "commonMistakes": [
+            "近义词只记中文含义不辨析用法差异（如alone(独自，客观)与lonely(孤独，主观)）",
+            "hard(努力地/硬地)与hardly(几乎不)混淆，late(迟)与lately(最近)混淆",
+            "脱离语境死记词义，未结合上下文判断"
+          ],
+          "examTips": "词义辨析不能靠死记定义，要放在具体语境中理解和记忆。建议通过大量阅读积累语感，同时整理自己的错题本，记录每次辨析错误的原因。"
+        },
+        {
+          "id": "t4",
+          "name": "构词法",
+          "keyPoints": [
+            "派生法(Derivation)：通过添加前缀和后缀构成新词，是高考词汇量扩展的最重要手段",
+            "合成法(Compounding)：两个或以上单词组合成新词，如homework, worldwide, twenty-one, well-known",
+            "转化法(Conversion)：词性转换不改变词形，如名词water→动词water(浇水)，形容词clean→动词clean(清洁)",
+            "常见否定前缀：un-(unhappy), dis-(disagree), in-(incorrect), im-(impossible), ir-(irregular), il-(illegal), non-(non-smoker)",
+            "了解构词法有助于阅读中猜测生词词义和词性，是高考阅读理解的必备技能"
+          ],
+          "formulas": [
+            "前缀决定词义: dis-否定, re-再, pre-前, post-后, inter-间, trans-跨越, super-超, sub-下",
+            "名词后缀: -er/-or(人/物), -tion/-sion(动作/状态), -ment(过程/结果), -ness(性质/状态), -ity(性质), -ance/-ence(状态)",
+            "形容词后缀: -ful(充满), -less(无), -able/-ible(能...的), -ive(有...倾向), -ous(有...特性), -al/-ial(属于...的)",
+            "动词后缀: -ize/-ise(使...化), -ify/-fy(使成为), -en(使变得)",
+            "副词后缀: -ly(以...方式), -ward(s)(朝向), -wise(以...方式/关于)"
+          ],
+          "commonMistakes": [
+            "语法填空中词性转换错误（如需要名词却填了形容词）",
+            "否定前缀选择错误（如impossible用in-而非im-，规则:以p/b/m开头的词用im-）",
+            "阅读中遇到生词不分析词根词缀，直接放弃猜测"
+          ],
+          "examTips": "掌握构词法后，遇到生词先分析词根词缀推测词义。语法填空和短文改错中常考词性转换（如名词变形容词、动词变名词），熟记常见后缀变化规律。"
+        }
+      ]
+    },
+    {
+      "id": "m3",
+      "name": "阅读理解",
+      "topics": [
+        {
+          "id": "t1",
+          "name": "主旨大意题",
+          "keyPoints": [
+            "主旨大意题考查对文章整体内容的理解和概括能力，常见问法：What is the main idea? / What is the text mainly about? / The best title is...",
+            "议论文主旨通常在首段或末段，关注首段的论点句和末段的结论句",
+            "说明文主旨贯穿全文，需要综合各段段首句提炼",
+            "记叙文主旨隐含在故事中，通过人物经历、情感变化来体现代的主旨",
+            "干扰项特征：以偏概全（用细节代替主旨）、范围过大（超出文章内容）、无中生有、偏离主题"
+          ],
+          "formulas": [
+            "主旨定位法：读首段→读各段首句→读末段→综合提炼",
+            "标题选择法：标题 = 核心对象 + 核心观点/特征，应简洁明了",
+            "排除法：选项中反复出现的关键词通常与主题相关，缺少核心关键词的选项可优先排除",
+            "段落主旨 = 主题句（一般在段首或段末），无主题句则需自行概括"
+          ],
+          "commonMistakes": [
+            "主旨题急于看选项，未先自己概括文章大意",
+            "被以偏概全的干扰项迷惑，用某段细节代替全文主旨",
+            "混淆主旨(main idea)和目的(purpose)，说明文目的是介绍，议论文目的是说服"
+          ],
+          "examTips": "做主旨题不要急于看选项，先自己概括文章大意，再与选项比对。注意区分主旨(main idea)和目的(purpose)：说明文目的是介绍，议论文目的是说服，记叙文目的是讲述。"
+        },
+        {
+          "id": "t2",
+          "name": "细节理解题",
+          "keyPoints": [
+            "细节理解题是阅读理解中占分最多的题型，考查从文中提取具体信息的能力",
+            "常见问法：According to the passage... / Which of the following is true? / ...because... / ...in order to...",
+            "解题关键是定位：根据题干关键词（人名、地名、数字、专有名词等）快速定位到原文相应位置",
+            "常用设题方式：同义替换（用不同表述表达相同意思）、正话反说、信息重组",
+            "干扰项：偷换概念、张冠李戴、无中生有、反向干扰、程度不当"
+          ],
+          "formulas": [
+            "细节定位三步法：划题干关键词→回原文定位→比对选项与原文",
+            "同义替换识别：原文与选项核心意思相同但表述不同(如change→alter, important→significant)",
+            "是非判断题解法：逐一将选项带回原文验证，找到明确依据才能选",
+            "数据题解法：定位数字→理解数字代表的含义→排除数据干扰"
+          ],
+          "commonMistakes": [
+            "细节题凭印象答题，未回归原文找到明确依据",
+            "未识别同义替换，以为选项与原文表述不同就是错的",
+            "混淆'事实'和'观点'，文中明确陈述的是事实，作者推断的是观点"
+          ],
+          "examTips": "细节题一定要回归原文找到依据，不要凭印象答题。注意区分'事实'和'观点'，文中明确陈述的是事实，作者推断的是观点。同义替换是细节题最常用的出题方式。"
+        },
+        {
+          "id": "t3",
+          "name": "推理判断题",
+          "keyPoints": [
+            "推理判断题要求基于文中信息进行合理推断，不是主观臆测，必须'有理有据'",
+            "常见问法：It can be inferred that... / The author implies... / What can we learn from... / The passage is probably taken from...",
+            "隐含信息推理：根据文中的暗示、语气、措辞推断作者的真正意图或态度",
+            "来源推断：根据文章的语言风格、内容特点判断文章可能出自何处（报纸、杂志、学术期刊、广告等）",
+            "态度判断：通过文中的形容词、副词和情感词汇判断作者的态度是positive/negative/neutral/objective/critical/skeptical等"
+          ],
+          "formulas": [
+            "推理题原则：推一步可得，不推多步——答案应是最接近原文的合理推断",
+            "态度词定位：找文中的形容词(amazing, disappointing)、副词(fortunately, unfortunately)、转折词(but, however)",
+            "文章来源推断：学术语言+数据→研究报告；简洁明快+事件描述→新闻报道；说服性语言+产品描述→广告",
+            "排除法：明显与原文矛盾的选项排除，原文未提及且无法推知的排除"
+          ],
+          "commonMistakes": [
+            "推理题'想太多'，过度推断脱离原文依据",
+            "态度题混淆作者态度与文中引用人物的态度",
+            "infer题答案选择过于直白的表述（infer题答案往往比较间接）"
+          ],
+          "examTips": "推理题最容易'想太多'，记住答案必须在原文有依据，只是没有直接明说而已。态度题注意区分作者态度和文中引用人物的态度。infer题答案往往是比较间接的表述而非直白的陈述。"
+        },
+        {
+          "id": "t4",
+          "name": "词义猜测题",
+          "keyPoints": [
+            "词义猜测题考查根据上下文推断生词或短语含义的能力",
+            "常见问法：The underlined word '...' probably means... / What does '...' refer to? / Which can replace the word '...'?",
+            "上下文线索类型：同义线索（or, that is, in other words）、反义线索（but, however, instead）、因果线索、举例线索（such as, for example）",
+            "构词法辅助猜测：通过词根词缀分析词义，如bi lingual——bi(双)+lingual(语言的)=双语的",
+            "指代题：判断代词(it, they, this, that, one等)所指代的内容，通常在前一句或本句中寻找"
+          ],
+          "formulas": [
+            "同义线索: ..., or/in other words/that is to say + 同义表达",
+            "反义线索: ... but/however/while/whereas/in contrast + 反义表达",
+            "因果线索: because/since/as/so/therefore/thus + 原因或结果（可推知词义）",
+            "构词法猜词: 拆解前缀+词根+后缀 → 合成词义",
+            "指代词还原法: 去前一句找最近的、性和数一致的名词短语"
+          ],
+          "commonMistakes": [
+            "猜测词义时不结合上下文，孤立地看生词",
+            "未找附近的提示词（but, or, because等逻辑线索）",
+            "指代题中代词还原错误，未遵循'就近原则'和'性数一致原则'"
+          ],
+          "examTips": "猜测词义一定要结合上下文，不要孤立地看这个词。先找附近是否有提示词(如but, or, because等)，再看句子间逻辑关系。代入猜测的词义后读一遍看是否通顺。"
+        }
+      ]
+    },
+    {
+      "id": "m4",
+      "name": "书面表达",
+      "topics": [
+        {
+          "id": "t1",
+          "name": "书信作文",
+          "keyPoints": [
+            "书信作文是高考英语书面表达最常考的应用文体裁，包括建议信、邀请信、感谢信、道歉信、申请信、投诉信等",
+            "书信格式：称呼(Dear...)、正文（三段式）、结束语(Yours sincerely/Yours faithfully)、签名",
+            "开头常用句式：I'm writing to.../ Thank you for your letter./ I'm delighted to hear that.../ I'm sorry to...",
+            "结尾常用句式：I'm looking forward to your reply./ Please let me know if.../ Thank you for your time./ I hope my suggestion will be helpful.",
+            "高分要素：要点齐全、逻辑清晰、语言地道（适当使用从句和高级词汇）、书写工整"
+          ],
+          "formulas": [
+            "建议信: 开头(引出建议) → 具体建议(First...Second...Finally...) → 结尾(希望建议有用)",
+            "邀请信: 开头(发出邀请) → 活动详情(时间/地点/内容) → 结尾(期待对方参加)",
+            "感谢信: 开头(表达感谢) → 具体感谢(对方做了什么/对你有何帮助) → 结尾(再次感谢+祝福)",
+            "申请信: 开头(说明写信目的) → 自我介绍+申请理由(个人优势/相关经历) → 结尾(期望获得机会)",
+            "道歉信: 开头(真诚道歉) → 解释原因+补救措施 → 结尾(再次道歉+请求原谅)"
+          ],
+          "commonMistakes": [
+            "书信格式不规范，遗漏称呼、结束语或签名",
+            "要点遗漏，未覆盖题目要求的所有内容点",
+            "语言中式英语，未使用地道的书信套句"
+          ],
+          "examTips": "书信作文一定要审清题目要求的信件类型和内容要点，不要遗漏任何要点。开头和结尾的套句要背熟，中间段落根据要点展开，字数控制在100-120词。适当使用过渡词使文章连贯。"
+        },
+        {
+          "id": "t2",
+          "name": "议论文",
+          "keyPoints": [
+            "英语议论文考查用英语表达观点和论证的能力，常考话题涉及校园生活、社会现象、科技发展等",
+            "基本结构：开头(引出话题+表明观点)→正文(论点+论据)→结尾(总结+重申观点)",
+            "论证方法：举例论证(For example/For instance)、因果论证(Therefore/As a result)、对比论证(On the one hand...On the other hand)、引用论证",
+            "高级表达：使用非谓语动词、定语从句、名词性从句提升文章档次；使用连接词使语篇连贯",
+            "常见失分点：观点不明确、论证不充分、中式英语、拼写语法错误多"
+          ],
+          "formulas": [
+            "正反观点对比式: Some people think... while others believe... In my opinion...",
+            "现象分析式: Recently the phenomenon of... has aroused wide concern. The reasons are as follows...",
+            "问题解决式: The problem of... has become increasingly serious. The following measures should be taken...",
+            "开头观点句: As far as I'm concerned... / From my perspective... / There is no doubt that...",
+            "正文论证常用连接词: First of all/To begin with; Furthermore/Moreover/In addition; On the other hand/However; Last but not least; Therefore/Consequently"
+          ],
+          "commonMistakes": [
+            "观点不明确，模棱两可未直接表态",
+            "论证不充分，论点无具体论据支撑，空谈道理",
+            "中式英语严重，逐字翻译中文思维"
+          ],
+          "examTips": "议论文观点要明确，避免模棱两可。每个论点都要有具体的支撑，不要空谈道理。开头和结尾要出彩，给阅卷老师留下好印象。严格控制字数，不要写太少也不要超出过多。"
+        },
+        {
+          "id": "t3",
+          "name": "记叙文",
+          "keyPoints": [
+            "记叙文以叙述事件、经历为主，常考话题：一次难忘的经历、一个帮助过你的人、一次活动等",
+            "六要素：时间(when)、地点(where)、人物(who)、事件(what)、原因(why)、结果(how)",
+            "叙事顺序：顺叙（最常用）、倒叙（先写结果再写过程）、插叙（中途插入回忆）",
+            "亮点技巧：使用感官描写让文章生动（视觉/听觉/感觉），使用对话增强真实感，适当心理描写展现情感变化",
+            "时态选择：描述过去经历用一般过去时，描述现在影响/感悟用现在时"
+          ],
+          "formulas": [
+            "顺叙结构: 开头(引出事件) → 过程(按时间顺序叙述) → 结尾(感悟/收获)",
+            "开头常用: Last summer, I had an unforgettable experience... / It was a sunny day when... / I still remember the day when...",
+            "过程描写: At first... Then... Later... Finally... / Just at that moment... / To my surprise...",
+            "结尾感悟: From this experience, I learned that... / I came to realize that... / This experience taught me a valuable lesson...",
+            "情感表达词汇: delighted/overjoyed, disappointed/frustrated, moved/touched, grateful/thankful, anxious/worried, amazed/astonished"
+          ],
+          "commonMistakes": [
+            "记叙文写成流水账，平铺直叙无重点",
+            "时态混乱，过去时和现在时混用",
+            "结尾感悟太空泛或过于模式化，缺乏真情实感"
+          ],
+          "examTips": "记叙文要有真情实感，不要编造空洞的故事。重点描述一两个关键场景或瞬间，不要流水账。结尾的感悟要自然，不能太空泛或过于模式化。注意动词时态的一致性。"
+        },
+        {
+          "id": "t4",
+          "name": "读后续写",
+          "keyPoints": [
+            "读后续写是新高考英语书面表达的新增题型（部分省份），要求先阅读一段约350词的故事开头，然后续写约150词",
+            "续写要求：与所给短文融洽衔接、情节发展合乎逻辑、语言风格与原文一致、字数要求严格",
+            "审题三步：读懂原文情节和人物关系→找出续写提示句（段首句）→确定续写方向和重点",
+            "高分技巧：情节要有起伏（矛盾→解决），人物要有成长或变化，结尾要有意义（呼应主题）",
+            "常见失分：续写与原文脱节、情节不合理、语言风格突变、语法错误多、字数超标"
+          ],
+          "formulas": [
+            "读后续写结构: 承接(衔接原文末段) → 发展(情节推进/矛盾升级/转折) → 高潮(关键事件) → 结尾(感悟/呼应主题)",
+            "情节设计: 利用两个段首句作为锚点，搭建两段情节框架",
+            "衔接技巧: 使用代词、同义替换和时间衔接词(hours later, the next morning, soon after that)",
+            "情感描写升级: 不用told, 用nervous/excited/worried/relieved + 具体动作或心理活动",
+            "结尾模式: 点题式(呼应前文主题) / 留白式(给读者想象空间) / 感悟式(人物获得成长)"
+          ],
+          "commonMistakes": [
+            "续写与原文人物性格或情节逻辑脱节",
+            "未利用两个段首句规划每段写作方向",
+            "语言风格与原文突变，如原文含蓄续写却过于直白"
+          ],
+          "examTips": "读后续写重在'续'而非'创'，要紧扣原文的人物性格和情节逻辑。利用两个段首句规划好每段的写作方向。平时多积累场景描写和情感表达的语料库，考试时才能信手拈来。"
+        }
+      ]
+    },
+    {
+      "id": "m5",
+      "name": "听力理解",
+      "topics": [
+        {
+          "id": "t1",
+          "name": "短对话",
+          "keyPoints": [
+            "短对话是高考听力第一部分，通常为5段简短对话，每段对话仅读一遍，每题一个简短问题",
+            "常见场景：日常问候、问路、购物、订餐、约会时间地点、天气、交通、健康、校园生活等",
+            "出题方式：事实细节题（时间/地点/数字/价格）、推理判断题（人物关系/对话地点/说话者意图）、主旨大意题",
+            "干扰项设计：同音词混淆、相近时间/数字混淆、张冠李戴（把对话中一人的信息安在另一人身上）",
+            "听力策略：充分利用题干和选项的时间预读，勾画关键词，带着问题去听"
+          ],
+          "formulas": [
+            "数字计算: 原价/时间 + 折扣/延迟量 = 实际价格/时间（注意加减乘除关系）",
+            "人物关系推断: 语气+称呼+话题 → 判断关系（医生-病人/老师-学生/店员-顾客/朋友等）",
+            "地点推断: 场景词推测法，如menu/order→餐厅; boarding pass/departure→机场; prescription→药店",
+            "态度推断: 语调(升调/降调)+用词(肯定/否定词汇) → 说话者态度",
+            "听前预读: 快速扫描选项→预测话题和问题方向→听时针对性抓取信息"
+          ],
+          "commonMistakes": [
+            "短对话只读一遍，未在录音开始前完成选项预读",
+            "数字题未做简单计算（打折、时间加减等）直接选听到的数字",
+            "张冠李戴，把对话中一人的信息安在另一人身上"
+          ],
+          "examTips": "短对话只读一遍，务必在录音开始前完成选项预读。遇到数字要特别注意，常需要简单计算（打折、时间加减等）。如果没听清不要纠结，立刻进入下一题的状态。"
+        },
+        {
+          "id": "t2",
+          "name": "长对话与独白",
+          "keyPoints": [
+            "长对话通常为5-7轮多轮对话，独白为1人讲述，每段读两遍，信息量大",
+            "长对话常见场景：访谈、讨论、做计划、描述经历、介绍活动等",
+            "独白常见类型：通知/公告、人物介绍、事件叙述、说明介绍、演讲等",
+            "考查重点：主旨大意、细节信息、推理判断、说话人态度观点",
+            "信息处理技巧：第一遍把握整体内容和主旨，第二遍抓取具体细节和验证答案"
+          ],
+          "formulas": [
+            "两遍听策略: 第一遍(抓主旨+标记关键信息) + 第二遍(核对细节+确认答案)",
+            "关键词定位法: 听到与选项相同或近义的词时做标记，通常答案就在附近",
+            "段落结构法(独白): 开头(引出主题) → 主体(分点说明/按时间叙述) → 结尾(总结/号召)",
+            "长对话笔记: 用缩写和符号快速记录人名、地名、数字、时间、观点态度",
+            "选项排除法: 排除与所听内容明显不符的选项 → 排除细节正确但答非所问的选项"
+          ],
+          "commonMistakes": [
+            "第一遍急于选答案，未先把握整体内容",
+            "转折词(but, however)后的内容未重点关注（常是考点）",
+            "独白部分未理清段落结构，信息零散无法整合"
+          ],
+          "examTips": "长对话和独白读两遍，第一遍不要急于选答案，重点是理解整体内容。第二遍精听，核实关键信息。独白部分注意把握段落结构，理清逻辑脉络。注意转折词(but, however)后的内容往往是考点。"
+        },
+        {
+          "id": "t3",
+          "name": "听力技巧",
+          "keyPoints": [
+            "听力高分的关键是长期积累+技巧运用，短期备考重在技巧训练和真题模拟",
+            "考前准备：每天坚持15-20分钟英语听力训练，材料可选用高考真题、VOA慢速英语等",
+            "数字与时间训练：重点训练数字、日期、价格、电话号码的快速反应能力",
+            "常见功能词汇：转折(but, however, actually, in fact)、因果(because, so, therefore)、强调(the most important, remember, don't forget)、建议(why not, how about, you'd better)",
+            "心态调整：遇到没听懂的题目果断跳过，不要影响后面答题；利用两段之间的间隙预读下一题"
+          ],
+          "formulas": [
+            "每日听力训练: 泛听(培养语感) + 精听(逐句听写) + 真题(模拟实战)",
+            "场景词汇分类积累: 将常考场景词汇分类记忆(餐厅/医院/学校/机场/银行/酒店/购物/天气等)",
+            "听力预测法: 看到选项中的数字→准备计算；看到地点→注意场景词；看到态度→注意形容词和语调",
+            "信号词识别: 听到but/however/actually后注意→可能推翻前面内容；听到first/second/finally—理清要点结构"
+          ],
+          "commonMistakes": [
+            "遇到没听懂的题纠结不放，影响后续答题节奏",
+            "未利用两段录音之间的间隙预读下一题选项",
+            "只注重听懂每个词而忽略整体意思的理解"
+          ],
+          "examTips": "听力考前保持'磨耳朵'状态——考试当天早上先听一段英语材料，让耳朵进入状态。做题时利用卷面选项尽可能预测内容。注意听懂整体意思比听出每个词更重要。"
+        }
+      ]
+    }
+  ],
+  "experiments": [],
+  "testPapers": {
+    "basic": [
+      {
+        "question": "Choose the correct answer: By the time he arrived, the meeting _____ for half an hour.",
+        "answer": "had been on",
+        "solution": "句意：到他到达时，会议已经开始半小时了。'by the time + 过去时'主句用过去完成时。会议开始是持续状态，用had been on（不能用had begun，因为begin是瞬间动词不能与段时间连用）。\n【常见错误】误用had begun（瞬间动词不能与for half an hour连用）"
+      },
+      {
+        "question": "Fill in the blank: The book _____ (write) by the famous author sells well.",
+        "answer": "written",
+        "solution": "分析句子结构：sells是谓语动词，因此空白处需用非谓语动词作定语修饰book。book与write是被动关系（书写），用过去分词written作后置定语。\n【常见错误】误用writing（现在分词表主动，但book与write是被动关系）"
+      },
+      {
+        "question": "Choose the correct answer: Not until he went through the hardship _____ the importance of health.\nA. he realized  B. did he realize  C. he did realize  D. realized he",
+        "answer": "B",
+        "solution": "Not until位于句首时，主句需要部分倒装（将助动词did提到主语he之前）。结构：Not until + 从句/时间状语 + 助动词 + 主语 + 动词原形。所以选B. did he realize。\n【常见错误】误选A（未倒装）或D（完全倒装，应为部分倒装）"
+      }
+    ],
+    "intermediate": [
+      {
+        "question": "Fill in the blank with the correct form: _____ is known to all, China is a country with a long history.",
+        "answer": "As",
+        "solution": "此处是as引导的非限制性定语从句，as代表'正如'，在从句中作主语（known的主语）。as is known to all（众所周知）是固定句型。注意：which引导非限制性定语从句不能放在句首，而as可以。\n【常见错误】误用which或it（which不能放句首引导此类从句，it会导致句子出现两个谓语无连词）"
+      },
+      {
+        "question": "Choose the correct answer: I would rather you _____ yesterday, for the weather was terrible.\nA. didn't go  B. hadn't gone  C. wouldn't go  D. not go",
+        "answer": "B",
+        "solution": "would rather后接从句时用虚拟语气。表示对过去事实的虚拟，从句谓语用过去完成时had done。句意：我宁愿你昨天没去（实际去了），因为天气很糟糕。所以选B. hadn't gone。\n【常见错误】误选A（didn't go用于对现在/将来的虚拟，对过去应用had done）"
+      }
+    ],
+    "advanced": [
+      {
+        "question": "Reading comprehension: Read the following passage and answer the question.\n'Despite the rapid development of artificial intelligence, human creativity remains irreplaceable. While AI can process vast amounts of data and generate patterns, it lacks the emotional depth and life experience that fuel truly innovative thinking.'\nWhat can be inferred from the passage?\nA. AI will eventually replace human creativity.\nB. AI and human creativity are equally important.\nC. Human creativity has advantages that AI cannot replicate.\nD. AI is superior to human creativity in all aspects.",
+        "answer": "C",
+        "solution": "推理判断题。文章指出'human creativity remains irreplaceable'（人类创造力仍然不可替代）且AI'lacks the emotional depth and life experience'（缺乏情感深度和生活经验）。可推断人类创造力有AI无法复制的优势，选C。A与文章相反；B文章未比较重要性；D与文章内容矛盾。\n【常见错误】选B（过度推断，文章强调的是人类创造力的不可替代性，未说二者同等重要）"
+      },
+      {
+        "question": "Writing: Write a letter of about 100 words to your pen pal, introducing a Chinese traditional festival (e.g., Spring Festival). Include: 1) when it is; 2) how people celebrate it; 3) your feelings about it.",
+        "answer": "（写作题，参考范文见solution）",
+        "solution": "参考范文：\nDear Tom,\nI'm writing to introduce the Spring Festival, the most important traditional festival in China. It falls on the first day of the lunar new year, usually in late January or early February.\nBefore the festival, families clean their houses and put up red decorations. On New Year's Eve, families gather for a reunion dinner. People also set off fireworks and give red envelopes containing lucky money to children. During the festival, people visit relatives and friends, exchanging good wishes.\nI always feel excited and warm during this time because it's a precious opportunity for family reunion. I hope you can experience it someday.\nYours sincerely,\nLi Hua\n【常见错误】要点遗漏、时态混乱、书信格式不规范"
+      }
+    ]
+  }
+}

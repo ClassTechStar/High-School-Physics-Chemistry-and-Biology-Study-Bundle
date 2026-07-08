@@ -1,0 +1,498 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "变式题推荐题库 - 6个知识点组共30题",
+    "updatedAt": "2024-01-01",
+    "totalQuestions": 30,
+    "knowledgeGroups": [
+      "传送带问题",
+      "牛顿定律应用",
+      "Fe²⁺/Fe³⁺转化与检验",
+      "化学平衡移动",
+      "遗传概率计算",
+      "光合作用"
+    ]
+  },
+  "questions": [
+    {
+      "id": "var_01",
+      "knowledge": "传送带问题",
+      "subject": "物理",
+      "difficulty": "容易",
+      "title": "水平传送带——物体加速分析",
+      "question": "水平传送带以v=2m/s匀速运行，将质量m=1kg的工件轻放在传送带上，工件与传送带间μ=0.2，g=10m/s²。求：(1)工件加速时间；(2)工件在传送带上的划痕长度。",
+      "options": {
+        "A": "1s,1m",
+        "B": "2s,2m",
+        "C": "1s,2m",
+        "D": "2s,1m"
+      },
+      "answer": "A",
+      "explanation": "a=μg=2m/s²，加速时间t=v/a=1s；划痕=vt-½at²=2m-1m=1m"
+    },
+    {
+      "id": "var_02",
+      "knowledge": "传送带问题",
+      "subject": "物理",
+      "difficulty": "中等",
+      "title": "倾斜传送带——向上传送问题",
+      "question": "倾角30°的传送带以v=1m/s向上运行，工件与带间μ=0.4，工件轻放于底端。判断工件能否被送上顶端？(g=10m/s²)",
+      "options": {
+        "A": "能，向上加速",
+        "B": "能，匀速上升",
+        "C": "不能，会下滑",
+        "D": "取决于工件质量"
+      },
+      "answer": "C",
+      "explanation": "μmgcos30°=0.4×10×√3/2≈3.46N<mgsin30°=5N。μ=0.4<tan30°≈0.577，工件无法被带上去。"
+    },
+    {
+      "id": "var_03",
+      "knowledge": "传送带问题",
+      "subject": "物理",
+      "difficulty": "中等",
+      "title": "传送带+能量问题",
+      "question": "水平传送带长L=5m，v=3m/s，将质量m=2kg工件轻放于左端，μ=0.3。求传送带电机对工件做的功和因摩擦产生的热量。",
+      "options": {
+        "A": "9J,9J",
+        "B": "9J,4.5J",
+        "C": "18J,9J",
+        "D": "9J,18J"
+      },
+      "answer": "A",
+      "explanation": "工件加速距离s=v²/(2a)=3²/(2×3)=1.5m<5m，之后匀速。电机做功=½mv²=9J。热量Q=f·Δs=μmg·(vt-½at²)=6×1.5=9J。"
+    },
+    {
+      "id": "var_04",
+      "knowledge": "传送带问题",
+      "subject": "物理",
+      "difficulty": "较难",
+      "title": "传送带+动量问题",
+      "question": "两段传送带：第一段水平v₁=2m/s，第二段倾角37°v₂=1.5m/s向上。工件(m=1kg,μ=0.5)从第一段左端轻放，经连接处进入第二段。求全程时间。",
+      "options": {
+        "A": "3.5s",
+        "B": "4.2s",
+        "C": "5.1s",
+        "D": "2.8s"
+      },
+      "answer": "B",
+      "explanation": "水平段加速t₁=v/a=2/5=0.4s(μg=5m/s²)，位移0.4m；倾斜段滑动摩擦沿斜面向上f=μmgcos37°≈4N，mgsin37°≈6N，合力向下，工件减速，需逐段计算时间。"
+    },
+    {
+      "id": "var_05",
+      "knowledge": "牛顿定律应用",
+      "subject": "物理",
+      "difficulty": "容易",
+      "title": "斜面滑块问题",
+      "question": "光滑斜面倾角θ=30°，滑块质量m=2kg从顶端静止下滑。求2s末的速度和位移。(g=10m/s²)",
+      "options": {
+        "A": "10m/s,10m",
+        "B": "20m/s,20m",
+        "C": "5m/s,5m",
+        "D": "10m/s,20m"
+      },
+      "answer": "A",
+      "explanation": "a=gsin30°=5m/s²；v=at=10m/s；s=½at²=10m"
+    },
+    {
+      "id": "var_06",
+      "knowledge": "牛顿定律应用",
+      "subject": "物理",
+      "difficulty": "中等",
+      "title": "连接体问题",
+      "question": "光滑水平面上mA=3kg与mB=2kg用轻绳连接，对A施加F=10N水平向右的拉力。求绳中张力T和两物体加速度。",
+      "options": {
+        "A": "a=2m/s²,T=4N",
+        "B": "a=2m/s²,T=6N",
+        "C": "a=3.3m/s²,T=6.7N",
+        "D": "a=2m/s²,T=10N"
+      },
+      "answer": "A",
+      "explanation": "整体a=F/(mA+mB)=10/5=2m/s²；对B：T=mB·a=2×2=4N"
+    },
+    {
+      "id": "var_07",
+      "knowledge": "牛顿定律应用",
+      "subject": "物理",
+      "difficulty": "中等",
+      "title": "超重与失重",
+      "question": "电梯质量500kg，以a=2m/s²加速度向上启动。求：(1)钢绳拉力；(2)电梯内60kg的人对地板的压力。(g=10m/s²)",
+      "options": {
+        "A": "6000N,720N",
+        "B": "5000N,600N",
+        "C": "4000N,480N",
+        "D": "6000N,600N"
+      },
+      "answer": "A",
+      "explanation": "整体：T-Mg=Ma→T=500×12=6000N；人：N-mg=ma→N=60×12=720N"
+    },
+    {
+      "id": "var_08",
+      "knowledge": "牛顿定律应用",
+      "subject": "物理",
+      "difficulty": "较难",
+      "title": "临界问题——刚好不脱离",
+      "question": "光滑水平面上M=4kg木板，m=1kg滑块以v₀=5m/s从左端滑上，μ=0.25。木板足够长。求滑块与木板共速时的速度。",
+      "options": {
+        "A": "1m/s",
+        "B": "2m/s",
+        "C": "3m/s",
+        "D": "4m/s"
+      },
+      "answer": "A",
+      "explanation": "动量守恒mv₀=(M+m)v→v=mv₀/(M+m)=5/5=1m/s"
+    },
+    {
+      "id": "var_09",
+      "knowledge": "牛顿定律应用",
+      "subject": "物理",
+      "difficulty": "较难",
+      "title": "多物体系统中的摩擦力方向判断",
+      "question": "A(m₁=2kg)叠放在B(m₂=3kg)上，B在光滑水平面上。对A施加F=10N水平力，A与B间μ=0.3。g=10m/s²。判断A与B是否相对滑动。",
+      "options": {
+        "A": "相对滑动",
+        "B": "不相对滑动，一起加速",
+        "C": "B不动A滑",
+        "D": "条件不足"
+      },
+      "answer": "A",
+      "explanation": "最大静摩擦力fmax=μmg=0.3×20=6N。若一起加速a=F/(m₁+m₂)=2m/s²；B需要的力=m₂a=6N=fmax恰好。但F=10N>fmax，A会相对B滑动。"
+    },
+    {
+      "id": "var_10",
+      "knowledge": "Fe²⁺/Fe³⁺转化与检验",
+      "subject": "化学",
+      "difficulty": "容易",
+      "title": "Fe²⁺的直接检验方法",
+      "question": "检验溶液中是否含有Fe²⁺，应使用的试剂是？",
+      "options": {
+        "A": "KSCN溶液",
+        "B": "K₃[Fe(CN)₆]溶液",
+        "C": "NaOH溶液",
+        "D": "品红溶液"
+      },
+      "answer": "B",
+      "explanation": "K₃[Fe(CN)₆]与Fe²⁺反应生成滕氏蓝沉淀3Fe²⁺+2[Fe(CN)₆]³⁻→Fe₃[Fe(CN)₆]₂↓。KSCN检验Fe³⁺；NaOH两者皆可沉淀但不易区分。"
+    },
+    {
+      "id": "var_11",
+      "knowledge": "Fe²⁺/Fe³⁺转化与检验",
+      "subject": "化学",
+      "difficulty": "容易",
+      "title": "Fe²⁺氧化为Fe³⁺的条件",
+      "question": "下列哪种试剂可将Fe²⁺氧化为Fe³⁺？",
+      "options": {
+        "A": "KI溶液",
+        "B": "Fe粉",
+        "C": "酸性KMnO₄溶液",
+        "D": "Na₂SO₃溶液"
+      },
+      "answer": "C",
+      "explanation": "酸性KMnO₄是强氧化剂：MnO₄⁻+5Fe²⁺+8H⁺→Mn²⁺+5Fe³⁺+4H₂O。KI是还原剂，Fe粉还原Fe³⁺，Na₂SO₃是还原剂。"
+    },
+    {
+      "id": "var_12",
+      "knowledge": "Fe²⁺/Fe³⁺转化与检验",
+      "subject": "化学",
+      "difficulty": "中等",
+      "title": "除杂：FeCl₃中混有FeCl₂",
+      "question": "除去FeCl₃溶液中混有的少量FeCl₂，最佳方法是？",
+      "options": {
+        "A": "加NaOH过滤",
+        "B": "加过量Fe粉",
+        "C": "通入Cl₂",
+        "D": "加KSCN"
+      },
+      "answer": "C",
+      "explanation": "通Cl₂将Fe²⁺氧化为Fe³⁺：2Fe²⁺+Cl₂→2Fe³⁺+2Cl⁻，不引入新杂质。加Fe粉会还原Fe³⁺，NaOH使两者都沉淀。"
+    },
+    {
+      "id": "var_13",
+      "knowledge": "Fe²⁺/Fe³⁺转化与检验",
+      "subject": "化学",
+      "difficulty": "中等",
+      "title": "Fe²⁺/Fe³⁺在工业流程中的分离",
+      "question": "工业上用黄铁矿(FeS₂)烧渣回收铁时，烧渣中含Fe₂O₃和少量FeO。如何将铁全部转化为Fe³⁺便于后续沉淀？",
+      "options": {
+        "A": "加稀盐酸",
+        "B": "加H₂O₂/HNO₃氧化酸浸",
+        "C": "加NaOH",
+        "D": "高温煅烧"
+      },
+      "answer": "B",
+      "explanation": "酸浸后用H₂O₂或HNO₃将Fe²⁺氧化为Fe³⁺：2Fe²⁺+H₂O₂+2H⁺→2Fe³⁺+2H₂O，然后可用沉淀法或萃取法分离。"
+    },
+    {
+      "id": "var_14",
+      "knowledge": "Fe²⁺/Fe³⁺转化与检验",
+      "subject": "化学",
+      "difficulty": "较难",
+      "title": "混合溶液中Fe²⁺与Fe³⁺的同时鉴定",
+      "question": "某溶液中同时含有Fe²⁺和Fe³⁺，如何定性检验两者的存在？",
+      "options": {
+        "A": "只用KSCN",
+        "B": "先用K₃[Fe(CN)₆]再用KSCN",
+        "C": "取两份：一份加KSCN，一份加K₃[Fe(CN)₆]",
+        "D": "加NaOH看颜色顺序"
+      },
+      "answer": "C",
+      "explanation": "取两份待测液：一份滴加KSCN（变红则含Fe³⁺），另一份滴加K₃[Fe(CN)₆]（生成蓝色沉淀则含Fe²⁺）。互不干扰。"
+    },
+    {
+      "id": "var_15",
+      "knowledge": "化学平衡移动",
+      "subject": "化学",
+      "difficulty": "容易",
+      "title": "浓度对平衡的影响",
+      "question": "反应Fe³⁺+3SCN⁻⇌Fe(SCN)₃（血红色）已达平衡。加入少量KSCN固体后，溶液颜色如何变化？",
+      "options": {
+        "A": "变浅",
+        "B": "变深",
+        "C": "不变",
+        "D": "先深后浅"
+      },
+      "answer": "B",
+      "explanation": "增加反应物SCN⁻浓度→平衡正向移动→Fe(SCN)₃浓度增大→红色变深"
+    },
+    {
+      "id": "var_16",
+      "knowledge": "化学平衡移动",
+      "subject": "化学",
+      "difficulty": "容易",
+      "title": "温度对平衡的影响",
+      "question": "2NO₂(g)⇌N₂O₄(g) ΔH=-57kJ/mol。将平衡体系升温，气体颜色如何变化？",
+      "options": {
+        "A": "变深(红棕色加深)",
+        "B": "变浅",
+        "C": "不变",
+        "D": "无法判断"
+      },
+      "answer": "A",
+      "explanation": "反应放热，升温平衡逆向移动→NO₂浓度增大→红棕色加深"
+    },
+    {
+      "id": "var_17",
+      "knowledge": "化学平衡移动",
+      "subject": "化学",
+      "difficulty": "中等",
+      "title": "压强对平衡的影响",
+      "question": "反应N₂+3H₂⇌2NH₃在恒温条件下压缩容器体积至一半，下列变化正确的是？",
+      "options": {
+        "A": "平衡逆向移动",
+        "B": "平衡正向移动，NH₃%增大",
+        "C": "平衡不动",
+        "D": "v正=v逆不变"
+      },
+      "answer": "B",
+      "explanation": "压缩体积→压强增大→平衡向气体分子数减少的方向(正向)移动→NH₃%增大"
+    },
+    {
+      "id": "var_18",
+      "knowledge": "化学平衡移动",
+      "subject": "化学",
+      "difficulty": "中等",
+      "title": "平衡综合判断",
+      "question": "对于mA(g)+nB(g)⇌pC(g)+qD(g)，若m+n>p+q，下列哪个条件能使平衡正向移动且反应速率增大？",
+      "options": {
+        "A": "升温(ΔH<0)",
+        "B": "加压",
+        "C": "加催化剂",
+        "D": "降低C浓度"
+      },
+      "answer": "B",
+      "explanation": "加压：(1)增大反应速率（因浓度增大）；(2)m+n>p+q时平衡正向移动。升温若反应放热则逆向。催化剂不移动平衡。降低C浓度正向但速率减小。"
+    },
+    {
+      "id": "var_19",
+      "knowledge": "化学平衡移动",
+      "subject": "化学",
+      "difficulty": "较难",
+      "title": "等效平衡",
+      "question": "恒温恒容下2SO₂+O₂⇌2SO₃。按以下哪种投料方式与充入2mol SO₂+1mol O₂达到的平衡状态相同？",
+      "options": {
+        "A": "2mol SO₃",
+        "B": "1mol SO₂+0.5mol O₂+1mol SO₃",
+        "C": "4mol SO₂+2mol O₂",
+        "D": "2mol SO₂+2mol O₂"
+      },
+      "answer": "A",
+      "explanation": "恒温恒容下，将2mol SO₃通过逆向反应可折算为2mol SO₂+1mol O₂，因此从2mol SO₃开始与从2mol SO₂+1mol O₂开始达同一平衡。"
+    },
+    {
+      "id": "var_20",
+      "knowledge": "遗传概率计算",
+      "subject": "生物",
+      "difficulty": "容易",
+      "title": "单基因遗传——分离定律",
+      "question": "豌豆高茎(D)对矮茎(d)显性。杂合高茎(Dd)自交，F₁中高茎:矮茎=? 若F₁高茎自交，F₂中矮茎占比?",
+      "options": {
+        "A": "3:1,1/6",
+        "B": "3:1,1/4",
+        "C": "1:1,1/4",
+        "D": "3:1,1/3"
+      },
+      "answer": "A",
+      "explanation": "F₁：DD:Dd:dd=1:2:1→高:矮=3:1。F₁高茎(DD:Dd=1:2)自交：DD后代全高；Dd后代高:矮=3:1。矮茎占比=(2/3)×(1/4)=1/6"
+    },
+    {
+      "id": "var_21",
+      "knowledge": "遗传概率计算",
+      "subject": "生物",
+      "difficulty": "中等",
+      "title": "两对基因——自由组合",
+      "question": "黄色圆粒(YyRr)豌豆自交，求后代中绿色皱粒(yyrr)的概率和黄色圆粒(Y_R_)的概率。",
+      "options": {
+        "A": "1/16,9/16",
+        "B": "1/4,9/16",
+        "C": "1/16,3/4",
+        "D": "1/8,9/16"
+      },
+      "answer": "A",
+      "explanation": "yyrr=¼×¼=1/16；Y_R_=¾×¾=9/16"
+    },
+    {
+      "id": "var_22",
+      "knowledge": "遗传概率计算",
+      "subject": "生物",
+      "difficulty": "中等",
+      "title": "伴性遗传——红绿色盲",
+      "question": "女性携带者(X^BX^b)与正常男性(X^BY)结婚，所生儿子患色盲的概率是多少？所生女儿呢？",
+      "options": {
+        "A": "儿子1/2,女儿0",
+        "B": "儿子0,女儿1/2",
+        "C": "儿子1/4,女儿0",
+        "D": "儿子1/2,女儿1/2"
+      },
+      "answer": "A",
+      "explanation": "母亲X^BX^b×父亲X^BY→儿子：X^BY(正常):X^bY(色盲)=1:1→儿子1/2色盲。女儿：X^BX^B或X^BX^b全正常→女儿0"
+    },
+    {
+      "id": "var_23",
+      "knowledge": "遗传概率计算",
+      "subject": "生物",
+      "difficulty": "较难",
+      "title": "致死基因效应",
+      "question": "小鼠黄色(A)对黑色(a)显性，但AA纯合致死。两只黄色鼠交配，后代黄色与黑色的比例是？",
+      "options": {
+        "A": "3:1",
+        "B": "2:1",
+        "C": "1:1",
+        "D": "1:2"
+      },
+      "answer": "B",
+      "explanation": "Aa×Aa→1AA(死):2Aa(黄):1aa(黑)→黄:黑=2:1。AA致死改变了经典3:1比例。"
+    },
+    {
+      "id": "var_24",
+      "knowledge": "遗传概率计算",
+      "subject": "生物",
+      "difficulty": "较难",
+      "title": "系谱图综合分析",
+      "question": "某家族系谱图中，父母正常但儿子患病（常染色体隐性遗传病）。女儿与正常男性（该男性父亲患病）结婚，所生孩子患病概率？",
+      "options": {
+        "A": "1/6",
+        "B": "1/4",
+        "C": "1/8",
+        "D": "1/12"
+      },
+      "answer": "A",
+      "explanation": "父母均杂合子Aa→女儿：AA:Aa=1:2（正常）→2/3概率为携带者。男性父亲aa→男性必为Aa。女儿为携带者时Aa×Aa→aa=1/4。总概率=(2/3)×(1/4)=1/6"
+    },
+    {
+      "id": "var_25",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "容易",
+      "title": "光合作用影响因素——光照强度",
+      "question": "在CO₂充足条件下，光照强度从0逐渐增大，光合速率的变化是？",
+      "options": {
+        "A": "持续增大",
+        "B": "先增大后趋于稳定(光饱和)",
+        "C": "先增大后减小",
+        "D": "不变"
+      },
+      "answer": "B",
+      "explanation": "光照强度从0增大→光合速率增大；达到光饱和点后→光反应速率不再增加→光合速率趋于稳定（受暗反应酶数量和CO₂浓度限制）"
+    },
+    {
+      "id": "var_26",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "容易",
+      "title": "光合作用曲线分析——CO₂补偿点",
+      "question": "光合作用CO₂补偿点是？",
+      "options": {
+        "A": "光合速率=0时的CO₂浓度",
+        "B": "光合速率=呼吸速率时的CO₂浓度",
+        "C": "光合速率最大时的CO₂浓度",
+        "D": "呼吸速率=0时的CO₂浓度"
+      },
+      "answer": "B",
+      "explanation": "CO₂补偿点是指光合作用吸收的CO₂=呼吸作用释放的CO₂时（净光合=0）的环境CO₂浓度"
+    },
+    {
+      "id": "var_27",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "中等",
+      "title": "光合作用计算——葡萄糖产量",
+      "question": "某植物叶片每小时吸收CO₂ 44mg（净光合），呼吸释放CO₂ 11mg。该叶片每小时合成的葡萄糖（C₆H₁₂O₆）是多少mg？",
+      "options": {
+        "A": "30mg",
+        "B": "37.5mg",
+        "C": "45mg",
+        "D": "55mg"
+      },
+      "answer": "B",
+      "explanation": "总光合=44+11=55mg CO₂/h。6CO₂→C₆H₁₂O₆(180)，55mg CO₂→葡萄糖=55×180/(6×44)=37.5mg"
+    },
+    {
+      "id": "var_28",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "中等",
+      "title": "光合作用实验设计",
+      "question": "探究光照强度对光合速率的影响，使用真空渗水法（叶圆片上浮法）。哪个变量是自变量？哪个是因变量？",
+      "options": {
+        "A": "自变量光照强度，因变量上浮时间/数量",
+        "B": "自变量CO₂浓度，因变量光照强度",
+        "C": "自变量温度，因变量O₂产量",
+        "D": "自变量叶圆片数量，因变量上浮时间"
+      },
+      "answer": "A",
+      "explanation": "真空渗水法：改变光源距离（光照强度），记录同一时间内叶圆片上浮数量或全部上浮时间。上浮快→光合速率高（O₂产量多）"
+    },
+    {
+      "id": "var_29",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "较难",
+      "title": "光合作用综合——C₃/C₅动态变化",
+      "question": "光照突然停止后，叶绿体中C₃和C₅的含量变化是？",
+      "options": {
+        "A": "C₃下降，C₅上升",
+        "B": "C₃上升，C₅下降",
+        "C": "都上升",
+        "D": "都下降"
+      },
+      "answer": "B",
+      "explanation": "光停→光反应停止→[H]和ATP减少→C₃还原受阻（C₃积累↑）→C₅再生减少（C₅↓）。同时CO₂固定仍在进行→消耗C₅(↓)并产生C₃(↑)"
+    },
+    {
+      "id": "var_30",
+      "knowledge": "光合作用",
+      "subject": "生物",
+      "difficulty": "较难",
+      "title": "光合作用+呼吸作用综合曲线分析",
+      "question": "测定植物24h内CO₂吸收速率，白天为正吸收(光合>呼吸)，夜晚为负吸收(纯呼吸)。图中CO₂吸收速率=0的A点(清晨)和B点(傍晚)分别表示？",
+      "options": {
+        "A": "光合=呼吸，光合=呼吸",
+        "B": "光合=0，光合=0",
+        "C": "光合最大，光合最大",
+        "D": "呼吸=0，光合=0"
+      },
+      "answer": "A",
+      "explanation": "A点和B点是光补偿点：光合速率=呼吸速率，净光合=0。清晨光照增强达到补偿点后开始积累有机物；傍晚光照减弱低于补偿点后净消耗有机物"
+    }
+  ]
+}
