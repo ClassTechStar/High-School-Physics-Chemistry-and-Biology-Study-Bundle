@@ -31,7 +31,7 @@ var FRAMEWORKS = {
 var QuestionDataLoader = {
     _cache: null,
     _loadingPromise: null,
-    _dataUrl: '../data/framework-questions.json',
+    _dataUrl: 'data/framework-questions.json',
 
     load: function(){
         if(this._cache) return Promise.resolve(this._cache);
@@ -1083,7 +1083,7 @@ var LS_KEY_VR = 'hspcb_variation_history';
 var VariationDataLoader = {
     _cache: null,
     _loadingPromise: null,
-    _dataUrl: '../data/variation-bank.json',
+    _dataUrl: 'data/variation-bank.json',
 
     load: function(){
         if(this._cache) return Promise.resolve(this._cache);
