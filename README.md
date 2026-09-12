@@ -93,35 +93,59 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 
 ## 🚀 快速开始
 
-### 方式 A:直接打开(最简单)
+### 推荐：用本地服务器打开（完整功能）
 
-1. 克隆或下载本仓库
-   ```bash
-   git clone https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle.git
-   ```
-2. 双击 `1.2/index.html`,使用默认浏览器打开即可
-
-> ⚠️ 提示:由于浏览器对本地 `file://` 协议下的 `fetch()` 存在限制,**强烈建议使用方式 B 或 C**,否则部分题库加载可能失败。
-
-### 方式 B:用 Python 启动本地服务器(推荐)
+题库 JSON 依赖 `fetch`，**请优先使用本地服务器**，不要依赖双击 HTML。
 
 ```bash
+# 方式 1：Python
 cd 1.2
 python -m http.server 8000
+# 浏览器访问 http://localhost:8000
+
+# 方式 2：仓库根目录（需 Node ≥ 18）
+npm run serve
 ```
 
-然后在浏览器访问 <http://localhost:8000>。
+也可用 `npx serve 1.2` 或 `npx http-server 1.2 -p 8000`。
 
-### 方式 C:用 Node.js 启动本地服务器
+### 方式：直接双击 `1.2/index.html`（降级，不推荐）
+
+在 `file://` 下浏览器会拦截 `fetch`，**知识点页可能可见，但扩展题库/部分数据加载会失败**。仅适合快速预览 UI，不适合作为日常备考入口。
+
+### 方式：安装为 PWA
+
+用 Chrome / Edge 通过 **http(s) 或本地服务器** 打开 `1.2/index.html`，点击地址栏「安装」。PWA 离线依赖 Service Worker，在 `file://` 下不可用。
+
+---
+
+## 🧪 开发与质量门禁
+
+从仓库根目录：
 
 ```bash
-cd 1.2
-npx serve .   # 或 npx http-server -p 8000
+npm run check:data      # 数据 schema + 题库质检 + SW 清单 + 首页卡片结构
+npm run check:data:json # JSON 机器可读输出
+node scripts/test-progress.mjs   # 统一进度存储迁移单测
 ```
 
-### 方式 D:安装为 PWA 应用
+- `scripts/validate-data.mjs`：校验六科 `knowledge.json`、`exam-bank.json`（选择题答案域、内部备注黑名单）、扩展题库、SW 资源清单、首页 `subject-cards` 嵌套。
+- `1.2/js/progress.js`：统一进度存储 `hspcb.v2.*`，自动从 v1 裸 key 迁移，支持导出/导入备份。
 
-使用 Chrome / Edge 打开 `1.2/index.html`(需通过本地服务器),点击地址栏右侧的"安装"按钮即可安装为桌面应用,支持离线使用。
+当前数据基线：六科 **1718** 题；`npm run check:data` 期望 **PASS**（允许少量 warning）。
+
+---
+
+## 📌 版本说明与仓库策略
+
+| 版本 | 内容 | 仓库位置 |
+| --- | --- | --- |
+| **1.1** | 物化生三科初版 | 目录 `1.1/`（**只读归档**，不再接受功能 PR） |
+| **1.2** | 六科 + PWA + 游戏化 + Phase A 稳定化 | 目录 `1.2/`（**当前唯一活跃开发目录**） |
+
+- 历史版本请用 **Git tag**（如 `v1.1`、`v1.2`）对照，而不是在仓库里再开 `1.3/` 并排目录。
+- 修复与新功能一律只改 `1.2/` 与根目录脚本/文档。
+- 大改动建议在分支（如 `phase/a-stabilize`）完成并跑通 `npm run check:data` 后再合入 `main`。
 
 ---
 
@@ -170,40 +194,39 @@ npx serve .   # 或 npx http-server -p 8000
 
 ---
 
-## 📌 版本说明
-
-| 版本 | 内容 | 备注 |
-| --- | --- | --- |
-| **1.1** | 完整学习平台初版 | 包含物理 / 化学 / 生物三科知识体系、综合题库、错题归因、提分工具 |
-| **1.2** | 六科全覆盖 + PWA + 游戏化 | 新增数学 / 语文 / 英语三科、PWA 离线支持、游戏化系统、3D 分子可视化、互动模拟实验、全局搜索、学习路径推荐、暗色模式、扩展题库(跨学科 / 情境题 / 变式题 / 科技前沿) |
-
-后续版本(如 2.0)将在 `2.0/` 之类的版本号目录中提供,各版本内容相对独立,互不覆盖。
-
----
-
 ## 🤝 贡献与二次开发
 
 欢迎:
-- 在 `data/<subject>/knowledge.json` 中补充 / 修正知识点
-- 在 `data/exam-bank.json` 中添加新题
-- 优化 `js/` 中的工具模块
-- 改进 `css/style.css` 的样式
-- 运行 `expand-exam-bank-unified.py` 扩展题库
+- 在 `1.2/data/<subject>/knowledge.json` 中补充 / 修正知识点
+- 在 `1.2/data/exam-bank.json` 中添加新题（**禁止**在 analysis 中留下「修正后 / TODO / 占位」等内部备注）
+- 优化 `1.2/js/` 中的工具模块
+- 改进 `1.2/css/` 样式
+- 运行 `1.2/expand-exam-bank-unified.py` 扩展题库
 
-修改后直接 `git commit` + `git push` 即可。
+**提交前请本地跑通：**
+
+```bash
+npm run check:data
+node scripts/test-progress.mjs
+```
+
+新代码写入学习进度时请使用 `HSPCBProgress`（`1.2/js/progress.js`），不要再新增裸 `localStorage` key。
+
+修改后在分支上提交并保证校验 PASS，再发起合并。
 
 ---
 
 ## 📄 许可
 
-仅供学习交流使用。题目与知识点整理自公开教材与考纲,版权归原作者所有。
+仅供学习交流使用。题目与知识点整理自公开教材与考纲,版权归原作者所有。  
+代码与结构设计遵循仓库根目录 `LICENSE`（CC BY-NC-SA 4.0）；真题内容版权归原作者/出版方，本项目仅作学习整理。
 
 ---
 
 ## 🔗 相关链接
 
 - 仓库主页:<https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle>
-- 版本目录:`/1.1/`(V1.1)、`/1.2/`(V1.2,最新)
+- 当前开发目录:`/1.2/`；历史归档:`/1.1/`（只读）
 - 问题反馈:在 GitHub 上提交 Issue
 
 > Made with ❤️ for Guangdong Gaokao 高考备考

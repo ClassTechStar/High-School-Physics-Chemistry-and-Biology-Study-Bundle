@@ -2110,7 +2110,7 @@ const photosynthesisTrainerEnhanced = {
                 </div>
                 `}
             </div>
-
+            ` : ''}
             <div class="pt-footer">
                 <button onclick="photosynthesisTrainerEnhanced.exportWrongPDF()">📥 导出错题集</button>
                 <div class="tips-bar">

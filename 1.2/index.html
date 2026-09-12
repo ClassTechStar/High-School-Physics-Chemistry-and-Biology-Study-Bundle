@@ -6,8 +6,42 @@
 <title>高中物化生语数英学习大礼包 — 广东高考智能备考平台</title>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/theme-dark.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#4f6ef6">
+
+<script>
+/* ---- 主题引导脚本：必须在 <body> 渲染前同步执行，避免首屏闪白 ---- */
+(function () {
+    var KEY = 'hspcb_theme', LEGACY = 'hspcb_dark_mode', theme;
+    try {
+        theme = localStorage.getItem(KEY);
+        if (theme !== 'dark' && theme !== 'light') {
+            var legacy = localStorage.getItem(LEGACY);
+            if (legacy === '1' || legacy === 'true') {
+                theme = 'dark';
+            } else {
+                theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+            }
+        }
+    } catch (e) { theme = 'light'; }
+
+    var root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    root.style.colorScheme = theme;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+            btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+            btn.title = theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式';
+            btn.setAttribute('aria-label', btn.title);
+        }
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f172a' : '#4f6ef6');
+    });
+})();
+</script>
 
 <style>
 @media (max-width: 768px) {
@@ -88,6 +122,7 @@
 <li><a href="#" data-subject="biology">🔬 分子与细胞（≈18-22%）— 光合·呼吸·蛋白质分选</a></li>
 <li><a href="#" data-subject="biology">🔥 13大热点专题 — PCR·电泳·表观遗传·生态位</a></li>
 </ul>
+</div>
 <div class="subject-card" style="border-left:4px solid #0ea5e9;">
 <h4>📚 高中语文</h4>
 <ul>
@@ -96,7 +131,6 @@
 <li><a href="#" data-subject="chinese">🎋 古诗词鉴赏 — 意象·手法·题材·答题规范</a></li>
 <li><a href="#" data-subject="chinese">📝 高考作文 — 议论文结构·审题立意·应试策略</a></li>
 </ul>
-</div>
 </div>
 <div class="subject-card" style="border-left:4px solid #3b82f6;">
 <h4>📐 高中数学</h4>
@@ -1891,6 +1925,7 @@
 </div>
 
 <script src="js/common-utils.js"></script>
+<script src="js/progress.js"></script>
 <script src="js/app.js"></script>
 <script src="js/app-chemistry.js"></script>
 <script src="js/app-physics.js"></script>
@@ -4253,8 +4288,43 @@
 })();
 </script>
 <script>
-if(localStorage.getItem('hspcb_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeToggle').textContent='☀️';}
-function toggleTheme(){var d=document.documentElement;if(d.getAttribute('data-theme')==='dark'){d.removeAttribute('data-theme');document.getElementById('themeToggle').textContent='🌙';localStorage.setItem('hspcb_theme','light');}else{d.setAttribute('data-theme','dark');document.getElementById('themeToggle').textContent='☀️';localStorage.setItem('hspcb_theme','dark');}}
+/* ---- 统一主题切换（全站唯一入口，深色 / 浅色） ---- */
+(function () {
+    'use strict';
+    var KEY = 'hspcb_theme', LEGACY = 'hspcb_dark_mode';
+
+    function current() {
+        return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    }
+
+    function apply(theme) {
+        var root = document.documentElement;
+        root.setAttribute('data-theme', theme);
+        root.style.colorScheme = theme;
+
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+            btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+            btn.title = theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式';
+            btn.setAttribute('aria-label', btn.title);
+            btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        }
+
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f172a' : '#4f6ef6');
+
+        try {
+            localStorage.setItem(KEY, theme);
+            localStorage.setItem(LEGACY, theme === 'dark' ? '1' : '0');
+        } catch (e) {}
+    }
+
+    window.toggleTheme = function () { apply(current() === 'dark' ? 'light' : 'dark'); };
+    window.setTheme = apply;
+    window.getTheme = current;
+
+    apply(current());
+})();
 </script>
 
 <script>

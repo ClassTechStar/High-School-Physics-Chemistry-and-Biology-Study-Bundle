@@ -763,91 +763,43 @@ window.studyShareCard = (function () {
 
 // ============================================================
 // 模块 3: darkModeToggle — 暗黑模式切换
-// 无独立容器 ID，注入切换按钮到页面右上角
+// 已废弃独立实现，改为委托给全站统一主题入口（index.html 的 window.setTheme）
+// 保留 render/toggle/isOn 接口，避免既有调用点报错。
 // ============================================================
 window.darkModeToggle = (function () {
     'use strict';
 
-    var STORAGE_KEY = 'hspcb_dark_mode';
-    var isOn = false;
-
-    function loadPref() {
-        try {
-            var v = localStorage.getItem(STORAGE_KEY);
-            return v === '1' || v === 'true';
-        } catch (e) { return false; }
-    }
-    function savePref(on) {
-        try { localStorage.setItem(STORAGE_KEY, on ? '1' : '0'); } catch (e) {}
-    }
-
-    function injectStyle() {
-        if (document.getElementById('hspcb-dark-mode-style')) return;
-        var style = document.createElement('style');
-        style.id = 'hspcb-dark-mode-style';
-        style.innerHTML = '' +
-            'body.dark-mode { background-color:#0f172a !important; color:#e2e8f0 !important; }\n' +
-            'body.dark-mode .tool-app-container,\n' +
-            'body.dark-mode .app-container,\n' +
-            'body.dark-mode .panel,\n' +
-            'body.dark-mode .card { background-color:#1e293b !important; color:#e2e8f0 !important; border-color:#334155 !important; }\n' +
-            'body.dark-mode input,\n' +
-            'body.dark-mode textarea,\n' +
-            'body.dark-mode select { background-color:#0f172a !important; color:#e2e8f0 !important; border-color:#334155 !important; }\n' +
-            'body.dark-mode button { background-color:#334155 !important; color:#e2e8f0 !important; border-color:#475569 !important; }\n' +
-            'body.dark-mode a { color:#60a5fa !important; }\n' +
-            'body.dark-mode table { border-color:#334155 !important; }\n' +
-            'body.dark-mode th,\n' +
-            'body.dark-mode td { border-color:#334155 !important; color:#e2e8f0 !important; }\n' +
-            'body.dark-mode h1,\n' +
-            'body.dark-mode h2,\n' +
-            'body.dark-mode h3,\n' +
-            'body.dark-mode h4 { color:#f1f5f9 !important; }\n' +
-            'body.dark-mode .nav,\n' +
-            'body.dark-mode header,\n' +
-            'body.dark-mode nav { background-color:#1e293b !important; border-color:#334155 !important; }\n';
-        document.head.appendChild(style);
-    }
-
-    function applyState(on) {
-        isOn = on;
-        if (on) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
+    function apply(theme) {
+        if (typeof window.setTheme === 'function') {
+            window.setTheme(theme);
+            return;
         }
-        var btn = document.getElementById('hspcb-dark-toggle-btn');
-        if (btn) {
-            btn.innerHTML = on ? '☀️' : '🌙';
-            btn.title = on ? '切换到亮色模式' : '切换到暗黑模式';
+        document.documentElement.setAttribute('data-theme', theme);
+        try { localStorage.setItem('hspcb_theme', theme); } catch (e) {}
+    }
+
+    function isDark() {
+        if (typeof window.getTheme === 'function') {
+            return window.getTheme() === 'dark';
         }
-        savePref(on);
+        return document.documentElement.getAttribute('data-theme') === 'dark';
     }
 
     function toggle() {
-        applyState(!isOn);
+        apply(isDark() ? 'light' : 'dark');
     }
 
     function render() {
-        injectStyle();
-        if (document.getElementById('hspcb-dark-toggle-btn')) {
-            applyState(loadPref());
-            return;
+        // 统一入口已由 index.html 负责按钮与样式，这里只做状态同步
+        if (typeof window.setTheme === 'function' && typeof window.getTheme === 'function') {
+            window.setTheme(window.getTheme());
         }
-        var btn = document.createElement('button');
-        btn.id = 'hspcb-dark-toggle-btn';
-        btn.style.cssText = 'position:fixed;top:12px;right:16px;z-index:99998;width:40px;height:40px;border-radius:50%;border:2px solid #e5e7eb;background:#fff;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;padding:0;line-height:1;';
-        btn.innerHTML = '🌙';
-        btn.title = '切换暗黑模式';
-        btn.onclick = toggle;
-        document.body.appendChild(btn);
-        applyState(loadPref());
     }
 
     return {
         render: render,
         toggle: toggle,
-        isOn: function () { return isOn; }
+        isOn: function () { return isDark(); }
     };
 })();
 
