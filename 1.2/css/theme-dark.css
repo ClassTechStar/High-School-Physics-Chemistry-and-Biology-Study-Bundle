@@ -1,0 +1,904 @@
+/* ============================================================
+   theme-dark.css — 深色模式统一补丁层
+   必须在 tokens.css / style.css 之后加载
+   作用：修补 [data-theme="dark"] 下所有失效的硬编码浅色
+   ============================================================ */
+
+/* ---------- 0. 深色基础令牌 ---------- */
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --dm-bg: #0f172a;
+    --dm-surface-1: #1e293b;   /* 卡片 */
+    --dm-surface-2: #334155;   /* 内嵌面板 / 轨道 */
+    --dm-border: #475569;
+    --dm-border-soft: #334155;
+    --dm-text: #e2e8f0;
+    --dm-text-2: #cbd5e1;
+    --dm-text-3: #94a3b8;
+
+    /* 文字层级：style.css 原值 --text-secondary/#94a3b8 与 --text-tertiary/#64748b
+       在深色卡片(#334155)上对比度只有 2.2:1，不满足 WCAG AA，整体上提一档 */
+    --text-primary: #e2e8f0;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+
+    /* 学科色浅色版（深色背景上更清晰） */
+    --physics: #a78bfa;
+    --chemistry: #60a5fa;
+    --biology: #34d399;
+    --exam: #fbbf24;
+    --platform: #818cf8;
+    --chinese: #38bdf8;
+    --math: #60a5fa;
+
+    /* 强调色浅色版 */
+    --primary: #7b93fa;
+    --secondary: #34d399;
+    --accent: #fbbf24;
+    --danger: #f87171;
+}
+
+/* ---------- 1. 页面底色与半透明容器 ---------- */
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #0b1120 0%, #131c31 25%, #0d1a17 50%, #171308 75%, #141031 100%);
+    background-attachment: fixed;
+}
+
+[data-theme="dark"] body::before {
+    background:
+        radial-gradient(ellipse 80% 80% at 20% 20%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 80% at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 80% at 50% 50%, rgba(79, 110, 246, 0.07) 0%, transparent 60%);
+}
+
+/* 所有写死半透明白底的容器 → 深色半透明 */
+[data-theme="dark"] .main-header,
+[data-theme="dark"] .subject-nav,
+[data-theme="dark"] main,
+[data-theme="dark"] .main-footer,
+[data-theme="dark"] .welcome-card,
+[data-theme="dark"] .feature-list li {
+    background: rgba(30, 41, 59, 0.88) !important;
+    border-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+[data-theme="dark"] .feature-list li:hover,
+[data-theme="dark"] .module-tab:hover {
+    background: rgba(51, 65, 85, 0.95) !important;
+}
+
+[data-theme="dark"] .main-header,
+[data-theme="dark"] .subject-nav,
+[data-theme="dark"] main,
+[data-theme="dark"] .main-footer {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ---------- 2. 通用元素：表单 / 表格 / 代码 / 滚动条 ---------- */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--dm-bg) !important;
+    color: var(--dm-text) !important;
+    border-color: var(--dm-border) !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--dm-text-3) !important;
+}
+
+[data-theme="dark"] ::selection {
+    background: rgba(123, 147, 250, 0.35);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] table,
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+    border-color: var(--dm-border-soft) !important;
+    color: var(--dm-text) !important;
+}
+
+[data-theme="dark"] th {
+    background: var(--dm-surface-2) !important;
+}
+
+[data-theme="dark"] code,
+[data-theme="dark"] pre,
+[data-theme="dark"] kbd {
+    background: #0b1120 !important;
+    color: #a5d6ff !important;
+    border-color: var(--dm-border-soft) !important;
+}
+
+[data-theme="dark"] hr {
+    border-color: var(--dm-border-soft) !important;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background: var(--dm-bg); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 6px;
+    border: 2px solid var(--dm-bg);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+/* ---------- 3. 内容增强组件（style.css 硬编码浅色） ---------- */
+[data-theme="dark"] .exp-card,
+[data-theme="dark"] .knowledge-card,
+[data-theme="dark"] .info-box,
+[data-theme="dark"] .highlight-box-enhanced,
+[data-theme="dark"] .subject-card,
+[data-theme="dark"] .tool-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .result-card,
+[data-theme="dark"] .formula-display,
+[data-theme="dark"] .mitosis-card,
+[data-theme="dark"] .connection-card,
+[data-theme="dark"] .reaction-card,
+[data-theme="dark"] .diagram-view,
+[data-theme="dark"] .eco-species-card,
+[data-theme="dark"] .eco-chart-container,
+[data-theme="dark"] .eco-sp-modifier,
+[data-theme="dark"] .sub-item,
+[data-theme="dark"] .cat-group,
+[data-theme="dark"] .all-reactions-panel,
+[data-theme="dark"] .cc-condition,
+[data-theme="dark"] .sub-formula,
+[data-theme="dark"] .cc-tip,
+[data-theme="dark"] .eco-tips,
+[data-theme="dark"] .diagram-stats,
+[data-theme="dark"] .ecosystem-panel {
+    background: var(--dm-surface-2) !important;
+    border-color: var(--dm-border-soft) !important;
+    color: var(--dm-text) !important;
+}
+
+/* 卡片头部 / 侧栏 / 面板等写死 white 的容器 */
+[data-theme="dark"] .preset-nav,
+[data-theme="dark"] .substance-sidebar,
+[data-theme="dark"] .sidebar-header,
+[data-theme="dark"] .diagram-view,
+[data-theme="dark"] .eco-control-panel,
+[data-theme="dark"] .eco-chart-section,
+[data-theme="dark"] .cc-header,
+[data-theme="dark"] .type-filter-bar,
+[data-theme="dark"] .cat-title,
+[data-theme="dark"] .view-switch {
+    background: var(--dm-surface-1) !important;
+    border-color: var(--dm-border-soft) !important;
+}
+
+[data-theme="dark"] .cc-header,
+[data-theme="dark"] .cat-title,
+[data-theme="dark"] .all-reactions-panel,
+[data-theme="dark"] .area-toolbar,
+[data-theme="dark"] .diagram-stats,
+[data-theme="dark"] .sidebar-header,
+[data-theme="dark"] .substance-sidebar,
+[data-theme="dark"] .preset-nav {
+    border-color: var(--dm-border-soft) !important;
+}
+
+/* 提示类色块：浅色底 + 深色字 → 深色底 + 浅色字 */
+[data-theme="dark"] .exp-caution,
+[data-theme="dark"] .common-mistake {
+    background: #450a0a !important;
+    border-color: #7f1d1d !important;
+    color: #fecaca !important;
+}
+[data-theme="dark"] .exp-caution h5,
+[data-theme="dark"] .common-mistake strong { color: #fca5a5 !important; }
+[data-theme="dark"] .exp-caution ul { color: #fecaca !important; }
+
+[data-theme="dark"] .exp-tip,
+[data-theme="dark"] .exp-formula {
+    background: #172554 !important;
+    border-color: #1e40af !important;
+    color: #dbeafe !important;
+}
+[data-theme="dark"] .exp-tip h5 { color: #93c5fd !important; }
+[data-theme="dark"] .exp-formula sup { color: #c4b5fd !important; }
+
+[data-theme="dark"] .exp-smell,
+[data-theme="dark"] .cc-tip,
+[data-theme="dark"] .eco-sp-modifier.medium {
+    background: #422c15 !important;
+    border-color: #78350f !important;
+    color: #fde68a !important;
+}
+[data-theme="dark"] .exp-smell h5 { color: #fcd34d !important; }
+[data-theme="dark"] .exp-smell p { color: #fde68a !important; }
+
+[data-theme="dark"] .mitosis-card {
+    background: linear-gradient(135deg, #052e16, #172554) !important;
+    border-color: #065f46 !important;
+}
+
+[data-theme="dark"] .result-card { background: linear-gradient(135deg, #172554, #052e16) !important; }
+
+[data-theme="dark"] .formula-display {
+    background: var(--dm-bg) !important;
+    border-color: #1e40af !important;
+    color: #dbeafe !important;
+}
+
+[data-theme="dark"] .eco-sp-modifier.good { background: #022c22 !important; color: #6ee7b7 !important; }
+[data-theme="dark"] .eco-sp-modifier.bad  { background: #450a0a !important; color: #fca5a5 !important; }
+
+[data-theme="dark"] .analysis-box h4 { color: #fcd34d !important; }
+[data-theme="dark"] .cc-equation { color: var(--dm-text) !important; }
+[data-theme="dark"] .cc-path,
+[data-theme="dark"] .rc-eq,
+[data-theme="dark"] .eco-sp-percent,
+[data-theme="dark"] .type-filter-bar > span,
+[data-theme="dark"] .empty-desc,
+[data-theme="dark"] .stat-item,
+[data-theme="dark"] .eco-sp-type,
+[data-theme="dark"] .eco-tips p { color: var(--dm-text-2) !important; }
+[data-theme="dark"] .cc-arrow,
+[data-theme="dark"] .rc-cond,
+[data-theme="dark"] .more-types,
+[data-theme="dark"] .clear-filter,
+[data-theme="dark"] .cat-count,
+[data-theme="dark"] .sub-count,
+[data-theme="dark"] .eco-sp-count small,
+[data-theme="dark"] .eco-season-desc,
+[data-theme="dark"] .eco-slider-labels span,
+[data-theme="dark"] .no-data { color: var(--dm-text-3) !important; }
+
+[data-theme="dark"] .sub-name,
+[data-theme="dark"] .empty-title,
+[data-theme="dark"] .area-toolbar h3,
+[data-theme="dark"] .all-reactions-panel h4,
+[data-theme="dark"] .eco-sp-name,
+[data-theme="dark"] .eco-panel-title,
+[data-theme="dark"] .eco-chart-title,
+[data-theme="dark"] .stat-item strong,
+[data-theme="dark"] .eco-slider-header label,
+[data-theme="dark"] .eco-season-name { color: var(--dm-text) !important; }
+
+[data-theme="dark"] .cat-title { color: var(--dm-text) !important; }
+[data-theme="dark"] .cat-title:hover { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .sub-item:hover,
+[data-theme="dark"] .reaction-card.available { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .preset-tab { background: var(--dm-surface-2) !important; color: var(--dm-text-2) !important; }
+[data-theme="dark"] .preset-tab:hover { background: var(--dm-border-soft) !important; }
+[data-theme="dark"] .view-switch { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .view-switch button { color: var(--dm-text-2) !important; }
+[data-theme="dark"] .view-switch button.active { background: var(--dm-surface-1) !important; color: var(--dm-text) !important; }
+[data-theme="dark"] .type-chip,
+[data-theme="dark"] .quick-presets button { background: var(--dm-surface-1) !important; color: var(--dm-text-2) !important; }
+[data-theme="dark"] .quick-presets button:hover { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .search-input { border-color: var(--dm-border) !important; }
+[data-theme="dark"] .eco-species-card:hover { border-color: #34d399 !important; }
+[data-theme="dark"] .eco-range { background: linear-gradient(90deg, #334155, #475569) !important; }
+[data-theme="dark"] .eco-season-btn { background: var(--dm-surface-1) !important; border-color: var(--dm-border-soft) !important; }
+[data-theme="dark"] .eco-season-btn:hover { background: #022c22 !important; border-color: #10b981 !important; }
+[data-theme="dark"] .eco-sp-bar { background: var(--dm-surface-2) !important; }
+
+/* 测验选项对错态 */
+[data-theme="dark"] .quiz-option.correct {
+    background: #052e16 !important;
+    border-color: #22c55e !important;
+    color: #86efac !important;
+}
+[data-theme="dark"] .quiz-option.wrong {
+    background: #431407 !important;
+    border-color: #f97316 !important;
+    color: #fdba74 !important;
+}
+
+/* 有机化学 / 生态模拟容器的浅色渐变底 */
+[data-theme="dark"] .oc-container { background: linear-gradient(135deg, #131c31 0%, #0f172a 100%) !important; }
+[data-theme="dark"] .eco-sim-container { background: linear-gradient(135deg, #052e16 0%, #022c22 50%, #0c2d48 100%) !important; }
+[data-theme="dark"] .eco-sim-toolbar,
+[data-theme="dark"] .eco-year-indicator { background: linear-gradient(135deg, #059669 0%, #047857 100%) !important; }
+[data-theme="dark"] .eco-btn-start { background: #022c22 !important; color: #6ee7b7 !important; }
+
+/* ---------- 4. 深色模式下反而过暗的文字（--text-inverse 用于彩色底按钮） ---------- */
+[data-theme="dark"] .nav-btn.active .label,
+[data-theme="dark"] .btn-primary { color: #0b1120 !important; }
+
+/* ---------- 5. 切换按钮 ---------- */
+[data-theme="dark"] .theme-toggle {
+    background: var(--dm-surface-2);
+    border-color: var(--dm-border);
+    color: #fbbf24;
+}
+
+
+/* ============================================================
+   6. 内联硬编码样式中和层
+   JS 动态生成 DOM 时写死了大量 #fff / #f8fafc / #333 ...
+   用 [style*="..."] 属性选择器 + !important 精确覆盖
+   （CSS 的 !important 优先级高于非 important 的内联样式）
+   ============================================================ */
+/* 内联白底 → 卡片深色 */
+[data-theme="dark"] [style*="background:#fff" i],
+[data-theme="dark"] [style*="background-color:#fff" i],
+[data-theme="dark"] [style*="background:#ffffff" i],
+[data-theme="dark"] [style*="background-color:#ffffff" i],
+[data-theme="dark"] [style*="background:#FFF" i],
+[data-theme="dark"] [style*="background-color:#FFF" i],
+[data-theme="dark"] [style*="background:white" i],
+[data-theme="dark"] [style*="background-color:white" i] {
+    background-color: var(--dm-surface-1) !important;
+}
+
+/* 内联浅灰底 → 内嵌深色 */
+[data-theme="dark"] [style*="background:#f8fafc" i],
+[data-theme="dark"] [style*="background-color:#f8fafc" i],
+[data-theme="dark"] [style*="background:#f9fafb" i],
+[data-theme="dark"] [style*="background-color:#f9fafb" i],
+[data-theme="dark"] [style*="background:#fafafa" i],
+[data-theme="dark"] [style*="background-color:#fafafa" i],
+[data-theme="dark"] [style*="background:#fafbfc" i],
+[data-theme="dark"] [style*="background-color:#fafbfc" i],
+[data-theme="dark"] [style*="background:#f8f9fa" i],
+[data-theme="dark"] [style*="background-color:#f8f9fa" i],
+[data-theme="dark"] [style*="background:#f5f5f5" i],
+[data-theme="dark"] [style*="background-color:#f5f5f5" i],
+[data-theme="dark"] [style*="background:#f0f0f0" i],
+[data-theme="dark"] [style*="background-color:#f0f0f0" i],
+[data-theme="dark"] [style*="background:#f3f4f6" i],
+[data-theme="dark"] [style*="background-color:#f3f4f6" i],
+[data-theme="dark"] [style*="background:#f1f5f9" i],
+[data-theme="dark"] [style*="background-color:#f1f5f9" i],
+[data-theme="dark"] [style*="background:#eee" i],
+[data-theme="dark"] [style*="background-color:#eee" i],
+[data-theme="dark"] [style*="background:#eeeeee" i],
+[data-theme="dark"] [style*="background-color:#eeeeee" i],
+[data-theme="dark"] [style*="background:#e8e8e8" i],
+[data-theme="dark"] [style*="background-color:#e8e8e8" i],
+[data-theme="dark"] [style*="background:#e0e0e0" i],
+[data-theme="dark"] [style*="background-color:#e0e0e0" i],
+[data-theme="dark"] [style*="background:#e5e7eb" i],
+[data-theme="dark"] [style*="background-color:#e5e7eb" i],
+[data-theme="dark"] [style*="background:#d1d5db" i],
+[data-theme="dark"] [style*="background-color:#d1d5db" i],
+[data-theme="dark"] [style*="background:#ddd" i],
+[data-theme="dark"] [style*="background-color:#ddd" i],
+[data-theme="dark"] [style*="background:#ccc" i],
+[data-theme="dark"] [style*="background-color:#ccc" i],
+[data-theme="dark"] [style*="background:#cbd5e1" i],
+[data-theme="dark"] [style*="background-color:#cbd5e1" i],
+[data-theme="dark"] [style*="background:#e9ecef" i],
+[data-theme="dark"] [style*="background-color:#e9ecef" i],
+[data-theme="dark"] [style*="background:#f7f7f7" i],
+[data-theme="dark"] [style*="background-color:#f7f7f7" i],
+[data-theme="dark"] [style*="background:#faf5ff" i],
+[data-theme="dark"] [style*="background-color:#faf5ff" i] {
+    background-color: var(--dm-surface-2) !important;
+}
+
+/* 内联蓝调浅底 → 深蓝 */
+[data-theme="dark"] [style*="background:#eff6ff" i],
+[data-theme="dark"] [style*="background-color:#eff6ff" i],
+[data-theme="dark"] [style*="background:#dbeafe" i],
+[data-theme="dark"] [style*="background-color:#dbeafe" i],
+[data-theme="dark"] [style*="background:#f0f9ff" i],
+[data-theme="dark"] [style*="background-color:#f0f9ff" i],
+[data-theme="dark"] [style*="background:#e7f1ff" i],
+[data-theme="dark"] [style*="background-color:#e7f1ff" i],
+[data-theme="dark"] [style*="background:#eef6ff" i],
+[data-theme="dark"] [style*="background-color:#eef6ff" i],
+[data-theme="dark"] [style*="background:#e3f2fd" i],
+[data-theme="dark"] [style*="background-color:#e3f2fd" i] {
+    background-color: #172554 !important;
+}
+
+/* 内联绿调浅底 → 深绿 */
+[data-theme="dark"] [style*="background:#f0fdf4" i],
+[data-theme="dark"] [style*="background-color:#f0fdf4" i],
+[data-theme="dark"] [style*="background:#ecfdf5" i],
+[data-theme="dark"] [style*="background-color:#ecfdf5" i],
+[data-theme="dark"] [style*="background:#e8f5e9" i],
+[data-theme="dark"] [style*="background-color:#e8f5e9" i],
+[data-theme="dark"] [style*="background:#e9f7ef" i],
+[data-theme="dark"] [style*="background-color:#e9f7ef" i],
+[data-theme="dark"] [style*="background:#f1f8e9" i],
+[data-theme="dark"] [style*="background-color:#f1f8e9" i] {
+    background-color: #052e16 !important;
+}
+
+/* 内联黄调浅底 → 深棕 */
+[data-theme="dark"] [style*="background:#fef3c7" i],
+[data-theme="dark"] [style*="background-color:#fef3c7" i],
+[data-theme="dark"] [style*="background:#fffbeb" i],
+[data-theme="dark"] [style*="background-color:#fffbeb" i],
+[data-theme="dark"] [style*="background:#fefce8" i],
+[data-theme="dark"] [style*="background-color:#fefce8" i],
+[data-theme="dark"] [style*="background:#fff7ed" i],
+[data-theme="dark"] [style*="background-color:#fff7ed" i],
+[data-theme="dark"] [style*="background:#fff3e0" i],
+[data-theme="dark"] [style*="background-color:#fff3e0" i],
+[data-theme="dark"] [style*="background:#fff8e1" i],
+[data-theme="dark"] [style*="background-color:#fff8e1" i],
+[data-theme="dark"] [style*="background:#fff9c4" i],
+[data-theme="dark"] [style*="background-color:#fff9c4" i] {
+    background-color: #422c15 !important;
+}
+
+/* 内联红调浅底 → 深红 */
+[data-theme="dark"] [style*="background:#fee2e2" i],
+[data-theme="dark"] [style*="background-color:#fee2e2" i],
+[data-theme="dark"] [style*="background:#fef2f2" i],
+[data-theme="dark"] [style*="background-color:#fef2f2" i],
+[data-theme="dark"] [style*="background:#ffeaea" i],
+[data-theme="dark"] [style*="background-color:#ffeaea" i],
+[data-theme="dark"] [style*="background:#ffebee" i],
+[data-theme="dark"] [style*="background-color:#ffebee" i] {
+    background-color: #450a0a !important;
+}
+
+/* 内联紫调浅底 → 深紫 */
+[data-theme="dark"] [style*="background:#f5f3ff" i],
+[data-theme="dark"] [style*="background-color:#f5f3ff" i],
+[data-theme="dark"] [style*="background:#ede9fe" i],
+[data-theme="dark"] [style*="background-color:#ede9fe" i],
+[data-theme="dark"] [style*="background:#f3e8ff" i],
+[data-theme="dark"] [style*="background-color:#f3e8ff" i] {
+    background-color: #1e1b4b !important;
+}
+
+/* 内联粉调浅底 → 深粉 */
+[data-theme="dark"] [style*="background:#fce7f3" i],
+[data-theme="dark"] [style*="background-color:#fce7f3" i],
+[data-theme="dark"] [style*="background:#fdf2f8" i],
+[data-theme="dark"] [style*="background-color:#fdf2f8" i] {
+    background-color: #4a1030 !important;
+}
+
+/* 内联青调浅底 → 深青 */
+[data-theme="dark"] [style*="background:#ecfeff" i],
+[data-theme="dark"] [style*="background-color:#ecfeff" i],
+[data-theme="dark"] [style*="background:#e0f2fe" i],
+[data-theme="dark"] [style*="background-color:#e0f2fe" i] {
+    background-color: #0c2d48 !important;
+}
+
+/* 内联浅色边框 → 深色边框 */
+[data-theme="dark"] [style*="solid #e2e8f0" i],
+[data-theme="dark"] [style*="solid #ddd" i],
+[data-theme="dark"] [style*="solid #e5e7eb" i],
+[data-theme="dark"] [style*="solid #d1d5db" i],
+[data-theme="dark"] [style*="solid #eee" i],
+[data-theme="dark"] [style*="solid #cbd5e1" i],
+[data-theme="dark"] [style*="solid #e0e0e0" i],
+[data-theme="dark"] [style*="solid #ccc" i],
+[data-theme="dark"] [style*="solid #e8e8e8" i],
+[data-theme="dark"] [style*="solid #f3f4f6" i],
+[data-theme="dark"] [style*="solid #f0f0f0" i],
+[data-theme="dark"] [style*="solid #bdc3c7" i],
+[data-theme="dark"] [style*="solid #f5f5f5" i],
+[data-theme="dark"] [style*="solid #333" i],
+[data-theme="dark"] [style*="solid #334" i],
+[data-theme="dark"] [style*="solid #fafafa" i],
+[data-theme="dark"] [style*="solid #f8fafc" i] {
+    border-color: var(--dm-border) !important;
+}
+
+/* 内联近黑文字 → 主文字色 */
+[data-theme="dark"] [style*="color:#0f172a" i]:not([style*="-color:#0f172a" i]),
+[data-theme="dark"] [style*="color:#1e293b" i]:not([style*="-color:#1e293b" i]),
+[data-theme="dark"] [style*="color:#1f2937" i]:not([style*="-color:#1f2937" i]),
+[data-theme="dark"] [style*="color:#2c3e50" i]:not([style*="-color:#2c3e50" i]),
+[data-theme="dark"] [style*="color:#34495e" i]:not([style*="-color:#34495e" i]),
+[data-theme="dark"] [style*="color:#333" i]:not([style*="-color:#333" i]),
+[data-theme="dark"] [style*="color:#334155" i]:not([style*="-color:#334155" i]),
+[data-theme="dark"] [style*="color:#374151" i]:not([style*="-color:#374151" i]),
+[data-theme="dark"] [style*="color:#2d3748" i]:not([style*="-color:#2d3748" i]),
+[data-theme="dark"] [style*="color:#111" i]:not([style*="-color:#111" i]),
+[data-theme="dark"] [style*="color:#1a1a1a" i]:not([style*="-color:#1a1a1a" i]) {
+    color: var(--dm-text) !important;
+}
+
+/* 内联中灰文字 → 次级文字色 */
+[data-theme="dark"] [style*="color:#475569" i]:not([style*="-color:#475569" i]),
+[data-theme="dark"] [style*="color:#555" i]:not([style*="-color:#555" i]),
+[data-theme="dark"] [style*="color:#666" i]:not([style*="-color:#666" i]),
+[data-theme="dark"] [style*="color:#6b7280" i]:not([style*="-color:#6b7280" i]),
+[data-theme="dark"] [style*="color:#64748b" i]:not([style*="-color:#64748b" i]),
+[data-theme="dark"] [style*="color:#888" i]:not([style*="-color:#888" i]),
+[data-theme="dark"] [style*="color:#999" i]:not([style*="-color:#999" i]),
+[data-theme="dark"] [style*="color:#aaa" i]:not([style*="-color:#aaa" i]),
+[data-theme="dark"] [style*="color:#9ca3af" i]:not([style*="-color:#9ca3af" i]),
+[data-theme="dark"] [style*="color:#94a3b8" i]:not([style*="-color:#94a3b8" i]),
+[data-theme="dark"] [style*="color:#777" i]:not([style*="-color:#777" i]),
+[data-theme="dark"] [style*="color:#bbb" i]:not([style*="-color:#bbb" i]),
+[data-theme="dark"] [style*="color:#5a5a5a" i]:not([style*="-color:#5a5a5a" i]) {
+    color: var(--dm-text-2) !important;
+}
+
+/* 内联深色强调文字 → 浅色强调文字（深色底上才可读） */
+[data-theme="dark"] [style*="color:#1e40af" i]:not([style*="-color:#1e40af" i]) {
+    color: #93c5fd !important;
+}
+[data-theme="dark"] [style*="color:#1d4ed8" i]:not([style*="-color:#1d4ed8" i]) {
+    color: #93c5fd !important;
+}
+[data-theme="dark"] [style*="color:#166534" i]:not([style*="-color:#166534" i]) {
+    color: #86efac !important;
+}
+[data-theme="dark"] [style*="color:#c62828" i]:not([style*="-color:#c62828" i]) {
+    color: #fca5a5 !important;
+}
+[data-theme="dark"] [style*="color:#92400e" i]:not([style*="-color:#92400e" i]) {
+    color: #fcd34d !important;
+}
+[data-theme="dark"] [style*="color:#dc2626" i]:not([style*="-color:#dc2626" i]) {
+    color: #f87171 !important;
+}
+[data-theme="dark"] [style*="color:#e74c3c" i]:not([style*="-color:#e74c3c" i]) {
+    color: #f87171 !important;
+}
+[data-theme="dark"] [style*="color:#27ae60" i]:not([style*="-color:#27ae60" i]) {
+    color: #34d399 !important;
+}
+[data-theme="dark"] [style*="color:#16a34a" i]:not([style*="-color:#16a34a" i]) {
+    color: #4ade80 !important;
+}
+[data-theme="dark"] [style*="color:#7c3aed" i]:not([style*="-color:#7c3aed" i]) {
+    color: #a78bfa !important;
+}
+[data-theme="dark"] [style*="color:#3b82f6" i]:not([style*="-color:#3b82f6" i]) {
+    color: #60a5fa !important;
+}
+[data-theme="dark"] [style*="color:#10b981" i]:not([style*="-color:#10b981" i]) {
+    color: #34d399 !important;
+}
+[data-theme="dark"] [style*="color:#ef4444" i]:not([style*="-color:#ef4444" i]) {
+    color: #f87171 !important;
+}
+[data-theme="dark"] [style*="color:#b45309" i]:not([style*="-color:#b45309" i]) {
+    color: #fcd34d !important;
+}
+[data-theme="dark"] [style*="color:#065f46" i]:not([style*="-color:#065f46" i]) {
+    color: #6ee7b7 !important;
+}
+[data-theme="dark"] [style*="color:#8b5cf6" i]:not([style*="-color:#8b5cf6" i]) {
+    color: #a78bfa !important;
+}
+
+/* 内联深色强调文字（补充色阶） → 浅色版 */
+[data-theme="dark"] [style*="color:#0369a1" i]:not([style*="-color:#0369a1" i]) {
+    color: #7dd3fc !important;
+}
+[data-theme="dark"] [style*="color:#0c4a6e" i]:not([style*="-color:#0c4a6e" i]) {
+    color: #7dd3fc !important;
+}
+[data-theme="dark"] [style*="color:#075985" i]:not([style*="-color:#075985" i]) {
+    color: #7dd3fc !important;
+}
+[data-theme="dark"] [style*="color:#0e7490" i]:not([style*="-color:#0e7490" i]) {
+    color: #67e8f9 !important;
+}
+[data-theme="dark"] [style*="color:#15803d" i]:not([style*="-color:#15803d" i]) {
+    color: #4ade80 !important;
+}
+[data-theme="dark"] [style*="color:#047857" i]:not([style*="-color:#047857" i]) {
+    color: #6ee7b7 !important;
+}
+[data-theme="dark"] [style*="color:#b91c1c" i]:not([style*="-color:#b91c1c" i]) {
+    color: #fca5a5 !important;
+}
+[data-theme="dark"] [style*="color:#a16207" i]:not([style*="-color:#a16207" i]) {
+    color: #fcd34d !important;
+}
+[data-theme="dark"] [style*="color:#6d28d9" i]:not([style*="-color:#6d28d9" i]) {
+    color: #a78bfa !important;
+}
+[data-theme="dark"] [style*="color:#4338ca" i]:not([style*="-color:#4338ca" i]) {
+    color: #a5b4fc !important;
+}
+[data-theme="dark"] [style*="color:#7e22ce" i]:not([style*="-color:#7e22ce" i]) {
+    color: #c084fc !important;
+}
+[data-theme="dark"] [style*="color:#4d7c0f" i]:not([style*="-color:#4d7c0f" i]) {
+    color: #a3e635 !important;
+}
+[data-theme="dark"] [style*="color:#be123c" i]:not([style*="-color:#be123c" i]) {
+    color: #fda4af !important;
+}
+[data-theme="dark"] [style*="color:#9d174d" i]:not([style*="-color:#9d174d" i]) {
+    color: #f9a8d4 !important;
+}
+[data-theme="dark"] [style*="color:#115e59" i]:not([style*="-color:#115e59" i]) {
+    color: #5eead4 !important;
+}
+[data-theme="dark"] [style*="color:#3f6212" i]:not([style*="-color:#3f6212" i]) {
+    color: #bef264 !important;
+}
+[data-theme="dark"] [style*="color:#854d0e" i]:not([style*="-color:#854d0e" i]) {
+    color: #fde047 !important;
+}
+[data-theme="dark"] [style*="color:#991b1b" i]:not([style*="-color:#991b1b" i]) {
+    color: #fca5a5 !important;
+}
+[data-theme="dark"] [style*="color:#7f1d1d" i]:not([style*="-color:#7f1d1d" i]) {
+    color: #fecaca !important;
+}
+[data-theme="dark"] [style*="color:#78350f" i]:not([style*="-color:#78350f" i]) {
+    color: #fde68a !important;
+}
+[data-theme="dark"] [style*="color:#1e3a8a" i]:not([style*="-color:#1e3a8a" i]) {
+    color: #93c5fd !important;
+}
+[data-theme="dark"] [style*="color:#0f766e" i]:not([style*="-color:#0f766e" i]) {
+    color: #5eead4 !important;
+}
+[data-theme="dark"] [style*="color:#a21caf" i]:not([style*="-color:#a21caf" i]) {
+    color: #e879f9 !important;
+}
+
+/* 内联浅色渐变底 → 深色渐变 */
+[data-theme="dark"] [style*="linear-gradient(135deg,#eff6ff,#f0fdf4)" i] {
+    background: linear-gradient(135deg,#172554,#052e16) !important;
+}
+[data-theme="dark"] [style*="linear-gradient(135deg,#fffbeb,#fef3c7)" i] {
+    background: linear-gradient(135deg,#422c15,#422c15) !important;
+}
+[data-theme="dark"] [style*="linear-gradient(135deg,#f5f3ff,#fce7f3)" i] {
+    background: linear-gradient(135deg,#1e1b4b,#4a1030) !important;
+}
+[data-theme="dark"] [style*="linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%)" i] {
+    background: linear-gradient(135deg,#1e293b 0%,#334155 100%) !important;
+}
+
+/* ============================================================
+   7. 语文知识点子应用（index.html 内联 <style> 写死的浅色）
+   ============================================================ */
+[data-theme="dark"] .chinese-knowledge {
+    color: #cbd5e1 !important;
+    background: var(--dm-bg) !important;
+}
+[data-theme="dark"] .chinese-knowledge .header {
+    background: linear-gradient(120deg, #0c2d48 0%, #164e63 50%, #0c2d48 100%) !important;
+    color: #a5f3fc !important;
+    border-bottom-color: #164e63 !important;
+}
+[data-theme="dark"] .chinese-knowledge .header h1 { color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .header .subtitle { color: #67e8f9 !important; }
+
+[data-theme="dark"] .chinese-knowledge .search-box input {
+    background: #0b1120 !important;
+    border-color: #164e63 !important;
+    color: var(--dm-text) !important;
+}
+[data-theme="dark"] .chinese-knowledge .search-box input:focus {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+}
+
+[data-theme="dark"] .chinese-knowledge .sidebar {
+    background: var(--dm-surface-1) !important;
+    border-color: var(--dm-border-soft) !important;
+}
+[data-theme="dark"] .chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: #475569 !important; }
+
+[data-theme="dark"] .chinese-knowledge .sidebar-header,
+[data-theme="dark"] .chinese-knowledge .module-header,
+[data-theme="dark"] .chinese-knowledge th {
+    background: linear-gradient(120deg, #075985, #0369a1) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .chinese-knowledge .nav-item { border-bottom-color: var(--dm-border-soft) !important; }
+[data-theme="dark"] .chinese-knowledge .nav-item-title { color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .nav-item-title:hover { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .chinese-knowledge .nav-item-title .arrow { color: #94a3b8 !important; }
+[data-theme="dark"] .chinese-knowledge .nav-item-title.active .arrow { color: #38bdf8 !important; }
+
+[data-theme="dark"] .chinese-knowledge .nav-children { background: var(--dm-bg) !important; }
+[data-theme="dark"] .chinese-knowledge .nav-children a { color: #94a3b8 !important; }
+[data-theme="dark"] .chinese-knowledge .nav-children a:hover {
+    background: #164e63 !important;
+    color: #7dd3fc !important;
+    border-left-color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .chinese-knowledge .module {
+    background: var(--dm-surface-1) !important;
+    border-color: var(--dm-border-soft) !important;
+}
+[data-theme="dark"] .chinese-knowledge .section {
+    background: var(--dm-bg) !important;
+    border-color: var(--dm-border-soft) !important;
+}
+[data-theme="dark"] .chinese-knowledge .section-title { color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .subsection-title { color: #38bdf8 !important; }
+
+[data-theme="dark"] .chinese-knowledge .info-box {
+    background: linear-gradient(135deg, #0c2d48 0%, #164e63 100%) !important;
+    border-left-color: #0ea5e9 !important;
+}
+[data-theme="dark"] .chinese-knowledge .info-box.green  { background: linear-gradient(135deg, #052e16 0%, #065f46 100%) !important; border-left-color: #22c55e !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.orange { background: linear-gradient(135deg, #422c15 0%, #78350f 100%) !important; border-left-color: #f59e0b !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.purple { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%) !important; border-left-color: #a855f7 !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.red    { background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%) !important; border-left-color: #ef4444 !important; }
+
+[data-theme="dark"] .chinese-knowledge .info-box strong,
+[data-theme="dark"] .chinese-knowledge strong { color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.green strong  { color: #86efac !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.orange strong { color: #fcd34d !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.purple strong { color: #c084fc !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.red strong    { color: #fca5a5 !important; }
+
+[data-theme="dark"] .chinese-knowledge .template-box { background: #0c2d48 !important; }
+[data-theme="dark"] .chinese-knowledge .template-box.green  { background: #052e16 !important; }
+[data-theme="dark"] .chinese-knowledge .template-box.orange { background: #422c15 !important; }
+
+[data-theme="dark"] .chinese-knowledge th,
+[data-theme="dark"] .chinese-knowledge td { border-color: var(--dm-border-soft) !important; color: var(--dm-text) !important; }
+[data-theme="dark"] .chinese-knowledge tr:nth-child(even) { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .chinese-knowledge tr:hover { background: #164e63 !important; }
+
+[data-theme="dark"] .chinese-knowledge .tag { background: #164e63 !important; color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .tag.red    { background: #450a0a !important; color: #fca5a5 !important; }
+[data-theme="dark"] .chinese-knowledge .tag.orange { background: #422c15 !important; color: #fdba74 !important; }
+[data-theme="dark"] .chinese-knowledge .tag.green  { background: #052e16 !important; color: #86efac !important; }
+[data-theme="dark"] .chinese-knowledge .tag.blue   { background: #164e63 !important; color: #7dd3fc !important; }
+
+[data-theme="dark"] .chinese-knowledge .key-point  { color: #f87171 !important; }
+[data-theme="dark"] .chinese-knowledge .easy-wrong { color: #fcd34d !important; }
+[data-theme="dark"] .chinese-knowledge .skill-tag  { color: #4ade80 !important; }
+
+/* ---------- Material 50 系浅底（元素卡片 / 分类色块） → 深色版 ---------- */
+[data-theme="dark"] [style*="background:#e8eaf6" i],
+[data-theme="dark"] [style*="background-color:#e8eaf6" i] {
+    background-color: #232946 !important;
+}
+[data-theme="dark"] [style*="background:#f3e5f5" i],
+[data-theme="dark"] [style*="background-color:#f3e5f5" i] {
+    background-color: #2e1a3d !important;
+}
+[data-theme="dark"] [style*="background:#fce4ec" i],
+[data-theme="dark"] [style*="background-color:#fce4ec" i] {
+    background-color: #3d1a2a !important;
+}
+[data-theme="dark"] [style*="background:#efebe9" i],
+[data-theme="dark"] [style*="background-color:#efebe9" i] {
+    background-color: #2f2620 !important;
+}
+[data-theme="dark"] [style*="background:#e3f2fd" i],
+[data-theme="dark"] [style*="background-color:#e3f2fd" i] {
+    background-color: #172554 !important;
+}
+[data-theme="dark"] [style*="background:#e8f5e9" i],
+[data-theme="dark"] [style*="background-color:#e8f5e9" i] {
+    background-color: #143a24 !important;
+}
+[data-theme="dark"] [style*="background:#fff3e0" i],
+[data-theme="dark"] [style*="background-color:#fff3e0" i] {
+    background-color: #3d2a12 !important;
+}
+[data-theme="dark"] [style*="background:#e0f7fa" i],
+[data-theme="dark"] [style*="background-color:#e0f7fa" i] {
+    background-color: #0d3b45 !important;
+}
+[data-theme="dark"] [style*="background:#fbe9e7" i],
+[data-theme="dark"] [style*="background-color:#fbe9e7" i] {
+    background-color: #3d2118 !important;
+}
+[data-theme="dark"] [style*="background:#f1f8e9" i],
+[data-theme="dark"] [style*="background-color:#f1f8e9" i] {
+    background-color: #1e3311 !important;
+}
+[data-theme="dark"] [style*="background:#e1f5fe" i],
+[data-theme="dark"] [style*="background-color:#e1f5fe" i] {
+    background-color: #0c2d48 !important;
+}
+[data-theme="dark"] [style*="background:#ede7f6" i],
+[data-theme="dark"] [style*="background-color:#ede7f6" i] {
+    background-color: #251a3d !important;
+}
+[data-theme="dark"] [style*="background:#fff8e1" i],
+[data-theme="dark"] [style*="background-color:#fff8e1" i] {
+    background-color: #33280f !important;
+}
+[data-theme="dark"] [style*="background:#eceff1" i],
+[data-theme="dark"] [style*="background-color:#eceff1" i] {
+    background-color: #263238 !important;
+}
+[data-theme="dark"] [style*="background:#f5f7fa" i],
+[data-theme="dark"] [style*="background-color:#f5f7fa" i] {
+    background-color: #1e293b !important;
+}
+[data-theme="dark"] [style*="background:#dcfce7" i],
+[data-theme="dark"] [style*="background-color:#dcfce7" i] {
+    background-color: #14532d !important;
+}
+[data-theme="dark"] [style*="background:#ffe0b2" i],
+[data-theme="dark"] [style*="background-color:#ffe0b2" i] {
+    background-color: #3d2a12 !important;
+}
+[data-theme="dark"] [style*="background:#c8e6c9" i],
+[data-theme="dark"] [style*="background-color:#c8e6c9" i] {
+    background-color: #143a24 !important;
+}
+[data-theme="dark"] [style*="background:#bbdefb" i],
+[data-theme="dark"] [style*="background-color:#bbdefb" i] {
+    background-color: #172554 !important;
+}
+[data-theme="dark"] [style*="background:#e1bee7" i],
+[data-theme="dark"] [style*="background-color:#e1bee7" i] {
+    background-color: #2e1a3d !important;
+}
+
+/* ---------- 补充：深色强调文字 → 浅色版 ---------- */
+[data-theme="dark"] [style*="color:#4b5563" i]:not([style*="-color:#4b5563" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#4a5568" i]:not([style*="-color:#4a5568" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#525252" i]:not([style*="-color:#525252" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#3f3f46" i]:not([style*="-color:#3f3f46" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#57534e" i]:not([style*="-color:#57534e" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#78716c" i]:not([style*="-color:#78716c" i]) {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] [style*="color:#111827" i]:not([style*="-color:#111827" i]) {
+    color: #e2e8f0 !important;
+}
+[data-theme="dark"] [style*="color:#030712" i]:not([style*="-color:#030712" i]) {
+    color: #e2e8f0 !important;
+}
+[data-theme="dark"] [style*="color:#0284c7" i]:not([style*="-color:#0284c7" i]) {
+    color: #38bdf8 !important;
+}
+[data-theme="dark"] [style*="color:#0891b2" i]:not([style*="-color:#0891b2" i]) {
+    color: #22d3ee !important;
+}
+[data-theme="dark"] [style*="color:#0ea5e9" i]:not([style*="-color:#0ea5e9" i]) {
+    color: #38bdf8 !important;
+}
+[data-theme="dark"] [style*="color:#ea580c" i]:not([style*="-color:#ea580c" i]) {
+    color: #fdba74 !important;
+}
+[data-theme="dark"] [style*="color:#a855f7" i]:not([style*="-color:#a855f7" i]) {
+    color: #c084fc !important;
+}
+[data-theme="dark"] [style*="color:#c026d3" i]:not([style*="-color:#c026d3" i]) {
+    color: #e879f9 !important;
+}
+[data-theme="dark"] [style*="color:#e11d48" i]:not([style*="-color:#e11d48" i]) {
+    color: #fb7185 !important;
+}
+[data-theme="dark"] [style*="color:#0d9488" i]:not([style*="-color:#0d9488" i]) {
+    color: #2dd4bf !important;
+}
+[data-theme="dark"] [style*="color:#ca8a04" i]:not([style*="-color:#ca8a04" i]) {
+    color: #facc15 !important;
+}
+[data-theme="dark"] [style*="color:#7b1fa2" i]:not([style*="-color:#7b1fa2" i]) {
+    color: #c084fc !important;
+}
+[data-theme="dark"] [style*="color:#0d7a3e" i]:not([style*="-color:#0d7a3e" i]) {
+    color: #4ade80 !important;
+}
+[data-theme="dark"] [style*="color:#064e3b" i]:not([style*="-color:#064e3b" i]) {
+    color: #6ee7b7 !important;
+}
+[data-theme="dark"] [style*="color:#1565c0" i]:not([style*="-color:#1565c0" i]) {
+    color: #93c5fd !important;
+}
+[data-theme="dark"] [style*="color:#4527a0" i]:not([style*="-color:#4527a0" i]) {
+    color: #a78bfa !important;
+}
+[data-theme="dark"] [style*="color:#ad1457" i]:not([style*="-color:#ad1457" i]) {
+    color: #f9a8d4 !important;
+}
+[data-theme="dark"] [style*="color:#e65100" i]:not([style*="-color:#e65100" i]) {
+    color: #fdba74 !important;
+}

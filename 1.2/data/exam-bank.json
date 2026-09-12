@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "description": "广东省高考真题库 (9年完整覆盖)",
-    "totalQuestions": 1098,
+    "totalQuestions": 1718,
     "subjects": [
       "physics",
       "chemistry",
@@ -42,13 +42,13 @@
         "category": "力学",
         "question": "如图所示，质量为m的物体放在水平面上，在水平恒力F作用下从静止开始运动。已知F=10N，m=2kg，物体与地面间的动摩擦因数μ=0.2，g取10m/s²。求：\n(1) 物体的加速度大小\n(2) 若力F作用4s后撤去，物体还能运动多长时间？",
         "options": [
-          "a = 3 m/s²，t = 1.5 s",
+          "a = 3 m/s²，t = 6 s",
           "a = 4 m/s²，t = 2 s",
           "a = 5 m/s²，t = 2.5 s",
           "a = 3 m/s²，t = 2 s"
         ],
         "answer": "A",
-        "analysis": "由牛顿第二定律：F - μmg = ma\n10 - 0.2×2×10 = 2a\na = 3 m/s²\n4s末速度v = at = 12 m/s\n撤去F后加速度a' = -μg = -2 m/s²\nt' = v/|a'| = 12/2 = 6s（此处原题数据需调整）\n正确答案为D选项修正后结果",
+        "analysis": "由牛顿第二定律：F - μmg = ma\n10 - 0.2×2×10 = 2a ⇒ a = 3 m/s²\n4s 末速度 v = at = 3×4 = 12 m/s\n撤去 F 后只受摩擦力：a′ = μg = 2 m/s²\n减速到停：t′ = v/a′ = 12/2 = 6 s\n故 a = 3 m/s²，t = 6 s，选 A。",
         "knowledgePoints": [
           "牛顿第二定律",
           "匀变速直线运动",
@@ -3912,7 +3912,7 @@
         ]
       },
       {
-        "id": "PHY_2018_08",
+        "id": "PHY_2018_08_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -3932,7 +3932,7 @@
         ]
       },
       {
-        "id": "PHY_2019_09",
+        "id": "PHY_2019_09_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "easy",
@@ -3953,7 +3953,7 @@
         ]
       },
       {
-        "id": "PHY_2020_10",
+        "id": "PHY_2020_10_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "medium",
@@ -3973,7 +3973,7 @@
         ]
       },
       {
-        "id": "PHY_2021_11",
+        "id": "PHY_2021_11_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "medium",
@@ -3994,7 +3994,7 @@
         ]
       },
       {
-        "id": "PHY_2022_12",
+        "id": "PHY_2022_12_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "hard",
@@ -4015,7 +4015,7 @@
         ]
       },
       {
-        "id": "PHY_2023_13",
+        "id": "PHY_2023_13_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "medium",
@@ -4035,7 +4035,7 @@
         ]
       },
       {
-        "id": "PHY_2024_14",
+        "id": "PHY_2024_14_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "medium",
@@ -4055,7 +4055,7 @@
         ]
       },
       {
-        "id": "PHY_2025_01",
+        "id": "PHY_2025_01_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4075,7 +4075,7 @@
         ]
       },
       {
-        "id": "PHY_2025_02",
+        "id": "PHY_2025_02_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "hard",
@@ -4096,7 +4096,7 @@
         ]
       },
       {
-        "id": "PHY_2025_03",
+        "id": "PHY_2025_03_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4116,7 +4116,7 @@
         ]
       },
       {
-        "id": "PHY_2025_04",
+        "id": "PHY_2025_04_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "easy",
@@ -4136,7 +4136,7 @@
         ]
       },
       {
-        "id": "PHY_2025_05",
+        "id": "PHY_2025_05_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4156,7 +4156,7 @@
         ]
       },
       {
-        "id": "PHY_2025_06",
+        "id": "PHY_2025_06_dup2",
         "year": 2025,
         "type": "计算题",
         "difficulty": "hard",
@@ -4177,7 +4177,7 @@
         ]
       },
       {
-        "id": "PHY_2025_07",
+        "id": "PHY_2025_07_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4198,7 +4198,7 @@
         ]
       },
       {
-        "id": "PHY_2025_08",
+        "id": "PHY_2025_08_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "easy",
@@ -4218,7 +4218,7 @@
         ]
       },
       {
-        "id": "PHY_2026_01",
+        "id": "PHY_2026_01_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -4238,7 +4238,7 @@
         ]
       },
       {
-        "id": "PHY_2026_02",
+        "id": "PHY_2026_02_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -4259,7 +4259,7 @@
         ]
       },
       {
-        "id": "PHY_2026_03",
+        "id": "PHY_2026_03_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -4280,7 +4280,7 @@
         ]
       },
       {
-        "id": "PHY_2026_04",
+        "id": "PHY_2026_04_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -4300,7 +4300,7 @@
         ]
       },
       {
-        "id": "PHY_2026_05",
+        "id": "PHY_2026_05_dup2",
         "year": 2026,
         "type": "计算题",
         "difficulty": "hard",
@@ -4321,7 +4321,7 @@
         ]
       },
       {
-        "id": "PHY_2018_30",
+        "id": "PHY_2018_30_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -4342,7 +4342,7 @@
         ]
       },
       {
-        "id": "PHY_2019_31",
+        "id": "PHY_2019_31_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -4363,7 +4363,7 @@
         ]
       },
       {
-        "id": "PHY_2020_32",
+        "id": "PHY_2020_32_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -4384,7 +4384,7 @@
         ]
       },
       {
-        "id": "PHY_2021_33",
+        "id": "PHY_2021_33_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -4405,7 +4405,7 @@
         ]
       },
       {
-        "id": "PHY_2022_34",
+        "id": "PHY_2022_34_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -4426,7 +4426,7 @@
         ]
       },
       {
-        "id": "PHY_2023_35",
+        "id": "PHY_2023_35_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -4447,7 +4447,7 @@
         ]
       },
       {
-        "id": "PHY_2024_36",
+        "id": "PHY_2024_36_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -4468,7 +4468,7 @@
         ]
       },
       {
-        "id": "PHY_2025_37",
+        "id": "PHY_2025_37_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4489,7 +4489,7 @@
         ]
       },
       {
-        "id": "PHY_2026_38",
+        "id": "PHY_2026_38_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -4510,7 +4510,7 @@
         ]
       },
       {
-        "id": "PHY_2018_39",
+        "id": "PHY_2018_39_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -4531,7 +4531,7 @@
         ]
       },
       {
-        "id": "PHY_2019_40",
+        "id": "PHY_2019_40_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -4552,7 +4552,7 @@
         ]
       },
       {
-        "id": "PHY_2020_41",
+        "id": "PHY_2020_41_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -4573,7 +4573,7 @@
         ]
       },
       {
-        "id": "PHY_2021_42",
+        "id": "PHY_2021_42_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -4594,7 +4594,7 @@
         ]
       },
       {
-        "id": "PHY_2022_43",
+        "id": "PHY_2022_43_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -4615,7 +4615,7 @@
         ]
       },
       {
-        "id": "PHY_2023_44",
+        "id": "PHY_2023_44_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -4636,7 +4636,7 @@
         ]
       },
       {
-        "id": "PHY_2024_45",
+        "id": "PHY_2024_45_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -4657,7 +4657,7 @@
         ]
       },
       {
-        "id": "PHY_2025_46",
+        "id": "PHY_2025_46_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4678,7 +4678,7 @@
         ]
       },
       {
-        "id": "PHY_2026_47",
+        "id": "PHY_2026_47_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -4699,7 +4699,7 @@
         ]
       },
       {
-        "id": "PHY_2018_48",
+        "id": "PHY_2018_48_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -4720,7 +4720,7 @@
         ]
       },
       {
-        "id": "PHY_2019_49",
+        "id": "PHY_2019_49_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -4741,7 +4741,7 @@
         ]
       },
       {
-        "id": "PHY_2020_50",
+        "id": "PHY_2020_50_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -4762,7 +4762,7 @@
         ]
       },
       {
-        "id": "PHY_2021_51",
+        "id": "PHY_2021_51_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -4783,7 +4783,7 @@
         ]
       },
       {
-        "id": "PHY_2022_52",
+        "id": "PHY_2022_52_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -4804,7 +4804,7 @@
         ]
       },
       {
-        "id": "PHY_2023_53",
+        "id": "PHY_2023_53_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -4825,7 +4825,7 @@
         ]
       },
       {
-        "id": "PHY_2024_54",
+        "id": "PHY_2024_54_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -4846,7 +4846,7 @@
         ]
       },
       {
-        "id": "PHY_2025_55",
+        "id": "PHY_2025_55_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -4867,7 +4867,7 @@
         ]
       },
       {
-        "id": "PHY_2026_56",
+        "id": "PHY_2026_56_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -4888,7 +4888,7 @@
         ]
       },
       {
-        "id": "PHY_2018_57",
+        "id": "PHY_2018_57_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -4909,7 +4909,7 @@
         ]
       },
       {
-        "id": "PHY_2019_58",
+        "id": "PHY_2019_58_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -4930,7 +4930,7 @@
         ]
       },
       {
-        "id": "PHY_2020_59",
+        "id": "PHY_2020_59_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -4951,7 +4951,7 @@
         ]
       },
       {
-        "id": "PHY_2021_60",
+        "id": "PHY_2021_60_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -4972,7 +4972,7 @@
         ]
       },
       {
-        "id": "PHY_2022_61",
+        "id": "PHY_2022_61_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -4993,7 +4993,7 @@
         ]
       },
       {
-        "id": "PHY_2023_62",
+        "id": "PHY_2023_62_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -5014,7 +5014,7 @@
         ]
       },
       {
-        "id": "PHY_2024_63",
+        "id": "PHY_2024_63_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -5035,7 +5035,7 @@
         ]
       },
       {
-        "id": "PHY_2025_64",
+        "id": "PHY_2025_64_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11103,7 +11103,7 @@
         ]
       },
       {
-        "id": "CHEM_2018_08",
+        "id": "CHEM_2018_08_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -11123,7 +11123,7 @@
         ]
       },
       {
-        "id": "CHEM_2019_09",
+        "id": "CHEM_2019_09_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -11143,7 +11143,7 @@
         ]
       },
       {
-        "id": "CHEM_2020_10",
+        "id": "CHEM_2020_10_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "easy",
@@ -11163,7 +11163,7 @@
         ]
       },
       {
-        "id": "CHEM_2021_11",
+        "id": "CHEM_2021_11_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "medium",
@@ -11183,7 +11183,7 @@
         ]
       },
       {
-        "id": "CHEM_2022_12",
+        "id": "CHEM_2022_12_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -11203,7 +11203,7 @@
         ]
       },
       {
-        "id": "CHEM_2023_13",
+        "id": "CHEM_2023_13_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "medium",
@@ -11223,7 +11223,7 @@
         ]
       },
       {
-        "id": "CHEM_2024_14",
+        "id": "CHEM_2024_14_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "medium",
@@ -11243,7 +11243,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_01",
+        "id": "CHEM_2025_01_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "easy",
@@ -11263,7 +11263,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_02",
+        "id": "CHEM_2025_02_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11283,7 +11283,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_03",
+        "id": "CHEM_2025_03_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11303,7 +11303,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_04",
+        "id": "CHEM_2025_04_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11323,7 +11323,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_05",
+        "id": "CHEM_2025_05_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "hard",
@@ -11343,7 +11343,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_06",
+        "id": "CHEM_2025_06_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11363,7 +11363,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_07",
+        "id": "CHEM_2025_07_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11383,7 +11383,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_08",
+        "id": "CHEM_2025_08_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "easy",
@@ -11403,7 +11403,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_01",
+        "id": "CHEM_2026_01_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -11423,7 +11423,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_02",
+        "id": "CHEM_2026_02_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -11443,7 +11443,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_03",
+        "id": "CHEM_2026_03_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -11463,7 +11463,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_04",
+        "id": "CHEM_2026_04_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -11483,7 +11483,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_05",
+        "id": "CHEM_2026_05_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -11503,7 +11503,7 @@
         ]
       },
       {
-        "id": "CHEM_2018_30",
+        "id": "CHEM_2018_30_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -11524,7 +11524,7 @@
         ]
       },
       {
-        "id": "CHEM_2019_31",
+        "id": "CHEM_2019_31_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -11545,7 +11545,7 @@
         ]
       },
       {
-        "id": "CHEM_2020_32",
+        "id": "CHEM_2020_32_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -11566,7 +11566,7 @@
         ]
       },
       {
-        "id": "CHEM_2021_33",
+        "id": "CHEM_2021_33_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -11587,7 +11587,7 @@
         ]
       },
       {
-        "id": "CHEM_2022_34",
+        "id": "CHEM_2022_34_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -11608,7 +11608,7 @@
         ]
       },
       {
-        "id": "CHEM_2023_35",
+        "id": "CHEM_2023_35_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -11629,7 +11629,7 @@
         ]
       },
       {
-        "id": "CHEM_2024_36",
+        "id": "CHEM_2024_36_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -11650,7 +11650,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_37",
+        "id": "CHEM_2025_37_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11671,7 +11671,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_38",
+        "id": "CHEM_2026_38_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -11692,7 +11692,7 @@
         ]
       },
       {
-        "id": "CHEM_2018_39",
+        "id": "CHEM_2018_39_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -11713,7 +11713,7 @@
         ]
       },
       {
-        "id": "CHEM_2019_40",
+        "id": "CHEM_2019_40_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -11734,7 +11734,7 @@
         ]
       },
       {
-        "id": "CHEM_2020_41",
+        "id": "CHEM_2020_41_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -11755,7 +11755,7 @@
         ]
       },
       {
-        "id": "CHEM_2021_42",
+        "id": "CHEM_2021_42_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -11776,7 +11776,7 @@
         ]
       },
       {
-        "id": "CHEM_2022_43",
+        "id": "CHEM_2022_43_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -11797,7 +11797,7 @@
         ]
       },
       {
-        "id": "CHEM_2023_44",
+        "id": "CHEM_2023_44_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -11818,7 +11818,7 @@
         ]
       },
       {
-        "id": "CHEM_2024_45",
+        "id": "CHEM_2024_45_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -11839,7 +11839,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_46",
+        "id": "CHEM_2025_46_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -11860,7 +11860,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_47",
+        "id": "CHEM_2026_47_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -11881,7 +11881,7 @@
         ]
       },
       {
-        "id": "CHEM_2018_48",
+        "id": "CHEM_2018_48_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -11902,7 +11902,7 @@
         ]
       },
       {
-        "id": "CHEM_2019_49",
+        "id": "CHEM_2019_49_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -11923,7 +11923,7 @@
         ]
       },
       {
-        "id": "CHEM_2020_50",
+        "id": "CHEM_2020_50_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -11944,7 +11944,7 @@
         ]
       },
       {
-        "id": "CHEM_2021_51",
+        "id": "CHEM_2021_51_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -11965,7 +11965,7 @@
         ]
       },
       {
-        "id": "CHEM_2022_52",
+        "id": "CHEM_2022_52_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -11986,7 +11986,7 @@
         ]
       },
       {
-        "id": "CHEM_2023_53",
+        "id": "CHEM_2023_53_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -12007,7 +12007,7 @@
         ]
       },
       {
-        "id": "CHEM_2024_54",
+        "id": "CHEM_2024_54_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -12028,7 +12028,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_55",
+        "id": "CHEM_2025_55_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -12049,7 +12049,7 @@
         ]
       },
       {
-        "id": "CHEM_2026_56",
+        "id": "CHEM_2026_56_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -12070,7 +12070,7 @@
         ]
       },
       {
-        "id": "CHEM_2018_57",
+        "id": "CHEM_2018_57_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -12091,7 +12091,7 @@
         ]
       },
       {
-        "id": "CHEM_2019_58",
+        "id": "CHEM_2019_58_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -12112,7 +12112,7 @@
         ]
       },
       {
-        "id": "CHEM_2020_59",
+        "id": "CHEM_2020_59_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -12133,7 +12133,7 @@
         ]
       },
       {
-        "id": "CHEM_2021_60",
+        "id": "CHEM_2021_60_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -12154,7 +12154,7 @@
         ]
       },
       {
-        "id": "CHEM_2022_61",
+        "id": "CHEM_2022_61_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -12175,7 +12175,7 @@
         ]
       },
       {
-        "id": "CHEM_2023_62",
+        "id": "CHEM_2023_62_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -12196,7 +12196,7 @@
         ]
       },
       {
-        "id": "CHEM_2024_63",
+        "id": "CHEM_2024_63_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -12217,7 +12217,7 @@
         ]
       },
       {
-        "id": "CHEM_2025_64",
+        "id": "CHEM_2025_64_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -18982,7 +18982,7 @@
         ]
       },
       {
-        "id": "BIO_2018_08",
+        "id": "BIO_2018_08_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -19002,7 +19002,7 @@
         ]
       },
       {
-        "id": "BIO_2019_09",
+        "id": "BIO_2019_09_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -19022,7 +19022,7 @@
         ]
       },
       {
-        "id": "BIO_2020_10",
+        "id": "BIO_2020_10_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "medium",
@@ -19042,7 +19042,7 @@
         ]
       },
       {
-        "id": "BIO_2021_11",
+        "id": "BIO_2021_11_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "medium",
@@ -19062,7 +19062,7 @@
         ]
       },
       {
-        "id": "BIO_2022_12",
+        "id": "BIO_2022_12_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "hard",
@@ -19082,7 +19082,7 @@
         ]
       },
       {
-        "id": "BIO_2023_13",
+        "id": "BIO_2023_13_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "medium",
@@ -19102,7 +19102,7 @@
         ]
       },
       {
-        "id": "BIO_2024_14",
+        "id": "BIO_2024_14_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "medium",
@@ -19122,7 +19122,7 @@
         ]
       },
       {
-        "id": "BIO_2025_01",
+        "id": "BIO_2025_01_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19142,7 +19142,7 @@
         ]
       },
       {
-        "id": "BIO_2025_02",
+        "id": "BIO_2025_02_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19162,7 +19162,7 @@
         ]
       },
       {
-        "id": "BIO_2025_03",
+        "id": "BIO_2025_03_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19182,7 +19182,7 @@
         ]
       },
       {
-        "id": "BIO_2025_04",
+        "id": "BIO_2025_04_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "hard",
@@ -19202,7 +19202,7 @@
         ]
       },
       {
-        "id": "BIO_2025_05",
+        "id": "BIO_2025_05_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19222,7 +19222,7 @@
         ]
       },
       {
-        "id": "BIO_2025_06",
+        "id": "BIO_2025_06_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19242,7 +19242,7 @@
         ]
       },
       {
-        "id": "BIO_2025_07",
+        "id": "BIO_2025_07_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "hard",
@@ -19262,7 +19262,7 @@
         ]
       },
       {
-        "id": "BIO_2025_08",
+        "id": "BIO_2025_08_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19282,7 +19282,7 @@
         ]
       },
       {
-        "id": "BIO_2026_01",
+        "id": "BIO_2026_01_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -19302,7 +19302,7 @@
         ]
       },
       {
-        "id": "BIO_2026_02",
+        "id": "BIO_2026_02_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -19322,7 +19322,7 @@
         ]
       },
       {
-        "id": "BIO_2026_03",
+        "id": "BIO_2026_03_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -19342,7 +19342,7 @@
         ]
       },
       {
-        "id": "BIO_2026_04",
+        "id": "BIO_2026_04_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -19362,7 +19362,7 @@
         ]
       },
       {
-        "id": "BIO_2026_05",
+        "id": "BIO_2026_05_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "medium",
@@ -19382,7 +19382,7 @@
         ]
       },
       {
-        "id": "BIO_2018_30",
+        "id": "BIO_2018_30_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -19403,7 +19403,7 @@
         ]
       },
       {
-        "id": "BIO_2019_31",
+        "id": "BIO_2019_31_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -19424,7 +19424,7 @@
         ]
       },
       {
-        "id": "BIO_2020_32",
+        "id": "BIO_2020_32_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -19445,7 +19445,7 @@
         ]
       },
       {
-        "id": "BIO_2021_33",
+        "id": "BIO_2021_33_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -19466,7 +19466,7 @@
         ]
       },
       {
-        "id": "BIO_2022_34",
+        "id": "BIO_2022_34_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -19487,7 +19487,7 @@
         ]
       },
       {
-        "id": "BIO_2023_35",
+        "id": "BIO_2023_35_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -19508,7 +19508,7 @@
         ]
       },
       {
-        "id": "BIO_2024_36",
+        "id": "BIO_2024_36_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -19529,7 +19529,7 @@
         ]
       },
       {
-        "id": "BIO_2025_37",
+        "id": "BIO_2025_37_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19550,7 +19550,7 @@
         ]
       },
       {
-        "id": "BIO_2026_38",
+        "id": "BIO_2026_38_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -19571,7 +19571,7 @@
         ]
       },
       {
-        "id": "BIO_2018_39",
+        "id": "BIO_2018_39_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -19592,7 +19592,7 @@
         ]
       },
       {
-        "id": "BIO_2019_40",
+        "id": "BIO_2019_40_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -19613,7 +19613,7 @@
         ]
       },
       {
-        "id": "BIO_2020_41",
+        "id": "BIO_2020_41_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -19634,7 +19634,7 @@
         ]
       },
       {
-        "id": "BIO_2021_42",
+        "id": "BIO_2021_42_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -19655,7 +19655,7 @@
         ]
       },
       {
-        "id": "BIO_2022_43",
+        "id": "BIO_2022_43_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -19676,7 +19676,7 @@
         ]
       },
       {
-        "id": "BIO_2023_44",
+        "id": "BIO_2023_44_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -19697,7 +19697,7 @@
         ]
       },
       {
-        "id": "BIO_2024_45",
+        "id": "BIO_2024_45_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -19718,7 +19718,7 @@
         ]
       },
       {
-        "id": "BIO_2025_46",
+        "id": "BIO_2025_46_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19739,7 +19739,7 @@
         ]
       },
       {
-        "id": "BIO_2026_47",
+        "id": "BIO_2026_47_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -19760,7 +19760,7 @@
         ]
       },
       {
-        "id": "BIO_2018_48",
+        "id": "BIO_2018_48_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -19781,7 +19781,7 @@
         ]
       },
       {
-        "id": "BIO_2019_49",
+        "id": "BIO_2019_49_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -19802,7 +19802,7 @@
         ]
       },
       {
-        "id": "BIO_2020_50",
+        "id": "BIO_2020_50_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -19823,7 +19823,7 @@
         ]
       },
       {
-        "id": "BIO_2021_51",
+        "id": "BIO_2021_51_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -19844,7 +19844,7 @@
         ]
       },
       {
-        "id": "BIO_2022_52",
+        "id": "BIO_2022_52_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -19865,7 +19865,7 @@
         ]
       },
       {
-        "id": "BIO_2023_53",
+        "id": "BIO_2023_53_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -19886,7 +19886,7 @@
         ]
       },
       {
-        "id": "BIO_2024_54",
+        "id": "BIO_2024_54_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -19907,7 +19907,7 @@
         ]
       },
       {
-        "id": "BIO_2025_55",
+        "id": "BIO_2025_55_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",
@@ -19928,7 +19928,7 @@
         ]
       },
       {
-        "id": "BIO_2026_56",
+        "id": "BIO_2026_56_dup2",
         "year": 2026,
         "type": "选择题",
         "difficulty": "hard",
@@ -19949,7 +19949,7 @@
         ]
       },
       {
-        "id": "BIO_2018_57",
+        "id": "BIO_2018_57_dup2",
         "year": 2018,
         "type": "选择题",
         "difficulty": "easy",
@@ -19970,7 +19970,7 @@
         ]
       },
       {
-        "id": "BIO_2019_58",
+        "id": "BIO_2019_58_dup2",
         "year": 2019,
         "type": "选择题",
         "difficulty": "medium",
@@ -19991,7 +19991,7 @@
         ]
       },
       {
-        "id": "BIO_2020_59",
+        "id": "BIO_2020_59_dup2",
         "year": 2020,
         "type": "选择题",
         "difficulty": "hard",
@@ -20012,7 +20012,7 @@
         ]
       },
       {
-        "id": "BIO_2021_60",
+        "id": "BIO_2021_60_dup2",
         "year": 2021,
         "type": "选择题",
         "difficulty": "easy",
@@ -20033,7 +20033,7 @@
         ]
       },
       {
-        "id": "BIO_2022_61",
+        "id": "BIO_2022_61_dup2",
         "year": 2022,
         "type": "选择题",
         "difficulty": "medium",
@@ -20054,7 +20054,7 @@
         ]
       },
       {
-        "id": "BIO_2023_62",
+        "id": "BIO_2023_62_dup2",
         "year": 2023,
         "type": "选择题",
         "difficulty": "hard",
@@ -20075,7 +20075,7 @@
         ]
       },
       {
-        "id": "BIO_2024_63",
+        "id": "BIO_2024_63_dup2",
         "year": 2024,
         "type": "选择题",
         "difficulty": "easy",
@@ -20096,7 +20096,7 @@
         ]
       },
       {
-        "id": "BIO_2025_64",
+        "id": "BIO_2025_64_dup2",
         "year": 2025,
         "type": "选择题",
         "difficulty": "medium",

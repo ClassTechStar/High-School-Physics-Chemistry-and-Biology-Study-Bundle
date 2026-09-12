@@ -4,7 +4,7 @@
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v7';
+var CACHE_NAME = 'hspcb-v10';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 var CORE_ASSETS = [
@@ -14,9 +14,11 @@ var CORE_ASSETS = [
     'manifest.json',
     'css/tokens.css',
     'css/style.css',
-    'css/presentation.css',
-    'css/promo.css',
+    'css/theme-dark.css',
+    'presentation.css',
+    'promo.css',
     'js/common-utils.js',
+    'js/progress.js',
     'js/app.js',
     'js/app-chemistry.js',
     'js/app-physics.js',
@@ -72,6 +74,8 @@ var DATA_ASSETS = [
     'data/answer-templates.json',
     'data/cross-subject.json',
     'data/tech-frontiers.json',
+    'data/variation-bank.json',
+    'data/knowledgePoints-thesaurus.json',
     'data/physics/knowledge.json',
     'data/chemistry/knowledge.json',
     'data/biology/knowledge.json',
@@ -150,12 +154,12 @@ self.addEventListener('fetch', function (event) {
         return;
     }
 
-    // 数据文件：网络优先（保证数据最新），失败回退缓存
+    // 数据文件 与 CSS：网络优先（保证数据/样式最新），失败回退缓存
     var isDataFile = DATA_ASSETS.some(function (dataUrl) {
         return url.pathname.indexOf(dataUrl) !== -1;
     });
 
-    if (isDataFile) {
+    if (isDataFile || /\.css(\?|$)/.test(url.pathname)) {
         event.respondWith(
             fetch(request).then(function (response) {
                 if (response && response.status === 200) {
@@ -167,9 +171,13 @@ self.addEventListener('fetch', function (event) {
                 return response;
             }).catch(function () {
                 return caches.match(request).then(function (cached) {
-                    return cached || new Response('{"error":"离线且无缓存"}', {
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+                    if (cached) return cached;
+                    if (isDataFile) {
+                        return new Response('{"error":"离线且无缓存"}', {
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                    }
+                    return new Response('', { status: 504, statusText: 'offline' });
                 });
             })
         );

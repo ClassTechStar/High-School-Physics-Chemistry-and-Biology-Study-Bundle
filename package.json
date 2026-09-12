@@ -1,0 +1,19 @@
+{
+  "name": "hspcb-study-bundle",
+  "version": "1.2.0",
+  "private": true,
+  "description": "高中物化生语数英学习大礼包 — 广东高考智能备考平台（纯静态）",
+  "type": "module",
+  "scripts": {
+    "serve": "python -m http.server 8000 --directory 1.2",
+    "check:data": "node scripts/validate-data.mjs",
+    "check:data:json": "node scripts/validate-data.mjs --json",
+    "test": "node scripts/test-progress.mjs",
+    "test:smoke": "node scripts/smoke-app.mjs",
+    "verify": "npm run check:data && npm run test && npm run test:smoke"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "CC-BY-NC-SA-4.0"
+}
