@@ -4,7 +4,7 @@
 
 
 // ==================== 2. 化学实验室安全系统 ====================
-const chemistrySafetySystem = {
+const chemistrySafetyQuiz = {
     state: { currentQuiz: null, score: 0, total: 0, quizIndex: 0, showAnswer: false, userAnswer: -1, mode: 'learn' },
 
     symbols: [
@@ -81,7 +81,7 @@ const chemistrySafetySystem = {
                     '<h4 style="margin-top:0;">📊 实验室安全测试</h4>' +
                     '<p>题库共 ' + totalQ + ' 道题</p>' +
                     '<p style="color:#64748b;">已答题：' + s.total + ' | 正确：' + s.score + ' | 正确率：' + pct + '%</p>' +
-                    '<button onclick="chemistrySafetySystem._startQuiz()" style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;">' + (s.total>0?'重新测试':'开始测试') + '</button></div>';
+                    '<button onclick="window.chemistrySafetyQuiz._startQuiz()" style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;">' + (s.total>0?'重新测试':'开始测试') + '</button></div>';
             } else {
                 const q = s.currentQuiz;
                 html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
@@ -94,7 +94,7 @@ const chemistrySafetySystem = {
                         if (i === q.answer) { bg = '#dcfce7'; border = '#16a34a'; }
                         else if (i === s.userAnswer) { bg = '#fee2e2'; border = '#ef4444'; }
                     }
-                    html += '<button onclick="chemistrySafetySystem._answer(' + i + ')" ' + (s.showAnswer?'disabled':'') +
+                    html += '<button onclick="window.chemistrySafetyQuiz._answer(' + i + ')" ' + (s.showAnswer?'disabled':'') +
                         ' style="text-align:left;padding:10px 14px;background:' + bg + ';border:1.5px solid ' + border + ';border-radius:6px;cursor:' + (s.showAnswer?'default':'pointer') + ';font-size:0.95rem;">' + opt + '</button>';
                 });
                 html += '</div>';
@@ -103,7 +103,7 @@ const chemistrySafetySystem = {
                     html += '<div style="margin-top:14px;padding:12px;background:' + (correct?'#dcfce7':'#fee2e2') + ';border-radius:6px;border-left:3px solid ' + (correct?'#16a34a':'#ef4444') + ';">' +
                         '<strong>' + (correct?'✅ 回答正确！':'❌ 回答错误') + '</strong>' +
                         '<p style="margin:6px 0 0;color:#475569;font-size:0.9rem;line-height:1.6;">' + q.analysis + '</p>' +
-                        '<button onclick="chemistrySafetySystem._next()" style="margin-top:10px;background:#3b82f6;color:#fff;border:0;padding:6px 16px;border-radius:6px;cursor:pointer;">下一题 →</button></div>';
+                        '<button onclick="window.chemistrySafetyQuiz._next()" style="margin-top:10px;background:#3b82f6;color:#fff;border:0;padding:6px 16px;border-radius:6px;cursor:pointer;">下一题 →</button></div>';
                 }
                 html += '</div>';
             }
@@ -161,7 +161,7 @@ const chemistrySafetySystem = {
 };
 
 // ==================== 3. 电化学可视化工具 ====================
-const electrochemistryViewer = {
+const electrochemistryViewerLite = {
     state: { type: 'galvanic', metal1: 'Zn', metal2: 'Cu', electrolyte: '稀CuSO₄溶液' },
 
     metals: [
@@ -213,7 +213,7 @@ const electrochemistryViewer = {
             html += '<option' + (s.electrolyte===e?' selected':'') + '>' + e + '</option>';
         });
         html += '</select></label>';
-        html += '<button onclick="electrochemistryViewer._reset()" style="background:#f1f5f9;color:#475569;border:0;padding:4px 12px;border-radius:4px;cursor:pointer;">🔄 重置</button></div>';
+        html += '<button onclick="window.electrochemistryViewerLite._reset()" style="background:#f1f5f9;color:#475569;border:0;padding:4px 12px;border-radius:4px;cursor:pointer;">🔄 重置</button></div>';
 
         html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:14px;">';
         html += '<svg viewBox="0 0 700 360" style="width:100%;height:auto;display:block;">';
@@ -302,7 +302,7 @@ const electrochemistryViewer = {
 };
 
 // ==================== 4. 有机化学转化工具 ====================
-const organicConverter = {
+const organicConverterLite = {
     state: { fromSub: 'ethanol', toSub: 'ethene' },
 
     substances: {
@@ -364,13 +364,13 @@ const organicConverter = {
         html += '<label>目标物：<select id="oc-to" style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;">';
         keys.forEach(function(k){ html += '<option value="' + k + '"' + (s.toSub===k?' selected':'') + '>' + subs[k].name + '</option>'; });
         html += '</select></label>';
-        html += '<button onclick="organicConverter._findPath()" style="background:#3b82f6;color:#fff;border:0;padding:6px 14px;border-radius:6px;cursor:pointer;">🔍 查询转化路径</button></div>';
+        html += '<button onclick="window.organicConverterLite._findPath()" style="background:#3b82f6;color:#fff;border:0;padding:6px 14px;border-radius:6px;cursor:pointer;">🔍 查询转化路径</button></div>';
         html += '<div id="oc-result"></div>';
         html += '<div style="margin-top:14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">';
         html += '<h4 style="margin-top:0;">📋 物质卡片速查</h4>';
         html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
         keys.forEach(function(k){
-            html += '<div onclick="organicConverter._showSub(\'' + k + '\')" style="padding:10px;background:#f8fafc;border-left:3px solid ' + subs[k].color + ';border-radius:6px;cursor:pointer;">' +
+            html += '<div onclick="window.organicConverterLite._showSub(\'' + k + '\')" style="padding:10px;background:#f8fafc;border-left:3px solid ' + subs[k].color + ';border-radius:6px;cursor:pointer;">' +
                 '<strong style="color:' + subs[k].color + ';">' + subs[k].name + '</strong>' +
                 '<div style="font-size:0.8rem;color:#64748b;margin-top:2px;">' + subs[k].cat + ' | ' + subs[k].formula + '</div></div>';
         });
@@ -462,3 +462,11 @@ const organicConverter = {
     }
 };
 // END PART 1
+
+// v1.3: 原与 app-chemistry.js 的 chemistrySafetySystem 重名导致整文件解析失败，现改名并暴露
+window.chemistrySafetyQuiz = chemistrySafetyQuiz;
+
+// v1.3: 原与 app-chemistry.js 的同名 const 冲突导致整文件解析失败，现改名并暴露
+window.chemistrySafetyQuiz = chemistrySafetyQuiz;
+window.electrochemistryViewerLite = electrochemistryViewerLite;
+window.organicConverterLite = organicConverterLite;

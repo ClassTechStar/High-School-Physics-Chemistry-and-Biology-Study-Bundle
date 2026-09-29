@@ -8,9 +8,10 @@
     "serve": "python -m http.server 8000 --directory 1.2",
     "check:data": "node scripts/validate-data.mjs",
     "check:data:json": "node scripts/validate-data.mjs --json",
+    "check:collisions": "node scripts/check-global-collisions.mjs",
     "test": "node scripts/test-progress.mjs",
     "test:smoke": "node scripts/smoke-app.mjs",
-    "verify": "npm run check:data && npm run test && npm run test:smoke"
+    "verify": "npm run check:data && npm run check:collisions && npm run test && npm run test:smoke"
   },
   "engines": {
     "node": ">=18"

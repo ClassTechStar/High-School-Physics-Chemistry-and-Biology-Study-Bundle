@@ -75,8 +75,8 @@ function paras(t) {
 }
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 function safeParse(s, def) { try { return JSON.parse(s); } catch (e) { return def; } }
-function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function safeGet(k) { try { return (window.HSPCBStore ? HSPCBStore.get(k) : localStorage.getItem(k)); } catch (e) { return null; } }
+function safeSet(k, v) { try { (window.HSPCBStore ? HSPCBStore.set(k, v) : localStorage.setItem(k, v)); } catch (e) {} }
 
 /* ================================================================
  * MODULE 1: englishGrammarQuiz

@@ -629,7 +629,7 @@ var countdownTaskSystem = {
         }
 
         // Load checkin data
-        var raw = localStorage.getItem('hspcb_daily_checkin');
+        var raw = (window.HSPCBStore ? HSPCBStore.get('hspcb_daily_checkin') : localStorage.getItem('hspcb_daily_checkin'));
         if (raw) {
             try { self.checkinData = JSON.parse(raw); } catch(e) { self.checkinData = {}; }
         }
@@ -814,7 +814,7 @@ var countdownTaskSystem = {
         btn.addEventListener('click', function() {
             var today = self._getDateKey(new Date());
             self.checkinData[today] = true;
-            localStorage.setItem('hspcb_daily_checkin', JSON.stringify(self.checkinData));
+            (window.HSPCBStore ? HSPCBStore.set('hspcb_daily_checkin', JSON.stringify(self.checkinData)) : localStorage.setItem('hspcb_daily_checkin', JSON.stringify(self.checkinData)));
             self.render();
         });
     },
@@ -880,10 +880,10 @@ var studyReport = {
         });
         document.getElementById('clear-data-btn').addEventListener('click', function() {
             if (confirm('确定要清除所有学习数据吗？此操作不可恢复！')) {
-                localStorage.removeItem('hspcb_wrong_records');
-                localStorage.removeItem('hspcb_quiz_records');
-                localStorage.removeItem('hspcb_manual_mastery');
-                localStorage.removeItem('hspcb_daily_checkin');
+                (window.HSPCBStore ? HSPCBStore.remove('hspcb_wrong_records') : localStorage.removeItem('hspcb_wrong_records'));
+                (window.HSPCBStore ? HSPCBStore.remove('hspcb_quiz_records') : localStorage.removeItem('hspcb_quiz_records'));
+                (window.HSPCBStore ? HSPCBStore.remove('hspcb_manual_mastery') : localStorage.removeItem('hspcb_manual_mastery'));
+                (window.HSPCBStore ? HSPCBStore.remove('hspcb_daily_checkin') : localStorage.removeItem('hspcb_daily_checkin'));
                 self.reportData = null;
                 document.getElementById('report-content').innerHTML = '';
                 document.getElementById('print-report-btn').style.display = 'none';
@@ -1122,7 +1122,7 @@ var studyReport = {
 
     _loadJSON: function(key, defaultVal) {
         try {
-            var raw = localStorage.getItem(key);
+            var raw = (window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key));
             if (raw) return JSON.parse(raw);
         } catch(e) {}
         return defaultVal;

@@ -154,7 +154,7 @@ window.englishVocabulary = (function() {
     function loadProgress() {
         if (progressData) return progressData;
         try {
-            var raw = localStorage.getItem(STORAGE_KEY);
+            var raw = HSPCBStore.get(STORAGE_KEY);
             if (raw) {
                 progressData = JSON.parse(raw);
             } else {
@@ -175,7 +175,7 @@ window.englishVocabulary = (function() {
     function saveProgress() {
         progressData.masteredCount = Object.keys(progressData.known).length;
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(progressData));
+            HSPCBStore.set(STORAGE_KEY, JSON.stringify(progressData));
         } catch (e) {
             /* storage full */
         }

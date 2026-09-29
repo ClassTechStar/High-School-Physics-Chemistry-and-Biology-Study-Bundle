@@ -8,7 +8,7 @@
   }
   function getStore(key, def) {
     try {
-      var v = localStorage.getItem(key);
+      var v = (window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key));
       if (!v) return def;
       return JSON.parse(v);
     } catch (e) { return def; }
@@ -495,7 +495,7 @@
         arr.push({ date: dateVal, subject: subj, seconds: mins * 60 });
         added++;
       }
-      try { localStorage.setItem('hspcb_study_time', JSON.stringify(arr)); } catch (e) {}
+      try { (window.HSPCBStore ? HSPCBStore.set('hspcb_study_time', JSON.stringify(arr)) : localStorage.setItem('hspcb_study_time', JSON.stringify(arr))); } catch (e) {}
       var msg = bodyEl.querySelector('#tma-manual-msg');
       if (msg) msg.innerHTML = '<div style="color:#27ae60;font-size:12px;margin-bottom:8px;">已保存 ' + added + ' 条记录。</div>';
       var selfObj = this;
