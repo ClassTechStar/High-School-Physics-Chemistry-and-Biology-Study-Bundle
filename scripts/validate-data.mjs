@@ -305,11 +305,26 @@ function validateExamBank() {
     warn(rel, `meta.totalQuestions=${metaClaimed} 与实际统计 ${stats.total} 不一致`);
   }
 
-  // 命名诚实性提示
+  // 命名诚实性提示（v1.3 起 schema v2 使用 questions；exams 仅作旧缓存兼容）
   const physics = data.physics;
   if (physics && Array.isArray(physics.exams) && !physics.questions) {
-    warn(rel, '字段名 exams 实际存放题目列表，建议 schema v2 改为 questions（本脚本已兼容）');
+    warn(rel, '仍在使用 v1 字段名 exams，应迁移为 questions（本脚本已兼容）');
   }
+  const badOpts = [];
+  for (const [subj, node] of Object.entries(data)) {
+    if (subj === 'meta' || !node || typeof node !== 'object') continue;
+    const list = node.questions || node.exams || [];
+    for (const q of list) {
+      if (typeof q.answer === 'string' && /^[A-Z]$/.test(q.answer)) {
+        if (!Array.isArray(q.options) || q.options.length < 2) badOpts.push(`${subj}/${q.id}`);
+        else {
+          const idx = q.answer.charCodeAt(0) - 65;
+          if (idx >= q.options.length) badOpts.push(`${subj}/${q.id}`);
+        }
+      }
+    }
+  }
+  if (badOpts.length) warn(rel, `${badOpts.length} 题答案为字母但缺少选项或越界: ${badOpts.slice(0, 5).join(', ')}${badOpts.length > 5 ? ' ...' : ''}`);
 
   return stats;
 }

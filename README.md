@@ -1,6 +1,6 @@
 # 高中物化生语数英学习大礼包 — High School Study Bundle
 
-> 版本 1.2 / Version 1.2 · 广东高考智能备考平台 / Guangdong Gaokao Smart Prep Platform
+> 版本 1.3 / Version 1.3 · 广东高考智能备考平台 / Guangdong Gaokao Smart Prep Platform
 > "一体两翼"架构 · 数据驱动精准提分 · 六科全覆盖
 
 一个面向广东高考的网页端学习大礼包,涵盖 **物理 / 化学 / 生物 / 数学 / 语文 / 英语** 六大学科,提供知识体系、常考题型、错题归因、游戏化激励与综合提分工具。所有内容均为 **纯前端静态资源** —— 打开 `1.2/index.html` 即可使用,无需任何后端或网络连接,支持 PWA 离线安装。
@@ -13,6 +13,9 @@
 High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 ├── README.md           ← 本文件(使用指南)
 ├── .gitignore
+├── docs/               ← 开发文档（深度优化任务清单等）
+├── scripts/            ← 数据校验/冒烟/修复工具（Node ≥ 18，无需三方依赖）
+├── .github/workflows/  ← CI：push/PR 自动跑 verify 门禁
 ├── 1.1/                ← 版本 1.1 的全部学习资料(物化生三科)
 │   ├── index.html
 │   ├── presentation.html / promo.html
@@ -26,8 +29,6 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
     ├── presentation.html       ← 项目介绍页
     ├── promo.html              ← 宣传页
     ├── presentation.css / promo.css
-    ├── check-syntax.js         ← 语法检查工具
-    ├── expand-exam-bank-unified.py  ← 题库扩展脚本(Python)
     ├── css/
     │   ├── style.css           ← 主样式
     │   └── tokens.css          ← 设计令牌(主题/暗色模式)
@@ -72,6 +73,21 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 ```
 
 ---
+
+## 🆕 V1.3 新特性（工程化与体验优化）
+
+| 类别 | 内容 |
+| --- | --- |
+| ⚡ **首屏提速** | 45 个模块脚本 `defer` 加载；1.4MB 题库改为空闲预热 + 进入模块按需加载 |
+| 🛡 **错误兜底** | 全局捕获脚本错误/未处理 Promise 拒绝，页面内轻提示，不再静默失败 |
+| 🧹 **修复 3 个静默失效 bug** | missing-tools.js 与 app-chemistry.js 三处 const 重名导致整文件从未执行；3 个首页按钮 onclick 引用 IIFE 内部函数必然报错 |
+| 📝 **题库修复** | 70 道无选项的听力/阅读/完形题补齐选项可作答；选择题答案分布均衡化（A/B/C/D 各约 25%）；exam-bank 升级 schema v2（`questions` 字段） |
+| 💾 **存储收敛** | 新增 `HSPCBStore` 门面（`hspcb.st.*` 命名空间 + 旧 key 透明搬迁），27 个模块不再裸写 localStorage |
+| 🎨 **暗色主题令牌化** | theme-dark.css 高频硬编码色值收敛为 `--dm-*` 令牌引用（外观零变化） |
+| ♿ **可访问性** | 导航/目录 landmark aria-label、主题按钮 aria-pressed |
+| 🔐 **安全加固** | CSP meta（object-src 'none'/base-uri 'self' 等）+ referrer 策略 |
+| 🤖 **CI 门禁** | GitHub Actions 在 push/PR 自动跑 `npm run verify`（数据质检 + 声明碰撞扫描 + 单测 + 冒烟） |
+| 📊 **六科题库打通** | 真题练习系统修复为六科全部可见可选（此前数学/语文/英语不进列表） |
 
 ## 🆕 V1.2 新特性
 
@@ -124,15 +140,17 @@ npm run serve
 从仓库根目录：
 
 ```bash
+npm run verify          # 一键全量：数据质检 + 声明碰撞 + 单测 + 冒烟
 npm run check:data      # 数据 schema + 题库质检 + SW 清单 + 首页卡片结构
-npm run check:data:json # JSON 机器可读输出
+npm run check:collisions  # 跨文件顶层 const/let/class 重名扫描（防静默失效）
 node scripts/test-progress.mjs   # 统一进度存储迁移单测
+node scripts/nocache-server.mjs 1.2 8902  # 禁用缓存的本地调试服务器
 ```
 
-- `scripts/validate-data.mjs`：校验六科 `knowledge.json`、`exam-bank.json`（选择题答案域、内部备注黑名单）、扩展题库、SW 资源清单、首页 `subject-cards` 嵌套。
+- `scripts/validate-data.mjs`：校验六科 `knowledge.json`、`exam-bank.json`（schema v2 `questions` 字段、字母答案必须有 options 且不越界、内部备注黑名单）、扩展题库、SW 资源清单、首页 `subject-cards` 嵌套。
 - `1.2/js/progress.js`：统一进度存储 `hspcb.v2.*`，自动从 v1 裸 key 迁移，支持导出/导入备份。
 
-当前数据基线：六科 **1718** 题；`npm run check:data` 期望 **PASS**（允许少量 warning）。
+当前数据基线：六科 **1718** 题，选择题答案分布 **368/368/366/368**；`npm run verify` 期望 **全绿**。
 
 ---
 
@@ -141,7 +159,8 @@ node scripts/test-progress.mjs   # 统一进度存储迁移单测
 | 版本 | 内容 | 仓库位置 |
 | --- | --- | --- |
 | **1.1** | 物化生三科初版 | 目录 `1.1/`（**只读归档**，不再接受功能 PR） |
-| **1.2** | 六科 + PWA + 游戏化 + Phase A 稳定化 | 目录 `1.2/`（**当前唯一活跃开发目录**） |
+| **1.2** | 六科 + PWA + 游戏化 + Phase A 稳定化 | 目录 `1.2/` |
+| **1.3** | 性能/健壮性/题库修复/存储收敛/CI（详见 V1.3 特性表） | 目录 `1.2/`（**当前唯一活跃开发目录**） |
 
 - 历史版本请用 **Git tag**（如 `v1.1`、`v1.2`）对照，而不是在仓库里再开 `1.3/` 并排目录。
 - 修复与新功能一律只改 `1.2/` 与根目录脚本/文档。
@@ -198,19 +217,17 @@ node scripts/test-progress.mjs   # 统一进度存储迁移单测
 
 欢迎:
 - 在 `1.2/data/<subject>/knowledge.json` 中补充 / 修正知识点
-- 在 `1.2/data/exam-bank.json` 中添加新题（**禁止**在 analysis 中留下「修正后 / TODO / 占位」等内部备注）
+- 在 `1.2/data/exam-bank.json` 中添加新题（schema v2：每科 `questions` 数组；**禁止**在 analysis 中留下「修正后 / TODO / 占位」等内部备注）
 - 优化 `1.2/js/` 中的工具模块
 - 改进 `1.2/css/` 样式
-- 运行 `1.2/expand-exam-bank-unified.py` 扩展题库
 
 **提交前请本地跑通：**
 
 ```bash
-npm run check:data
-node scripts/test-progress.mjs
+npm run verify
 ```
 
-新代码写入学习进度时请使用 `HSPCBProgress`（`1.2/js/progress.js`），不要再新增裸 `localStorage` key。
+新代码写入学习进度请使用 `HSPCBProgress`（`1.2/js/progress.js`），散装工具数据请使用 `HSPCBStore`（同文件）；**不要再新增裸 `localStorage` 调用**（主题引导/数据导出枚举两处白名单除外）。
 
 修改后在分支上提交并保证校验 PASS，再发起合并。
 

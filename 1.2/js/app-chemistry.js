@@ -1168,7 +1168,7 @@ const chemistrySafetySystem = {
             violations: this.state.violations.length,
             timestamp: new Date().toLocaleString('zh-CN')
         });
-        localStorage.setItem('safety_history', JSON.stringify(this.state.history));
+        HSPCBStore.set('safety_history', JSON.stringify(this.state.history));
         this.renderSystem();
     },
 
@@ -3117,7 +3117,7 @@ const equationNotebook = {
         }
     },
 
-    favorites: JSON.parse(localStorage.getItem('equationFavorites') || '[]'),
+    favorites: JSON.parse(HSPCBStore.getItem('equationFavorites') || '[]'),
 
     toggleFavorite(id) {
         const idx = this.favorites.indexOf(id);
@@ -3126,7 +3126,7 @@ const equationNotebook = {
         } else {
             this.favorites.push(id);
         }
-        localStorage.setItem('equationFavorites', JSON.stringify(this.favorites));
+        HSPCBStore.set('equationFavorites', JSON.stringify(this.favorites));
         this.renderNotebook();
     },
 

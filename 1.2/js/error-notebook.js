@@ -11,7 +11,7 @@ window.errorNotebook = (function() {
 
     function loadData() {
         try {
-            var raw = localStorage.getItem(STORAGE_KEY);
+            var raw = HSPCBStore.get(STORAGE_KEY);
             if (raw) {
                 var data = JSON.parse(raw);
                 if (!data.errors) data.errors = [];
@@ -26,7 +26,7 @@ window.errorNotebook = (function() {
 
     function saveData(data) {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            HSPCBStore.set(STORAGE_KEY, JSON.stringify(data));
         } catch (e) {
             /* storage full */
         }

@@ -80,7 +80,7 @@ var conceptMatchGame = (function() {
 
   function loadBestScore() {
     try {
-      var saved = localStorage.getItem('hspcb_concept_game_best');
+      var saved = HSPCBStore.getItem('hspcb_concept_game_best');
       if (saved) {
         var data = JSON.parse(saved);
         state.bestScore = data.bestScore || 0;
@@ -90,7 +90,7 @@ var conceptMatchGame = (function() {
 
   function saveBestScore() {
     try {
-      localStorage.setItem('hspcb_concept_game_best', JSON.stringify({ bestScore: state.bestScore }));
+      HSPCBStore.set('hspcb_concept_game_best', JSON.stringify({ bestScore: state.bestScore }));
     } catch (e) {}
   }
 
@@ -821,13 +821,13 @@ var scratchpad = (function() {
         showAxes: state.showAxes,
         time: Date.now()
       };
-      localStorage.setItem('hspcb_scratchpad_data', JSON.stringify(saveObj));
+      HSPCBStore.set('hspcb_scratchpad_data', JSON.stringify(saveObj));
     } catch (e) {}
   }
 
   function autoLoad() {
     try {
-      var saved = localStorage.getItem('hspcb_scratchpad_data');
+      var saved = HSPCBStore.getItem('hspcb_scratchpad_data');
       if (!saved) return;
       var data = JSON.parse(saved);
       if (data.image && ctx) {
@@ -1371,7 +1371,7 @@ var cardMatchGame = (function() {
 
   function loadBestScore() {
     try {
-      var saved = localStorage.getItem('hspcb_card_game_best');
+      var saved = HSPCBStore.getItem('hspcb_card_game_best');
       if (saved) {
         var data = JSON.parse(saved);
         state.bestScore = data.bestScore || 0;
@@ -1381,7 +1381,7 @@ var cardMatchGame = (function() {
 
   function saveBestScore() {
     try {
-      localStorage.setItem('hspcb_card_game_best', JSON.stringify({ bestScore: state.bestScore }));
+      HSPCBStore.set('hspcb_card_game_best', JSON.stringify({ bestScore: state.bestScore }));
     } catch (e) {}
   }
 

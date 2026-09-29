@@ -94,7 +94,7 @@ window.achievementSystem = (function () {
             mockCount: 0
         };
 
-        var quiz = safeParse(localStorage.getItem('hspcb_quiz_records'), []);
+        var quiz = safeParse(HSPCBStore.getItem('hspcb_quiz_records'), []);
         if (!Array.isArray(quiz)) quiz = [];
         var subjStats = {};
         var subjSet = {};
@@ -113,7 +113,7 @@ window.achievementSystem = (function () {
             if (total > 0 && correct === total) stats.perfectPractice = true;
         }
 
-        var exam = safeParse(localStorage.getItem('hspcb_exam_history'), []);
+        var exam = safeParse(HSPCBStore.getItem('hspcb_exam_history'), []);
         if (!Array.isArray(exam)) exam = [];
         stats.mockCount = exam.length;
         for (var j = 0; j < exam.length; j++) {
@@ -121,7 +121,7 @@ window.achievementSystem = (function () {
             stats.totalQuestions += (e.totalQuestions || e.total || 0);
         }
 
-        var checkin = safeParse(localStorage.getItem('hspcb_daily_checkin'), []);
+        var checkin = safeParse(HSPCBStore.getItem('hspcb_daily_checkin'), []);
         if (!Array.isArray(checkin)) checkin = [];
         var days = [];
         for (var k = 0; k < checkin.length; k++) {
@@ -131,8 +131,8 @@ window.achievementSystem = (function () {
         }
         stats.streakDays = computeStreak(days);
 
-        var wrong = safeParse(localStorage.getItem('hspcb_wrong_records'), null);
-        if (!wrong) wrong = safeParse(localStorage.getItem('hspcb_error_notebook'), []);
+        var wrong = safeParse(HSPCBStore.getItem('hspcb_wrong_records'), null);
+        if (!wrong) wrong = safeParse(HSPCBStore.getItem('hspcb_error_notebook'), []);
         if (!Array.isArray(wrong)) wrong = [];
         var redoCorrect = 0, redoTotal = 0;
         for (var m = 0; m < wrong.length; m++) {
@@ -144,11 +144,11 @@ window.achievementSystem = (function () {
         }
         if (redoTotal > 0) stats.redoAcc = Math.round(redoCorrect / redoTotal * 100);
 
-        var notes = safeParse(localStorage.getItem('hspcb_notes'), null);
-        if (!notes) notes = safeParse(localStorage.getItem('hspcb_notebook'), []);
+        var notes = safeParse(HSPCBStore.getItem('hspcb_notes'), null);
+        if (!notes) notes = safeParse(HSPCBStore.getItem('hspcb_notebook'), []);
         if (Array.isArray(notes)) stats.notesCount = notes.length;
 
-        var tools = safeParse(localStorage.getItem('hspcb_tools_used'), []);
+        var tools = safeParse(HSPCBStore.getItem('hspcb_tools_used'), []);
         if (Array.isArray(tools)) {
             stats.toolsUsed = tools.length;
         } else if (typeof tools === 'object') {
@@ -188,12 +188,12 @@ window.achievementSystem = (function () {
     }
 
     function loadUnlocked() {
-        var raw = localStorage.getItem(STORAGE_KEY);
+        var raw = HSPCBStore.get(STORAGE_KEY);
         var obj = safeParse(raw, {});
         return (obj && typeof obj === 'object') ? obj : {};
     }
     function saveUnlocked(obj) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch (e) {}
+        try { HSPCBStore.set(STORAGE_KEY, JSON.stringify(obj)); } catch (e) {}
     }
 
     function detect() {
@@ -447,7 +447,7 @@ window.studyShareCard = (function () {
     function gatherTodayData() {
         var data = { count: 0, correct: 0, total: 0, accuracy: 0, minutes: 0, checkinDays: 0, subjectDist: {} };
         var today = todayStr();
-        var quiz = safeParse(localStorage.getItem('hspcb_quiz_records'), []);
+        var quiz = safeParse(HSPCBStore.getItem('hspcb_quiz_records'), []);
         if (!Array.isArray(quiz)) quiz = [];
         for (var i = 0; i < quiz.length; i++) {
             var r = quiz[i] || {};
@@ -467,7 +467,7 @@ window.studyShareCard = (function () {
         if (data.total > 0) data.accuracy = Math.round(data.correct / data.total * 100);
         data.minutes = Math.floor(data.count * 1.5);
 
-        var checkin = safeParse(localStorage.getItem('hspcb_daily_checkin'), []);
+        var checkin = safeParse(HSPCBStore.getItem('hspcb_daily_checkin'), []);
         if (Array.isArray(checkin)) {
             data.checkinDays = checkin.length;
         }
@@ -775,7 +775,7 @@ window.darkModeToggle = (function () {
             return;
         }
         document.documentElement.setAttribute('data-theme', theme);
-        try { localStorage.setItem('hspcb_theme', theme); } catch (e) {}
+        try { localStorage.setItem('hspcb_theme', theme); } catch (e) {} /* 主题 key 保持原生读写（见主题引导脚本） */
     }
 
     function isDark() {

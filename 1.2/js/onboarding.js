@@ -298,7 +298,7 @@ window.onboarding = (function() {
 
         // Mark complete
         try {
-            localStorage.setItem(STORAGE_KEY, '1');
+            HSPCBStore.set(STORAGE_KEY, '1');
         } catch (e) {
             /* storage not available */
         }
@@ -306,7 +306,7 @@ window.onboarding = (function() {
 
     function checkFirstVisit() {
         try {
-            return localStorage.getItem(STORAGE_KEY) !== '1';
+            return HSPCBStore.get(STORAGE_KEY) !== '1';
         } catch (e) {
             return true; // If storage unavailable, assume first visit
         }

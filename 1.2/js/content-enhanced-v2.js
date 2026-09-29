@@ -71,7 +71,7 @@ var state = {
 
 function loadRecords(){
     try {
-        var raw = localStorage.getItem(LS_KEY);
+        var raw = HSPCBStore.get(LS_KEY);
         return raw ? JSON.parse(raw) : {};
     } catch(e){ return {}; }
 }
@@ -79,7 +79,7 @@ function loadRecords(){
 function saveRecord(questionId, score){
     var records = loadRecords();
     records[questionId] = { score: score, time: new Date().toISOString(), completed: true };
-    try { localStorage.setItem(LS_KEY, JSON.stringify(records)); } catch(e){}
+    try { HSPCBStore.set(LS_KEY, JSON.stringify(records)); } catch(e){}
 }
 
 function getSubjectColor(subject){
@@ -1158,14 +1158,14 @@ var vrState = {
 };
 
 function loadVRHistory(){
-    try { var raw = localStorage.getItem(LS_KEY_VR); return raw ? JSON.parse(raw) : {}; }
+    try { var raw = HSPCBStore.get(LS_KEY_VR); return raw ? JSON.parse(raw) : {}; }
     catch(e){ return {}; }
 }
 
 function saveVRHistory(qid){
     var h = loadVRHistory();
     h[qid] = true;
-    try { localStorage.setItem(LS_KEY_VR, JSON.stringify(h)); } catch(e){}
+    try { HSPCBStore.set(LS_KEY_VR, JSON.stringify(h)); } catch(e){}
 }
 
 function getKnowledgeGroups(){

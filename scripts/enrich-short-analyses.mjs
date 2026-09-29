@@ -230,7 +230,7 @@ console.log(report);
 let remain = 0;
 const remainIds = [];
 for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-  for (const q of eb[s].exams || []) {
+  for (const q of eb[s].questions || eb[s].exams || []) {
     if (q.analysis != null && String(q.analysis).length < 20) {
       remain++;
       remainIds.push(q.id + '|' + String(q.analysis).slice(0, 30));

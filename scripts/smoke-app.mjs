@@ -193,14 +193,14 @@ console.log('=== 5. 数据与题库抽样 ===');
   const allIds = new Set();
   let dups = 0, n = 0;
   for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-    for (const q of eb[s].exams || []) {
+    for (const q of eb[s].questions || eb[s].exams || []) {
       n++;
       if (allIds.has(q.id)) dups++;
       allIds.add(q.id);
     }
   }
   ok(dups === 0 && n === 1718, `题库 ${n} 题 id 唯一 (dups=${dups})`);
-  const q0 = eb.physics.exams[0];
+  const q0 = (eb.physics.questions || eb.physics.exams)[0];
   ok(/6 s/.test(q0.options[q0.answer.charCodeAt(0) - 65] || ''), 'PHY_2018_01 选项与解析一致');
   ok(!/修正后/.test(q0.analysis || ''), 'PHY_2018_01 无内部备注');
 

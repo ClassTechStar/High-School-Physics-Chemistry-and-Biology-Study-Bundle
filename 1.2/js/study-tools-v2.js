@@ -46,7 +46,7 @@ var _util = {
 
     loadJson: function(key, fallback) {
         try {
-            var raw = localStorage.getItem(key);
+            var raw = (window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key));
             if (raw) return JSON.parse(raw);
         } catch (e) { /* corrupted */ }
         return fallback;
@@ -54,7 +54,7 @@ var _util = {
 
     saveJson: function(key, data) {
         try {
-            localStorage.setItem(key, JSON.stringify(data));
+            (window.HSPCBStore ? HSPCBStore.set(key, JSON.stringify(data)) : localStorage.setItem(key, JSON.stringify(data)));
         } catch (e) { /* storage full */ }
     },
 
