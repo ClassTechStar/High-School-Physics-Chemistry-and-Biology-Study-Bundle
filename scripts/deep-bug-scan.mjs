@@ -45,7 +45,7 @@ if (emptyOptionsChoice.length) E(`选择题选项不足: ${emptyOptionsChoice.le
 /* duplicate question ids */
 const allIds = new Map();
 for (const subj of Object.keys(eb).filter((k) => k !== 'meta')) {
-  const list = eb[subj].exams || [];
+  const list = eb[subj].questions || eb[subj].exams || [];
   list.forEach((q) => {
     if (!q.id) return;
     if (allIds.has(q.id)) E(`题目 id 重复: ${q.id}`);
@@ -83,7 +83,7 @@ if (!html.includes('serviceWorker')) W('未注册 Service Worker');
 
 /* check exam-bank physics first question answer consistency */
 {
-  const q = eb.physics.exams[0];
+  const q = (eb.physics.questions || eb.physics.exams)[0];
   const a = q.answer.trim().toUpperCase();
   const idx = a.charCodeAt(0) - 65;
   console.log('样例 PHY_2018_01 answer=', a, 'option=', q.options[idx]?.slice(0, 40));

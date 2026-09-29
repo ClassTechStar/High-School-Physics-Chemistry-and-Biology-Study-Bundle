@@ -36,7 +36,7 @@ const examPracticeSystem = {
             meta: { version: "1.0", totalQuestions: 20, subjects: ["physics", "chemistry", "biology"], years: [2022, 2023, 2024] },
             physics: {
                 name: "物理", total: 7,
-                exams: [
+                questions: [
                     { id: "PHY_F1", year: 2022, type: "选择题", difficulty: "medium", points: 6, category: "力学",
                       question: "一质量为2kg的物体在水平恒力F=10N作用下从静止开始运动，动摩擦因数μ=0.2，g=10m/s²。求加速度？",
                       options: ["a=3m/s²", "a=4m/s²", "a=5m/s²", "a=2m/s²"], answer: "A",
@@ -69,7 +69,7 @@ const examPracticeSystem = {
             },
             chemistry: {
                 name: "化学", total: 7,
-                exams: [
+                questions: [
                     { id: "CHEM_F1", year: 2022, type: "工业流程", difficulty: "hard", points: 15, category: "工艺流程",
                       question: "以硫铁矿(FeS₂)制硫酸：(1)焙烧反应方程式 (2)SO₂氧化反应热ΔH___0 (3)为何不用水吸收SO₃ (4)每吨矿产1.5吨98%硫酸，求FeS₂纯度",
                       options: ["(1)4FeS₂+11O₂→2Fe₂O₃+8SO₂ (2)< (3)易形成酸雾 (4)75%", "(1)同左 (2)> (3)溶解度小 (4)72.5%", "(1)FeS₂+O₂→Fe₂O₃+SO₂ (2)< (3)速率慢 (4)78%", "(1)同A (2)< (3)易酸雾 (4)90%"],
@@ -102,7 +102,7 @@ const examPracticeSystem = {
             },
             biology: {
                 name: "生物", total: 6,
-                exams: [
+                questions: [
                     { id: "BIO_F1", year: 2022, type: "遗传计算", difficulty: "hard", points: 10, category: "遗传与变异",
                       question: "两对独立基因(A/a,B/b)控制花色。A红色素，B紫色素，两者并存为蓝色。AaBb自交得9:3:3:1。(1)蓝花基因型 (2)红花比例 (3)纯合子比例 (4)蓝花自由交配后代白花概率",
                       options: ["(1)AaBb (2)3/16 (3)1/4 (4)1/36", "(1)AABB (2)3/16 (3)1/4 (4)1/16", "(1)AaBb (2)3/16 (3)1/8 (4)1/9", "(1)AABB (2)9/16 (3)1/4 (4)1/16"],
@@ -151,13 +151,15 @@ const examPracticeSystem = {
         let exams = [];
         
         if (!subject || subject === 'all') {
-            ['physics', 'chemistry', 'biology'].forEach(s => {
-                if (this.examData[s] && this.examData[s].exams) {
-                    exams = exams.concat(this.examData[s].exams.map(e => ({ ...e, subject: s })));
+            ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'].forEach(s => {
+                const list = this.examData[s] && (this.examData[s].questions || this.examData[s].exams);
+                if (list) {
+                    exams = exams.concat(list.map(e => ({ ...e, subject: s })));
                 }
             });
-        } else if (this.examData[subject] && this.examData[subject].exams) {
-            exams = this.examData[subject].exams.map(e => ({ ...e, subject }));
+        } else if (this.examData[subject]) {
+            const list = this.examData[subject].questions || this.examData[subject].exams;
+            if (list) exams = list.map(e => ({ ...e, subject }));
         }
 
         if (filters) {

@@ -201,10 +201,11 @@ window.learningPathRecommender = (function () {
             var subjEn = subjects[i];
             var subjCn = SUBJECT_MAP[subjEn] || subjEn;
             var subjData = examCache[subjEn];
-            if (!subjData || !subjData.exams) continue;
+            var subjQuestions = subjData && (subjData.questions || subjData.exams);
+            if (!subjQuestions) continue;
 
-            for (var j = 0; j < subjData.exams.length; j++) {
-                var q = subjData.exams[j];
+            for (var j = 0; j < subjQuestions.length; j++) {
+                var q = subjQuestions[j];
                 var kps = q.knowledgePoints || [];
                 for (var k = 0; k < kps.length; k++) {
                     var kp = kps[k];
@@ -382,7 +383,7 @@ window.learningPathRecommender = (function () {
         var subjEn = SUBJECT_EN[subject] || subject;
         if (!examCache || !examCache[subjEn]) return results;
 
-        var exams = examCache[subjEn].exams || [];
+        var exams = examCache[subjEn].questions || examCache[subjEn].exams || [];
         var topicLower = (topic || '').toLowerCase();
         // 通过别名表解析，支持"牛顿运动定律"匹配到"牛顿第二定律"等下属知识点
         var resolvedLower = (resolveTopicName(subject, topic) || '').toLowerCase();
