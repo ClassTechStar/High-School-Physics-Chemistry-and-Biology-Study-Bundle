@@ -14,7 +14,7 @@ const DATA = join(ROOT, '1.2', 'data');
 {
   const p = join(DATA, 'exam-bank.json');
   const d = JSON.parse(readFileSync(p, 'utf8'));
-  const list = d.physics.exams || d.physics.questions;
+  const list = d.physics.questions || d.physics.exams;
   const q = list[0];
   if (q.id === 'PHY_2018_01') {
     q.options = [

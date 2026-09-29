@@ -598,8 +598,9 @@ window.mockExam = (function() {
         var pool = [];
 
         try {
-            if (window.examBank && window.examBank[subject] && window.examBank[subject].exams) {
-                var bankQuestions = window.examBank[subject].exams;
+            var bankQs = window.examBank && window.examBank[subject] && (window.examBank[subject].questions || window.examBank[subject].exams);
+            if (bankQs) {
+                var bankQuestions = bankQs;
                 for (var i = 0; i < bankQuestions.length; i++) {
                     var q = bankQuestions[i];
                     pool.push({

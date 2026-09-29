@@ -112,7 +112,7 @@ const bySub = {};
 
 for (const subject of Object.keys(eb).filter((k) => k !== 'meta')) {
   bySub[subject] = 0;
-  for (const q of eb[subject].exams || []) {
+  for (const q of eb[subject].questions || eb[subject].exams || []) {
     const a = String(q.analysis || '');
     // 通用模板选择题：空泛排除 或 “答案应选”占位
     const isGeneric = /其余选项：.*与题意不符/.test(a) || /答案应选/.test(a);
@@ -134,7 +134,7 @@ console.log('polished', polished, bySub);
 // stats
 let under20 = 0, under60 = 0, n = 0;
 for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-  for (const q of eb[s].exams || []) {
+  for (const q of eb[s].questions || eb[s].exams || []) {
     n++;
     const L = (q.analysis || '').length;
     if (L < 20) under20++;
@@ -146,7 +146,7 @@ console.log({ n, under20, under60 });
 // samples
 for (const id of ['physics_2019_210', 'BIO_2025_03', 'MATH_2019_31', 'chemistry_2025_207', 'physics_2022_213']) {
   for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-    const q = (eb[s].exams || []).find((x) => x.id === id);
+    const q = (eb[s].questions || eb[s].exams || []).find((x) => x.id === id);
     if (q) {
       console.log('\n====', id);
       console.log(q.analysis);
