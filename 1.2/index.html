@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>高中物化生语数英学习大礼包 — 广东高考智能备考平台</title>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
@@ -112,7 +114,7 @@
 <p class="subtitle">广东高考智能备考平台 · 六科全覆盖 · 数据驱动精准提分</p>
 </header>
 
-<nav class="subject-nav">
+<nav class="subject-nav" aria-label="学科导航">
 <button class="nav-btn active" data-subject="home"><span class="icon">🏠</span><span class="label">首页</span></button>
 <button class="nav-btn" data-subject="physics"><span class="icon">⚡</span><span class="label">物理</span></button>
 <button class="nav-btn" data-subject="chemistry"><span class="icon">🧪</span><span class="label">化学</span></button>
@@ -964,7 +966,7 @@
 
 <div class="container">
 
-<nav class="sidebar">
+<nav class="sidebar" aria-label="语文知识目录">
     <div class="sidebar-header">📑 知识目录</div>
 
     <div class="nav-item">
@@ -4251,7 +4253,7 @@
 
 })();
 </script>
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换暗色模式">🌙</button>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
 <script>
 /* ---- 首页工具区块折叠功能 ---- */
 (function(){
