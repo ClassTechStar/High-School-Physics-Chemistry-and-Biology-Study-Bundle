@@ -178,6 +178,15 @@ window.learningPathRecommender = (function () {
 
     function loadExamBank(callback) {
         if (examCache) { callback(examCache); return; }
+        // 优先复用真题系统已加载/正在加载的题库，避免二次 fetch 1.4MB
+        if (window.examPracticeSystem && typeof examPracticeSystem.ensureLoaded === 'function') {
+            examPracticeSystem.ensureLoaded().then(function (data) {
+                examCache = data;
+                buildTopicQuestionIndex();
+                callback(data);
+            }).catch(function () { callback(null); });
+            return;
+        }
         fetch('data/exam-bank.json').then(function (res) {
             if (!res.ok) throw new Error('加载失败: ' + res.status);
             return res.json();
@@ -220,7 +229,7 @@ window.learningPathRecommender = (function () {
 
     // 读取错题本
     function loadErrorNotebook() {
-        var raw = localStorage.getItem(STORAGE_KEY);
+        var raw = HSPCBStore.get(STORAGE_KEY);
         var data = safeParse(raw, []);
         if (!Array.isArray(data)) return [];
         return data;

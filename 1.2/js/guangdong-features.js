@@ -367,7 +367,7 @@ window.situationalQuiz = {
 
     _getRecord: function () {
         try {
-            var raw = localStorage.getItem(this.STORAGE_KEY);
+            var raw = HSPCBStore.get(this.STORAGE_KEY);
             return raw ? JSON.parse(raw) : { done: [], correct: 0, total: 0 };
         } catch (e) {
             return { done: [], correct: 0, total: 0 };
@@ -380,12 +380,12 @@ window.situationalQuiz = {
             rec.done.push(qid);
             rec.total += 1;
             if (correct) rec.correct += 1;
-            try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(rec)); } catch (e) {}
+            try { HSPCBStore.set(this.STORAGE_KEY, JSON.stringify(rec)); } catch (e) {}
         }
     },
 
     _clearRecord: function () {
-        try { localStorage.removeItem(this.STORAGE_KEY); } catch (e) {}
+        try { HSPCBStore.remove(this.STORAGE_KEY); } catch (e) {}
     },
 
     render: function () {

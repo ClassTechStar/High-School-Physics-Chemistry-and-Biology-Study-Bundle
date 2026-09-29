@@ -1658,7 +1658,7 @@ const photosynthesisTrainer = {
         currentCurve: null,
         userAnswer: null,
         showExplanation: false,
-        wrongQuestions: JSON.parse(localStorage.getItem('wrongPhotosynthesis') || '[]')
+        wrongQuestions: JSON.parse(HSPCBStore.getItem('wrongPhotosynthesis') || '[]')
     },
 
     curves: [
@@ -1997,7 +1997,7 @@ const photosynthesisTrainer = {
             );
             if (!exists) {
                 this.state.wrongQuestions.push(wrongEntry);
-                localStorage.setItem('wrongPhotosynthesis', JSON.stringify(this.state.wrongQuestions));
+                HSPCBStore.set('wrongPhotosynthesis', JSON.stringify(this.state.wrongQuestions));
             }
         }
 
@@ -2035,7 +2035,7 @@ const photosynthesisTrainer = {
     clearWrongQuestions() {
         if (confirm('确定要清空所有错题记录吗？')) {
             this.state.wrongQuestions = [];
-            localStorage.removeItem('wrongPhotosynthesis');
+            HSPCBStore.removeItem('wrongPhotosynthesis');
             this.renderTrainer();
         }
     },

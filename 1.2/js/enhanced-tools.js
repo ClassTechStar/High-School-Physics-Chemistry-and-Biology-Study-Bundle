@@ -639,8 +639,8 @@ const geneticsPedigreeTrainerEnhanced = {
             timestamp: new Date().toLocaleString()
         });
 
-        localStorage.setItem('genetics_history', JSON.stringify(this.history));
-        localStorage.setItem('genetics_score', JSON.stringify(this.score));
+        HSPCBStore.set('genetics_history', JSON.stringify(this.history));
+        HSPCBStore.set('genetics_score', JSON.stringify(this.score));
 
         this._render();
     },
@@ -664,8 +664,8 @@ const geneticsPedigreeTrainerEnhanced = {
     resetScore() {
         this.score = { total:0, correct:0 };
         this.history = [];
-        localStorage.removeItem('genetics_history');
-        localStorage.removeItem('genetics_score');
+        HSPCBStore.removeItem('genetics_history');
+        HSPCBStore.removeItem('genetics_score');
         this._render();
     },
 
@@ -1949,8 +1949,8 @@ const photosynthesisTrainerEnhanced = {
             });
         }
 
-        localStorage.setItem('photo_wrong_answers', JSON.stringify(this.state.wrongAnswers));
-        localStorage.setItem('photo_score', JSON.stringify(this.state.score));
+        HSPCBStore.set('photo_wrong_answers', JSON.stringify(this.state.wrongAnswers));
+        HSPCBStore.set('photo_score', JSON.stringify(this.state.score));
 
         this._render();
         setTimeout(() => this._drawCurve(), 100);

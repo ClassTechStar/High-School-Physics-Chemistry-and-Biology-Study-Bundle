@@ -774,7 +774,7 @@ window.mockExam = (function() {
 
     function getHistory() {
         try {
-            var raw = localStorage.getItem('mockExamHistory');
+            var raw = HSPCBStore.getItem('mockExamHistory');
             return raw ? JSON.parse(raw) : [];
         } catch (e) {
             return [];
@@ -788,7 +788,7 @@ window.mockExam = (function() {
             history = history.slice(0, 50);
         }
         try {
-            localStorage.setItem('mockExamHistory', JSON.stringify(history));
+            HSPCBStore.set('mockExamHistory', JSON.stringify(history));
         } catch (e) {
             // Storage full
         }
@@ -796,7 +796,7 @@ window.mockExam = (function() {
 
     function clearHistory() {
         try {
-            localStorage.removeItem('mockExamHistory');
+            HSPCBStore.removeItem('mockExamHistory');
         } catch (e) {}
     }
 

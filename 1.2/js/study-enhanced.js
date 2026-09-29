@@ -71,7 +71,7 @@ var spacedRepetition = {
 
     loadProgress: function() {
         try {
-            var data = localStorage.getItem(this.STORAGE_KEY);
+            var data = HSPCBStore.get(this.STORAGE_KEY);
             if (data) {
                 this.progress = JSON.parse(data);
             }
@@ -82,7 +82,7 @@ var spacedRepetition = {
 
     saveProgress: function() {
         try {
-            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.progress));
+            HSPCBStore.set(this.STORAGE_KEY, JSON.stringify(this.progress));
         } catch (e) {}
     },
 
@@ -856,7 +856,7 @@ var knowledgeHeatmap = {
 
     _loadWrongRecords: function() {
         try {
-            var data = localStorage.getItem(this.WRONG_KEY);
+            var data = HSPCBStore.get(this.WRONG_KEY);
             if (data) {
                 var parsed = JSON.parse(data);
                 if (parsed && typeof parsed === 'object') {
@@ -869,7 +869,7 @@ var knowledgeHeatmap = {
 
     _loadManualMastery: function() {
         try {
-            var data = localStorage.getItem(this.MANUAL_KEY);
+            var data = HSPCBStore.get(this.MANUAL_KEY);
             if (data) {
                 return JSON.parse(data);
             }
@@ -879,7 +879,7 @@ var knowledgeHeatmap = {
 
     _saveManualMastery: function(data) {
         try {
-            localStorage.setItem(this.MANUAL_KEY, JSON.stringify(data));
+            HSPCBStore.set(this.MANUAL_KEY, JSON.stringify(data));
         } catch (e) {}
     },
 

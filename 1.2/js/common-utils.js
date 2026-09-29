@@ -45,7 +45,7 @@ window.CommonUtils = (function () {
     // 安全读取localStorage
     function loadStorage(key, fallback) {
         try {
-            var raw = localStorage.getItem(key);
+            var raw = (window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key));
             if (!raw) return fallback;
             return JSON.parse(raw);
         } catch (e) {
@@ -57,7 +57,7 @@ window.CommonUtils = (function () {
     // 安全写入localStorage
     function saveStorage(key, value) {
         try {
-            localStorage.setItem(key, JSON.stringify(value));
+            (window.HSPCBStore ? HSPCBStore.set(key, JSON.stringify(value)) : localStorage.setItem(key, JSON.stringify(value)));
             return true;
         } catch (e) {
             console.error('CommonUtils.saveStorage 写入失败:', key, e);

@@ -352,7 +352,7 @@ var openAnswerTrainer = {
 
     // 加载记录
     loadRecords: function() {
-        var raw = localStorage.getItem('hspcb_open_answer_records');
+        var raw = HSPCBStore.getItem('hspcb_open_answer_records');
         if (raw) {
             try {
                 this.records = JSON.parse(raw);
@@ -366,7 +366,7 @@ var openAnswerTrainer = {
 
     // 保存记录
     saveRecords: function() {
-        localStorage.setItem('hspcb_open_answer_records', JSON.stringify(this.records));
+        HSPCBStore.set('hspcb_open_answer_records', JSON.stringify(this.records));
     },
 
     // 获取当前框架下的题目
