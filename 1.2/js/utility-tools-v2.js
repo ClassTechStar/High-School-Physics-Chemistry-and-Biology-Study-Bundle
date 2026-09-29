@@ -82,11 +82,11 @@ window.examTimerPro = (function () {
     }
 
     function loadHistory() {
-        return safeParse(localStorage.getItem(HISTORY_KEY), []);
+        return safeParse(HSPCBStore.get(HISTORY_KEY), []);
     }
 
     function saveHistory(arr) {
-        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr.slice(-50))); } catch (e) {}
+        try { HSPCBStore.set(HISTORY_KEY, JSON.stringify(arr.slice(-50))); } catch (e) {}
     }
 
     function fmt(ms) {
@@ -363,7 +363,7 @@ window.examTimerPro = (function () {
 
     function clearHistory() {
         if (!confirm('确认清空所有历史记录？')) return;
-        try { localStorage.removeItem(HISTORY_KEY); } catch (e) {}
+        try { HSPCBStore.remove(HISTORY_KEY); } catch (e) {}
         render();
     }
 
@@ -465,20 +465,20 @@ window.knowledgeCardExporter = (function () {
     }
 
     function loadCustom() {
-        return safeParse(localStorage.getItem(STORAGE_KEY), []);
+        return safeParse(HSPCBStore.get(STORAGE_KEY), []);
     }
 
     function saveCustom(arr) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch (e) {}
+        try { HSPCBStore.set(STORAGE_KEY, JSON.stringify(arr)); } catch (e) {}
     }
 
     function loadSelection() {
-        var s = safeParse(localStorage.getItem(SELECT_KEY), {});
+        var s = safeParse(HSPCBStore.get(SELECT_KEY), {});
         state.selected = s || {};
     }
 
     function saveSelection() {
-        try { localStorage.setItem(SELECT_KEY, JSON.stringify(state.selected)); } catch (e) {}
+        try { HSPCBStore.set(SELECT_KEY, JSON.stringify(state.selected)); } catch (e) {}
     }
 
     function getAllCards() {

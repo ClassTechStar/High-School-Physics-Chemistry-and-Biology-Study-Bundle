@@ -505,7 +505,7 @@ const dailyLearning = {
     },
 
     init() {
-        const saved = localStorage.getItem('dailyLearningState');
+        const saved = HSPCBStore.getItem('dailyLearningState');
         if (saved) {
             try {
                 const data = JSON.parse(saved);
@@ -553,7 +553,7 @@ const dailyLearning = {
 
     _save() {
         try {
-            localStorage.setItem('dailyLearningState', JSON.stringify(this.state));
+            HSPCBStore.set('dailyLearningState', JSON.stringify(this.state));
         } catch(e) {}
     },
 

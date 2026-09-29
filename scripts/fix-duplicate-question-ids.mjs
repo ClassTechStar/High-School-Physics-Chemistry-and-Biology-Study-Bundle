@@ -14,7 +14,7 @@ let fixed = 0;
 const globalSeen = new Set();
 
 for (const subj of Object.keys(d).filter((k) => k !== 'meta')) {
-  const list = d[subj].exams || d[subj].questions;
+  const list = d[subj].questions || d[subj].exams;
   if (!Array.isArray(list)) continue;
   const localSeen = new Set();
   list.forEach((q, i) => {
@@ -49,7 +49,7 @@ const d2 = JSON.parse(readFileSync(p, 'utf8'));
 const all = new Set();
 let dups = 0;
 for (const subj of Object.keys(d2).filter((k) => k !== 'meta')) {
-  for (const q of d2[subj].exams || []) {
+  for (const q of d2[subj].questions || d2[subj].exams || []) {
     if (all.has(q.id)) dups += 1;
     all.add(q.id);
   }

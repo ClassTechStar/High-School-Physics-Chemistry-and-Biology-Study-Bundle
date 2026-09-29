@@ -12,7 +12,10 @@ const examPracticeSystem = {
     stats: {
         totalAnswered: 0,
         correctCount: 0,
-        subjectStats: { physics: {total: 0, correct: 0}, chemistry: {total: 0, correct: 0}, biology: {total: 0, correct: 0} },
+        subjectStats: {
+            physics: {total: 0, correct: 0}, chemistry: {total: 0, correct: 0}, biology: {total: 0, correct: 0},
+            math: {total: 0, correct: 0}, chinese: {total: 0, correct: 0}, english: {total: 0, correct: 0}
+        },
         categoryStats: {},
         yearStats: {},
         difficultyStats: { easy: {total: 0, correct: 0}, medium: {total: 0, correct: 0}, hard: {total: 0, correct: 0} },
@@ -24,11 +27,26 @@ const examPracticeSystem = {
             const response = await fetch('data/exam-bank.json');
             this.examData = await response.json();
             this.loadStats();
+            window.examBank = this.examData; // 供 mock-exam 等模块共享，避免各自再拉取
             console.log('真题库加载成功:', this.examData.meta.totalQuestions + '道题目');
         } catch (e) {
             console.error('加载真题库失败，使用内置数据', e);
             this.examData = this.getFallbackData();
         }
+        return this.examData;
+    },
+
+    // 惰性加载：首屏不拉取 1.4MB 题库，首次进入题库模块或空闲预热时才加载
+    _bankPromise: null,
+    ensureLoaded() {
+        if (this.examData) return Promise.resolve(this.examData);
+        if (!this._bankPromise) {
+            this._bankPromise = this.init().catch((e) => {
+                console.error('ensureLoaded 兜底', e);
+                return (this.examData = this.examData || this.getFallbackData());
+            });
+        }
+        return this._bankPromise;
     },
 
     getFallbackData() {
@@ -36,7 +54,7 @@ const examPracticeSystem = {
             meta: { version: "1.0", totalQuestions: 20, subjects: ["physics", "chemistry", "biology"], years: [2022, 2023, 2024] },
             physics: {
                 name: "物理", total: 7,
-                exams: [
+                questions: [
                     { id: "PHY_F1", year: 2022, type: "选择题", difficulty: "medium", points: 6, category: "力学",
                       question: "一质量为2kg的物体在水平恒力F=10N作用下从静止开始运动，动摩擦因数μ=0.2，g=10m/s²。求加速度？",
                       options: ["a=3m/s²", "a=4m/s²", "a=5m/s²", "a=2m/s²"], answer: "A",
@@ -69,7 +87,7 @@ const examPracticeSystem = {
             },
             chemistry: {
                 name: "化学", total: 7,
-                exams: [
+                questions: [
                     { id: "CHEM_F1", year: 2022, type: "工业流程", difficulty: "hard", points: 15, category: "工艺流程",
                       question: "以硫铁矿(FeS₂)制硫酸：(1)焙烧反应方程式 (2)SO₂氧化反应热ΔH___0 (3)为何不用水吸收SO₃ (4)每吨矿产1.5吨98%硫酸，求FeS₂纯度",
                       options: ["(1)4FeS₂+11O₂→2Fe₂O₃+8SO₂ (2)< (3)易形成酸雾 (4)75%", "(1)同左 (2)> (3)溶解度小 (4)72.5%", "(1)FeS₂+O₂→Fe₂O₃+SO₂ (2)< (3)速率慢 (4)78%", "(1)同A (2)< (3)易酸雾 (4)90%"],
@@ -102,7 +120,7 @@ const examPracticeSystem = {
             },
             biology: {
                 name: "生物", total: 6,
-                exams: [
+                questions: [
                     { id: "BIO_F1", year: 2022, type: "遗传计算", difficulty: "hard", points: 10, category: "遗传与变异",
                       question: "两对独立基因(A/a,B/b)控制花色。A红色素，B紫色素，两者并存为蓝色。AaBb自交得9:3:3:1。(1)蓝花基因型 (2)红花比例 (3)纯合子比例 (4)蓝花自由交配后代白花概率",
                       options: ["(1)AaBb (2)3/16 (3)1/4 (4)1/36", "(1)AABB (2)3/16 (3)1/4 (4)1/16", "(1)AaBb (2)3/16 (3)1/8 (4)1/9", "(1)AABB (2)9/16 (3)1/4 (4)1/16"],
@@ -133,7 +151,7 @@ const examPracticeSystem = {
     },
 
     loadStats() {
-        const saved = localStorage.getItem('examPractice_stats');
+        const saved = HSPCBStore.getItem('examPractice_stats');
         if (saved) {
             try {
                 this.stats = JSON.parse(saved);
@@ -144,20 +162,22 @@ const examPracticeSystem = {
     },
 
     saveStats() {
-        localStorage.setItem('examPractice_stats', JSON.stringify(this.stats));
+        HSPCBStore.set('examPractice_stats', JSON.stringify(this.stats));
     },
 
     getAllExams(subject, filters) {
         let exams = [];
         
         if (!subject || subject === 'all') {
-            ['physics', 'chemistry', 'biology'].forEach(s => {
-                if (this.examData[s] && this.examData[s].exams) {
-                    exams = exams.concat(this.examData[s].exams.map(e => ({ ...e, subject: s })));
+            ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'].forEach(s => {
+                const list = this.examData[s] && (this.examData[s].questions || this.examData[s].exams);
+                if (list) {
+                    exams = exams.concat(list.map(e => ({ ...e, subject: s })));
                 }
             });
-        } else if (this.examData[subject] && this.examData[subject].exams) {
-            exams = this.examData[subject].exams.map(e => ({ ...e, subject }));
+        } else if (this.examData[subject]) {
+            const list = this.examData[subject].questions || this.examData[subject].exams;
+            if (list) exams = list.map(e => ({ ...e, subject }));
         }
 
         if (filters) {
@@ -333,7 +353,10 @@ const examPracticeSystem = {
         this.stats = {
             totalAnswered: 0,
             correctCount: 0,
-            subjectStats: { physics: {total: 0, correct: 0}, chemistry: {total: 0, correct: 0}, biology: {total: 0, correct: 0} },
+            subjectStats: {
+            physics: {total: 0, correct: 0}, chemistry: {total: 0, correct: 0}, biology: {total: 0, correct: 0},
+            math: {total: 0, correct: 0}, chinese: {total: 0, correct: 0}, english: {total: 0, correct: 0}
+        },
             categoryStats: {},
             yearStats: {},
             difficultyStats: { easy: {total: 0, correct: 0}, medium: {total: 0, correct: 0}, hard: {total: 0, correct: 0} },
@@ -344,10 +367,15 @@ const examPracticeSystem = {
     },
 
     renderExamDashboard(container) {
+        if (!this.examData) {
+            container.innerHTML = '<div class="no-results">📚 题库加载中，请稍候…</div>';
+            this.ensureLoaded().then(() => this.renderExamDashboard(container));
+            return;
+        }
         container.innerHTML = `
             <div class="exam-dashboard">
                 <div class="exam-header">
-                    <h2>📝 高考真题练习系统 <span class="year-badge">2018-2024</span></h2>
+                    <h2>📝 高考真题练习系统 <span class="year-badge">2018-2026</span></h2>
                     <p class="exam-subtitle">广东省高考真题 · 实时评估 · 智能推荐</p>
                 </div>
                 
@@ -404,10 +432,13 @@ const examPracticeSystem = {
                                 <option value="physics">物理</option>
                                 <option value="chemistry">化学</option>
                                 <option value="biology">生物</option>
+                                <option value="math">数学</option>
+                                <option value="chinese">语文</option>
+                                <option value="english">英语</option>
                             </select>
                             <select id="exam-year-filter" onchange="examPracticeSystem.updateExamList()">
                                 <option value="all">全部年份</option>
-                                ${[2024,2023,2022,2021,2020,2019,2018].map(y => `<option value="${y}">${y}年</option>`).join('')}
+                                ${[2026,2025,2024,2023,2022,2021,2020,2019,2018].map(y => `<option value="${y}">${y}年</option>`).join('')}
                             </select>
                             <select id="exam-difficulty-filter" onchange="examPracticeSystem.updateExamList()">
                                 <option value="all">全部难度</option>
@@ -450,23 +481,33 @@ const examPracticeSystem = {
         });
     },
 
+    // 六科中文名映射 + 统一转义（防止题干/选项中的特殊字符破坏渲染）
+    SUBJECT_CN: { physics: '物理', chemistry: '化学', biology: '生物', math: '数学', chinese: '语文', english: '英语' },
+    _esc(s) {
+        const fn = window.CommonUtils && CommonUtils.escapeHtml;
+        return fn ? fn(s) : String(s == null ? '' : s);
+    },
+    _subjectCn(subject) {
+        return this.SUBJECT_CN[subject] || '生物';
+    },
+
     updateExamList() {
         const subject = document.getElementById('exam-subject-filter').value;
         const year = document.getElementById('exam-year-filter').value;
         const difficulty = document.getElementById('exam-difficulty-filter').value;
-        
+
         const exams = this.getAllExams(subject, { year, difficulty });
         const listEl = document.getElementById('exam-list');
-        
+
         listEl.innerHTML = exams.map((exam, idx) => `
-            <div class="exam-item ${exam.difficulty}" data-id="${exam.id}">
+            <div class="exam-item ${exam.difficulty}" data-id="${this._esc(exam.id)}">
                 <div class="exam-info">
-                    <span class="exam-subject-tag ${exam.subject}">${exam.subject==='physics'?'物理':exam.subject==='chemistry'?'化学':'生物'}</span>
+                    <span class="exam-subject-tag ${exam.subject}">${this._subjectCn(exam.subject)}</span>
                     <span class="exam-year">${exam.year}年</span>
-                    <span class="exam-type">${exam.type}</span>
+                    <span class="exam-type">${this._esc(exam.type)}</span>
                     <span class="exam-points">${exam.points}分</span>
                 </div>
-                <div class="exam-question-preview">${exam.question.substring(0, 60)}...</div>
+                <div class="exam-question-preview">${this._esc(exam.question).substring(0, 60)}...</div>
                 <div class="exam-actions">
                     <button class="btn-start-exam" onclick="examPracticeSystem.showExamDetail('${exam.id}')">开始答题</button>
                 </div>
@@ -491,14 +532,14 @@ const examPracticeSystem = {
                 <div class="detail-header">
                     <button class="btn-back-list" onclick="examPracticeSystem.backToList()">← 返回列表</button>
                     <div class="detail-meta">
-                        <span class="exam-subject-tag ${exam.subject}">${exam.subject==='physics'?'物理':exam.subject==='chemistry'?'化学':'生物'}</span>
-                        <span>${exam.year}年 · ${exam.type} · ${exam.points}分 · ${exam.difficulty==='hard'?'困难':exam.difficulty==='medium'?'中等':'简单'}</span>
+                        <span class="exam-subject-tag ${exam.subject}">${this._subjectCn(exam.subject)}</span>
+                        <span>${exam.year}年 · ${this._esc(exam.type)} · ${exam.points}分 · ${exam.difficulty==='hard'?'困难':exam.difficulty==='medium'?'中等':'简单'}</span>
                     </div>
                 </div>
 
                 <div class="question-box">
                     <h4>📋 题目内容</h4>
-                    <p class="question-text">${exam.question.replace(/\n/g, '<br>')}</p>
+                    <p class="question-text">${this._esc(exam.question).replace(/\n/g, '<br>')}</p>
                 </div>
 
                 <div class="options-box">
@@ -507,7 +548,7 @@ const examPracticeSystem = {
                         <label class="option-label" data-option="${String.fromCharCode(65+i)}">
                             <input type="radio" name="exam-answer" value="${String.fromCharCode(65+i)}">
                             <span class="option-letter">${String.fromCharCode(65+i)}</span>
-                            <span class="option-text">${opt}</span>
+                            <span class="option-text">${this._esc(opt)}</span>
                         </label>
                     `).join('')}
                 </div>
@@ -520,11 +561,11 @@ const examPracticeSystem = {
 
                 <div class="analysis-box" id="analysis-box" style="display:none;">
                     <h4>📖 详细解析</h4>
-                    <div class="analysis-content">${exam.analysis.replace(/\n/g, '<br>')}</div>
-                    
+                    <div class="analysis-content">${this._esc(exam.analysis).replace(/\n/g, '<br>')}</div>
+
                     <div class="knowledge-points">
                         <h5>🎯 知识考点：</h5>
-                        <div class="kp-tags">${exam.knowledgePoints.map(kp => `<span class="kp-tag">${kp}</span>`).join('')}</div>
+                        <div class="kp-tags">${(exam.knowledgePoints || []).map(kp => `<span class="kp-tag">${this._esc(kp)}</span>`).join('')}</div>
                     </div>
                 </div>
             </div>
@@ -680,9 +721,11 @@ const examPracticeSystem = {
     }
 };
 
-// 初始化真题系统
+// 初始化真题系统：首屏不阻塞加载，浏览器空闲时预热题库
 document.addEventListener('DOMContentLoaded', () => {
-    examPracticeSystem.init();
+    const warm = () => examPracticeSystem.ensureLoaded();
+    if (typeof requestIdleCallback === 'function') requestIdleCallback(warm, { timeout: 6000 });
+    else setTimeout(warm, 3000);
 });
 
 /**

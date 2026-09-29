@@ -14,22 +14,22 @@ window.studyDashboard = (function() {
 
         try {
             // Mock exam history
-            var examRaw = localStorage.getItem('hspcb_exam_history');
+            var examRaw = HSPCBStore.getItem('hspcb_exam_history');
             if (examRaw) data.examHistory = JSON.parse(examRaw);
             if (!Array.isArray(data.examHistory)) data.examHistory = [];
 
             // Error notebook
-            var errorsRaw = localStorage.getItem('hspcb_error_notebook');
+            var errorsRaw = HSPCBStore.getItem('hspcb_error_notebook');
             if (errorsRaw) data.errorNotebook = JSON.parse(errorsRaw);
             if (!Array.isArray(data.errorNotebook)) data.errorNotebook = [];
 
             // Game scores
-            var gameRaw = localStorage.getItem('hspcb_game_scores');
+            var gameRaw = HSPCBStore.getItem('hspcb_game_scores');
             if (gameRaw) data.gameScores = JSON.parse(gameRaw);
             if (!Array.isArray(data.gameScores)) data.gameScores = [];
 
             // Recitation scores
-            var recRaw = localStorage.getItem('hspcb_recitation_scores');
+            var recRaw = HSPCBStore.getItem('hspcb_recitation_scores');
             if (recRaw) data.recitationScores = JSON.parse(recRaw);
             if (!Array.isArray(data.recitationScores)) data.recitationScores = [];
         } catch (e) {

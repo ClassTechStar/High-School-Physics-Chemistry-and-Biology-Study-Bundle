@@ -142,7 +142,7 @@ window.globalSearch = (function() {
     // ============================================================
     function loadRecentSearches() {
         try {
-            var raw = localStorage.getItem(STORAGE_KEY);
+            var raw = HSPCBStore.get(STORAGE_KEY);
             if (raw) {
                 state.recentSearches = JSON.parse(raw);
                 if (!Array.isArray(state.recentSearches)) {
@@ -156,7 +156,7 @@ window.globalSearch = (function() {
 
     function saveRecentSearches() {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.recentSearches));
+            HSPCBStore.set(STORAGE_KEY, JSON.stringify(state.recentSearches));
         } catch (e) {
             // quota exceeded or unavailable, silently fail
         }
@@ -259,11 +259,11 @@ window.globalSearch = (function() {
             if (eps && eps.examData) {
                 var data = eps.examData;
                 var subjects = Object.keys(data).filter(function(k) {
-                    return k !== 'meta' && data[k] && data[k].exams;
+                    return k !== 'meta' && data[k] && (data[k].questions || data[k].exams);
                 });
                 for (var i = 0; i < subjects.length; i++) {
                     var subj = subjects[i];
-                    var exams = data[subj].exams || [];
+                    var exams = data[subj].questions || data[subj].exams || [];
                     for (var j = 0; j < exams.length; j++) {
                         var exam = exams[j];
                         var stem = exam.stem || exam.question || exam.title || '';

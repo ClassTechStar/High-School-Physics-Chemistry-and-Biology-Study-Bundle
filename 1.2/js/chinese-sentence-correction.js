@@ -314,7 +314,7 @@ window.chineseSentenceCorrection = (function() {
 
     function loadHistory() {
         try {
-            var raw = localStorage.getItem('cn_sentence_correction_history');
+            var raw = HSPCBStore.getItem('cn_sentence_correction_history');
             if (raw) {
                 return JSON.parse(raw);
             }
@@ -326,7 +326,7 @@ window.chineseSentenceCorrection = (function() {
 
     function saveHistory() {
         try {
-            localStorage.setItem('cn_sentence_correction_history', JSON.stringify(state.history));
+            HSPCBStore.set('cn_sentence_correction_history', JSON.stringify(state.history));
         } catch (e) {
             // ignore
         }

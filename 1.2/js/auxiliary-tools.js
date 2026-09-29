@@ -269,7 +269,7 @@ var wrongVariationGen = (function () {
 
     function readWrong() {
         try {
-            var raw = localStorage.getItem(STORAGE_KEY);
+            var raw = HSPCBStore.get(STORAGE_KEY);
             if (!raw) return [];
             var arr = JSON.parse(raw);
             return arr instanceof Array ? arr : [];
@@ -458,7 +458,7 @@ var wrongVariationGen = (function () {
                             { id: 'd2', kp: '化学平衡', title: '平衡移动判断', stem: '反应 2SO₂ + O₂ ⇌ 2SO₃（放热），增大压强平衡如何移动？', answer: 'C', options: ['向左移动', '向右移动', '不移动', '无法判断'] },
                             { id: 'd3', kp: '遗传定律', title: '基因自由组合', stem: 'AaBb × aabb 测交后代中 AaBb 占多少？', answer: 'B', options: ['1/2', '1/4', '1/8', '1/16'] }
                         ];
-                        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(demo)); } catch (e) {}
+                        try { HSPCBStore.set(STORAGE_KEY, JSON.stringify(demo)); } catch (e) {}
                         render();
                         return;
                     }
@@ -531,13 +531,13 @@ var studyCalendar = (function () {
 
     function readTasks() {
         try {
-            var raw = localStorage.getItem(STORAGE_KEY);
+            var raw = HSPCBStore.get(STORAGE_KEY);
             if (!raw) return {};
             return JSON.parse(raw) || {};
         } catch (e) { return {}; }
     }
     function saveTasks(data) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+        try { HSPCBStore.set(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
     }
 
     function getDailyTasks(dateStr) {

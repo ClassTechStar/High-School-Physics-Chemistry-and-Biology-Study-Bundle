@@ -466,3 +466,60 @@ if (typeof document !== 'undefined') {
         try { window.HSPCBProgress.init(); } catch (e) { console.warn(e); }
     }
 }
+
+// ============================================================
+// HSPCBStore — 散装工具数据的统一命名空间门面 (v1.3 / T4)
+// 目标: 各工具模块不再直接使用裸 localStorage。
+//   - 读写统一走 hspcb.st.<key> 命名空间
+//   - 首次访问旧裸 key 时自动搬迁（旧数据保留，不删除，便于回滚）
+//   - 统一 try/catch，隐私模式/配额超限不再抛错
+// 例外（白名单，仍为裸 localStorage）:
+//   - index.html 主题引导脚本（早于本文件执行）
+//   - study-tools-enhanced.js 数据导出/清理工具（需枚举原始 key）
+// ============================================================
+window.HSPCBStore = (function () {
+    'use strict';
+    var NS = 'hspcb.st.';
+    var migratedKeys = {};
+
+    function raw(k) {
+        try { return localStorage.getItem(k); } catch (e) { return null; }
+    }
+
+    function get(key) {
+        if (typeof key !== 'string') return null;
+        if (!migratedKeys[key]) {
+            migratedKeys[key] = true;
+            var legacy = raw(key);
+            if (legacy != null && raw(NS + key) == null) {
+                try { localStorage.setItem(NS + key, legacy); } catch (e) { /* ignore */ }
+            }
+        }
+        return raw(NS + key);
+    }
+
+    function set(key, value) {
+        if (typeof key !== 'string') return false;
+        try { localStorage.setItem(NS + key, String(value)); return true; } catch (e) { return false; }
+    }
+
+    function remove(key) {
+        if (typeof key !== 'string') return;
+        try { localStorage.removeItem(NS + key); } catch (e) { /* ignore */ }
+    }
+
+    // 枚举命名空间下的全部 key（供备份/诊断使用）
+    function keys() {
+        var out = [];
+        try {
+            for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && k.indexOf(NS) === 0) out.push(k.slice(NS.length));
+            }
+        } catch (e) { /* ignore */ }
+        return out;
+    }
+
+    // getItem/setItem/removeItem 为兼容别名（早期替换脚本使用了原生方法名）
+    return { get: get, set: set, remove: remove, getItem: get, setItem: set, removeItem: remove, keys: keys, NS: NS };
+})();

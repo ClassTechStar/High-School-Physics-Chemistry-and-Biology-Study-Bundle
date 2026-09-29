@@ -19,6 +19,8 @@ for (const f of readdirSync(jsDir)) {
   for (const m of src.matchAll(/(?:^|\n)(?:function|const|let|var)\s+([A-Za-z_$][\w$]*)/g)) exports.add(m[1]);
   // also object method assignments photosynthesisTrainerEnhanced.foo
 }
+// v1.3: 内联脚本同样可能定义 window.X（如 toggleTheme），一并纳入
+for (const m of html.matchAll(/window\.([A-Za-z_$][\w$]*)\s*=/g)) exports.add(m[1]);
 
 // onclick="foo.bar(" or onclick="foo("
 const onclickFns = new Set();
@@ -61,7 +63,7 @@ console.log('data-tool without case and without *-section:', unrouted.length);
 console.log(' sample unrouted:', unrouted.slice(0, 15).join(', '));
 
 // check specific critical handlers used on home
-const critical = ['switchSubject', 'navigateTo', 'loadModuleContent', 'toggleTheme', 'handleToolClick'];
+const critical = ['navigateTo', 'loadModuleContent', 'toggleTheme', 'showSection', 'setActiveNav'];
 for (const c of critical) {
   console.log(c, exports.has(c) ? 'OK' : 'MISSING');
 }

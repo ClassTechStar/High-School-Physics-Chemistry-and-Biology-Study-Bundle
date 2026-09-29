@@ -3,12 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>高中物化生语数英学习大礼包 — 广东高考智能备考平台</title>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-dark.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#4f6ef6">
+
+<script>
+/* ---- 全局错误兜底（必须最先执行）：捕获未处理错误并轻提示，不再静默失败 ---- */
+(function () {
+    'use strict';
+    var shown = {}, lastShow = 0;
+    function toast(msg) {
+        var now = Date.now();
+        if (now - lastShow < 2000) return; // 节流，避免错误风暴刷屏
+        lastShow = now;
+        try {
+            var box = document.getElementById('hspcb-error-toast');
+            if (!box) {
+                box = document.createElement('div');
+                box.id = 'hspcb-error-toast';
+                box.setAttribute('role', 'alert');
+                box.setAttribute('aria-live', 'assertive');
+                box.style.cssText = 'position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:99999;'
+                    + 'max-width:86%;padding:10px 16px;border-radius:10px;background:rgba(220,38,38,.94);color:#fff;'
+                    + 'font-size:13px;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.35);display:none;';
+                (document.body || document.documentElement).appendChild(box);
+            }
+            box.textContent = msg;
+            box.style.display = 'block';
+            clearTimeout(box._t);
+            box._t = setTimeout(function () { box.style.display = 'none'; }, 6000);
+        } catch (e) { /* 兜底自身不能再抛错 */ }
+    }
+    function short(msg) {
+        msg = String(msg == null ? '' : msg);
+        return msg.length > 160 ? msg.slice(0, 160) + '…' : msg;
+    }
+    window.addEventListener('error', function (ev) {
+        var key = (ev && (ev.message || '')).slice(0, 80);
+        if (key && shown[key]) return; // 同一错误只提示一次
+        shown[key] = true;
+        console.error('[HSPCB] 脚本错误:', ev && ev.message, ev && ev.filename, 'line', ev && ev.lineno);
+        toast('⚠️ 页面脚本出现异常：' + short(ev && ev.message) + '（功能可能受影响，建议刷新页面）');
+    });
+    window.addEventListener('unhandledrejection', function (ev) {
+        console.error('[HSPCB] 未处理的 Promise 拒绝:', ev && ev.reason);
+        toast('⚠️ 数据加载出现异常：' + short(ev && ev.reason && ev.reason.message || ev && ev.reason) + '（请检查本地服务器后刷新）');
+    });
+})();
+</script>
 
 <script>
 /* ---- 主题引导脚本：必须在 <body> 渲染前同步执行，避免首屏闪白 ---- */
@@ -67,7 +114,7 @@
 <p class="subtitle">广东高考智能备考平台 · 六科全覆盖 · 数据驱动精准提分</p>
 </header>
 
-<nav class="subject-nav">
+<nav class="subject-nav" aria-label="学科导航">
 <button class="nav-btn active" data-subject="home"><span class="icon">🏠</span><span class="label">首页</span></button>
 <button class="nav-btn" data-subject="physics"><span class="icon">⚡</span><span class="label">物理</span></button>
 <button class="nav-btn" data-subject="chemistry"><span class="icon">🧪</span><span class="label">化学</span></button>
@@ -919,7 +966,7 @@
 
 <div class="container">
 
-<nav class="sidebar">
+<nav class="sidebar" aria-label="语文知识目录">
     <div class="sidebar-header">📑 知识目录</div>
 
     <div class="nav-item">
@@ -1926,51 +1973,51 @@
 
 <script src="js/common-utils.js"></script>
 <script src="js/progress.js"></script>
-<script src="js/app.js"></script>
-<script src="js/app-chemistry.js"></script>
-<script src="js/app-physics.js"></script>
-<script src="js/app-biology.js"></script>
-<script src="js/app-exam.js"></script>
-<script src="js/enhanced-tools.js"></script>
-<script src="js/content-enhancement.js"></script>
-<script src="js/comprehensive-data.js"></script>
-<script src="js/exam-review-system.js"></script>
-<script src="js/platform-system.js"></script>
-<script src="js/missing-tools.js"></script>
-<script src="js/missing-tools-part2.js"></script>
-<script src="js/guangdong-features.js"></script>
-<script src="js/study-enhanced.js"></script>
-<script src="js/visual-enhanced.js"></script>
-<script src="js/auxiliary-tools.js"></script>
-<script src="js/math-tools.js"></script>
-<script src="js/chinese-tools.js"></script>
-<script src="js/error-notebook.js"></script>
-<script src="js/mock-exam.js"></script>
-<script src="js/global-search.js"></script>
-<script src="js/chinese-sentence-correction.js"></script>
-<script src="js/physics-wave-optics.js"></script>
-<script src="js/chemistry-3d-molecules.js"></script>
-<script src="js/biology-cell-division.js"></script>
-<script src="js/study-dashboard.js"></script>
-<script src="js/onboarding.js"></script>
-<script src="js/english-vocabulary.js"></script>
-<script src="js/game-scratchpad.js"></script>
-<script src="js/learning-tools.js"></script>
-<script src="js/open-answer-trainer.js"></script>
-<script src="js/english-tools.js"></script>
-<script src="js/study-tools-v2.js"></script>
-<script src="js/study-tools-enhanced.js"></script>
-<script src="js/interactive-physics-bio.js"></script>
-<script src="js/interactive-chemistry.js"></script>
-<script src="js/content-enhanced-v2.js"></script>
-<script src="js/subject-gap-1.js"></script>
-<script src="js/subject-gap-2.js"></script>
-<script src="js/subject-gap-3.js"></script>
-<script src="js/gamification-system.js"></script>
-<script src="js/data-analysis-enhanced.js"></script>
-<script src="js/content-deep-v3.js"></script>
-<script src="js/utility-tools-v2.js"></script>
-<script src="js/learning-path-recommender.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/app-chemistry.js"></script>
+<script defer src="js/app-physics.js"></script>
+<script defer src="js/app-biology.js"></script>
+<script defer src="js/app-exam.js"></script>
+<script defer src="js/enhanced-tools.js"></script>
+<script defer src="js/content-enhancement.js"></script>
+<script defer src="js/comprehensive-data.js"></script>
+<script defer src="js/exam-review-system.js"></script>
+<script defer src="js/platform-system.js"></script>
+<script defer src="js/missing-tools.js"></script>
+<script defer src="js/missing-tools-part2.js"></script>
+<script defer src="js/guangdong-features.js"></script>
+<script defer src="js/study-enhanced.js"></script>
+<script defer src="js/visual-enhanced.js"></script>
+<script defer src="js/auxiliary-tools.js"></script>
+<script defer src="js/math-tools.js"></script>
+<script defer src="js/chinese-tools.js"></script>
+<script defer src="js/error-notebook.js"></script>
+<script defer src="js/mock-exam.js"></script>
+<script defer src="js/global-search.js"></script>
+<script defer src="js/chinese-sentence-correction.js"></script>
+<script defer src="js/physics-wave-optics.js"></script>
+<script defer src="js/chemistry-3d-molecules.js"></script>
+<script defer src="js/biology-cell-division.js"></script>
+<script defer src="js/study-dashboard.js"></script>
+<script defer src="js/onboarding.js"></script>
+<script defer src="js/english-vocabulary.js"></script>
+<script defer src="js/game-scratchpad.js"></script>
+<script defer src="js/learning-tools.js"></script>
+<script defer src="js/open-answer-trainer.js"></script>
+<script defer src="js/english-tools.js"></script>
+<script defer src="js/study-tools-v2.js"></script>
+<script defer src="js/study-tools-enhanced.js"></script>
+<script defer src="js/interactive-physics-bio.js"></script>
+<script defer src="js/interactive-chemistry.js"></script>
+<script defer src="js/content-enhanced-v2.js"></script>
+<script defer src="js/subject-gap-1.js"></script>
+<script defer src="js/subject-gap-2.js"></script>
+<script defer src="js/subject-gap-3.js"></script>
+<script defer src="js/gamification-system.js"></script>
+<script defer src="js/data-analysis-enhanced.js"></script>
+<script defer src="js/content-deep-v3.js"></script>
+<script defer src="js/utility-tools-v2.js"></script>
+<script defer src="js/learning-path-recommender.js"></script>
 
 <script>
 (function() {
@@ -1980,8 +2027,16 @@
     var PS = window.PlatformSystem;
     var CE = window.ContentEnhancer;
 
-    if (PS) { PS.init(); }
-    if (window.darkModeToggle && window.darkModeToggle.render) { window.darkModeToggle.render(); }
+    // v1.3: 外部模块脚本带 defer，解析期尚未就绪 —— 平台初始化延后到 DOMContentLoaded
+    function bootPlatform() {
+        if (PS) { PS.init(); }
+        if (window.darkModeToggle && window.darkModeToggle.render) { window.darkModeToggle.render(); }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootPlatform);
+    } else {
+        bootPlatform();
+    }
 
     function walkUp(el, attr) {
         while (el && el !== document.body && el !== document.documentElement) {
@@ -4192,9 +4247,13 @@
         }
     };
 
+    // v1.3: 暴露到全局 —— 修复 onclick="showSection(...)" 等内联事件无法引用 IIFE 内部函数的问题
+    window.showSection = showSection;
+    window.setActiveNav = setActiveNav;
+
 })();
 </script>
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换暗色模式">🌙</button>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
 <script>
 /* ---- 首页工具区块折叠功能 ---- */
 (function(){
@@ -4206,11 +4265,11 @@
 
     // 读取已保存的折叠状态
     function getSavedState(){
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+        try { return JSON.parse(HSPCBStore.get(STORAGE_KEY)) || {}; }
         catch(e){ return {}; }
     }
     function saveState(state){
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+        try { HSPCBStore.set(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
     }
 
     // 根据 h3 文本生成唯一 key

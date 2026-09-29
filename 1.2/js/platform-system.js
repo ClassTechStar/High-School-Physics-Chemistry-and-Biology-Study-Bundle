@@ -421,7 +421,7 @@ var PlatformSystem={
         var key='checklist_'+subject;
         var saved;
         try {
-            saved=JSON.parse(localStorage.getItem(key)||'[]');
+            saved=JSON.parse((window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key))||'[]');
         } catch(err){
             console.error('读取检查清单失败，回退到内存模式:',err);
             saved=this._checklistMemory=this._checklistMemory||{};
@@ -430,7 +430,7 @@ var PlatformSystem={
         }
         if(el.checked) saved.push(idx); else saved=saved.filter(function(i){return i!==idx;});
         try {
-            localStorage.setItem(key,JSON.stringify(saved));
+            (window.HSPCBStore ? HSPCBStore.set(key,JSON.stringify(saved)) : localStorage.setItem(key,JSON.stringify(saved)));
         } catch(err){
             console.error('保存检查清单失败:',err);
             if(!this._checklistMemory) this._checklistMemory={};
@@ -445,7 +445,7 @@ var PlatformSystem={
         var key='checklist_'+subject;
         var saved;
         try {
-            saved=JSON.parse(localStorage.getItem(key)||'[]');
+            saved=JSON.parse((window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key))||'[]');
         } catch(err){
             console.error('读取检查清单统计失败:',err);
             saved=(this._checklistMemory&&this._checklistMemory[key])||[];
