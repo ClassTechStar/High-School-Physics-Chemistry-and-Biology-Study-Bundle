@@ -1,0 +1,24 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 数据与题库质检
+        run: npm run check:data
+      - name: 全局声明碰撞扫描
+        run: npm run check:collisions
+      - name: 进度存储单测
+        run: npm test
+      - name: 功能冒烟
+        run: npm run test:smoke

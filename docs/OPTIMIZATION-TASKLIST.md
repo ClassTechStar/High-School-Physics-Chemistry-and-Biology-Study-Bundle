@@ -3,6 +3,27 @@
 > 生成日期：2026-09-30 · 基线：main @ 816bf4c · 活跃目录：`1.2/`（1.1 只读归档）
 > 门禁快照：`check:data` PASS（1 warning）· `test` 12/12 · `test:smoke` 43/43 · `static-bug-scan` 0 err / 0 warn
 
+## ✅ 执行结果（2026-09-30，随 v1.3 发布）
+
+| 任务 | 状态 | 说明 |
+| --- | --- | --- |
+| T1 无选项题 | ✅ 完成 | 70 题补齐 options（scripts/fix-no-options.mjs），新增校验规则 |
+| T2 加载优化 | ✅ 完成 | 45 脚本 defer + 题库空闲预热/按需加载（common-utils/progress 保持同步） |
+| T3 错误兜底+转义 | ✅ 完成 | head 内联 error/unhandledrejection 兜底 + toast；app-exam 渲染路径 escapeHtml |
+| T5 schema v2 | ✅ 完成 | exams→questions，消费方双兼容 |
+| T8 答案均衡 | ✅ 完成 | 200 题安全换位，分布 368/368/366/368（scripts/balance-answers.mjs） |
+| T4 localStorage 收敛 | ✅ 完成 | HSPCBStore 门面（hspcb.st.* + 透明搬迁），27 文件收敛，白名单 3 类 |
+| T9 脚本治理 | ✅ 完成 | 删除 2 个死文件；handler-integrity 补扫内联脚本修正误报 |
+| T6 暗色令牌化 | ✅ 完成（第一阶段） | 39 处高频 hex → var(--dm-*)，外观零变化；后续可继续扩展映射 |
+| T7 可访问性 | ✅ 完成（基线） | 导航 landmark aria-label + 主题按钮 aria-pressed |
+| T12 CSP | ✅ 完成（第一阶段） | CSP meta + referrer；unsafe-inline 待事件委托改造后收紧 |
+| T10 SW | ✅ 完成 | 版本注释同步，CACHE_NAME → hspcb-v13 |
+| T14 CI | ✅ 完成 | .github/workflows/verify.yml（check:data + collisions + test + smoke） |
+| T11 模块合并 | ⏸ 审计完成，合并延后 | 47 文件均被引用（无死文件）；新增 check-global-collisions 扫描器；实际合并需逐模块回归 |
+| T13 题量均衡 | ✅ 部分 | 六科题库在真题系统中打通可见（此前数/语/英不进列表）；题量扩充需内容贡献，列为后续 |
+
+**额外收获**：错误兜底上线当天即抓出 3 个 v1.2 静默失效 bug（missing-tools.js 整文件从未执行、3 个 onclick 按钮必抛错、window.examBank 从未挂载），均已修复。
+
 ---
 
 ## 一、现状基线（已完成，作为后续工作的起点）
