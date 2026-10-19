@@ -853,5 +853,62 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 }
 }
 
+// T2-6 / P1-28: 归档宣传页（promo/presentation）的工具数量必须与 index.html 的
+// data-tool 注册表一致，且页面内部自洽（分科之和 = 总数，无重复计数）。
+// 期望值从 1.1/index.html 实时推导，避免门禁与事实漂移。
+{
+  const ARCH = join(ROOT, '1.1');
+  const idxHtml = readFileSync(join(ARCH, 'index.html'), 'utf8');
+  const tools = [...new Set([...idxHtml.matchAll(/data-tool="([^"]+)"/g)].map((m) => m[1]))];
+  // 按主标签归类（secondary-conclusions 为物化共用，按其 tool-tag=physics 归物理，只计一次）
+  const subjectOf = (t) =>
+    t.startsWith('physics-') || t === 'secondary-conclusions' ? 'physics'
+      : t.startsWith('chemistry-') || t === 'valence-atlas' ? 'chemistry'
+        : t.startsWith('biology-') ? 'biology' : 'platform';
+  const counts = { physics: 0, chemistry: 0, biology: 0, platform: 0 };
+  for (const t of tools) counts[subjectOf(t)]++;
+  const total = tools.length;
+  ok(total === 32,
+    `1.1 data-tool 注册表共 ${total} 个工具（物理 ${counts.physics} / 化学 ${counts.chemistry} / 生物 ${counts.biology} / 平台 ${counts.platform}）`);
+  ok(counts.physics + counts.chemistry + counts.biology + counts.platform === total,
+    '分科数量之和等于总数（共用工具只计一次）');
+
+  const promo = readFileSync(join(ARCH, 'promo.html'), 'utf8');
+  const pres = readFileSync(join(ARCH, 'presentation.html'), 'utf8');
+  // 旧口径 18/27 只允许以「首期18款」里程碑形态存在于路线图 slide
+  const withoutMilestone = (s) => s.replace(/首期18款核心工具开发完成/g, '');
+  ok(!/18款|27款/.test(withoutMilestone(promo)),
+    'promo.html 不再出现旧口径「18款/27款」');
+  ok(!/18款|27款/.test(withoutMilestone(pres)),
+    'presentation.html 除「首期18款」里程碑外不再出现旧口径「18款/27款」');
+
+  const N = { total, ...counts };
+  ok(promo.includes(`${N.total}款交互式学习工具`)
+    && promo.includes(`<span class="hero-stat-num">${N.total}</span>`)
+    && promo.includes(`<span class="stats-value">${N.total}款</span>`),
+    `promo.html 总量三处（hero 副标题/hero 数字/统计卡）均为 ${N.total}`);
+  ok(promo.includes(`<span class="stats-value">${N.physics}款</span>`)
+    && promo.includes(`<span class="stats-value">${N.chemistry}款</span>`)
+    && promo.includes(`<span class="stats-value">${N.biology}款</span>`)
+    && promo.includes(`<span class="stats-value">${N.platform}款</span>`),
+    `promo.html 统计卡分科数量与注册表一致（${N.physics}/${N.chemistry}/${N.biology}/${N.platform}）`);
+  ok(new RegExp(`${N.physics}款专业工具`).test(promo)
+    && new RegExp(`${N.chemistry}款专业工具`).test(promo)
+    && new RegExp(`${N.biology}款专业工具`).test(promo),
+    `promo.html 分科 section-desc 与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
+
+  ok(pres.includes(`${N.total}款交互式学习工具`)
+    && pres.includes(`data-count="${N.total}"`)
+    && pres.includes(`整合${N.total}款交互式学习工具`)
+    && pres.includes(`整合${N.total}款工具`)
+    && pres.includes(`${N.total}款工具助考`)
+    && pres.includes(`<span class="fs-num">${N.total}</span>`),
+    `presentation.html 总量六处（副标题/计数动画/简介/价值卡/结尾口号/尾页统计）均为 ${N.total}`);
+  ok(pres.includes(`<span class="tool-count">${N.physics}款</span>`)
+    && pres.includes(`<span class="tool-count">${N.chemistry}款</span>`)
+    && pres.includes(`<span class="tool-count">${N.biology}款</span>`),
+    `presentation.html 分科角标与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
+}
+
 console.log(`\n结果: ${pass} passed, ${fail} failed`);
 process.exit(fail > 0 ? 1 : 0);

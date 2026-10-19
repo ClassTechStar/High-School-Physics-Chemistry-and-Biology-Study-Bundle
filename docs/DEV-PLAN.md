@@ -525,7 +525,7 @@ function getCE() { return window.ContentEnhancer; }
 `npm test` 含 cross-subject 接线回归（39 + 14 = 53 项断言）。
 **风险**：低。cross-subject 接线有内置回退，`file://` 直开或网络异常时功能不退场。
 
-### T2-6 · 1.1 归档处置（消除误导，不做功能修复）
+### T2-6 ✅已完成 · 1.1 归档处置（消除误导，不做功能修复）
 
 **原则**：`1.1/` 是只读归档，**不在归档内做功能修复**（修了反而制造"1.1 也是可用版本"的错觉），但**必须消除误导**。
 
@@ -546,6 +546,38 @@ function getCE() { return window.ContentEnhancer; }
 5. 统一 `exams \|\| questions` 顺序（已在 T0-4 覆盖）。
 
 > **不建议**删除整个 `1.1/` 目录 —— `presentation.html` / `promo.html` 是对外展示页，删除会破坏 GitHub Pages 路径。**保留 + 标注**优于删除。
+
+> **v1.4 执行结果（第 4 项，2026-10-19 结项）**：
+> 以 `1.1/index.html` 的 `data-tool` 注册表为唯一事实源（32 个唯一工具）修正两页：
+> - **总量**：promo 三处（hero 副标题 / hero 数字 / 统计卡）+ presentation 六处（副标题 /
+>   `data-count` 计数动画 / 项目简介 / 价值卡 / 结尾口号 / 尾页 `fs-num`）全部统一为 **32**
+> - **分科**（按主标签归类，`secondary-conclusions` 物化共用、按其 `tool-tag=physics` 只计一次）：
+>   物理 **7** / 化学 **10** / 生物 **13** / 平台 **2**，合计 32 自洽；promo 统计卡相应新增「平台工具」行
+> - **历史口径保留但消歧**：路线图 slide 的「18款核心工具开发完成」是 v1.0 里程碑事实，
+>   改为「**首期**18款」，门禁放行该短语、其余任何「18款/27款」一律 FAIL
+> - **门禁**：`runtime-defer-check.mjs` 新增 9 项断言（80 → 89），期望值从注册表实时推导；
+>   四类注入（总量回退 / 分科改数 / 恢复原始缺陷态 / 注册表删工具）全部验证会 FAIL
+
+---
+
+## 3.7 Sprint 2 执行结果（已完成）
+
+**结论：T2-1 ~ T2-6 全部完成，Sprint 2 关闭。** 提交：`7e3f76e` / `cd86e91` / `4167b86` / 本轮 T2-6 收尾。
+
+| 任务 | 结论 |
+| --- | --- |
+| T2-1 | 仪表盘改读真实写入方（`hspcb_game_scores` 等无写入方裸 key 全部下线）；runtime +3 断言 |
+| T2-2 | P0-8 **两层根因**：① remove 不清旧裸 key（T0-17 已修一层）② 清除面只有 4 个散装 key，权威轨 `hspcb.v2.*` 完全没清，且英文版清除按钮漏 `hspcb.st.*`。现三轨全清 + 39 项单测锁死 |
+| T2-3 | 三轨职责写入文档与代码注释；`resetAll()` 公开化供清除按钮调用 |
+| T2-4 | **原报告前提失效**：`MODULE_REGISTRY` 不是死代码（P0-11 修复后已注册 5 项真实模块），不能删。真正债务是 P1-1 的 `loadModuleContent` 赋值链（3 处猴补丁 → `registerModule` 注册 11 项），收敛为 1 处权威定义 |
+| T2-5 | **原报告名单已变**：`knowledgePoints-thesaurus.json` 在 T1-4 已活；`cross-subject.json` 接线（8 条硬编码 → 22 条 JSON + 适配器）；另两个确认死数据后归档至 `1.2/data/_archive/` |
+| T2-6 | 横幅、页脚版本号、删 check-syntax.js、归档 README、工具数量统一为 32（分科 7/10/13/2 自洽）均已完成 |
+
+**两处与原报告判断不同**（以实测为准，已同步 ERRATA-REPORT）：
+1. P1-3「registerModule 定义后零调用」在 Sprint 0 后已不成立（T2-4 发现）
+2. P0-8 有两层根因，仅修存储 schema 不能使用户的「清除数据」生效（T2-2 发现）
+
+**门禁现状**：verify 全链 PASS（data / lint 9+2 基线 / content 11+7 基线 / runtime 89 / test 39 / cross-subject 14 / smoke 46）；本轮新增断言全部经缺陷注入验证会 FAIL。
 
 ---
 
