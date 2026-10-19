@@ -804,6 +804,19 @@ SyntaxError: Unexpected token ';'
 | **P1-11** | 首页 6 张学科卡中 3 张用**内联硬编码色值**绕过设计令牌：语文 `#0ea5e9`（令牌是 `--chinese:#ec4899`）、数学 `#3b82f6`、英语 `#8b5cf6` | `1.2/index.html:173, 182, 189` | ① **数学与物理卡片同色**（`--physics:#3b82f6`，物理走 class、数学走内联）；② 语文实际色与令牌不符；③ 内联样式无法被 `theme-dark.css` 覆盖 |
 | **P1-12** | `--english` 令牌**全仓不存在**；`style.css` / `theme-dark.css` 中 `english` 关键字出现 **0 次** | `1.2/css/tokens.css` | 六科中英语无主题色，与「六科全覆盖」的视觉承诺不符 |
 | **P1-13** | `manifest.json` 应用名漏「英」：`"高中物化生语数学习大礼包"`（缺英语）；`short_name: "HSPCB"` 内部代号泄露给终端用户；图标全部用 `data:image/svg+xml,…` 内联 URI，**Chrome/Edge 不接受 data: URI 作为 manifest 图标**，PWA 可安装性存疑；`shortcuts` 只列 4 科，缺语文/英语 | `1.2/manifest.json` | 安装后的应用名与仓库标题不一致；PWA 安装可能失败或显示为默认图标 |
+
+> **状态更新（v1.4 / T3-2 结项）**：四项问题全部修正——name 补「英」（与 index.html
+> `<title>` 口径一致）；short_name `HSPCB` → 「高考备考」；4 个 data: URI 图标换成
+> `1.2/icons/` 下真实文件（`icon.svg` / `icon-192.png` / `icon-512.png` /
+> `icon-maskable-512.png`，尺寸经 PNG IHDR 校验）；shortcuts 补语文/英语成六科。
+> **连带发现并修复**：shortcuts 声明的 `index.html?subject=X` 此前**全仓无任何
+> 消费方**（无 `URLSearchParams` / `location.search` 使用），点击 shortcut 只会
+> 打开首页——已在 `app.js` 补最小深链实现（白名单从 `.nav-btn[data-subject]`
+> 实时推导 + 复用 `navigateTo`，非法参数警告并停留首页）。另补 `sw.js` 预缓存
+> 4 个图标（`CACHE_NAME` v13→v14）与 index.html 的 favicon / apple-touch-icon 链接。
+> `runtime-defer-check.mjs` 新增 18 项断言（103 → 121，含 3 项行为级深链验证），
+> 六类注入缺陷全部验证会 FAIL；Edge 无头实测 `index.html?subject=english`
+> 直达英语科且导航按钮高亮。
 | **P1-14** | `1.1/check-syntax.js:2` 硬编码仓库外路径 `C:/Users/18948/Documents/high-school-science-kit/index.html`，且用 CommonJS `require`，在本仓必然失效 | `1.1/check-syntax.js` | 死文件；T9 只删了 `1.2/` 下的同名文件，1.1 归档未同步 |
 | **P1-15** | `theme-dark.css` 仍是**补丁式覆写层**：552 处硬编码 hex + **253 处 `!important`**，仅 8 个 `--dm-*` 令牌定义支撑 99 处引用 | `1.2/css/theme-dark.css` | T6 只完成第一阶段；任务清单自己诊断的「461 个硬编码 hex 的补丁层」问题基本未解 |
 | **P1-16** | 残留空元素 `<div class="quick-access"></div>`（紧邻另一个同名真容器），是 v1.2「首页卡片嵌套修复」的遗留 | `1.2/index.html:200` | 无功能影响，但属未清理的 DOM 残渣 |
@@ -837,7 +850,7 @@ SyntaxError: Unexpected token ';'
 | 「T4：27 个模块的 localStorage 调用全部收敛」 | 仍有 29 处裸调用分布在 9 个文件 | P0-4 / P1-4 上下文 |
 | 「P0-2 T3 完成：escapeHtml 接入主渲染路径」 | 未接入；`app.js` 自身 1 处 innerHTML、0 次转义 | P0-5 |
 | 「📊 扩展题库：跨学科、情境题、变式题、科技前沿、答题模板」 | 其中 4 项（跨学科/情境题/科技前沿/考点词典）**无任何运行时消费方** | P1-2 |
-| 「PWA 可安装到桌面」 | manifest 图标为 data: URI，Chrome 不支持 | P1-13 |
+| 「PWA 可安装到桌面」 | ✅ 已随 T3-2 修复：manifest 图标改为真实文件，`?subject=` 深链闭环 | P1-13 |
 | 「T13 数学/语文题量扩充（200 → 约 340）」 | 未启动，数学/语文仍各 200 题，且 11 题重复 | P0-4 |
 | 「当前数据基线：1718 题」 | 真实唯一 1166 题 | P0-4 |
 | 「npm run verify 期望全绿」 | 全绿但漏检本次全部 8 项 P0 | P0-6 |

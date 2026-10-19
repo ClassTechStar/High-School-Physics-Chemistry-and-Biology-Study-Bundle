@@ -618,7 +618,7 @@ function getCE() { return window.ContentEnhancer; }
 > （按知识点各异），且已被暗色通用补丁的 `border-color !important` 中和，不属于学科卡缺陷；
 > 其批量提取属 T3-3（hex 552 → <100）的范畴，未在本任务扩大改动面。
 
-### T3-2 · P1-13 PWA manifest 修正
+### T3-2 ✅已完成 · P1-13 PWA manifest 修正
 
 - `name` 补「英」：「高中物化生语数英学习大礼包」
 - `short_name` 改「高考备考」而非内部代号 `HSPCB`
@@ -627,6 +627,41 @@ function getCE() { return window.ContentEnhancer; }
 
 **验收**：Chrome DevTools → Application → Manifest 无告警；可安装。
 **风险**：低。
+
+> **v1.4 执行结果**（提交 `7cc91bc`）：
+> - **图标**：新建 `1.2/icons/`，4 个真实文件——`icon.svg`（品牌渐变 `#4f6ef6→#7b93fa`
+>   + 白色「物化生」）、`icon-192.png`、`icon-512.png`、`icon-maskable-512.png`
+>   （全幅出血 + 文字收进 80% 安全区）；尺寸均经 PNG IHDR 校验
+> - **`manifest.json`**：name 补「英」（与 index.html `<title>` 口径一致）；
+>   short_name `HSPCB` → 「高考备考」；4 个 data: URI 全部换真实文件；
+>   shortcuts 补语文/英语，六科全覆盖
+> - **新发现并修复的连带缺陷——shortcuts 深链是坏的**：manifest 早已声明
+>   `index.html?subject=physics` 等 URL，但全仓**没有任何 `URLSearchParams` /
+>   `location.search` 消费方**，点击 shortcut 只会打开首页。已在 `app.js`
+>   DOMContentLoaded 补最小实现：白名单从 `.nav-btn[data-subject]` 实时推导
+>   （不写死集合）+ 复用 `navigateTo`；非法参数警告并停留首页
+> - **`sw.js`**：`CACHE_NAME` v13 → v14；`CORE_ASSETS` 预缓存 4 个图标文件
+>   （PWA 安装与离线启动需要）
+> - **`index.html`**：补 `rel="icon"`（icon.svg）与 `apple-touch-icon`（icon-192.png）
+> - **门禁**：`runtime-defer-check.mjs` 新增 18 项断言（103 → 121）——静态 15 项
+>   （name/short_name/无 data: URI/图标文件存在/尺寸与 purpose/shortcuts 六科/
+>   URL 形态/sw 预缓存/favicon 链接/深链消费方/白名单推导/复用 navigateTo）
+>   + 行为级 3 项。行为级断言为此扩展了沙箱：补 `URLSearchParams` 全局、
+>   令假 DOM 的 `querySelectorAll` 识别 `.nav-btn[data-subject]`（从 index.html
+>   静态 HTML 抽取），重放 DOMContentLoaded 验证 `?subject=english` 激活
+>   english-section、非法参数被白名单拦截
+> - **注入验证**：六类缺陷全部正确 FAIL 后经 cp 备份恢复（未用 git checkout）：
+>   name 去「英」/ 图标回 data: URI / shortcuts 删英语 / sw 删图标预缓存 /
+>   app.js 深链致盲（静态+行为双杀）/ index.html 删 favicon
+> - **真实浏览器验证**：Edge 无头打开 `index.html?subject=english`，截图确认
+>   直达英语科且导航按钮高亮（基线页为首页）；4 个图标与 manifest 经 HTTP
+>   200 + 正确 Content-Type 验证
+>
+> **与验收标准的偏差（记录在案）**：验收写的「Chrome DevTools → Application →
+> Manifest 无告警；可安装」以**静态等价断言**执行（manifest 可解析、图标真实
+> 且存在、六科 shortcuts、sw 预缓存齐全 + Edge 无头深链实测）。Chrome 的
+> 「可安装」判定依赖 beforeinstallprompt 事件与参与度启发式，无头环境无法
+> 完整复现，留待人工在 Chrome 中点击安装按钮确认。
 
 ### T3-3 · P1-15 暗色主题令牌化（v1.3 T6 第二阶段）
 
