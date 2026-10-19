@@ -191,6 +191,17 @@ document.addEventListener = function (type, fn) {
   listeners.get(type).push(fn);
 };
 
+// T3-2: 深链行为断言需要认出导航按钮集合 —— 从 index.html 静态 HTML 抽取
+// .nav-btn[data-subject]（假 DOM 的 querySelectorAll 默认恒返回 []，
+// 这里只对这一个是给真实集合，其余选择器行为不变）。
+const navBtnSubjects = [...html.matchAll(/<button[^>]*class="nav-btn[^"]*"[^>]*\bdata-subject="([^"]+)"/g)].map((m) => m[1]);
+document.querySelectorAll = function (sel) {
+  if (sel === '.nav-btn[data-subject]') {
+    return navBtnSubjects.map((s) => { const el = makeEl('button'); el.dataset.subject = s; return el; });
+  }
+  return [];
+};
+
 function makeLocalStorage() {
   const m = new Map();
   return {
@@ -232,6 +243,7 @@ const sandbox = {
   atob: (s) => Buffer.from(s, 'base64').toString('binary'),
   btoa: (s) => Buffer.from(s, 'binary').toString('base64'),
   TextEncoder, TextDecoder,
+  URLSearchParams,
   crypto: { getRandomValues: (a) => a },
 };
 sandbox.window = sandbox;
@@ -966,6 +978,92 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     darkBorderKept.length === SUBJECT_TOKENS.length
       ? 'T3-1 暗色下六科学科色条均保留（不被 border-color 通用补丁拍平）'
       : `T3-1 暗色下学科色条被拍平: ${SUBJECT_TOKENS.filter((s) => !darkBorderKept.includes(s)).join(', ')}`);
+}
+
+// T3-2 / PWA manifest 修正：真实图标文件 + 名称口径 + 六科 shortcuts + 深链闭环。
+// 背景（DEV-PLAN T3-2）：原 manifest 用 4 个 data: URI 图标（Chrome 安装不支持）、
+// name 缺「英」、short_name 是内部代号 HSPCB、shortcuts 缺语文/英语；
+// 且 shortcuts 声明的 index.html?subject=X 此前全仓无消费方（深链是坏的，点击只打开首页）。
+{
+  const manifest = JSON.parse(readFileSync(join(APP, 'manifest.json'), 'utf8'));
+  ok(manifest.name === '高中物化生语数英学习大礼包',
+    `T3-2 manifest.name 覆盖六科（当前: ${manifest.name}）`);
+  ok(manifest.short_name === '高考备考' && !/HSPCB/i.test(manifest.short_name),
+    `T3-2 manifest.short_name 为「高考备考」而非内部代号（当前: ${manifest.short_name}）`);
+
+  const icons = manifest.icons || [];
+  ok(icons.length > 0 && icons.every((i) => !/^data:/.test(i.src)),
+    'T3-2 manifest 图标全部为真实文件（无 data: URI，Chrome 安装要求）');
+  const iconSrcs = icons.map((i) => i.src);
+  const missingFiles = iconSrcs.filter((src) => !existsSync(join(APP, src)));
+  ok(missingFiles.length === 0,
+    missingFiles.length === 0
+      ? `T3-2 manifest 图标文件全部存在（${iconSrcs.join(', ')}）`
+      : `T3-2 manifest 图标文件缺失: ${missingFiles.join(', ')}`);
+  ok(icons.some((i) => i.sizes === '192x192') && icons.some((i) => i.sizes === '512x512'),
+    'T3-2 manifest 含 192x192 与 512x512 图标');
+  ok(icons.some((i) => i.purpose === 'maskable' && i.sizes === '512x512'),
+    'T3-2 manifest 含 512x512 maskable 图标');
+  ok(icons.some((i) => i.type === 'image/svg+xml'),
+    'T3-2 manifest 含 SVG 矢量图标');
+
+  const SUBJECT_KEYS = ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'];
+  const shortcuts = manifest.shortcuts || [];
+  const shortcutUrls = shortcuts.map((s) => s.url);
+  const missingShortcuts = SUBJECT_KEYS.filter((k) => !shortcutUrls.includes(`index.html?subject=${k}`));
+  ok(missingShortcuts.length === 0,
+    missingShortcuts.length === 0
+      ? `T3-2 shortcuts 覆盖六科（${shortcuts.length} 个）`
+      : `T3-2 shortcuts 缺少学科: ${missingShortcuts.join(', ')}`);
+  ok(shortcuts.length > 0 && shortcuts.every((s) => /^index\.html\?subject=[a-z]+$/.test(s.url)),
+    'T3-2 shortcuts URL 均为 index.html?subject=<key> 形态');
+
+  const sw = readFileSync(join(APP, 'sw.js'), 'utf8');
+  const swIcons = ['icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'];
+  const missingSw = swIcons.filter((i) => !sw.includes(`'${i}'`));
+  ok(missingSw.length === 0,
+    missingSw.length === 0
+      ? 'T3-2 sw.js CORE_ASSETS 预缓存全部 4 个图标文件'
+      : `T3-2 sw.js 未预缓存图标: ${missingSw.join(', ')}`);
+
+  const idxHtml3 = readFileSync(join(APP, 'index.html'), 'utf8');
+  ok(/<link rel="icon" href="icons\/icon\.svg"/.test(idxHtml3),
+    'T3-2 index.html 声明 rel="icon" → icons/icon.svg');
+  ok(/<link rel="apple-touch-icon" href="icons\/icon-192\.png"/.test(idxHtml3),
+    'T3-2 index.html 声明 apple-touch-icon → icons/icon-192.png');
+
+  // 深链闭环：shortcuts 的 ?subject= 必须有消费方，且白名单从页面导航实时推导
+  const appJs = readFileSync(join(APP, 'js', 'app.js'), 'utf8');
+  ok(/URLSearchParams\(window\.location\.search\)/.test(appJs) && /\.get\('subject'\)/.test(appJs),
+    'T3-2 app.js 消费 ?subject= URL 参数（shortcuts 深链可用）');
+  ok(/querySelectorAll\('\.nav-btn\[data-subject\]'\)/.test(appJs),
+    'T3-2 深链白名单从 .nav-btn[data-subject] 实时推导（不写死集合）');
+  ok(/navigateTo\(subject\)/.test(appJs),
+    'T3-2 深链复用 navigateTo 完成跳转');
+
+  // 行为级验证：给沙箱 location 带上 ?subject= 后重放 DOMContentLoaded，
+  // 断言对应 section 被激活；非法参数不得导航到任何 section。
+  // （T3-2 块位于本脚本末尾，重放副作用不影响后续断言。）
+  const dclFns = listeners.get('DOMContentLoaded') || [];
+  const replayDcl = (search) => {
+    sandbox.location.search = search;
+    for (const fn of dclFns) { try { fn(); } catch (e) { /* 重放异常不影响断言目标 */ } }
+  };
+  const engSec = document.getElementById('english-section');
+  const mathSec = document.getElementById('math-section');
+  ok(engSec !== null && mathSec !== null,
+    'T3-2 行为前置: english-section / math-section 均在首页静态 id 注册表');
+  if (engSec && mathSec) {
+    engSec.classList.remove('active');
+    replayDcl('?subject=english');
+    ok(engSec.classList.contains('active'),
+      'T3-2 行为验证: index.html?subject=english 重放后 english-section 被激活');
+    mathSec.classList.remove('active');
+    replayDcl('?subject=not-a-real-subject');
+    ok(!mathSec.classList.contains('active'),
+      'T3-2 行为验证: 非法 subject 参数被白名单拦截，不触发导航');
+    replayDcl('');
+  }
 }
 
 console.log(`\n结果: ${pass} passed, ${fail} failed`);

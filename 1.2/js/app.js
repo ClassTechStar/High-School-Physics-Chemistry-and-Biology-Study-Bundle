@@ -1370,6 +1370,25 @@ document.addEventListener('DOMContentLoaded', function() {
     if (firstPhysicsTab) {
         firstPhysicsTab.click();
     }
+
+    // T3-2 / PWA shortcuts 深链：消费 index.html?subject=<key>
+    // 背景：manifest.json 的 shortcuts 早已声明 index.html?subject=physics 等 URL，
+    // 但此前全仓没有 URL 参数消费方，点击 shortcut 只会打开首页、不会跳到对应学科。
+    // 这里补最小实现：白名单从导航按钮实时推导（避免写死集合与页面漂移）+ 复用 navigateTo。
+    (function () {
+        const params = new URLSearchParams(window.location.search);
+        const subject = params.get('subject');
+        if (!subject) return;
+        const allowed = Array.prototype.slice
+            .call(document.querySelectorAll('.nav-btn[data-subject]'))
+            .map(btn => btn.dataset.subject);
+        if (allowed.indexOf(subject) === -1) {
+            console.warn(`[deep-link] 非法 subject 参数: "${subject}"，已忽略并停留在首页`);
+            return;
+        }
+        console.info(`[deep-link] 按 URL 参数导航至: ${subject}`);
+        navigateTo(subject);
+    })();
 });
 
 // ---- window 暴露（核心） ----
