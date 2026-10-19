@@ -773,6 +773,33 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     ok(/getCheckin|checkinDays/.test(R('gamification-system.js')),
       'T0-14 打卡契约冲突已消解（gamification 走归一化 API）');
   }
+
+// T2-1 / T2-3: 仪表盘数据源必须是**真实写入方**，不得读无写入方的裸 key
+{
+  const dash = sandbox.studyDashboard;
+  ok(!!dash, 'studyDashboard 已挂到 window');
+  if (dash) {
+    // 无写入方的裸 key（历史上导致仪表盘恒空）
+    const ORPHAN_KEYS = ['hspcb_game_scores', 'hspcb_recitation_scores'];
+    const src = readFileSync(join(APP, 'js', 'study-dashboard.js'), 'utf8');
+    // 剥离注释后再匹配，避免注释里的历史说明造成误报
+    const codeOnly = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+    const stillReading = ORPHAN_KEYS.filter((k) => codeOnly.includes(k));
+    ok(stillReading.length === 0,
+      stillReading.length === 0
+        ? '仪表盘不再读取无写入方的裸 key（hspcb_game_scores / hspcb_recitation_scores）'
+        : `仪表盘仍在读无写入方的裸 key: ${stillReading.join(', ')}`);
+
+    // gatherData 在空 localStorage 下应返回结构完整、不抛错
+    if (typeof dash.gatherData === 'function') {
+      let d = null, threw = null;
+      try { d = dash.gatherData(); } catch (e) { threw = e.message; }
+      ok(!threw && d && Array.isArray(d.examHistory) && Array.isArray(d.gameScores)
+        && Array.isArray(d.recitationScores) && Array.isArray(d.errorNotebook),
+        threw ? `gatherData 抛错: ${threw}` : 'gatherData 返回结构完整（4 个数组均就绪）');
+    }
+  }
+}
 }
 
 console.log(`\n结果: ${pass} passed, ${fail} failed`);
