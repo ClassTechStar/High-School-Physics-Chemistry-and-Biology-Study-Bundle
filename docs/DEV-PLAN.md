@@ -505,13 +505,25 @@ function getCE() { return window.ContentEnhancer; }
 
 ### T2-5 · P1-2 死数据处置
 
-**改动**：4 个文件二选一
-- **接线**：为 `cross-subject.json` / `situational.json` / `tech-frontiers.json` 做真实 UI 入口（这是 README 已在宣传的特性）
-- **下线**：从 `sw.js:70-85` 的 `DATA_ASSETS` 移除，从 README 特性表移除
+> **v1.4 修正结论**：原报告「4 个文件都无运行时消费方」的名单已变化。
+> `knowledgePoints-thesaurus.json` 在 T1-4 已接线（`learning-path-recommender.js`
+> 的 `loadThesaurus()`），不再是死数据，**保留**。
 
-**建议**：先接线 `cross-subject.json`（跨学科专题是最容易做出差异化的），其余三个下线。
-**验收**：`sw.js` 预缓存清单不含死数据；README 特性表与实现一一对应。
-**风险**：低。
+**实际执行（v1.4）**：
+
+| 文件 | 处置 | 依据 |
+| --- | --- | --- |
+| `cross-subject.json` | **接线** | 功能原跑 `visual-enhanced.js` 内 8 条硬编码数据；改为运行时 fetch（22 条）+ 适配器（examTrend→trend、学科码→中文、答案字母→索引），失败回退内置。新增 `scripts/test-cross-subject.mjs` 14 断言 |
+| `situational.json` | **下线归档** | 全仓核查无运行时消费方（`guangdong-features.js` 的 situationalQuiz 用硬编码数据，该文件 fetch 调用数 0） |
+| `tech-frontiers.json` | **下线归档** | 同上（`visual-enhanced.js` 的 techFrontiers 用硬编码数据） |
+| `knowledgePoints-thesaurus.json` | **保留（已活）** | T1-4 接线 |
+
+归档位置：`1.2/data/_archive/`（与 T1-2 去重副本同一约定）。
+同步移除：`sw.js` 的 `DATA_ASSETS`、`validate-data.mjs` 的 EXTENDED 清单、README 特性表。
+
+**验收（均已满足）**：`sw.js` 预缓存清单不含死数据；README 特性表与实现一一对应；
+`npm test` 含 cross-subject 接线回归（39 + 14 = 53 项断言）。
+**风险**：低。cross-subject 接线有内置回退，`file://` 直开或网络异常时功能不退场。
 
 ### T2-6 · 1.1 归档处置（消除误导，不做功能修复）
 

@@ -57,13 +57,12 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
     │   └── ...                        ← 更多工具模块
     └── data/                   ← 六科知识体系 + 扩展题库
         ├── exam-bank.json              ← 综合题库
-        ├── cross-subject.json          ← 跨学科专题
-        ├── situational.json            ← 情境题
+        ├── cross-subject.json          ← 跨学科专题（运行时加载）
         ├── variation-bank.json         ← 变式题库
-        ├── tech-frontiers.json         ← 科技前沿
         ├── answer-templates.json       ← 答题模板
         ├── framework-questions.json    ← 框架题
-        ├── knowledgePoints-thesaurus.json ← 考点词典
+        ├── knowledgePoints-thesaurus.json ← 考点词典（错题归因）
+        ├── _archive/                   ← 已归档数据（不再预缓存/加载）
         ├── physics/knowledge.json
         ├── chemistry/knowledge.json
         ├── biology/knowledge.json
@@ -102,7 +101,7 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 | 🧭 **学习路径推荐** | 基于薄弱点的智能学习路径推荐 |
 | 🌙 **暗色模式** | 设计令牌驱动的主题切换(明/暗) |
 | 🏁 **新手引导** | 首次使用引导流程 |
-| 📊 **扩展题库** | 跨学科、情境题、变式题、科技前沿、答题模板等 |
+| 📊 **扩展题库** | 跨学科专题（22 条，运行时加载）、变式题、答题模板等 |
 | 🎯 **广东特色** | 2022-2026 广东真题分析、地市模拟卷 |
 
 ---
@@ -179,7 +178,7 @@ node scripts/nocache-server.mjs 1.2 8902  # 禁用缓存的本地调试服务器
 | 📐 **数学** | 函数、几何、代数、统计等知识点与工具 |
 | 📚 **语文** | 现代文阅读、文言文、古诗词鉴赏、作文、病句修改 |
 | 🇬🇧 **英语** | 词汇、语法、阅读、写作工具 |
-| 📝 **题库** | 综合题库 + 跨学科 + 情境题 + 变式题,支持按学科、章节、难度筛选 |
+| 📝 **题库** | 综合题库 + 跨学科专题 + 变式题,支持按学科、章节、难度筛选 |
 | 📊 **错题归因** | 标记错题,自动归类到对应知识点,生成个性化复习计划 |
 | 📈 **提分工具** | 学习仪表盘、考试回顾系统、模拟考试、智能刷题 |
 | 🎮 **游戏化** | 积分、成就、等级系统,激励持续学习 |

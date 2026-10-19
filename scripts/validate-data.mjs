@@ -363,11 +363,11 @@ function validateExamBank() {
 /* ───────────────────────── extended banks ───────────────────────── */
 
 const EXTENDED = [
-  { file: 'situational.json', listKeys: ['questions', 'items', 'categories'] },
+  // T2-5 / P1-2: situational.json 与 tech-frontiers.json 已归档至 data/_archive/
+  // （无运行时消费方），不再作为活跃数据校验；cross-subject.json 已接线（v1.4），保留校验。
   { file: 'framework-questions.json', listKeys: ['questions'] },
   { file: 'variation-bank.json', listKeys: ['questions', 'items'] },
   { file: 'cross-subject.json', listKeys: ['topics', 'questions', 'items'] },
-  { file: 'tech-frontiers.json', listKeys: ['items'] },
   { file: 'answer-templates.json', listKeys: ['subjects'] },
 ];
 
