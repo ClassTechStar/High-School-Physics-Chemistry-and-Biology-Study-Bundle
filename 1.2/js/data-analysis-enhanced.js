@@ -9,10 +9,25 @@
   function getStore(key, def) {
     try {
       var v = (window.HSPCBStore ? HSPCBStore.get(key) : localStorage.getItem(key));
-      if (!v) return def;
+    if (!v) return def;
       return JSON.parse(v);
     } catch (e) { return def; }
   }
+
+  // 【T2-1 / T2-3】写入统一入口：
+  //   学习时长属**学习进度**轨 → 权威源为 hspcb.v2.studyTime（HSPCBProgress）。
+  //   同步写一份到 HSPCBStore 仅为兼容旧读取方，权威值以 v2 为准。
+  function setProgress(path, value) {
+    try {
+      if (typeof HSPCBProgress !== 'undefined' && HSPCBProgress && typeof HSPCBProgress.set === 'function') {
+        return HSPCBProgress.set(path, value);
+      }
+    } catch (e) {
+      console.warn('[data-analysis] 写入进度失败:', path, e && e.message);
+    }
+    return false;
+  }
+
   function pad2(n) { return ('0' + n).slice(-2); }
   function fmtDate(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
   function parseDate(s) {
@@ -495,7 +510,9 @@
         arr.push({ date: dateVal, subject: subj, seconds: mins * 60 });
         added++;
       }
-      try { (window.HSPCBStore ? HSPCBStore.set('hspcb_study_time', JSON.stringify(arr)) : localStorage.setItem('hspcb_study_time', JSON.stringify(arr))); } catch (e) {}
+      // 【T2-3】原先裸写 hspcb_study_time，而进度面板读的是 v2 轨，
+      // 导致"手动录入学习时长"在仪表盘/进度页看不到。统一写 v2 权威轨。
+      try { setProgress('studyTime', arr); } catch (e) {}
       var msg = bodyEl.querySelector('#tma-manual-msg');
       if (msg) msg.innerHTML = '<div style="color:#27ae60;font-size:12px;margin-bottom:8px;">已保存 ' + added + ' 条记录。</div>';
       var selfObj = this;

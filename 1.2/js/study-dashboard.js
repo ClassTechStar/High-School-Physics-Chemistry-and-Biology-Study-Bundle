@@ -4,6 +4,36 @@
 window.studyDashboard = (function() {
     'use strict';
 
+    // ============================================================
+    // 【T2-3 存储三轨收敛】统一读取入口
+    //   轨 1：hspcb.v2.*      学习进度（权威）  → HSPCBProgress
+    //   轨 2：hspcb.st.*      散装工具数据      → HSPCBStore
+    //   轨 3：hspcb_* 裸 key   v1 遗留，只读迁移源，迁移后应清理
+    // 任一项解析失败都必须**不影响其它项**（原实现共用 1 个 try/catch，
+    // 单个坏数据会让整个仪表盘退化为空态）。
+    // ============================================================
+    function readProgress(path, fallback) {
+        try {
+            if (typeof HSPCBProgress === 'undefined' || !HSPCBProgress) return fallback;
+            var v = HSPCBProgress.get(path);
+            return v === undefined || v === null ? fallback : v;
+        } catch (e) {
+            console.warn('[study-dashboard] 读取学习进度失败:', path, e && e.message);
+            return fallback;
+        }
+    }
+
+    function readStore(key, fallback) {
+        try {
+            if (typeof HSPCBStore === 'undefined' || !HSPCBStore) return fallback;
+            var v = HSPCBStore.get(key);
+            return v === undefined || v === null ? fallback : v;
+        } catch (e) {
+            console.warn('[study-dashboard] 读取工具数据失败:', key, e && e.message);
+            return fallback;
+        }
+    }
+
     function gatherData() {
         var data = {
             examHistory: [],
@@ -12,31 +42,41 @@ window.studyDashboard = (function() {
             recitationScores: []
         };
 
-        try {
-            // Mock exam history
-            var examRaw = HSPCBStore.getItem('hspcb_exam_history');
-            if (examRaw) data.examHistory = JSON.parse(examRaw);
-            if (!Array.isArray(data.examHistory)) data.examHistory = [];
-
-            // Error notebook
-            var errorsRaw = HSPCBStore.getItem('hspcb_error_notebook');
-            if (errorsRaw) data.errorNotebook = JSON.parse(errorsRaw);
-            if (!Array.isArray(data.errorNotebook)) data.errorNotebook = [];
-
-            // Game scores
-            var gameRaw = HSPCBStore.getItem('hspcb_game_scores');
-            if (gameRaw) data.gameScores = JSON.parse(gameRaw);
-            if (!Array.isArray(data.gameScores)) data.gameScores = [];
-
-            // Recitation scores
-            var recRaw = HSPCBStore.getItem('hspcb_recitation_scores');
-            if (recRaw) data.recitationScores = JSON.parse(recRaw);
-            if (!Array.isArray(data.recitationScores)) data.recitationScores = [];
-        } catch (e) {
-            // Ignore parse errors
-        }
+        // 【T2-1 / P0-7】原先直接读 hspcb_game_scores / hspcb_recitation_scores，
+        // 这两个裸 key 在整仓**没有任何写入方**，仪表盘因此永远为空。
+        // 现改为按「三轨职责」读取真实写入源：
+        //   学习进度 → hspcb.v2.*（权威，走 HSPCBProgress）
+        //   散装工具数据 → hspcb.st.*（走 HSPCBStore，含 v1 裸 key 的透明搬迁）
+        data.examHistory = readStore('examHistory', []);
+        data.errorNotebook = readProgress('wrongQuestions', []);
+        data.gameScores = readProgress('gameScores', []);
+        data.recitationScores = readProgress('moduleStats.recitation', []);
 
         return data;
+    }
+
+    /** 从 HSPCBProgress 读取，单项失败不影响其它轨 */
+    function readProgress(path, fallback) {
+        try {
+            if (typeof HSPCBProgress === 'undefined' || !HSPCBProgress) return fallback;
+            var v = HSPCBProgress.get(path);
+            return v === undefined || v === null ? fallback : v;
+        } catch (e) {
+            console.warn('[study-dashboard] 读取进度失败:', path, e && e.message);
+            return fallback;
+        }
+    }
+
+    /** 从 HSPCBStore 读取散装工具数据 */
+    function readStore(key, fallback) {
+        try {
+            if (typeof HSPCBStore === 'undefined' || !HSPCBStore) return fallback;
+            var v = HSPCBStore.get(key);
+            return v === undefined || v === null ? fallback : v;
+        } catch (e) {
+            console.warn('[study-dashboard] 读取工具数据失败:', key, e && e.message);
+            return fallback;
+        }
     }
 
     function getTotalQuestions(data) {
