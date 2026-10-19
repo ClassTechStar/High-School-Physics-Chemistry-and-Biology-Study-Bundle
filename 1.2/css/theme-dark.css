@@ -38,11 +38,94 @@
     --secondary: #34d399;
     --accent: #fbbf24;
     --danger: #f87171;
+
+    /* ---------- T3-3 新增：语义色令牌（原声明 hex 原值收拢） ---------- */
+    --dm-body-bg: linear-gradient(135deg, #0b1120 0%, #131c31 25%, #0d1a17 50%, #171308 75%, #141031 100%);
+    /* 中性阶梯 */
+    --dm-bg-deep: #0b1120;
+    --dm-bg-raised: #131c31;
+    --dm-text-dim: #64748b;
+    --dm-text-high: #f1f5f9;
+    --dm-text-on-accent: #ffffff;
+    --dm-code-text: #a5d6ff;
+    /* info 天蓝/青（提示框） */
+    --dm-info-bg-deep: #0c2d48;
+    --dm-info-bg: #164e63;
+    --dm-info-bg-hi: #075985;
+    --dm-info-bg-hi-2: #0369a1;
+    --dm-info-border: #0ea5e9;
+    --dm-info-text: #7dd3fc;
+    --dm-info-text-2: #a5f3fc;
+    --dm-info-text-3: #67e8f9;
+    /* success 绿（正确/通过） */
+    --dm-success-bg-deep: #022c22;
+    --dm-success-bg: #052e16;
+    --dm-success-bg-2: #065f46;
+    --dm-success-bg-3: #143a24;
+    --dm-success-bg-4: #14532d;
+    --dm-success-bg-hi: #059669;
+    --dm-success-bg-hi-2: #047857;
+    --dm-success-border: #10b981;
+    --dm-success-border-2: #22c55e;
+    --dm-success-text: #6ee7b7;
+    --dm-success-text-2: #86efac;
+    --dm-success-text-3: #4ade80;
+    /* warning 琥珀/橙（注意/易错） */
+    --dm-warning-bg-deep: #422c15;
+    --dm-warning-bg: #78350f;
+    --dm-warning-bg-2: #3d2a12;
+    --dm-warning-bg-3: #33280f;
+    --dm-warning-border-2: #f59e0b;
+    --dm-warning-text: #fcd34d;
+    --dm-warning-text-2: #fde68a;
+    --dm-warning-text-3: #fdba74;
+    --dm-warning-text-4: #fde047;
+    --dm-warning-text-5: #facc15;
+    /* danger 红（错误/警示） */
+    --dm-danger-bg-deep: #450a0a;
+    --dm-danger-bg: #7f1d1d;
+    --dm-danger-bg-2: #431407;
+    --dm-danger-bg-3: #3d2118;
+    --dm-danger-border: #ef4444;
+    --dm-danger-border-2: #f97316;
+    --dm-danger-text-2: #fecaca;
+    --dm-danger-text-4: #fb7185;
+    --dm-danger-text-5: #fda4af;
+    /* primary 靛蓝（强调/提示） */
+    --dm-primary-bg: #172554;
+    --dm-primary-bg-2: #1e1b4b;
+    --dm-primary-bg-3: #232946;
+    --dm-primary-border: #1e40af;
+    --dm-primary-text: #dbeafe;
+    --dm-primary-text-2: #93c5fd;
+    --dm-primary-text-3: #a5b4fc;
+    /* violet 紫（物理/紫色框） */
+    --dm-violet-bg: #4c1d95;
+    --dm-violet-bg-2: #2e1a3d;
+    --dm-violet-bg-3: #251a3d;
+    --dm-violet-border: #a855f7;
+    --dm-violet-text-2: #c4b5fd;
+    --dm-violet-text-3: #c084fc;
+    /* pink 粉（数学） */
+    --dm-pink-bg: #4a1030;
+    --dm-pink-bg-2: #3d1a2a;
+    --dm-pink-text-2: #e879f9;
+    /* teal / lime / cyan（其余语义族） */
+    --dm-teal-bg: #0d3b45;
+    --dm-teal-text: #5eead4;
+    --dm-teal-text-2: #2dd4bf;
+    --dm-lime-bg: #1e3311;
+    --dm-lime-text: #a3e635;
+    --dm-lime-text-2: #bef264;
+    --dm-cyan-text: #22d3ee;
+    /* material 灰（内联重映射底色） */
+    --dm-bluegrey-bg: #263238;
+    --dm-browngrey-bg: #2f2620;
 }
 
 /* ---------- 1. 页面底色与半透明容器 ---------- */
 [data-theme="dark"] body {
-    background: linear-gradient(135deg, #0b1120 0%, #131c31 25%, #0d1a17 50%, #171308 75%, #141031 100%);
+    background: var(--dm-body-bg);
     background-attachment: fixed;
 }
 
@@ -60,20 +143,20 @@
 [data-theme="dark"] .main-footer,
 [data-theme="dark"] .welcome-card,
 [data-theme="dark"] .feature-list li {
-    background: rgba(30, 41, 59, 0.88) !important;
-    border-color: rgba(148, 163, 184, 0.16) !important;
+    background: rgba(30, 41, 59, 0.88);
+    border-color: rgba(148, 163, 184, 0.16);
 }
 
 [data-theme="dark"] .feature-list li:hover,
 [data-theme="dark"] .module-tab:hover {
-    background: rgba(51, 65, 85, 0.95) !important;
+    background: rgba(51, 65, 85, 0.95);
 }
 
 [data-theme="dark"] .main-header,
 [data-theme="dark"] .subject-nav,
 [data-theme="dark"] main,
 [data-theme="dark"] .main-footer {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* ---------- 2. 通用元素：表单 / 表格 / 代码 / 滚动条 ---------- */
@@ -87,35 +170,35 @@
 
 [data-theme="dark"] input::placeholder,
 [data-theme="dark"] textarea::placeholder {
-    color: var(--dm-text-3) !important;
+    color: var(--dm-text-3);
 }
 
 [data-theme="dark"] ::selection {
     background: rgba(123, 147, 250, 0.35);
-    color: #f1f5f9;
+    color: var(--dm-text-high);
 }
 
 [data-theme="dark"] table,
 [data-theme="dark"] th,
 [data-theme="dark"] td {
-    border-color: var(--dm-border-soft) !important;
-    color: var(--dm-text) !important;
+    border-color: var(--dm-border-soft);
+    color: var(--dm-text);
 }
 
 [data-theme="dark"] th {
-    background: var(--dm-surface-2) !important;
+    background: var(--dm-surface-2);
 }
 
 [data-theme="dark"] code,
 [data-theme="dark"] pre,
 [data-theme="dark"] kbd {
-    background: #0b1120 !important;
-    color: #a5d6ff !important;
+    background: var(--dm-bg-deep) !important;
+    color: var(--dm-code-text) !important;
     border-color: var(--dm-border-soft) !important;
 }
 
 [data-theme="dark"] hr {
-    border-color: var(--dm-border-soft) !important;
+    border-color: var(--dm-border-soft);
 }
 
 [data-theme="dark"] ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -125,11 +208,20 @@
     border-radius: 6px;
     border: 2px solid var(--dm-bg);
 }
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: var(--dm-text-dim); }
 
 /* ---------- 3. 内容增强组件（style.css 硬编码浅色） ---------- */
+/* .knowledge-card 单独拆出（见下方专则）：JS 生成的卡片自带内联
+   background/border（platform-system.js / content-enhancement.js /
+   exam-review-system.js），非 important 作者规则压不过内联样式，
+   故这条必须保留 !important；其余 26 个选择器无此竞争，交给特异性。 */
+[data-theme="dark"] .knowledge-card {
+    background: var(--dm-surface-2) !important;
+    border-color: var(--dm-border-soft) !important;
+    color: var(--dm-text) !important;
+}
+
 [data-theme="dark"] .exp-card,
-[data-theme="dark"] .knowledge-card,
 [data-theme="dark"] .info-box,
 [data-theme="dark"] .highlight-box-enhanced,
 [data-theme="dark"] .subject-card,
@@ -153,18 +245,18 @@
 [data-theme="dark"] .eco-tips,
 [data-theme="dark"] .diagram-stats,
 [data-theme="dark"] .ecosystem-panel {
-    background: var(--dm-surface-2) !important;
-    border-color: var(--dm-border-soft) !important;
-    color: var(--dm-text) !important;
+    background: var(--dm-surface-2);
+    border-color: var(--dm-border-soft);
+    color: var(--dm-text);
 }
 
 /* 学科卡左侧色条在暗色下保留学科色（上方通用规则会把 border-color 统一拍平） */
-[data-theme="dark"] .subject-card.physics { border-left-color: var(--physics) !important; }
-[data-theme="dark"] .subject-card.chemistry { border-left-color: var(--chemistry) !important; }
-[data-theme="dark"] .subject-card.biology { border-left-color: var(--biology) !important; }
-[data-theme="dark"] .subject-card.chinese { border-left-color: var(--chinese) !important; }
-[data-theme="dark"] .subject-card.math { border-left-color: var(--math) !important; }
-[data-theme="dark"] .subject-card.english { border-left-color: var(--english) !important; }
+[data-theme="dark"] .subject-card.physics { border-left-color: var(--physics); }
+[data-theme="dark"] .subject-card.chemistry { border-left-color: var(--chemistry); }
+[data-theme="dark"] .subject-card.biology { border-left-color: var(--biology); }
+[data-theme="dark"] .subject-card.chinese { border-left-color: var(--chinese); }
+[data-theme="dark"] .subject-card.math { border-left-color: var(--math); }
+[data-theme="dark"] .subject-card.english { border-left-color: var(--english); }
 
 /* 卡片头部 / 侧栏 / 面板等写死 white 的容器 */
 [data-theme="dark"] .preset-nav,
@@ -177,8 +269,8 @@
 [data-theme="dark"] .type-filter-bar,
 [data-theme="dark"] .cat-title,
 [data-theme="dark"] .view-switch {
-    background: var(--dm-surface-1) !important;
-    border-color: var(--dm-border-soft) !important;
+    background: var(--dm-surface-1);
+    border-color: var(--dm-border-soft);
 }
 
 [data-theme="dark"] .cc-header,
@@ -189,57 +281,57 @@
 [data-theme="dark"] .sidebar-header,
 [data-theme="dark"] .substance-sidebar,
 [data-theme="dark"] .preset-nav {
-    border-color: var(--dm-border-soft) !important;
+    border-color: var(--dm-border-soft);
 }
 
 /* 提示类色块：浅色底 + 深色字 → 深色底 + 浅色字 */
 [data-theme="dark"] .exp-caution,
 [data-theme="dark"] .common-mistake {
-    background: #450a0a !important;
-    border-color: #7f1d1d !important;
-    color: #fecaca !important;
+    background: var(--dm-danger-bg-deep);
+    border-color: var(--dm-danger-bg);
+    color: var(--dm-danger-text-2);
 }
 [data-theme="dark"] .exp-caution h5,
-[data-theme="dark"] .common-mistake strong { color: #fca5a5 !important; }
-[data-theme="dark"] .exp-caution ul { color: #fecaca !important; }
+[data-theme="dark"] .common-mistake strong { color: var(--english); }
+[data-theme="dark"] .exp-caution ul { color: var(--dm-danger-text-2); }
 
 [data-theme="dark"] .exp-tip,
 [data-theme="dark"] .exp-formula {
-    background: #172554 !important;
-    border-color: #1e40af !important;
-    color: #dbeafe !important;
+    background: var(--dm-primary-bg);
+    border-color: var(--dm-primary-border);
+    color: var(--dm-primary-text);
 }
-[data-theme="dark"] .exp-tip h5 { color: #93c5fd !important; }
-[data-theme="dark"] .exp-formula sup { color: #c4b5fd !important; }
+[data-theme="dark"] .exp-tip h5 { color: var(--dm-primary-text-2); }
+[data-theme="dark"] .exp-formula sup { color: var(--dm-violet-text-2); }
 
 [data-theme="dark"] .exp-smell,
 [data-theme="dark"] .cc-tip,
 [data-theme="dark"] .eco-sp-modifier.medium {
-    background: #422c15 !important;
-    border-color: #78350f !important;
-    color: #fde68a !important;
+    background: var(--dm-warning-bg-deep);
+    border-color: var(--dm-warning-bg);
+    color: var(--dm-warning-text-2);
 }
-[data-theme="dark"] .exp-smell h5 { color: #fcd34d !important; }
-[data-theme="dark"] .exp-smell p { color: #fde68a !important; }
+[data-theme="dark"] .exp-smell h5 { color: var(--dm-warning-text); }
+[data-theme="dark"] .exp-smell p { color: var(--dm-warning-text-2); }
 
 [data-theme="dark"] .mitosis-card {
-    background: linear-gradient(135deg, #052e16, #172554) !important;
-    border-color: #065f46 !important;
+    background: linear-gradient(135deg, var(--dm-success-bg), var(--dm-primary-bg));
+    border-color: var(--dm-success-bg-2);
 }
 
-[data-theme="dark"] .result-card { background: linear-gradient(135deg, #172554, #052e16) !important; }
+[data-theme="dark"] .result-card { background: linear-gradient(135deg, var(--dm-primary-bg), var(--dm-success-bg)); }
 
 [data-theme="dark"] .formula-display {
-    background: var(--dm-bg) !important;
-    border-color: #1e40af !important;
-    color: #dbeafe !important;
+    background: var(--dm-bg);
+    border-color: var(--dm-primary-border);
+    color: var(--dm-primary-text);
 }
 
-[data-theme="dark"] .eco-sp-modifier.good { background: #022c22 !important; color: #6ee7b7 !important; }
-[data-theme="dark"] .eco-sp-modifier.bad  { background: #450a0a !important; color: #fca5a5 !important; }
+[data-theme="dark"] .eco-sp-modifier.good { background: var(--dm-success-bg-deep); color: var(--dm-success-text); }
+[data-theme="dark"] .eco-sp-modifier.bad  { background: var(--dm-danger-bg-deep); color: var(--english); }
 
-[data-theme="dark"] .analysis-box h4 { color: #fcd34d !important; }
-[data-theme="dark"] .cc-equation { color: var(--dm-text) !important; }
+[data-theme="dark"] .analysis-box h4 { color: var(--dm-warning-text); }
+[data-theme="dark"] .cc-equation { color: var(--dm-text); }
 [data-theme="dark"] .cc-path,
 [data-theme="dark"] .rc-eq,
 [data-theme="dark"] .eco-sp-percent,
@@ -247,7 +339,7 @@
 [data-theme="dark"] .empty-desc,
 [data-theme="dark"] .stat-item,
 [data-theme="dark"] .eco-sp-type,
-[data-theme="dark"] .eco-tips p { color: var(--dm-text-2) !important; }
+[data-theme="dark"] .eco-tips p { color: var(--dm-text-2); }
 [data-theme="dark"] .cc-arrow,
 [data-theme="dark"] .rc-cond,
 [data-theme="dark"] .more-types,
@@ -257,7 +349,7 @@
 [data-theme="dark"] .eco-sp-count small,
 [data-theme="dark"] .eco-season-desc,
 [data-theme="dark"] .eco-slider-labels span,
-[data-theme="dark"] .no-data { color: var(--dm-text-3) !important; }
+[data-theme="dark"] .no-data { color: var(--dm-text-3); }
 
 [data-theme="dark"] .sub-name,
 [data-theme="dark"] .empty-title,
@@ -268,55 +360,55 @@
 [data-theme="dark"] .eco-chart-title,
 [data-theme="dark"] .stat-item strong,
 [data-theme="dark"] .eco-slider-header label,
-[data-theme="dark"] .eco-season-name { color: var(--dm-text) !important; }
+[data-theme="dark"] .eco-season-name { color: var(--dm-text); }
 
-[data-theme="dark"] .cat-title { color: var(--dm-text) !important; }
-[data-theme="dark"] .cat-title:hover { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .cat-title { color: var(--dm-text); }
+[data-theme="dark"] .cat-title:hover { background: var(--dm-surface-2); }
 [data-theme="dark"] .sub-item:hover,
-[data-theme="dark"] .reaction-card.available { background: var(--dm-surface-2) !important; }
-[data-theme="dark"] .preset-tab { background: var(--dm-surface-2) !important; color: var(--dm-text-2) !important; }
-[data-theme="dark"] .preset-tab:hover { background: var(--dm-border-soft) !important; }
-[data-theme="dark"] .view-switch { background: var(--dm-surface-2) !important; }
-[data-theme="dark"] .view-switch button { color: var(--dm-text-2) !important; }
-[data-theme="dark"] .view-switch button.active { background: var(--dm-surface-1) !important; color: var(--dm-text) !important; }
+[data-theme="dark"] .reaction-card.available { background: var(--dm-surface-2); }
+[data-theme="dark"] .preset-tab { background: var(--dm-surface-2); color: var(--dm-text-2); }
+[data-theme="dark"] .preset-tab:hover { background: var(--dm-border-soft); }
+[data-theme="dark"] .view-switch { background: var(--dm-surface-2); }
+[data-theme="dark"] .view-switch button { color: var(--dm-text-2); }
+[data-theme="dark"] .view-switch button.active { background: var(--dm-surface-1); color: var(--dm-text); }
 [data-theme="dark"] .type-chip,
-[data-theme="dark"] .quick-presets button { background: var(--dm-surface-1) !important; color: var(--dm-text-2) !important; }
-[data-theme="dark"] .quick-presets button:hover { background: var(--dm-surface-2) !important; }
-[data-theme="dark"] .search-input { border-color: var(--dm-border) !important; }
-[data-theme="dark"] .eco-species-card:hover { border-color: #34d399 !important; }
-[data-theme="dark"] .eco-range { background: linear-gradient(90deg, var(--dm-surface-2), var(--dm-border)) !important; }
-[data-theme="dark"] .eco-season-btn { background: var(--dm-surface-1) !important; border-color: var(--dm-border-soft) !important; }
-[data-theme="dark"] .eco-season-btn:hover { background: #022c22 !important; border-color: #10b981 !important; }
-[data-theme="dark"] .eco-sp-bar { background: var(--dm-surface-2) !important; }
+[data-theme="dark"] .quick-presets button { background: var(--dm-surface-1); color: var(--dm-text-2); }
+[data-theme="dark"] .quick-presets button:hover { background: var(--dm-surface-2); }
+[data-theme="dark"] .search-input { border-color: var(--dm-border); }
+[data-theme="dark"] .eco-species-card:hover { border-color: var(--biology); }
+[data-theme="dark"] .eco-range { background: linear-gradient(90deg, var(--dm-surface-2), var(--dm-border)); }
+[data-theme="dark"] .eco-season-btn { background: var(--dm-surface-1); border-color: var(--dm-border-soft); }
+[data-theme="dark"] .eco-season-btn:hover { background: var(--dm-success-bg-deep); border-color: var(--dm-success-border); }
+[data-theme="dark"] .eco-sp-bar { background: var(--dm-surface-2); }
 
 /* 测验选项对错态 */
 [data-theme="dark"] .quiz-option.correct {
-    background: #052e16 !important;
-    border-color: #22c55e !important;
-    color: #86efac !important;
+    background: var(--dm-success-bg) !important;
+    border-color: var(--dm-success-border-2) !important;
+    color: var(--dm-success-text-2) !important;
 }
 [data-theme="dark"] .quiz-option.wrong {
-    background: #431407 !important;
-    border-color: #f97316 !important;
-    color: #fdba74 !important;
+    background: var(--dm-danger-bg-2) !important;
+    border-color: var(--dm-danger-border-2) !important;
+    color: var(--dm-warning-text-3) !important;
 }
 
 /* 有机化学 / 生态模拟容器的浅色渐变底 */
-[data-theme="dark"] .oc-container { background: linear-gradient(135deg, #131c31 0%, var(--dm-bg) 100%) !important; }
-[data-theme="dark"] .eco-sim-container { background: linear-gradient(135deg, #052e16 0%, #022c22 50%, #0c2d48 100%) !important; }
+[data-theme="dark"] .oc-container { background: linear-gradient(135deg, var(--dm-bg-raised) 0%, var(--dm-bg) 100%); }
+[data-theme="dark"] .eco-sim-container { background: linear-gradient(135deg, var(--dm-success-bg) 0%, var(--dm-success-bg-deep) 50%, var(--dm-info-bg-deep) 100%); }
 [data-theme="dark"] .eco-sim-toolbar,
-[data-theme="dark"] .eco-year-indicator { background: linear-gradient(135deg, #059669 0%, #047857 100%) !important; }
-[data-theme="dark"] .eco-btn-start { background: #022c22 !important; color: #6ee7b7 !important; }
+[data-theme="dark"] .eco-year-indicator { background: linear-gradient(135deg, var(--dm-success-bg-hi) 0%, var(--dm-success-bg-hi-2) 100%); }
+[data-theme="dark"] .eco-btn-start { background: var(--dm-success-bg-deep); color: var(--dm-success-text); }
 
 /* ---------- 4. 深色模式下反而过暗的文字（--text-inverse 用于彩色底按钮） ---------- */
 [data-theme="dark"] .nav-btn.active .label,
-[data-theme="dark"] .btn-primary { color: #0b1120 !important; }
+[data-theme="dark"] .btn-primary { color: var(--dm-bg-deep); }
 
 /* ---------- 5. 切换按钮 ---------- */
 [data-theme="dark"] .theme-toggle {
     background: var(--dm-surface-2);
     border-color: var(--dm-border);
-    color: #fbbf24;
+    color: var(--exam);
 }
 
 
@@ -397,7 +489,7 @@
 [data-theme="dark"] [style*="background-color:#eef6ff" i],
 [data-theme="dark"] [style*="background:#e3f2fd" i],
 [data-theme="dark"] [style*="background-color:#e3f2fd" i] {
-    background-color: #172554 !important;
+    background-color: var(--dm-primary-bg) !important;
 }
 
 /* 内联绿调浅底 → 深绿 */
@@ -411,7 +503,7 @@
 [data-theme="dark"] [style*="background-color:#e9f7ef" i],
 [data-theme="dark"] [style*="background:#f1f8e9" i],
 [data-theme="dark"] [style*="background-color:#f1f8e9" i] {
-    background-color: #052e16 !important;
+    background-color: var(--dm-success-bg) !important;
 }
 
 /* 内联黄调浅底 → 深棕 */
@@ -429,7 +521,7 @@
 [data-theme="dark"] [style*="background-color:#fff8e1" i],
 [data-theme="dark"] [style*="background:#fff9c4" i],
 [data-theme="dark"] [style*="background-color:#fff9c4" i] {
-    background-color: #422c15 !important;
+    background-color: var(--dm-warning-bg-deep) !important;
 }
 
 /* 内联红调浅底 → 深红 */
@@ -441,7 +533,7 @@
 [data-theme="dark"] [style*="background-color:#ffeaea" i],
 [data-theme="dark"] [style*="background:#ffebee" i],
 [data-theme="dark"] [style*="background-color:#ffebee" i] {
-    background-color: #450a0a !important;
+    background-color: var(--dm-danger-bg-deep) !important;
 }
 
 /* 内联紫调浅底 → 深紫 */
@@ -451,7 +543,7 @@
 [data-theme="dark"] [style*="background-color:#ede9fe" i],
 [data-theme="dark"] [style*="background:#f3e8ff" i],
 [data-theme="dark"] [style*="background-color:#f3e8ff" i] {
-    background-color: #1e1b4b !important;
+    background-color: var(--dm-primary-bg-2) !important;
 }
 
 /* 内联粉调浅底 → 深粉 */
@@ -459,7 +551,7 @@
 [data-theme="dark"] [style*="background-color:#fce7f3" i],
 [data-theme="dark"] [style*="background:#fdf2f8" i],
 [data-theme="dark"] [style*="background-color:#fdf2f8" i] {
-    background-color: #4a1030 !important;
+    background-color: var(--dm-pink-bg) !important;
 }
 
 /* 内联青调浅底 → 深青 */
@@ -467,7 +559,7 @@
 [data-theme="dark"] [style*="background-color:#ecfeff" i],
 [data-theme="dark"] [style*="background:#e0f2fe" i],
 [data-theme="dark"] [style*="background-color:#e0f2fe" i] {
-    background-color: #0c2d48 !important;
+    background-color: var(--dm-info-bg-deep) !important;
 }
 
 /* 内联浅色边框 → 深色边框 */
@@ -525,134 +617,134 @@
 
 /* 内联深色强调文字 → 浅色强调文字（深色底上才可读） */
 [data-theme="dark"] [style*="color:#1e40af" i]:not([style*="-color:#1e40af" i]) {
-    color: #93c5fd !important;
+    color: var(--dm-primary-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#1d4ed8" i]:not([style*="-color:#1d4ed8" i]) {
-    color: #93c5fd !important;
+    color: var(--dm-primary-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#166534" i]:not([style*="-color:#166534" i]) {
-    color: #86efac !important;
+    color: var(--dm-success-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#c62828" i]:not([style*="-color:#c62828" i]) {
-    color: #fca5a5 !important;
+    color: var(--english) !important;
 }
 [data-theme="dark"] [style*="color:#92400e" i]:not([style*="-color:#92400e" i]) {
-    color: #fcd34d !important;
+    color: var(--dm-warning-text) !important;
 }
 [data-theme="dark"] [style*="color:#dc2626" i]:not([style*="-color:#dc2626" i]) {
-    color: #f87171 !important;
+    color: var(--danger) !important;
 }
 [data-theme="dark"] [style*="color:#e74c3c" i]:not([style*="-color:#e74c3c" i]) {
-    color: #f87171 !important;
+    color: var(--danger) !important;
 }
 [data-theme="dark"] [style*="color:#27ae60" i]:not([style*="-color:#27ae60" i]) {
-    color: #34d399 !important;
+    color: var(--biology) !important;
 }
 [data-theme="dark"] [style*="color:#16a34a" i]:not([style*="-color:#16a34a" i]) {
-    color: #4ade80 !important;
+    color: var(--dm-success-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#7c3aed" i]:not([style*="-color:#7c3aed" i]) {
-    color: #a78bfa !important;
+    color: var(--physics) !important;
 }
 [data-theme="dark"] [style*="color:#3b82f6" i]:not([style*="-color:#3b82f6" i]) {
-    color: #60a5fa !important;
+    color: var(--chemistry) !important;
 }
 [data-theme="dark"] [style*="color:#10b981" i]:not([style*="-color:#10b981" i]) {
-    color: #34d399 !important;
+    color: var(--biology) !important;
 }
 [data-theme="dark"] [style*="color:#ef4444" i]:not([style*="-color:#ef4444" i]) {
-    color: #f87171 !important;
+    color: var(--danger) !important;
 }
 [data-theme="dark"] [style*="color:#b45309" i]:not([style*="-color:#b45309" i]) {
-    color: #fcd34d !important;
+    color: var(--dm-warning-text) !important;
 }
 [data-theme="dark"] [style*="color:#065f46" i]:not([style*="-color:#065f46" i]) {
-    color: #6ee7b7 !important;
+    color: var(--dm-success-text) !important;
 }
 [data-theme="dark"] [style*="color:#8b5cf6" i]:not([style*="-color:#8b5cf6" i]) {
-    color: #a78bfa !important;
+    color: var(--physics) !important;
 }
 
 /* 内联深色强调文字（补充色阶） → 浅色版 */
 [data-theme="dark"] [style*="color:#0369a1" i]:not([style*="-color:#0369a1" i]) {
-    color: #7dd3fc !important;
+    color: var(--dm-info-text) !important;
 }
 [data-theme="dark"] [style*="color:#0c4a6e" i]:not([style*="-color:#0c4a6e" i]) {
-    color: #7dd3fc !important;
+    color: var(--dm-info-text) !important;
 }
 [data-theme="dark"] [style*="color:#075985" i]:not([style*="-color:#075985" i]) {
-    color: #7dd3fc !important;
+    color: var(--dm-info-text) !important;
 }
 [data-theme="dark"] [style*="color:#0e7490" i]:not([style*="-color:#0e7490" i]) {
-    color: #67e8f9 !important;
+    color: var(--dm-info-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#15803d" i]:not([style*="-color:#15803d" i]) {
-    color: #4ade80 !important;
+    color: var(--dm-success-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#047857" i]:not([style*="-color:#047857" i]) {
-    color: #6ee7b7 !important;
+    color: var(--dm-success-text) !important;
 }
 [data-theme="dark"] [style*="color:#b91c1c" i]:not([style*="-color:#b91c1c" i]) {
-    color: #fca5a5 !important;
+    color: var(--english) !important;
 }
 [data-theme="dark"] [style*="color:#a16207" i]:not([style*="-color:#a16207" i]) {
-    color: #fcd34d !important;
+    color: var(--dm-warning-text) !important;
 }
 [data-theme="dark"] [style*="color:#6d28d9" i]:not([style*="-color:#6d28d9" i]) {
-    color: #a78bfa !important;
+    color: var(--physics) !important;
 }
 [data-theme="dark"] [style*="color:#4338ca" i]:not([style*="-color:#4338ca" i]) {
-    color: #a5b4fc !important;
+    color: var(--dm-primary-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#7e22ce" i]:not([style*="-color:#7e22ce" i]) {
-    color: #c084fc !important;
+    color: var(--dm-violet-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#4d7c0f" i]:not([style*="-color:#4d7c0f" i]) {
-    color: #a3e635 !important;
+    color: var(--dm-lime-text) !important;
 }
 [data-theme="dark"] [style*="color:#be123c" i]:not([style*="-color:#be123c" i]) {
-    color: #fda4af !important;
+    color: var(--dm-danger-text-5) !important;
 }
 [data-theme="dark"] [style*="color:#9d174d" i]:not([style*="-color:#9d174d" i]) {
-    color: #f9a8d4 !important;
+    color: var(--math) !important;
 }
 [data-theme="dark"] [style*="color:#115e59" i]:not([style*="-color:#115e59" i]) {
-    color: #5eead4 !important;
+    color: var(--dm-teal-text) !important;
 }
 [data-theme="dark"] [style*="color:#3f6212" i]:not([style*="-color:#3f6212" i]) {
-    color: #bef264 !important;
+    color: var(--dm-lime-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#854d0e" i]:not([style*="-color:#854d0e" i]) {
-    color: #fde047 !important;
+    color: var(--dm-warning-text-4) !important;
 }
 [data-theme="dark"] [style*="color:#991b1b" i]:not([style*="-color:#991b1b" i]) {
-    color: #fca5a5 !important;
+    color: var(--english) !important;
 }
 [data-theme="dark"] [style*="color:#7f1d1d" i]:not([style*="-color:#7f1d1d" i]) {
-    color: #fecaca !important;
+    color: var(--dm-danger-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#78350f" i]:not([style*="-color:#78350f" i]) {
-    color: #fde68a !important;
+    color: var(--dm-warning-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#1e3a8a" i]:not([style*="-color:#1e3a8a" i]) {
-    color: #93c5fd !important;
+    color: var(--dm-primary-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#0f766e" i]:not([style*="-color:#0f766e" i]) {
-    color: #5eead4 !important;
+    color: var(--dm-teal-text) !important;
 }
 [data-theme="dark"] [style*="color:#a21caf" i]:not([style*="-color:#a21caf" i]) {
-    color: #e879f9 !important;
+    color: var(--dm-pink-text-2) !important;
 }
 
 /* 内联浅色渐变底 → 深色渐变 */
 [data-theme="dark"] [style*="linear-gradient(135deg,#eff6ff,#f0fdf4)" i] {
-    background: linear-gradient(135deg,#172554,#052e16) !important;
+    background: linear-gradient(135deg,var(--dm-primary-bg),var(--dm-success-bg)) !important;
 }
 [data-theme="dark"] [style*="linear-gradient(135deg,#fffbeb,#fef3c7)" i] {
-    background: linear-gradient(135deg,#422c15,#422c15) !important;
+    background: linear-gradient(135deg,var(--dm-warning-bg-deep),var(--dm-warning-bg-deep)) !important;
 }
 [data-theme="dark"] [style*="linear-gradient(135deg,#f5f3ff,#fce7f3)" i] {
-    background: linear-gradient(135deg,#1e1b4b,#4a1030) !important;
+    background: linear-gradient(135deg,var(--dm-primary-bg-2),var(--dm-pink-bg)) !important;
 }
 [data-theme="dark"] [style*="linear-gradient(135deg, #f0f4f8 0%, var(--dm-text) 100%)" i] {
     background: linear-gradient(135deg,var(--dm-surface-1) 0%,var(--dm-surface-2) 100%) !important;
@@ -662,156 +754,156 @@
    7. 语文知识点子应用（index.html 内联 <style> 写死的浅色）
    ============================================================ */
 [data-theme="dark"] .chinese-knowledge {
-    color: var(--dm-text-2) !important;
-    background: var(--dm-bg) !important;
+    color: var(--dm-text-2);
+    background: var(--dm-bg);
 }
 [data-theme="dark"] .chinese-knowledge .header {
-    background: linear-gradient(120deg, #0c2d48 0%, #164e63 50%, #0c2d48 100%) !important;
-    color: #a5f3fc !important;
-    border-bottom-color: #164e63 !important;
+    background: linear-gradient(120deg, var(--dm-info-bg-deep) 0%, var(--dm-info-bg) 50%, var(--dm-info-bg-deep) 100%);
+    color: var(--dm-info-text-2);
+    border-bottom-color: var(--dm-info-bg);
 }
-[data-theme="dark"] .chinese-knowledge .header h1 { color: #7dd3fc !important; }
-[data-theme="dark"] .chinese-knowledge .header .subtitle { color: #67e8f9 !important; }
+[data-theme="dark"] .chinese-knowledge .header h1 { color: var(--dm-info-text); }
+[data-theme="dark"] .chinese-knowledge .header .subtitle { color: var(--dm-info-text-3); }
 
 [data-theme="dark"] .chinese-knowledge .search-box input {
-    background: #0b1120 !important;
-    border-color: #164e63 !important;
+    background: var(--dm-bg-deep) !important;
+    border-color: var(--dm-info-bg) !important;
     color: var(--dm-text) !important;
 }
 [data-theme="dark"] .chinese-knowledge .search-box input:focus {
-    border-color: #38bdf8 !important;
+    border-color: var(--chinese) !important;
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] .chinese-knowledge .sidebar {
-    background: var(--dm-surface-1) !important;
-    border-color: var(--dm-border-soft) !important;
+    background: var(--dm-surface-1);
+    border-color: var(--dm-border-soft);
 }
-[data-theme="dark"] .chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: var(--dm-border) !important; }
+[data-theme="dark"] .chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: var(--dm-border); }
 
 [data-theme="dark"] .chinese-knowledge .sidebar-header,
 [data-theme="dark"] .chinese-knowledge .module-header,
 [data-theme="dark"] .chinese-knowledge th {
-    background: linear-gradient(120deg, #075985, #0369a1) !important;
-    color: #ffffff !important;
+    background: linear-gradient(120deg, var(--dm-info-bg-hi), var(--dm-info-bg-hi-2));
+    color: var(--dm-text-on-accent);
 }
 
 [data-theme="dark"] .chinese-knowledge .nav-item { border-bottom-color: var(--dm-border-soft) !important; }
-[data-theme="dark"] .chinese-knowledge .nav-item-title { color: #7dd3fc !important; }
-[data-theme="dark"] .chinese-knowledge .nav-item-title:hover { background: var(--dm-surface-2) !important; }
-[data-theme="dark"] .chinese-knowledge .nav-item-title .arrow { color: var(--dm-text-3) !important; }
-[data-theme="dark"] .chinese-knowledge .nav-item-title.active .arrow { color: #38bdf8 !important; }
+[data-theme="dark"] .chinese-knowledge .nav-item-title { color: var(--dm-info-text); }
+[data-theme="dark"] .chinese-knowledge .nav-item-title:hover { background: var(--dm-surface-2); }
+[data-theme="dark"] .chinese-knowledge .nav-item-title .arrow { color: var(--dm-text-3); }
+[data-theme="dark"] .chinese-knowledge .nav-item-title.active .arrow { color: var(--chinese); }
 
-[data-theme="dark"] .chinese-knowledge .nav-children { background: var(--dm-bg) !important; }
-[data-theme="dark"] .chinese-knowledge .nav-children a { color: var(--dm-text-3) !important; }
+[data-theme="dark"] .chinese-knowledge .nav-children { background: var(--dm-bg); }
+[data-theme="dark"] .chinese-knowledge .nav-children a { color: var(--dm-text-3); }
 [data-theme="dark"] .chinese-knowledge .nav-children a:hover {
-    background: #164e63 !important;
-    color: #7dd3fc !important;
-    border-left-color: #38bdf8 !important;
+    background: var(--dm-info-bg);
+    color: var(--dm-info-text);
+    border-left-color: var(--chinese);
 }
 
 [data-theme="dark"] .chinese-knowledge .module {
-    background: var(--dm-surface-1) !important;
-    border-color: var(--dm-border-soft) !important;
+    background: var(--dm-surface-1);
+    border-color: var(--dm-border-soft);
 }
 [data-theme="dark"] .chinese-knowledge .section {
-    background: var(--dm-bg) !important;
-    border-color: var(--dm-border-soft) !important;
+    background: var(--dm-bg);
+    border-color: var(--dm-border-soft);
 }
-[data-theme="dark"] .chinese-knowledge .section-title { color: #7dd3fc !important; }
-[data-theme="dark"] .chinese-knowledge .subsection-title { color: #38bdf8 !important; }
+[data-theme="dark"] .chinese-knowledge .section-title { color: var(--dm-info-text); }
+[data-theme="dark"] .chinese-knowledge .subsection-title { color: var(--chinese); }
 
 [data-theme="dark"] .chinese-knowledge .info-box {
-    background: linear-gradient(135deg, #0c2d48 0%, #164e63 100%) !important;
-    border-left-color: #0ea5e9 !important;
+    background: linear-gradient(135deg, var(--dm-info-bg-deep) 0%, var(--dm-info-bg) 100%);
+    border-left-color: var(--dm-info-border);
 }
-[data-theme="dark"] .chinese-knowledge .info-box.green  { background: linear-gradient(135deg, #052e16 0%, #065f46 100%) !important; border-left-color: #22c55e !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.orange { background: linear-gradient(135deg, #422c15 0%, #78350f 100%) !important; border-left-color: #f59e0b !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.purple { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%) !important; border-left-color: #a855f7 !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.red    { background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%) !important; border-left-color: #ef4444 !important; }
+[data-theme="dark"] .chinese-knowledge .info-box.green  { background: linear-gradient(135deg, var(--dm-success-bg) 0%, var(--dm-success-bg-2) 100%); border-left-color: var(--dm-success-border-2); }
+[data-theme="dark"] .chinese-knowledge .info-box.orange { background: linear-gradient(135deg, var(--dm-warning-bg-deep) 0%, var(--dm-warning-bg) 100%); border-left-color: var(--dm-warning-border-2); }
+[data-theme="dark"] .chinese-knowledge .info-box.purple { background: linear-gradient(135deg, var(--dm-primary-bg-2) 0%, var(--dm-violet-bg) 100%); border-left-color: var(--dm-violet-border); }
+[data-theme="dark"] .chinese-knowledge .info-box.red    { background: linear-gradient(135deg, var(--dm-danger-bg-deep) 0%, var(--dm-danger-bg) 100%); border-left-color: var(--dm-danger-border); }
 
 [data-theme="dark"] .chinese-knowledge .info-box strong,
-[data-theme="dark"] .chinese-knowledge strong { color: #7dd3fc !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.green strong  { color: #86efac !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.orange strong { color: #fcd34d !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.purple strong { color: #c084fc !important; }
-[data-theme="dark"] .chinese-knowledge .info-box.red strong    { color: #fca5a5 !important; }
+[data-theme="dark"] .chinese-knowledge strong { color: var(--dm-info-text); }
+[data-theme="dark"] .chinese-knowledge .info-box.green strong  { color: var(--dm-success-text-2); }
+[data-theme="dark"] .chinese-knowledge .info-box.orange strong { color: var(--dm-warning-text); }
+[data-theme="dark"] .chinese-knowledge .info-box.purple strong { color: var(--dm-violet-text-3); }
+[data-theme="dark"] .chinese-knowledge .info-box.red strong    { color: var(--english); }
 
-[data-theme="dark"] .chinese-knowledge .template-box { background: #0c2d48 !important; }
-[data-theme="dark"] .chinese-knowledge .template-box.green  { background: #052e16 !important; }
-[data-theme="dark"] .chinese-knowledge .template-box.orange { background: #422c15 !important; }
+[data-theme="dark"] .chinese-knowledge .template-box { background: var(--dm-info-bg-deep); }
+[data-theme="dark"] .chinese-knowledge .template-box.green  { background: var(--dm-success-bg); }
+[data-theme="dark"] .chinese-knowledge .template-box.orange { background: var(--dm-warning-bg-deep); }
 
 [data-theme="dark"] .chinese-knowledge th,
-[data-theme="dark"] .chinese-knowledge td { border-color: var(--dm-border-soft) !important; color: var(--dm-text) !important; }
-[data-theme="dark"] .chinese-knowledge tr:nth-child(even) { background: var(--dm-surface-2) !important; }
-[data-theme="dark"] .chinese-knowledge tr:hover { background: #164e63 !important; }
+[data-theme="dark"] .chinese-knowledge td { border-color: var(--dm-border-soft); color: var(--dm-text); }
+[data-theme="dark"] .chinese-knowledge tr:nth-child(even) { background: var(--dm-surface-2); }
+[data-theme="dark"] .chinese-knowledge tr:hover { background: var(--dm-info-bg); }
 
-[data-theme="dark"] .chinese-knowledge .tag { background: #164e63 !important; color: #7dd3fc !important; }
-[data-theme="dark"] .chinese-knowledge .tag.red    { background: #450a0a !important; color: #fca5a5 !important; }
-[data-theme="dark"] .chinese-knowledge .tag.orange { background: #422c15 !important; color: #fdba74 !important; }
-[data-theme="dark"] .chinese-knowledge .tag.green  { background: #052e16 !important; color: #86efac !important; }
-[data-theme="dark"] .chinese-knowledge .tag.blue   { background: #164e63 !important; color: #7dd3fc !important; }
+[data-theme="dark"] .chinese-knowledge .tag { background: var(--dm-info-bg); color: var(--dm-info-text); }
+[data-theme="dark"] .chinese-knowledge .tag.red    { background: var(--dm-danger-bg-deep); color: var(--english); }
+[data-theme="dark"] .chinese-knowledge .tag.orange { background: var(--dm-warning-bg-deep); color: var(--dm-warning-text-3); }
+[data-theme="dark"] .chinese-knowledge .tag.green  { background: var(--dm-success-bg); color: var(--dm-success-text-2); }
+[data-theme="dark"] .chinese-knowledge .tag.blue   { background: var(--dm-info-bg); color: var(--dm-info-text); }
 
-[data-theme="dark"] .chinese-knowledge .key-point  { color: #f87171 !important; }
-[data-theme="dark"] .chinese-knowledge .easy-wrong { color: #fcd34d !important; }
-[data-theme="dark"] .chinese-knowledge .skill-tag  { color: #4ade80 !important; }
+[data-theme="dark"] .chinese-knowledge .key-point  { color: var(--danger); }
+[data-theme="dark"] .chinese-knowledge .easy-wrong { color: var(--dm-warning-text); }
+[data-theme="dark"] .chinese-knowledge .skill-tag  { color: var(--dm-success-text-3); }
 
 /* ---------- Material 50 系浅底（元素卡片 / 分类色块） → 深色版 ---------- */
 [data-theme="dark"] [style*="background:#e8eaf6" i],
 [data-theme="dark"] [style*="background-color:#e8eaf6" i] {
-    background-color: #232946 !important;
+    background-color: var(--dm-primary-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#f3e5f5" i],
 [data-theme="dark"] [style*="background-color:#f3e5f5" i] {
-    background-color: #2e1a3d !important;
+    background-color: var(--dm-violet-bg-2) !important;
 }
 [data-theme="dark"] [style*="background:#fce4ec" i],
 [data-theme="dark"] [style*="background-color:#fce4ec" i] {
-    background-color: #3d1a2a !important;
+    background-color: var(--dm-pink-bg-2) !important;
 }
 [data-theme="dark"] [style*="background:#efebe9" i],
 [data-theme="dark"] [style*="background-color:#efebe9" i] {
-    background-color: #2f2620 !important;
+    background-color: var(--dm-browngrey-bg) !important;
 }
 [data-theme="dark"] [style*="background:#e3f2fd" i],
 [data-theme="dark"] [style*="background-color:#e3f2fd" i] {
-    background-color: #172554 !important;
+    background-color: var(--dm-primary-bg) !important;
 }
 [data-theme="dark"] [style*="background:#e8f5e9" i],
 [data-theme="dark"] [style*="background-color:#e8f5e9" i] {
-    background-color: #143a24 !important;
+    background-color: var(--dm-success-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#fff3e0" i],
 [data-theme="dark"] [style*="background-color:#fff3e0" i] {
-    background-color: #3d2a12 !important;
+    background-color: var(--dm-warning-bg-2) !important;
 }
 [data-theme="dark"] [style*="background:#e0f7fa" i],
 [data-theme="dark"] [style*="background-color:#e0f7fa" i] {
-    background-color: #0d3b45 !important;
+    background-color: var(--dm-teal-bg) !important;
 }
 [data-theme="dark"] [style*="background:#fbe9e7" i],
 [data-theme="dark"] [style*="background-color:#fbe9e7" i] {
-    background-color: #3d2118 !important;
+    background-color: var(--dm-danger-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#f1f8e9" i],
 [data-theme="dark"] [style*="background-color:#f1f8e9" i] {
-    background-color: #1e3311 !important;
+    background-color: var(--dm-lime-bg) !important;
 }
 [data-theme="dark"] [style*="background:#e1f5fe" i],
 [data-theme="dark"] [style*="background-color:#e1f5fe" i] {
-    background-color: #0c2d48 !important;
+    background-color: var(--dm-info-bg-deep) !important;
 }
 [data-theme="dark"] [style*="background:#ede7f6" i],
 [data-theme="dark"] [style*="background-color:#ede7f6" i] {
-    background-color: #251a3d !important;
+    background-color: var(--dm-violet-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#fff8e1" i],
 [data-theme="dark"] [style*="background-color:#fff8e1" i] {
-    background-color: #33280f !important;
+    background-color: var(--dm-warning-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#eceff1" i],
 [data-theme="dark"] [style*="background-color:#eceff1" i] {
-    background-color: #263238 !important;
+    background-color: var(--dm-bluegrey-bg) !important;
 }
 [data-theme="dark"] [style*="background:#f5f7fa" i],
 [data-theme="dark"] [style*="background-color:#f5f7fa" i] {
@@ -819,23 +911,23 @@
 }
 [data-theme="dark"] [style*="background:#dcfce7" i],
 [data-theme="dark"] [style*="background-color:#dcfce7" i] {
-    background-color: #14532d !important;
+    background-color: var(--dm-success-bg-4) !important;
 }
 [data-theme="dark"] [style*="background:#ffe0b2" i],
 [data-theme="dark"] [style*="background-color:#ffe0b2" i] {
-    background-color: #3d2a12 !important;
+    background-color: var(--dm-warning-bg-2) !important;
 }
 [data-theme="dark"] [style*="background:#c8e6c9" i],
 [data-theme="dark"] [style*="background-color:#c8e6c9" i] {
-    background-color: #143a24 !important;
+    background-color: var(--dm-success-bg-3) !important;
 }
 [data-theme="dark"] [style*="background:#bbdefb" i],
 [data-theme="dark"] [style*="background-color:#bbdefb" i] {
-    background-color: #172554 !important;
+    background-color: var(--dm-primary-bg) !important;
 }
 [data-theme="dark"] [style*="background:#e1bee7" i],
 [data-theme="dark"] [style*="background-color:#e1bee7" i] {
-    background-color: #2e1a3d !important;
+    background-color: var(--dm-violet-bg-2) !important;
 }
 
 /* ---------- 补充：深色强调文字 → 浅色版 ---------- */
@@ -864,50 +956,50 @@
     color: var(--dm-text) !important;
 }
 [data-theme="dark"] [style*="color:#0284c7" i]:not([style*="-color:#0284c7" i]) {
-    color: #38bdf8 !important;
+    color: var(--chinese) !important;
 }
 [data-theme="dark"] [style*="color:#0891b2" i]:not([style*="-color:#0891b2" i]) {
-    color: #22d3ee !important;
+    color: var(--dm-cyan-text) !important;
 }
 [data-theme="dark"] [style*="color:#0ea5e9" i]:not([style*="-color:#0ea5e9" i]) {
-    color: #38bdf8 !important;
+    color: var(--chinese) !important;
 }
 [data-theme="dark"] [style*="color:#ea580c" i]:not([style*="-color:#ea580c" i]) {
-    color: #fdba74 !important;
+    color: var(--dm-warning-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#a855f7" i]:not([style*="-color:#a855f7" i]) {
-    color: #c084fc !important;
+    color: var(--dm-violet-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#c026d3" i]:not([style*="-color:#c026d3" i]) {
-    color: #e879f9 !important;
+    color: var(--dm-pink-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#e11d48" i]:not([style*="-color:#e11d48" i]) {
-    color: #fb7185 !important;
+    color: var(--dm-danger-text-4) !important;
 }
 [data-theme="dark"] [style*="color:#0d9488" i]:not([style*="-color:#0d9488" i]) {
-    color: #2dd4bf !important;
+    color: var(--dm-teal-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#ca8a04" i]:not([style*="-color:#ca8a04" i]) {
-    color: #facc15 !important;
+    color: var(--dm-warning-text-5) !important;
 }
 [data-theme="dark"] [style*="color:#7b1fa2" i]:not([style*="-color:#7b1fa2" i]) {
-    color: #c084fc !important;
+    color: var(--dm-violet-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#0d7a3e" i]:not([style*="-color:#0d7a3e" i]) {
-    color: #4ade80 !important;
+    color: var(--dm-success-text-3) !important;
 }
 [data-theme="dark"] [style*="color:#064e3b" i]:not([style*="-color:#064e3b" i]) {
-    color: #6ee7b7 !important;
+    color: var(--dm-success-text) !important;
 }
 [data-theme="dark"] [style*="color:#1565c0" i]:not([style*="-color:#1565c0" i]) {
-    color: #93c5fd !important;
+    color: var(--dm-primary-text-2) !important;
 }
 [data-theme="dark"] [style*="color:#4527a0" i]:not([style*="-color:#4527a0" i]) {
-    color: #a78bfa !important;
+    color: var(--physics) !important;
 }
 [data-theme="dark"] [style*="color:#ad1457" i]:not([style*="-color:#ad1457" i]) {
-    color: #f9a8d4 !important;
+    color: var(--math) !important;
 }
 [data-theme="dark"] [style*="color:#e65100" i]:not([style*="-color:#e65100" i]) {
-    color: #fdba74 !important;
+    color: var(--dm-warning-text-3) !important;
 }
