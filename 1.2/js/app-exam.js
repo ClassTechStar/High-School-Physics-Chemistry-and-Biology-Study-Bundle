@@ -218,17 +218,23 @@ const examPracticeSystem = {
         return this.currentExam;
     },
 
-    submitAnswer(examId, selectedOption) {
+    submitAnswer(examId, selectedOption, opts) {
+        const options = opts || {};
         const allExams = this.getAllExams('all');
         const exam = allExams.find(e => e.id === examId);
         if (!exam) return null;
 
-        const isCorrect = selectedOption === exam.answer;
+        // 【T0-8】主观题：文本无法可靠等价比较，pending 阶段一律不计入 correct，
+        // 待用户自评后由 settleSubjectiveResult 补记。
+        const isChoice = this._isChoice(exam);
+        const isCorrect = isChoice ? selectedOption === exam.answer : false;
         const result = {
             examId,
             selectedOption,
             correctAnswer: exam.answer,
             isCorrect,
+            pending: isChoice ? false : !!options.selfAssess,
+            answerMode: isChoice ? 'choice' : 'subjective',
             timestamp: Date.now(),
             subject: exam.subject,
             year: exam.year,
@@ -491,6 +497,26 @@ const examPracticeSystem = {
         return this.SUBJECT_CN[subject] || '生物';
     },
 
+    // 【T0-8 / P0-12】题型分流：是否有选项决定走"选择判分"还是"主观题自评"
+    // 判据以 options 实际内容为准（而非 type 文案），因为题库中 245 道非选择题
+    // 的 type 是"语法填空/简答题/作文题"等，而部分选择题 type 也叫"解答题"。
+    _choices(exam) {
+        if (!exam || !Array.isArray(exam.options)) return [];
+        return exam.options.filter(o => o !== null && o !== undefined && String(o).trim() !== '');
+    },
+    _isChoice(exam) {
+        return this._choices(exam).length >= 2;
+    },
+    // 依据答案形态细分主观题，决定作答区 UI 与判分文案
+    _subjectiveKind(exam) {
+        const ans = String((exam && exam.answer) || '');
+        const type = String((exam && exam.type) || '');
+        if (/作文|写作|书面表达/.test(type) || ans.length > 120) return 'essay';
+        if (/改错/.test(type) || ans.includes('->') || ans.includes('→')) return 'correct';
+        if (ans.includes('；') || ans.includes(';') || ans.split(/\s+/).length > 8) return 'multi_blank';
+        return 'fill';
+    },
+
     updateExamList() {
         const subject = document.getElementById('exam-subject-filter').value;
         const year = document.getElementById('exam-year-filter').value;
@@ -521,11 +547,65 @@ const examPracticeSystem = {
 
     showExamDetail(examId) {
         const exam = this.startExam(examId);
+        if (!exam) {
+            console.warn(`[showExamDetail] 找不到题目: ${examId}`);
+            return;
+        }
         const detailEl = document.getElementById('exam-detail');
         const listEl = document.getElementById('exam-list');
-        
+
         listEl.style.display = 'none';
         detailEl.style.display = 'block';
+
+        const choices = this._choices(exam);
+        const isChoice = this._isChoice(exam);
+        const kind = isChoice ? null : this._subjectiveKind(exam);
+        const KIND_LABEL = { essay: '写作作答', correct: '改写作答', multi_blank: '多空填写', fill: '填空作答' };
+        const KIND_HINT = {
+            essay: '本题为主观写作题，提交后对照参考答案自行复盘评分。',
+            correct: '本题需找出并改正错误，请逐条写出修改结果。',
+            multi_blank: '本题含多个得分点，可用分号或换行分隔作答。',
+            fill: '请直接填写答案。'
+        };
+        const ANSWER_PLACEHOLDER = {
+            essay: '在此输入你的作文（支持多行）…',
+            correct: '例如：them -> it；that -> what',
+            multi_blank: '多个答案请用分号分隔，如：H2O；2H2+O2',
+            fill: '在此输入答案…'
+        };
+
+        // 【T0-8】材料（passage）必须先于题干渲染：144 道英语阅读/完形/语法填空/短文改错题依赖它
+        const passageHtml = exam.passage ? `
+                <div class="question-passage-box">
+                    <h4>📄 阅读材料</h4>
+                    <div class="passage-content">${this._esc(exam.passage).replace(/\n/g, '<br>')}</div>
+                </div>` : '';
+
+        const answerAreaHtml = isChoice ? `
+                <div class="options-box">
+                    <h4>📝 请选择答案</h4>
+                    ${choices.map((opt, i) => `
+                        <label class="option-label" data-option="${String.fromCharCode(65+i)}">
+                            <input type="radio" name="exam-answer" value="${String.fromCharCode(65+i)}">
+                            <span class="option-letter">${String.fromCharCode(65+i)}</span>
+                            <span class="option-text">${this._esc(opt)}</span>
+                        </label>
+                    `).join('')}
+                </div>` : `
+                <div class="subjective-box" data-kind="${kind}">
+                    <h4>✍️ ${KIND_LABEL[kind]}</h4>
+                    <p class="subjective-hint">${KIND_HINT[kind]}</p>
+                    ${kind === 'essay' ? `
+                        <textarea class="subjective-input" id="exam-subjective-input" rows="10"
+                            placeholder="${this._esc(ANSWER_PLACEHOLDER[kind])}"></textarea>
+                        <div class="essay-counter">已写 <span id="essay-count">0</span> 字</div>`
+                        : `<input type="text" class="subjective-input" id="exam-subjective-input"
+                            placeholder="${this._esc(ANSWER_PLACEHOLDER[kind])}">`}
+                    <div class="subjective-reference">
+                        <span class="ref-label">参考答案</span>
+                        <span class="ref-text">${this._esc(exam.answer)}</span>
+                    </div>
+                </div>`;
 
         detailEl.innerHTML = `
             <div class="exam-detail-content">
@@ -536,22 +616,13 @@ const examPracticeSystem = {
                         <span>${exam.year}年 · ${this._esc(exam.type)} · ${exam.points}分 · ${exam.difficulty==='hard'?'困难':exam.difficulty==='medium'?'中等':'简单'}</span>
                     </div>
                 </div>
-
+                ${passageHtml}
                 <div class="question-box">
                     <h4>📋 题目内容</h4>
                     <p class="question-text">${this._esc(exam.question).replace(/\n/g, '<br>')}</p>
                 </div>
 
-                <div class="options-box">
-                    <h4>📝 请选择答案</h4>
-                    ${exam.options.map((opt, i) => `
-                        <label class="option-label" data-option="${String.fromCharCode(65+i)}">
-                            <input type="radio" name="exam-answer" value="${String.fromCharCode(65+i)}">
-                            <span class="option-letter">${String.fromCharCode(65+i)}</span>
-                            <span class="option-text">${this._esc(opt)}</span>
-                        </label>
-                    `).join('')}
-                </div>
+                ${answerAreaHtml}
 
                 <div class="action-buttons">
                     <button class="btn-submit-answer" onclick="examPracticeSystem.submitCurrentAnswer()">✅ 提交答案</button>
@@ -570,19 +641,42 @@ const examPracticeSystem = {
                 </div>
             </div>
         `;
+
+        const essayInput = document.getElementById('exam-subjective-input');
+        if (kind === 'essay' && essayInput) {
+            const counter = document.getElementById('essay-count');
+            essayInput.addEventListener('input', () => {
+                counter.textContent = String(essayInput.value.trim().length);
+            });
+        }
     },
 
     submitCurrentAnswer() {
-        const selected = document.querySelector('input[name="exam-answer"]:checked');
+        const exam = this.currentExam;
         const resultBox = document.getElementById('result-box');
         const analysisBox = document.getElementById('analysis-box');
+        if (!exam || !resultBox || !analysisBox) return;
 
+        if (this._isChoice(exam)) {
+            this._submitChoiceAnswer(exam, resultBox, analysisBox);
+        } else {
+            this._submitSubjectiveAnswer(exam, resultBox, analysisBox);
+        }
+
+        setTimeout(() => {
+            this.refreshStats();
+        }, 300);
+    },
+
+    // 选择题：原有比字母逻辑
+    _submitChoiceAnswer(exam, resultBox, analysisBox) {
+        const selected = document.querySelector('input[name="exam-answer"]:checked');
         if (!selected) {
             alert('请先选择一个答案！');
             return;
         }
 
-        const result = this.submitAnswer(this.currentExam.id, selected.value);
+        const result = this.submitAnswer(exam.id, selected.value);
 
         resultBox.style.display = 'block';
         resultBox.className = 'result-box ' + (result.isCorrect ? 'correct' : 'wrong');
@@ -590,7 +684,7 @@ const examPracticeSystem = {
             <div class="result-icon">${result.isCorrect ? '🎉 回答正确！' : '❌ 回答错误'}</div>
             <div class="result-details">
                 <p>你的答案：<strong>${result.selectedOption}</strong></p>
-                <p>正确答案：<strong>${result.correctAnswer}</strong></p>
+                <p>正确答案：<strong>${this._esc(result.correctAnswer)}</strong></p>
                 <p>本题分值：<strong>${result.points}分</strong></p>
             </div>
         `;
@@ -598,23 +692,83 @@ const examPracticeSystem = {
         analysisBox.style.display = 'block';
 
         document.querySelectorAll('.option-label').forEach(label => {
-            label.classList.remove('selected', 'correct-option', 'wrong-option');
+            label.classList.remove('selected', 'correct-option', 'wrong-option', 'show-correct');
             if (label.querySelector('input').checked) {
                 label.classList.add('selected');
-                if (result.isCorrect) {
-                    label.classList.add('correct-option');
-                } else {
-                    label.classList.add('wrong-option');
-                }
+                label.classList.add(result.isCorrect ? 'correct-option' : 'wrong-option');
             }
-            if (label.dataset.option === result.correctAnswer) {
+            if (label.dataset.option === String(result.correctAnswer)) {
                 label.classList.add('show-correct');
             }
         });
+    },
 
-        setTimeout(() => {
-            this.refreshStats();
-        }, 300);
+    // 【T0-8】主观题：文本对照 + 自评。不自动判对错（答案文本无法可靠等价比较），
+    // 但仍计入 totalAnswered 以便进度统计不失真。
+    _submitSubjectiveAnswer(exam, resultBox, analysisBox) {
+        const input = document.getElementById('exam-subjective-input');
+        const userText = input ? input.value.trim() : '';
+        if (!userText) {
+            alert('请先填写你的答案！');
+            if (input) input.focus();
+            return;
+        }
+
+        const refText = String(exam.answer || '');
+        const normalizedUser = userText.toLowerCase().replace(/\s+/g, '');
+        const normalizedRef = refText.toLowerCase().replace(/\s+/g, '');
+        const exact = normalizedUser === normalizedRef;
+        // 自评：作答区下方两个按钮，答对才计入 correctCount
+        const selfJudge = document.createElement('div');
+        selfJudge.className = 'self-judge';
+        selfJudge.innerHTML = `
+            <span class="self-judge-label">对照参考答案后自评：</span>
+            <button type="button" class="btn-self-correct" data-correct="1">✓ 我答对了</button>
+            <button type="button" class="btn-self-wrong" data-correct="0">✗ 我答错了</button>
+        `;
+
+        const render = (isCorrect) => {
+            resultBox.style.display = 'block';
+            resultBox.className = 'result-box ' + (isCorrect ? 'correct' : 'wrong');
+            resultBox.innerHTML = `
+                <div class="result-icon">${isCorrect ? '🎉 自评：回答正确' : '📖 自评：回答错误'}</div>
+                <div class="result-details">
+                    <p>你的作答：<strong>${this._esc(userText).slice(0, 300)}</strong></p>
+                    <p>参考答案：<strong>${this._esc(refText).slice(0, 300)}</strong></p>
+                    <p>本题分值：<strong>${exam.points}分</strong></p>
+                </div>`;
+            analysisBox.style.display = 'block';
+        };
+
+        const result = this.submitAnswer(exam.id, userText, { selfAssess: true, pending: true });
+        render(exact);
+        resultBox.insertBefore(selfJudge, resultBox.firstChild);
+        if (exact) result.isCorrect = true;
+
+        selfJudge.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isCorrect = btn.dataset.correct === '1';
+                selfJudge.querySelectorAll('button').forEach(b => { b.disabled = true; });
+                this.settleSubjectiveResult(result, isCorrect);
+                render(isCorrect);
+            });
+        });
+    },
+
+    // 主观题自评分落账：把 pending 记录升级为正式记分
+    settleSubjectiveResult(result, isCorrect) {
+        const st = this.stats;
+        result.isCorrect = isCorrect;
+        if (isCorrect) {
+            st.correctCount++;
+            st.subjectStats[result.subject].correct++;
+            st.difficultyStats[result.difficulty].correct++;
+            st.yearStats[result.year].correct++;
+            st.categoryStats[result.category].correct++;
+        }
+        const hIdx = st.history.findIndex(h => h === result);
+        if (hIdx >= 0) st.history[hIdx] = result;
+        this.saveStats();
     },
 
     backToList() {
