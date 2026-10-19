@@ -199,7 +199,34 @@ console.log('=== 5. 数据与题库抽样 ===');
       allIds.add(q.id);
     }
   }
-  ok(dups === 0 && n === 1718, `题库 ${n} 题 id 唯一 (dups=${dups})`);
+  // T1-2: 题量必须与 meta.totalQuestions 及各科 total 三处一致。
+  // 此前硬编码 1718，去重后必然失效 —— 改为动态交叉校验，任何一处漂移都会立刻报红。
+  const declaredTotal = eb.meta ? eb.meta.totalQuestions : -1;
+  const sumSubjectTotal = Object.keys(eb)
+    .filter((k) => k !== 'meta')
+    .reduce((a, k) => a + Number(eb[k].total || 0), 0);
+  const perSubjectActual = Object.keys(eb)
+    .filter((k) => k !== 'meta')
+    .map((k) => {
+      const list = eb[k].questions || eb[k].exams || [];
+      const declared = Number(eb[k].total || 0);
+      return { subject: k, declared, actual: list.length, ok: declared === list.length };
+    });
+  const subjectMismatch = perSubjectActual.filter((r) => !r.ok);
+
+  ok(dups === 0, `题库 ${n} 题 id 唯一 (dups=${dups})`);
+  ok(n === declaredTotal,
+    n === declaredTotal
+      ? `实际题量 ${n} 与 meta.totalQuestions 一致`
+      : `题量漂移：实际 ${n} ≠ meta.totalQuestions ${declaredTotal}`);
+  ok(sumSubjectTotal === n,
+    sumSubjectTotal === n
+      ? `各科 total 之和 ${sumSubjectTotal} 与实际题量一致`
+      : `各科 total 之和 ${sumSubjectTotal} ≠ 实际 ${n}`);
+  ok(subjectMismatch.length === 0,
+    subjectMismatch.length === 0
+      ? '各科 total 与其实际题量一致'
+      : `total 与实际题量不符: ${subjectMismatch.map((r) => `${r.subject}(${r.declared}≠${r.actual})`).join(', ')}`);
   const q0 = (eb.physics.questions || eb.physics.exams)[0];
   ok(/6 s/.test(q0.options[q0.answer.charCodeAt(0) - 65] || ''), 'PHY_2018_01 选项与解析一致');
   ok(!/修正后/.test(q0.analysis || ''), 'PHY_2018_01 无内部备注');

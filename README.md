@@ -150,7 +150,7 @@ node scripts/nocache-server.mjs 1.2 8902  # 禁用缓存的本地调试服务器
 - `scripts/validate-data.mjs`：校验六科 `knowledge.json`、`exam-bank.json`（schema v2 `questions` 字段、字母答案必须有 options 且不越界、内部备注黑名单）、扩展题库、SW 资源清单、首页 `subject-cards` 嵌套。
 - `1.2/js/progress.js`：统一进度存储 `hspcb.v2.*`，自动从 v1 裸 key 迁移，支持导出/导入备份。
 
-当前数据基线：六科 **1718** 题，选择题答案分布 **368/368/366/368**；`npm run verify` 期望 **全绿**。
+当前数据基线：六科 **1301** 道唯一题（另有 417 条历史副本已归档至 `1.2/data/_archive/`，可追溯回滚），选择题答案分布 **A284/B276/C252/D244**；`npm run verify` 期望 **全绿**。
 
 ---
 
