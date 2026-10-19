@@ -42,7 +42,7 @@ function boot(seed) {
   sandbox.window = sandbox;
   vm.createContext(sandbox);
   vm.runInContext(src, sandbox);
-  return { sandbox, localStorage, Progress: sandbox.HSPCBProgress };
+  return { sandbox, localStorage, Progress: sandbox.HSPCBProgress, Store: sandbox.HSPCBStore };
 }
 
 let passed = 0;
@@ -111,6 +111,105 @@ console.log('progress.js tests');
   P2.init({ force: true });
   P2.importData(payload, 'merge');
   assert(P2.get('wrongQuestions').some((w) => w.id === 'x1'), 'import merge works');
+}
+
+// ── T2-2 / P0-8: 「清除学习数据」必须真正清除，刷新后不得复活 ──
+
+// 4. remove 同时清两轨；清除后 get 不再把旧数据搬回来
+{
+  const { Progress, Store, localStorage } = boot({
+    hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),
+  });
+  Progress._resetForTest();
+  Store.set('hspcb_wrong_records', JSON.stringify([{ id: 'w1' }]));
+  assert(Store.get('hspcb_wrong_records') !== null, 'set/get roundtrip');
+  Store.remove('hspcb_wrong_records');
+  assert(localStorage.getItem('hspcb.st.hspcb_wrong_records') === null, 'remove 清掉 hspcb.st.* 轨');
+  assert(localStorage.getItem('hspcb_wrong_records') === null, 'remove 清掉 v1 裸 key 轨');
+  assert(Store.get('hspcb_wrong_records') === null, '清除后 get 返回 null（无透明搬迁复活）');
+}
+
+// 5. purgeAll 覆盖全部散装轨 + 全部已知 v1 裸 key
+{
+  const { Progress, Store, localStorage } = boot({
+    hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),
+    hspcb_game_scores: JSON.stringify({ concept: 5 }),
+    mockExamHistory: JSON.stringify([{ id: 'm1' }]),
+    hspcb_manual_mastery: JSON.stringify({ a: 1 }),
+  });
+  Progress._resetForTest();
+  // 先写一批 hspcb.st.* 轨数据
+  Store.set('hspcb_quiz_records', JSON.stringify([{ id: 'q1' }]));
+  Store.set('hspcb_manual_mastery', JSON.stringify({ a: 1 }));
+  const before = Store.keys();
+  assert(before.length >= 2, 'purgeAll 前散装轨有数据, got ' + before.length);
+
+  const r = Store.purgeAll();
+  assert(r.failed.length === 0, 'purgeAll 无失败项');
+  assert(r.removed.length >= 4, 'purgeAll 清除了多轨 key, got ' + r.removed.length);
+  assert(Store.keys().length === 0, 'purgeAll 后 hspcb.st.* 为空');
+  const legacyLeft = Store.legacyKeys().filter((k) => localStorage.getItem(k) !== null);
+  assert(legacyLeft.length === 0, 'purgeAll 后无 v1 裸 key 残留: ' + legacyLeft.join(','));
+  assert(Store.get('hspcb_wrong_records') === null, 'purgeAll 后 get 不复活');
+}
+
+// 6. 权威进度轨 resetAll：examHistory / gameScores 等一并消失
+{
+  const { Progress, localStorage } = boot({});
+  Progress._resetForTest();
+  Progress.init({ force: true });
+  Progress.append('examHistory', { id: 'm1', score: 90 });
+  Progress.append('wrongQuestions', { id: 'w1' });
+  Progress.set('gameScores', { concept: 3 });
+  assert(Progress.get('examHistory').length === 1, 'resetAll 前 examHistory 有数据');
+  Progress.resetAll();
+  assert(Progress.get('examHistory').length === 0, 'resetAll 清空 examHistory');
+  assert(Progress.get('wrongQuestions').length === 0, 'resetAll 清空 wrongQuestions');
+  assert(Object.keys(Progress.get('gameScores')).length === 0, 'resetAll 清空 gameScores');
+  assert(localStorage.getItem('hspcb.v2.progress') === null, 'resetAll 删除 localStorage 中的 progress');
+  assert(localStorage.getItem('hspcb.v2.migratedFromV1') === null, 'resetAll 删除迁移标记');
+}
+
+// 7. migrateFromV1({ removeLegacy: true }) 搬迁后删除旧裸 key
+{
+  const { Progress, localStorage } = boot({
+    hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),
+    hspcb_exam_history: JSON.stringify([{ id: 'm1' }]),
+  });
+  Progress._resetForTest();
+  const r = Progress.migrateFromV1({ force: true, removeLegacy: true });
+  assert(r.migrated === true, 'removeLegacy 搬迁成功');
+  assert(Array.isArray(r.removedLegacy) && r.removedLegacy.length >= 2,
+    'removedLegacy 记录了删除的旧 key, got ' + JSON.stringify(r.removedLegacy));
+  assert(localStorage.getItem('hspcb_wrong_records') === null, '旧 key hspcb_wrong_records 已删除');
+  assert(localStorage.getItem('hspcb_exam_history') === null, '旧 key hspcb_exam_history 已删除');
+  assert(Progress.get('wrongQuestions').length === 1, '数据已安全落入 v2 轨');
+}
+
+// 8. configure({removeLegacyAfterMigrate:true}) 让透明搬迁也清理旧 key
+{
+  const { Progress, Store, localStorage } = boot({
+    hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),
+  });
+  Progress._resetForTest();
+  Store.configure({ removeLegacyAfterMigrate: true });
+  const v = Store.get('hspcb_wrong_records');
+  assert(v !== null, '透明搬迁读到数据');
+  assert(localStorage.getItem('hspcb_wrong_records') === null, '透明搬迁后旧裸 key 被删除');
+  assert(localStorage.getItem('hspcb.st.hspcb_wrong_records') !== null, '数据在 hspcb.st.* 轨');
+}
+
+// 9. 默认配置下透明搬迁保留旧 key（回滚友好），但与 remove/purgeAll 不冲突
+{
+  const { Progress, Store, localStorage } = boot({
+    hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),
+  });
+  Progress._resetForTest();
+  const v = Store.get('hspcb_wrong_records');
+  assert(v !== null, '默认配置透明搬迁正常');
+  assert(localStorage.getItem('hspcb_wrong_records') !== null, '默认保留旧 key（可回滚）');
+  Store.remove('hspcb_wrong_records');
+  assert(Store.get('hspcb_wrong_records') === null, '默认配置下 remove 依然双清');
 }
 
 console.log(`\n${passed} passed, ${failed} failed`);

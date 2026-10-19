@@ -260,6 +260,7 @@ window.HSPCBProgress = (function () {
     function migrateFromV1(options) {
         options = options || {};
         var force = !!options.force;
+        var removeLegacy = !!options.removeLegacy;
         if (!storageAvailable()) {
             return { migrated: false, reason: 'storage-unavailable', merged: {} };
         }
@@ -269,6 +270,7 @@ window.HSPCBProgress = (function () {
 
         var data = loadAll();
         var merged = {};
+        var touchedLegacy = [];
 
         // theme
         for (var t = 0; t < THEME_KEYS.length; t++) {
@@ -279,6 +281,7 @@ window.HSPCBProgress = (function () {
             if (themeVal === 'dark' || themeVal === 'light') {
                 data.theme = themeVal;
                 merged[tk.v1] = themeVal;
+                touchedLegacy.push(tk.v1);
             }
         }
 
@@ -314,6 +317,7 @@ window.HSPCBProgress = (function () {
                 }
             }
             merged[m.v1] = m.v2;
+            touchedLegacy.push(m.v1);
         }
 
         saveAll();
@@ -321,7 +325,21 @@ window.HSPCBProgress = (function () {
             localStorage.setItem(MIGRATED_FLAG, '1');
         } catch (e) { /* ignore */ }
 
-        return { migrated: true, merged: merged };
+        // T2-2 / P0-8: 搬迁后可选删除旧裸 key。
+        // 默认保留（便于回滚），但保留旧 key 会与"清除学习数据"语义冲突——
+        // 清除后旧 key 仍在，任何直读裸 key 的代码都会看到"已清除"的数据。
+        // 传入 { removeLegacy: true } 时，搬迁成功即删除本次搬迁涉及的裸 key。
+        var removedLegacy = [];
+        if (removeLegacy) {
+            for (var r = 0; r < touchedLegacy.length; r++) {
+                try {
+                    localStorage.removeItem(touchedLegacy[r]);
+                    removedLegacy.push(touchedLegacy[r]);
+                } catch (e) { /* ignore */ }
+            }
+        }
+
+        return { migrated: true, merged: merged, removedLegacy: removedLegacy };
     }
 
     /* ── 导出 / 导入 ── */
@@ -416,13 +434,24 @@ window.HSPCBProgress = (function () {
         return true;
     }
 
-    /** 仅调试/测试用 */
-    function _resetForTest() {
+    /**
+     * T2-2 / P0-8: 清除全部学习进度（权威轨）。
+     * 删除 hspcb.v2.progress 与迁移标记，并重置内存缓存。
+     * 注意：不删除主题偏好（theme 随进度对象一起重置为默认 light，
+     * 调用方如需保留主题应在清除后重新 set）。
+     */
+    function resetAll() {
         _cache = null;
         try {
             localStorage.removeItem(NS + 'progress');
             localStorage.removeItem(MIGRATED_FLAG);
         } catch (e) { /* ignore */ }
+        return true;
+    }
+
+    /** 仅调试/测试用 */
+    function _resetForTest() {
+        resetAll();
     }
 
     /** 初始化：自动迁移一次（幂等） */
@@ -439,6 +468,8 @@ window.HSPCBProgress = (function () {
         SCHEMA_VERSION: SCHEMA_VERSION,
         DEFAULTS: DEFAULTS,
         V1_MAP: V1_MAP,
+        V1_KEYS: V1_MAP.map(function (m) { return m.v1; })
+            .concat(THEME_KEYS.map(function (t) { return t.v1; })),
         init: init,
         get: get,
         set: set,
@@ -451,6 +482,7 @@ window.HSPCBProgress = (function () {
         importData: importData,
         downloadBackup: downloadBackup,
         migrateFromV1: migrateFromV1,
+        resetAll: resetAll,
         storageAvailable: storageAvailable,
         _resetForTest: _resetForTest
     };
@@ -482,8 +514,23 @@ window.HSPCBStore = (function () {
     var NS = 'hspcb.st.';
     var migratedKeys = {};
 
+    // T2-2 / P0-8: 透明搬迁成功后是否删除旧裸 key。
+    // 默认 false（保留便于回滚）；"清除学习数据"流程不依赖此选项，
+    // 因为 remove/purgeAll 已同时删除两轨。设为 true 可彻底消除
+    // "旧 key 永存 → 直读裸 key 的代码看到已清除数据"的隐患。
+    var config = { removeLegacyAfterMigrate: false };
+
     function raw(k) {
         try { return localStorage.getItem(k); } catch (e) { return null; }
+    }
+
+    /** T2-2: 运行期配置（目前仅 removeLegacyAfterMigrate） */
+    function configure(opts) {
+        if (!opts || typeof opts !== 'object') return config;
+        if (typeof opts.removeLegacyAfterMigrate === 'boolean') {
+            config.removeLegacyAfterMigrate = opts.removeLegacyAfterMigrate;
+        }
+        return config;
     }
 
     // T0-17: 搬迁标记不能是简单的布尔值。
@@ -504,6 +551,9 @@ window.HSPCBStore = (function () {
         if (typeof key !== 'string') return null;
         if (shouldMigrate(key)) {
             try { localStorage.setItem(NS + key, raw(key)); } catch (e) { /* ignore */ }
+            if (config.removeLegacyAfterMigrate) {
+                try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+            }
         }
         return raw(NS + key);
     }
@@ -521,6 +571,55 @@ window.HSPCBStore = (function () {
         try { localStorage.removeItem(NS + key); } catch (e) { /* ignore */ }
         try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
         migratedKeys[key] = null;
+    }
+
+    /**
+     * T2-2 / P0-8: 已知 v1 裸 key 全集（学习数据向，不含主题偏好）。
+     * 来源：HSPCBProgress.V1_MAP + 散装工具自有 key。
+     * 惰性求值——progress.js 先于本 IIFE 定义，运行时一定可用。
+     */
+    var STORE_ONLY_KEYS = ['hspcb_manual_mastery'];
+    function legacyKeys() {
+        var out = [];
+        try {
+            var v1 = window.HSPCBProgress && window.HSPCBProgress.V1_KEYS;
+            if (v1 && v1.length) out = out.concat(v1);
+        } catch (e) { /* ignore */ }
+        for (var i = 0; i < STORE_ONLY_KEYS.length; i++) {
+            if (out.indexOf(STORE_ONLY_KEYS[i]) === -1) out.push(STORE_ONLY_KEYS[i]);
+        }
+        return out;
+    }
+
+    /**
+     * T2-2 / P0-8: 一次性清除本命名空间下**所有** key + 全部已知 v1 裸 key。
+     * 供"清除所有学习数据"使用——单 key remove 覆盖面不足，
+     * 用户点清除后期望 examHistory / gameScores / checkin 等一并消失。
+     * 返回 { removed: [...], failed: [...] }。
+     */
+    function purgeAll() {
+        var removed = [];
+        var failed = [];
+        var targets = keys();
+        var legacy = legacyKeys();
+        for (var i = 0; i < legacy.length; i++) {
+            if (targets.indexOf(legacy[i]) === -1) targets.push(legacy[i]);
+        }
+        for (var j = 0; j < targets.length; j++) {
+            var k = targets[j];
+            try {
+                var hadNs = raw(NS + k) != null;
+                var hadBare = raw(k) != null;
+                if (!hadNs && !hadBare) continue;
+                localStorage.removeItem(NS + k);
+                localStorage.removeItem(k);
+                if (hadNs || hadBare) removed.push(k);
+            } catch (e) {
+                failed.push(k);
+            }
+            migratedKeys[k] = null;
+        }
+        return { removed: removed, failed: failed };
     }
 
     // 枚举命名空间下的全部 key（供备份/诊断使用）
@@ -612,6 +711,9 @@ window.HSPCBStore = (function () {
         getCheckin: getCheckin,
         markCheckin: markCheckin,
         unmarkCheckin: unmarkCheckin,
-        checkinDays: checkinDays
+        checkinDays: checkinDays,
+        legacyKeys: legacyKeys,
+        purgeAll: purgeAll,
+        configure: configure
     };
 })();
