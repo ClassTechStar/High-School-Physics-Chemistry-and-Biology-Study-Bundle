@@ -57,7 +57,11 @@ const C1_DEDUPED = [];
   const seen = new Set();
   for (const item of allQs) {
     const stem = String(item.q.question || '').trim().replace(/\s+/g, ' ').slice(0, 200);
-    const key = item.subject + '||' + stem;
+    const opts = Array.isArray(item.q.options) ? item.q.options.join('|') : '';
+    const passage = String(item.q.passage || '').trim().replace(/\s+/g, ' ').slice(0, 200);
+    // 必须与 dedupe-by-content.mjs 同口径：题干 + 选项集 + 材料。
+    // 少了 passage 会把英语语法填空/短文改错的 5 道不同题误判为副本。
+    const key = item.subject + '||' + stem + '||' + opts + '||' + passage;
     if (seen.has(key)) continue;
     seen.add(key);
     C1_DEDUPED.push(item);
@@ -67,15 +71,19 @@ const C1_DEDUPED = [];
 // ---------------------------------------------------------------- C1 同题干重复
 console.log('=== C1. 同题干重复（P0-4） ===');
 {
-  const byStem = new Map();
+  // 与 C2/C3 共用同一去重视图：学科 + 题干 + 选项集 + 材料（passage）。
+  // 只按题干会误伤「同题干不同材料」的独立题（英语语法填空/短文改错共 135 道）。
+  const groups = new Map();
   for (const { subject, q } of allQs) {
     const stem = String(q.question || '').trim().replace(/\s+/g, ' ').slice(0, 200);
     if (!stem) continue;
-    const key = subject + '||' + stem;
-    if (!byStem.has(key)) byStem.set(key, []);
-    byStem.get(key).push(q.id);
+    const opts = Array.isArray(q.options) ? q.options.join('|') : '';
+    const passage = String(q.passage || '').trim().replace(/\s+/g, ' ').slice(0, 200);
+    const key = subject + '||' + stem + '||' + opts + '||' + passage;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(q.id);
   }
-  const dups = [...byStem].filter(([, ids]) => ids.length > 1);
+  const dups = [...groups].filter(([, ids]) => ids.length > 1);
   const redundant = dups.reduce((a, [, ids]) => a + ids.length - 1, 0);
   const uniq = allQs.length - redundant;
 
@@ -146,17 +154,10 @@ console.log('=== C2. 考点 → 知识点可解析率（P0-3 错题归因链路�
   const THRESHOLD = { physics: 85, chemistry: 70, biology: 70, math: 70, chinese: 70, english: 70 };
   const report = [];
   const unresolvedBySubject = {};
-  // 先按「学科+题干」去重，否则 552 条副本会把考点数与无法归因题数同时放大，
-  // 导致指标失真（副本与正本的 knowledgePoints 完全相同）
-  const deduped = [];
-  const seenStem = new Set();
-  for (const item of allQs) {
-    const stem = String(item.q.question || '').trim().replace(/\s+/g, ' ').slice(0, 200);
-    const key = item.subject + '||' + stem;
-    if (seenStem.has(key)) continue;
-    seenStem.add(key);
-    deduped.push(item);
-  }
+  // 复用脚本顶部的共享去重视图（学科+题干+选项集+材料），避免两处口径漂移。
+  // 早期版本在此处按「学科+题干」单独去重，会把 135 道「同题干不同 passage」
+  // 的合法独立题误判为副本，指标被压低。
+  const deduped = C1_DEDUPED;
   console.log(`  [口径] 去重后 ${deduped.length} 题参与统计（全库 ${allQs.length} 题）`);
   for (const s of SUBJECTS) {
     let kps = 0, hit = 0, unresolvedQ = 0;

@@ -104,23 +104,23 @@
   "content": {
     "C1-duplicate-stem": [
       {
-        "baselineCount": 555,
+        "baselineCount": 0,
         "issue": "P0-4/T1-2",
-        "note": "T1-2 已用 dedupe-by-content.mjs 去重：1718 → 1301 唯一题，417 条副本归档至 1.2/data/_archive/。基线 555 为「学科+题干」口径下的冗余量，其中 129 道是「同题干不同选项编排」的独立题，不可误删。"
+        "note": "T1-2 已用 dedupe-by-content.mjs 完成去重：1718 → 1301 唯一题，417 条副本归档至 1.2/data/_archive/。口径=学科+题干+选项集+材料(passage)；只按题干会误伤 135 道独立题。"
       }
     ],
     "C2-knowledgePoints-unresolvable": [
       {
-        "baselineCount": 999,
+        "baselineCount": 892,
         "issue": "P0-3/T1-4",
-        "note": "952 个考点仅 197 个能解析到 knowledge topic。化学 89%/语文 63%/生物 60%/数学 58% 的题目无法归因。T1-4：别名表抽到 knowledgePoints-thesaurus.json 并扩表。上限 999 为占位，T1-4 完成后按实测下调"
+        "note": "T1-4 根因：题库 knowledgePoints 填的是「学科模块名 + 频次标签」（如 光学与原子物理/综合应用/高频考点/基础概念），不是具体知识点，无法映射。治理方向见 docs/TODO-knowledge-points.md"
       }
     ],
     "C3-subject-answer-skew": [
       {
-        "baselineCount": 6,
+        "baselineCount": 0,
         "issue": "P0-2/T1-3",
-        "note": "T1-3 已修复：balance-answers.mjs 改为按学科分桶 + 解析字母引用同步改写，六科最大占比降至 25.0%~25.3%。基线 6 保留作回归监测，新增偏斜会被拦截。"
+        "note": "T1-3 已修复：balance-answers.mjs 改按学科分桶 + 解析字母引用同步改写，六科最大占比 25.0%~25.3%"
       }
     ],
     "C4-missing-options": [

@@ -137,22 +137,71 @@ window.learningPathRecommender = (function () {
         catch (e) { return fb; }
     }
 
+    // 【T1-4 / P0-3】别名表外部化：knowledgePoints-thesaurus.json 早已有 aliases，
+    // 但代码从未读取（只在 promo.html 里被宣传、在 sw.js 里被预缓存）——典型"死数据"。
+    // 现改为运行时加载并与内置表合并；加载失败时静默回退到内置表，保证离线可用。
+    var THESAURUS_URL = 'data/knowledgePoints-thesaurus.json';
+    var thesaurusLoaded = false;
+
+    function mergeAliasMap(external) {
+        if (!external || typeof external !== 'object') return;
+        for (var k in external) {
+            if (!Object.prototype.hasOwnProperty.call(external, k)) continue;
+            var map = external[k];
+            if (!map || typeof map !== 'object') continue;
+            TOPIC_ALIAS_MAP[k] = TOPIC_ALIAS_MAP[k] || {};
+            for (var alias in map) {
+                if (!Object.prototype.hasOwnProperty.call(map, alias)) continue;
+                TOPIC_ALIAS_MAP[k][alias] = map[alias];
+            }
+        }
+    }
+
+    function loadThesaurus(callback) {
+        if (thesaurusLoaded) { callback(); return; }
+        fetch(THESAURUS_URL)
+            .then(function (res) { if (!res.ok) throw new Error(String(res.status)); return res.json(); })
+            .then(function (json) {
+                if (json && json.subjects) mergeAliasMap(json.subjects);
+                thesaurusLoaded = true;
+                callback();
+            })
+            .catch(function () {
+                // 离线或文件缺失：沿用内置别名表
+                thesaurusLoaded = true;
+                callback();
+            });
+    }
+
     // 通过别名映射表解析知识点，返回标准化topic名
-    // 优先级：1.别名表精确匹配 2.indexOf双向包含 3.原值返回
+    // 优先级：1.别名表精确匹配 2.别名表双向包含 3.包含关系派生 4.原值返回
     function resolveTopicName(subject, rawName) {
         if (!rawName) return rawName;
         var aliasMap = TOPIC_ALIAS_MAP[subject] || {};
+
         // 1. 别名表精确匹配
         if (aliasMap[rawName]) return aliasMap[rawName];
-        // 2. 别名表key的indexOf双向包含（处理"牛顿第二定律的应用"→"牛顿第二定律"）
+
+        // 2. 别名表 key 的双向包含（处理"牛顿第二定律的应用"→"牛顿第二定律"）
         for (var alias in aliasMap) {
-            if (aliasMap.hasOwnProperty(alias)) {
+            if (Object.prototype.hasOwnProperty.call(aliasMap, alias)) {
                 if (rawName.indexOf(alias) !== -1 || alias.indexOf(rawName) !== -1) {
                     return aliasMap[alias];
                 }
             }
         }
-        // 3. 无匹配，返回原值
+
+        // 3. 派生兜底：考点名包含某个标准词 → 归入该标准词。
+        //    例："机械能守恒定律" 含 "机械能"；"弱电解质电离平衡" 含 "电解质溶液"
+        var canons = [];
+        for (var c in aliasMap) {
+            if (Object.prototype.hasOwnProperty.call(aliasMap, c)) canons.push(aliasMap[c]);
+        }
+        for (var i = 0; i < canons.length; i++) {
+            if (rawName.indexOf(canons[i]) !== -1) return canons[i];
+        }
+
+        // 4. 无匹配，返回原值
         return rawName;
     }
 
@@ -808,10 +857,12 @@ window.learningPathRecommender = (function () {
             window.answerTemplatesData = data;
         }).catch(function () {});
 
-        // 加载初始学科
-        analyzeWeakTopics(state.currentSubject, function () {
-            state.loading = false;
-            render();
+        // 加载初始学科（先取回外部同义词表，让错题归因用上完整别名）
+        loadThesaurus(function () {
+            analyzeWeakTopics(state.currentSubject, function () {
+                state.loading = false;
+                render();
+            });
         });
     }
 
