@@ -5,8 +5,15 @@
 
   // ===================== 公共工具 =====================
   function escapeHtml(s) {
-    s = String(s);
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    var fn = (typeof CommonUtils !== 'undefined' && CommonUtils) ? CommonUtils.escapeHtml : null;
+    if (typeof fn === 'function') return fn(s);
+    if (s === null || s === undefined) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
   function splitSentences(p) {
     var res = [], cur = '';
