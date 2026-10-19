@@ -23,14 +23,15 @@
     --text-secondary: var(--dm-text-2);
     --text-tertiary: var(--dm-text-3);
 
-    /* 学科色浅色版（深色背景上更清晰） */
+    /* 学科色浅色版（深色背景上更清晰；六科保持互异） */
     --physics: #a78bfa;
     --chemistry: #60a5fa;
     --biology: #34d399;
     --exam: #fbbf24;
     --platform: #818cf8;
     --chinese: #38bdf8;
-    --math: #60a5fa;
+    --math: #f9a8d4;      /* 原与 --chemistry 同为 #60a5fa，T3-1 换色相 */
+    --english: #fca5a5;   /* T3-1 新增（与暗色 --physics 紫、--math 粉拉开距离） */
 
     /* 强调色浅色版 */
     --primary: #7b93fa;
@@ -156,6 +157,14 @@
     border-color: var(--dm-border-soft) !important;
     color: var(--dm-text) !important;
 }
+
+/* 学科卡左侧色条在暗色下保留学科色（上方通用规则会把 border-color 统一拍平） */
+[data-theme="dark"] .subject-card.physics { border-left-color: var(--physics) !important; }
+[data-theme="dark"] .subject-card.chemistry { border-left-color: var(--chemistry) !important; }
+[data-theme="dark"] .subject-card.biology { border-left-color: var(--biology) !important; }
+[data-theme="dark"] .subject-card.chinese { border-left-color: var(--chinese) !important; }
+[data-theme="dark"] .subject-card.math { border-left-color: var(--math) !important; }
+[data-theme="dark"] .subject-card.english { border-left-color: var(--english) !important; }
 
 /* 卡片头部 / 侧栏 / 面板等写死 white 的容器 */
 [data-theme="dark"] .preset-nav,

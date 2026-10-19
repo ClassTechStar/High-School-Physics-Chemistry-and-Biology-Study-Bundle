@@ -426,7 +426,8 @@ body::before {
 .nav-btn-exam.active { background: var(--exam); box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
 .nav-btn-platform.active { background: var(--platform); box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
 .nav-btn-chinese.active { background: var(--chinese); box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
-.nav-btn-math.active { background: var(--math); box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+.nav-btn-math.active { background: var(--math); box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
+.nav-btn-english.active { background: var(--english); box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
 
 /* ============================================================
    MAIN CONTENT AREA
@@ -730,16 +731,28 @@ main {
 }
 
 .subject-card.physics {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.04), rgba(139, 92, 246, 0.08));
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.04), rgba(59, 130, 246, 0.08));
     border-left: 4px solid var(--physics);
 }
 .subject-card.chemistry {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.04), rgba(59, 130, 246, 0.08));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.04), rgba(16, 185, 129, 0.08));
     border-left: 4px solid var(--chemistry);
 }
 .subject-card.biology {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.04), rgba(16, 185, 129, 0.08));
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.04), rgba(245, 158, 11, 0.08));
     border-left: 4px solid var(--biology);
+}
+.subject-card.chinese {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.04), rgba(14, 165, 233, 0.08));
+    border-left: 4px solid var(--chinese);
+}
+.subject-card.math {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.04), rgba(236, 72, 153, 0.08));
+    border-left: 4px solid var(--math);
+}
+.subject-card.english {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.04), rgba(139, 92, 246, 0.08));
+    border-left: 4px solid var(--english);
 }
 
 .subject-card h4 {
@@ -750,6 +763,9 @@ main {
 .subject-card.physics h4 { color: var(--physics); }
 .subject-card.chemistry h4 { color: var(--chemistry); }
 .subject-card.biology h4 { color: var(--biology); }
+.subject-card.chinese h4 { color: var(--chinese); }
+.subject-card.math h4 { color: var(--math); }
+.subject-card.english h4 { color: var(--english); }
 
 .subject-card ul { list-style: none; }
 .subject-card ul li { padding: var(--space-2) 0; }
