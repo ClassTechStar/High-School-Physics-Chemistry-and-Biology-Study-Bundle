@@ -962,7 +962,7 @@
     <h1>📚 广东新高考I卷·高中语文知识点大合集</h1>
     <div class="subtitle">高三备考 · 基础夯实专用版</div>
     <div class="search-box">
-        <input type="text" id="chineseSearchInput" placeholder="🔍 搜索语文知识点..." onkeyup="chineseSearch()">
+        <input type="text" id="chineseSearchInput" data-action="chinese-search" placeholder="🔍 搜索语文知识点...">
     </div>
 </div>
 
@@ -4263,12 +4263,25 @@
     window.setActiveNav = setActiveNav;
     // T0-18: handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
     window.handlePlatformTab = handlePlatformTab;
-    // P0-13: chineseSearch 原定义于本 IIFE 内部，未挂 window → index.html:963 的 onkeyup 必然 ReferenceError
+    // P0-13: chineseSearch 原定义于本 IIFE 内部，未挂window → 原 onkeyup 必然 ReferenceError
     window.chineseSearch = chineseSearch;
+
+    // ===== T3-4c / T12：内联事件属性改事件委托 =====
+    // CSP 的 script-src 一旦去掉 'unsafe-inline'，HTML 内联事件属性（onclick/onkeyup）
+    // 会被浏览器直接拦截。原静态 HTML 中真实存在 2 处：主题切换按钮 + 语文搜索框，
+    // 现改为 data-action 约定 + 文档级委托（与 english-tools 等既有 data-action 机制一致）。
+    // 注意：委托必须挂在此处（而非 app.js 的 DOMContentLoaded），因为触发元素
+    // 位于本 IIFE 所在 script 之前，若等 DOMContentLoaded 则首屏交互无响应。
+    // 主题切换按钮的委托在下方「统一主题切换」IIFE 内注册（apply/current 只在该作用域可见）。
+    document.addEventListener('keyup', function (e) {
+        var t = e.target && e.target.closest ? e.target.closest('[data-action="chinese-search"]') : null;
+        if (!t) return;
+        chineseSearch();
+    });
 
 })();
 </script>
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
+<button class="theme-toggle" id="themeToggle" data-action="toggle-theme" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
 <script>
 /* ---- 首页工具区块折叠功能 ---- */
 (function(){
@@ -4396,6 +4409,16 @@
     window.toggleTheme = function () { apply(current() === 'dark' ? 'light' : 'dark'); };
     window.setTheme = apply;
     window.getTheme = current;
+
+    // ===== T3-4c / T12：主题切换按钮的内联 onclick 改事件委托 =====
+    // 原：<button onclick="toggleTheme()">（内联事件属性，CSP script-src 去掉
+    // 'unsafe-inline' 后会被浏览器拦截）。现改为 data-action="toggle-theme" + 文档级委托。
+    // window.toggleTheme 仍保留：js/*.js 生成的 319 处 onclick 与外部调用方仍可能引用它。
+    document.addEventListener('click', function (e) {
+        var t = e.target && e.target.closest ? e.target.closest('[data-action="toggle-theme"]') : null;
+        if (!t) return;
+        window.toggleTheme();
+    });
 
     apply(current());
 })();
