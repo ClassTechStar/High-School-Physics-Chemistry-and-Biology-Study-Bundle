@@ -1,17 +1,23 @@
 // ============================================================
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v13（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v14（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v13';
+var CACHE_NAME = 'hspcb-v14';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
+// T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
+// 且 manifest.json 的图标已从 data: URI 改为真实文件）。
 var CORE_ASSETS = [
     'index.html',
     'presentation.html',
     'promo.html',
     'manifest.json',
+    'icons/icon.svg',
+    'icons/icon-192.png',
+    'icons/icon-512.png',
+    'icons/icon-maskable-512.png',
     'css/tokens.css',
     'css/style.css',
     'css/theme-dark.css',
