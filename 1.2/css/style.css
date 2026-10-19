@@ -3431,3 +3431,53 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
     main { box-shadow: none; border: none; padding: 0; }
     .container { max-width: 100%; padding: 0; }
 }
+/* ===== T0-8 / P0-12：主观题作答区 + 阅读材料 + 自评按钮 ===== */
+.question-passage-box {
+    margin: 16px 0; padding: 18px 20px;
+    background: var(--bg-subtle, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-left: 4px solid var(--primary, #4f6ef6);
+    border-radius: 8px;
+}
+.question-passage-box h4 { margin: 0 0 10px; font-size: 15px; color: var(--text-primary, #1e293b); }
+.passage-content { font-size: 15px; line-height: 1.9; color: var(--text-primary, #1e293b); }
+
+.subjective-box {
+    margin: 16px 0; padding: 18px 20px;
+    background: var(--bg-subtle, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+}
+.subjective-box h4 { margin: 0 0 6px; font-size: 15px; }
+.subjective-hint { margin: 0 0 12px; font-size: 13px; color: var(--text-secondary, #64748b); }
+.subjective-input {
+    width: 100%; box-sizing: border-box; padding: 12px 14px;
+    font: inherit; font-size: 15px; line-height: 1.7;
+    color: var(--text-primary, #1e293b);
+    background: var(--bg-primary, #fff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 6px; resize: vertical;
+}
+.subjective-input:focus { outline: 2px solid var(--primary-light, #93a5fb); outline-offset: 1px; }
+.essay-counter { margin-top: 6px; font-size: 12px; color: var(--text-secondary, #64748b); text-align: right; }
+.subjective-reference {
+    margin-top: 14px; padding: 10px 12px; font-size: 14px; line-height: 1.7;
+    background: var(--secondary-light, #e8f5e9);
+    border-radius: 6px;
+}
+.subjective-reference .ref-label { font-weight: 600; margin-right: 8px; color: var(--secondary, #2e7d32); }
+
+.self-judge {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 10px; padding: 10px 12px;
+    background: var(--bg-subtle, #f8fafc); border-radius: 6px;
+}
+.self-judge-label { font-size: 13px; color: var(--text-secondary, #64748b); }
+.self-judge button {
+    padding: 7px 16px; font: inherit; font-size: 14px; cursor: pointer;
+    border: 1px solid var(--border-color, #e2e8f0); border-radius: 6px;
+    background: var(--bg-primary, #fff); color: var(--text-primary, #1e293b);
+}
+.self-judge button:disabled { opacity: 0.45; cursor: not-allowed; }
+.self-judge .btn-self-correct:not(:disabled):hover { background: var(--secondary-light, #e8f5e9); border-color: var(--secondary, #2e7d32); }
+.self-judge .btn-self-wrong:not(:disabled):hover { background: var(--danger-light, #ffebee); border-color: var(--danger, #c62828); }

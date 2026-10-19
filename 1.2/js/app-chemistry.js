@@ -18,17 +18,103 @@ const chemistryBalancer = {
         Mn: 25, Cr: 24
     },
 
+    /**
+     * 化学式解析 —— P0-15 修复
+     *
+     * 旧实现用 `/([A-Z][a-z]?)(\d*)/g` 平铺扫描，**完全不处理括号**，
+     * 导致括号内的原子被少算：
+     *   Ca(OH)2     旧: {Ca:1, O:1, H:1}     应为 {Ca:1, O:2, H:2}
+     *   (NH4)2SO4   旧: {N:1, H:4, S:1, O:4} 应为 {N:2, H:8, S:1, O:4}
+     *   Al2(SO4)3   旧: {Al:2, S:1, O:4}     应为 {Al:2, S:3, O:12}
+     * 于是 tryBalance('Ca(OH)2 + HCl') 输出「配平结果」系数 [1,1,1,1]，
+     * 左右原子数不等 —— 核心化学工具给出错误答案。
+     *
+     * 现在改为递归下降解析，支持：圆括号 ()、方括号 []、花括号 {}、
+     * 嵌套、角括号化学式 Ca(OH)2、以及结晶水点号 · 与其后的系数。
+     */
     parseFormula(formula) {
         const atoms = {};
-        const regex = /([A-Z][a-z]?)(\d*)/g;
-        let match;
-        while ((match = regex.exec(formula)) !== null) {
-            if (match[1]) {
-                const element = match[1];
-                const count = match[2] ? parseInt(match[2]) : 1;
-                atoms[element] = (atoms[element] || 0) + count;
+        if (typeof formula !== 'string') return atoms;
+
+        const src = formula
+            // 去掉系数前缀（如 "2H2O" 里的 2）—— 由调用方通过 setCoeff 处理
+            .replace(/\s+/g, '')
+            // 下标数字转上标写法不影响解析；统一去掉千分位逗号
+            .replace(/,/g, '');
+
+        let i = 0;
+        const n = src.length;
+
+        const readNumber = () => {
+            let num = '';
+            while (i < n && src[i] >= '0' && src[i] <= '9') num += src[i++];
+            return num ? parseInt(num, 10) : null;
+        };
+
+        /** 把一个 group 结构合并进目标计数表，mult 为该 group 的外部倍数 */
+        const merge = (target, part, mult) => {
+            if (part.element) {
+                target[part.element] = (target[part.element] || 0) + part.count * mult;
+            } else if (part.group) {
+                for (const el in part.group) {
+                    target[el] = (target[el] || 0) + part.group[el] * mult;
+                }
             }
+        };
+
+        // 解析一个「基团」：元素 / 括号组（可任意嵌套）/ 结晶水段
+        const readGroup = () => {
+            if (i >= n) return { element: null, count: 1 };
+
+            const ch = src[i];
+
+            // 括号组：(...) [...] {...}
+            if (ch === '(' || ch === '[' || ch === '{') {
+                const close = { '(': ')', '[': ']', '{': '}' }[ch];
+                i++; // 跳过开括号
+                const inner = {};
+                // 递归解析括号内的所有基团，支持嵌套如 K4[Fe(CN)6]
+                while (i < n && src[i] !== close) {
+                    merge(inner, readGroup(), 1);
+                }
+                if (src[i] === close) i++; // 跳过闭括号
+                const mult = readNumber();
+                for (const el in inner) inner[el] *= (mult === null ? 1 : mult);
+                return { group: inner };
+            }
+
+            // 结晶水点号：· 后跟数字，该数字是**后续整个基团**的倍数，如 CuSO4·5H2O
+            if (ch === '·' || ch === '.') {
+                i++;
+                const mult = readNumber();
+                return { hydrate: true, mult: mult === null ? 1 : mult };
+            }
+
+            // 元素符号：首字母大写 + 可选小写
+            if (/[A-Z]/.test(ch)) {
+                let sym = src[i++];
+                if (i < n && /[a-z]/.test(src[i])) sym += src[i++];
+                const count = readNumber();
+                return { element: sym, count: count === null ? 1 : count };
+            }
+
+            // 非元素字符（下标数字、+、电荷等）跳过
+            i++;
+            return { element: null, count: 1 };
+        };
+
+        // 结晶水：·N 之后的**全部**剩余基团都要乘以 N（CuSO4·5H2O → H2O 整体 ×5），
+        // 而不是只乘紧随其后的那一个。用 pendingMult 保持到式子结束。
+        let pendingMult = 1;
+        while (i < n) {
+            const part = readGroup();
+            if (part.hydrate) {
+                pendingMult = part.mult;
+                continue;
+            }
+            merge(atoms, part, pendingMult);
         }
+
         return atoms;
     },
 

@@ -18,7 +18,7 @@ var ExamSystem={
     addUIEntries:function(){
         var self=this;
         document.addEventListener('DOMContentLoaded',function(){
-            ['physics','chemistry','biology','chinese','math'].forEach(function(subject){
+            ['physics','chemistry','biology','chinese','math','english'].forEach(function(subject){
                 var section=document.getElementById(subject+'-section');
                 if(!section) return;
                 var tabsContainer=section.querySelector('.module-tabs');
@@ -418,7 +418,7 @@ var ExamSystem={
                 {id:'b1',type:'single',difficulty:1,chapter:'细胞分子组成',question:'下列关于蛋白质的叙述，正确的是',options:['蛋白质是生命活动的主要承担者','所有蛋白质都含C、H、O、N、S','蛋白质的多样性只与氨基酸种类有关','每种蛋白质都由20种氨基酸组成'],answer:0,explanation:'蛋白质功能多样性是生命活动的主要承担者。并非所有蛋白质含S；多样性由氨基酸种类、数目、排列顺序和空间结构决定；不一定含20种氨基酸'},
                 {id:'b2',type:'single',difficulty:2,chapter:'细胞代谢',question:'有氧呼吸过程中，释放CO₂的阶段是',options:['只有第二阶段','第二和第三阶段','只有第三阶段','第一和第二阶段'],answer:0,explanation:'有氧呼吸第二阶段（丙酮酸+H₂O→CO₂+[H]）释放CO₂。第一阶段产生丙酮酸和[H]不释放CO₂，第三阶段[H]+O₂→H₂O也不释放CO₂'},
                 {id:'b3',type:'single',difficulty:2,chapter:'细胞分裂',question:'减数分裂过程中，同源染色体分离发生在',options:['减数第一次分裂前期','减数第一次分裂后期','减数第二次分裂后期','有丝分裂后期'],answer:1,explanation:'减数第一次分裂后期，同源染色体在纺锤丝牵引下分别移向细胞两极，实现分离。减数第二次分裂后期是着丝点分裂，姐妹染色单体分离'},
-                {id:'b4',type:'single',difficulty:3,chapter:'遗传规律',question:'一对表现型正常的夫妇，女方父亲患白化病(常隐)，男方父母正常但有一白化病弟弟。这对夫妇生一个白化病孩子的概率为',options:['1/4','1/6','1/9','1/18'],answer:2,explanation:'女方父亲aa→女方Aa(1/1)。男方弟弟aa→男方父母Aa×Aa→男方Aa概率2/3。后代aa概率=2/3×1/4=1/6。注意：男方A_中Aa占2/3'},
+                {id:'b4',type:'single',difficulty:3,chapter:'遗传规律',question:'一对表现型正常的夫妇，女方父亲患白化病(常隐)，男方父母正常但有一白化病弟弟。这对夫妇生一个白化病孩子的概率为',options:['1/4','1/6','1/9','1/18'],answer:1,explanation:'女方父亲aa→女方Aa(1/1)。男方弟弟aa→男方父母Aa×Aa→男方Aa概率2/3。后代aa概率=2/3×1/4=1/6。注意：男方A_中Aa占2/3'},
                 {id:'b5',type:'single',difficulty:2,chapter:'遗传分子基础',question:'DNA复制、转录、翻译的原料依次是',options:['脱氧核苷酸、核糖核苷酸、氨基酸','核糖核苷酸、脱氧核苷酸、氨基酸','氨基酸、脱氧核苷酸、核糖核苷酸','脱氧核苷酸、氨基酸、核糖核苷酸'],answer:0,explanation:'DNA复制原料：4种脱氧核苷酸(dNTP)；转录原料：4种核糖核苷酸(NTP)；翻译原料：20种氨基酸'},
                 {id:'b6',type:'single',difficulty:2,chapter:'生命活动调节',question:'下列关于神经调节的叙述，正确的是',options:['神经调节的基本方式是反射弧','突触传递是双向的','神经递质只能由突触前膜释放','效应器就是传出神经末梢'],answer:2,explanation:'基本方式是反射（非反射弧）；突触传递单向（突触前膜→突触间隙→突触后膜）；神经递质只能由突触前膜释放作用于突触后膜；效应器=传出神经末梢+它所支配的肌肉或腺体'},
                 {id:'b7',type:'single',difficulty:3,chapter:'生态学',question:'在能量流动过程中，第二营养级到第三营养级的能量传递效率为10%-20%，下列解释不合理的是',options:['各营养级生物呼吸作用消耗能量','部分能量流向分解者','部分能量未被利用','各营养级同化量相同'],answer:3,explanation:'能量传递效率=下一营养级同化量/上一营养级同化量×100%。各营养级同化量不同（逐级递减），因此D不合理'},
@@ -566,7 +566,11 @@ var ExamSystem={
             if(diff===0){card.style.display='';}
             else{card.style.display=card.dataset.difficulty==diff?'':'none';}
         });
-        var btns=document.querySelectorAll('.quiz-filter-btn');
+        // P2 修复：原用全局 document.querySelectorAll('.quiz-filter-btn')，
+        // 同时打开两科练习面板时，点 A 科筛选会高亮 B 科的按钮。
+        // 改为限定在当前学科的 quiz 容器内。
+        var scope=document.getElementById('quiz-container-'+subject)||document;
+        var btns=scope.querySelectorAll('.quiz-filter-btn');
         btns.forEach(function(b){b.classList.remove('active');b.style.background='';b.style.color='';});
         var idx=diff;
         if(btns[idx]){btns[idx].classList.add('active');btns[idx].style.background='var(--primary)';btns[idx].style.color='#fff';}
@@ -599,6 +603,11 @@ var ExamSystem={
         var alreadyAnswered=container.dataset.answered;
         if(alreadyAnswered) return;
         container.dataset.answered='true';
+        // P0-19 修复：记录用户的**实际选择**。
+        // 旧实现不记录，updateScore 只能靠读 option.style.background 反推用户选了哪个，
+        // 而正确项无论用户选什么都会被染成 #e8f5e9 → selectedCorrect 恒为 true → 成绩恒 100%。
+        // 实测：故意选错（picked=2, correct=1）时，反馈显示「❌ 回答错误」但成绩显示 100%。
+        container.dataset.picked=String(oidx);
         var correct=q.answer;
         options.forEach(function(opt,i){
             opt.style.cursor='default';
@@ -632,12 +641,12 @@ var ExamSystem={
             var container=document.getElementById('quiz-q-'+subject+'-'+idx);
             if(container&&container.dataset.answered){
                 answered++;
-                var options=container.querySelectorAll('.quiz-option');
-                var selectedCorrect=false;
-                options.forEach(function(opt,i){
-                    if(opt.style.background==='rgb(232, 245, 233)'&&i===q.answer) selectedCorrect=true;
-                });
-                if(selectedCorrect) correct++;
+                // P0-19 修复：读 container.dataset.picked（checkAnswer 记录的用户实际选择），
+                // 不再读 style.background —— 后者无法区分「正确项」与「用户选中的正确项」。
+                var picked=container.dataset.picked;
+                if(picked!==undefined&&picked!==null&&picked!==''&&Number(picked)===Number(q.answer)){
+                    correct++;
+                }
             }
         });
         var scoreEl=document.getElementById('quiz-score-'+subject);

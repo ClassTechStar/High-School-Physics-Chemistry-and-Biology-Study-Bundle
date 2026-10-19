@@ -1186,35 +1186,79 @@ const subjectContent = {
 };
 
 /**
+ * 工具 id → section id 的别名表
+ *
+ * P0-14: index.html 在重构中重命名过一批 section（如 `electrochem-section`
+ * → `chemistry-electrochem-section`），但各 app 的 navigateTo() 调用点没有同步。
+ * navigateTo 会先移除**所有** .section.active 再找不到目标 →
+ * 结果是整页空白，且无任何报错。
+ *
+ * 这里既修正已知映射，也给 navigateTo 加了「找不到就报警 + 早退」的兜底，
+ * 避免同类漂移再次静默发生。
+ */
+const SECTION_ID_ALIAS = {
+    // 物理
+    'physics-calculator': 'physics-formula',
+    'projectile-sim': 'physics-projectile',
+    // 化学
+    'electrochem': 'chemistry-electrochem',
+    'process-flow': 'chemistry-process',
+    'equation-notebook': 'chemistry-notebook',
+    'organic-converter': 'chemistry-organic',
+    'process-analyzer': 'chemistry-process-analyzer',
+    // equation-balancer 是方程式配平 Pro，与基础配平器共用 chemistry-balancer 容器
+    'equation-balancer': 'chemistry-balancer',
+    // 生物
+    'ecosystem-sim': 'biology-ecosystem',
+    'genetics-pedigree': 'biology-pedigree',
+    'photosynthesis-trainer': 'biology-photosynthesis',
+    'experiment-designer': 'biology-experiment',
+    'pcr-simulator': 'biology-pcr-sim',
+    'gel-electrophoresis': 'biology-electrophoresis'
+};
+
+/**
  * 主区域导航 - 切换 section 显示、管理导航按钮激活态并记录当前学科
  * @module navigateTo
  * @example window.navigateTo('chemistry-balancer')
  */
 function navigateTo(section) {
+    const resolved = SECTION_ID_ALIAS[section] || section;
+    const targetSection = document.getElementById(resolved + '-section');
+
+    // P0-14 修复：先校验目标存在，再摘掉所有 active。
+    // 旧实现先清空所有 active 再判断目标是否存在，找不到时整页变空白且无任何日志。
+    if (!targetSection) {
+        console.warn(`[navigateTo] 找不到 section "#${resolved}-section"（原始 id: "${section}"），已中止导航以避免整页空白`);
+        return;
+    }
+    if (SECTION_ID_ALIAS[section]) {
+        console.info(`[navigateTo] id 别名: "${section}" → "${resolved}"`);
+    }
+
     document.querySelectorAll('.section').forEach(s => {
         s.classList.remove('active');
     });
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-    const targetSection = document.getElementById(section + '-section');
-    if (targetSection) {
-        targetSection.classList.add('active');
-        if (section === 'exam') {
-            const examContainer = document.getElementById('exam-content');
-            if (examContainer && examPracticeSystem) {
-                examPracticeSystem.renderExamDashboard(examContainer);
-            }
+    targetSection.classList.add('active');
+    if (resolved === 'exam') {
+        const examContainer = document.getElementById('exam-content');
+        if (examContainer && examPracticeSystem) {
+            examPracticeSystem.renderExamDashboard(examContainer);
         }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const navBtn = document.querySelector('[data-subject="' + section + '"]');
+    const navBtn = document.querySelector('[data-subject="' + resolved + '"]');
     if (navBtn) {
         navBtn.classList.add('active');
     }
 
-    currentSubject = section;
+    currentSubject = resolved;
 }
+
+window.SECTION_ID_ALIAS = SECTION_ID_ALIAS;
 
 // 模块注册表 - 消除猴子补丁依赖
 // 各模块可通过 window.registerModule(moduleName, handler) 注册自定义渲染逻辑

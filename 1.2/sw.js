@@ -30,7 +30,6 @@ var CORE_ASSETS = [
     'js/study-dashboard.js',
     'js/visual-enhanced.js',
     'js/enhanced-tools.js',
-    'js/missing-tools.js',
     'js/missing-tools-part2.js',
     'js/study-tools-v2.js',
     'js/study-tools-enhanced.js',
