@@ -1225,7 +1225,18 @@ window.registerModule = function(type, handler) {
 };
 
 /**
- * 模块内容加载器 - 按学科/模块加载内容，优先查询 MODULE_REGISTRY 再回退默认内容
+ * UI 的 data-module 取值 → subjectContent 的键名映射
+ * P0-11: `concepts`（index.html tab 列表的取值）在 subjectContent 里叫 `knowledge`。
+ * 该映射原先只存在于 index.html 一个解析期永假的死块中，导致三科默认 tab
+ * 「📖 核心概念」全部显示「该模块内容正在开发中...」，app.js 里 500+ 行真实内容取不到。
+ */
+const MODULE_KEY_ALIAS = {
+    concepts: 'knowledge'
+};
+
+/**
+ * 模块内容加载器 - 按学科/模块加载内容
+ * 优先级：MODULE_ALIAS → MODULE_REGISTRY → subjectContent 默认内容
  * @module loadModuleContent
  * @example window.loadModuleContent('chemistry', 'balancer')
  */
@@ -1234,18 +1245,59 @@ function loadModuleContent(subject, module) {
     const contentEl = document.getElementById(contentId);
     if (!contentEl) return;
 
+    // P0-11: 别名归一必须在任何分支之前，否则 concepts 永远匹配不到 knowledge
+    const key = MODULE_KEY_ALIAS[module] || module;
+
     // 注册表检查 - 优先于默认内容查找，消除猴子补丁顺序依赖
-    if (window.MODULE_REGISTRY[module]) {
-        window.MODULE_REGISTRY[module](contentEl, subject, module);
+    if (window.MODULE_REGISTRY[key]) {
+        window.MODULE_REGISTRY[key](contentEl, subject, key);
         return;
     }
 
     // default 分支：从 subjectContent 查找默认内容
     if (subjectContent[subject]) {
-        const content = subjectContent[subject][module] || '<p>该模块内容正在开发中...</p>';
-        contentEl.innerHTML = content;
+        const content = subjectContent[subject][key];
+        if (content) {
+            contentEl.innerHTML = content;
+        } else {
+            console.warn(`[loadModuleContent] 未找到内容: ${subject}/${key}`);
+            contentEl.innerHTML = '<p>该模块内容正在开发中...</p>';
+        }
     }
 }
+
+// P0-11: 把 index.html 中原先不可达的精细实验渲染器（约 360 行）与
+// 平台 tab 分流正式接入 MODULE_REGISTRY —— 这正是 registerModule 架构的设计用途，
+// 同时解决了「架构定义后零调用」的空壳问题。
+(function registerBuiltinModules() {
+    const EXPERIMENT_RENDERERS = {
+        physics: 'renderPhysicsExperiments',
+        chemistry: 'renderChemistryExperiments',
+        biology: 'renderBiologyExperiments'
+    };
+
+    window.registerModule('experiments', function (contentEl, subject) {
+        const fnName = EXPERIMENT_RENDERERS[subject];
+        const fn = fnName && window[fnName];
+        if (typeof fn === 'function') {
+            fn(subject, contentEl);
+        } else {
+            console.warn(`[experiments] 缺少渲染器: ${subject}`);
+        }
+    });
+
+    // 平台类 tab 需要 index.html 侧的 PS 分流逻辑
+    const PLATFORM_MODULES = ['round1', 'round2', 'bank', 'experiment-center'];
+    PLATFORM_MODULES.forEach(function (mod) {
+        window.registerModule(mod, function (contentEl, subject) {
+            if (typeof window.handleModuleTabClick === 'function') {
+                window.handleModuleTabClick(subject, mod, contentEl);
+            } else {
+                console.warn(`[${mod}] handleModuleTabClick 未就绪`);
+            }
+        });
+    });
+})();
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.nav-btn').forEach(btn => {

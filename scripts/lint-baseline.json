@@ -1,0 +1,162 @@
+{
+  "_comment": "已知违规基线 —— check-lint.mjs / check-content.mjs 的白名单。每条必须带 issue 号，禁止无脑扩容。新增违规会使门禁失败。",
+  "lint": {
+    "L1-bare-localStorage": [
+      {
+        "file": "common-utils.js",
+        "issue": "P1-4",
+        "note": "存储抽象层本身，localStorage 是其底层原语"
+      },
+      {
+        "file": "data-analysis-enhanced.js",
+        "issue": "P1-4",
+        "note": ":498 hspcb_study_time 无读取方，见 T2-3"
+      },
+      {
+        "file": "english-tools.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛到 HSPCBStore"
+      },
+      {
+        "file": "gamification-system.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛"
+      },
+      {
+        "file": "learning-tools.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛；:817 打卡 schema 冲突见 T0-17"
+      },
+      {
+        "file": "study-tools-enhanced.js",
+        "issue": "P2-5",
+        "note": "progress.js:476-478 已登记白名单"
+      },
+      {
+        "file": "mock-exam.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛"
+      },
+      {
+        "file": "study-dashboard.js",
+        "issue": "P1-4",
+        "note": "T0-17 统一 schema 时一并收敛"
+      },
+      {
+        "file": "platform-system.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛到 HSPCBStore"
+      },
+      {
+        "file": "progress.js",
+        "issue": "P1-4",
+        "note": "存储抽象层自身（HSPCBStore/HSPCBProgress 实现），localStorage 是其底层原语"
+      },
+      {
+        "file": "study-tools-v2.js",
+        "issue": "P1-4",
+        "note": "T2-3 收敛"
+      }
+    ],
+    "L2-escapeHtml-duplicates": [
+      {
+        "file": "content-deep-v3.js",
+        "issue": "T1-5",
+        "note": "同文件 3 份顶层声明，后两处覆盖前一处；前两份已是死代码"
+      },
+      {
+        "file": "global-search.js",
+        "issue": "T1-5",
+        "note": "改用 CommonUtils.escapeHtml"
+      },
+      {
+        "file": "study-tools-v2.js",
+        "issue": "T1-5",
+        "note": "对象属性形式，需先评估语义等价性"
+      },
+      {
+        "file": "subject-gap-2.js",
+        "issue": "T1-5",
+        "note": "改用 CommonUtils.escapeHtml"
+      }
+    ],
+    "L3-inline-hardcoded-color": [
+      {
+        "scope": "index.html 全局",
+        "baselineCount": 35,
+        "issue": "P1-11",
+        "note": "6 学科卡中 3 张内联色（数学与物理同为 #3b82f6、语文与 --chinese 令牌不符）+ platform/checklist 区块内联渐变。每修一处请下调 baselineCount"
+      }
+    ],
+    "L3-missing-token": [
+      {
+        "token": "--english",
+        "issue": "P1-12",
+        "note": "六科中英语无主题色，tokens.css/style.css/theme-dark.css 全无 english 关键字"
+      },
+      {
+        "token": "--math vs --physics 同色",
+        "issue": "P1-11",
+        "note": "两者同为 #3b82f6，数学卡与物理卡视觉无法区分"
+      }
+    ]
+  },
+  "content": {
+    "C1-duplicate-stem": [
+      {
+        "baselineCount": 552,
+        "issue": "P0-4/T1-2",
+        "note": "552 条题干冗余（占 32.1%），其中 164 条为逐字节完全副本。真实唯一题量 1166，README 宣称 1718。dedupe-by-content.mjs 待实施，归档而非删除"
+      }
+    ],
+    "C2-knowledgePoints-unresolvable": [
+      {
+        "baselineCount": 999,
+        "issue": "P0-3/T1-4",
+        "note": "952 个考点仅 197 个能解析到 knowledge topic。化学 89%/语文 63%/生物 60%/数学 58% 的题目无法归因。T1-4：别名表抽到 knowledgePoints-thesaurus.json 并扩表。上限 999 为占位，T1-4 完成后按实测下调"
+      }
+    ],
+    "C3-subject-answer-skew": [
+      {
+        "baselineCount": 6,
+        "issue": "P0-2/T1-3",
+        "note": "物理 D 39%、数学 D 10%、生物 A 36%、英语 D 7% 等。T1-3：balance-answers.mjs 改按学科分桶，且必须先补「解析含答案字母则不换位」规则"
+      }
+    ],
+    "C4-missing-options": [
+      {
+        "baselineCount": 74,
+        "issue": "P0-12/T0-8",
+        "note": "74 题无 options 字段（英语语法填空27/短文改错23/书面表达24）+ 171 题空数组。T0-8：补主观题输入分支与 passage 材料渲染"
+      }
+    ],
+    "C5-inconsistent-field-name": [
+      {
+        "baselineCount": 1,
+        "issue": "P1-5",
+        "note": "BIO_2024_07 使用中文键 知识要点"
+      }
+    ],
+    "C6-internal-field": [
+      {
+        "baselineCount": 1,
+        "issue": "P1-6",
+        "note": "ENG_2022_08 残留 解析_ignored 调试字段"
+      }
+    ],
+    "C7-template-analysis": [
+      {
+        "baselineCount": 105,
+        "issue": "P1-7/T1-6",
+        "note": "模板化解析（复述题干+报答案字母+套话）。T1-6 人工重写，属内容工作"
+      }
+    ],
+    "C9-meta-mismatch": [
+      {
+        "baselineCount": 552,
+        "issue": "P0-4/T1-2",
+        "note": "meta.totalQuestions=1718 与实际不符的差额根源是 552 条副本；T1-2 去重后重算"
+      }
+    ]
+  }
+}

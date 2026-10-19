@@ -970,7 +970,7 @@
     <div class="sidebar-header">📑 知识目录</div>
 
     <div class="nav-item">
-        <div class="nav-item-title active" onclick="toggleNav(this)">
+        <div class="nav-item-title active">
             <span>📋</span> 试卷考情
             <span class="arrow">▶</span>
         </div>
@@ -980,7 +980,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>📖</span> 现代文阅读
             <span class="arrow">▶</span>
         </div>
@@ -992,7 +992,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>📜</span> 文言文阅读
             <span class="arrow">▶</span>
         </div>
@@ -1009,7 +1009,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>🎋</span> 古诗词鉴赏
             <span class="arrow">▶</span>
         </div>
@@ -1024,7 +1024,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>✍️</span> 名句默写
             <span class="arrow">▶</span>
         </div>
@@ -1036,7 +1036,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>🔤</span> 语言文字运用
             <span class="arrow">▶</span>
         </div>
@@ -1050,7 +1050,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>📝</span> 写作
             <span class="arrow">▶</span>
         </div>
@@ -1063,7 +1063,7 @@
     </div>
 
     <div class="nav-item">
-        <div class="nav-item-title" onclick="toggleNav(this)">
+        <div class="nav-item-title">
             <span>📋</span> 附录
             <span class="arrow">▶</span>
         </div>
@@ -2023,12 +2023,26 @@
 (function() {
     'use strict';
 
-    var CD = window.ComprehensiveData;
-    var PS = window.PlatformSystem;
-    var CE = window.ContentEnhancer;
+    // P0-10 修复：comprehensive-data.js / platform-system.js / content-enhancement.js
+    // 均为 <script defer>，在本内联脚本（解析期）执行时尚未就绪。此处若直接
+    // `var CD = window.ComprehensiveData` 捕获到的将永久是 undefined 且不会自更新，
+    // 导致平台区 8 个 tab、三科 checklist、2 个器材工具与 2 处错误页全部失效。
+    // 改为「声明但不赋值」，由 syncModules() 在真正需要时点实时回填。
+    var CD = null;
+    var PS = null;
+    var CE = null;
+
+    function syncModules() {
+        CD = window.ComprehensiveData || null;
+        PS = window.PlatformSystem || null;
+        CE = window.ContentEnhancer || null;
+        return { CD: CD, PS: PS, CE: CE };
+    }
+    syncModules();
 
     // v1.3: 外部模块脚本带 defer，解析期尚未就绪 —— 平台初始化延后到 DOMContentLoaded
     function bootPlatform() {
+        syncModules();
         if (PS) { PS.init(); }
         if (window.darkModeToggle && window.darkModeToggle.render) { window.darkModeToggle.render(); }
     }
@@ -2083,6 +2097,7 @@
     }
 
     function renderPhysicsInstruments() {
+        syncModules();
         var app = document.getElementById('physics-measurement-app');
         if (!app || !CD || !CD.physicsInstruments) return;
         var pi = CD.physicsInstruments;
@@ -2107,6 +2122,7 @@
     }
 
     function renderChemistryEquipment() {
+        syncModules();
         var app = document.getElementById('chemistry-equipment-app');
         if (!app || !CD || !CD.chemistryEquipment) return;
         var ceq = CD.chemistryEquipment;
@@ -2125,6 +2141,7 @@
     }
 
     function renderBiologyExamSkills() {
+        syncModules();
         var app = document.getElementById('biology-exam-skills-app');
         if (!app) {
             console.error('[生物答题技巧] 找不到容器元素 #biology-exam-skills-app');
@@ -2215,6 +2232,7 @@
     }
 
     function renderBiologyKnowledgeGraph() {
+        syncModules();
         var app = document.getElementById('biology-knowledge-graph-app');
         if (!app) {
             console.error('[生物知识图谱] 找不到容器元素 #biology-knowledge-graph-app');
@@ -3033,6 +3051,7 @@
                     break;
                 case 'platform-overview':
                     setActiveNav('platform');
+                    syncModules();
                     if(PS && PS.renderPlatformPage) PS.renderPlatformPage();
                     break;
                 case 'secondary-conclusions':
@@ -3307,6 +3326,7 @@
     }
 
     function handlePlatformTab(module) {
+        syncModules();
         var el = document.getElementById('platform-content');
         if (!el) return;
         if (!PS) { el.innerHTML = '<div class="knowledge-section"><p>平台模块加载中...</p></div>'; return; }
@@ -3763,6 +3783,7 @@
     }
 
     function handleModuleTabClick(subject, module, contentEl) {
+        syncModules();
         if (module === 'concepts' || module === 'examples' || module === 'experiments' || module === 'tests') {
             if (typeof loadModuleContent === 'function') {
                 loadModuleContent(subject, module === 'concepts' ? 'knowledge' : module);
@@ -3807,28 +3828,14 @@
         contentEl.innerHTML = '<div class="knowledge-section"><p>该模块内容正在丰富中...</p></div>';
     }
 
-    if (typeof loadModuleContent !== 'undefined') {
-        var origLoadModuleContent = loadModuleContent;
-        window.loadModuleContent = function(subject, module) {
-            var contentEl = document.getElementById(subject + '-content');
-            if (module === 'concepts') module = 'knowledge';
-            if (!contentEl) { origLoadModuleContent(subject, module); return; }
-            if (module === 'experiments') {
-                if (subject === 'physics') { renderPhysicsExperiments(subject, contentEl); return; }
-                if (subject === 'chemistry') { renderChemistryExperiments(subject, contentEl); return; }
-                if (subject === 'biology') { renderBiologyExperiments(subject, contentEl); return; }
-            }
-            if (['round1','round2','bank','experiment-center'].indexOf(module) >= 0) {
-                handleModuleTabClick(subject, module, contentEl);
-                return;
-            }
-            if (['methodology','errors','graph','hotspot','tools','models'].indexOf(module) >= 0) {
-                origLoadModuleContent(subject, module);
-                return;
-            }
-            origLoadModuleContent(subject, module);
-        };
-    }
+    // P0-11: 原先此处有一段 `if (typeof loadModuleContent !== 'undefined')` 的猴补丁死块——
+    // 解析期 loadModuleContent 尚未定义（它在 defer 的 app.js 里），条件恒为 false，
+    // 导致 concepts→knowledge 映射与下面三个精细实验渲染器（约 360 行）全部不可达。
+    // 现改为：函数导出到 window，由 app.js 的 loadModuleContent 经 MODULE_REGISTRY 正式接管。
+    window.renderPhysicsExperiments = renderPhysicsExperiments;
+    window.renderChemistryExperiments = renderChemistryExperiments;
+    window.renderBiologyExperiments = renderBiologyExperiments;
+    window.handleModuleTabClick = handleModuleTabClick;
 
     document.addEventListener('click', function(e) {
         var target = e.target;
@@ -3855,7 +3862,11 @@
             if (!parentSection) return;
             var sectionId = parentSection.id;
             var subject = sectionId.replace('-section', '');
-            if (!['physics', 'chemistry', 'biology', 'platform'].includes(subject)) return;
+            // P1-42: 原白名单只有 physics/chemistry/biology/platform，把 数学/语文/英语 排除在外，
+            // 导致这 3 科的「📊 考情分析 / 📖 一轮复习 / 🎯 二轮专题 / ✍️ 互动练习」4 个 tab 全是死按钮。
+            // 这些 tab 由 exam-review-system.js 在 DOMContentLoaded 中**追加**（晚于 app.js 的扫描），
+            // 所以必须靠这里的 document 级事件委托兜住，不能只依赖 app.js 的一次性绑定。
+            if (!['physics', 'chemistry', 'biology', 'platform', 'math', 'chinese', 'english'].includes(subject)) return;
 
             parentSection.querySelectorAll('.module-tab').forEach(function(t) { t.classList.remove('active'); });
             moduleTabEl.classList.add('active');
@@ -3900,8 +3911,7 @@
         try { if (typeof loadModuleContent === 'function') loadModuleContent('physics', 'concepts'); } catch(e) {}
     }
 
-    window.ComprehensiveData = CD;
-    window.PlatformSystem = PS;
+    // P0-10: 不再用解析期捕获值覆写全局（那是定时炸弹：任一 defer 脚本被移除即把真实模块置 undefined）
     window.navigateToolPage = navigateToolPage;
 
     // ===== 二级结论数据与渲染 =====
@@ -4250,6 +4260,8 @@
     // v1.3: 暴露到全局 —— 修复 onclick="showSection(...)" 等内联事件无法引用 IIFE 内部函数的问题
     window.showSection = showSection;
     window.setActiveNav = setActiveNav;
+    // P0-13: chineseSearch 原定义于本 IIFE 内部，未挂 window → index.html:963 的 onkeyup 必然 ReferenceError
+    window.chineseSearch = chineseSearch;
 
 })();
 </script>

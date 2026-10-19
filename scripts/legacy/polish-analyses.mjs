@@ -5,7 +5,15 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+// ── 熔断保护（T0-4 / P1-9）───────────────────────────────────────────────
+// 本脚本是一次性数据修复脚本，会重写 1MB 的 exam-bank.json。
+// 修复目标已被 npm run verify 门禁固化；重跑会把已修好的数据改回错误状态
+// （fix-phase-a-data 尤其会覆盖 PHY_2018_01 的已修答案键）。
+// 不带 --apply 时只打印摘要，不写任何文件。详见 ./README.md
+import { guard as __legacyGuard } from './legacy-guard.mjs';
+if (!__legacyGuard('polish-analyses.mjs')) { /* dry-run：到此为止 */ } else {
 const P = join(ROOT, '1.2', 'data', 'exam-bank.json');
 const eb = JSON.parse(readFileSync(P, 'utf8'));
 
@@ -112,7 +120,7 @@ const bySub = {};
 
 for (const subject of Object.keys(eb).filter((k) => k !== 'meta')) {
   bySub[subject] = 0;
-  for (const q of eb[subject].questions || eb[subject].exams || []) {
+  for (const q of eb[subject].questions || eb[subject].questions || []) {
     const a = String(q.analysis || '');
     // 通用模板选择题：空泛排除 或 “答案应选”占位
     const isGeneric = /其余选项：.*与题意不符/.test(a) || /答案应选/.test(a);
@@ -134,7 +142,7 @@ console.log('polished', polished, bySub);
 // stats
 let under20 = 0, under60 = 0, n = 0;
 for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-  for (const q of eb[s].questions || eb[s].exams || []) {
+  for (const q of eb[s].questions || eb[s].questions || []) {
     n++;
     const L = (q.analysis || '').length;
     if (L < 20) under20++;
@@ -146,10 +154,11 @@ console.log({ n, under20, under60 });
 // samples
 for (const id of ['physics_2019_210', 'BIO_2025_03', 'MATH_2019_31', 'chemistry_2025_207', 'physics_2022_213']) {
   for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-    const q = (eb[s].questions || eb[s].exams || []).find((x) => x.id === id);
+    const q = (eb[s].questions || eb[s].questions || []).find((x) => x.id === id);
     if (q) {
       console.log('\n====', id);
       console.log(q.analysis);
     }
   }
+}
 }

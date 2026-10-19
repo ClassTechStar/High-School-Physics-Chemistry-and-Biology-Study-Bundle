@@ -6,7 +6,15 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+// ── 熔断保护（T0-4 / P1-9）───────────────────────────────────────────────
+// 本脚本是一次性数据修复脚本，会重写 1MB 的 exam-bank.json。
+// 修复目标已被 npm run verify 门禁固化；重跑会把已修好的数据改回错误状态
+// （fix-phase-a-data 尤其会覆盖 PHY_2018_01 的已修答案键）。
+// 不带 --apply 时只打印摘要，不写任何文件。详见 ./README.md
+import { guard as __legacyGuard } from './legacy-guard.mjs';
+if (!__legacyGuard('enrich-short-analyses.mjs')) { /* dry-run：到此为止 */ } else {
 const P = join(ROOT, '1.2', 'data', 'exam-bank.json');
 const eb = JSON.parse(readFileSync(P, 'utf8'));
 
@@ -173,7 +181,7 @@ function enrichDefault(q, subject) {
 }
 
 for (const subject of Object.keys(eb).filter((k) => k !== 'meta')) {
-  const list = eb[subject].exams || eb[subject].questions;
+  const list = eb[subject].questions || eb[subject].questions;
   if (!Array.isArray(list)) continue;
   report.bySubject[subject] = 0;
 
@@ -230,7 +238,7 @@ console.log(report);
 let remain = 0;
 const remainIds = [];
 for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
-  for (const q of eb[s].questions || eb[s].exams || []) {
+  for (const q of eb[s].questions || eb[s].questions || []) {
     if (q.analysis != null && String(q.analysis).length < 20) {
       remain++;
       remainIds.push(q.id + '|' + String(q.analysis).slice(0, 30));
@@ -239,3 +247,4 @@ for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
 }
 console.log('remaining short', remain);
 if (remainIds.length) console.log(remainIds.slice(0, 20));
+}
