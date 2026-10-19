@@ -540,6 +540,46 @@ function getCE() { return window.ContentEnhancer; }
 
 ---
 
+## 3.5 Sprint 0 / 0.5 执行结果（已完成）
+
+**结论：T0-1 ~ T0-19 全部完成，Sprint 0 与 Sprint 0.5 关闭。** 三个提交：`cf43791` / `eb3582b` / `b0566c1` / `1a5e6f4`。
+
+| 任务 | 状态 | 落地方式 |
+| --- | --- | --- |
+| T0-1 | ✅ | 碰撞扫描覆盖 `var/function/window.X=`，`exit(errors>0?1:0)`；顶层判定用「列 0 缩进」 |
+| T0-2 | ✅ | 由 `runtime-defer-check.mjs` 承担：52 个脚本全执行 + 73 项断言 |
+| T0-3 | ✅ | `check-content.mjs` C1~C10，指标在**去重视图**（1166 唯一题）上计算 |
+| T0-4/5 | ✅ | 5 个脚本移入 `scripts/legacy/` 并加熔断；CI 含 3 项门禁自检 |
+| T0-6 | ✅ | `syncModules()` 在 7 个调用点实时回填，删除失效捕获值覆写 |
+| T0-7 | ✅ | `MODULE_KEY_ALIAS = { concepts: 'knowledge' }` |
+| T0-8 | ✅ | **实测 245 道**无选项题（原报告 171），全部有作答区；passage 先渲染 |
+| T0-9 | ✅ | `SECTION_ID_ALIAS` 14 条 + 目标存在性校验后再清 active |
+| T0-10 | ✅ | 8 处 `toggleNav` 清零；`window.chineseSearch` 导出 |
+| T0-11 | ✅ | `parseFormula` 改递归下降（8 用例），括号/嵌套/结晶水全对 |
+| T0-12 | ✅ | 事件委托白名单补 `math/chinese/english` |
+| T0-13 | ✅ | `ct-timer` id + 叶子节点 textContent；`.bind(this)` 移除；`_retry` 记忆配置 |
+| T0-14 | ✅ | `../data/` → `data/`；`#main-content` → `<main>`；打卡契约并入 T0-17 |
+| T0-15 | ✅ | 删除 `missing-tools.js`（40KB，3 个导出全仓引用 0） |
+| T0-16 | ✅ | `container.dataset.picked` 记录用户选择，计分不再读背景色 |
+| T0-17 | ✅ | `HSPCBStore` 归一化 API；**顺带修 P0-8「清除数据复活」** |
+| T0-18 | ✅ | `TYPE_MAP` 题型映射 **0/19 → 19/19 命中**；`TAB_ROUTES` 搜索路由 |
+| T0-19 | ✅ | 数学/语文 4 个动态 tab 接线 |
+
+### 关键发现（与原报告有出入，已按实测修正）
+
+1. **无选项题是 245 道不是 171 道** —— 报告漏统计了数学 83 + 语文 88 的一部分。
+2. **`hspcb_wrong_records` 有写入方**（`auxiliary-tools.js:268`、`study-enhanced.js:739`），报告"无写入方"结论有误。
+3. **P0-2 的"分科偏斜"主要由 552 条题干冗余副本放大** —— 去重后物理 D 39% → C 29.3%，实际已均衡。
+4. **`#main-content` 不存在**，真实容器是 `<main>`（index.html:129）。
+
+### 门禁自检（每项都经注入缺陷验证会 exit 1）
+
+碰撞重名 / 解析答案矛盾 / 解析期捕获 / 组卷映射回退 / 打卡 remove 不清旧 key / `_retry` 崩溃 —— 6 类注入均正确变红，还原后全绿。
+
+**当前 `npm run verify`**：runtime 73 + lint 12 + content 11 + smoke 43 = **139 项断言全绿**，另有 11 项基线内技术债仅提示不失败。
+
+---
+
 ## 5. 立即可执行清单（本周）
 
 按"改动小、收益大、风险低"排序，建议照此顺序动手：

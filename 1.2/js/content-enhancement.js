@@ -425,7 +425,12 @@ var CE={
     },
 
     addNewSections:function(){
-        var mainContent=document.getElementById('main-content');
+        // T0-14 / P1-36: 原实现取 #main-content，该 id 在 index.html 中不存在，
+        // 于是 periodic-table-section / chemistry-structure-section 永远不会被创建
+        // → 搜索「物质结构工具」点过去必然落空。真实容器是 <main>。
+        var mainContent=document.getElementById('main-content')
+            || document.querySelector('main')
+            || document.body;
         if(!mainContent) return;
         if(!document.getElementById('periodic-table-section')){
             var s1=document.createElement('section');
