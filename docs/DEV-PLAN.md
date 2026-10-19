@@ -725,16 +725,136 @@ function getCE() { return window.ContentEnhancer; }
 >    （比截图走查更严：覆盖 17 个颜色 longhand × 6 个伪元素态 × 全部元素），
 >    截图走查留待人工抽检
 
-### T3-4 · T11 模块合并 / T12 CSP 收紧
+### T3-4 · T11 模块合并 / T12 CSP 收紧 — 🟡 部分完成（T11 评估完成 / T12 静态部分完成）
 
 - T11：按 T2-4 的结论重估工作量；合并必须有逐模块回归（`smoke-app.mjs` 覆盖 47/47 是前提）
 - T12：先把 `index.html` 的 32 处内联 `onclick` 改为事件委托，才能移除 `unsafe-inline`
 
-### T3-5 · 内容扩充（需人力，非代码）
+#### T11 评估结论（v1.4，实测口径）
 
-- 真实唯一题量 1166，六科分布 184/179/211/200/189/203 → 数学语文英语仍偏薄
+> **措辞修正**：T2-4 的「47 个自渲染模块」措辞不准确——47 是**脚本数**
+> （46 个 `js/*.js` + `sw.js`），而非自渲染模块数。
+
+| 维度 | 实测值 | 证据 |
+| --- | --- | --- |
+| 脚本总数 | 46 `js/*.js` + `sw.js` = 47 | `index.html` 53 个 `<script>`（48 处带 `defer`） |
+| 代码规模 | 54305行 / 46 文件，均 1181 行 | 最大 `app-chemistry.js` 4931 行 |
+| 自渲染强度 | 332 处 `innerHTML` 写入 | top：math-tools 25 / study-tools-v2 18 / subject-gap-1 17 / error-notebook 16 / subject-gap-2 16 |
+| 全局符号 | 151 个 `window.X` | `app-chemistry.js` 导出 17 个（最多） |
+| 注册点 | **已统一** | `window.MODULE_REGISTRY` + `registerModule()`（app.js:1266-1269） |
+| 渲染入口 | **已收敛为单函数** | `loadModuleContent(subject, module)`（app.js:1287），优先级 `MODULE_ALIAS → MODULE_REGISTRY → subjectContent` |
+| escapeHtml | 已收敛 | 5 个文件仍有定义，但均为「委托 `CommonUtils` + 内联兜底」薄壳，非独立实现，无重复债务 |
+
+**结论：合并成本低于原估计，但收益有限，不建议在v1.4 做。**
+理由：注册表与渲染入口**已经存在**，说明 T2-4 想解决的「无统一装载路径」问题实际已解决；
+真正剩下的是 54305 行的内容回归风险，而收益（减少几个文件）远小于风险。
+若未来仍要合并，前置条件是 `smoke-app.mjs` 覆盖到 47/47 全部脚本的**真实 DOM 装载**，
+而非当前的「13 个关键脚本实装+ 47 个 `node --check` 语法检查」。
+
+#### T12 勘察结论（v1.4，三分类实测）
+
+> **数字修正**：DEV-PLAN 原文「32 处内联 `onclick`」与实测不符。
+> 关键在于必须区分「静态HTML 属性」与「JS 字符串模板」——后者常被误计入。
+
+| 分类 | 管辖指令 | 实测| 说明 |
+| --- | --- | --- | --- |
+| **A. 静态 HTML 内联事件属性** | `script-src` | **2 → 0** ✅ | `onclick="toggleTheme()"`（主题按钮）+ `onkeyup="chineseSearch()"`（语文搜索框）。前次勘察只搜 `onclick` 漏掉 `onkeyup`，且未剥离 6 个内联 `<script>` 块内的字符串模板 |
+| **B. 内联 `<script>` 块** | `script-src` | **6 块 / 2481 行** | #1 全局错误兜底 44 · #2 主题引导 32（**须 body 渲染前同步执行，否则首屏闪白**）· #3 主逻辑 2261（最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
+| **C. JS 生成的内联事件属性** | `script-src` | **js/ 371 处 + index.html 内联脚本内 25 处** | `js/*.js` 分布：click 307 / change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1。**这部分才是移除 `unsafe-inline` 的真实主体工作量**，DEV-PLAN 的「32 处」严重低估 |
+| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3684 + `cssText` 41 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
+
+**分步路线（script-src 去 `unsafe-inline`）**：
+
+1. ✅ **A 类清零**（本次已完成）——静态 HTML 标签上不再有任何 `on*` 属性
+2. ⬜ **C 类改造**（主体工作量，371 + 25 处）——按 `data-action` 约定改委托；
+   `js/*.js` 已有的 `data-action` 机制（english-tools 26 处 / english-vocabulary 17 处 /
+   global-search 1 处）可直接复用模式
+3. ⬜ **B 块外置**（2481 行）——#3 主逻辑 2261 行需抽为 `js/main-inline.js`；
+   #2 主题引导（32 行）**不能简单外置**，它必须在 `<body>` 渲染前同步执行以防闪白，
+   须改为「外部脚本 + 阻塞 `<script>`（无defer）或 CSS 预置dark 兜底」
+4. ⬜ 门禁加严：`check:csp` 的 A1 断言已是硬门禁；待C/B 完成后追加断言并收紧 meta CSP
+
+**已落地的改造（T3-4c）**：
+
+- `onclick="toggleTheme()"` → `data-action="toggle-theme"` + 文档级委托
+  （注册在「统一主题切换」IIFE 内，因 `apply`/`current` 只在该作用域可见）
+- `onkeyup="chineseSearch()"` → `data-action="chinese-search"` + `keyup` 委托
+  （注册在主 IIFE 内 `chineseSearch` 定义之后）
+- **委托必须挂在对应 IIFE 内而非 `app.js` 的 `DOMContentLoaded`**——两个触发元素都位于
+  该 IIFE 所在 `<script>` 之前，等 `DOMContentLoaded` 会导致首屏交互无响应
+- `window.toggleTheme` **保留导出**（`js/*.js` 的 371 处事件属性仍引用它）
+- 新增门禁 `scripts/check-csp-inline.mjs`（`check:csp`）——3 条断言：
+  A1 静态内联事件属性 = 0 / A2 两个 `data-action` 标记各1 处 / A3 `window.toggleTheme` 仍导出。
+  该脚本同时输出 A/B/C/D 四类完整清点，供后续改造跟踪基线
+
+### T3-5 · 内容扩充（需人力，非代码） — ✅ 代码侧结项（缺口量化 + 规范 + 门禁；**题目内容待人力**）
+
 - 建议目标：每科 ≥ 260 道**原创**题（对比 2018-2026 真实学情）
 - 提交规范：**禁止**用 `fix-*.mjs` 批量生成，统一按 T1-6 的解析质量标准人工撰写
+
+#### 缺口量化（v1.4 实测，权威口径）
+
+> **数字修正**：本节原文记载的「1166 道/ 184·179·211·200·189·203」是 **T1-2 去重前**的
+> 旧口径，已随v1.4 实际数据失效。实测 `data/exam-bank.json`：去重后**唯一真实题量
+> 1301 道**，417 条历史重复已归档至 `data/_archive/duplicates-2026-10-19.json`。
+> 门禁 `check:data` 实时校验「各科 `total` 之和 = `meta.totalQuestions` = 实际题量
+> = 唯一 id 数」，故下表与仓库状态始终一致，不依赖人工同步。
+
+| 学科 | 唯一题量 | `meta.total` | 目标 ≥260 | 缺口 | 完成度 |
+| --- | --- | --- | --- | --- | --- |
+| 物理 | 248 | 248 | 260 | **-12** | 95.4% |
+| 化学 | 217 | 217 | 260 | **-43** | 83.5% |
+| 生物 | 216 | 216 | 260 | **-44** | 83.1% |
+| 数学 | 200 | 200 | 260 | **-60** | 76.9% |
+| 语文 | 200 | 200 | 260 | **-60** | 76.9% |
+| 英语 | 220 | 220 | 260 | **-40** | 84.6% |
+| **合计** | **1301** | **1301** | **1560** | **-259** | 83.4% |
+
+**结论修正**：去重后进度比原估乐观得多——物理仅差 12 道即达标，
+**真正的缺口集中在数学 / 语文（各 -60）与生物 / 化学（各 -43/-44）**，
+而非原文暗示的「数学语文英语仍偏薄」的均匀分布。建议排期按此缺口表重排。
+
+**仍需注意的质量型缺口**（比数量更值得关注，来自 `check:content` 基线债务）：
+
+| 项 | 数量 | 说明 |
+| --- | --- | --- |
+| 解析缺失 | 74 | 以英语为主 |
+| 解析为空 | 171 | 以主观题为主 |
+| 其他 C1-C10 基线债务 | 7 项 | `check:content` 当前 11 passed / 7 基线内 |
+
+> 这 245 条解析缺口无法靠「批量生成」填补（正是 T1-6 红线所禁止的），
+> 需人工逐条撰写——建议与题量扩充合并为同一批内容贡献任务。
+
+#### 撰写规范（依据 T1-6 解析质量标准）
+
+**硬性红线**（违反即门禁失败）：
+
+1. **禁止**模板解析：解析不得以 `分析：{题干}。` 开头——这是 T0-5 修复的批量生成残留特征
+2. **禁止**答案与解析冲突（`check:data` P0-1 规则已覆盖）
+3. **禁止**内部备注泄漏：`PHY_2018_01` 类内部标记不得出现在题干 / 解析中
+4. **禁止**用 `fix-*.mjs` 批量生成题目——`scripts/fix-*.mjs` 仅允许做格式归一，
+   不得凭空构造题目内容
+
+**解析质量正反例**：
+
+| 反例（禁止） | 正例（要求） |
+| --- | --- |
+| `分析：A。` / `分析：该题选B。` | `分析：牛顿第二定律 F=ma，合力 5 N、质量 2 kg，故 a=2.5 m/s²。` |
+| `解析：正确答案是 A` | `解析：斜面光滑时机械能守恒，mgh 全部转化为动能，求得 v=√(2gh)=14 m/s。` |
+| 解析与题干无关（张冠李戴） | 解析必须引用题干中的**具体条件与数值**，逐步推导到答案 |
+
+**提交前自查清单**：
+
+- [ ] 该题 id 在学科内唯一；`check:data` 的 `total` 之和校验通过
+- [ ] 四个选项文本互异、无「以上都对」类空泛选项；单选题只有一个正确答案
+- [ ] 解析含**具体推导过程**（公式 / 数值代入 / 排除法），非模板句
+- [ ] 解析不以 `分析：` + 题干原文 的形式开头
+- [ ] 主观题已给`passage` 材料（T0-8 规则：144 道带 passage 的题须先渲染材料）
+- [ ] 新增题同步更新该科 `meta.total`（`check:data` 会拦截遗漏）
+- [ ] `npm run verify` 全绿后提交
+
+> **本阶段不生成任何题目内容**——T3-5 明确「需人力，非代码」，代码侧只负责
+> 缺口量化、撰写规范与门禁兜底。
 
 ---
 
@@ -752,12 +872,13 @@ function getCE() { return window.ContentEnhancer; }
 **建议 `npm run verify` 目标形态**：
 
 ```json
-"verify": "npm run check:data && npm run check:collisions && npm run check:theme && npm run check:lint && npm run check:content && npm run test && npm run test:smoke"
+"verify": "npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:lint && npm run check:content && npm run check:runtime && npm run test && npm run test:smoke"
 ```
 
-> **v1.4 已落地**：上述形态含 `check:theme`（T3-3 新增，第三环）与 `check:runtime`
-> （T3-1/T3-2 新增，第六环）；`check:lint` / `check:content` 按「基线内技术债只提示
-> 不失败」策略运行（当前 2 / 7 项基线债务）。
+> **v1.4 已落地**：上述形态含 `check:theme`（T3-3 新增，第三环）、`check:csp`
+> （T3-4c 新增，第四环）与 `check:runtime`（T3-1/T3-2 新增，第七环）；
+> `check:lint` / `check:content` 按「基线内技术债只提示不失败」策略运行
+> （当前 2 / 7 项基线债务）。
 
 ---
 
