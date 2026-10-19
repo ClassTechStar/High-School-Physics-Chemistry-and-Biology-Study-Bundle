@@ -778,6 +778,11 @@ SyntaxError: Unexpected token ';'
 | --- | --- | --- | --- |
 | **P1-1** | `window.loadModuleContent` 在 **4 处**被赋值（1.1 场景，见 P1-18）；1.2 中 `app.js:1220-1239` 的 `MODULE_REGISTRY` / `registerModule` **定义后零调用** | `1.2/js/app.js:1220-1239` | 「模块化渲染」是空壳，详见 P1-3 |
 | **P1-2** | 4 个数据文件**无任何运行时消费方**，却被 Service Worker 预缓存：`cross-subject.json`(62KB)、`situational.json`(56KB)、`tech-frontiers.json`(23.5KB)、`knowledgePoints-thesaurus.json`(16.2KB)。全仓 grep 命中方只有 `sw.js`(预缓存)、`README.md`(声称)、`validate-data.mjs`(只查文件存在) | `1.2/sw.js:70-85` | ~158KB 死数据，每次安装 PWA 白下载；README 的「跨学科专题/情境题/科技前沿/考点词典」四项特性**用户看不到** |
+
+> **状态更新（v1.4 / T2-5 结项）**：
+> - `knowledgePoints-thesaurus.json` **已接线**（Sprint 1 / T1-4）：`learning-path-recommender.js` 的 `loadThesaurus()` 运行时加载，错题归因别名表不再是死数据。
+> - `cross-subject.json` **已接线**（v1.4 / T2-5）：`visual-enhanced.js` 的 `crossSubjectTopics` 原跑 8 条内置硬编码数据，现改为运行时 fetch JSON（22 条）并适配为同构结构（`examTrend→trend`、学科码→中文、答案字母→索引），加载失败回退内置数据。新增 `scripts/test-cross-subject.mjs`（14 断言）锁死适配正确性。
+> - `situational.json` / `tech-frontiers.json` **确认无任何运行时消费方**（对应功能跑的是 `guangdong-features.js` / `visual-enhanced.js` 内的硬编码数据，两文件 fetch 调用数分别为 0 和 1——唯一 1 个是本次新增的 cross-subject 接线），已**归档**至 `1.2/data/_archive/`，并从 `sw.js` 的 `DATA_ASSETS`、`validate-data.mjs` 的 EXTENDED 清单、README 特性表中移除。
 | **P1-3** | `registerModule` / `MODULE_REGISTRY` 架构**定义后零调用**。全仓 `registerModule(` 仅出现在 `app.js:1223` 的定义处，无任何模块注册 | `1.2/js/app.js:1220-1239` | 「模块化渲染」架构是空壳；`loadModuleContent` 永远走默认分支，T11「模块合并」的复杂度被低估 |
 
 > **状态更新（v1.4 / T2-4 结项）**：

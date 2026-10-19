@@ -66,13 +66,14 @@ var CORE_ASSETS = [
 ];
 
 // 数据文件（运行时按需缓存）
+// T2-5 / P1-2: situational.json 与 tech-frontiers.json 经全仓核查无任何运行时
+// 消费方（对应功能跑的是 js/ 内硬编码数据），已归档至 data/_archive/ 并从本清单移除；
+// knowledgePoints-thesaurus.json 已由 learning-path-recommender.js 接线（T1-4），保留。
 var DATA_ASSETS = [
     'data/exam-bank.json',
-    'data/situational.json',
     'data/framework-questions.json',
     'data/answer-templates.json',
     'data/cross-subject.json',
-    'data/tech-frontiers.json',
     'data/variation-bank.json',
     'data/knowledgePoints-thesaurus.json',
     'data/physics/knowledge.json',
