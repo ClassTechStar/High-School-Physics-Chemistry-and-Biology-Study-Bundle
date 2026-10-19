@@ -53,21 +53,32 @@ var ExamSystem={
                 }
             });
 
-            var origLoad=window.loadModuleContent;
-            window.loadModuleContent=function(subject,module){
-                var contentEl=document.getElementById(subject+'-content');
-                if(!contentEl) return;
-                try {
-                if(module==='exam'){contentEl.innerHTML=ExamSystem.renderExamAnalysis(subject);return;}
-                if(module==='round1'){contentEl.innerHTML=ExamSystem.renderRound1(subject);return;}
-                if(module==='round2'){contentEl.innerHTML=ExamSystem.renderRound2(subject);return;}
-                if(module==='quiz'){contentEl.innerHTML=ExamSystem.renderQuiz(subject);return;}
-                if(origLoad) origLoad(subject,module);
-                } catch (err) {
-                    console.error('考试系统加载模块失败('+subject+'/'+module+'):', err);
-                    contentEl.innerHTML='<div class="knowledge-section"><p>内容加载失败，请刷新重试。</p></div>';
-                }
-            };
+            // T2-4 / P1-1: 原先此处保存 origLoad 再猴补丁 window.loadModuleContent，
+            // 与 content-enhancement.js 的补丁、app.js 的权威定义构成 3 处赋值链。
+            // 现改为 MODULE_REGISTRY 正式注册。注意：本监听器在 DOMContentLoaded
+            // 中执行，晚于 app.js 的 registerBuiltinModules() IIFE，
+            // 因此 round1/round2 会按原语义覆盖内置注册项（考试系统渲染器优先），
+            // 与改造前"最后加载的补丁说话"的既有行为一致。
+            if (typeof window.registerModule === 'function') {
+                var EXAM_HANDLERS = {
+                    exam: 'renderExamAnalysis',
+                    round1: 'renderRound1',
+                    round2: 'renderRound2',
+                    quiz: 'renderQuiz'
+                };
+                Object.keys(EXAM_HANDLERS).forEach(function (mod) {
+                    window.registerModule(mod, function (contentEl, subject) {
+                        try {
+                            contentEl.innerHTML = ExamSystem[EXAM_HANDLERS[mod]](subject);
+                        } catch (err) {
+                            console.error('考试系统加载模块失败(' + subject + '/' + mod + '):', err);
+                            contentEl.innerHTML = '<div class="knowledge-section"><p>内容加载失败，请刷新重试。</p></div>';
+                        }
+                    });
+                });
+            } else {
+                console.warn('[exam-review-system] registerModule 未就绪（app.js 未装载），考试模块注册降级');
+            }
         });
     },
 

@@ -414,6 +414,15 @@ function getCE() { return window.ContentEnhancer; }
 2. **P0-2 的偏斜是真的**，且比报告描述的更严重：英语 B 曾占 45.2%。
    原判断"偏斜主要由副本放大"只对了一半——去重后各科内部仍显著偏斜。
 3. **P0-3 的根因是考点字段填了模块名和标签**，不是别名表不全（详见 T1-4 执行结论）。
+4. **P1-3「registerModule 定义后零调用」在 Sprint 0 后已不成立**（T2-4 结项时发现）。
+   P0-11 修复已让 `registerBuiltinModules()` 注册 5 个真实模块，注册表是活的；
+   T2-4 方案 A（删除 `MODULE_REGISTRY`）的前提失效，改为消除 3 处
+   `loadModuleContent` 猴补丁链（P1-1）。
+5. **P0-8 有两层根因**（T2-2 结项时发现）。报告只指出 `remove` 不清旧裸 key
+   （T0-17 已修）；实际还有第二层——「清除数据」只覆盖 4 个散装 key，
+   权威轨 `hspcb.v2.progress` 里的 examHistory/wrongQuestions/gameScores 等
+   完全没被清，且英文版清除按钮（`study-tools-enhanced.js`）只删 `hspcb_` 前缀 key，
+   连 `hspcb.v2.*` 与 `hspcb.st.*` 都漏掉。
 
 ### 门禁自检（本轮新增，均经注入缺陷验证会 exit 1）
 
@@ -471,12 +480,28 @@ function getCE() { return window.ContentEnhancer; }
 
 ### T2-4 · P1-3 `registerModule` 架构空壳
 
-**改动**：二选一
-- **方案 A（推荐，低风险）**：承认现状 —— 47 个模块实际是"自渲染"而非"注册式"，把 `app.js:1220-1239` 的 `MODULE_REGISTRY` 死代码删除，文档同步更正，**并据此重估 T11「模块合并」的工作量**（合并需要逐模块回归，因为没有统一注册点）
-- 方案 B：重构为真正的注册式（工作量极大，收益不明）
+> **v1.4 修正结论**：原计划方案 A（删除 `MODULE_REGISTRY` 死代码）的前提**已失效**。
+> ERRATA-REPORT  P1-3 写于 Sprint 0 之前；Sprint 0 的 P0-11 修复已在 `app.js` 增加
+> `registerBuiltinModules()` IIFE，正式注册 experiments/round1/round2/bank/experiment-center
+> 共 5 项，`loadModuleContent` 亦改为优先查注册表。**注册表是活的且承重，不能删。**
 
-**验收**：文档不再声称存在模块注册机制；`app.js` 无死代码。
-**风险**：低（方案 A）。
+**实际执行（v1.4）**：消除真正的架构债——`window.loadModuleContent` 的 3 处赋值链（P1-1）：
+- `app.js:1377` 权威定义（保留，唯一赋值点）
+- `content-enhancement.js` 猴补丁 → 改为 `registerModule` 注册 7 项
+  （tools/methodology/models/hotspot/errors/graph/checklist）
+- `exam-review-system.js` 猴补丁 → 改为 `registerModule` 注册 4 项
+  （exam/round1/round2/quiz；round1/round2 依原语义覆盖内置注册项——
+  考试系统渲染器优先，与改造前「最后加载的补丁说话」行为一致）
+
+**验收（均已满足）**：
+- runtime 门禁 +5 断言：注册表 ≥10 项、14 个关键模块全部注册、
+  `window.loadModuleContent` 仅 app.js 一处赋值、14 个注册模块全部可经
+  `loadModuleContent` 命中；注入猴补丁 → 门禁 FAIL（已验证）
+- 文档不再声称存在「零调用空壳」；ERRATA-REPORT P1-1/P1-3 已标注结项状态
+
+**T11「模块合并」工作量重估**：合并成本**低于**原估计。原因：注册表现已提供统一
+注册点（14 项），模块渲染入口收敛为 `loadModuleContent` 单函数 + 注册表单文件。
+剩余风险是 47 个自渲染模块的内容回归，需 `smoke-app.mjs` 覆盖 47/47 后逐模块走查。
 
 ### T2-5 · P1-2 死数据处置
 
