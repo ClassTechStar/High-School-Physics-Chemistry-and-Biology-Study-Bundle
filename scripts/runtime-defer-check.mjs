@@ -327,6 +327,57 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
   ok(false, 'P0-11 无法验证：loadModuleContent/subjectContent 未就绪');
 }
 
+// T2-4 / P1-1 + P1-3: 模块渲染统一走 MODULE_REGISTRY 正式注册通道，
+// 不再有 loadModuleContent 猴补丁链（app.js 权威定义 + 两个后加载补丁互相覆写）
+{
+  const reg = sandbox.MODULE_REGISTRY;
+  ok(!!reg && typeof reg === 'object', 'T2-4 MODULE_REGISTRY 已挂到 window');
+
+  const registered = reg ? Object.keys(reg) : [];
+  ok(registered.length >= 10,
+    `T2-4 注册表有 ${registered.length} 个真实注册项（P1-3「定义后零调用」空壳已由 P0-11 修复消除）`);
+
+  const MUST_HAVE = ['experiments', 'round1', 'round2', 'bank', 'experiment-center',
+    'tools', 'methodology', 'models', 'hotspot', 'errors', 'graph', 'checklist', 'exam', 'quiz'];
+  const missing = MUST_HAVE.filter((k) => !registered.includes(k));
+  ok(missing.length === 0,
+    missing.length === 0
+      ? `T2-4 ${MUST_HAVE.length} 个关键模块全部经 registerModule 正式注册`
+      : `T2-4 模块未注册: ${missing.join(', ')}`);
+
+  // 静态：window.loadModuleContent 只允许 app.js 一处赋值
+  const assignSites = [];
+  for (const f of readdirSync(join(APP, 'js'))) {
+    if (!f.endsWith('.js')) continue;
+    const src = readFileSync(join(APP, 'js', f), 'utf8');
+    const codeOnly = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+    for (const _m of codeOnly.matchAll(/window\.loadModuleContent\s*=/g)) assignSites.push(f);
+  }
+  ok(assignSites.length === 1 && assignSites[0] === 'app.js',
+    assignSites.length === 1
+      ? 'T2-4 loadModuleContent 仅 app.js 一处赋值（权威定义，无猴补丁链）'
+      : `T2-4 loadModuleContent 存在多处赋值: ${assignSites.join(', ')}（P1-1 猴补丁链复发）`);
+
+  // 路由探针：每个注册模块都能经 loadModuleContent 真实命中（而非落空走默认分支）
+  if (typeof sandbox.loadModuleContent === 'function' && reg) {
+    const missed = [];
+    for (const key of registered) {
+      const orig = reg[key];
+      let hit = false;
+      reg[key] = function (el, subject, mod) { hit = true; return orig.apply(this, arguments); };
+      try { sandbox.loadModuleContent('physics', key); } catch (e) { /* 渲染异常不计入路由未命中 */ }
+      reg[key] = orig;
+      if (!hit) missed.push(key);
+    }
+    ok(missed.length === 0,
+      missed.length === 0
+        ? `T2-4 ${registered.length} 个注册模块全部可经 loadModuleContent 命中`
+        : `T2-4 路由未命中: ${missed.join(', ')}`);
+  } else {
+    ok(false, 'T2-4 无法验证路由：loadModuleContent 未挂到 window');
+  }
+}
+
 // P0-19: 计分必须读用户实际选择（container.dataset.picked），不能读 style.background
 {
   const src = readFileSync(join(APP, 'js/exam-review-system.js'), 'utf8');

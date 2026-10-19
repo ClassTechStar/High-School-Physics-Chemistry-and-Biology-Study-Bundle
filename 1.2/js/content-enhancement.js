@@ -1,58 +1,44 @@
 (function(){
 'use strict';
 
+// T2-4 / P1-1 + P1-3: 原先此处猴补丁 window.loadModuleContent（保存 orig 再整体覆写），
+// 与 app.js 的权威定义、exam-review-system.js 的补丁形成 3 处赋值链，
+// 谁后加载谁说话，且 concepts→knowledge 别名等修正只对链上某一段生效。
+// 现改为走 app.js 的 MODULE_REGISTRY 正式注册通道（registerModule），
+// 逐模块注册、互不遮挡，未注册模块自动落回 loadModuleContent 的默认分支。
 function fixInteractionIssues(){
-    var origLoadModule=window.loadModuleContent;
-    window.loadModuleContent=function(subject,module){
-        var contentId=subject+'-content';
-        var contentEl=document.getElementById(contentId);
-        if(!contentEl) return;
-        try {
-        if(module==='tools'){
-            contentEl.innerHTML=getToolsContent(subject);
-            return;
-        }
-        if(module==='methodology'){
-            contentEl.innerHTML=getMethodologyContent(subject);
-            return;
-        }
-        if(module==='models'){
-            contentEl.innerHTML=getModelsContent(subject);
-            return;
-        }
-        if(module==='hotspot'){
-            contentEl.innerHTML=getHotspotContent(subject);
-            return;
-        }
-        if(module==='errors'){
-            contentEl.innerHTML=getErrorsContent(subject);
-            return;
-        }
-        if(module==='graph'){
-            contentEl.innerHTML=getKnowledgeGraphContent(subject);
-            return;
-        }
-        if(module==='checklist'){
-            if(window.PlatformSystem&&typeof PlatformSystem.getChecklistContent==='function'){
-                contentEl.innerHTML=PlatformSystem.getChecklistContent(subject);
-            }else{
-                contentEl.innerHTML='<div class="knowledge-section"><p>考点清单正在加载中...</p></div>';
+    if (typeof window.registerModule !== 'function') {
+        console.warn('[content-enhancement] registerModule 未就绪（app.js 未装载），模块注册降级');
+        return;
+    }
+
+    var HANDLERS = {
+        tools: getToolsContent,
+        methodology: getMethodologyContent,
+        models: getModelsContent,
+        hotspot: getHotspotContent,
+        errors: getErrorsContent,
+        graph: getKnowledgeGraphContent,
+        checklist: function (subject) {
+            var PS = window.PlatformSystem;
+            if (PS && typeof PS.getChecklistContent === 'function') {
+                return PS.getChecklistContent(subject);
             }
-            return;
-        }
-        if(origLoadModule){
-            origLoadModule(subject,module);
-        }else if(window.subjectContent&&window.subjectContent[subject]){
-            var content=window.subjectContent[subject][module]||'<p>该模块内容正在开发中...</p>';
-            contentEl.innerHTML=content;
-        }
-        } catch (err) {
-            console.error('加载模块内容失败('+subject+'/'+module+'):', err);
-            contentEl.innerHTML='<div class="knowledge-section"><p>内容加载失败，请刷新重试。</p></div>';
+            return '<div class="knowledge-section"><p>考点清单正在加载中...</p></div>';
         }
     };
 
-    }
+    Object.keys(HANDLERS).forEach(function (mod) {
+        window.registerModule(mod, function (contentEl, subject) {
+            try {
+                contentEl.innerHTML = HANDLERS[mod](subject);
+            } catch (err) {
+                console.error('加载模块内容失败(' + subject + '/' + mod + '):', err);
+                contentEl.innerHTML = '<div class="knowledge-section"><p>内容加载失败，请刷新重试。</p></div>';
+            }
+        });
+    });
+}
 
 function getToolsContent(subject){
     if(subject==='physics'){
