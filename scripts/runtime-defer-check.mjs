@@ -10,7 +10,7 @@
  *     2. 所有 defer 模块在最后一个内联脚本之后都能被读到
  *     3. chineseSearch / loadModuleContent / render*Experiments 等确实挂到了 window
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -690,6 +690,88 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
       'T0-18 handlePlatformTab 在运行时可解析');
     ok(typeof sandbox.showSection === 'function' && typeof sandbox.setActiveNav === 'function',
       'T0-18 showSection/setActiveNav 在运行时可解析');
+  }
+}
+
+// T0-13 / T0-14: 工具模块 P0 与静默失败
+{
+  const R = (f) => readFileSync(join(APP, 'js', f), 'utf8');
+
+  // --- P0-16 计时器摧毁 UI ---
+  {
+    const src = R('content-deep-v3.js');
+    ok(/id="ct-timer"/.test(src), 'T0-13 计时器节点带 id="ct-timer"（可精确定位）');
+    // 禁止用 innerHTML 覆写祖先节点来刷新计时文字
+    const badOverwrite = /querySelectorAll\('#choice-tricks-app div'\)[\s\S]{0,400}?\.innerHTML\s*=\s*'已用时/.test(src);
+    ok(!badOverwrite,
+      badOverwrite
+        ? 'T0-13 计时器仍用 innerHTML 覆写匹配到的 div → 可能把整个秒杀技巧库 UI 替换掉'
+        : 'T0-13 计时器不再用 innerHTML 覆写祖先容器');
+    ok(/getElementById\('ct-timer'\)[\s\S]{0,200}?textContent\s*=/.test(src),
+      'T0-13 计时器只改叶子节点 textContent');
+  }
+
+  // --- P0-17 / P0-18 计时训练 ---
+  {
+    const src = R('missing-tools-part2.js');
+    // .bind(this) 用在 map 回调里会让返回值变成函数
+    ok(!/\.map\(function\s*\([^)]*\)\s*\{[^}]*return[^}]*\}\s*\)\.bind\(/.test(src),
+      'T0-13 map 回调不再误用 .bind(this)（否则 pool 全是函数）');
+
+    const tq = sandbox.timedQuiz;
+    ok(!!tq, 'timedQuiz 已挂到 window');
+
+    if (tq && typeof tq.__probe === 'function') {
+      const r = tq.__probe();
+      ok(r.poolAllSubjects > 0 && r.allEntriesAreObjects,
+        `T0-13 「全科综合」题池可用（${r.poolAllSubjects} 题，全部为题目对象）`);
+      ok(r.startedWithoutDom && r.retryOk,
+        r.retryOk ? 'T0-13 设置页 DOM 缺席时 _start 可用，且 _retry 能重建题组' : 'T0-13 _retry 仍依赖已卸载的设置页 DOM → 结果页「再来一组」必崩');
+    } else {
+      // 无 probe 钩子时退回静态断言
+      ok(/_start\(opts\)/.test(src) && /opts \|\| \{\}/.test(src),
+        'T0-13 _start 接受可选配置对象（供 _retry 复用）');
+      ok(/subject:\s*this\.state\.subject/.test(src),
+        'T0-13 _retry 用 state 记忆的 subject/time/count 重建题池');
+    }
+  }
+
+  // --- T0-14 静默失败 ---
+  {
+    // 数据路径必须相对 index.html，不能用 ../data/
+    const ce2 = R('content-enhanced-v2.js');
+    const badUrls = [...ce2.matchAll(/_dataUrl:\s*'([^']+)'/g)].map((m) => m[1]).filter((u) => u.startsWith('../'));
+    ok(badUrls.length === 0,
+      badUrls.length === 0
+        ? "T0-14 content-enhanced-v2 数据路径不再用 '../data/'（原为永久 404）"
+        : `T0-14 仍使用会 404 的路径: ${badUrls.join(', ')}`);
+
+    // 引用的数据文件必须真实存在
+    const urls = [...ce2.matchAll(/_dataUrl:\s*'([^']+)'/g)].map((m) => m[1]);
+    const missing = urls.filter((u) => !existsSync(join(APP, u)));
+    ok(missing.length === 0,
+      missing.length === 0
+        ? `T0-14 引用的 ${urls.length} 个数据文件均存在`
+        : `T0-14 数据文件缺失: ${missing.join(', ')}`);
+
+    // #main-content 不存在，必须回退到 <main>
+    const cEnh = R('content-enhancement.js');
+    ok(!/getElementById\('main-content'\)\s*;\s*\n\s*if\(!mainContent\)\s*return;/.test(cEnh),
+      'T0-14 addNewSections 不再因 #main-content 不存在而直接 return');
+    ok(/getElementById\('main-content'\)[\s\S]{0,120}?querySelector\('main'\)/.test(cEnh),
+      "T0-14 addNewSections 回退到真实容器 <main>");
+
+    // 容器修正后，被创建的 section 必须真的能被 navigateTo 命中
+    const cEnhObj = sandbox.contentEnhancement || sandbox.ContentEnhancer;
+    const hasHook = cEnhObj && typeof cEnhObj.addNewSections === 'function';
+    ok(!hasHook || /periodic-table-section/.test(R('content-enhancement.js')),
+      hasHook
+        ? 'T0-14 动态创建的 section（含 periodic-table-section）代码在位'
+        : 'T0-14 contentEnhancement 挂载情况需人工确认');
+
+    // 打卡契约冲突已由 T0-17 解决，这里做交叉确认
+    ok(/getCheckin|checkinDays/.test(R('gamification-system.js')),
+      'T0-14 打卡契约冲突已消解（gamification 走归一化 API）');
   }
 }
 

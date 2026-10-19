@@ -1065,7 +1065,7 @@ function renderExampleArea(){
         html += '</div>';
         var dis = state.userChoice ? '' : ' disabled';
         html += '<button id="ct-submit" style="margin-top:10px;background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;"'+dis+'>提交答案</button>';
-        html += '<div style="margin-top:6px;color:#6b7280;font-size:12px;">已用时: '+state.elapsed+'秒</div>';
+        html += '<div id="ct-timer" style="margin-top:6px;color:#6b7280;font-size:12px;">已用时: '+state.elapsed+'秒</div>';
         html += '</div>';
     } else {
         var isCorrect = state.userChoice===ex.answer;
@@ -1126,13 +1126,18 @@ function startTimer(){
     timerInterval = setInterval(function(){
         state.elapsed = Math.floor((Date.now()-state.startTime)/1000);
         var el = document.getElementById('ct-timer');
-        if(!el){
-            var divs = document.querySelectorAll('#choice-tricks-app div');
-            for(var i=0;i<divs.length;i++){
-                if(divs[i].innerHTML && divs[i].innerHTML.indexOf('已用时')>=0){
-                    divs[i].innerHTML = '已用时: '+state.elapsed+'秒';
-                    break;
-                }
+        if (el) {
+            el.textContent = '已用时: '+state.elapsed+'秒';
+            return;
+        }
+        // T0-13 / P0-16 兜底：只在叶子节点上改 textContent。
+        // 原实现用 innerHTML 覆写匹配到的 div，若因故匹配到祖先容器会把整个
+        // 「秒杀技巧库」UI（含题目与选项）替换成一行计时文字 → 选完选项 UI 消失。
+        var spans = document.querySelectorAll('#choice-tricks-app span');
+        for (var i = 0; i < spans.length; i++) {
+            if (spans[i].textContent && spans[i].textContent.indexOf('已用时') === 0) {
+                spans[i].textContent = '已用时: '+state.elapsed+'秒';
+                return;
             }
         }
     }, 1000);

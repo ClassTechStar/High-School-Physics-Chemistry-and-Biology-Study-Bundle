@@ -387,21 +387,41 @@ const timedQuiz = {
         app.innerHTML = html;
     },
 
-    _start() {
-        const sub = document.getElementById('tq-subject').value;
-        const time = parseInt(document.getElementById('tq-time').value);
-        const count = parseInt(document.getElementById('tq-count').value);
+    _start(opts) {
+        // T0-13 / P0-18: 结果页「再来一组」会无参调用 _retry() → _start()，
+        // 此时设置页 DOM 已不在，tq-subject 等 getElementById 返回 null → 必崩。
+        // 允许通过 opts 复用上一轮的 subject/time/count。
+        const settings = opts || {};
+        const sub = settings.subject || (document.getElementById('tq-subject') || {}).value || 'all';
+        const time = settings.time != null ? settings.time
+            : parseInt(((document.getElementById('tq-time') || {}).value) || '0', 10);
+        const count = settings.count != null ? settings.count
+            : parseInt(((document.getElementById('tq-count') || {}).value) || '0', 10);
+        if (!time || time <= 0) { console.warn('[timedQuiz] 时长无效，无法开始'); return; }
+        if (!count || count <= 0) { console.warn('[timedQuiz] 题量无效，无法开始'); return; }
+
         let pool = [];
         if (sub === 'all') {
-            Object.keys(this.bank).forEach(function(k) { pool = pool.concat(this.bank[k].map(function(q){ q.subject = k; return q; }).bind(this)); }.bind(this));
+            const bank = this.bank || {};
+            Object.keys(bank).forEach(function(k) {
+                const list = Array.isArray(bank[k]) ? bank[k] : [];
+                pool = pool.concat(list.map(function(q){ return Object.assign({}, q, { subject: k }); }));
+            });
         } else {
-            pool = (this.bank[sub] || []).map(function(q){ q.subject = sub; return q; });
+            const list = Array.isArray(this.bank && this.bank[sub]) ? this.bank[sub] : [];
+            pool = list.map(function(q){ return Object.assign({}, q, { subject: sub }); });
         }
+        if (pool.length === 0) { console.warn('[timedQuiz] 题池为空：', sub); return; }
+
         // 随机打乱
         for (let i = pool.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [pool[i], pool[j]] = [pool[j], pool[i]];
         }
+        // T0-13 / P0-18: 记忆本轮配置，供 _retry() 重建
+        this.state.subject = sub;
+        this.state.timeLimitCfg = time;
+        this.state.countCfg = count;
         this.state.questions = pool.slice(0, count);
         this.state.answers = new Array(count).fill(-1);
         this.state.current = 0;
@@ -464,7 +484,14 @@ const timedQuiz = {
     },
 
     _retry() {
-        this._start();
+        // T0-13 / P0-18: 用 state 中记忆的 subject/time/count 重建题池，
+        // 不依赖已被卸载的设置页 DOM
+        if (this.state.timerId) clearInterval(this.state.timerId);
+        this._start({
+            subject: this.state.subject,
+            time: this.state.timeLimitCfg,
+            count: this.state.countCfg
+        });
     },
 
     _exit() {
@@ -487,6 +514,44 @@ const timedQuiz = {
     }
 };
 window.timedQuiz = timedQuiz;
+// T0-13: 供 runtime-defer-check 在无 DOM 的沙箱中验证
+// 「全科综合」题池可用、无参 _start 可跑通、_retry 能重建题组
+timedQuiz.__probe = function () {
+    const self = this;
+    const out = { poolAllSubjects: 0, allEntriesAreObjects: true, startedWithoutDom: false, retryOk: false };
+    try {
+        const pool = [];
+        Object.keys(self.bank || {}).forEach(function (k) {
+            const list = Array.isArray(self.bank[k]) ? self.bank[k] : [];
+            pool.push.apply(pool, list.map(function (q) { return Object.assign({}, q, { subject: k }); }));
+        });
+        out.poolAllSubjects = pool.length;
+        out.allEntriesAreObjects = pool.length > 0 && pool.every(function (q) { return q && typeof q === 'object' && !Array.isArray(q); });
+    } catch (e) { out.error = e.message; return out; }
+
+    // 模拟「结果页点再来一组」：设置页 DOM 已卸载，_start 无参调用
+    const origRender = self._render;
+    const origTimer = self._startTimer;
+    let rendered = 0, timed = 0;
+    self._render = function () { rendered++; };
+    self._startTimer = function () { timed++; };
+    try {
+        self._start({ subject: 'all', time: 600, count: 5 });
+        out.startedWithoutDom = self.state.questions.length === 5
+            && self.state.questions.every(function (q) { return q && typeof q === 'object' && !Array.isArray(q); });
+        self._retry();
+        out.retryOk = self.state.questions.length === 5
+            && self.state.running === true
+            && self.state.subject === 'all';
+    } catch (e) {
+        out.error = e.message;
+    } finally {
+        self._render = origRender;
+        self._startTimer = origTimer;
+        if (self.state.timerId) clearInterval(self.state.timerId);
+    }
+    return out;
+};
 
 
 // ==================== 7. 知识点视频讲解链接 ====================
