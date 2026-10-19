@@ -769,6 +769,12 @@ SyntaxError: Unexpected token ';'
 | **P1-26** | DOM XSS：方程式配平器把用户输入原样插入 `innerHTML`（`app.js:2136-2157`）；真题渲染全段无转义（`app.js:10048-10118`，全 1.1 无 `escapeHtml`） | `1.1/js/app.js` | 自伤型（需诱导用户粘贴内容），但属真实 XSS 面 |
 | **P1-27** | `1.1/check-syntax.js` 双重失效：① `require` 在 `"type":"module"` 仓库下不可用 ② 硬编码路径 `C:/Users/18948/Documents/high-school-science-kit/index.html` 在本机不存在 | `1.1/check-syntax.js:1-2` | 且**泄露作者本机用户名与目录结构**；它从不引用本仓库任何文件 |
 | **P1-28** | 同一页面内工具数量自相矛盾：`promo.html:29`「18款」vs `:71`/`:101`「27款」；`presentation.html:17/72/962`「27款」vs `:1146`「18款」；而实际 `data-tool` 有 **32** 个 | `1.1/promo.html`、`1.1/presentation.html` | 归档宣传页给出互相打架且都错误的产品规格 |
+
+> **状态更新（v1.4 / T2-6 结项）**：已按 `data-tool` 注册表（32 个唯一工具）统一修正。
+> 总量：promo 3 处 + presentation 6 处全部为 32；分科按主标签归类为物理 7 / 化学 10 /
+> 生物 13 / 平台 2（`secondary-conclusions` 物化共用，按 `tool-tag=physics` 只计一次），
+> 页面内部自洽。路线图 slide 的「18款」为 v1.0 里程碑事实，加「首期」消歧后保留。
+> `runtime-defer-check.mjs` 新增 9 项断言从注册表实时推导期望值，注入缺陷验证会 FAIL。
 | **P1-29** | `presentation.html` 中 **25 个 class 在 `presentation.css` 无定义**（含末页两个主 CTA `btn-primary` / `btn-secondary`、6 张 SVG 插图） | `1.1/presentation.html` | 两个主 CTA 渲染成无样式默认链接；PPT 视觉明显劣化 |
 | **P1-30** | 1.1 内部同样存在"同族多版本并行"：PCR 模拟器 3 套（`app.js:10275` / `index.html:463` / `platform-system.js:441`）、电泳模拟器 3 套、学科内容 2 套（`app.js:722` 手写 vs `content-enhancement.js:444` 生成器） | `1.1/` | CHANGELOG:33「T11：47 个 JS 文件全部被引用（无死文件）」的结论**只对 1.2 成立**，对 1.1 完全相反 |
 
