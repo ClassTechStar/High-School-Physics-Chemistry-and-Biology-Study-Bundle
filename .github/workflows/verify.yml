@@ -6,19 +6,90 @@ on:
   pull_request:
     branches: [main]
 
+# T0-5 门禁自举：故意制造的缺陷必须让 CI 变红。
+# 下方「自检 A/B/C」步骤会在 CI 内注入 3 类已知缺陷并断言对应门禁会失败 ——
+# 如果某个门禁又变成「永远 exit 0」（如修复前的 check-global-collisions），
+# 这一步会先于业务代码失败，从而保证门禁本身是可信的。
 jobs:
   verify:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: 数据与题库质检
+          node-version: ${{ matrix.node }}
+
+      - name: ① 数据与题库结构质检
         run: npm run check:data
-      - name: 全局声明碰撞扫描
+      - name: ② 全局声明碰撞扫描（真的会失败）
         run: npm run check:collisions
-      - name: 进度存储单测
+      - name: ③ 代码卫生门禁
+        run: npm run check:lint
+      - name: ④ 内容语义门禁
+        run: npm run check:content
+      - name: ⑤ defer 时序运行时复现
+        run: npm run check:runtime
+      - name: ⑥ 进度存储单测
         run: npm test
-      - name: 功能冒烟
+      - name: ⑦ 功能冒烟
         run: npm run test:smoke
+
+      # ---------- 门禁自举：证明这些门禁具备真实失败能力 ----------
+      - name: 自检 A · 碰撞扫描能否检出重名
+        run: |
+          set -e
+          printf '\nconst biologyMindMap = 1;\n' >> 1.2/js/app-physics.js
+          rc=0
+          npm run check:collisions >/dev/null 2>&1 || rc=1
+          git checkout -- 1.2/js/app-physics.js
+          if [ "$rc" = "0" ]; then
+            echo "::error::碰撞扫描未能检出注入的重名声明 —— 门禁失效"
+            exit 1
+          fi
+          echo "OK: 碰撞扫描正确失败"
+
+      - name: 自检 B · 内容门禁能否检出解析/答案矛盾
+        run: |
+          set -e
+          cp 1.2/data/exam-bank.json /tmp/bank.bak
+          node -e "
+            const fs=require('fs');const p='1.2/data/exam-bank.json';
+            const b=JSON.parse(fs.readFileSync(p,'utf8'));
+            const q=b.physics.questions[0];
+            const other='ABCD'.split('').filter(c=>c!==String(q.answer).toUpperCase())[0];
+            q.analysis='故应选'+other+'。'+q.analysis;
+            fs.writeFileSync(p,JSON.stringify(b));
+          "
+          rc=0
+          npm run check:data >/dev/null 2>&1 || rc=1
+          npm run check:content >/dev/null 2>&1 || rc=1
+          cp /tmp/bank.bak 1.2/data/exam-bank.json
+          if [ "$rc" = "0" ]; then
+            echo "::error::解析/答案矛盾未被任何门禁检出 —— P0-1 防回归失效"
+            exit 1
+          fi
+          echo "OK: 内容门禁正确失败"
+
+      - name: 自检 C · 运行时门禁能否检出解析期捕获
+        run: |
+          set -e
+          cp 1.2/index.html /tmp/index.bak
+          python3 - <<'PY'
+          p='1.2/index.html'
+          s=open(p,encoding='utf-8').read()
+          s=s.replace('    function syncModules() {',
+                      'var PS_probe = window.PlatformSystem;\n    function syncModules() {',1)
+          open(p,'w',encoding='utf-8').write(s)
+          PY
+          rc=0
+          npm run check:runtime >/dev/null 2>&1 || rc=1
+          cp /tmp/index.bak 1.2/index.html
+          if [ "$rc" = "0" ]; then
+            echo "::error::解析期捕获 defer 模块未被检出 —— P0-10 防回归失效"
+            exit 1
+          fi
+          echo "OK: 运行时门禁正确失败"

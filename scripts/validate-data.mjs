@@ -183,6 +183,15 @@ function isChoiceType(t) {
   return CHOICE_TYPES.some((k) => String(t).includes(k));
 }
 
+/**
+ * 解析正文中显式声明答案字母的写法（"故选A" / "正确答案为B" / "答案：C" / "应选D"）。
+ * v1.3 回归点：T8 答案分布均衡化把正确选项「内容」在 A/B/C/D 间整体互换并同步改了
+ * q.answer，却没有同步改写解析里以自然语言写死的字母 —— 导致 161 题学生端自相矛盾。
+ * 本规则把这类「解析与答案键冲突」变成硬错误，防止再次回归。
+ */
+const ANALYSIS_ANSWER_LETTER =
+  /(?:故?选(?:正确(?:选项|答案))?|答案(?:是|为)?|正确选项(?:是|为)?|应选)\s*[:：]?\s*([A-D])\b/gi;
+
 function validateQuestion(q, subject, index, stats) {
   const id = q.id || `${subject}#${index}`;
   const tag = `exam-bank.${subject}[${index}](${id})`;
@@ -226,6 +235,28 @@ function validateQuestion(q, subject, index, stats) {
         break;
       }
     }
+
+    // 解析声明的答案字母必须与 answer 一致（防 T8 换位回归）
+    //
+    // 关键：必须要求**每一个**被引用的字母都等于 answer。
+    // 旧实现用 `cited.includes(ansLetter)`，只要解析里出现过正确字母就放过 ——
+    // 于是一段解析里同时写着「故应选A」和「故选D」（answer=D）会被判为无冲突，
+    // 门禁形同虚设。实测：注入「故应选A。」到 PHY_2018_01（answer=D）时
+    // 旧规则 exit 0，新规则正确报错。
+    const ansLetter = isNonEmptyString(q.answer) ? q.answer.trim().toUpperCase() : '';
+    if (/^[A-D]$/.test(ansLetter)) {
+      ANALYSIS_ANSWER_LETTER.lastIndex = 0;
+      const cited = [...q.analysis.matchAll(ANALYSIS_ANSWER_LETTER)].map((m) => m[1].toUpperCase());
+      const wrong = [...new Set(cited.filter((c) => c !== ansLetter))];
+      if (wrong.length) {
+        error(
+          'exam-bank.json',
+          `${tag}: 解析声明了与 answer=${ansLetter} 冲突的答案字母 ${wrong.join('/')}`,
+          id,
+        );
+        stats.answerAnalysisConflict += 1;
+      }
+    }
   }
 
   if (q.year != null) {
@@ -258,7 +289,7 @@ function validateExamBank() {
   if (!data.meta) warn(rel, '缺少 meta');
   if (!Array.isArray(data.meta?.subjects)) warn(rel, 'meta.subjects 缺失');
 
-  const stats = { total: 0, choice: 0, internalNote: 0, bySubject: {}, dupIds: 0 };
+  const stats = { total: 0, choice: 0, internalNote: 0, answerAnalysisConflict: 0, bySubject: {}, dupIds: 0 };
   let metaClaimed = null;
   const seenIds = new Set();
 
@@ -465,7 +496,7 @@ function main() {
 
   // 抽样摘要（质检实际已全量跑，这里展示 sample 规模说明）
   const sampleNote = examStats
-    ? `题库结构校验: 全量 ${examStats.total} 题 (选择题 ${examStats.choice}); 内部备注命中 ${examStats.internalNote}`
+    ? `题库结构校验: 全量 ${examStats.total} 题 (选择题 ${examStats.choice}); 内部备注命中 ${examStats.internalNote}; 解析/答案冲突 ${examStats.answerAnalysisConflict}`
     : '题库未加载';
 
   if (asJson) {
