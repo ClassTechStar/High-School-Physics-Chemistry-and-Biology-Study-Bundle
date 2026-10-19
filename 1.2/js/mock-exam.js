@@ -635,22 +635,88 @@ window.mockExam = (function() {
         return pool;
     }
 
-    function groupByType(pool) {
+    // ============================================================
+    // T0-18 题型映射层
+    // 缺陷：groupByType 按题库原始 type 分组（24 种：选择题/简答题/语法填空/…），
+    // 而 EXAM_CONFIG.structure 用的是卷面题型（12 种：单选/多选/实验/计算/综合/
+    // 非选/现代文/文言文/诗词/语言运用/作文/…）。两套命名**零交集**，
+    // 导致 groups[lookupType] 恒为 undefined，100% 落进 fallback 随机取题，
+    // 卷面题型标注与实际抽到的题完全对不上。
+    // 修复：建立 卷面题型 → 题库 type 白名单 的双向映射。
+    // ============================================================
+    var TYPE_MAP = {
+        '单选': { choices: ['选择题'], pick: 'single' },
+        '多选': { choices: ['选择题'], pick: 'multi' },
+        '实验': { choices: ['实验题', '实验探究', '实验设计', '实验分析'], pick: 'subjective' },
+        '计算': { choices: ['计算题', '曲线分析', '原理综合', '综合分析'], pick: 'subjective' },
+        '综合': { choices: ['工业流程', '有机化学', '原理综合', '综合分析', '实验探究'], pick: 'subjective' },
+        '解答': { choices: ['解答题', '计算题', '遗传计算'], pick: 'subjective' },
+        '解答2': { choices: ['解答题', '计算题'], pick: 'subjective' },
+        '非选': { choices: ['解答题', '简答题', '填空题', '默写题', '实验探究', '系谱图分析', '生态分析', '遗传计算', '实验设计', '实验分析', '综合分析', '原理综合', '工业流程', '曲线分析'], pick: 'subjective' },
+        '简答': { choices: ['简答题', '解答题'], pick: 'subjective' },
+        '填空': { choices: ['填空题', '默写题'], pick: 'subjective' },
+        '默写': { choices: ['默写题', '填空题'], pick: 'subjective' },
+        '作文': { choices: ['作文题', '书面表达'], pick: 'essay' },
+        '现代文': { choices: ['阅读理解', '简答题'], pick: 'subjective' },
+        '文言文': { choices: ['阅读理解', '简答题'], pick: 'subjective' },
+        '诗词': { choices: ['阅读理解', '简答题'], pick: 'subjective' },
+        '语言运用': { choices: ['简答题', '填空题', '选择题'], pick: 'subjective' },
+        '翻译': { choices: ['翻译题', '阅读理解'], pick: 'subjective' },
+        '听力': { choices: ['听力'], pick: 'single' },
+        '语法填空': { choices: ['语法填空'], pick: 'subjective' },
+        '完形填空': { choices: ['完形填空'], pick: 'single' },
+        '短文改错': { choices: ['短文改错'], pick: 'subjective' }
+    };
+
+    /** 题目是否含可用选项（决定能否客观判分） */
+    function hasOptions(q) {
+        return !!(q && Array.isArray(q.options) && q.options.filter(function (o) {
+            return String(o == null ? '' : o).trim() !== '';
+        }).length >= 2);
+    }
+
+    /** 卷面题型 → 该题型的判分模式 */
+    function pickModeFor(examType, q) {
+        var slot = TYPE_MAP[examType];
+        if (!slot) return hasOptions(q) ? 'single' : 'subjective';
+        // 作文类必为主观；其余按实际是否有选项兜底，避免"标注单选却抽到无选项题"
+        if (slot.pick === 'essay') return 'essay';
+        if (hasOptions(q)) return slot.pick === 'multi' ? 'multi' : 'single';
+        return 'subjective';
+    }
+
+    function groupByType(pool, examType) {
         var groups = {};
         for (var i = 0; i < pool.length; i++) {
             var t = pool[i].type;
             if (!groups[t]) groups[t] = [];
             groups[t].push(pool[i]);
         }
-        return groups;
+        if (!examType) return groups;
+
+        // 按映射表把候选 type 的题目汇入卷面题型桶
+        var slot = TYPE_MAP[examType];
+        var merged = [];
+        if (slot) {
+            for (var c = 0; c < slot.choices.length; c++) {
+                var bucket = groups[slot.choices[c]];
+                if (bucket) merged = merged.concat(bucket);
+            }
+        }
+        if (merged.length === 0) return {};
+        return (function () {
+            var g = {};
+            g[examType] = merged;
+            return g;
+        })();
     }
 
     function buildExam(subject) {
         var config = EXAM_CONFIG[subject];
         var pool = getQuestionPool(subject);
-        var groups = groupByType(pool);
         var selected = [];
         var questionNum = 1;
+        var slotSummary = [];
 
         for (var s = 0; s < config.structure.length; s++) {
             var slot = config.structure[s];
@@ -658,12 +724,11 @@ window.mockExam = (function() {
             var count = slot.count;
             var pointsEach = slot.pointsEach;
 
+            // T0-18: 按卷面题型取候选（映射表在 groupByType 内部生效）
+            var groups = groupByType(pool, type);
             var lookupType = type;
-            if (subject === 'math' && type === '解答2') {
-                lookupType = '解答';
-            }
-
             var candidates = groups[lookupType] || [];
+            var mapped = candidates.length > 0;
 
             if (candidates.length < count) {
                 // Broaden: use all remaining questions in pool
@@ -680,6 +745,7 @@ window.mockExam = (function() {
 
             for (var c = 0; c < count && c < candidates.length; c++) {
                 var q = candidates[c];
+                var mode = pickModeFor(type, q);
                 selected.push({
                     index: selected.length,
                     num: questionNum++,
@@ -691,7 +757,9 @@ window.mockExam = (function() {
                     options: q.options,
                     answer: (q.answer || '').trim().toUpperCase(),
                     analysis: q.analysis || '',
-                    isEssay: (type === '作文')
+                    isEssay: (mode === 'essay'),
+                    // T0-18: 记录判分模式，calculateScore 据此分流，避免拿主观题当字母比
+                    answerMode: mode
                 });
 
                 // Remove from groups
@@ -703,10 +771,16 @@ window.mockExam = (function() {
                         }
                     }
                 }
+                // 从 pool 中移除，避免同一题被后续题型槽位重复抽中
+                for (var rp = 0; rp < pool.length; rp++) {
+                    if (pool[rp].id === q.id) { pool.splice(rp, 1); break; }
+                }
             }
+
+            slotSummary.push(type + '×' + count + (mapped ? '' : '(映射未命中，已兜底)'));
         }
 
-        return selected;
+        return { questions: selected, slotSummary: slotSummary };
     }
 
     // ============================================================================
@@ -830,7 +904,11 @@ window.mockExam = (function() {
         if (!config) return;
 
         state.subject = subject;
-        state.questions = buildExam(subject);
+        // T0-18: buildExam 现返回 { questions, slotSummary }
+        var built = buildExam(subject);
+        state.questions = built.questions;
+        state.slotSummary = built.slotSummary;
+        if (built.slotSummary.length) console.log('[mock-exam] 组卷结构:', built.slotSummary.join(' | '));
         state.userAnswers = {};
         state.submitted = false;
         state.totalTime = config.totalTime * 60;
@@ -1097,21 +1175,23 @@ window.mockExam = (function() {
             totalPoints += q.points;
 
             var isCorrect = false;
-            if (q.isEssay) {
+            // T0-18: 按 answerMode 分流（原代码只认 q.type==='多选'/'解答'，
+            // 组卷标注的卷面题型与 q.type 不同，导致主观题被当字母比对、作文漏判）
+            var mode = q.answerMode || (q.isEssay ? 'essay' : 'single');
+            if (mode === 'essay') {
                 isCorrect = null;
                 if (userAns.length > 20) {
                     earnedPoints += Math.round(q.points * 0.7);
                 }
-            } else if (q.type === '多选') {
-                isCorrect = (userAns === correctAns);
-                if (isCorrect) earnedPoints += q.points;
-            } else if (q.type === '解答') {
-                isCorrect = (userAns === correctAns);
-                if (isCorrect) {
-                    earnedPoints += q.points;
-                } else if (userAns.length > 0) {
+            } else if (mode === 'subjective') {
+                // 主观题：只给过程分（书写分），isCorrect=null 表示需人工评阅
+                isCorrect = null;
+                if (userAns.length > 20) {
                     earnedPoints += Math.round(q.points * 0.3);
                 }
+            } else if (mode === 'multi') {
+                isCorrect = (userAns === correctAns);
+                if (isCorrect) earnedPoints += q.points;
             } else {
                 isCorrect = (userAns === correctAns);
                 if (isCorrect) {
@@ -1131,7 +1211,8 @@ window.mockExam = (function() {
                 isCorrect: isCorrect,
                 analysis: q.analysis,
                 category: q.category,
-                isEssay: q.isEssay
+                isEssay: q.isEssay,
+                answerMode: mode
             });
         }
 
@@ -1369,7 +1450,17 @@ window.mockExam = (function() {
         render: render,
         startExam: startExam,
         getHistory: getHistory,
-        clearHistory: clearHistory
+        clearHistory: clearHistory,
+        // T0-18: 暴露给 runtime-defer-check 断言组卷映射命中率（不影响线上行为）
+        __test: {
+            TYPE_MAP: TYPE_MAP,
+            groupByType: groupByType,
+            buildExam: buildExam,
+            pickModeFor: pickModeFor,
+            hasOptions: hasOptions,
+            getQuestionPool: getQuestionPool,
+            EXAM_CONFIG: EXAM_CONFIG
+        }
     };
 
 })();

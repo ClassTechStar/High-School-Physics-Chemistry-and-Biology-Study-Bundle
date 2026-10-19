@@ -294,6 +294,8 @@ ok(dclErrors.length === 0,
     sys.loadStats = () => {};
     sys.saveStats = () => {};
     sys.refreshStats = () => {};
+    // mock-exam 的题池依赖 window.examBank（真实浏览器由 examPracticeSystem.init 异步填充）
+    sandbox.examBank = bank;
     // 模考 UI 由 renderExamDashboard 动态注入 #exam-content，页面并无静态 exam-list/exam-detail，
     // 与线上一致：必须先渲染仪表盘，后续 getElementById 才能命中
     const host = sandbox.document.getElementById('exam-content');
@@ -535,6 +537,159 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         'T0-8 主观题提交走自评模式（不自动判对，pending 待自评）');
       ok(sys.stats.totalAnswered === before + 1, 'T0-8 主观题提交仍计入答题总数（进度不失真）');
     }
+  }
+}
+
+// T0-17 / P0-8: 打卡 key schema 冲突 + "清除数据复活"
+{
+  const store = sandbox.HSPCBStore;
+  ok(!!store, 'HSPCBStore 门面已挂到 window');
+  if (store) {
+    const ls = sandbox.localStorage;
+    const KEY = 'hspcb_daily_checkin';
+
+    // A) 归一化：数组结构 → 对象 map
+    const arrNorm = store.normalizeCheckin(['2027-06-05', { date: '2027-06-06' }, null, 123]);
+    ok(arrNorm['2027-06-05'] === true && arrNorm['2027-06-06'] === true && Object.keys(arrNorm).length === 2,
+      `T0-17 数组形态打卡归一为对象 map（${JSON.stringify(arrNorm)}）`);
+
+    // B) 归一化：对象 map 原样保留，false 值不计入
+    const objNorm = store.normalizeCheckin({ '2027-06-07': true, '2027-06-08': false });
+    ok(objNorm['2027-06-07'] === true && objNorm['2027-06-08'] === undefined,
+      'T0-17 对象 map 中 value=false 的日期不计入打卡');
+
+    // C) 写入 → 读回一致（learning-tools 与 gamification 双写双读同 key 不再冲突）
+    ls.removeItem(KEY); ls.removeItem(store.NS + KEY);
+    store.markCheckin('2027-06-07');
+    store.markCheckin('2027-06-09');
+    const days = store.checkinDays();
+    ok(days.length === 2 && days[0] === '2027-06-07' && days[1] === '2027-06-09',
+      `T0-17 markCheckin/checkinDays 往返一致（${days.join(',')}）`);
+
+    // D) 历史数组结构也能被门面读取（存量用户数据不丢）
+    ls.setItem(KEY, JSON.stringify(['2027-05-01', '2027-05-02']));
+    ls.removeItem(store.NS + KEY);
+    const migrated = store.checkinDays();
+    ok(migrated.length === 2 && migrated.includes('2027-05-01'),
+      `T0-17 旧裸 key 中的数组结构被自动搬迁并归一（${migrated.join(',')}）`);
+
+    // E) P0-8 清除数据复活：remove 后再读不得拿回旧值
+    store.remove(KEY);
+    const afterClear = store.checkinDays();
+    const bareStillThere = ls.getItem(KEY);
+    ok(afterClear.length === 0 && bareStillThere === null,
+      bareStillThere === null
+        ? 'T0-17 remove 同时清除旧裸 key，清除后数据不复活'
+        : `T0-17 remove 未清旧裸 key（仍有 ${bareStillThere}）→ 点"清除数据"后 get() 会把它搬回来`);
+
+    // F) unmark 单日撤销
+    store.markCheckin('2027-06-10');
+    store.unmarkCheckin('2027-06-09');
+    ok(store.checkinDays().length === 1 && store.checkinDays()[0] === '2027-06-10',
+      'T0-17 unmarkCheckin 可撤销单日打卡');
+
+    // G) 两个消费方必须走归一化 API，不得再各自判定结构
+    const lsrc = readFileSync(join(APP, 'js/learning-tools.js'), 'utf8');
+    const gsrc = readFileSync(join(APP, 'js/gamification-system.js'), 'utf8');
+    ok(/HSPCBStore\.getCheckin/.test(lsrc) && /HSPCBStore\.markCheckin/.test(lsrc),
+      'T0-17 learning-tools 读写均走归一化 API');
+    ok(!/safeParse\(HSPCBStore\.getItem\('hspcb_daily_checkin'\)/.test(gsrc),
+      'T0-17 gamification-system 不再对打卡 key 做 Array.isArray 结构判定');
+  }
+}
+
+// T0-18: 模考题型映射 + 主观题判分 + 搜索路由
+{
+  const me = sandbox.mockExam;
+  ok(!!me, 'mockExam 模块已挂到 window');
+  if (me && me.__test) {
+    const T = me.__test;
+
+    // 1) 题型映射：卷面题型必须能命中题库候选，否则全靠 fallback 随机抽题
+    let mappedSlots = 0;
+    let totalSlots = 0;
+    const unmapped = [];
+    for (const subj of Object.keys(T.EXAM_CONFIG)) {
+      for (const slot of T.EXAM_CONFIG[subj].structure) {
+        totalSlots++;
+        const pool = T.getQuestionPool(subj);
+        const groups = T.groupByType(pool, slot.type);
+        if ((groups[slot.type] || []).length > 0) mappedSlots++;
+        else unmapped.push(`${subj}/${slot.type}`);
+      }
+    }
+    ok(unmapped.length === 0,
+      unmapped.length === 0
+        ? `T0-18 组卷题型映射 ${mappedSlots}/${totalSlots} 个槽位全部命中题库候选`
+        : `T0-18 ${unmapped.length}/${totalSlots} 个卷面题型映射未命中（退化为随机兜底）: ${unmapped.join(', ')}`);
+
+    // 2) 实际组卷：题数必须填满，且不得有重复题
+    for (const subj of Object.keys(T.EXAM_CONFIG)) {
+      const built = T.buildExam(subj);
+      const expect = T.EXAM_CONFIG[subj].structure.reduce((a, s) => a + s.count, 0);
+      const got = built.questions.length;
+      const ids = new Set(built.questions.map((q) => q.id));
+      ok(got === expect && ids.size === got,
+        `T0-18 ${subj} 组卷题数正确且无重复（${got}/${expect}，唯一 ${ids.size}）`);
+      ok(built.slotSummary.every((s) => !s.includes('映射未命中')),
+        `T0-18 ${subj} 组卷无未命中槽位（${built.slotSummary.join(' | ')}）`);
+    }
+
+    // 3) 判分模式：卷面标注「作文」的题必须是 essay 模式；无选项题绝不能是 single
+    const cn = T.buildExam('chinese');
+    const essayQ = cn.questions.find((q) => q.type === '作文');
+    ok(essayQ && essayQ.answerMode === 'essay' && essayQ.isEssay === true,
+      essayQ ? `T0-18 语文作文槽判分模式为 essay（${essayQ.id}）` : 'T0-18 语文卷未抽出作文题');
+
+    let badMode = 0;
+    let subjective = 0;
+    for (const subj of Object.keys(T.EXAM_CONFIG)) {
+      for (const q of T.buildExam(subj).questions) {
+        if (q.answerMode === 'subjective' || q.answerMode === 'essay') subjective++;
+        // 标注为客观题却抽到无选项题 → 判分必错
+        if ((q.answerMode === 'single' || q.answerMode === 'multi') && !T.hasOptions(q)) badMode++;
+      }
+    }
+    ok(badMode === 0,
+      badMode === 0
+        ? `T0-18 无"标注客观题却无选项"的错配（主观题 ${subjective} 道）`
+        : `T0-18 ${badMode} 道题被标注为客观题但实际无选项，判分必然错误`);
+
+    // 4) pickModeFor 覆盖：作文槽即便抽到有选项的题也必须是 essay
+    ok(T.pickModeFor('作文', { options: ['A', 'B'], answer: 'A' }) === 'essay',
+      'T0-18 作文槽强制 essay 模式（不因抽到选项而变客观）');
+    ok(T.pickModeFor('单选', { options: null, answer: 'x' }) === 'subjective',
+      'T0-18 单选槽抽到无选项题时降级为 subjective（而非错误地按字母判分）');
+  }
+
+  // 5) 搜索路由：非 section 型工具必须有专门路由，不能落进 navigateTo 死路
+  {
+    const gsrc = readFileSync(join(APP, 'js/global-search.js'), 'utf8');
+    const html = readFileSync(join(APP, 'index.html'), 'utf8');
+    const toolIds = new Set([...html.matchAll(/data-tool="([^"]+)"/g)].map((m) => m[1]));
+    const noSection = [...toolIds].filter((t) => !html.includes(`id="${t}-section"`));
+    const routed = noSection.filter((t) => new RegExp(`'${t}'\\s*:`).test(gsrc));
+    ok(noSection.length === 0 || routed.length === noSection.length,
+      noSection.length === 0
+        ? `T0-18 ${toolIds.size} 个工具全部有对应 section`
+        : `T0-18 ${routed.length}/${noSection.length} 个非 section 工具已专门路由（${routed.join(', ')}）`);
+
+    const unmappedRoute = [...routed].filter((t) => {
+      const m = gsrc.match(new RegExp(`'${t}'\\s*:\\s*function`));
+      return !m;
+    });
+    ok(unmappedRoute.length === 0,
+      unmappedRoute.length === 0
+        ? 'T0-18 专门路由均为可调用函数（非占位）'
+        : `T0-18 路由未指向函数: ${unmappedRoute.join(', ')}`);
+
+    // 路由目标必须真的存在于 window
+    ok(/window\.handlePlatformTab\s*=\s*handlePlatformTab/.test(html),
+      'T0-18 handlePlatformTab 已导出到 window（搜索路由目标可解析）');
+    ok(typeof sandbox.handlePlatformTab === 'function',
+      'T0-18 handlePlatformTab 在运行时可解析');
+    ok(typeof sandbox.showSection === 'function' && typeof sandbox.setActiveNav === 'function',
+      'T0-18 showSection/setActiveNav 在运行时可解析');
   }
 }
 

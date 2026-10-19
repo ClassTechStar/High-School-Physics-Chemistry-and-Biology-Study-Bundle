@@ -486,14 +486,24 @@ window.HSPCBStore = (function () {
         try { return localStorage.getItem(k); } catch (e) { return null; }
     }
 
+    // T0-17: 搬迁标记不能是简单的布尔值。
+    // 原实现 `migratedKeys[key] = true` 只允许搬迁一次，导致：
+    //   用户点"清除数据"(remove 同时清了 NS 与裸 key) → 某个旧模块再次写入裸 key
+    //   → 标记仍为 true，永不再搬迁 → 数据看似丢失。
+    // 改为记录"上次搬迁时看到的裸 key 值"，值变了或为 null 时允许重新搬迁。
+    function shouldMigrate(key) {
+        var legacy = raw(key);
+        if (legacy == null) { migratedKeys[key] = null; return false; }
+        if (migratedKeys[key] === legacy) return false;
+        if (raw(NS + key) == null) { migratedKeys[key] = legacy; return true; }
+        migratedKeys[key] = legacy;
+        return false;
+    }
+
     function get(key) {
         if (typeof key !== 'string') return null;
-        if (!migratedKeys[key]) {
-            migratedKeys[key] = true;
-            var legacy = raw(key);
-            if (legacy != null && raw(NS + key) == null) {
-                try { localStorage.setItem(NS + key, legacy); } catch (e) { /* ignore */ }
-            }
+        if (shouldMigrate(key)) {
+            try { localStorage.setItem(NS + key, raw(key)); } catch (e) { /* ignore */ }
         }
         return raw(NS + key);
     }
@@ -503,9 +513,14 @@ window.HSPCBStore = (function () {
         try { localStorage.setItem(NS + key, String(value)); return true; } catch (e) { return false; }
     }
 
+    // T0-17 / P0-8: remove 必须同时清掉旧裸 key。
+    // 否则"清除学习数据"只删了 hspcb.st.<key>，旧裸 key 仍在，
+    // 下次 get() 的自动搬迁会把它原样搬回来 → 用户点了清除，数据又复活。
     function remove(key) {
         if (typeof key !== 'string') return;
         try { localStorage.removeItem(NS + key); } catch (e) { /* ignore */ }
+        try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+        migratedKeys[key] = null;
     }
 
     // 枚举命名空间下的全部 key（供备份/诊断使用）
@@ -520,6 +535,83 @@ window.HSPCBStore = (function () {
         return out;
     }
 
+    // ============================================================
+    // T0-17 打卡数据归一化
+    // 同一 key `hspcb_daily_checkin` 历史上被写成两种结构：
+    //   A) learning-tools.js  → { "2027-06-07": true, ... }（对象 map）
+    //   B) gamification-system → [ "2027-06-07", {date:"..."} ]（数组）
+    // 消费方各自 Array.isArray / Object.keys 判定，导致：
+    //   - 打卡后 gamification 的 streakDays 恒为 0
+    //   - "清除数据"后 learning-tools 认为已打卡、gamification 认为没打过
+    // 统一为**对象 map**（写入方单一，无歧义），读取时把数组形态归一进来。
+    // ============================================================
+    var CHECKIN_KEY = 'hspcb_daily_checkin';
+
+    function parse(raw) {
+        if (raw == null || raw === '') return null;
+        try { var v = JSON.parse(raw); return v == null ? null : v; } catch (e) { return null; }
+    }
+
+    function normalizeCheckin(value) {
+        var map = {};
+        if (!value) return map;
+        if (Array.isArray(value)) {
+            for (var i = 0; i < value.length; i++) {
+                var it = value[i];
+                var d = typeof it === 'string' ? it : (it && it.date);
+                if (d) map[d] = true;
+            }
+            return map;
+        }
+        if (typeof value === 'object') {
+            for (var k in value) {
+                if (!Object.prototype.hasOwnProperty.call(value, k)) continue;
+                if (value[k]) map[k] = true;
+            }
+        }
+        return map;
+    }
+
+    /** 读取打卡数据，始终返回 { "YYYY-MM-DD": true } 对象 map */
+    function getCheckin() {
+        var rawVal = get(CHECKIN_KEY);
+        if (rawVal == null) return {};
+        return normalizeCheckin(parse(rawVal));
+    }
+
+    /** 标记某天已打卡，返回完整对象 map */
+    function markCheckin(dateKey) {
+        if (typeof dateKey !== 'string' || !dateKey) return getCheckin();
+        var map = getCheckin();
+        map[dateKey] = true;
+        set(CHECKIN_KEY, JSON.stringify(map));
+        return map;
+    }
+
+    /** 取消某天打卡 */
+    function unmarkCheckin(dateKey) {
+        var map = getCheckin();
+        delete map[dateKey];
+        set(CHECKIN_KEY, JSON.stringify(map));
+        return map;
+    }
+
+    /** 打卡日期升序数组（供 streak 计算） */
+    function checkinDays() {
+        var map = getCheckin();
+        return Object.keys(map).sort();
+    }
+
     // getItem/setItem/removeItem 为兼容别名（早期替换脚本使用了原生方法名）
-    return { get: get, set: set, remove: remove, getItem: get, setItem: set, removeItem: remove, keys: keys, NS: NS };
+    return {
+        get: get, set: set, remove: remove,
+        getItem: get, setItem: set, removeItem: remove,
+        keys: keys, NS: NS,
+        CHECKIN_KEY: CHECKIN_KEY,
+        normalizeCheckin: normalizeCheckin,
+        getCheckin: getCheckin,
+        markCheckin: markCheckin,
+        unmarkCheckin: unmarkCheckin,
+        checkinDays: checkinDays
+    };
 })();
