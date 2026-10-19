@@ -1194,9 +1194,14 @@ window.globalSearch = (function() {
     // UTILITY
     // ============================================================
 
+    // 【T1-5 / P0-5】统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
+// 原实现不完整（漏转义单引号）且与其它模块重复，现统一委托；
+// 并在 CommonUtils 缺席时提供等价兜底（含 null/undefined → ''）。
     function escapeHtml(str) {
-        if (!str) return '';
-        return str
+        var fn = (typeof CommonUtils !== 'undefined' && CommonUtils) ? CommonUtils.escapeHtml : null;
+        if (typeof fn === 'function') return fn(str);
+        if (str === null || str === undefined) return '';
+        return String(str)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')

@@ -545,9 +545,20 @@ var state = {
     totalScore: 0
 };
 
-function escapeHtml(str){
-    if(str == null) return '';
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// 【T1-5 / P0-5】统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
+// 本文件原有 3 份顶层 escapeHtml 声明（548/968/1474），其中两份漏转义单引号，
+// 且函数声明互相覆盖、行为取决于定义顺序，难以推理。现统一委托给唯一实现，
+// 并在 CommonUtils 缺席时提供等价兜底（含 null/undefined → ''）。
+function escapeHtml(str) {
+    var fn = (typeof CommonUtils !== 'undefined' && CommonUtils) ? CommonUtils.escapeHtml : null;
+    if (typeof fn === 'function') return fn(str);
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 function nl2br(str){ return escapeHtml(str).replace(/\n/g, '<br>'); }
 
@@ -965,10 +976,6 @@ var state = {
     trickStats: {}
 };
 
-function escapeHtml(str){
-    if(str==null) return '';
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
 function nl2br(str){ return escapeHtml(str).replace(/\n/g,'<br>'); }
 
 function getTrick(id){
@@ -1471,15 +1478,6 @@ var state = {
 };
 
 // ==================== 辅助函数 ====================
-function escapeHtml(str){
-    if(str===null||str===undefined) return '';
-    return String(str)
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#39;');
-}
 
 function nl2br(str){
     if(!str) return '';

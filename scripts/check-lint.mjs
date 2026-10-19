@@ -76,14 +76,30 @@ console.log('=== L2. escapeHtml 实现收敛（P2-1） ===');
   ok(defs.filter((d) => d.file === 'common-utils.js').length === 1,
     'common-utils.js 有且仅有 1 份权威 escapeHtml 实现');
 
-  const fresh = defs.filter((d) => d.file !== 'common-utils.js' && !authoritative.includes(d.file));
+  // 【T1-5】区分「真·重复实现」与「已委托到权威实现」。
+  // 判定依据：抓取定义处之后 12 行函数体，只要出现 CommonUtils.escapeHtml 调用
+  // 即认定为委托（历史遗留实现已收敛为转发），不再计入重复。
+  const bodyOf = (d) => {
+    const arr = read(d.file).split(/\r?\n/);
+    return arr.slice(d.line - 1, d.line + 11).join('\n');
+  };
+  const isDelegating = (d) => /CommonUtils\.escapeHtml/.test(bodyOf(d));
+
+  const realDups = defs.filter((d) => d.file !== 'common-utils.js' && !isDelegating(d));
+  const fresh = realDups.filter((d) => !authoritative.includes(d.file));
+
+  ok(realDups.length === 0,
+    realDups.length === 0
+      ? `escapeHtml 已收敛为 1 份权威实现（其余 ${defs.length - 1} 处均为转发委托）`
+      : `${realDups.length} 处 escapeHtml 仍是独立重复实现:\n      ${realDups.map((d) => `${d.file}:${d.line}`).join('\n      ')}`);
+
   ok(fresh.length === 0,
     fresh.length === 0
-      ? `escapeHtml = 1 份权威 + ${defs.length - 1} 处已登记重复实现（T1-5 收敛）`
+      ? '无新增 escapeHtml 重复实现'
       : `新增 ${fresh.length} 份 escapeHtml 重复实现:\n      ${fresh.map((d) => `${d.file}:${d.line}`).join('\n      ')}`);
 
-  if (defs.length > 1) {
-    baseline(`escapeHtml 重复实现 ${defs.length - 1} 处：${defs.filter((d) => d.file !== 'common-utils.js').map((d) => `${d.file}:${d.line}`).join(', ')} → T1-5`);
+  if (realDups.length) {
+    baseline(`escapeHtml 独立重复实现 ${realDups.length} 处：${realDups.map((d) => `${d.file}:${d.line}`).join(', ')} → T1-5`);
   }
 }
 
