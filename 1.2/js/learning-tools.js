@@ -891,14 +891,29 @@ var studyReport = {
         });
         document.getElementById('clear-data-btn').addEventListener('click', function() {
             if (confirm('确定要清除所有学习数据吗？此操作不可恢复！')) {
-                (window.HSPCBStore ? HSPCBStore.remove('hspcb_wrong_records') : localStorage.removeItem('hspcb_wrong_records'));
-                (window.HSPCBStore ? HSPCBStore.remove('hspcb_quiz_records') : localStorage.removeItem('hspcb_quiz_records'));
-                (window.HSPCBStore ? HSPCBStore.remove('hspcb_manual_mastery') : localStorage.removeItem('hspcb_manual_mastery'));
-                (window.HSPCBStore ? HSPCBStore.remove('hspcb_daily_checkin') : localStorage.removeItem('hspcb_daily_checkin'));
+                // T2-2 / P0-8: 必须两轨全清 + 权威进度轨全清。
+                // 原实现只 remove 4 个散装 key，且依赖 HSPCBStore.remove 的清旧 key 能力，
+                // 覆盖面不足：examHistory / gameScores / checkin / notes 等仍在权威轨复活。
+                var cleared = [];
+                if (window.HSPCBStore && typeof HSPCBStore.purgeAll === 'function') {
+                    var r = HSPCBStore.purgeAll();
+                    cleared = cleared.concat(r.removed);
+                } else {
+                    // 退化路径：progress.js 未装载时至少清掉已知裸 key
+                    var fallbackKeys = ['hspcb_wrong_records', 'hspcb_quiz_records',
+                        'hspcb_manual_mastery', 'hspcb_daily_checkin'];
+                    for (var i = 0; i < fallbackKeys.length; i++) {
+                        try { localStorage.removeItem(fallbackKeys[i]); } catch (e) { /* ignore */ }
+                        cleared.push(fallbackKeys[i]);
+                    }
+                }
+                if (window.HSPCBProgress && typeof HSPCBProgress.resetAll === 'function') {
+                    HSPCBProgress.resetAll();
+                }
                 self.reportData = null;
                 document.getElementById('report-content').innerHTML = '';
                 document.getElementById('print-report-btn').style.display = 'none';
-                alert('数据已清除');
+                alert('数据已清除（' + cleared.length + ' 项存储 key + 学习进度）');
             }
         });
     },

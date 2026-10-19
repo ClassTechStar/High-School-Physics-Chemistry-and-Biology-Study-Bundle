@@ -659,6 +659,20 @@ window.dataExporter = (function () {
             // Ignore
         }
 
+        // T2-2 / P0-8: 上述两条路径都只覆盖 v1 裸 key。
+        // 权威进度轨 hspcb.v2.* 与散装轨 hspcb.st.* 必须显式清除，
+        // 否则刷新后 HSPCBProgress/HSPCBStore 会把"已清除"的数据原样读回。
+        try {
+            if (window.HSPCBProgress && typeof HSPCBProgress.resetAll === 'function') {
+                HSPCBProgress.resetAll();
+            }
+            if (window.HSPCBStore && typeof HSPCBStore.purgeAll === 'function') {
+                HSPCBStore.purgeAll();
+            }
+        } catch (e) {
+            // Ignore
+        }
+
         showToast('All study data cleared. Reloading...');
         setTimeout(function () {
             window.location.reload();
