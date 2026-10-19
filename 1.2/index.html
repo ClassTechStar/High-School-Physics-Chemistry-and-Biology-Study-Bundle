@@ -4259,6 +4259,8 @@
     // v1.3: 暴露到全局 —— 修复 onclick="showSection(...)" 等内联事件无法引用 IIFE 内部函数的问题
     window.showSection = showSection;
     window.setActiveNav = setActiveNav;
+    // T0-18: handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
+    window.handlePlatformTab = handlePlatformTab;
     // P0-13: chineseSearch 原定义于本 IIFE 内部，未挂 window → index.html:963 的 onkeyup 必然 ReferenceError
     window.chineseSearch = chineseSearch;
 

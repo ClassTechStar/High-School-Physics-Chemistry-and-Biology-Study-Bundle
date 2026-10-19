@@ -629,10 +629,17 @@ var countdownTaskSystem = {
         }
 
         // Load checkin data
-        var raw = (window.HSPCBStore ? HSPCBStore.get('hspcb_daily_checkin') : localStorage.getItem('hspcb_daily_checkin'));
-        if (raw) {
-            try { self.checkinData = JSON.parse(raw); } catch(e) { self.checkinData = {}; }
-        }
+        // T0-17: 打卡数据统一走 HSPCBStore 归一化 API（兼容历史数组/对象两种结构）
+        self.checkinData = (window.HSPCBStore && HSPCBStore.getCheckin)
+            ? HSPCBStore.getCheckin()
+            : (function () {
+                var raw = (window.HSPCBStore ? HSPCBStore.get('hspcb_daily_checkin') : localStorage.getItem('hspcb_daily_checkin'));
+                if (!raw) return {};
+                try {
+                    var parsed = JSON.parse(raw);
+                    return (window.HSPCBStore && HSPCBStore.normalizeCheckin) ? HSPCBStore.normalizeCheckin(parsed) : parsed;
+                } catch (e) { return {}; }
+            })();
 
         var now = new Date();
         var diffMs = self.targetDate.getTime() - now.getTime();
@@ -813,8 +820,12 @@ var countdownTaskSystem = {
         if (!btn) return;
         btn.addEventListener('click', function() {
             var today = self._getDateKey(new Date());
-            self.checkinData[today] = true;
-            (window.HSPCBStore ? HSPCBStore.set('hspcb_daily_checkin', JSON.stringify(self.checkinData)) : localStorage.setItem('hspcb_daily_checkin', JSON.stringify(self.checkinData)));
+            if (window.HSPCBStore && HSPCBStore.markCheckin) {
+                self.checkinData = HSPCBStore.markCheckin(today);
+            } else {
+                self.checkinData[today] = true;
+                (window.HSPCBStore ? HSPCBStore.set('hspcb_daily_checkin', JSON.stringify(self.checkinData)) : localStorage.setItem('hspcb_daily_checkin', JSON.stringify(self.checkinData)));
+            }
             self.render();
         });
     },

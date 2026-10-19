@@ -704,6 +704,22 @@ window.globalSearch = (function() {
             // loader not available, fall through
         }
 
+        // T0-18: 非 section 型工具路由。
+        // 122 个 data-tool 中有 4 个并非独立 section，而是平台/模考/懒加载 tab，
+        // 直接 navigateTo(toolId) 会因找不到 <toolId>-section 而落空（搜索点了没反应）。
+        var TAB_ROUTES = {
+            'chinese-knowledge':  function () { if (typeof window.showSection === 'function') { window.showSection('chinese-section'); if (typeof window.setActiveNav === 'function') window.setActiveNav('chinese'); } },
+            'exam-dashboard':     function () { if (typeof window.handlePlatformTab === 'function') window.handlePlatformTab('exam-dashboard'); },
+            'platform-overview':  function () { if (typeof window.handlePlatformTab === 'function') window.handlePlatformTab('platform-overview'); },
+            'open-answer-trainer': function () {
+                if (typeof window.navigateToolPage === 'function') { window.navigateToolPage('open-answer-trainer'); return; }
+                if (window.openAnswerTrainer && typeof window.openAnswerTrainer.render === 'function') window.openAnswerTrainer.render();
+            }
+        };
+        if (typeof TAB_ROUTES[toolId] === 'function') {
+            try { TAB_ROUTES[toolId](); closeSearch(); return; } catch (e) { /* fall through to section fallback */ }
+        }
+
         // Fallback: navigate via section ID
         if (typeof window.navigateTo === 'function') {
             window.navigateTo(toolId);

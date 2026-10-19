@@ -121,14 +121,12 @@ window.achievementSystem = (function () {
             stats.totalQuestions += (e.totalQuestions || e.total || 0);
         }
 
-        var checkin = safeParse(HSPCBStore.getItem('hspcb_daily_checkin'), []);
-        if (!Array.isArray(checkin)) checkin = [];
-        var days = [];
-        for (var k = 0; k < checkin.length; k++) {
-            var item = checkin[k];
-            var d = typeof item === 'string' ? item : (item && item.date);
-            if (d) days.push(d);
-        }
+        // T0-17: 打卡数据统一走 HSPCBStore 归一化 API，
+        // 历史数组结构（['2027-06-07', {date:...}]）会被归一为对象 map，
+        // 打卡后 streakDays 不再恒为 0
+        var days = (window.HSPCBStore && HSPCBStore.checkinDays)
+            ? HSPCBStore.checkinDays()
+            : [];
         stats.streakDays = computeStreak(days);
 
         var wrong = safeParse(HSPCBStore.getItem('hspcb_wrong_records'), null);
@@ -467,10 +465,10 @@ window.studyShareCard = (function () {
         if (data.total > 0) data.accuracy = Math.round(data.correct / data.total * 100);
         data.minutes = Math.floor(data.count * 1.5);
 
-        var checkin = safeParse(HSPCBStore.getItem('hspcb_daily_checkin'), []);
-        if (Array.isArray(checkin)) {
-            data.checkinDays = checkin.length;
-        }
+        // T0-17: 打卡数据归一化后统计，历史数组结构同样有效
+        data.checkinDays = (window.HSPCBStore && HSPCBStore.checkinDays)
+            ? HSPCBStore.checkinDays().length
+            : 0;
         return data;
     }
 
