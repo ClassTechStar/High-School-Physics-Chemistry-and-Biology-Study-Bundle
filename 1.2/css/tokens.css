@@ -1,7 +1,9 @@
 /* ============================================================
    tokens.css — HSPCB 共享设计令牌（CSS变量）
    三套CSS共享的变量定义，确保视觉色系统一
-   使用方式: @import url('tokens.css'); 在各CSS文件顶部
+   加载方式: index.html 中按 tokens.css → style.css → theme-dark.css
+   的顺序用 <link> 引入（theme-dark.css 依赖前者已生效的变量），
+   各 CSS 文件内部不写 @import
    ============================================================ */
 
 :root {
@@ -16,14 +18,15 @@
     --danger: #ef4444;
     --success: #10b981;
 
-    /* 学科主题色 */
-    --physics: #3b82f6;
-    --chemistry: #10b981;
-    --biology: #f59e0b;
+    /* 学科主题色（六科色相互不相同） */
+    --physics: #3b82f6;    /* 蓝 */
+    --chemistry: #10b981;  /* 翠绿 */
+    --biology: #f59e0b;    /* 琥珀 */
     --exam: #ef4444;
     --platform: #8b5cf6;
-    --chinese: #ec4899;
-    --math: #3b82f6;
+    --chinese: #0ea5e9;    /* 天蓝（与 nav-btn 阴影 rgba(14,165,233) 及暗色 #38bdf8 同族） */
+    --math: #ec4899;       /* 品红（原与 --physics 同为 #3b82f6，T3-1 换色相） */
+    --english: #8b5cf6;    /* 紫（T3-1 新增；此前英语卡/导航无令牌可用） */
 
     /* 背景色 */
     --bg-primary: #f8fafc;

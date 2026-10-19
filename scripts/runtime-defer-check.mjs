@@ -910,5 +910,63 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     `presentation.html 分科角标与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
 }
 
+// T3-1 / P1-11+P1-12: 设计令牌闭环 —— 六科卡片必须走令牌类，明暗两套色板各自互异，
+// 且暗色下学科色条不被通用补丁拍平。
+{
+  const SUBJECT_TOKENS = ['physics', 'chemistry', 'biology', 'chinese', 'math', 'english'];
+  const tokens = readFileSync(join(APP, 'css', 'tokens.css'), 'utf8');
+  const dark = readFileSync(join(APP, 'css', 'theme-dark.css'), 'utf8');
+  const style = readFileSync(join(APP, 'css', 'style.css'), 'utf8');
+
+  // 取 :root 块 / [data-theme="dark"] 块里的 --xxx: #hex
+  const palette = (css, blockRe) => {
+    const m = blockRe.exec(css);
+    const map = {};
+    if (m) for (const t of m[0].matchAll(/--([a-z-]+)\s*:\s*([^;]+);/g)) map[t[1]] = t[2].trim();
+    return map;
+  };
+  const light = palette(tokens, /:root\s*\{[\s\S]*?\n\}/);
+  const darkPal = palette(dark, /\[data-theme="dark"\]\s*\{[\s\S]*?\n\}/);
+
+  for (const [name, pal] of [['浅色', light], ['暗色', darkPal]]) {
+    const missing = SUBJECT_TOKENS.filter((s) => !pal[s]);
+    ok(missing.length === 0,
+      missing.length === 0
+        ? `T3-1 ${name}色板六科学科令牌齐全`
+        : `T3-1 ${name}色板缺少学科令牌: ${missing.join(', ')}`);
+    const vals = SUBJECT_TOKENS.map((s) => pal[s]).filter(Boolean);
+    const dup = vals.filter((v, i) => vals.indexOf(v) !== i);
+    ok(dup.length === 0,
+      dup.length === 0
+        ? `T3-1 ${name}色板六科色相互不相同（${SUBJECT_TOKENS.map((s) => pal[s]).join(' / ')}）`
+        : `T3-1 ${name}色板存在重复色相: ${[...new Set(dup)].join(', ')}`);
+  }
+
+  // 静态 HTML 中的 subject-card 不得带内联样式（JS 生成的知识卡颜色属内容级，归 T3-3）
+  const idxHtml2 = readFileSync(join(APP, 'index.html'), 'utf8');
+  const staticHtml = idxHtml2.replace(/<script[\s\S]*?<\/script>/g, '');
+  const inlineCards = [...staticHtml.matchAll(/<div class="subject-card[^"]*"[^>]*style="([^"]*)"/g)];
+  ok(inlineCards.length === 0,
+    inlineCards.length === 0
+      ? 'T3-1 六张学科卡全部走令牌类，静态 HTML 无内联 border-left'
+      : `T3-1 仍有学科卡使用内联样式: ${inlineCards.map((m) => m[1]).join(' | ')}`);
+  for (const s of SUBJECT_TOKENS) {
+    ok(new RegExp(`<div class="subject-card ${s}">`).test(staticHtml),
+      `T3-1 首页存在 .subject-card.${s} 卡片`);
+  }
+
+  // style.css 必须有 english 的卡片与导航规则；暗色必须保留学科色条
+  ok(/\.subject-card\.english\s*\{[^}]*border-left:\s*4px solid var\(--english\)/.test(style),
+    'T3-1 style.css 定义 .subject-card.english（border-left 走 --english 令牌）');
+  ok(/\.nav-btn-english\.active\s*\{[^}]*var\(--english\)/.test(style),
+    'T3-1 style.css 补齐 .nav-btn-english.active（此前英语导航按钮无高亮规则）');
+  const darkBorderKept = SUBJECT_TOKENS.filter((s) =>
+    new RegExp(`\\[data-theme="dark"\\] \\.subject-card\\.${s}\\s*\\{[^}]*border-left-color:\\s*var\\(--${s}\\)`).test(dark));
+  ok(darkBorderKept.length === SUBJECT_TOKENS.length,
+    darkBorderKept.length === SUBJECT_TOKENS.length
+      ? 'T3-1 暗色下六科学科色条均保留（不被 border-color 通用补丁拍平）'
+      : `T3-1 暗色下学科色条被拍平: ${SUBJECT_TOKENS.filter((s) => !darkBorderKept.includes(s)).join(', ')}`);
+}
+
 console.log(`\n结果: ${pass} passed, ${fail} failed`);
 process.exit(fail > 0 ? 1 : 0);

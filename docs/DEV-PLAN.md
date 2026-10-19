@@ -583,7 +583,7 @@ function getCE() { return window.ContentEnhancer; }
 
 ## Sprint 3 · 体系与体验（2 周，续接 v1.3 原计划）
 
-### T3-1 · P1-11/12 设计令牌闭环
+### T3-1 ✅已完成 · P1-11/12 设计令牌闭环
 
 - 首页 6 张卡片全部改用令牌类（`subject-card math` / `.chinese` / `.english`），删除内联 `style="border-left:…"`（`index.html:173,182,189`）
 - 新增 `--english` 令牌（`tokens.css`），并为 `--math` 换成与 `--physics` 不同的色相（当前两者同为 `#3b82f6`）
@@ -591,6 +591,32 @@ function getCE() { return window.ContentEnhancer; }
 - 补 `tokens.css` 头部声称的 `@import` 约定，或修正注释
 
 **验收**：6 科卡片色相互不相同；暗色模式下无内联色残留（grep 断言 `index.html` 中 `border-left:4px solid #` 为 0）。
+
+> **v1.4 执行结果**：
+> - **令牌**（浅色）：物理 `#3b82f6` / 化学 `#10b981` / 生物 `#f59e0b` / 语文 `#0ea5e9` /
+>   数学 `#ec4899` / 英语 `#8b5cf6`（新增）。`--math` 由与 `--physics` 撞色改为品红；
+>   `--chinese` 由 `#ec4899`（粉）修正为 `#0ea5e9`（天蓝）——原值与其导航按钮阴影
+>   `rgba(14,165,233)`、暗色令牌 `#38bdf8`、语文知识页标题色均不符，属令牌文件笔误
+> - **暗色令牌**同步六色互异；`--math` 由与暗色 `--chemistry` 撞色（同为 `#60a5fa`）
+>   改为 `#f9a8d4`，新增 `--english: #fca5a5`
+> - **顺手修复的连带缺陷**：① `.nav-btn-english` 在 HTML 存在但**无任何 CSS 规则**，
+>   英语导航按钮从未能高亮 → 补 `.nav-btn-english.active`；② 物/化/生三张卡的
+>   渐变底色与各自 border-left 令牌**错位一格**（物理卡渐变是平台紫、化学卡是物理蓝、
+>   生物卡是化学绿）→ 全部改为与本卡令牌同色相；③ 暗色通用补丁的
+>   `border-color !important` 会把六科学科色条**拍平**成 slate → 补 6 条
+>   `[data-theme="dark"] .subject-card.X { border-left-color: var(--X) !important; }`
+> - **`tokens.css` 头注释**：实际加载方式是 index.html 的 `<link>` 顺序
+>   （tokens → style → theme-dark），文件内并无 `@import`，注释已按事实修正
+> - **门禁**：`runtime-defer-check.mjs` 新增 14 项断言（89 → 103）：明暗两套色板
+>   各六令牌齐全且互异、静态 HTML 学科卡零内联样式、六张卡片类名在位、
+>   `.subject-card.english` / `.nav-btn-english.active` 规则在位、暗色色条六科全保留；
+>   四类注入（恢复内联样式 / 令牌撞色 / 删暗色色条规则 / 删英语导航规则）全部验证会 FAIL
+> - **视觉走查**：Edge 无头截图明暗双态，六卡色条在两种模式下均正确呈色
+>
+> **与验收标准的偏差（记录在案）**：验收写的「`index.html` 中 `border-left:4px solid #` 为 0」
+> 按**静态 HTML** 执行。JS 字符串里约 15 处 `knowledge-card` 内联色属**内容级装饰色**
+> （按知识点各异），且已被暗色通用补丁的 `border-color !important` 中和，不属于学科卡缺陷；
+> 其批量提取属 T3-3（hex 552 → <100）的范畴，未在本任务扩大改动面。
 
 ### T3-2 · P1-13 PWA manifest 修正
 
