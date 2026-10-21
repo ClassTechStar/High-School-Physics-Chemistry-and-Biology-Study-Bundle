@@ -350,7 +350,7 @@ var crossSubjectTopics = {
             '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;">';
         for (var i = 0; i < this.data.length; i++) {
             var t = this.data[i];
-            html += '<div onclick="crossSubjectTopics._showDetail(\'' + t.id + '\')" style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid ' + t.color + ';border-radius:10px;padding:16px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform=\'translateY(-3px)\';this.style.boxShadow=\'0 8px 20px rgba(0,0,0,0.1)\';" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'\';">' +
+            html += '<div data-call="crossSubjectTopics._showDetail" data-arg1="@s:' + t.id + '" style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid ' + t.color + ';border-radius:10px;padding:16px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" data-hover="transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1)" data-rest="transform:; box-shadow:">' +
                 '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
                 '<span style="font-size:1.8rem;">' + t.icon + '</span>' +
                 '<h4 style="margin:0;color:#0f172a;font-size:1.05rem;flex:1;">' + t.title + '</h4></div>' +
@@ -387,7 +387,7 @@ var crossSubjectTopics = {
         }
         if (!t) { this._backToList(); return; }
         var html = '<div style="padding:16px;">' +
-            '<button onclick="crossSubjectTopics._backToList()" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回专题列表</button>' +
+            '<button data-call=\"crossSubjectTopics._backToList\" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回专题列表</button>' +
             '<div style="background:linear-gradient(135deg,' + t.color + ',' + t.color + 'cc);color:#fff;padding:22px;border-radius:12px;margin-bottom:18px;">' +
             '<div style="display:flex;align-items:center;gap:12px;">' +
             '<span style="font-size:2.5rem;">' + t.icon + '</span>' +
@@ -431,7 +431,7 @@ var crossSubjectTopics = {
         if (!t) return;
         var html = '';
         for (var i = 0; i < t.example.options.length; i++) {
-            html += '<button onclick="crossSubjectTopics._answer(' + i + ')" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + t.example.options[i] + '</button>';
+            html += '<button data-call=\"crossSubjectTopics._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + t.example.options[i] + '</button>';
         }
         container.innerHTML = html;
     },
@@ -531,7 +531,7 @@ var techFrontiers = {
         for (var i = 0; i < allSubjects.length; i++) {
             var s = allSubjects[i];
             var active = (this.state.filter === s);
-            html += '<button onclick="techFrontiers._setFilter(\'' + s + '\')" style="background:' + (active ? '#7c3aed' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#7c3aed' : '#cbd5e1') + ';padding:6px 16px;border-radius:20px;cursor:pointer;font-size:0.88rem;">' + (s === 'all' ? '全部' : s) + '</button>';
+            html += '<button data-call="techFrontiers._setFilter" data-arg1="@s:' + s + '" style="background:' + (active ? '#7c3aed' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#7c3aed' : '#cbd5e1') + ';padding:6px 16px;border-radius:20px;cursor:pointer;font-size:0.88rem;">' + (s === 'all' ? '全部' : s) + '</button>';
         }
         html += '</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;">';
         var count = 0;
@@ -564,7 +564,7 @@ var techFrontiers = {
                 '<p style="margin:0 0 8px 0;font-size:0.82rem;color:#1f2937;line-height:1.5;">' + d.example.question + '</p>' +
                 '<div id="tf-opts-' + d.id + '" style="display:flex;flex-direction:column;gap:5px;">';
             for (var m = 0; m < d.example.options.length; m++) {
-                html += '<button onclick="techFrontiers._answer(\'' + d.id + '\',' + m + ')" data-idx="' + m + '" style="text-align:left;padding:6px 10px;background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:0.78rem;color:#475569;">' + d.example.options[m] + '</button>';
+                html += '<button data-call="techFrontiers._answer" data-arg1="@s:' + d.id + '" data-arg2="' + m + '" data-idx="' + m + '" style="text-align:left;padding:6px 10px;background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:0.78rem;color:#475569;">' + d.example.options[m] + '</button>';
             }
             html += '</div><div id="tf-ana-' + d.id + '" style="display:none;margin-top:8px;padding:8px;background:#f0fdf4;border-radius:4px;font-size:0.78rem;color:#166534;line-height:1.5;"><strong>解析：</strong>' + d.example.analysis + '</div></div></div></div>';
         }
@@ -689,7 +689,7 @@ var formulaDerivation = {
         for (var i = 0; i < keys.length; i++) {
             var f = this.data[keys[i]];
             var active = (this.state.formulaId === keys[i]);
-            html += '<button onclick="formulaDerivation._setFormula(\'' + keys[i] + '\')" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + f.icon + ' ' + f.name + '</button>';
+            html += '<button data-call="formulaDerivation._setFormula" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + f.icon + ' ' + f.name + '</button>';
         }
         html += '</div>';
         var cur = this.data[this.state.formulaId];
@@ -731,12 +731,12 @@ var formulaDerivation = {
             '<div style="font-size:0.85rem;color:' + cur.color + ';font-weight:600;margin-bottom:6px;">💡 当前步骤说明</div>' +
             '<p style="margin:0;color:#1e3a8a;line-height:1.7;font-size:0.9rem;">' + cur.steps[step].explain + '</p></div>' +
             '<div style="margin-top:16px;display:flex;gap:10px;justify-content:center;align-items:center;">' +
-            '<button onclick="formulaDerivation._prev()" ' + (step === 0 ? 'disabled' : '') + ' style="background:' + (step === 0 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === 0 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === 0 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">⬅ 上一步</button>' +
-            '<button onclick="formulaDerivation._togglePlay()" style="background:' + cur.color + ';color:#fff;border:0;padding:8px 22px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.playing ? '⏸ 暂停' : '▶ 自动播放') + '</button>' +
-            '<button onclick="formulaDerivation._next()" ' + (step === cur.steps.length - 1 ? 'disabled' : '') + ' style="background:' + (step === cur.steps.length - 1 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === cur.steps.length - 1 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === cur.steps.length - 1 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">下一步 ➡</button></div>' +
+            '<button data-call=\"formulaDerivation._prev\" ' + (step === 0 ? 'disabled' : '') + ' style="background:' + (step === 0 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === 0 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === 0 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">⬅ 上一步</button>' +
+            '<button data-call=\"formulaDerivation._togglePlay\" style="background:' + cur.color + ';color:#fff;border:0;padding:8px 22px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.playing ? '⏸ 暂停' : '▶ 自动播放') + '</button>' +
+            '<button data-call=\"formulaDerivation._next\" ' + (step === cur.steps.length - 1 ? 'disabled' : '') + ' style="background:' + (step === cur.steps.length - 1 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === cur.steps.length - 1 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === cur.steps.length - 1 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">下一步 ➡</button></div>' +
             '<div style="margin-top:14px;display:flex;gap:3px;justify-content:center;">';
         for (var i = 0; i < cur.steps.length; i++) {
-            html += '<div onclick="formulaDerivation._goto(' + i + ')" style="width:' + (i === step ? '28px' : '10px') + ';height:6px;background:' + (i === step ? cur.color : '#cbd5e1') + ';border-radius:3px;cursor:pointer;transition:width 0.3s;"></div>';
+            html += '<div data-call=\"formulaDerivation._goto\" data-arg1=\"@n:' + i + '" style="width:' + (i === step ? '28px' : '10px') + ';height:6px;background:' + (i === step ? cur.color : '#cbd5e1') + ';border-radius:3px;cursor:pointer;transition:width 0.3s;"></div>';
         }
         html += '</div></div></div></div>';
         app.innerHTML = html;
@@ -867,7 +867,7 @@ var physicsModelSim = {
         for (var i = 0; i < keys.length; i++) {
             var m = this.models[keys[i]];
             var active = (this.state.modelId === keys[i]);
-            html += '<button onclick="physicsModelSim._setModel(\'' + keys[i] + '\')" style="background:' + (active ? m.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? m.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + m.icon + ' ' + m.name + '</button>';
+            html += '<button data-call="physicsModelSim._setModel" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? m.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? m.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + m.icon + ' ' + m.name + '</button>';
         }
         html += '</div>';
         var cur = this.models[this.state.modelId];
@@ -879,8 +879,8 @@ var physicsModelSim = {
             html += '<label style="font-size:0.85rem;color:#475569;">' + p.label + ': ' +
                 '<input type="number" id="pm-' + p.key + '" value="' + this.state.params[p.key] + '" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" style="width:65px;padding:4px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.85rem;"></label>';
         }
-        html += '<button onclick="physicsModelSim._toggle()" style="background:' + cur.color + ';color:#fff;border:0;padding:7px 18px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.running ? '⏸ 暂停' : '▶ 播放') + '</button>' +
-            '<button onclick="physicsModelSim._reset()" style="background:#f1f5f9;color:#475569;border:0;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:0.9rem;">🔄 重置</button></div></div>' +
+        html += '<button data-call=\"physicsModelSim._toggle\" style="background:' + cur.color + ';color:#fff;border:0;padding:7px 18px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.running ? '⏸ 暂停' : '▶ 播放') + '</button>' +
+            '<button data-call=\"physicsModelSim._reset\" style="background:#f1f5f9;color:#475569;border:0;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:0.9rem;">🔄 重置</button></div></div>' +
             '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
             '<h4 style="margin:0 0 10px 0;color:#0f172a;">🎬 动态演示</h4>' +
             '<svg id="pm-svg" viewBox="0 0 600 220" style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' + this._renderScene() + '</svg></div>' +
@@ -1376,7 +1376,7 @@ var chemTransformNet = {
         for (var i = 0; i < keys.length; i++) {
             var f = this.data[keys[i]];
             var active = (this.state.familyId === keys[i]);
-            html += '<button onclick="chemTransformNet._setFamily(\'' + keys[i] + '\')" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:7px 14px;border-radius:8px;cursor:pointer;font-size:0.85rem;">' + f.icon + ' ' + f.name + '</button>';
+            html += '<button data-call="chemTransformNet._setFamily" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:7px 14px;border-radius:8px;cursor:pointer;font-size:0.85rem;">' + f.icon + ' ' + f.name + '</button>';
         }
         html += '</div>';
         var cur = this.data[this.state.familyId];
@@ -1393,13 +1393,13 @@ var chemTransformNet = {
             var mx = (n1.x + n2.x) / 2;
             var my = (n1.y + n2.y) / 2;
             var isSel = (this.state.selectedEdge === i);
-            html += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isSel ? cur.color : '#cbd5e1') + '" stroke-width="' + (isSel ? '2.5' : '1.5') + '" marker-end="url(#ct-arrow)" style="cursor:pointer;" onclick="chemTransformNet._clickEdge(' + i + ')"/>';
+            html += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isSel ? cur.color : '#cbd5e1') + '" stroke-width="' + (isSel ? '2.5' : '1.5') + '" marker-end="url(#ct-arrow)" style="cursor:pointer;" data-call=\"chemTransformNet._clickEdge\" data-arg1=\"@n:' + i + '"/>';
             html += '<text x="' + mx + '" y="' + (my - 4) + '" font-size="9" fill="' + (isSel ? cur.color : '#64748b') + '" text-anchor="middle" style="pointer-events:none;">' + e.cond + '</text>';
         }
         for (var i = 0; i < cur.nodes.length; i++) {
             var n = cur.nodes[i];
             var isSel = (this.state.selectedNode === n.id);
-            html += '<g style="cursor:pointer;" onclick="chemTransformNet._clickNode(\'' + n.id + '\')">' +
+            html += '<g style="cursor:pointer;" data-call="chemTransformNet._clickNode" data-arg1="@s:' + n.id + '">' +
                 '<circle cx="' + n.x + '" cy="' + n.y + '" r="26" fill="' + (isSel ? cur.color : '#fff') + '" stroke="' + cur.color + '" stroke-width="2"/>' +
                 '<text x="' + n.x + '" y="' + (n.y + 4) + '" font-size="11" fill="' + (isSel ? '#fff' : cur.color) + '" text-anchor="middle" font-weight="600">' + n.name + '</text></g>';
         }
@@ -1574,7 +1574,7 @@ var bioChartTrainer = {
         for (var i = 0; i < types.length; i++) {
             var t = types[i];
             var active = (this.state.filter === t);
-            html += '<button onclick="bioChartTrainer._setFilter(\'' + t + '\')" style="background:' + (active ? '#16a34a' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#16a34a' : '#cbd5e1') + ';padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;">' + (t === 'all' ? '全部' : t) + '</button>';
+            html += '<button data-call="bioChartTrainer._setFilter" data-arg1="@s:' + t + '" style="background:' + (active ? '#16a34a' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#16a34a' : '#cbd5e1') + ';padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;">' + (t === 'all' ? '全部' : t) + '</button>';
         }
         html += '</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;">';
         var count = 0;
@@ -1583,7 +1583,7 @@ var bioChartTrainer = {
             if (this.state.filter !== 'all' && d.type !== this.state.filter) continue;
             count++;
             var done = this.state.answered[d.id];
-            html += '<div onclick="bioChartTrainer._showDetail(\'' + d.id + '\')" style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:10px;padding:14px;cursor:pointer;">' +
+            html += '<div data-call="bioChartTrainer._showDetail" data-arg1="@s:' + d.id + '" style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:10px;padding:14px;cursor:pointer;">' +
                 '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
                 '<span style="font-size:1.5rem;">' + d.icon + '</span>' +
                 '<div><div style="font-weight:600;color:#0f172a;">' + d.type + ' #' + (i + 1) + '</div>' +
@@ -1620,7 +1620,7 @@ var bioChartTrainer = {
         }
         if (!d) { this._backToList(); return; }
         var html = '<div style="padding:16px;">' +
-            '<button onclick="bioChartTrainer._backToList()" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回题目列表</button>' +
+            '<button data-call=\"bioChartTrainer._backToList\" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回题目列表</button>' +
             '<div style="background:' + d.color + ';color:#fff;padding:14px 20px;border-radius:10px;margin-bottom:16px;">' +
             '<div style="display:flex;align-items:center;gap:10px;">' +
             '<span style="font-size:1.8rem;">' + d.icon + '</span>' +
@@ -1634,7 +1634,7 @@ var bioChartTrainer = {
             '<p style="margin:0 0 12px 0;color:#1f2937;line-height:1.7;font-size:0.92rem;">' + d.question + '</p>' +
             '<div id="bc-opts" style="display:flex;flex-direction:column;gap:7px;">';
         for (var i = 0; i < d.options.length; i++) {
-            html += '<button onclick="bioChartTrainer._answer(' + i + ')" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + d.options[i] + '</button>';
+            html += '<button data-call=\"bioChartTrainer._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + d.options[i] + '</button>';
         }
         html += '</div><div id="bc-analysis" style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:6px;border-left:3px solid #16a34a;">' +
             '<strong style="color:#15803d;">解析：</strong>' +

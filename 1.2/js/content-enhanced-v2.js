@@ -102,7 +102,7 @@ function step1SelectQuestion(){
         var active = state.selectedFramework === fw;
         html += '<button data-framework="'+fw+'" style="'+
             'padding:6px 14px;margin-right:8px;margin-bottom:6px;border:2px solid #ddd;border-radius:20px;background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#333')+';cursor:pointer;font-size:13px;'+
-            '" onclick="window.frameworkAnswerTrainer._selectFramework(\''+fw+'\')">'+fw+'</button>';
+            '" data-call="window.frameworkAnswerTrainer._selectFramework" data-arg1="@s:' + fw + '">'+fw+'</button>';
     }
     html += '</div>';
 
@@ -114,7 +114,7 @@ function step1SelectQuestion(){
         var q = filtered[j];
         var records = loadRecords();
         var done = records[q.id];
-        html += '<div data-qid="'+q.id+'" onclick="window.frameworkAnswerTrainer._selectQuestion(\''+q.id+'\')" style="'+
+        html += '<div data-qid="'+q.id+'" data-call="window.frameworkAnswerTrainer._selectQuestion" data-arg1="@s:' + q.id + '" style="'+
             'padding:12px 14px;margin-bottom:8px;border:2px solid '+(state.selectedQuestion&&state.selectedQuestion.id===q.id?'#1a73e8':'#e0e0e0')+';border-radius:10px;cursor:pointer;background:'+(state.selectedQuestion&&state.selectedQuestion.id===q.id?'#e8f0fe':'#fff')+';transition:all 0.2s;'+
             '">';
         html += '<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:4px;">';
@@ -128,7 +128,7 @@ function step1SelectQuestion(){
     html += '</div>';
 
     // 继续按钮
-    html += '<button onclick="window.frameworkAnswerTrainer._goStep2()" style="'+
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" style="'+
         'margin-top:16px;padding:10px 28px;background:'+(state.selectedQuestion?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(state.selectedQuestion?'pointer':'not-allowed')+';'+
         '" '+(state.selectedQuestion?'':'disabled')+'>下一步：填写框架</button>';
 
@@ -160,15 +160,15 @@ function step2FillFramework(){
         html += '<div style="font-weight:600;color:#333;margin-bottom:6px;">步骤'+idx+'：'+steps[i]+'</div>';
         html += '<textarea id="fw-input-'+i+'" placeholder="请输入'+steps[i]+'的内容..." style="'+
             'width:100%;min-height:70px;padding:10px 12px;border:2px solid #ddd;border-radius:8px;font-size:14px;resize:vertical;box-sizing:border-box;'+
-            'line-height:1.6;font-family:inherit;" oninput="window.frameworkAnswerTrainer._onInput('+i+',this.value)">'+(state.userAnswers[i]||'')+'</textarea>';
+            'line-height:1.6;font-family:inherit;" data-call=\"window.frameworkAnswerTrainer._onInput\" data-arg1=\"@n:'+i+'" data-arg2=\"@val\">'+(state.userAnswers[i]||'')+'</textarea>';
         html += '</div>';
     }
 
     html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button onclick="window.frameworkAnswerTrainer._goStep1()" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 上一步</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep1\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 上一步</button>';
     var allFilled = true;
     for(var k=0;k<steps.length;k++){ if(!state.userAnswers[k]||state.userAnswers[k].trim()===''){allFilled=false;break;} }
-    html += '<button onclick="window.frameworkAnswerTrainer._submit()" style="padding:10px 28px;background:'+(allFilled?'#0d7a3e':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(allFilled?'pointer':'not-allowed')+';" '+(allFilled?'':'disabled')+'>提交并查看对比</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._submit\" style="padding:10px 28px;background:'+(allFilled?'#0d7a3e':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(allFilled?'pointer':'not-allowed')+';" '+(allFilled?'':'disabled')+'>提交并查看对比</button>';
     html += '</div>';
 
     html += '</div>';
@@ -218,8 +218,8 @@ function step3Compare(){
     }
 
     html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button onclick="window.frameworkAnswerTrainer._goStep2()" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回修改</button>';
-    html += '<button onclick="window.frameworkAnswerTrainer._goStep4()" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">查看详细解析 →</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回修改</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep4\" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">查看详细解析 →</button>';
     html += '</div>';
 
     html += '</div>';
@@ -305,8 +305,8 @@ function step4Analysis(){
     html += '</div>';
 
     html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button onclick="window.frameworkAnswerTrainer._goStep3()" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回对比</button>';
-    html += '<button onclick="window.frameworkAnswerTrainer._reset()" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">做下一题</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep3\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回对比</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._reset\" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">做下一题</button>';
     html += '</div>';
 
     html += '</div>';
@@ -412,7 +412,7 @@ window.frameworkAnswerTrainer = trainer;
             container.innerHTML = '<div style="padding:40px;text-align:center;color:#d32f2f;">' +
                 '<div style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
                 '<div>题库加载失败，请检查网络后重试</div>' +
-                '<button onclick="window.frameworkAnswerTrainer._retry()" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+                '<button data-call=\"window.frameworkAnswerTrainer._retry\" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
                 '</div>';
         });
 })();
@@ -632,7 +632,7 @@ function renderExperimentTable(){
     for(var i=0;i<subjects.length;i++){
         var s = subjects[i];
         var active = etState.currentSubject===s;
-        html += '<div onclick="window.experimentTable._switchSubject(\''+s+'\')" style="'+
+        html += '<div data-call="window.experimentTable._switchSubject" data-arg1="@s:' + s + '" style="'+
             'flex:1;text-align:center;padding:12px 8px;cursor:pointer;font-weight:'+(active?'700':'400')+';'+
             'color:'+(active?SUBJECT_COLORS[s]:'#999')+';border-bottom:'+(active?'3px solid '+SUBJECT_COLORS[s]:'3px solid transparent')+';'+
             'margin-bottom:-3px;transition:all 0.2s;font-size:15px;">'+s+'实验 ('+EXPERIMENTS[s].length+'个)</div>';
@@ -642,7 +642,7 @@ function renderExperimentTable(){
     // 工具栏
     html += '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px;">';
     // 筛选
-    html += '<select onchange="window.experimentTable._filterModule(this.value)" style="padding:6px 12px;border:2px solid #ddd;border-radius:8px;font-size:13px;cursor:pointer;">';
+    html += '<select data-call=\"window.experimentTable._filterModule\" data-arg1=\"@val\" style="padding:6px 12px;border:2px solid #ddd;border-radius:8px;font-size:13px;cursor:pointer;">';
     html += '<option value="all">全部实验</option>';
     var mods = getModulesForSubject(etState.currentSubject);
     for(var m=0;m<mods.length;m++){
@@ -650,9 +650,9 @@ function renderExperimentTable(){
     }
     html += '</select>';
     // 全覆盖按钮
-    html += '<button onclick="window.experimentTable._toggleAll()" style="padding:6px 16px;border:2px solid '+color+';border-radius:8px;background:#fff;color:'+color+';cursor:pointer;font-size:13px;">'+(etState.expandedAll?'全部收起':'全部展开')+'</button>';
+    html += '<button data-call=\"window.experimentTable._toggleAll\" style="padding:6px 16px;border:2px solid '+color+';border-radius:8px;background:#fff;color:'+color+';cursor:pointer;font-size:13px;">'+(etState.expandedAll?'全部收起':'全部展开')+'</button>';
     // 导出按钮
-    html += '<button onclick="window.experimentTable._exportAll()" style="padding:6px 16px;border:2px solid #28a745;border-radius:8px;background:#fff;color:#28a745;cursor:pointer;font-size:13px;">📋 导出纯文本</button>';
+    html += '<button data-call=\"window.experimentTable._exportAll\" style="padding:6px 16px;border:2px solid #28a745;border-radius:8px;background:#fff;color:#28a745;cursor:pointer;font-size:13px;">📋 导出纯文本</button>';
     html += '</div>';
 
     // 实验列表
@@ -663,7 +663,7 @@ function renderExperimentTable(){
         var isOpen = etState.expandedAll;
         html += '<div style="margin-bottom:8px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;">';
         // 标题栏
-        html += '<div onclick="window.experimentTable._toggleExperiment(\''+exp.id+'\')" style="'+
+        html += '<div data-call="window.experimentTable._toggleExperiment" data-arg1="@s:' + exp.id + '" style="'+
             'padding:10px 14px;background:'+color+';color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">';
         html += '<span style="font-weight:600;font-size:14px;">'+(j+1)+'. '+exp['实验目的']+'</span>';
         html += '<span style="font-size:12px;opacity:0.9;">'+exp.module+' '+(isOpen?'▲':'▼')+'</span>';
@@ -905,7 +905,7 @@ function renderThinkingChain(){
     for(var i=0;i<subFilters.length;i++){
         var sf = subFilters[i];
         var active = tcState.selectedSubject===sf;
-        html += '<button onclick="window.thinkingChain._filterSubject(\''+sf+'\')" style="'+
+        html += '<button data-call="window.thinkingChain._filterSubject" data-arg1="@s:' + sf + '" style="'+
             'padding:3px 10px;border:1px solid '+(active?'#1a73e8':'#ddd')+';border-radius:14px;font-size:11px;'+
             'background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#555')+';cursor:pointer;">'+(sf==='all'?'全部':sf)+'</button>';
     }
@@ -914,7 +914,7 @@ function renderThinkingChain(){
         var q = THINKING_QUESTIONS[j];
         if(tcState.selectedSubject!=='all' && q.subject!==tcState.selectedSubject) continue;
         var isSelected = tcState.currentQuestion && tcState.currentQuestion.id===q.id;
-        html += '<div onclick="window.thinkingChain._selectQuestion(\''+q.id+'\')" style="'+
+        html += '<div data-call="window.thinkingChain._selectQuestion" data-arg1="@s:' + q.id + '" style="'+
             'padding:10px 12px;border-bottom:1px solid #eee;cursor:pointer;'+
             'background:'+(isSelected?'#e8f0fe':'#fff')+';border-left:'+(isSelected?'4px solid #1a73e8':'4px solid transparent')+';">';
         html += '<div style="font-size:11px;color:#888;">'+q.subject+' · '+q.year+'</div>';
@@ -966,11 +966,11 @@ function renderThinkingChain(){
     // 底部：控制栏
     if(tcState.currentQuestion){
         html += '<div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:12px;background:#f5f5f5;border-top:1px solid #e0e0e0;">';
-        html += '<button onclick="window.thinkingChain._prevStep()" style="padding:8px 18px;background:'+(tcState.currentStepIndex>0?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex>0?'pointer':'default')+';" '+(tcState.currentStepIndex>0?'':'disabled')+'>◀ 上一步</button>';
+        html += '<button data-call=\"window.thinkingChain._prevStep\" style="padding:8px 18px;background:'+(tcState.currentStepIndex>0?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex>0?'pointer':'default')+';" '+(tcState.currentStepIndex>0?'':'disabled')+'>◀ 上一步</button>';
         html += '<span style="font-size:13px;color:#555;">步骤 '+(tcState.currentStepIndex+1)+' / '+tcState.currentQuestion.thinkingSteps.length+'</span>';
-        html += '<button onclick="window.thinkingChain._nextStep()" style="padding:8px 18px;background:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'pointer':'default')+';" '+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'':'disabled')+'>下一步 ▶</button>';
-        html += '<button onclick="window.thinkingChain._autoPlay()" style="padding:8px 18px;background:'+(tcState.autoPlaying?'#e53935':'#0d7a3e')+';color:#fff;border:none;border-radius:6px;cursor:pointer;">'+(tcState.autoPlaying?'⏸ 停止':'▶ 自动播放')+'</button>';
-        html += '<button onclick="window.thinkingChain._showAnswer()" style="padding:8px 18px;background:#7b1fa2;color:#fff;border:none;border-radius:6px;cursor:pointer;">📝 完整答案</button>';
+        html += '<button data-call=\"window.thinkingChain._nextStep\" style="padding:8px 18px;background:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'pointer':'default')+';" '+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'':'disabled')+'>下一步 ▶</button>';
+        html += '<button data-call=\"window.thinkingChain._autoPlay\" style="padding:8px 18px;background:'+(tcState.autoPlaying?'#e53935':'#0d7a3e')+';color:#fff;border:none;border-radius:6px;cursor:pointer;">'+(tcState.autoPlaying?'⏸ 停止':'▶ 自动播放')+'</button>';
+        html += '<button data-call=\"window.thinkingChain._showAnswer\" style="padding:8px 18px;background:#7b1fa2;color:#fff;border:none;border-radius:6px;cursor:pointer;">📝 完整答案</button>';
         html += '</div>';
     }
 
@@ -1210,7 +1210,7 @@ function renderVariationRecommender(){
         var active = vrState.selectedGroup===g;
         var count = 0;
         for(var k=0;k<bank.length;k++){ if(bank[k].knowledge===g) count++; }
-        html += '<div onclick="window.variationRecommender._selectGroup(\''+g+'\')" style="'+
+        html += '<div data-call="window.variationRecommender._selectGroup" data-arg1="@s:' + g + '" style="'+
             'padding:10px 12px;border-bottom:1px solid #eee;cursor:pointer;'+
             'background:'+(active?'#e8f0fe':'#fff')+';border-left:'+(active?'4px solid '+getSubjectColor2(subj):'4px solid transparent')+';">';
         html += '<div style="font-size:12px;color:'+getSubjectColor2(subj)+';font-weight:600;">'+subj+'</div>';
@@ -1238,7 +1238,7 @@ function renderVariationRecommender(){
 
             html += '<div style="margin-bottom:12px;border:2px solid '+(isSelected?subjCol:'#e0e0e0')+';border-radius:10px;overflow:hidden;">';
             // 题目标题
-            html += '<div onclick="window.variationRecommender._selectVarQuestion(\''+gq.id+'\')" style="'+
+            html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + gq.id + '" style="'+
                 'padding:10px 14px;background:'+(isSelected?subjCol:'#f5f5f5')+';color:'+(isSelected?'#fff':'#333')+';cursor:pointer;font-size:13px;font-weight:600;">';
             html += (qi+1)+'. '+gq.title;
             html += '<span style="float:right;font-size:11px;opacity:0.8;margin-left:8px;">难度：'+gq.difficulty+'</span>';
@@ -1261,7 +1261,7 @@ function renderVariationRecommender(){
                         var isWrong = vrState.showAnswer[gq.id] && userChoice===ok && ok!==gq.answer;
                         var bgColor = isCorrect?'#e8f5e9':(isWrong?'#ffebee':'#fafafa');
                         var borderColor = isCorrect?'#4caf50':(isWrong?'#e53935':'#e0e0e0');
-                        html += '<div onclick="window.variationRecommender._chooseOption(\''+gq.id+'\',\''+ok+'\')" style="'+
+                        html += '<div data-call="window.variationRecommender._chooseOption" data-arg1="@s:' + gq.id + '" data-arg2="@s:' + ok + '" style="'+
                             'padding:8px 12px;margin-bottom:4px;border:1px solid '+borderColor+';border-radius:6px;'+
                             'background:'+bgColor+';cursor:pointer;font-size:13px;">';
                         html += ok+'. '+opts[ok];
@@ -1273,14 +1273,14 @@ function renderVariationRecommender(){
                 }
                 // 按钮
                 if(!vrState.showAnswer[gq.id]){
-                    html += '<button onclick="window.variationRecommender._checkAnswer(\''+gq.id+'\')" style="'+
+                    html += '<button data-call="window.variationRecommender._checkAnswer" data-arg1="@s:' + gq.id + '" style="'+
                         'padding:8px 20px;background:'+subjCol+';color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">提交答案</button>';
                 } else {
                     html += '<div style="background:#f0f4ff;padding:10px 14px;border-radius:8px;margin-top:8px;">';
                     html += '<div style="font-size:12px;color:'+subjCol+';font-weight:600;">📝 解析</div>';
                     html += '<div style="font-size:13px;color:#555;line-height:1.6;">'+gq.explanation+'</div>';
                     html += '</div>';
-                    html += '<button onclick="window.variationRecommender._resetQuestion(\''+gq.id+'\')" style="'+
+                    html += '<button data-call="window.variationRecommender._resetQuestion" data-arg1="@s:' + gq.id + '" style="'+
                         'margin-top:8px;padding:6px 16px;background:#fff;color:#555;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;">重新作答</button>';
                 }
                 html += '</div>';
@@ -1300,7 +1300,7 @@ function renderVariationRecommender(){
         if(related.length>0){
             for(var ri=0;ri<related.length;ri++){
                 var rq = related[ri].question;
-                html += '<div onclick="window.variationRecommender._selectVarQuestion(\''+rq.id+'\')" style="'+
+                html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + rq.id + '" style="'+
                     'padding:8px 10px;margin-bottom:6px;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;'+
                     'background:#fff;transition:all 0.15s;">';
                 html += '<div style="font-size:12px;font-weight:600;color:#333;">'+rq.title+'</div>';
@@ -1388,7 +1388,7 @@ window.variationRecommender = vrModule;
             container.innerHTML = '<div style="padding:40px;text-align:center;color:#d32f2f;">' +
                 '<div style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
                 '<div>变式题库加载失败，请检查网络后重试</div>' +
-                '<button onclick="window.variationRecommender._retry()" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+                '<button data-call=\"window.variationRecommender._retry\" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
                 '</div>';
         });
 })();

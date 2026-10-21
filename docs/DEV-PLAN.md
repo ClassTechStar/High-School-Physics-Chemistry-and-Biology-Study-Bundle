@@ -725,10 +725,10 @@ function getCE() { return window.ContentEnhancer; }
 >    （比截图走查更严：覆盖 17 个颜色 longhand × 6 个伪元素态 × 全部元素），
 >    截图走查留待人工抽检
 
-### T3-4 · T11 模块合并 / T12 CSP 收紧 — 🟡 部分完成（T11 评估完成 / T12 静态部分完成）
+### T3-4 · T11 模块合并 / T12 CSP 收紧 — 🟡 部分完成（T11 评估完成 / T12 A+C 类已完成，B 块外置待办）
 
 - T11：按 T2-4 的结论重估工作量；合并必须有逐模块回归（`smoke-app.mjs` 覆盖 47/47 是前提）
-- T12：先把 `index.html` 的 32 处内联 `onclick` 改为事件委托，才能移除 `unsafe-inline`
+- T12：先把内联事件属性（静态 HTML + JS 生成，实测 A 2 处 + C 371+25 处——**非原文所称「32 处内联 onclick」**，见下方勘察结论）改为事件委托，才能移除 `unsafe-inline`
 
 #### T11 评估结论（v1.4，实测口径）
 
@@ -759,20 +759,22 @@ function getCE() { return window.ContentEnhancer; }
 | 分类 | 管辖指令 | 实测| 说明 |
 | --- | --- | --- | --- |
 | **A. 静态 HTML 内联事件属性** | `script-src` | **2 → 0** ✅ | `onclick="toggleTheme()"`（主题按钮）+ `onkeyup="chineseSearch()"`（语文搜索框）。前次勘察只搜 `onclick` 漏掉 `onkeyup`，且未剥离 6 个内联 `<script>` 块内的字符串模板 |
-| **B. 内联 `<script>` 块** | `script-src` | **6 块 / 2481 行** | #1 全局错误兜底 44 · #2 主题引导 32（**须 body 渲染前同步执行，否则首屏闪白**）· #3 主逻辑 2261（最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
-| **C. JS 生成的内联事件属性** | `script-src` | **js/ 371 处 + index.html 内联脚本内 25 处** | `js/*.js` 分布：click 307 / change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1。**这部分才是移除 `unsafe-inline` 的真实主体工作量**，DEV-PLAN 的「32 处」严重低估 |
-| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3684 + `cssText` 41 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
+| **B. 内联 `<script>` 块** | `script-src` | **6 块 / 2512 行** | #1 全局错误兜底 44 · #2 主题引导 32（**须 body 渲染前同步执行，否则首屏闪白**）· #3 主逻辑 2292（含 T3-4d 插入的 3 个计算器函数与 quickTool；最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
+| **C. JS 生成的内联事件属性** | `script-src` | **js/ 0 处 + index.html 内联脚本内 0 处** ✅（T3-4d 清零，原为 js/ 371 + index 25） | 原分布：click 307 / change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1（js 侧）。**这部分曾是移除 `unsafe-inline` 的真实主体工作量**，DEV-PLAN 的「32 处」严重低估 |
+| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3672 + `cssText` 41 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
 
 **分步路线（script-src 去 `unsafe-inline`）**：
 
 1. ✅ **A 类清零**（本次已完成）——静态 HTML 标签上不再有任何 `on*` 属性
-2. ⬜ **C 类改造**（主体工作量，371 + 25 处）——按 `data-action` 约定改委托；
-   `js/*.js` 已有的 `data-action` 机制（english-tools 26 处 / english-vocabulary 17 处 /
-   global-search 1 处）可直接复用模式
-3. ⬜ **B 块外置**（2481 行）——#3 主逻辑 2261 行需抽为 `js/main-inline.js`；
+2. ✅ **C 类改造**（T3-4d 完成，371 + 25 处 → 0）——新增委托中枢 `js/csp-delegation.js`
+   （`data-call="NS.method"` + `data-arg1..N` 编码集 + `data-hook` 事件委托），
+   沿用并泛化了 `js/*.js` 已有的 `data-action` 模式（english-tools / english-vocabulary /
+   global-search）
+3. ⬜ **B 块外置**（2512 行）——#3 主逻辑 2292 行需抽为 `js/main-inline.js`；
    #2 主题引导（32 行）**不能简单外置**，它必须在 `<body>` 渲染前同步执行以防闪白，
    须改为「外部脚本 + 阻塞 `<script>`（无defer）或 CSS 预置dark 兜底」
-4. ⬜ 门禁加严：`check:csp` 的 A1 断言已是硬门禁；待C/B 完成后追加断言并收紧 meta CSP
+4. 🟡 **门禁加严**：`check:csp` 现行 5 条断言（A1/A2/A3 + T3-4d 追加的 C1/C2）已是硬门禁；
+   待 B 块外置后追加 B 类断言并收紧 meta CSP
 
 **已落地的改造（T3-4c）**：
 
@@ -782,10 +784,35 @@ function getCE() { return window.ContentEnhancer; }
   （注册在主 IIFE 内 `chineseSearch` 定义之后）
 - **委托必须挂在对应 IIFE 内而非 `app.js` 的 `DOMContentLoaded`**——两个触发元素都位于
   该 IIFE 所在 `<script>` 之前，等 `DOMContentLoaded` 会导致首屏交互无响应
-- `window.toggleTheme` **保留导出**（`js/*.js` 的 371 处事件属性仍引用它）
-- 新增门禁 `scripts/check-csp-inline.mjs`（`check:csp`）——3 条断言：
+- `window.toggleTheme` **保留导出**（`data-action` 委托处理器与外部调用方仍引用它；
+  T3-4d 后 `js/*.js` 已无事件属性引用）
+- 新增门禁 `scripts/check-csp-inline.mjs`（`check:csp`）——初版 3 条断言：
   A1 静态内联事件属性 = 0 / A2 两个 `data-action` 标记各1 处 / A3 `window.toggleTheme` 仍导出。
   该脚本同时输出 A/B/C/D 四类完整清点，供后续改造跟踪基线
+
+#### 已落地的改造（T3-4d）——C 类清零
+
+- **新增委托中枢 `1.2/js/csp-delegation.js`**（非 defer，先于内联块执行）：
+  `data-call="NS.method"` + `data-arg1..N` 声明式调用，参数编码集
+  `@el` / `@ev` / `@val` / `@valn` / `@chk` / `@txt` / `@doc:ID` / `@docval:ID` /
+  `@s:TEXT` / `@n:N` / 裸数字 / `null` / `undefined` / `true` / `false`；
+  `data-hook` 承载事件类型（click / keypress 等），`HSPCBEV.on()` 统一注册。
+  静态文本类（纯样式切换）走 `data-hover` / `data-rest`，不经委托
+- **index.html 内联脚本内 25 处 → 0**：3 个计算器按钮改 `data-call`（函数体原样搬入
+  `#3` 块尾部为具名函数，`\uXXXX` 转义 194 处全保留）/ 17 个实验卡片标题改
+  `data-hook="exp-card-toggle"` / 3 个快捷工具按钮改 `data-call="quickTool"`
+- **js/*.js 371 处 → 0**：20 个文件的字符串模板 `onclick="fn(...)"` 全部改写为
+  `data-call` + `data-argN`；`this.value` → `@val`、`this` 首参 → `@el`、
+  keypress 回车 → `HSPCBEV.on('keypress', ...)` + `ev.key === 'Enter'`
+- **转换缺陷修复 13 处**（`fix-data-args.js`，7 个文件）：插值未外移的
+  `data-argN="@s:+X+"`（运行时传字面量 `+X+`）统一改为 `@n:'+X+'`；
+  修复后缺陷形态复扫 0，13/13 桩实跑生成 `data-argN="@n:<数字>"`
+- **顺带修复 2 项存量 bug**（透镜计算器，index.html 2734 行，详见 ERRATA）：
+  ① 5 个三元字符串缺 opening quote，浏览器模拟实证「自上线起编译失败、从未可用」；
+  ② `var m=v/u` 缺负号，实像/虚像场景正倒立输出颠倒（与页面自有参考文本矛盾）
+- 门禁追加 C1（js/*.js = 0）/ C2（index.html 内联脚本内 = 0）两条断言；
+  `npm run verify` 九阶段全绿（data PASS / theme 6 / csp 5/5 / lint 9+2 基线 /
+  content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）
 
 ### T3-5 · 内容扩充（需人力，非代码） — ✅ 代码侧结项（缺口量化 + 规范 + 门禁；**题目内容待人力**）
 

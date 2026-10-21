@@ -603,7 +603,7 @@ const chemistryQuizGenerator = {
                 <div class="question-text">${q.question}</div>
                 <div class="quiz-options">
                     ${q.options.map((opt, optIdx) => `
-                        <div class="quiz-option" data-option="${optIdx}" onclick="checkAnswer(${idx}, ${optIdx})">
+                        <div class="quiz-option" data-option="${optIdx}" data-call="checkAnswer" data-arg1="${idx}" data-arg2="${optIdx}">
                             ${String.fromCharCode(65 + optIdx)}. ${opt}
                         </div>
                     `).join('')}
@@ -684,11 +684,11 @@ function renderChemistryBalancer() {
                     placeholder="例如: Fe + O2 -> Fe2O3"
                     value="Fe + O2 -> Fe2O3">
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="balanceEquation()">配平方程</button>
-                    <button class="btn btn-secondary" onclick="loadPreset('h2o')">2H2 + O2 → 2H2O</button>
-                    <button class="btn btn-secondary" onclick="loadPreset('fe+o2')">Fe + O2 → Fe2O3</button>
-                    <button class="btn btn-secondary" onclick="loadPreset('naoh+hcl')">NaOH + HCl → NaCl + H2O</button>
-                    <button class="btn btn-secondary" onclick="loadPreset('combustion')">C6H12O6 + O2 → CO2 + H2O</button>
+                    <button class="btn btn-primary" data-call=\"balanceEquation\">配平方程</button>
+                    <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:h2o\">2H2 + O2 → 2H2O</button>
+                    <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:fe+o2\">Fe + O2 → Fe2O3</button>
+                    <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:naoh+hcl\">NaOH + HCl → NaCl + H2O</button>
+                    <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:combustion\">C6H12O6 + O2 → CO2 + H2O</button>
                 </div>
             </div>
 
@@ -840,23 +840,23 @@ function renderChemistryQuiz() {
             <div class="app-section">
                 <h3>📝 选择题型（可多选）</h3>
                 <div class="quiz-type-selector">
-                    <div class="quiz-type-btn selected" data-type="ionCoexistence" onclick="toggleQuizType(this)">
+                    <div class="quiz-type-btn selected" data-type="ionCoexistence" data-call=\"toggleQuizType\" data-arg1=\"@el\">
                         <div class="icon">🧪</div>
                         <div class="label">离子共存</div>
                     </div>
-                    <div class="quiz-type-btn selected" data-type="naQuestions" onclick="toggleQuizType(this)">
+                    <div class="quiz-type-btn selected" data-type="naQuestions" data-call=\"toggleQuizType\" data-arg1=\"@el\">
                         <div class="icon">🔢</div>
                         <div class="label">NA计算</div>
                     </div>
-                    <div class="quiz-type-btn selected" data-type="electrochemistry" onclick="toggleQuizType(this)">
+                    <div class="quiz-type-btn selected" data-type="electrochemistry" data-call=\"toggleQuizType\" data-arg1=\"@el\">
                         <div class="icon">⚡</div>
                         <div class="label">电化学</div>
                     </div>
-                    <div class="quiz-type-btn selected" data-type="reactionProcess" onclick="toggleQuizType(this)">
+                    <div class="quiz-type-btn selected" data-type="reactionProcess" data-call=\"toggleQuizType\" data-arg1=\"@el\">
                         <div class="icon">📊</div>
                         <div class="label">反应历程图</div>
                     </div>
-                    <div class="quiz-type-btn selected" data-type="experimentOperation" onclick="toggleQuizType(this)">
+                    <div class="quiz-type-btn selected" data-type="experimentOperation" data-call=\"toggleQuizType\" data-arg1=\"@el\">
                         <div class="icon">🔬</div>
                         <div class="label">实验操作</div>
                     </div>
@@ -869,7 +869,7 @@ function renderChemistryQuiz() {
                         <option value="10">10题</option>
                     </select>
                 </div>
-                <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="generateNewQuiz()">
+                <button class="btn btn-primary btn-block" style="margin-top: 20px;" data-call=\"generateNewQuiz\">
                     🎲 生成新的小练习
                 </button>
             </div>
@@ -1327,9 +1327,9 @@ const chemistrySafetySystem = {
             </div>
 
             <div class="safety-toolbar">
-                <button class="st-btn ${this.state.showEmergency?'st-act':''}" onclick="chemistrySafetySystem.toggleEmergency()">🚑 应急处理指南</button>
-                <button class="st-btn ${this.state.showRules?'st-act':''}" onclick="chemistrySafetySystem.toggleRules()">📖 安全规则库(${this.rules.length}条)</button>
-                <button class="st-btn" onclick="chemistrySafetySystem.exportReport()">📄 导出报告</button>
+                <button class="st-btn ${this.state.showEmergency?'st-act':''}" data-call=\"chemistrySafetySystem.toggleEmergency\">🚑 应急处理指南</button>
+                <button class="st-btn ${this.state.showRules?'st-act':''}" data-call=\"chemistrySafetySystem.toggleRules\">📖 安全规则库(${this.rules.length}条)</button>
+                <button class="st-btn" data-call=\"chemistrySafetySystem.exportReport\">📄 导出报告</button>
             </div>
 
             ${this.state.showEmergency ? `
@@ -1369,7 +1369,7 @@ const chemistrySafetySystem = {
                 <div class="exp-buttons">
                     ${expNames.map(name => {
                         const e = this.experiments[name];
-                        return '<button class="exp-btn '+(this.state.currentExperiment===name?'exp-active':'')+'" onclick="chemistrySafetySystem.selectExperiment(\''+name+'\')">' +
+                        return '<button class="exp-btn '+(this.state.currentExperiment===name?'exp-active':'')+'" data-call="chemistrySafetySystem.selectExperiment" data-arg1="@s:' + name + '">' +
                             '<span class="eb-icon">'+e.icon+'</span>' +
                             '<span class="eb-name">'+name+'</span>' +
                             '<span class="eb-diff">'+('⭐'.repeat(e.difficulty))+'</span>' +
@@ -1392,7 +1392,7 @@ const chemistrySafetySystem = {
                         <div class="steps-list">
                             ${exp.steps.map((step, i) => {
                                 const done = this.state.selectedSteps.includes(i);
-                                return '<div class="step-item '+(done?'step-done':'')+'" onclick="chemistrySafetySystem.selectStep('+i+')">' +
+                                return '<div class="step-item '+(done?'step-done':'')+'" data-call=\"chemistrySafetySystem.selectStep\" data-arg1=\"@n:'+i+'">' +
                                     '<span class="step-num">'+(i+1)+'</span>' +
                                     '<span class="step-text">'+step.text+'</span>' +
                                     (done ? '<span class="step-check">✓</span>' : '<span class="step-hint">点击执行</span>') +
@@ -1404,7 +1404,7 @@ const chemistrySafetySystem = {
                         <h5 class="danger-heading">❌ 危险操作（点击查看后果）</h5>
                         <div class="danger-steps">
                             ${exp.dangerSteps.map((step, i) => `
-                                <div class="danger-step" onclick="chemistrySafetySystem.selectDangerStep(${i})">
+                                <div class="danger-step" data-call="chemistrySafetySystem.selectDangerStep" data-arg1="${i}">
                                     <span class="ds-icon">⚠️</span>
                                     <span class="ds-text">${step.text}</span>
                                     <span class="ds-hint">点击查看</span>
@@ -1418,14 +1418,14 @@ const chemistrySafetySystem = {
                         <h5>📝 自由操作记录</h5>
                         <div class="quick-ops">
                             <input type="text" id="op-input" placeholder="输入您的操作步骤..."
-                                   onkeypress="if(event.key==='Enter')chemistrySafetySystem.logOperation(this.value)">
-                            <button class="btn btn-primary" onclick="chemistrySafetySystem.logOperation(document.getElementById('op-input').value)">记录</button>
+                                   data-hook="op-log-enter">
+                            <button class="btn btn-primary" data-call=\"chemistrySafetySystem.logOperation\" data-arg1=\"@docval:op-input\">记录</button>
                         </div>
                         <div class="common-ops">
                             <p>快捷操作：</p>
                             <div class="op-chips">
                                 ${this._getQuickOps().map(op =>
-                                    '<button class="op-chip" onclick="chemistrySafetySystem.logOperation(\''+op.text+'\')">'+op.label+'</button>'
+                                    '<button class="op-chip" data-call="chemistrySafetySystem.logOperation" data-arg1="@s:' + op.text + '">'+op.label+'</button>'
                                 ).join('')}
                             </div>
                         </div>
@@ -1452,8 +1452,8 @@ const chemistrySafetySystem = {
                         </div>
 
                         <div class="eval-panel">
-                            <button class="btn btn-success btn-block" onclick="chemistrySafetySystem.evaluateExperiment()">🔍 提交评估</button>
-                            <button class="btn btn-secondary" onclick="chemistrySafetySystem.resetExperiment()">🔄 重新开始</button>
+                            <button class="btn btn-success btn-block" data-call=\"chemistrySafetySystem.evaluateExperiment\">🔍 提交评估</button>
+                            <button class="btn btn-secondary" data-call=\"chemistrySafetySystem.resetExperiment\">🔄 重新开始</button>
                         </div>
                     </div>
                 </div>
@@ -1719,6 +1719,12 @@ const electrochemistryViewer = {
             cancelAnimationFrame(this.state.animFrameId);
             this.state.animFrameId = null;
         }
+    },
+
+    /** T3-4d：暂停并重绘（原内联 onclick 的 stopAnimation + renderViewer 双语句，CSP 改造为具名方法） */
+    pauseAnimation() {
+        this.stopAnimation();
+        this.renderViewer();
     },
 
     setSpeed(s) {
@@ -2166,8 +2172,8 @@ const electrochemistryViewer = {
             <div class="ec-header">
                 <h3>⚡ 电化学装置动态示意系统 <span class="gd-badge">广东卷专用</span></h3>
                 <div class="type-switcher">
-                    <button class="type-btn ${currentType === 'galvanic' ? 'active' : ''}" onclick="electrochemistryViewer.selectType('galvanic')">🔋 原电池</button>
-                    <button class="type-btn ${currentType === 'electrolytic' ? 'active' : ''}" onclick="electrochemistryViewer.selectType('electrolytic')">⚡ 电解池</button>
+                    <button class="type-btn ${currentType === 'galvanic' ? 'active' : ''}" data-call=\"electrochemistryViewer.selectType\" data-arg1=\"@s:galvanic\">🔋 原电池</button>
+                    <button class="type-btn ${currentType === 'electrolytic' ? 'active' : ''}" data-call=\"electrochemistryViewer.selectType\" data-arg1=\"@s:electrolytic\">⚡ 电解池</button>
                 </div>
             </div>
 
@@ -2177,7 +2183,7 @@ const electrochemistryViewer = {
                     <div class="examples-list">
                         ${examples.map(ex => `
                             <div class="example-item ${currentExample && currentExample.id === ex.id ? 'active' : ''}"
-                                onclick="electrochemistryViewer.selectExample('${ex.id}')">
+                                data-call="electrochemistryViewer.selectExample" data-arg1="@s:${ex.id}">
                                 <div class="example-icon">${ex.icon}</div>
                                 <div class="example-name">${ex.name}</div>
                                 <div class="example-desc">${ex.description}</div>
@@ -2208,15 +2214,15 @@ const electrochemistryViewer = {
                             </div>
                         </div>
                         <div class="anim-controls">
-                            <button class="btn btn-primary" onclick="electrochemistryViewer.startAnimation()" ${isAnimating?'disabled':''}>▶ 开始动画</button>
-                            <button class="btn btn-secondary" onclick="electrochemistryViewer.stopAnimation(); electrochemistryViewer.renderViewer();">⏸ 暂停</button>
+                            <button class="btn btn-primary" data-call=\"electrochemistryViewer.startAnimation\" ${isAnimating?'disabled':''}>▶ 开始动画</button>
+                            <button class="btn btn-secondary" data-call=\"electrochemistryViewer.pauseAnimation\">⏸ 暂停</button>
                             <div class="speed-control">
                                 <span>速度：</span>
-                                <button class="spd-btn ${this.state.speed===0.5?'spd-act':''}" onclick="electrochemistryViewer.setSpeed(0.5)">0.5x</button>
-                                <button class="spd-btn ${this.state.speed===1?'spd-act':''}" onclick="electrochemistryViewer.setSpeed(1)">1x</button>
-                                <button class="spd-btn ${this.state.speed===2?'spd-act':''}" onclick="electrochemistryViewer.setSpeed(2)">2x</button>
+                                <button class="spd-btn ${this.state.speed===0.5?'spd-act':''}" data-call=\"electrochemistryViewer.setSpeed\" data-arg1=\"0.5\">0.5x</button>
+                                <button class="spd-btn ${this.state.speed===1?'spd-act':''}" data-call=\"electrochemistryViewer.setSpeed\" data-arg1=\"1\">1x</button>
+                                <button class="spd-btn ${this.state.speed===2?'spd-act':''}" data-call=\"electrochemistryViewer.setSpeed\" data-arg1=\"2\">2x</button>
                             </div>
-                            <button class="btn btn-secondary" onclick="electrochemistryViewer.toggleLabels()">${this.state.showLabels?'🏷️ 隐藏标签':'🏷️ 显示标签'}</button>
+                            <button class="btn btn-secondary" data-call=\"electrochemistryViewer.toggleLabels\">${this.state.showLabels?'🏷️ 隐藏标签':'🏷️ 显示标签'}</button>
                         </div>
                     </div>
                     ` : `
@@ -2984,8 +2990,8 @@ const chemicalProcessFlow = {
                 <p class="pf-intro">通过拖拽排序练习工艺流程重组，强化理解化工步骤逻辑</p>
                 ${currentProcess ? `
                 <div class="pf-mode-switch">
-                    <button class="mode-btn ${mode==='practice'?'mode-act':''}" onclick="chemicalProcessFlow.setMode('practice')">🃏 练习模式</button>
-                    <button class="mode-btn ${mode==='learn'?'mode-act':''}" onclick="chemicalProcessFlow.setMode('learn')">📖 学习模式</button>
+                    <button class="mode-btn ${mode==='practice'?'mode-act':''}" data-call=\"chemicalProcessFlow.setMode\" data-arg1=\"@s:practice\">🃏 练习模式</button>
+                    <button class="mode-btn ${mode==='learn'?'mode-act':''}" data-call=\"chemicalProcessFlow.setMode\" data-arg1=\"@s:learn\">📖 学习模式</button>
                 </div>
                 ` : ''}
             </div>
@@ -2996,7 +3002,7 @@ const chemicalProcessFlow = {
                     <div class="process-list">
                         ${processList.map(p => `
                             <div class="process-item ${currentProcess && currentProcess.id === p.id ? 'active' : ''}"
-                                onclick="chemicalProcessFlow.selectProcess('${p.id}')">
+                                data-call="chemicalProcessFlow.selectProcess" data-arg1="@s:${p.id}">
                                 <div class="process-icon">${p.icon}</div>
                                 <div class="process-info">
                                     <div class="process-name">${p.name}</div>
@@ -3047,8 +3053,8 @@ const chemicalProcessFlow = {
                             <h4>🃏 ${currentProcess.icon} ${currentProcess.name} — 排序练习</h4>
                             <p>将操作步骤按正确顺序排列（拖拽卡片或使用↑↓按钮）</p>
                             <div class="workspace-actions">
-                                <button class="btn btn-secondary" onclick="chemicalProcessFlow.shuffleCards()">🔀 重新打乱</button>
-                                <button class="btn btn-secondary" onclick="chemicalProcessFlow.resetOrder()">↩️ 恢复初始</button>
+                                <button class="btn btn-secondary" data-call=\"chemicalProcessFlow.shuffleCards\">🔀 重新打乱</button>
+                                <button class="btn btn-secondary" data-call=\"chemicalProcessFlow.resetOrder\">↩️ 恢复初始</button>
                             </div>
                         </div>
 
@@ -3057,7 +3063,7 @@ const chemicalProcessFlow = {
                         </div>
 
                         <div class="workspace-controls">
-                            <button class="btn btn-primary btn-block" onclick="chemicalProcessFlow.verifyOrder()">
+                            <button class="btn btn-primary btn-block" data-call=\"chemicalProcessFlow.verifyOrder\">
                                 ✓ 验证排序
                             </button>
                         </div>
@@ -3092,12 +3098,12 @@ const chemicalProcessFlow = {
                     <div class="card-header-right">
                         <span class="card-num">第${index + 1}位</span>
                         <div class="card-move-btns">
-                            <button class="move-btn" onclick="event.stopPropagation();chemicalProcessFlow.moveCardUp(${index})" ${index===0?'disabled':''}>↑</button>
-                            <button class="move-btn" onclick="event.stopPropagation();chemicalProcessFlow.moveCardDown(${index})" ${index===this.state.userOrder.length-1?'disabled':''}>↓</button>
+                            <button class="move-btn" data-call="chemicalProcessFlow.moveCardUp" data-arg1="${index}" ${index===0?'disabled':''}>↑</button>
+                            <button class="move-btn" data-call="chemicalProcessFlow.moveCardDown" data-arg1="${index}" ${index===this.state.userOrder.length-1?'disabled':''}>↓</button>
                         </div>
                     </div>
                 </div>
-                <div class="card-summary" onclick="chemicalProcessFlow.toggleDetails('${step.id}')">
+                <div class="card-summary" data-call="chemicalProcessFlow.toggleDetails" data-arg1="@s:${step.id}">
                     <span>${step.purpose}</span>
                     <span class="card-toggle">${this.state.showDetails === step.id ? '▲' : '▼'}</span>
                 </div>
@@ -3322,11 +3328,11 @@ const equationNotebook = {
                 <div class="en-header">
                     <h3>📝 化学方程式速录本</h3>
                     <div class="en-controls">
-                        <button class="btn btn-secondary" onclick="equationNotebook.exportToPDF()">
+                        <button class="btn btn-secondary" data-call=\"equationNotebook.exportToPDF\">
                             📄 导出选中
                         </button>
                         <button class="btn ${this.state.favoritesOnly ? 'btn-primary' : 'btn-secondary'}"
-                            onclick="equationNotebook.toggleFavoritesOnly()">
+                            data-call=\"equationNotebook.toggleFavoritesOnly\">
                             ${this.state.favoritesOnly ? '⭐ 已收藏' : '☆ 收藏'}
                         </button>
                     </div>
@@ -3336,16 +3342,16 @@ const equationNotebook = {
                     <div class="search-box">
                         <input type="text" placeholder="搜索方程式、物质或类型..."
                             value="${this.state.searchQuery}"
-                            oninput="equationNotebook.setSearch(this.value)">
+                            data-call=\"equationNotebook.setSearch\" data-arg1=\"@val\">
                     </div>
                     <div class="category-tabs">
                         <button class="cat-tab ${this.state.currentCategory === 'all' ? 'active' : ''}"
-                            onclick="equationNotebook.setCategory('all')">
+                            data-call=\"equationNotebook.setCategory\" data-arg1=\"@s:all\">
                             全部
                         </button>
                         ${categories.map(cat => `
                             <button class="cat-tab ${this.state.currentCategory === cat ? 'active' : ''}"
-                                onclick="equationNotebook.setCategory('${cat}')">
+                                data-call="equationNotebook.setCategory" data-arg1="@s:${cat}">
                                 ${this.equations[cat].icon} ${this.equations[cat].name}
                             </button>
                         `).join('')}
@@ -3365,11 +3371,11 @@ const equationNotebook = {
                         </div>
                     ` : filtered.map(eq => `
                         <div class="equation-card ${this.state.selectedEquations.has(eq.id) ? 'selected' : ''}"
-                            onclick="equationNotebook.toggleSelect('${eq.id}')">
+                            data-call="equationNotebook.toggleSelect" data-arg1="@s:${eq.id}">
                             <div class="eq-header">
                                 <span class="eq-type">${eq.type}</span>
                                 <button class="fav-btn ${this.isFavorite(eq.id) ? 'active' : ''}"
-                                    onclick="event.stopPropagation(); equationNotebook.toggleFavorite('${eq.id}')">
+                                    data-call="equationNotebook.toggleFavorite" data-arg1="@s:${eq.id}">
                                     ${this.isFavorite(eq.id) ? '⭐' : '☆'}
                                 </button>
                             </div>
@@ -3865,27 +3871,27 @@ const organicConverter = {
                 <h2>🔗 有机物转化图绘制器</h2>
                 <span class="gd-badge">广东卷专用</span>
                 <div class="header-actions">
-                    <button class="btn-oc btn-secondary" onclick="organicConverter.clearAll()">🗑️ 清空</button>
-                    <button class="btn-oc btn-secondary" onclick="organicConverter.toggleShowAll()">${this.state.showAllReactions ? '📌 隐藏' : '📋 全部反应'}</button>
-                    <button class="btn-oc btn-primary" onclick="organicConverter.exportDiagram()">📄 导出</button>
+                    <button class="btn-oc btn-secondary" data-call=\"organicConverter.clearAll\">🗑️ 清空</button>
+                    <button class="btn-oc btn-secondary" data-call=\"organicConverter.toggleShowAll\">${this.state.showAllReactions ? '📌 隐藏' : '📋 全部反应'}</button>
+                    <button class="btn-oc btn-primary" data-call=\"organicConverter.exportDiagram\">📄 导出</button>
                 </div>
             </header>
 
             <nav class="preset-nav">
-                <button class="preset-tab ${this.state.selectedSubstances.length === 0 && !this.state.searchQuery ? 'active' : ''}" onclick="organicConverter.clearAll(); organicConverter.renderConverter();">全部物质</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('ethanol-chain')">🍷 乙醇链</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('benzene-family')">⬡ 苯系族</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('halo-derivatives')">🧂 卤代烃</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('carbonyl')">⚗️ 羰基类</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('ester-system')">🧪 酯化系</button>
-                <button class="preset-tab" onclick="organicConverter.loadPreset('sugar-system')">🍬 糖类系</button>
+                <button class="preset-tab ${this.state.selectedSubstances.length === 0 && !this.state.searchQuery ? 'active' : ''}" data-call=\"organicConverter.clearAll\">全部物质</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:ethanol-chain\">🍷 乙醇链</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:benzene-family\">⬡ 苯系族</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:halo-derivatives\">🧂 卤代烃</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:carbonyl\">⚗️ 羰基类</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:ester-system\">🧪 酯化系</button>
+                <button class="preset-tab" data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:sugar-system\">🍬 糖类系</button>
             </nav>
 
             <main class="oc-main-content">
                 <aside class="substance-sidebar">
                     <div class="sidebar-header">
                         <input type="text" class="search-input" placeholder="🔍 搜索物质..."
-                               value="${this.state.searchQuery}" oninput="organicConverter.searchSubstance(this.value)">
+                               value="${this.state.searchQuery}" data-call=\"organicConverter.searchSubstance\" data-arg1=\"@val\">
                         <span class="sub-count">共${filteredLib.length}种</span>
                     </div>
                     <div class="category-list">
@@ -3896,7 +3902,7 @@ const organicConverter = {
                                     ${subs.map(sub => `
                                         <button class="sub-item ${this.state.selectedSubstances.includes(sub.id) ? 'selected' : ''}"
                                             style="--sub-color: ${sub.color}"
-                                            onclick="organicConverter.toggleSubstance('${sub.id}')"
+                                            data-call="organicConverter.toggleSubstance" data-arg1="@s:${sub.id}"
                                             title="${sub.properties.join('\\n')}">
                                             <span class="sub-dot" style="background:${sub.color}"></span>
                                             <span class="sub-name">${sub.name}</span>
@@ -3914,10 +3920,10 @@ const organicConverter = {
                         <h3>🔄 转化关系图</h3>
                         <div class="toolbar-right">
                             <div class="view-switch">
-                                <button class="${this.state.viewMode==='diagram'?'active':''}" onclick="organicConverter.setViewMode('diagram')">
+                                <button class="${this.state.viewMode==='diagram'?'active':''}" data-call=\"organicConverter.setViewMode\" data-arg1=\"@s:diagram\">
                                     📊 图谱
                                 </button>
-                                <button class="${this.state.viewMode==='list'?'active':''}" onclick="organicConverter.setViewMode('list')">
+                                <button class="${this.state.viewMode==='list'?'active':''}" data-call=\"organicConverter.setViewMode\" data-arg1=\"@s:list\">
                                     📋 列表
                                 </button>
                             </div>
@@ -3930,10 +3936,10 @@ const organicConverter = {
                         ${activeTypes.slice(0, 6).map(t => `
                             <button class="type-chip ${this.state.highlightType===t?'active':''}"
                                 style="--chip-color: ${getTypeColor(t)}"
-                                onclick="organicConverter.setHighlightType('${t}')">${t}</button>
+                                data-call="organicConverter.setHighlightType" data-arg1="@s:${t}">${t}</button>
                         `).join('')}
                         ${activeTypes.length > 6 ? `<span class="more-types">+${activeTypes.length - 6}种</span>` : ''}
-                        ${this.state.highlightType ? `<button class="clear-filter" onclick="organicConverter.setHighlightType(null)">✕ 清除</button>` : ''}
+                        ${this.state.highlightType ? `<button class="clear-filter" data-call=\"organicConverter.setHighlightType\" data-arg1=\"null\">✕ 清除</button>` : ''}
                     </div>` : ''}
 
                     <div class="diagram-view">
@@ -3943,9 +3949,9 @@ const organicConverter = {
                             <p class="empty-title">选择有机物开始探索转化关系</p>
                             <p class="empty-desc">从左侧选择物质，或点击上方预设快速加载常见转化链</p>
                             <div class="quick-presets">
-                                <button onclick="organicConverter.loadPreset('benzene-family')">⬡ 苯系家族</button>
-                                <button onclick="organicConverter.loadPreset('ethanol-chain')">🍷 乙醇转化链</button>
-                                <button onclick="organicConverter.loadPreset('ester-system')">🧪 酯化体系</button>
+                                <button data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:benzene-family\">⬡ 苯系家族</button>
+                                <button data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:ethanol-chain\">🍷 乙醇转化链</button>
+                                <button data-call=\"organicConverter.loadPreset\" data-arg1=\"@s:ester-system\">🧪 酯化体系</button>
                             </div>
                         </div>
                         ` : this.state.viewMode === 'diagram' ? `
@@ -4018,7 +4024,7 @@ const organicConverter = {
                         (c.gdPoint ? '<div class="reaction-gd">⭐ ' + c.gdPoint + '</div>' : '') +
                     '</div>';
                 }).join('') + '</div></div>' : '') +
-            '<button class="btn ' + (this.state.selectedSubstances.includes(substanceId) ? 'btn-secondary' : 'btn-primary') + '" onclick="organicConverter.toggleSubstance(\'' + substanceId + '\')">' +
+            '<button class="btn ' + (this.state.selectedSubstances.includes(substanceId) ? 'btn-secondary' : 'btn-primary') + '" data-call="organicConverter.toggleSubstance" data-arg1="@s:' + substanceId + '">' +
                 (this.state.selectedSubstances.includes(substanceId) ? '移除' : '添加到转化图') +
             '</button>' +
         '</div>';
@@ -4412,15 +4418,15 @@ const chemistryProcessAnalyzer = {
                     <div class="input-section">
                         <div class="sample-buttons">
                             <span>快速加载示例：</span>
-                            <button class="btn btn-secondary btn-sm" onclick="chemistryProcessAnalyzer.loadSampleProblem('iron')">高炉炼铁</button>
-                            <button class="btn btn-secondary btn-sm" onclick="chemistryProcessAnalyzer.loadSampleProblem('sulfuric')">硫酸工业</button>
-                            <button class="btn btn-secondary btn-sm" onclick="chemistryProcessAnalyzer.loadSampleProblem('titanium')">钛白粉制备</button>
+                            <button class="btn btn-secondary btn-sm" data-call=\"chemistryProcessAnalyzer.loadSampleProblem\" data-arg1=\"@s:iron\">高炉炼铁</button>
+                            <button class="btn btn-secondary btn-sm" data-call=\"chemistryProcessAnalyzer.loadSampleProblem\" data-arg1=\"@s:sulfuric\">硫酸工业</button>
+                            <button class="btn btn-secondary btn-sm" data-call=\"chemistryProcessAnalyzer.loadSampleProblem\" data-arg1=\"@s:titanium\">钛白粉制备</button>
                         </div>
                         <textarea id="process-input" class="process-input"
                             placeholder="请粘贴工业流程题文本..."
 
-                            oninput="if(this.value.length > 50) chemistryProcessAnalyzer.analyzeText(this.value)"></textarea>
-                        <button class="btn btn-primary btn-block" onclick="chemistryProcessAnalyzer.analyzeText(document.getElementById('process-input').value)">
+                            data-hook="process-analyze"></textarea>
+                        <button class="btn btn-primary btn-block" data-call=\"chemistryProcessAnalyzer.analyzeText\" data-arg1=\"@docval:process-input\">
                             🔍 开始分析
                         </button>
                     </div>
@@ -4754,7 +4760,7 @@ const equationBalancerPro = {
             <div class="balancer-header">
                 <h3>⚗️ 高中化学方程式配平训练系统</h3>
                 <p class="balancer-intro">收录35个高中核心化学方程式，支持分步演示和配平原理解释</p>
-                <button class="help-btn" onclick="equationBalancerPro.toggleHelp()">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
+                <button class="help-btn" data-call=\"equationBalancerPro.toggleHelp\">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
             </div>
 
             ${showHelp ? `
@@ -4790,15 +4796,15 @@ const equationBalancerPro = {
                 <div class="equation-list">
                     <h4>📚 方程式库 (${filteredEquations.length}个)</h4>
                     <div class="filter-tabs">
-                        <button class="filter-tab ${filterType === 'all' ? 'active' : ''}" onclick="equationBalancerPro.setFilter('all')">全部</button>
-                        <button class="filter-tab ${filterType === 'combustion' ? 'active' : ''}" onclick="equationBalancerPro.setFilter('combustion')">燃烧</button>
-                        <button class="filter-tab ${filterType === 'redox' ? 'active' : ''}" onclick="equationBalancerPro.setFilter('redox')">氧化还原</button>
-                        <button class="filter-tab ${filterType === 'displacement' ? 'active' : ''}" onclick="equationBalancerPro.setFilter('displacement')">置换</button>
-                        <button class="filter-tab ${filterType === 'decomposition' ? 'active' : ''}" onclick="equationBalancerPro.setFilter('decomposition')">分解</button>
+                        <button class="filter-tab ${filterType === 'all' ? 'active' : ''}" data-call=\"equationBalancerPro.setFilter\" data-arg1=\"@s:all\">全部</button>
+                        <button class="filter-tab ${filterType === 'combustion' ? 'active' : ''}" data-call=\"equationBalancerPro.setFilter\" data-arg1=\"@s:combustion\">燃烧</button>
+                        <button class="filter-tab ${filterType === 'redox' ? 'active' : ''}" data-call=\"equationBalancerPro.setFilter\" data-arg1=\"@s:redox\">氧化还原</button>
+                        <button class="filter-tab ${filterType === 'displacement' ? 'active' : ''}" data-call=\"equationBalancerPro.setFilter\" data-arg1=\"@s:displacement\">置换</button>
+                        <button class="filter-tab ${filterType === 'decomposition' ? 'active' : ''}" data-call=\"equationBalancerPro.setFilter\" data-arg1=\"@s:decomposition\">分解</button>
                     </div>
                     <div class="equation-items">
                         ${filteredEquations.map((eq, idx) => `
-                            <div class="equation-item ${currentIndex === equations.findIndex(e => e.id === eq.id) ? 'active' : ''}" onclick="equationBalancerPro.selectEquation(${eq.id})">
+                            <div class="equation-item ${currentIndex === equations.findIndex(e => e.id === eq.id) ? 'active' : ''}" data-call="equationBalancerPro.selectEquation" data-arg1="${eq.id}">
                                 <span class="eq-name">${eq.name}</span>
                                 <span class="eq-category">${eq.category}</span>
                                 <span class="eq-difficulty">${'★'.repeat(eq.difficulty)}</span>
@@ -4815,7 +4821,7 @@ const equationBalancerPro = {
                                 <div class="reactants">
                                     ${currentEq.reactants.map(r => `
                                         <div class="compound-input">
-                                            <input type="number" min="1" max="10" value="${userCoefficients[r] || 1}" onchange="equationBalancerPro.updateCoefficient('${r}', this.value)">
+                                            <input type="number" min="1" max="10" value="${userCoefficients[r] || 1}" data-call="equationBalancerPro.updateCoefficient" data-arg1="@s:${r}" data-arg2="@val">
                                             <span class="compound">${r}</span>
                                         </div>
                                     `).join(' + ')}
@@ -4824,7 +4830,7 @@ const equationBalancerPro = {
                                 <div class="products">
                                     ${currentEq.products.map(p => `
                                         <div class="compound-input">
-                                            <input type="number" min="1" max="10" value="${userCoefficients[p] || 1}" onchange="equationBalancerPro.updateCoefficient('${p}', this.value)">
+                                            <input type="number" min="1" max="10" value="${userCoefficients[p] || 1}" data-call="equationBalancerPro.updateCoefficient" data-arg1="@s:${p}" data-arg2="@val">
                                             <span class="compound">${p}</span>
                                         </div>
                                     `).join(' + ')}
@@ -4837,9 +4843,9 @@ const equationBalancerPro = {
                         </div>
 
                         <div class="workspace-actions">
-                            <button class="btn btn-primary" onclick="equationBalancerPro.checkBalance()">✓ 检查配平</button>
-                            <button class="btn btn-secondary" onclick="equationBalancerPro.toggleSteps()">${showSteps ? '隐藏步骤' : '分步演示'}</button>
-                            <button class="btn btn-secondary" onclick="equationBalancerPro.toggleAnswer()">${showAnswer ? '隐藏答案' : '显示答案'}</button>
+                            <button class="btn btn-primary" data-call=\"equationBalancerPro.checkBalance\">✓ 检查配平</button>
+                            <button class="btn btn-secondary" data-call=\"equationBalancerPro.toggleSteps\">${showSteps ? '隐藏步骤' : '分步演示'}</button>
+                            <button class="btn btn-secondary" data-call=\"equationBalancerPro.toggleAnswer\">${showAnswer ? '隐藏答案' : '显示答案'}</button>
                         </div>
 
                         ${showSteps ? `
@@ -4925,6 +4931,24 @@ window.equationNotebook = equationNotebook;
 window.organicConverter = organicConverter;
 window.chemistryProcessAnalyzer = chemistryProcessAnalyzer;
 window.equationBalancerPro = equationBalancerPro;
+
+/* ============================================================
+ * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 自由操作记录：回车提交（原内联 onkeypress 条件调用 logOperation） */
+    HSPCBEV.on('keypress', '[data-hook="op-log-enter"]', function (el, ev) {
+        if (ev.key === 'Enter') chemistrySafetySystem.logOperation(el.value);
+    });
+
+    /* 工业流程题智能分析：输入超过 50 字自动触发（原内联 oninput 条件调用） */
+    HSPCBEV.on('input', '[data-hook="process-analyze"]', function (el) {
+        if (el.value.length > 50) chemistryProcessAnalyzer.analyzeText(el.value);
+    });
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof equationBalancerPro !== 'undefined') equationBalancerPro.init();

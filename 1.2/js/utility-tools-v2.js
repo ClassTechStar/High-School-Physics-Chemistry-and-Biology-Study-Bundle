@@ -145,7 +145,7 @@ window.examTimerPro = (function () {
         for (var subj in EXAM_CONFIG) {
             if (!EXAM_CONFIG.hasOwnProperty(subj)) continue;
             var active = subj === state.subject;
-            html += '<button onclick="window.examTimerPro.selectSubject(\'' + subj + '\')" ' +
+            html += '<button data-call="window.examTimerPro.selectSubject" data-arg1="@s:' + subj + '" ' +
                 'style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
                 'background:' + (active ? '#3b82f6' : '#fff') + ';color:' + (active ? '#fff' : '#374151') + ';' +
                 'cursor:pointer;font-size:13px;font-weight:' + (active ? '600' : '400') + ';">' + subj + ' ' + EXAM_CONFIG[subj].duration + 'min</button>';
@@ -168,14 +168,14 @@ window.examTimerPro = (function () {
         // 控制按钮
         html += '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;">';
         if (!state.running) {
-            html += '<button onclick="window.examTimerPro.start()" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 开始计时</button>';
+            html += '<button data-call=\"window.examTimerPro.start\" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 开始计时</button>';
         } else if (state.paused) {
-            html += '<button onclick="window.examTimerPro.resume()" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 继续</button>';
+            html += '<button data-call=\"window.examTimerPro.resume\" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 继续</button>';
         } else {
-            html += '<button onclick="window.examTimerPro.pause()" style="padding:10px 22px;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏸ 暂停</button>';
+            html += '<button data-call=\"window.examTimerPro.pause\" style="padding:10px 22px;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏸ 暂停</button>';
         }
-        html += '<button onclick="window.examTimerPro.stop(true)" style="padding:10px 22px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏹ 结束</button>';
-        html += '<button onclick="window.examTimerPro.reset()" style="padding:10px 22px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">↻ 重置</button>';
+        html += '<button data-call=\"window.examTimerPro.stop\" data-arg1=\"true\" style="padding:10px 22px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏹ 结束</button>';
+        html += '<button data-call=\"window.examTimerPro.reset\" style="padding:10px 22px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">↻ 重置</button>';
         html += '</div>';
 
         // 时间分配建议
@@ -208,7 +208,7 @@ window.examTimerPro = (function () {
         html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
         html += '<div style="font-size:14px;font-weight:600;color:#1f2937;">📊 历史计时记录</div>';
         if (history.length > 0) {
-            html += '<button onclick="window.examTimerPro.clearHistory()" style="padding:4px 10px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:5px;font-size:12px;cursor:pointer;">清空</button>';
+            html += '<button data-call=\"window.examTimerPro.clearHistory\" style="padding:4px 10px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:5px;font-size:12px;cursor:pointer;">清空</button>';
         }
         html += '</div>';
         if (history.length === 0) {
@@ -551,27 +551,27 @@ window.knowledgeCardExporter = (function () {
         html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
         html += '<div style="display:flex;flex-wrap:wrap;gap:14px;">';
         // 学科
-        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">学科</div><select id="kce-subj" onchange="window.knowledgeCardExporter.changeFilter(\'subject\', this.value)" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
+        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">学科</div><select id="kce-subj" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:subject" data-arg2="@val" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
         for (var i = 0; i < subjects.length; i++) {
             html += '<option value="' + subjects[i] + '"' + (subjects[i] === state.subjectFilter ? ' selected' : '') + '>' + subjects[i] + '</option>';
         }
         html += '</select></div>';
         // 章节
-        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">章节</div><select id="kce-chap" onchange="window.knowledgeCardExporter.changeFilter(\'chapter\', this.value)" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
+        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">章节</div><select id="kce-chap" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:chapter" data-arg2="@val" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
         for (var j = 0; j < chapters.length; j++) {
             html += '<option value="' + chapters[j] + '"' + (chapters[j] === state.chapterFilter ? ' selected' : '') + '>' + chapters[j] + '</option>';
         }
         html += '</select></div>';
         // 全选/反选
         html += '<div style="display:flex;align-items:flex-end;gap:6px;">';
-        html += '<button onclick="window.knowledgeCardExporter.selectAll(true)" style="padding:6px 12px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">全选</button>';
-        html += '<button onclick="window.knowledgeCardExporter.selectAll(false)" style="padding:6px 12px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-size:12px;cursor:pointer;">清空</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"true\" style="padding:6px 12px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">全选</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"false\" style="padding:6px 12px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-size:12px;cursor:pointer;">清空</button>';
         html += '</div>';
         // 已选统计 + 导出按钮
         html += '<div style="margin-left:auto;display:flex;align-items:flex-end;gap:6px;">';
         html += '<span style="font-size:12px;color:#6b7280;padding-bottom:8px;">已选 ' + selected.length + ' 张</span>';
-        html += '<button onclick="window.knowledgeCardExporter.exportImage()" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖼 导出图片</button>';
-        html += '<button onclick="window.knowledgeCardExporter.printCards()" style="padding:6px 12px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖨 打印</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.exportImage\" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖼 导出图片</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.printCards\" style="padding:6px 12px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖨 打印</button>';
         html += '</div>';
         html += '</div></div>';
 
@@ -585,7 +585,7 @@ window.knowledgeCardExporter = (function () {
                 var isSel = !!state.selected[card.title];
                 var borderC = isSel ? '#3b82f6' : '#e5e7eb';
                 var bgC = isSel ? '#eff6ff' : '#fff';
-                html += '<div onclick="window.knowledgeCardExporter.toggle(\'' + card.title.replace(/'/g, '') + '\')" style="background:' + bgC + ';border:2px solid ' + borderC + ';border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s;">';
+                html += '<div data-hook="card-toggle" data-card="' + card.title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" style="background:' + bgC + ';border:2px solid ' + borderC + ';border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s;">';
                 html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
                 html += '<span style="font-size:11px;color:#6b7280;background:#f3f4f6;padding:2px 6px;border-radius:4px;">' + card.subject + ' · ' + card.chapter + '</span>';
                 html += '<span style="font-size:14px;color:' + (isSel ? '#3b82f6' : '#d1d5db') + ';">' + (isSel ? '✓' : '○') + '</span>';
@@ -607,7 +607,7 @@ window.knowledgeCardExporter = (function () {
         html += '</div>';
         html += '<textarea id="kce-c-front" placeholder="正面内容（速记要点，支持换行）" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
         html += '<textarea id="kce-c-back" placeholder="背面内容（详解/口诀/注意点）" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
-        html += '<button onclick="window.knowledgeCardExporter.addCustom()" style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;">添加卡片</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.addCustom\" style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;">添加卡片</button>';
         html += '</div>';
 
         // 自定义卡片列表
@@ -618,7 +618,7 @@ window.knowledgeCardExporter = (function () {
             for (var m = 0; m < custom.length; m++) {
                 html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">';
                 html += '<div><span style="font-size:12px;color:#6b7280;">' + custom[m].subject + ' · ' + custom[m].chapter + '</span> <span style="font-size:13px;color:#1f2937;margin-left:6px;">' + custom[m].title + '</span></div>';
-                html += '<button onclick="window.knowledgeCardExporter.removeCustom(' + m + ')" style="padding:3px 8px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:4px;font-size:11px;cursor:pointer;">删除</button>';
+                html += '<button data-call=\"window.knowledgeCardExporter.removeCustom\" data-arg1=\"@n:' + m + '" style="padding:3px 8px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:4px;font-size:11px;cursor:pointer;">删除</button>';
                 html += '</div>';
             }
             html += '</div>';
@@ -908,4 +908,18 @@ window.knowledgeCardExporter = (function () {
         exportImage: exportImage,
         printCards: printCards
     };
+})();
+
+/* ============================================================
+ * T3-4d：内联 onclick 的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 知识卡片选中切换：标题经 &/" 实体转义后存入 data-card，点击时取回原值
+       传给 toggle（替代原 onclick 内联单引号剥离 hack，含引号的自定义标题不再断裂） */
+    HSPCBEV.on('click', '[data-hook="card-toggle"]', function (el) {
+        window.knowledgeCardExporter.toggle(el.dataset.card);
+    });
 })();

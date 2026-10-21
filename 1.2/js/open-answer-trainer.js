@@ -626,7 +626,7 @@ var openAnswerTrainer = {
                 'border:2px solid ' + (isActive ? fwColors[fwName] : '#e0e0e0') + ';' +
                 'background:' + (isActive ? fwColors[fwName] : '#fff') + ';' +
                 'color:' + (isActive ? '#fff' : '#333') + ';' +
-                '" onclick="openAnswerTrainer.switchFramework(\'' + fwName + '\')">' +
+                '" data-call="openAnswerTrainer.switchFramework" data-arg1="@s:' + fwName + '">' +
                 fwIcons[fwName] + ' ' + fwName + ' ' +
                 '<span style="font-size:11px;opacity:0.8;">(' + disabledCount + '/' + disabledTotal + ')</span>' +
                 '</div>';
@@ -650,7 +650,7 @@ var openAnswerTrainer = {
                 'transition:all 0.15s;' +
                 'border:1px solid ' + (isCurrent ? fwColors[self.currentFramework] : 'transparent') + ';' +
                 'background:' + (isCurrent ? 'rgba(' + (self.currentFramework === '原因分析' ? '231,76,60' : self.currentFramework === '实验设计' ? '46,204,113' : '52,152,219') + ',0.08)' : '#fafafa') + ';' +
-                '" onclick="openAnswerTrainer.switchQuestion(' + qi + ')">' +
+                '" data-call=\"openAnswerTrainer.switchQuestion\" data-arg1=\"@n:' + qi + '">' +
                 '<div style="display:flex;align-items:center;justify-content:space-between;">' +
                 '<span style="font-weight:' + (isCurrent ? '700' : '400') + ';color:#333;">' +
                 (isDone ? '✓ ' : '') + '#' + (qi + 1) + ' ' +
@@ -697,7 +697,7 @@ var openAnswerTrainer = {
                         'padding:8px 14px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ' + (isSelected ? fwColors[fn] : '#ddd') + ';' +
                         'background:' + (isSelected ? 'rgba(' + (fn === '原因分析' ? '231,76,60' : fn === '实验设计' ? '46,204,113' : '52,152,219') + ',0.1)' : '#fff') + ';' +
                         '">' +
-                        '<input type="radio" name="frameworkChoice" value="' + fn + '" ' + (isSelected ? 'checked' : '') + ' style="margin-right:4px;" onchange="openAnswerTrainer.userAnswers.frameworkChoice=\'' + fn + '\';openAnswerTrainer.render();">' +
+                        '<input type="radio" name="frameworkChoice" value="' + fn + '" ' + (isSelected ? 'checked' : '') + ' style="margin-right:4px;" data-hook="fw-choice">' +
                         fwIcons[fn] + ' ' + FRAMEWORKS[fn].name +
                         '</label>';
                 }
@@ -965,6 +965,14 @@ document.addEventListener('DOMContentLoaded', function() {
 // 如果DOM已经加载完毕，立即初始化
 if (document.readyState === 'interactive' || document.readyState === 'complete') {
     openAnswerTrainer.init();
+}
+
+/* T3-4d：内联 onchange 的事件委托注册（CSP 改造，radio 的 value 即框架键） */
+if (window.HSPCBEV) {
+    HSPCBEV.on('change', '[data-hook="fw-choice"]', function (el) {
+        openAnswerTrainer.userAnswers.frameworkChoice = el.value;
+        openAnswerTrainer.render();
+    });
 }
 
 })();

@@ -251,7 +251,7 @@ window.poemAppreciation = (function () {
             var active = i === state.selectedLine;
             html += '<div data-line="' + i + '" style="padding:8px 12px;margin:3px 0;cursor:pointer;border-radius:6px;font-size:16px;line-height:1.8;text-align:center;' +
                 (active ? 'background:#dbeafe;color:#1e40af;font-weight:600;' : 'background:#f8fafc;color:#334155;') +
-                '" onmouseover="if(!this.dataset.sel)this.style.background=\'#e0e7ff\'" onmouseout="if(!this.dataset.sel)this.style.background=\'' + (active ? '#dbeafe' : '#f8fafc') + '\'">' +
+                '" data-hook="gap-line" data-rest-bg="' + (active ? '#dbeafe' : '#f8fafc') + '">' +
                 esc(p.fullText[i]) + '</div>';
         }
         html += '<div style="font-size:11px;color:#94a3b8;text-align:center;margin-top:6px;">点击任意诗句查看赏析</div>';
@@ -997,8 +997,7 @@ window.solidGeometry3D = (function () {
         var shapeKeys = ['cube','cuboid','triangularPrism','squarePyramid','cylinder','cone','sphere','frustum'];
         for (var i = 0; i < shapeKeys.length; i++) {
             var sk = shapeKeys[i];
-            listHtml += '<div data-shape="' + sk + '" style="padding:10px 12px;cursor:pointer;border-radius:6px;margin-bottom:2px;font-size:13px;color:#334155;" ' +
-                'onmouseover="this.style.background=\'#eff6ff\'" onmouseout="if(this.dataset.act!==\'1\')this.style.background=\'transparent\'">' + SHAPES[sk].name + '</div>';
+            listHtml += '<div data-shape="' + sk + '" style="padding:10px 12px;cursor:pointer;border-radius:6px;margin-bottom:2px;font-size:13px;color:#334155;" data-hook="shape-item">' + SHAPES[sk].name + '</div>';
         }
         c.innerHTML =
             '<div style="display:flex;gap:12px;flex-wrap:wrap;">' +
@@ -1085,4 +1084,29 @@ window.solidGeometry3D = (function () {
         canvas.ontouchend = function () { dragging = false; };
     }
     return { render: render };
+})();
+
+/* ============================================================
+ * T3-4d：内联悬停属性的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 古诗文逐行悬停：仅在该行未被选中（dataset.sel）时生效；
+       恢复色由渲染时写入 data-rest-bg（active 行为深蓝、普通行为浅灰） */
+    HSPCBEV.on('mouseover', '[data-hook="gap-line"]', function (el) {
+        if (!el.dataset.sel) el.style.background = '#e0e7ff';
+    });
+    HSPCBEV.on('mouseout', '[data-hook="gap-line"]', function (el) {
+        if (!el.dataset.sel) el.style.background = el.dataset.restBg || '';
+    });
+
+    /* 3D 几何体列表项悬停：当前激活项（dataset.act === '1'）离开时不恢复透明 */
+    HSPCBEV.on('mouseover', '[data-hook="shape-item"]', function (el) {
+        el.style.background = '#eff6ff';
+    });
+    HSPCBEV.on('mouseout', '[data-hook="shape-item"]', function (el) {
+        if (el.dataset.act !== '1') el.style.background = 'transparent';
+    });
 })();

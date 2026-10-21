@@ -1391,8 +1391,8 @@ window.errorNotebook = (function() {
             '<p style="font-size:1.1rem;">正确: <strong style="color:#2e7d32;">' + correct + '</strong> | 错误: <strong style="color:#c62828;">' + incorrect + '</strong> | 总计: ' + total + '</p>' +
             '<p style="color:#666;">其中 ' + correct + ' 道题的掌握度已提升。</p>' +
             '<div style="margin-top:16px;display:flex;gap:8px;justify-content:center;">' +
-            '<button class="enb-btn enb-btn-primary" onclick="window.errorNotebook.switchTab(\'redo\')">再次重做</button>' +
-            '<button class="enb-btn" onclick="window.errorNotebook.switchTab(\'all\')">返回全部错题</button>' +
+            '<button class="enb-btn enb-btn-primary" data-call="window.errorNotebook.switchTab" data-arg1="@s:redo">再次重做</button>' +
+            '<button class="enb-btn" data-call="window.errorNotebook.switchTab" data-arg1="@s:all">返回全部错题</button>' +
             '</div></div>';
 
         redoState = null;

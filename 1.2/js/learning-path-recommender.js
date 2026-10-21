@@ -529,7 +529,7 @@ window.learningPathRecommender = (function () {
         var subjects = ['物理', '化学', '生物', '数学', '语文', '英语'];
         for (var i = 0; i < subjects.length; i++) {
             var active = subjects[i] === state.currentSubject;
-            html += '<button onclick="window.learningPathRecommender.selectSubject(\'' + subjects[i] + '\')" ' +
+            html += '<button data-call="window.learningPathRecommender.selectSubject" data-arg1="@s:' + subjects[i] + '" ' +
                 'style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
                 'background:' + (active ? '#3b82f6' : '#fff') + ';color:' + (active ? '#fff' : '#374151') + ';' +
                 'cursor:pointer;font-size:13px;font-weight:' + (active ? '600' : '400') + ';">' + subjects[i] + '</button>';
@@ -538,7 +538,7 @@ window.learningPathRecommender = (function () {
 
         // 刷新按钮
         html += '<div style="text-align:center;margin-bottom:14px;">';
-        html += '<button onclick="window.learningPathRecommender.refresh()" style="padding:8px 20px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔄 重新分析并生成路径</button>';
+        html += '<button data-call=\"window.learningPathRecommender.refresh\" style="padding:8px 20px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔄 重新分析并生成路径</button>';
         html += '</div>';
 
         // 薄弱知识点概览
@@ -642,7 +642,7 @@ window.learningPathRecommender = (function () {
             for (var q = 0; q < step.recommendedQuestions.length; q++) {
                 var question = step.recommendedQuestions[q];
                 var diffColor = question.difficulty === 'hard' ? '#ef4444' : (question.difficulty === 'medium' ? '#f59e0b' : '#10b981');
-                html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:8px;font-size:11px;cursor:pointer;" onclick="window.learningPathRecommender.startPractice(\'' + (question.id || '') + '\')">';
+                html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:8px;font-size:11px;cursor:pointer;" data-call="window.learningPathRecommender.startPractice" data-arg1="@s:' + (question.id || '') + '">';
                 html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">';
                 html += '<span style="color:#6b7280;">' + (question.year || '') + ' · ' + (question.type || '') + '</span>';
                 html += '<span style="color:' + diffColor + ';font-size:10px;">' + (question.difficulty || '') + '</span>';
@@ -656,7 +656,7 @@ window.learningPathRecommender = (function () {
         // 推荐模板
         if (step.recommendedTemplate) {
             html += '<div style="margin-top:8px;padding-top:8px;border-top:1px dashed #e5e7eb;font-size:12px;color:#6b7280;">';
-            html += '📋 推荐答题模板：<span style="color:#3b82f6;cursor:pointer;text-decoration:underline;" onclick="window.learningPathRecommender.openTemplate(\'' + (step.recommendedTemplate.id || '') + '\')">' + step.recommendedTemplate.name + '</span>';
+            html += '📋 推荐答题模板：<span style="color:#3b82f6;cursor:pointer;text-decoration:underline;" data-call="window.learningPathRecommender.openTemplate" data-arg1="@s:' + (step.recommendedTemplate.id || '') + '">' + step.recommendedTemplate.name + '</span>';
             html += '</div>';
         }
 
