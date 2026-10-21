@@ -157,6 +157,20 @@
         "issue": "P0-4/T1-2",
         "note": "T1-2 去重后 meta.totalQuestions 已同步为 1301"
       }
+    ],
+    "C11-labeled-shell-analysis": [
+      {
+        "baselineCount": 0,
+        "issue": "P1-7/T1-6",
+        "note": "两类机器模板：(a) 标签壳【考点】…【结论】选X + 填空式排除话术；(b) 半句带答案内容 + 「本题考查…需准确理解…由…的基本原理可判断」空话尾巴。已清零：上一轮 586 题 + 本轮 173 题（化学 32 / 生物 141）逐题人工重写，实测 0 道，基线随之降为 0。此后新增任一标签式解析都会使门禁失败"
+      }
+    ],
+    "C12-marketing-copy": [
+      {
+        "baselineCount": 0,
+        "issue": "P1-7/文案治理",
+        "note": "营销腔与代码中不存在的自造概念（六维标签体系/智能命题引擎/一体两翼/群体学情预警等）。文案层实测 0 处，基线降为 0。扫描面为 9 个文案载体（index/presentation/promo/manifest + platform-system/content-enhancement/gamification-system/global-search/onboarding）；注意 data/_archive/ 下的科普正文与基线文件自身的说明性记录不计入"
+      }
     ]
   }
 }

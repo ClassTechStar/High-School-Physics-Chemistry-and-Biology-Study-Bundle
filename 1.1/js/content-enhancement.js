@@ -52,14 +52,14 @@ function fixInteractionIssues(){
 function getToolsContent(subject){
     if(subject==='physics'){
         return '<div class="tools-access">'+
-            '<button class="tool-access-btn" onclick="loadPhysicsTool(\'calculator\')">🧮 物理公式智能计算器</button>'+
+            '<button class="tool-access-btn" onclick="loadPhysicsTool(\'calculator\')">🧮 物理公式计算器</button>'+
             '<button class="tool-access-btn" onclick="loadPhysicsTool(\'projectile\')">🎯 抛物线运动模拟器</button>'+
             '</div>';
     }
     if(subject==='chemistry'){
         return '<div class="tools-access">'+
             '<button class="tool-access-btn" onclick="loadChemistryTool(\'electrochem\')">⚡ 电化学动态示意系统</button>'+
-            '<button class="tool-access-btn" onclick="loadChemistryTool(\'balancer\')">⚗️ 化学方程式智能配平与可视化</button>'+
+            '<button class="tool-access-btn" onclick="loadChemistryTool(\'balancer\')">⚗️ 化学方程式配平与可视化</button>'+
             '<button class="tool-access-btn" onclick="loadChemistryTool(\'notebook\')">📓 化学方程式速录本</button>'+
             '<button class="tool-access-btn" onclick="loadChemistryTool(\'process\')">🏭 工艺流程节点卡片系统</button>'+
             '<button class="tool-access-btn" onclick="loadChemistryTool(\'organic\')">🔗 有机物转化图绘制器</button>'+
@@ -85,7 +85,7 @@ function getToolsContent(subject){
 }
 
 function getMethodologyContent(subject){
-    var html='<div class="knowledge-section"><h3>📝 解题方法论系统</h3>';
+    var html='<div class="knowledge-section"><h3>解题方法论系统</h3>';
     var data=ContentEnhancer.methodology[subject];
     if(data){
         data.sections.forEach(function(sec){
@@ -115,7 +115,7 @@ function getErrorsContent(subject){
     var data=CE.experimentErrors&&CE.experimentErrors[subject];
     if(!data) return '<p>实验易错点正在开发中...</p>';
     var subjectNames={physics:'物理',chemistry:'化学',biology:'生物'};
-    var html='<div class="knowledge-section"><h3>⚠️ '+subjectNames[subject]+'实验易错点汇编</h3>';
+    var html='<div class="knowledge-section"><h3>'+subjectNames[subject]+'实验易错点汇编</h3>';
     data.forEach(function(section){
         html+='<div class="knowledge-card"><h4>'+section.title+'</h4>';
         section.errors.forEach(function(err,i){
@@ -136,10 +136,10 @@ function getKnowledgeGraphContent(subject){
     if(!kg) return '<p>知识图谱正在加载中...</p>';
     var html='<div class="knowledge-section">';
 
-    html+='<h3>🗺️ 高中'+subjectNames[subject]+'智能备考知识图谱</h3>';
+    html+='<h3>高中'+subjectNames[subject]+'知识图谱</h3>';
 
     html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));border:1px solid rgba(102,126,234,0.2);">';
-    html+='<h4 style="color:#667eea;">📊 考核框架：分值地图</h4>';
+    html+='<h4 style="color:#667eea;">考核框架：分值地图</h4>';
     html+='<p style="margin-bottom:8px;font-size:0.9rem;">依据广东高考命题权重，确定复习优先级：</p>';
     kg.examFramework.scoreWeights.forEach(function(m){
         var barWidth=Math.round(m.score*2.5);
@@ -154,7 +154,7 @@ function getKnowledgeGraphContent(subject){
     html+='</div>';
 
     html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(39,174,96,0.08),rgba(46,204,113,0.08));border:1px solid rgba(39,174,96,0.2);">';
-    html+='<h4 style="color:#27ae60;">📋 实验评分标准（'+kg.experimentScoring.total+'分制）</h4>';
+    html+='<h4 style="color:#27ae60;">实验评分标准（'+kg.experimentScoring.total+'分制）</h4>';
     html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
     kg.experimentScoring.dimensions.forEach(function(d){
         html+='<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(39,174,96,0.2);">';
@@ -166,7 +166,7 @@ function getKnowledgeGraphContent(subject){
     html+='</div></div>';
 
     if(kg.relations&&kg.relations.length>0){
-        html+='<div class="knowledge-card"><h4>🔗 知识关联网络</h4>';
+        html+='<div class="knowledge-card"><h4>知识关联网络</h4>';
         html+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">';
         kg.relations.forEach(function(r){
             var fromTopic=kg.topics.find(function(t){return t.id===r.from;});
@@ -184,7 +184,7 @@ function getKnowledgeGraphContent(subject){
     }
 
     html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(231,76,60,0.06),rgba(230,126,34,0.06));border:1px solid rgba(231,76,60,0.2);">';
-    html+='<h4 style="color:#e74c3c;">📌 考点冲刺清单</h4>';
+    html+='<h4 style="color:#e74c3c;">考点冲刺清单</h4>';
     html+='<p style="font-size:0.85rem;color:#666;margin-bottom:10px;">核心考点→命题角度→备考策略 三维清单</p>';
     html+='<table style="width:100%;border-collapse:collapse;font-size:0.82rem;">';
     html+='<tr style="background:var(--primary);color:#fff;"><th style="padding:8px;border:1px solid #ddd;text-align:left;">考点</th><th style="padding:8px;border:1px solid #ddd;">权重</th><th style="padding:8px;border:1px solid #ddd;text-align:left;">命题角度</th><th style="padding:8px;border:1px solid #ddd;text-align:left;">备考策略</th></tr>';
@@ -227,7 +227,7 @@ function getKnowledgeGraphContent(subject){
 function getModelsContent(subject){
     var data=ContentEnhancer.models[subject];
     if(!data) return '<p>题型模型正在开发中...</p>';
-    var html='<div class="knowledge-section"><h3>🔧 '+data.name+' 常见题型/模型</h3>';
+    var html='<div class="knowledge-section"><h3>'+data.name+' 常见题型/模型</h3>';
     html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">';
     data.categories.forEach(function(cat){
         html+='<button class="module-tab" onclick="ContentEnhancer.filterModels(\''+subject+'\',\''+cat.id+'\')">'+cat.name+'</button>';
@@ -252,7 +252,7 @@ function getHotspotContent(subject){
     if(subject==='biology'){
         var data=CE.biologyHotspot;
         if(!data) return '<p>热点聚焦内容正在加载中...</p>';
-        var html='<div class="knowledge-section"><h3>🔥 高中生物热点聚焦</h3>';
+        var html='<div class="knowledge-section"><h3>高中生物热点聚焦</h3>';
         data.topics.forEach(function(topic){
             html+='<div class="knowledge-card" style="margin-bottom:16px;">';
             html+='<h4 style="color:var(--primary);">'+topic.title+'</h4>';
@@ -280,7 +280,7 @@ function getHotspotContent(subject){
     }
     var kg=subject==='physics'?CE.physicsKnowledgeGraph:CE.chemistryKnowledgeGraph;
     if(!kg) return '<p>热点聚焦内容正在加载中...</p>';
-    var html='<div class="knowledge-section"><h3>🔥 高中'+subjectNames[subject]+'热点聚焦</h3>';
+    var html='<div class="knowledge-section"><h3>高中'+subjectNames[subject]+'热点聚焦</h3>';
     kg.topics.forEach(function(topic){
         var wp=Math.round(topic.weight*100);
         var wc=topic.weight>=0.10?'#e74c3c':topic.weight>=0.06?'#e67e22':'#27ae60';
@@ -426,14 +426,14 @@ var CE={
             var s1=document.createElement('section');
             s1.id='periodic-table-section';
             s1.className='section';
-            s1.innerHTML='<div class="tool-header"><button class="back-btn" onclick="navigateTo(\'chemistry\')">← 返回化学</button><h2>📊 化学元素周期表</h2></div><div id="periodic-table-app"></div>';
+            s1.innerHTML='<div class="tool-header"><button class="back-btn" onclick="navigateTo(\'chemistry\')">← 返回化学</button><h2>化学元素周期表</h2></div><div id="periodic-table-app"></div>';
             mainContent.appendChild(s1);
         }
         if(!document.getElementById('chemistry-structure-section')){
             var s2=document.createElement('section');
             s2.id='chemistry-structure-section';
             s2.className='section';
-            s2.innerHTML='<div class="tool-header"><button class="back-btn" onclick="navigateTo(\'chemistry\')">← 返回化学</button><h2>🔬 化学物质结构与性质</h2></div><div id="chemistry-structure-app"></div>';
+            s2.innerHTML='<div class="tool-header"><button class="back-btn" onclick="navigateTo(\'chemistry\')">← 返回化学</button><h2>化学物质结构与性质</h2></div><div id="chemistry-structure-app"></div>';
             mainContent.appendChild(s2);
         }
     },
@@ -488,16 +488,16 @@ var CE={
 
     buildPhysicsExperiments:function(){this.physicsExperiments={instruments:[{name:'游标卡尺',precision:'0.1mm(10分度)/0.05mm(20分度)/0.02mm(50分度)',reading:'主尺读数+游标尺对齐格数×精度',estimation:'不估读'},{name:'螺旋测微器',precision:'0.01mm',reading:'固定刻度+可动刻度(含估读)×0.01mm',estimation:'需估读到0.001mm'},{name:'电压表',precision:'取决于量程和分度值',reading:'按分度值读数+估读',estimation:'估读到分度值的1/10'},{name:'电流表',precision:'取决于量程和分度值',reading:'按分度值读数+估读',estimation:'估读到分度值的1/10'},{name:'多用电表(欧姆挡)',precision:'中值电阻处最精确',reading:'读数×倍率',estimation:'不估读'}],meterModification:{voltmeter:'电流表串联大电阻：R串=(n-1)Rg',ammeter:'电流表并联小电阻：R并=Rg/(n-1)',internalMethod:'内接法：R测=R真+R_A，适合大电阻(Rx>>RA)',externalMethod:'外接法：R测=R真//R_V，适合小电阻(Rx<<RV)',criterion:'若RV/Rx>Rx/RA用外接法，否则用内接法'},mechanicsExperiments:[{name:'验证力的平行四边形定则',principle:'等效替代法',errorAnalysis:'弹簧测力计不平行纸面'},{name:'探究加速度与力、质量的关系',principle:'控制变量法',errorAnalysis:'未平衡摩擦力或不满足M>>m'},{name:'验证机械能守恒定律',principle:'自由落体中½mv²=mgh',errorAnalysis:'空气阻力使动能增加量略小于势能减少量'},{name:'验证动量守恒定律',principle:'m₁v₁+m₂v₂=m₁v₁\'+m₂v₂\'',errorAnalysis:'斜槽末端不水平'}],electricityExperiments:[{name:'测定金属的电阻率',principle:'R=ρl/S，伏安法测R',errorAnalysis:'内接法适合大电阻，外接法适合小电阻'},{name:'描绘小灯泡伏安特性曲线',principle:'分压法测U-I曲线',errorAnalysis:'必须用分压法，电流表外接'},{name:'测定电源电动势和内阻',principle:'E=U+Ir',errorAnalysis:'安培表内接使r测偏大'},{name:'练习使用多用电表',principle:'欧姆挡内部有电源',errorAnalysis:'换挡后重新调零'}],opticsExperiments:[{name:'测定玻璃的折射率',principle:'n=sin i/sin r',errorAnalysis:'入射角不宜太大或太小'},{name:'用双缝干涉测光的波长',principle:'λ=Δx·d/L',errorAnalysis:'测量n条条纹间距取平均'}],thermalExperiments:[{name:'用油膜法估测分子大小',principle:'d=V/S(单分子油膜)',errorAnalysis:'油膜未完全展开'}]};},
 
-    _buildPhysicsKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>📚 高中物理知识点大全</h3>';h+=_card('第一章 运动的描述',_kp('质点','忽略物体大小和形状，将物体看作有质量的点')+_kp('参考系','为描述物体运动而选作标准的另外的物体')+_kp('位移','描述位置变化的矢量，从初位置指向末位置的有向线段')+_kp('速度','v=Δx/Δt，描述运动快慢和方向的矢量')+_kp('加速度','a=Δv/Δt，描述速度变化快慢的矢量，方向与合外力方向相同')+_cm('混淆位移与路程、速度与速率'));h+=_card('第二章 匀变速直线运动',_kp('公式','v=v₀+at；x=v₀t+½at²；v²-v₀²=2ax；x=(v₀+v)t/2')+_kp('逐差法','a=(x₄+x₅+x₆-x₁-x₂-x₃)/(9T²)')+_kp('自由落体','v=gt，h=½gt²')+_kp('竖直上抛','v=v₀-gt，h=v₀t-½gt²，H=v₀²/(2g)')+_cm('竖直上抛全程法：取向上为正，a=-g'));h+=_card('第三章 相互作用与力',_kp('重力','G=mg，方向竖直向下')+_kp('弹力','胡克定律F=kx')+_kp('摩擦力','滑动f=μN；静摩擦0<f≤f_max')+_kp('力的合成与分解','平行四边形定则，|F₁-F₂|≤F≤F₁+F₂')+_cm('摩擦力不一定是阻力'));h+=_card('第四章 牛顿运动定律',_kp('第一定律','力不是维持运动的原因')+_kp('第二定律','F=ma，瞬时对应关系')+_kp('第三定律','作用力与反作用力等大反向异体同性质')+_kp('超重失重','超重a向上，失重a向下，完全失重a=g')+_cm('超重失重与运动方向无关，只与加速度方向有关'));h+=_card('第五章 曲线运动',_kp('条件','合外力方向与速度方向不共线')+_kp('平抛运动','x=v₀t，y=½gt²，t=√(2h/g)')+_kp('圆周运动','v=2πr/T，a=v²/r=ω²r，F=mv²/r')+_kp('竖直面圆周','绳模型v_min=√(gR)，杆模型v_min=0')+_cm('向心力不是独立的力'));h+=_card('第六章 万有引力',_kp('万有引力定律','F=GMm/r²')+_kp('天体质量','M=4π²r³/(GT²)')+_kp('宇宙速度','v₁≈7.9km/s，最小发射速度、最大环绕速度')+_kp('变轨','低→高需加速，轨道越高速度越小但机械能越大')+_cm('轨道越高线速度越小v=√(GM/r)'));h+=_card('第七章 机械能',_kp('功','W=Flcosα')+_kp('动能定理','W合=½mv²-½mv₀²')+_kp('机械能守恒','只有重力或弹力做功时Ek₁+Ep₁=Ek₂+Ep₂')+_kp('功能关系','重力做功→势能变化；合外力做功→动能变化')+_cm('摩擦力做功与路径有关'));h+=_card('第八章 动量',_kp('动量定理','I=Δp，FΔt=Δp')+_kp('动量守恒','合外力为零时m₁v₁+m₂v₂=m₁v₁\'+m₂v₂\'')+_kp('碰撞分类','弹性/非弹性/完全非弹性')+_cm('完全非弹性碰撞动能损失最大但动量守恒'));h+=_card('第九章 静电场',_kp('库仑定律','F=kq₁q₂/r²')+_kp('电场强度','E=F/q，E=kQ/r²，E=U/d')+_kp('电势','φ=Ep/q，沿电场线方向电势降低')+_kp('电容','C=Q/U，C=εS/(4πkd)')+_cm('电场强度与电势无直接关系'));h+=_card('第十章 电路',_kp('欧姆定律','I=U/R，I=E/(R+r)')+_kp('路端电压','U=E-Ir')+_kp('电功率','P=UI，纯电阻Q=I²Rt')+_cm('非纯电阻电路中欧姆定律不适用'));h+=_card('第十一章 磁场',_kp('安培力','F=BILsinθ，左手定则')+_kp('洛伦兹力','F=qvBsinθ，不做功')+_kp('圆周运动','r=mv/(qB)，T=2πm/(qB)')+_cm('洛伦兹力不做功：力⊥速度'));h+=_card('第十二章 电磁感应',_kp('法拉第定律','E=nΔΦ/Δt，E=BLv')+_kp('楞次定律','增反减同')+_kp('自感','E=LΔI/Δt，阻碍电流变化')+_kp('交流电','e=Emsinωt，有效值U=Um/√2')+_kp('变压器','U₁/U₂=n₁/n₂，P₁=P₂')+_cm('有效值根据热效应定义'));h+=_card('第十三章 光学',_kp('折射','n=sin i/sin r，n=c/v')+_kp('全反射','光密→光疏且i≥C，sin C=1/n')+_kp('干涉','双缝Δx=λL/d')+_kp('衍射','缝宽与波长相当或更小')+_kp('偏振','横波特有现象')+_cm('全反射两个条件缺一不可'));h+=_card('第十四章 热学',_kp('分子动理论','大量分子+无规则运动+分子力')+_kp('内能','所有分子动能和势能的总和，与温度、体积有关')+_kp('热力学定律','ΔU=Q+W；第二定律：热量自发高温→低温')+_kp('理想气体','PV/T=恒量')+_cm('理想气体内能只与温度有关'));h+=_card('第十五章 振动与波',_kp('简谐运动','F=-kx，x=Asin(ωt+φ)')+_kp('单摆','T=2π√(l/g)')+_kp('共振','驱动力频率=固有频率时振幅最大')+_kp('波速','v=λf，波速由介质决定')+_kp('多普勒效应','靠近→频率升高，远离→频率降低')+_cm('波速≠质点振动速度'));h+=_card('第十六章 原子物理',_kp('玻尔理论','定态+跃迁+轨道量子化，Eₙ=-13.6/n²eV')+_kp('天然放射','α(⁴₂He)、β(⁰₋₁e)、γ(光子)')+_kp('半衰期','m=m₀(1/2)^(t/T)，统计规律')+_kp('核反应','质量数守恒+电荷数守恒')+_kp('光电效应','Ek=hν-W₀，极限频率ν₀=W₀/h')+_kp('波粒二象性','个别光子粒子性，大量光子波动性')+_kp('物质波','λ=h/(mv)')+_cm('光电效应中最大初动能与光强无关'));h+='</div>';return h;},
-    _buildChemistryKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>📚 高中化学知识点大全</h3>';h+=_card('化学计量',_kp('物质的量','n=N/NA=m/M=V/Vm')+_kp('气体摩尔体积','标况下22.4L/mol，仅适用于标况气体')+_kp('配制溶液','计算→称量→溶解→冷却→转移→洗涤→定容→摇匀')+_cm('22.4L/mol仅适用于标况气体'));h+=_card('离子反应',_kp('电解质','酸碱盐为电解质，蔗糖酒精为非电解质')+_kp('离子方程式','写→拆→删→查')+_cm('弱电解质/沉淀/气体不拆'));h+=_card('氧化还原反应',_kp('基本概念','氧化剂得电子被还原，还原剂失电子被氧化')+_kp('配平方法','化合价升降法、电子守恒法')+_cm('同种元素不同价态：价态归中不交叉'));h+=_card('钠及其化合物',_kp('钠','银白色软金属，保存在煤油中')+_kp('Na₂O₂','淡黄色，与水/CO₂反应放O₂')+_cm('Na₂O₂与水反应既是氧化剂又是还原剂'));h+=_card('铁铝及其化合物',_kp('铁','Fe³⁺检验：KSCN变红')+_kp('铝','两性金属，与NaOH和HCl均产生H₂')+_cm('Al与NaOH反应时H₂O是氧化剂'));h+=_card('非金属',_kp('氯气','Cl₂+2NaOH→NaCl+NaClO+H₂O(歧化)')+_kp('硫酸','浓硫酸：吸水性、脱水性、强氧化性')+_kp('硝酸','Cu+4HNO₃(浓)→Cu(NO₃)₂+2NO₂↑+2H₂O')+_cm('SO₂漂白暂时，Cl₂漂白永久'));h+=_card('电化学',_kp('原电池','化学能→电能，负极氧化正极还原')+_kp('电解池','电能→化学能，阳极氧化阴极还原')+_cm('原电池正极和电解池阴极都是还原反应'));h+=_card('反应速率与平衡',_kp('影响因素','浓度、温度、催化剂、接触面积')+_kp('勒夏特列原理','平衡向减弱改变的方向移动')+_cm('催化剂不使平衡移动'));h+=_card('有机化学',_kp('甲烷','正四面体，取代反应')+_kp('乙烯','加成反应、加聚反应')+_kp('乙醇','催化氧化→乙醛，酯化反应')+_kp('乙酸','弱酸，酯化反应')+_cm('酯化反应：酸脱羟基醇脱氢'));h+=_card('化学实验',_kp('安全','酸入水、扇闻法、灯帽盖灭')+_kp('分离提纯','过滤、蒸馏、萃取、结晶')+_kp('离子检验','Cl⁻：AgNO₃+HNO₃；SO₄²⁻：BaCl₂+HCl')+_cm('检验SO₄²⁻先加HCl酸化'));h+='</div>';return h;},
-    _buildBiologyKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>📚 高中生物知识点大全</h3>';h+=_card('细胞分子组成',_kp('蛋白质','氨基酸通过肽键连接，功能多样')+_kp('核酸','DNA双链(A/T/G/C)+RNA单链(A/U/G/C)')+_kp('糖类','单糖、二糖、多糖')+_kp('脂质','脂肪(储能)、磷脂(膜)、固醇')+_cm('蛋白质多样性：氨基酸种类数目排列顺序空间结构'));h+=_card('细胞结构与功能',_kp('细胞膜','流动镶嵌模型，选择透过性')+_kp('细胞器','线粒体(有氧呼吸)、叶绿体(光合)、核糖体(合成蛋白质)')+_kp('细胞核','遗传信息库，控制中心')+_cm('有膜vs无膜细胞器'));h+=_card('细胞代谢',_kp('酶','蛋白质或RNA，高效性专一性')+_kp('ATP','A-P~P~P，直接能源物质')+_kp('有氧呼吸','三阶段：糖酵解→柠檬酸循环→电子传递链')+_kp('光合作用','光反应(类囊体)+暗反应(基质)')+_cm('光合O₂来自水的光解'));h+=_card('细胞生命历程',_kp('有丝分裂','间期→前→中→后→末')+_kp('减数分裂','减Ⅰ同源分离+减Ⅱ类似有丝')+_kp('分化','基因选择性表达')+_kp('凋亡','基因控制的程序性死亡')+_cm('有丝分裂间期时间最长'));h+=_card('遗传基本规律',_kp('分离定律','等位基因随同源染色体分离(减Ⅰ后期)')+_kp('自由组合定律','非同源染色体非等位基因自由组合')+_kp('伴性遗传','基因位于性染色体')+_kp('系谱分析','先判显隐再判常/伴性')+_cm('伴Y遗传只有男性患病'));h+=_card('遗传分子基础',_kp('DNA复制','半保留复制')+_kp('转录','DNA→mRNA')+_kp('翻译','mRNA→蛋白质(核糖体)')+_kp('中心法则','DNA→DNA/RNA→蛋白质')+_cm('密码子简并性'));h+=_card('变异与进化',_kp('基因突变','碱基对增删换，变异根本来源')+_kp('基因重组','自由组合+交叉互换，变异主要来源')+_kp('现代进化理论','种群进化单位，突变重组原材料，自然选择方向，隔离物种形成必要条件')+_cm('地理隔离不一定导致生殖隔离'));h+=_card('生命活动调节',_kp('神经调节','反射弧：感受器→传入→中枢→传出→效应器')+_kp('体液调节','激素：微量高效、体液运输、靶器官')+_kp('免疫','体液免疫(B→抗体)+细胞免疫(T→效应T细胞)')+_kp('植物激素','生长素两重性、赤霉素、乙烯促成熟')+_cm('突触传递单向'));h+=_card('生态学',_kp('种群','J型Nt=N₀λᵗ，S型有K值')+_kp('能量流动','单向递减，传递效率10-20%')+_kp('物质循环','碳循环：CO₂⇌有机物，全球性')+_cm('传递效率针对营养级非个体'));h+='</div>';return h;},
-    _buildPhysicsExamples:function(){return '<div class="examples-section"><h3>📝 物理典型例题</h3>'+this._card('追及问题','甲车20m/s匀速，乙车从静止a=2m/s²追赶，相距100m。½×2t²=100+20t→t≈24.1s。距离最远时v乙=v甲→t=10s')+this._card('连接体问题','m₁=2kg,m₂=3kg，F=10N光滑面。a=F/(m₁+m₂)=2m/s²，T=m₂a=6N')+this._card('圆周临界','绳模型最高点v_min=√(gL)，杆模型v_min=0')+this._card('电磁感应','E=BLv，I=BLv/(R+r)，F安=B²L²v/(R+r)')+'</div>';},
-    _buildChemistryExamples:function(){return '<div class="examples-section"><h3>📝 化学典型例题</h3>'+this._card('氧化还原配平','Cu+HNO₃(稀)：Cu升2×3，N降3×2→3Cu+8HNO₃→3Cu(NO₃)₂+2NO+4H₂O')+this._card('原电池','锌铜原电池：负极Zn-2e⁻→Zn²⁺，正极2H⁺+2e⁻→H₂↑')+'</div>';},
-    _buildBiologyExamples:function(){return '<div class="examples-section"><h3>📝 生物典型例题</h3>'+this._card('遗传概率','正常夫妇生白化病(aa)儿子→父母Aa，再生正常男孩P=3/4×1/2=3/8')+this._card('光合呼吸','光照CO₂吸收12mg/h，黑暗释放4mg/h，真正光合=12+4=16mg/h')+'</div>';},
-    _buildPhysicsExperimentsContent:function(){var pe=this.physicsExperiments;if(!pe)return'';var h='<div class="experiments-section"><h3>🔬 高中物理实验大全</h3>';h+='<div class="knowledge-card"><h4>📏 测量仪器</h4>';pe.instruments.forEach(function(inst){h+='<div class="key-point"><strong>'+inst.name+'</strong>：精度'+inst.precision+'；读数：'+inst.reading+'；估读：'+inst.estimation+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🔧 电表改装</h4>';h+='<div class="key-point">'+pe.meterModification.voltmeter+'</div>';h+='<div class="key-point">'+pe.meterModification.ammeter+'</div>';h+='<div class="key-point">'+pe.meterModification.internalMethod+'</div>';h+='<div class="key-point">'+pe.meterModification.externalMethod+'</div>';h+='<div class="key-point">'+pe.meterModification.criterion+'</div>';h+='</div>';h+='<div class="knowledge-card"><h4>🔨 力学实验</h4>';pe.mechanicsExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>⚡ 电学实验</h4>';pe.electricityExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>💡 光学实验</h4>';pe.opticsExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🌡️ 热学实验</h4>';pe.thermalExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div></div>';return h;},
-    _buildChemistryExperimentsContent:function(){var ce=this.chemistryExperiments;if(!ce)return'';var h='<div class="experiments-section"><h3>🔬 化学实验指导</h3>';h+='<div class="knowledge-card"><h4>🛡️ 实验安全</h4>';ce.safety.forEach(function(s){h+='<div class="key-point"><strong>'+s.category+'</strong>：'+s.items.join('；')+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🔄 分离提纯</h4>';ce.separation.forEach(function(s){h+='<div class="key-point"><strong>'+s.method+'</strong>：'+s.principle+'，适用：'+s.scope+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🧪 滴定</h4>';ce.titration.forEach(function(t){h+='<div class="key-point"><strong>'+t.type+'</strong>：'+t.principle+'，步骤：'+t.steps+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>📐 常用仪器</h4>';ce.instruments.forEach(function(inst){h+='<div class="key-point"><strong>'+inst.name+'</strong>：'+inst.usage+'，注意：'+inst.notes+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>📦 药品储存</h4>';ce.storage.forEach(function(s){h+='<div class="key-point"><strong>'+s.substance+'</strong>：'+s.method+'（'+s.reason+'）</div>';});h+='</div></div>';return h;},
-    _buildBiologyExperimentsContent:function(){return '<div class="experiments-section"><h3>🔬 生物实验指导</h3>'+this._card('质壁分离与复原','原理：渗透作用。材料：紫色洋葱外表皮。步骤：装片→0.3g/mL蔗糖→观察分离→换清水→观察复原')+this._card('探究酶的专一性','自变量：酶种类或底物种类。检测：碘液/斐林试剂/双缩脲试剂')+this._card('观察根尖分生组织有丝分裂','流程：培养→固定→解离→漂洗→染色→制片→观察。解离液：盐酸+酒精')+this._card('探究酵母菌呼吸方式','自变量：有氧/无氧。检测：CO₂用澄清石灰水，酒精用酸性重铬酸钾')+'</div>';},
-    _buildPhysicsTests:function(){return '<div class="tests-section"><h3>📋 物理模拟测试</h3>'+
+    _buildPhysicsKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>高中物理知识点大全</h3>';h+=_card('第一章 运动的描述',_kp('质点','忽略物体大小和形状，将物体看作有质量的点')+_kp('参考系','为描述物体运动而选作标准的另外的物体')+_kp('位移','描述位置变化的矢量，从初位置指向末位置的有向线段')+_kp('速度','v=Δx/Δt，描述运动快慢和方向的矢量')+_kp('加速度','a=Δv/Δt，描述速度变化快慢的矢量，方向与合外力方向相同')+_cm('混淆位移与路程、速度与速率'));h+=_card('第二章 匀变速直线运动',_kp('公式','v=v₀+at；x=v₀t+½at²；v²-v₀²=2ax；x=(v₀+v)t/2')+_kp('逐差法','a=(x₄+x₅+x₆-x₁-x₂-x₃)/(9T²)')+_kp('自由落体','v=gt，h=½gt²')+_kp('竖直上抛','v=v₀-gt，h=v₀t-½gt²，H=v₀²/(2g)')+_cm('竖直上抛全程法：取向上为正，a=-g'));h+=_card('第三章 相互作用与力',_kp('重力','G=mg，方向竖直向下')+_kp('弹力','胡克定律F=kx')+_kp('摩擦力','滑动f=μN；静摩擦0<f≤f_max')+_kp('力的合成与分解','平行四边形定则，|F₁-F₂|≤F≤F₁+F₂')+_cm('摩擦力不一定是阻力'));h+=_card('第四章 牛顿运动定律',_kp('第一定律','力不是维持运动的原因')+_kp('第二定律','F=ma，瞬时对应关系')+_kp('第三定律','作用力与反作用力等大反向异体同性质')+_kp('超重失重','超重a向上，失重a向下，完全失重a=g')+_cm('超重失重与运动方向无关，只与加速度方向有关'));h+=_card('第五章 曲线运动',_kp('条件','合外力方向与速度方向不共线')+_kp('平抛运动','x=v₀t，y=½gt²，t=√(2h/g)')+_kp('圆周运动','v=2πr/T，a=v²/r=ω²r，F=mv²/r')+_kp('竖直面圆周','绳模型v_min=√(gR)，杆模型v_min=0')+_cm('向心力不是独立的力'));h+=_card('第六章 万有引力',_kp('万有引力定律','F=GMm/r²')+_kp('天体质量','M=4π²r³/(GT²)')+_kp('宇宙速度','v₁≈7.9km/s，最小发射速度、最大环绕速度')+_kp('变轨','低→高需加速，轨道越高速度越小但机械能越大')+_cm('轨道越高线速度越小v=√(GM/r)'));h+=_card('第七章 机械能',_kp('功','W=Flcosα')+_kp('动能定理','W合=½mv²-½mv₀²')+_kp('机械能守恒','只有重力或弹力做功时Ek₁+Ep₁=Ek₂+Ep₂')+_kp('功能关系','重力做功→势能变化；合外力做功→动能变化')+_cm('摩擦力做功与路径有关'));h+=_card('第八章 动量',_kp('动量定理','I=Δp，FΔt=Δp')+_kp('动量守恒','合外力为零时m₁v₁+m₂v₂=m₁v₁\'+m₂v₂\'')+_kp('碰撞分类','弹性/非弹性/完全非弹性')+_cm('完全非弹性碰撞动能损失最大但动量守恒'));h+=_card('第九章 静电场',_kp('库仑定律','F=kq₁q₂/r²')+_kp('电场强度','E=F/q，E=kQ/r²，E=U/d')+_kp('电势','φ=Ep/q，沿电场线方向电势降低')+_kp('电容','C=Q/U，C=εS/(4πkd)')+_cm('电场强度与电势无直接关系'));h+=_card('第十章 电路',_kp('欧姆定律','I=U/R，I=E/(R+r)')+_kp('路端电压','U=E-Ir')+_kp('电功率','P=UI，纯电阻Q=I²Rt')+_cm('非纯电阻电路中欧姆定律不适用'));h+=_card('第十一章 磁场',_kp('安培力','F=BILsinθ，左手定则')+_kp('洛伦兹力','F=qvBsinθ，不做功')+_kp('圆周运动','r=mv/(qB)，T=2πm/(qB)')+_cm('洛伦兹力不做功：力⊥速度'));h+=_card('第十二章 电磁感应',_kp('法拉第定律','E=nΔΦ/Δt，E=BLv')+_kp('楞次定律','增反减同')+_kp('自感','E=LΔI/Δt，阻碍电流变化')+_kp('交流电','e=Emsinωt，有效值U=Um/√2')+_kp('变压器','U₁/U₂=n₁/n₂，P₁=P₂')+_cm('有效值根据热效应定义'));h+=_card('第十三章 光学',_kp('折射','n=sin i/sin r，n=c/v')+_kp('全反射','光密→光疏且i≥C，sin C=1/n')+_kp('干涉','双缝Δx=λL/d')+_kp('衍射','缝宽与波长相当或更小')+_kp('偏振','横波特有现象')+_cm('全反射两个条件缺一不可'));h+=_card('第十四章 热学',_kp('分子动理论','大量分子+无规则运动+分子力')+_kp('内能','所有分子动能和势能的总和，与温度、体积有关')+_kp('热力学定律','ΔU=Q+W；第二定律：热量自发高温→低温')+_kp('理想气体','PV/T=恒量')+_cm('理想气体内能只与温度有关'));h+=_card('第十五章 振动与波',_kp('简谐运动','F=-kx，x=Asin(ωt+φ)')+_kp('单摆','T=2π√(l/g)')+_kp('共振','驱动力频率=固有频率时振幅最大')+_kp('波速','v=λf，波速由介质决定')+_kp('多普勒效应','靠近→频率升高，远离→频率降低')+_cm('波速≠质点振动速度'));h+=_card('第十六章 原子物理',_kp('玻尔理论','定态+跃迁+轨道量子化，Eₙ=-13.6/n²eV')+_kp('天然放射','α(⁴₂He)、β(⁰₋₁e)、γ(光子)')+_kp('半衰期','m=m₀(1/2)^(t/T)，统计规律')+_kp('核反应','质量数守恒+电荷数守恒')+_kp('光电效应','Ek=hν-W₀，极限频率ν₀=W₀/h')+_kp('波粒二象性','个别光子粒子性，大量光子波动性')+_kp('物质波','λ=h/(mv)')+_cm('光电效应中最大初动能与光强无关'));h+='</div>';return h;},
+    _buildChemistryKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>高中化学知识点大全</h3>';h+=_card('化学计量',_kp('物质的量','n=N/NA=m/M=V/Vm')+_kp('气体摩尔体积','标况下22.4L/mol，仅适用于标况气体')+_kp('配制溶液','计算→称量→溶解→冷却→转移→洗涤→定容→摇匀')+_cm('22.4L/mol仅适用于标况气体'));h+=_card('离子反应',_kp('电解质','酸碱盐为电解质，蔗糖酒精为非电解质')+_kp('离子方程式','写→拆→删→查')+_cm('弱电解质/沉淀/气体不拆'));h+=_card('氧化还原反应',_kp('基本概念','氧化剂得电子被还原，还原剂失电子被氧化')+_kp('配平方法','化合价升降法、电子守恒法')+_cm('同种元素不同价态：价态归中不交叉'));h+=_card('钠及其化合物',_kp('钠','银白色软金属，保存在煤油中')+_kp('Na₂O₂','淡黄色，与水/CO₂反应放O₂')+_cm('Na₂O₂与水反应既是氧化剂又是还原剂'));h+=_card('铁铝及其化合物',_kp('铁','Fe³⁺检验：KSCN变红')+_kp('铝','两性金属，与NaOH和HCl均产生H₂')+_cm('Al与NaOH反应时H₂O是氧化剂'));h+=_card('非金属',_kp('氯气','Cl₂+2NaOH→NaCl+NaClO+H₂O(歧化)')+_kp('硫酸','浓硫酸：吸水性、脱水性、强氧化性')+_kp('硝酸','Cu+4HNO₃(浓)→Cu(NO₃)₂+2NO₂↑+2H₂O')+_cm('SO₂漂白暂时，Cl₂漂白永久'));h+=_card('电化学',_kp('原电池','化学能→电能，负极氧化正极还原')+_kp('电解池','电能→化学能，阳极氧化阴极还原')+_cm('原电池正极和电解池阴极都是还原反应'));h+=_card('反应速率与平衡',_kp('影响因素','浓度、温度、催化剂、接触面积')+_kp('勒夏特列原理','平衡向减弱改变的方向移动')+_cm('催化剂不使平衡移动'));h+=_card('有机化学',_kp('甲烷','正四面体，取代反应')+_kp('乙烯','加成反应、加聚反应')+_kp('乙醇','催化氧化→乙醛，酯化反应')+_kp('乙酸','弱酸，酯化反应')+_cm('酯化反应：酸脱羟基醇脱氢'));h+=_card('化学实验',_kp('安全','酸入水、扇闻法、灯帽盖灭')+_kp('分离提纯','过滤、蒸馏、萃取、结晶')+_kp('离子检验','Cl⁻：AgNO₃+HNO₃；SO₄²⁻：BaCl₂+HCl')+_cm('检验SO₄²⁻先加HCl酸化'));h+='</div>';return h;},
+    _buildBiologyKnowledge:function(){var _kp=this._kp,_cm=this._cm,_card=this._card;var h='<div class="knowledge-section"><h3>高中生物知识点大全</h3>';h+=_card('细胞分子组成',_kp('蛋白质','氨基酸通过肽键连接，功能多样')+_kp('核酸','DNA双链(A/T/G/C)+RNA单链(A/U/G/C)')+_kp('糖类','单糖、二糖、多糖')+_kp('脂质','脂肪(储能)、磷脂(膜)、固醇')+_cm('蛋白质多样性：氨基酸种类数目排列顺序空间结构'));h+=_card('细胞结构与功能',_kp('细胞膜','流动镶嵌模型，选择透过性')+_kp('细胞器','线粒体(有氧呼吸)、叶绿体(光合)、核糖体(合成蛋白质)')+_kp('细胞核','遗传信息库，控制中心')+_cm('有膜vs无膜细胞器'));h+=_card('细胞代谢',_kp('酶','蛋白质或RNA，高效性专一性')+_kp('ATP','A-P~P~P，直接能源物质')+_kp('有氧呼吸','三阶段：糖酵解→柠檬酸循环→电子传递链')+_kp('光合作用','光反应(类囊体)+暗反应(基质)')+_cm('光合O₂来自水的光解'));h+=_card('细胞生命历程',_kp('有丝分裂','间期→前→中→后→末')+_kp('减数分裂','减Ⅰ同源分离+减Ⅱ类似有丝')+_kp('分化','基因选择性表达')+_kp('凋亡','基因控制的程序性死亡')+_cm('有丝分裂间期时间最长'));h+=_card('遗传基本规律',_kp('分离定律','等位基因随同源染色体分离(减Ⅰ后期)')+_kp('自由组合定律','非同源染色体非等位基因自由组合')+_kp('伴性遗传','基因位于性染色体')+_kp('系谱分析','先判显隐再判常/伴性')+_cm('伴Y遗传只有男性患病'));h+=_card('遗传分子基础',_kp('DNA复制','半保留复制')+_kp('转录','DNA→mRNA')+_kp('翻译','mRNA→蛋白质(核糖体)')+_kp('中心法则','DNA→DNA/RNA→蛋白质')+_cm('密码子简并性'));h+=_card('变异与进化',_kp('基因突变','碱基对增删换，变异根本来源')+_kp('基因重组','自由组合+交叉互换，变异主要来源')+_kp('现代进化理论','种群进化单位，突变重组原材料，自然选择方向，隔离物种形成必要条件')+_cm('地理隔离不一定导致生殖隔离'));h+=_card('生命活动调节',_kp('神经调节','反射弧：感受器→传入→中枢→传出→效应器')+_kp('体液调节','激素：微量高效、体液运输、靶器官')+_kp('免疫','体液免疫(B→抗体)+细胞免疫(T→效应T细胞)')+_kp('植物激素','生长素两重性、赤霉素、乙烯促成熟')+_cm('突触传递单向'));h+=_card('生态学',_kp('种群','J型Nt=N₀λᵗ，S型有K值')+_kp('能量流动','单向递减，传递效率10-20%')+_kp('物质循环','碳循环：CO₂⇌有机物，全球性')+_cm('传递效率针对营养级非个体'));h+='</div>';return h;},
+    _buildPhysicsExamples:function(){return '<div class="examples-section"><h3>物理典型例题</h3>'+this._card('追及问题','甲车20m/s匀速，乙车从静止a=2m/s²追赶，相距100m。½×2t²=100+20t→t≈24.1s。距离最远时v乙=v甲→t=10s')+this._card('连接体问题','m₁=2kg,m₂=3kg，F=10N光滑面。a=F/(m₁+m₂)=2m/s²，T=m₂a=6N')+this._card('圆周临界','绳模型最高点v_min=√(gL)，杆模型v_min=0')+this._card('电磁感应','E=BLv，I=BLv/(R+r)，F安=B²L²v/(R+r)')+'</div>';},
+    _buildChemistryExamples:function(){return '<div class="examples-section"><h3>化学典型例题</h3>'+this._card('氧化还原配平','Cu+HNO₃(稀)：Cu升2×3，N降3×2→3Cu+8HNO₃→3Cu(NO₃)₂+2NO+4H₂O')+this._card('原电池','锌铜原电池：负极Zn-2e⁻→Zn²⁺，正极2H⁺+2e⁻→H₂↑')+'</div>';},
+    _buildBiologyExamples:function(){return '<div class="examples-section"><h3>生物典型例题</h3>'+this._card('遗传概率','正常夫妇生白化病(aa)儿子→父母Aa，再生正常男孩P=3/4×1/2=3/8')+this._card('光合呼吸','光照CO₂吸收12mg/h，黑暗释放4mg/h，真正光合=12+4=16mg/h')+'</div>';},
+    _buildPhysicsExperimentsContent:function(){var pe=this.physicsExperiments;if(!pe)return'';var h='<div class="experiments-section"><h3>高中物理实验大全</h3>';h+='<div class="knowledge-card"><h4>测量仪器</h4>';pe.instruments.forEach(function(inst){h+='<div class="key-point"><strong>'+inst.name+'</strong>：精度'+inst.precision+'；读数：'+inst.reading+'；估读：'+inst.estimation+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>电表改装</h4>';h+='<div class="key-point">'+pe.meterModification.voltmeter+'</div>';h+='<div class="key-point">'+pe.meterModification.ammeter+'</div>';h+='<div class="key-point">'+pe.meterModification.internalMethod+'</div>';h+='<div class="key-point">'+pe.meterModification.externalMethod+'</div>';h+='<div class="key-point">'+pe.meterModification.criterion+'</div>';h+='</div>';h+='<div class="knowledge-card"><h4>力学实验</h4>';pe.mechanicsExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>电学实验</h4>';pe.electricityExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>光学实验</h4>';pe.opticsExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>热学实验</h4>';pe.thermalExperiments.forEach(function(exp){h+='<div class="key-point"><strong>'+exp.name+'</strong>（'+exp.principle+'）'+exp.errorAnalysis+'</div>';});h+='</div></div>';return h;},
+    _buildChemistryExperimentsContent:function(){var ce=this.chemistryExperiments;if(!ce)return'';var h='<div class="experiments-section"><h3>化学实验指导</h3>';h+='<div class="knowledge-card"><h4>实验安全</h4>';ce.safety.forEach(function(s){h+='<div class="key-point"><strong>'+s.category+'</strong>：'+s.items.join('；')+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>分离提纯</h4>';ce.separation.forEach(function(s){h+='<div class="key-point"><strong>'+s.method+'</strong>：'+s.principle+'，适用：'+s.scope+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>滴定</h4>';ce.titration.forEach(function(t){h+='<div class="key-point"><strong>'+t.type+'</strong>：'+t.principle+'，步骤：'+t.steps+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>常用仪器</h4>';ce.instruments.forEach(function(inst){h+='<div class="key-point"><strong>'+inst.name+'</strong>：'+inst.usage+'，注意：'+inst.notes+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>药品储存</h4>';ce.storage.forEach(function(s){h+='<div class="key-point"><strong>'+s.substance+'</strong>：'+s.method+'（'+s.reason+'）</div>';});h+='</div></div>';return h;},
+    _buildBiologyExperimentsContent:function(){return '<div class="experiments-section"><h3>生物实验指导</h3>'+this._card('质壁分离与复原','原理：渗透作用。材料：紫色洋葱外表皮。步骤：装片→0.3g/mL蔗糖→观察分离→换清水→观察复原')+this._card('探究酶的专一性','自变量：酶种类或底物种类。检测：碘液/斐林试剂/双缩脲试剂')+this._card('观察根尖分生组织有丝分裂','流程：培养→固定→解离→漂洗→染色→制片→观察。解离液：盐酸+酒精')+this._card('探究酵母菌呼吸方式','自变量：有氧/无氧。检测：CO₂用澄清石灰水，酒精用酸性重铬酸钾')+'</div>';},
+    _buildPhysicsTests:function(){return '<div class="tests-section"><h3>物理模拟测试</h3>'+
         this._card('基础·运动学','关于匀变速直线运动，下列说法正确的是：<br>A.速度越大加速度越大 ✗<br>B.速度变化越大加速度越大 ✗<br>C.加速度越大速度变化越快 ✓<br>D.加速度方向与速度方向一定相同 ✗<br><span style="color:#27ae60;">解析：a=Δv/Δt，加速度描述速度变化快慢，与速度大小无直接关系</span>')+
         this._card('基础·牛顿定律','质量为2kg的物体在光滑水平面上受6N水平力作用，3s内位移为（初速度为零）：<br>A.9m ✗<br>B.13.5m ✓<br>C.18m ✗<br>D.27m ✗<br><span style="color:#27ae60;">解析：a=F/m=3m/s²，x=½at²=½×3×9=13.5m</span>')+
         this._card('提升·曲线运动','从同一高度以不同初速度水平抛出两个相同小球（不计空气阻力），下列说法正确的是：<br>A.初速度大的先落地 ✗<br>B.两球同时落地 ✓<br>C.初速度大的落地速度小 ✗<br>D.两球落地速度相同 ✗<br><span style="color:#27ae60;">解析：t=√(2h/g)与v₀无关；落地速度v=√(v₀²+2gh)，v₀大则v大</span>')+
@@ -507,7 +507,7 @@ var CE={
         this._card('冲刺·动量能量','质量m的子弹以v₀射入静止木块M并留在其中，损失的机械能为：<br>A.½mv₀² ✗<br>B.½Mv₀² ✗<br>C.Mmv₀²/[2(M+m)] ✓<br>D.½mv₀²·M/(M+m) ✗<br><span style="color:#27ae60;">解析：mv₀=(M+m)v，ΔE=½mv₀²-½(M+m)v²=Mmv₀²/[2(M+m)]</span>')+
         this._card('冲刺·电场','关于电场强度和电势，下列正确的是：<br>A.E=0处φ一定为0 ✗<br>B.φ高处E一定大 ✗<br>C.E与φ无直接关系 ✓<br>D.沿电场线方向φ升高 ✗<br><span style="color:#27ae60;">解析：等量同种电荷连线中点E=0但φ≠0；沿电场线φ降低</span>')+
         '</div>';},
-    _buildChemistryTests:function(){return '<div class="tests-section"><h3>📋 化学模拟测试</h3>'+
+    _buildChemistryTests:function(){return '<div class="tests-section"><h3>化学模拟测试</h3>'+
         this._card('基础·化学计量','标准状况下，22.4L CO₂的物质的量为：<br>A.1mol ✓<br>B.22.4mol ✗<br>C.44mol ✗<br>D.无法确定 ✗<br><span style="color:#27ae60;">解析：标况下22.4L任何气体=1mol</span>')+
         this._card('基础·离子反应','下列离子能大量共存的是：<br>A.H⁺、CO₃²⁻ ✗<br>B.Na⁺、K⁺、NO₃⁻、SO₄²⁻ ✓<br>C.Fe³⁺、OH⁻ ✗<br>D.NH₄⁺、OH⁻ ✗<br><span style="color:#27ae60;">解析：A产生CO₂；C产生Fe(OH)₃沉淀；D产生NH₃·H₂O</span>')+
         this._card('提升·氧化还原','3Cu+8HNO₃(稀)→3Cu(NO₃)₂+2NO↑+4H₂O，被还原与未被还原的HNO₃之比为：<br>A.1:3 ✓<br>B.2:3 ✗<br>C.1:4 ✗<br>D.3:1 ✗<br><span style="color:#27ae60;">解析：8mol HNO₃中2mol被还原(N+5→+2)，6mol起酸性作用</span>')+
@@ -516,7 +516,7 @@ var CE={
         this._card('冲刺·盐类水解','下列溶液pH最大的是：<br>A.NaCl ✗<br>B.Na₂CO₃ ✓<br>C.NH₄Cl ✗<br>D.NaHCO₃ ✗<br><span style="color:#27ae60;">解析：Na₂CO₃水解程度最大，碱性最强</span>')+
         this._card('冲刺·有机推断','C₂H₄O₂能与NaHCO₃反应放出气体，该有机物为：<br>A.甲酸甲酯 ✗<br>B.乙酸 ✓<br>C.乙醇 ✗<br>D.乙醛 ✗<br><span style="color:#27ae60;">解析：与NaHCO₃反应→含-COOH，C₂H₄O₂含-COOH的只有乙酸</span>')+
         '</div>';},
-    _buildBiologyTests:function(){return '<div class="tests-section"><h3>📋 生物模拟测试</h3>'+
+    _buildBiologyTests:function(){return '<div class="tests-section"><h3>生物模拟测试</h3>'+
         this._card('基础·细胞结构','下列不具有膜结构的细胞器是：<br>A.线粒体 ✗<br>B.核糖体 ✓<br>C.内质网 ✗<br>D.高尔基体 ✗<br><span style="color:#27ae60;">解析：核糖体是无膜细胞器，还有中心体</span>')+
         this._card('基础·蛋白质','关于蛋白质，正确的是：<br>A.蛋白质是生命活动的主要承担者 ✓<br>B.所有蛋白质都含S ✗<br>C.多样性只与氨基酸种类有关 ✗<br>D.每种蛋白质都含20种氨基酸 ✗<br><span style="color:#27ae60;">解析：蛋白质功能多样性；多样性由种类/数目/排列/空间结构决定</span>')+
         this._card('提升·细胞代谢','有氧呼吸释放CO₂的阶段是：<br>A.只有第二阶段 ✓<br>B.第二和第三阶段 ✗<br>C.只有第三阶段 ✗<br>D.第一和第二阶段 ✗<br><span style="color:#27ae60;">解析：第二阶段丙酮酸+H₂O→CO₂+[H]释放CO₂</span>')+
@@ -1301,7 +1301,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(CE.chemistryStructure){
         var csApp=document.getElementById('chemistry-structure-app');
         if(csApp){
-            var html='<div class="knowledge-section"><h3>🔬 化学物质结构与性质</h3>';
+            var html='<div class="knowledge-section"><h3>化学物质结构与性质</h3>';
             CE.chemistryStructure.sections.forEach(function(sec){
                 html+='<div class="knowledge-card"><h4>'+sec.title+'</h4><div class="key-point">'+sec.content+'</div></div>';
             });

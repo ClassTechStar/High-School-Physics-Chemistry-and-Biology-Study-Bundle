@@ -1,7 +1,7 @@
 {
   "name": "高中物化生语数英学习大礼包",
   "short_name": "高考备考",
-  "description": "广东高考备考一站式学习平台 - 物理化学生物数学语文英语六科全覆盖",
+  "description": "物理化学生物数学语文英语六科的知识点、题库、错题本与模拟考试（纯静态，可离线）",
   "start_url": "index.html",
   "scope": ".",
   "display": "standalone",

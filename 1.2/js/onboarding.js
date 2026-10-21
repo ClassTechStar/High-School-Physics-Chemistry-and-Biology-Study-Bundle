@@ -5,7 +5,7 @@ window.onboarding = (function() {
     var STEPS = [
         {
             title: '欢迎来到 HSPCB',
-            text: '这是你的高考备考一站式平台。我们整合了九大学科的知识图谱、历年真题、模拟考试和学习工具，帮助你高效备战高考。',
+            text: '六科的知识点、题库、错题本和模拟考试都在这个页面里。学习记录存在你的浏览器本地，不联网、不需要注册。',
             spotlight: null,
             position: 'center'
         },

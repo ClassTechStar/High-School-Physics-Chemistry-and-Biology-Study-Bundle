@@ -895,30 +895,31 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     'presentation.html 除「首期18款」里程碑外不再出现旧口径「18款/27款」');
 
   const N = { total, ...counts };
-  ok(promo.includes(`${N.total}款交互式学习工具`)
-    && promo.includes(`<span class="hero-stat-num">${N.total}</span>`)
-    && promo.includes(`<span class="stats-value">${N.total}款</span>`),
+  // 只锁「数字与注册表一致」，不锁营销措辞。措辞已去营销腔（「款交互式学习工具」→「个工具入口」），
+  // 若继续用字面量匹配，改一次文案就要改一次门禁，门禁反而在保护旧话术。
+  const num = (n) => new RegExp(`(?<![\\d.])${n}(?![\\d.])`);
+  const inTag = (s, tag, n) => new RegExp(`<${tag}[^>]*>\\s*${n}(?![\\d.])`).test(s);
+  const near = (s, n, ...ctx) => ctx.every((c) => num(n).test(c) && num(n).test(s));
+
+  ok(num(N.total).test(promo.match(/<p class="hero-subtitle">([^<]*)</)?.[1] || '')
+    && inTag(promo, 'span class="hero-stat-num"', N.total)
+    && inTag(promo, 'span class="stats-value"', N.total),
     `promo.html 总量三处（hero 副标题/hero 数字/统计卡）均为 ${N.total}`);
-  ok(promo.includes(`<span class="stats-value">${N.physics}款</span>`)
-    && promo.includes(`<span class="stats-value">${N.chemistry}款</span>`)
-    && promo.includes(`<span class="stats-value">${N.biology}款</span>`)
-    && promo.includes(`<span class="stats-value">${N.platform}款</span>`),
+  ok([N.physics, N.chemistry, N.biology, N.platform].every((n) =>
+      new RegExp(`<span class="stats-value">\\s*${n}\\b`).test(promo)),
     `promo.html 统计卡分科数量与注册表一致（${N.physics}/${N.chemistry}/${N.biology}/${N.platform}）`);
-  ok(new RegExp(`${N.physics}款专业工具`).test(promo)
-    && new RegExp(`${N.chemistry}款专业工具`).test(promo)
-    && new RegExp(`${N.biology}款专业工具`).test(promo),
+  ok([N.physics, N.chemistry, N.biology].every((n) =>
+      new RegExp(`<p class="section-desc">\\s*${n}\\b[^<]*</p>`).test(promo)),
     `promo.html 分科 section-desc 与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
 
-  ok(pres.includes(`${N.total}款交互式学习工具`)
+  ok(num(N.total).test(pres.match(/<p class="subtitle">([^<]*)</)?.[1] || '')
     && pres.includes(`data-count="${N.total}"`)
-    && pres.includes(`整合${N.total}款交互式学习工具`)
-    && pres.includes(`整合${N.total}款工具`)
-    && pres.includes(`${N.total}款工具助考`)
-    && pres.includes(`<span class="fs-num">${N.total}</span>`),
+    && num(N.total).test(pres.match(/<p class="intro-text-large">([\s\S]*?)<\/p>/)?.[1] || '')
+    && num(N.total).test(pres.match(/<p class="promo-text">([^<]*)</)?.[1] || '')
+    && inTag(pres, 'span class="fs-num"', N.total),
     `presentation.html 总量六处（副标题/计数动画/简介/价值卡/结尾口号/尾页统计）均为 ${N.total}`);
-  ok(pres.includes(`<span class="tool-count">${N.physics}款</span>`)
-    && pres.includes(`<span class="tool-count">${N.chemistry}款</span>`)
-    && pres.includes(`<span class="tool-count">${N.biology}款</span>`),
+  ok([N.physics, N.chemistry, N.biology].every((n) =>
+      new RegExp(`<span class="tool-count">\\s*${n}\\b`).test(pres)),
     `presentation.html 分科角标与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
 }
 
