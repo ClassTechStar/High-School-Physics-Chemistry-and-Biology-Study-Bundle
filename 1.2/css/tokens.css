@@ -69,6 +69,21 @@
     /* 演示页主色(presentation/promo 深色主题专用,与浅色主题 --primary 区分) */
     --pres-primary: #667eea;
     --pres-primary-dark: #764ba2;
+
+    /* D 类类化保留令牌（T3-4f）：主题无关，明暗两态取值一致。
+       原为 index.html 静态 style 属性写死值；类化后以令牌保持现值，
+       确保 computed-style 外观零变化（不跟随 --math/--english 的 T3-1 新色相，
+       色相改版须用户另行确认）。 */
+    --tag-math-bg: #dbeafe;
+    --tag-math-fg: #3b82f6;
+    --tag-chinese-bg: #e0f2fe;
+    --tag-chinese-fg: #0369a1;
+    --tag-english-bg: #ede9fe;
+    --tag-english-fg: #7c3aed;
+    --panel-math-bg: #f5f7fa;
+    --panel-math-title: #3b82f6;
+    --panel-english-bg: #f8fafc;
+    --panel-english-title: #8b5cf6;
 }
 
 /* 暗黑模式变量覆盖 */

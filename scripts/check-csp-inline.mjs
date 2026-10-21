@@ -1,18 +1,26 @@
 #!/usr/bin/env node
 /**
- * check-csp-inline.mjs —— T3-4c / T12：内联三分类清点与门禁
+ * check-csp-inline.mjs —— T3-4c / T3-4f / T12：内联清点与 CSP 门禁
  *
  * 背景：DEV-PLAN T3-4 记载「先把 index.html 的 32 处内联 onclick 改为事件委托，
  * 才能移除 unsafe-inline」。v1.4 勘察实测该数字与现状不符，本脚本以实测口径为准，
  * 并把「静态 HTML 不得出现内联事件属性」固化为可回归的门禁断言。
  *
- * 进度：T3-4c（A 类静态属性清零 + data-action 委托）、T3-4d（C 类 js/ 侧与
- * index.html 内联脚本清零，委托中枢 js/csp-delegation.js）与 T3-4e（B 类 6 个
- * 内联脚本块全部外置为 js/ 外部脚本 + meta CSP script-src 移除 'unsafe-inline'）
- * 均已完成，A1/A2/A3/B1/B2/C1/C2 七条断言现行有效；D 类（内联样式）
- * 按计划留待后续阶段，当前只清点不设门禁。
+ * 进度：
+ *   T3-4c  A 类静态属性清零 + data-action 委托
+ *   T3-4d  C 类 js/ 侧与 index.html 内联脚本清零（委托中枢 js/csp-delegation.js）
+ *   T3-4e  B 类 6 个内联脚本块全部外置 + meta CSP script-src 移除 'unsafe-inline'
+ *   T3-4f  D1/D2：index.html 2 个 <style> 块外置（css/responsive.css 1159 B、
+ *          css/chinese-knowledge.css 8894 B，逐字节保真）、37 处静态 style 属性
+ *          类化（tokens.css 的 --tag-* 与 --panel-* 令牌 + style.css 类规则 +
+ *          theme-dark.css 按类选择器重建暗色对等覆盖），computed-style 回归
+ *          harness 18/18 组合（light/dark × 9 学科）零差异；
+ *          D3（js/ 侧模板 style 属性，实测 3624 处 / 42 个文件 = 20 动态 +
+ *          3604 静态）尚待立项决策，未开工。
+ *   现行门禁断言共九条：A1/A2/A3/B1/B2/C1/C2/D1/D2。
  *
- * 三分类口径（务必区分，否则会得出错误工作量结论）：
+ * 口径（script-src 侧三分类 + style-src 侧精确口径，务必区分，否则会得出
+ * 错误的工作量结论）：
  *   A. 静态 HTML 内联事件属性  —— index.html 中真实写在标签上的 on* 属性，
  *      由浏览器在解析时编译，受 script-src 'unsafe-inline' 管辖。
  *      ★ 必须先清零，这是移除 script-src 'unsafe-inline' 的必要条件。
@@ -21,9 +29,18 @@
  *   C. JS 生成的内联事件属性     —— js/*.js 里的字符串模板 `onclick="..."`
  *      以及 HTML 内联脚本里的字符串模板，运行时拼成真实 DOM 属性，
  *      同样受 script-src 'unsafe-inline' 管辖，但工作量在 js/ 侧而非 index.html。
- *
- * 另含 D. 内联样式：静态 HTML style 属性 + 内联 <style> 块 + JS 写入 style，
- * 受 style-src 'unsafe-inline' 管辖（本阶段只清点，不设门禁阈值）。
+ *   D. 内联样式（style-src 'unsafe-inline' 的精确管辖范围，T3-4f 起分级设门禁）：
+ *      D1. 静态 <style> 块    —— index.html 内的 <style>，受管辖，已清零（D1 门禁）。
+ *      D2. 静态 style 属性    —— 标签上的 style="..."，受管辖，已清零（D2 门禁）。
+ *      D3. JS 模板 style 属性 —— js/*.js 字符串模板拼出的 style="..."，运行时
+ *          成为真实 DOM 属性，受管辖（实测 3624 处 / 42 文件，只清点待立项）。
+ *      ✗ 不受管辖（旧口径误计，特此纠正）：el.style.prop= / el.style.cssText=
+ *        属 CSSOM 写入，不产生 style 属性字符串，style-src 'unsafe-inline'
+ *        管不到（实测 328 处 / 34 文件，其中 cssText 整体写 43 处）。旧脚本把
+ *        3624 + 328 = 3952 混计为「JS 样式写入」，据此推算的 D 类工作量含
+ *        328 处无效项。另：ctx.fillStyle / ctx.strokeStyle 属 Canvas API，
+ *        连「样式写入」都不算；模板正则的前导空白要求已将其排除（曾以无前导
+ *        空白口径误得 3929，差额 305 即此类）。
  *
  * 用法：node scripts/check-csp-inline.mjs [--json]
  * 退出码：0 = 全部门禁通过；1 = 有断言失败。
@@ -110,16 +127,28 @@ for (const c of codes) {
   }
 }
 
-/* ---------------- D. 内联样式（只清点） ---------------- */
+/* ---------------- D. 内联样式（style-src 'unsafe-inline' 精确口径） ---------------- */
 const staticStyleAttrs = (staticHtml.match(/\sstyle\s*=\s*["']/gi) || []).length;
 const styleBlocks = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1].split('\n').length);
-let jsStyleWrites = 0;
-let jsCssText = 0;
+// D3：JS 字符串模板拼出的 style 属性——运行时成为真实 DOM 属性，受 style-src 'unsafe-inline' 管辖。
+// 前导空白要求使 x.style=（CSSOM）与 ctx.fillStyle=（Canvas API）不被误计。
+let jsTemplateStyleAttrs = 0;
+let jsTemplateFiles = 0;
+// 不受管辖：CSSOM 写入（.style.prop= / .style.cssText=），不产生 style 属性字符串。
+// 旧口径将其与模板属性混计为「JS 样式写入 3952」，据此推算的 D 类工作量含 328 处无效项。
+let jsCssomWrites = 0;
+let jsCssomCssText = 0;
+let jsCssomFiles = 0;
 for (const f of jsFiles) {
   const src = readFileSync(resolve(APP, 'js', f), 'utf8');
-  jsStyleWrites += (src.match(/\sstyle\s*=\s*["'`]/gi) || []).length;
-  jsStyleWrites += (src.match(/\.style\.[a-zA-Z]+\s*=/g) || []).length;
-  jsCssText += (src.match(/cssText/g) || []).length;
+  const t = (src.match(/\sstyle\s*=\s*["'`]/gi) || []).length;
+  jsTemplateStyleAttrs += t;
+  if (t) jsTemplateFiles++;
+  const w = (src.match(/\.style\.[a-zA-Z]+\s*=/g) || []).length;
+  const x = (src.match(/\.style\.cssText\s*=/g) || []).length;
+  jsCssomWrites += w;
+  jsCssomCssText += x;
+  if (w) jsCssomFiles++;
 }
 
 /* ---------------- 门禁断言 ---------------- */
@@ -165,7 +194,7 @@ const checks = [
     got: /script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
     want: 0,
     pass: !/script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
-    detail: "script-src 已收紧为 'self'（style-src 的 'unsafe-inline' 保留，属 D 类内联样式范围，另行排期）",
+    detail: "script-src 已收紧为 'self'；style-src 的 'unsafe-inline' 暂保留——D1/D2 虽已清零静态侧，但 js/ 侧仍有 3624 处模板 style 属性（D3）依赖它，移除须待 D3 立项完成",
   },
   {
     id: 'C1',
@@ -187,6 +216,26 @@ const checks = [
       ? '3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮已改为 data-call / data-hook，注释字样不再误计；T3-4e 起内联脚本已外置，本断言转为兜底（一旦回退内联即复检）'
       : `残留：${[...inlineGenByEvent.entries()].map(([k, v]) => `${k}×${v}`).join(', ')}`,
   },
+  {
+    id: 'D1',
+    name: 'index.html 内联 <style> 块清零（T3-4f 外置为 css/ 外部样式表）',
+    got: styleBlocks.length,
+    want: 0,
+    pass: styleBlocks.length === 0,
+    detail: styleBlocks.length === 0
+      ? '原 2 个内联块（响应式补充 / 语文知识面板）已外置为 css/responsive.css（1159 B）与 css/chinese-knowledge.css（8894 B），逐字节保真；两者原位于三条 link 之后，外移后层叠地位不变；sw.js CORE_ASSETS 已同步（hspcb-v16）'
+      : `残留：${styleBlocks.length} 块（${styleBlocks.join(' + ')} 行），须外置为 css/ 外部样式表并在 sw.js 登记`,
+  },
+  {
+    id: 'D2',
+    name: 'index.html 静态 style 属性清零（T3-4f 类化）',
+    got: staticStyleAttrs,
+    want: 0,
+    pass: staticStyleAttrs === 0,
+    detail: staticStyleAttrs === 0
+      ? '37 处静态 style 属性已类化：工具徽标 ×16 → .tool-tag.math/.chinese/.english（tokens.css --tag-* 令牌）、区块间距 ×11 → .tools-section.mt-16/20/24（--space-4/5/6）、知识面板 ×4 → .knowledge-panel--math/--english（--panel-* 令牌）、tab-pane ×6 → .tab-pane/.is-hidden；theme-dark.css 第 6 节属性匹配型暗色专则随之失配，已按类选择器重建（无 !important，靠特异性 (0,2,0)/(0,3,0) 胜出），computed-style 回归 18/18 组合零差异'
+      : `残留：${staticStyleAttrs} 处，须类化到 css/ 并同步暗色对等覆盖`,
+  },
 ];
 
 /* ---------------- 输出 ---------------- */
@@ -200,8 +249,8 @@ const report = {
   D_inlineStyles: {
     staticStyleAttrs,
     styleBlocks: { count: styleBlocks.length, lines: styleBlocks },
-    jsStyleWrites,
-    jsCssText,
+    jsTemplateStyleAttrs: { count: jsTemplateStyleAttrs, files: jsTemplateFiles, governedByStyleSrc: true },
+    jsCssomWrites: { count: jsCssomWrites, files: jsCssomFiles, ofWhichCssText: jsCssomCssText, governedByStyleSrc: false },
   },
   checks,
 };
@@ -209,7 +258,7 @@ const report = {
 if (asJson) {
   console.log(JSON.stringify(report, null, 2));
 } else {
-  console.log('══ T12 内联三分类清点 ══\n');
+  console.log('══ T12 内联清点与 CSP 门禁 ══\n');
   console.log('A. 静态 HTML 内联事件属性（受 script-src 管辖，必须先清零）');
   console.log(`   数量：${report.A_staticHtmlEventAttrs.count}${staticEventHits.length ? ' → ' + staticEventHits.join(', ') : ' ✓'}`);
 
@@ -221,9 +270,10 @@ if (asJson) {
   console.log(`   js/*.js：${report.C_generatedEventAttrs.inJsFiles.total} 处  ${JSON.stringify(report.C_generatedEventAttrs.inJsFiles.byEvent)}`);
   console.log(`   index.html 内联脚本内：${report.C_generatedEventAttrs.inIndexInlineScripts.total} 处  ${JSON.stringify(report.C_generatedEventAttrs.inIndexInlineScripts.byEvent)}`);
 
-  console.log('\nD. 内联样式（受 style-src 管辖，本阶段只清点）');
-  console.log(`   静态 style 属性：${staticStyleAttrs}   <style> 块：${styleBlocks.length} 块（${styleBlocks.join(' + ')} 行）`);
-  console.log(`   JS 样式写入：${jsStyleWrites} 处   cssText：${jsCssText} 处`);
+  console.log('\nD. 内联样式（style-src 精确口径：D1/D2 已设门禁，D3 只清点）');
+  console.log(`   静态 style 属性：${staticStyleAttrs}${staticStyleAttrs ? ' ✗' : ' ✓（D2 门禁）'}   <style> 块：${styleBlocks.length}${styleBlocks.length ? ' ✗' : ' ✓（D1 门禁）'}`);
+  console.log(`   D3 JS 模板 style 属性（受管辖，待立项）：${jsTemplateStyleAttrs} 处 / ${jsTemplateFiles} 个 js 文件`);
+  console.log(`   不受管辖（CSSOM 写入，旧口径误计入工作量）：.style.*= ${jsCssomWrites} 处（含 cssText 整体写 ${jsCssomCssText} 处）/ ${jsCssomFiles} 个文件`);
 
   console.log('\n══ 门禁断言 ══');
   let allPass = true;

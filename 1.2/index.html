@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-dark.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/chinese-knowledge.css">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -17,22 +19,6 @@
 <script src="js/error-fallback.js"></script>
 
 <script src="js/theme-bootstrap.js"></script>
-
-<style>
-@media (max-width: 768px) {
-  .subject-nav { flex-wrap: wrap; gap: 4px; }
-  .nav-btn { padding: 6px 10px; font-size: 12px; }
-  .nav-btn .label { display: none; }
-  .subject-cards { grid-template-columns: 1fr !important; }
-  .tool-grid { grid-template-columns: 1fr !important; }
-  .tools-access { flex-direction: column; }
-  .tool-access-btn { width: 100%; text-align: left; }
-  canvas { max-width: 100% !important; height: auto !important; }
-  .container { padding: 8px; }
-  .main-header h1 { font-size: 20px; }
-  .theme-toggle { width: 36px; height: 36px; font-size: 16px; bottom: 12px; right: 12px; }
-}
-</style>
 
 </head>
 <body>
@@ -140,41 +126,41 @@
 <button class="tool-card" data-tool="biology-knowledge-graph"><div class="tool-icon">🗺️</div><h4>生物知识图谱</h4><p>13大热点专题·6维关联·考点清单</p><span class="tool-tag biology">生物</span></button>
 <button class="tool-card" data-tool="exam-dashboard"><div class="tool-icon">🎯</div><h4>备考数据中心</h4><p>分数线·知识图谱·个性化推荐·进度追踪</p><span class="tool-tag exam">备考</span></button>
 <button class="tool-card" data-tool="platform-overview"><div class="tool-icon">🏛️</div><h4>平台结构总览</h4><p>三层结构·各模块权重·题库构成</p><span class="tool-tag platform">平台</span></button>
-<button class="tool-card" data-tool="chinese-knowledge"><div class="tool-icon">📚</div><h4>语文知识点合集</h4><p>现代文·文言文·诗词·作文全解</p><span class="tool-tag" style="background:#e0f2fe;color:#0369a1;">语文</span></button>
+<button class="tool-card" data-tool="chinese-knowledge"><div class="tool-icon">📚</div><h4>语文知识点合集</h4><p>现代文·文言文·诗词·作文全解</p><span class="tool-tag chinese">语文</span></button>
 <button class="tool-card" data-tool="secondary-conclusions"><div class="tool-icon">📋</div><h4>物化二级结论</h4><p>物理快捷公式·化学核心结论速查</p><span class="tool-tag physics">必备</span></button>
 <button class="tool-card" data-tool="valence-atlas"><div class="tool-icon">⚗️</div><h4>元素价态图谱</h4><p>Na·Fe·S·N 价态二维图·反应网络</p><span class="tool-tag chemistry">化学</span></button>
-<button class="tool-card" data-tool="english-grammar-quiz"><div class="tool-icon">📝</div><h4>英语语法闯关</h4><p>30道语法题·三级难度·即时解析</p><span class="tool-tag" style="background:#ede9fe;color:#7c3aed;">英语</span></button>
-<button class="tool-card" data-tool="english-reading-trainer"><div class="tool-icon">📚</div><h4>阅读理解训练</h4><p>8篇文章·32题·计时练习</p><span class="tool-tag" style="background:#ede9fe;color:#7c3aed;">英语</span></button>
-<button class="tool-card" data-tool="english-composition-templates"><div class="tool-icon">✍️</div><h4>书面表达模板</h4><p>18篇范文·高分句型·过渡词库</p><span class="tool-tag" style="background:#ede9fe;color:#7c3aed;">英语</span></button>
+<button class="tool-card" data-tool="english-grammar-quiz"><div class="tool-icon">📝</div><h4>英语语法闯关</h4><p>30道语法题·三级难度·即时解析</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-reading-trainer"><div class="tool-icon">📚</div><h4>阅读理解训练</h4><p>8篇文章·32题·计时练习</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-composition-templates"><div class="tool-icon">✍️</div><h4>书面表达模板</h4><p>18篇范文·高分句型·过渡词库</p><span class="tool-tag english">英语</span></button>
 <button class="tool-card" data-tool="pomodoro-timer"><div class="tool-icon">⏱️</div><h4>番茄钟计时器</h4><p>25分钟专注·学习时长统计</p><span class="tool-tag platform">工具</span></button>
 <button class="tool-card" data-tool="study-plan-generator"><div class="tool-icon">📅</div><h4>学习计划生成器</h4><p>自动组卷·弱科加强·可打印</p><span class="tool-tag platform">工具</span></button>
 <button class="tool-card" data-tool="mastery-radar"><div class="tool-icon">📈</div><h4>掌握度雷达图</h4><p>六科多维·视觉化强弱分布</p><span class="tool-tag platform">数据</span></button>
 <button class="tool-card" data-tool="error-variation"><div class="tool-icon">🔄</div><h4>错题变式生成</h4><p>错一道练一类·参数自动变化</p><span class="tool-tag exam">备考</span></button>
 <button class="tool-card" data-tool="note-system"><div class="tool-icon">📓</div><h4>学习笔记系统</h4><p>Markdown·按科目分类·导出备份</p><span class="tool-tag platform">工具</span></button>
 <button class="tool-card" data-tool="data-exporter"><div class="tool-icon">💾</div><h4>数据导出/导入</h4><p>错题+模考+笔记·跨设备迁移</p><span class="tool-tag platform">工具</span></button>
-<button class="tool-card" data-tool="chinese-recitation"><div class="tool-icon">📝</div><h4>默写自测系统</h4><p>19篇必背·情境填空·即时批改</p><span class="tool-tag" style="background:#e0f2fe;color:#0369a1;">语文</span></button>
-<button class="tool-card" data-tool="chinese-vocabulary-quiz"><div class="tool-icon">🎯</div><h4>文言实词闯关</h4><p>25个实词·选择题·配对练习</p><span class="tool-tag" style="background:#e0f2fe;color:#0369a1;">语文</span></button>
-<button class="tool-card" data-tool="chinese-composition-materials"><div class="tool-icon">📚</div><h4>作文素材库</h4><p>4大主题·人物名言事例·一键复制</p><span class="tool-tag" style="background:#e0f2fe;color:#0369a1;">语文</span></button>
+<button class="tool-card" data-tool="chinese-recitation"><div class="tool-icon">📝</div><h4>默写自测系统</h4><p>19篇必背·情境填空·即时批改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-vocabulary-quiz"><div class="tool-icon">🎯</div><h4>文言实词闯关</h4><p>25个实词·选择题·配对练习</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-composition-materials"><div class="tool-icon">📚</div><h4>作文素材库</h4><p>4大主题·人物名言事例·一键复制</p><span class="tool-tag chinese">语文</span></button>
 <button class="tool-card" data-tool="onboarding"><div class="tool-icon">🛨️</div><h4>新手引导</h4><p>5步入门·功能介绍·快速上手</p><span class="tool-tag platform">平台</span></button>
 <button class="tool-card" data-tool="error-notebook"><div class="tool-icon">❌</div><h4>错题本系统</h4><p>自动收集错题·分类回顾·重做闯关</p><span class="tool-tag exam">备考</span></button>
 <button class="tool-card" data-tool="mock-exam"><div class="tool-icon">⏱️</div><h4>全真模拟考试</h4><p>随机组卷·倒计时·自动评分·五科可选</p><span class="tool-tag exam">备考</span></button>
 <button class="tool-card" data-tool="global-search"><div class="tool-icon">🔍</div><h4>全局搜索</h4><p>88+工具·六科知识图谱·Ctrl+K</p><span class="tool-tag platform">平台</span></button>
-<button class="tool-card" data-tool="chinese-sentence-correction"><div class="tool-icon">✍️</div><h4>病句修改训练器</h4><p>6大病句类型·30道高考真题·选择题+修改</p><span class="tool-tag" style="background:#e0f2fe;color:#0369a1;">语文</span></button>
-<button class="tool-card" data-tool="math-grapher"><div class="tool-icon">📈</div><h4>函数图像绘制器</h4><p>多函数叠加·平滑绘图·坐标网格</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-derivative"><div class="tool-icon">📐</div><h4>导数计算器</h4><p>符号求导·数值计算·图像对比</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-integral"><div class="tool-icon">∫</div><h4>积分计算器</h4><p>定积分数值计算·面积可视化</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-geometry"><div class="tool-icon">📏</div><h4>几何画板</h4><p>直线·圆·圆锥曲线可视化</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-sequence"><div class="tool-icon">📊</div><h4>数列可视化</h4><p>等差·等比·柱状图·通项公式</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-probability"><div class="tool-icon">🎲</div><h4>概率模拟器</h4><p>古典概型·二项分布·频率直方图</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
-<button class="tool-card" data-tool="math-handbook"><div class="tool-icon">📖</div><h4>数学公式手册</h4><p>7大分类·34条核心公式速查</p><span class="tool-tag" style="background:#dbeafe;color:#3b82f6;">数学</span></button>
+<button class="tool-card" data-tool="chinese-sentence-correction"><div class="tool-icon">✍️</div><h4>病句修改训练器</h4><p>6大病句类型·30道高考真题·选择题+修改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="math-grapher"><div class="tool-icon">📈</div><h4>函数图像绘制器</h4><p>多函数叠加·平滑绘图·坐标网格</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-derivative"><div class="tool-icon">📐</div><h4>导数计算器</h4><p>符号求导·数值计算·图像对比</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-integral"><div class="tool-icon">∫</div><h4>积分计算器</h4><p>定积分数值计算·面积可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-geometry"><div class="tool-icon">📏</div><h4>几何画板</h4><p>直线·圆·圆锥曲线可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-sequence"><div class="tool-icon">📊</div><h4>数列可视化</h4><p>等差·等比·柱状图·通项公式</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-probability"><div class="tool-icon">🎲</div><h4>概率模拟器</h4><p>古典概型·二项分布·频率直方图</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-handbook"><div class="tool-icon">📖</div><h4>数学公式手册</h4><p>7大分类·34条核心公式速查</p><span class="tool-tag math">数学</span></button>
 <button class="tool-card" data-tool="physics-wave-optics"><div class="tool-icon">🌊</div><h4>波动光学模拟</h4><p>波的干涉·光的折射·实时动画</p><span class="tool-tag physics">物理</span></button>
 <button class="tool-card" data-tool="chemistry-3d-molecules"><div class="tool-icon">⚛️</div><h4>3D分子模型</h4><p>H2O·CH4·NH3·CO2·C6H6可旋转</p><span class="tool-tag chemistry">化学</span></button>
 <button class="tool-card" data-tool="biology-cell-division"><div class="tool-icon">🧬</div><h4>细胞分裂动画</h4><p>有丝分裂·减数分裂·分步演示</p><span class="tool-tag biology">生物</span></button>
 <button class="tool-card" data-tool="study-dashboard"><div class="tool-icon">📊</div><h4>学习数据仪表盘</h4><p>学习时长·正确率趋势·科目分布</p><span class="tool-tag platform">数据</span></button>
-<button class="tool-card" data-tool="english-vocabulary"><div class="tool-icon">📖</div><h4>英语词汇记忆</h4><p>120高频词·单词卡片·选择题测试</p><span class="tool-tag" style="background:#ede9fe;color:#7c3aed;">英语</span></button>
+<button class="tool-card" data-tool="english-vocabulary"><div class="tool-icon">📖</div><h4>英语词汇记忆</h4><p>120高频词·单词卡片·选择题测试</p><span class="tool-tag english">英语</span></button>
 
 </div>
-<div class="tools-section" style="margin-top:20px;">
+<div class="tools-section mt-20">
 <h3>🎯 广东卷特色专项</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="guangdong-analysis">📊 命题规律白皮书</button>
@@ -183,7 +169,7 @@
 <button class="tool-access-btn" data-tool="tech-frontiers">🏆 科技前沿关联</button>
 </div>
 </div>
-<div class="tools-section" style="margin-top:16px;">
+<div class="tools-section mt-16">
 <h3>📝 答题规范与提分</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="answer-template">📋 大题答题模板库</button>
@@ -192,7 +178,7 @@
 <button class="tool-access-btn" data-tool="exam-strategy">🎯 考前策略指南</button>
 </div>
 </div>
-<div class="tools-section" style="margin-top:16px;">
+<div class="tools-section mt-16">
 <h3>🧠 记忆与诊断</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="spaced-repetition">🔁 间隔重复记忆系统</button>
@@ -201,7 +187,7 @@
 <button class="tool-access-btn" data-tool="knowledge-heatmap">🌡️ 知识盲区热力图</button>
 </div>
 </div>
-<div class="tools-section" style="margin-top:16px;">
+<div class="tools-section mt-16">
 <h3>📊 可视化与变式</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="formula-derivation">🎬 公式推导动画</button>
@@ -228,7 +214,7 @@
 <button class="tool-access-btn" data-tool="thinking-chain">💡 大题解题思维链</button>
 <button class="tool-access-btn" data-tool="variation-rec">🔄 变式题推荐系统</button>
 </div>
-<div class="tools-section" style="margin-top:16px;">
+<div class="tools-section mt-16">
 <h3>🆕 学科内容补全</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="poem-appreciation">🎨 古诗文鉴赏交互器</button>
@@ -242,7 +228,7 @@
 <button class="tool-access-btn" data-tool="dna-central-dogma">🧬 DNA中心法则动画</button>
 </div>
 </div>
-<div class="tools-section" style="margin-top:16px;">
+<div class="tools-section mt-16">
 <h3>🎯 学习激励与数据分析</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="achievement-system">🏆 成就徽章系统</button>
@@ -271,7 +257,7 @@
 <button class="module-tab" data-module="tests">✅ 课后检测</button>
 </div>
 <div id="physics-content" class="module-content"></div>
-<div class="tools-section" style="margin-top:24px;">
+<div class="tools-section mt-24">
 <h3>⚡ 物理专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="physics-formula">📐 物理公式计算器</button>
@@ -298,7 +284,7 @@
 <button class="module-tab" data-module="tests">✅ 课后检测</button>
 </div>
 <div id="chemistry-content" class="module-content"></div>
-<div class="tools-section" style="margin-top:24px;">
+<div class="tools-section mt-24">
 <h3>🧪 化学专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="chemistry-balancer">⚖️ 方程式配平器</button>
@@ -325,7 +311,7 @@
 <button class="module-tab" data-module="tests">✅ 课后检测</button>
 </div>
 <div id="biology-content" class="module-content"></div>
-<div class="tools-section" style="margin-top:24px;">
+<div class="tools-section mt-24">
 <h3>🧬 生物专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="biology-genetics">🧬 遗传规律模拟器</button>
@@ -347,14 +333,14 @@
 
 <!-- ===== MATH (数学) ===== -->
 <section id="math-section" class="section">
-<div style="padding:20px;font-family:'Microsoft YaHei',sans-serif;background:#f5f7fa;border-radius:16px;">
-<h2 style="color:#3b82f6;">📐 高中数学知识体系</h2>
+<div class="knowledge-panel knowledge-panel--math">
+<h2>📐 高中数学知识体系</h2>
 <div class="module-tabs">
 <button class="module-tab active" data-module="m1">📘 选必一</button>
 <button class="module-tab" data-module="m2">📗 选必二</button>
 </div>
 <div id="math-content">
-<div id="math-m1" style="display:block;margin-top:16px;">
+<div id="math-m1" class="tab-pane">
 <h3>选必一 — 集合·函数·三角·导数</h3>
 <div class="knowledge-card"><h4>集合与常用逻辑用语</h4><p>集合的运算(交并补)、充分必要条件判断、全称量词与存在量词</p></div>
 <div class="knowledge-card"><h4>函数概念与性质</h4><p>定义域值域、单调性奇偶性周期性、反函数、复合函数、函数图像变换</p></div>
@@ -362,7 +348,7 @@
 <div class="knowledge-card"><h4>三角函数</h4><p>任意角弧度制、诱导公式、和差倍角公式、正弦/余弦/正切函数图像</p></div>
 <div class="knowledge-card"><h4>导数及其应用</h4><p>导数定义与几何意义、基本导数公式、导数与单调性/极值/最值、切线方程</p></div>
 </div>
-<div id="math-m2" style="display:none;margin-top:16px;">
+<div id="math-m2" class="tab-pane is-hidden">
 <h3>选必二 — 向量·解析几何·数列·概率</h3>
 <div class="knowledge-card"><h4>空间向量与立体几何</h4><p>空间直角坐标系、向量坐标运算、线面角二面角、距离计算</p></div>
 <div class="knowledge-card"><h4>直线与圆的方程</h4><p>直线的五种形式、距离公式、圆的标准/一般方程、位置关系</p></div>
@@ -372,7 +358,7 @@
 <div class="knowledge-card"><h4>概率与统计</h4><p>古典概型、条件概率、二项分布、正态分布、期望与方差</p></div>
 </div>
 </div>
-<div class="tools-section" style="margin-top:24px;">
+<div class="tools-section mt-24">
 <h3>📐 数学专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="math-grapher">📈 函数图像绘制器</button>
@@ -389,8 +375,8 @@
 
 <!-- ===== ENGLISH (英语) ===== -->
 <section id="english-section" class="section">
-<div style="padding:20px;font-family:'Microsoft YaHei',sans-serif;background:#f8fafc;border-radius:16px;">
-<h2 style="color:#8b5cf6;">🇬🇧 高中英语知识体系</h2>
+<div class="knowledge-panel knowledge-panel--english">
+<h2>🇬🇧 高中英语知识体系</h2>
 <div class="module-tabs">
 <button class="module-tab active" data-module="eng-grammar">📝 语法知识</button>
 <button class="module-tab" data-module="eng-vocab">📖 词汇短语</button>
@@ -398,7 +384,7 @@
 <button class="module-tab" data-module="eng-writing">✍️ 书面表达</button>
 </div>
 <div id="english-content">
-<div id="english-eng-grammar" style="display:block;margin-top:16px;">
+<div id="english-eng-grammar" class="tab-pane">
 <h3>📝 语法知识</h3>
 <div class="knowledge-card"><h4>时态与语态</h4><p>16种时态，重点：一般现在/过去/将来时、现在/过去完成时、现在/过去进行时。被动语态：be+过去分词。</p></div>
 <div class="knowledge-card"><h4>非谓语动词</h4><p>不定式(to do)、动名词(doing)、分词(doing/done)。作主/宾/定/状/补语。</p></div>
@@ -406,28 +392,28 @@
 <div class="knowledge-card"><h4>虚拟语气</h4><p>条件句虚拟(与现在/过去/将来相反)、名词性从句虚拟(should+原形)、wish/as if等。</p></div>
 <div class="knowledge-card"><h4>倒装与强调</h4><p>部分倒装(否定前置/only前置/so neither)、完全倒装(地点状语前置)。强调句：It is...that/who...</p></div>
 </div>
-<div id="english-eng-vocab" style="display:none;margin-top:16px;">
+<div id="english-eng-vocab" class="tab-pane is-hidden">
 <h3>📖 词汇与短语</h3>
 <div class="knowledge-card"><h4>高频词汇</h4><p>新课标3500词中核心高频词约1500个。一词多义：observe(观察→遵守→庆祝)、address(地址→演讲→处理)。</p></div>
 <div class="knowledge-card"><h4>短语动词</h4><p>take/bring/come/go/put/get/turn+介词/副词：take up(开始)、take over(接管)、take off(起飞/成功)。</p></div>
 <div class="knowledge-card"><h4>词义辨析</h4><p>alone/lonely, rise/raise/arise, affect/effect/influence 等近义词区分。</p></div>
 <div class="knowledge-card"><h4>构词法</h4><p>前缀(un-/dis-/re-/pre-/inter-)、后缀(-tion/-ment/-ness/-able/-ful/-less)、合成词、转化词。</p></div>
 </div>
-<div id="english-eng-reading" style="display:none;margin-top:16px;">
+<div id="english-eng-reading" class="tab-pane is-hidden">
 <h3>📚 阅读理解</h3>
 <div class="knowledge-card"><h4>主旨大意题</h4><p>找主题句(首段/末段/每段首句)，概括全文，选最佳标题。防以偏概全。</p></div>
 <div class="knowledge-card"><h4>细节理解题</h4><p>定位关键词回原文找对应信息，注意同义替换、正话反说。</p></div>
 <div class="knowledge-card"><h4>推理判断题</h4><p>基于原文合理推断，不加主观假设。提问词：infer, suggest, imply, conclude。</p></div>
 <div class="knowledge-card"><h4>词义猜测题</h4><p>利用上下文线索(定义/举例/对比/因果)、构词法、常识猜测词义。</p></div>
 </div>
-<div id="english-eng-writing" style="display:none;margin-top:16px;">
+<div id="english-eng-writing" class="tab-pane is-hidden">
 <h3>✍️ 书面表达</h3>
 <div class="knowledge-card"><h4>书信作文</h4><p>邀请/建议/申请/感谢/道歉/投诉信。格式：称呼+正文+结束语+签名。</p></div>
 <div class="knowledge-card"><h4>议论文</h4><p>三段式：观点引入→论证(2-3论点+论据)→总结升华。连接词：Firstly, Moreover, In conclusion。</p></div>
 <div class="knowledge-card"><h4>读后续写</h4><p>新高考25分题型。读懂原文+合理续写两段(150词/段)，风格一致、首句衔接自然。</p></div>
 </div>
 </div>
-<div class="tools-section" style="margin-top:24px;">
+<div class="tools-section mt-24">
 <h3>🇬🇧 英语专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="english-grammar-quiz">📝 语法闯关</button>
@@ -595,296 +581,6 @@
 <!-- ===== CHINESE (语文) ===== -->
 <section id="chinese-section" class="section">
 <div class="chinese-knowledge">
-<style>
-.chinese-knowledge {
-    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.8;
-    color: #444;
-    background: #f8fafc;
-    position: relative;
-}
-.chinese-knowledge .top-nav { display: none; }
-.chinese-knowledge .back-to-top { display: none; }
-.chinese-knowledge .footer { display: none; }
-
-.chinese-knowledge .header {
-    background: linear-gradient(120deg, #e0f2fe 0%, #bae6fd 50%, #e0f2fe 100%);
-    color: #0c4a6e;
-    padding: 25px 20px 20px;
-    text-align: center;
-    border-bottom: 1px solid #e0f2fe;
-    border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
-}
-.chinese-knowledge .header h1 {
-    font-size: 1.6em;
-    margin-bottom: 6px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #0369a1;
-}
-.chinese-knowledge .header .subtitle {
-    font-size: 0.9em;
-    color: #0891b2;
-    font-weight: 400;
-}
-.chinese-knowledge .search-box {
-    margin: 14px auto 0;
-    max-width: 450px;
-}
-.chinese-knowledge .search-box input {
-    width: 100%;
-    padding: 10px 16px;
-    border: 2px solid #bae6fd;
-    border-radius: 25px;
-    font-size: 14px;
-    outline: none;
-    background: white;
-    transition: all 0.3s;
-}
-.chinese-knowledge .search-box input:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-}
-
-.chinese-knowledge .container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 16px;
-    display: flex;
-    gap: 20px;
-}
-
-.chinese-knowledge .sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 20px;
-    height: fit-content;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e0f2fe;
-}
-.chinese-knowledge .sidebar::-webkit-scrollbar { width: 3px; }
-.chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 2px; }
-
-.chinese-knowledge .sidebar-header {
-    position: relative !important;
-    top: auto !important;
-    z-index: auto !important;
-    border-bottom: none !important;
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
-    color: white;
-    padding: 12px 14px;
-    border-radius: 12px 12px 0 0;
-    font-size: 0.9em;
-    font-weight: 600;
-}
-
-.chinese-knowledge .nav-item {
-    padding: 6px 0;
-    border-bottom: 1px solid #f0f9ff;
-}
-.chinese-knowledge .nav-item:last-child { border-bottom: none; }
-
-.chinese-knowledge .nav-item-title {
-    padding: 6px 14px;
-    font-size: 0.85em;
-    font-weight: 600;
-    color: #0369a1;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.chinese-knowledge .nav-item-title:hover { background: #f0f9ff; }
-.chinese-knowledge .nav-item-title .arrow {
-    margin-left: auto;
-    transition: transform 0.2s;
-    font-size: 0.7em;
-    color: #94a3b8;
-}
-.chinese-knowledge .nav-item-title.active .arrow {
-    transform: rotate(90deg);
-    color: #0ea5e9;
-}
-
-.chinese-knowledge .nav-children {
-    display: none;
-    background: #fafefd;
-}
-.chinese-knowledge .nav-children.show { display: block; }
-.chinese-knowledge .nav-children a {
-    display: block;
-    padding: 4px 14px 4px 34px;
-    color: #64748b;
-    text-decoration: none;
-    font-size: 0.78em;
-    transition: all 0.2s;
-    border-left: 2px solid transparent;
-}
-.chinese-knowledge .nav-children a:hover {
-    background: #e0f2fe;
-    color: #0369a1;
-    border-left-color: #38bdf8;
-}
-
-.chinese-knowledge .main-content { flex: 1; min-width: 0; }
-
-.chinese-knowledge .module {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e0f2fe;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-.chinese-knowledge .module-header {
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
-    color: white;
-    padding: 14px 20px;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-.chinese-knowledge .module-body { padding: 16px 20px; }
-
-.chinese-knowledge .section {
-    display: block !important;
-    margin-bottom: 14px;
-    padding: 14px;
-    background: #fafefd;
-    border-radius: 10px;
-    border: 1px solid #e0f2fe;
-}
-.chinese-knowledge .section:last-child { margin-bottom: 0; }
-
-.chinese-knowledge .section-title {
-    color: #0369a1;
-    font-size: 0.95em;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.chinese-knowledge .subsection { margin: 10px 0; }
-.chinese-knowledge .subsection-title {
-    color: #0284c7;
-    font-weight: 600;
-    font-size: 0.9em;
-    margin-bottom: 6px;
-}
-
-.chinese-knowledge ul, .chinese-knowledge ol { padding-left: 18px; margin: 6px 0; }
-.chinese-knowledge li { margin: 3px 0; }
-
-.chinese-knowledge .info-box {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    border-left: 4px solid #0ea5e9;
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    margin: 8px 0;
-    font-size: 0.9em;
-}
-.chinese-knowledge .info-box.green {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border-left-color: #22c55e;
-}
-.chinese-knowledge .info-box.orange {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-    border-left-color: #f59e0b;
-}
-.chinese-knowledge .info-box.purple {
-    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
-    border-left-color: #a855f7;
-}
-.chinese-knowledge .info-box.red {
-    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-    border-left-color: #ef4444;
-}
-.chinese-knowledge .info-box strong { color: #0369a1; }
-.chinese-knowledge .info-box.green strong { color: #15803d; }
-.chinese-knowledge .info-box.orange strong { color: #b45309; }
-.chinese-knowledge .info-box.purple strong { color: #7e22ce; }
-.chinese-knowledge .info-box.red strong { color: #dc2626; }
-
-.chinese-knowledge .template-box {
-    background: #f0f9ff;
-    border-left: 4px solid #0ea5e9;
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    margin: 8px 0;
-    font-size: 0.88em;
-}
-.chinese-knowledge .template-box.green {
-    background: #f0fdf4;
-    border-left-color: #22c55e;
-}
-.chinese-knowledge .template-box.orange {
-    background: #fffbeb;
-    border-left-color: #f59e0b;
-}
-
-.chinese-knowledge table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 8px 0;
-    font-size: 0.82em;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.chinese-knowledge th, .chinese-knowledge td {
-    border: 1px solid #e0f2fe;
-    padding: 7px 10px;
-    text-align: left;
-}
-.chinese-knowledge th {
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
-    color: white;
-    font-weight: 600;
-}
-.chinese-knowledge tr:nth-child(even) { background: #f8fafc; }
-.chinese-knowledge tr:hover { background: #e0f2fe; }
-
-.chinese-knowledge .tag {
-    display: inline-block;
-    background: #e0f2fe;
-    color: #0369a1;
-    padding: 1px 7px;
-    border-radius: 10px;
-    font-size: 0.72em;
-    margin-right: 4px;
-    vertical-align: middle;
-}
-.chinese-knowledge .tag.red { background: #fee2e2; color: #dc2626; }
-.chinese-knowledge .tag.orange { background: #fed7aa; color: #ea580c; }
-.chinese-knowledge .tag.green { background: #dcfce7; color: #16a34a; }
-.chinese-knowledge .tag.blue { background: #e0f2fe; color: #0284c7; }
-
-.chinese-knowledge strong { color: #0369a1; }
-.chinese-knowledge .key-point { color: #dc2626; font-weight: bold; }
-.chinese-knowledge .easy-wrong { color: #f59e0b; font-weight: bold; }
-.chinese-knowledge .skill-tag { color: #16a34a; font-weight: bold; }
-
-@media (max-width: 1024px) {
-    .chinese-knowledge .container { flex-direction: column; }
-    .chinese-knowledge .sidebar {
-        width: 100%;
-        position: static;
-        max-height: none;
-    }
-    .chinese-knowledge .nav-item-title .arrow { display: none; }
-    .chinese-knowledge .nav-children { display: block !important; }
-    .chinese-knowledge .nav-children a { padding-left: 14px; }
-    .chinese-knowledge .header { padding: 20px 15px; }
-    .chinese-knowledge .header h1 { font-size: 1.3em; }
-}
-</style>
-
 <div class="header">
     <h1>📚 广东新高考I卷·高中语文知识点大合集</h1>
     <div class="subtitle">高三备考 · 基础夯实专用版</div>

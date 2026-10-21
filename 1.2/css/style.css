@@ -704,6 +704,36 @@ main {
 .tool-tag.physics { background: var(--physics-light); color: var(--physics); }
 .tool-tag.chemistry { background: var(--chemistry-light); color: var(--chemistry); }
 .tool-tag.biology { background: var(--biology-light); color: var(--biology); }
+.tool-tag.math { background: var(--tag-math-bg); color: var(--tag-math-fg); }
+.tool-tag.chinese { background: var(--tag-chinese-bg); color: var(--tag-chinese-fg); }
+.tool-tag.english { background: var(--tag-english-bg); color: var(--tag-english-fg); }
+
+/* ============================================================
+   D 类类化修饰（T3-4f）——原 index.html 静态 style 属性
+   现值优先：徽标/面板取 --tag-* 与 --panel-* 令牌（tokens.css，主题无关），
+   间距取 --space-4/5/6（16/20/24px，与原写死值一致）；
+   不跟随 --math/--english 的 T3-1 新色相（外观零变化优先，改色须用户确认）。
+   ============================================================ */
+
+/* 工具区分隔：原 .tools-section 上 11 处静态 margin-top（16×5 / 20×1 / 24×5）。
+   特异性 (0,2,0) 高于 .tools-section 默认的 --space-8（32px）。 */
+.tools-section.mt-16 { margin-top: var(--space-4); }
+.tools-section.mt-20 { margin-top: var(--space-5); }
+.tools-section.mt-24 { margin-top: var(--space-6); }
+
+/* 知识体系 tab 面板：原 #math-m1/#math-m2/#english-eng-* 上 6 处静态
+   display + margin-top（display:block×2 / display:none×4，margin-top 均 16px）。 */
+.tab-pane { display: block; margin-top: var(--space-4); }
+.tab-pane.is-hidden { display: none; }
+
+/* 数学/英语知识体系面板：原 2 处静态 padding/font-family/background/border-radius
+   与 2 处 h2 标题色（#3b82f6 / #8b5cf6）。 */
+.knowledge-panel { padding: var(--space-5); font-family: 'Microsoft YaHei', sans-serif; border-radius: 16px; }
+.knowledge-panel--math { background: var(--panel-math-bg); }
+.knowledge-panel--math h2 { color: var(--panel-math-title); }
+.knowledge-panel--english { background: var(--panel-english-bg); }
+.knowledge-panel--english h2 { color: var(--panel-english-title); }
+
 
 /* ============================================================
    SUBJECT CARDS (HOME PAGE)

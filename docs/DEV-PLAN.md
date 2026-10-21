@@ -762,7 +762,7 @@ function getCE() { return window.ContentEnhancer; }
 | **A. 静态 HTML 内联事件属性** | `script-src` | **2 → 0** ✅ | `onclick="toggleTheme()"`（主题按钮）+ `onkeyup="chineseSearch()"`（语文搜索框）。前次勘察只搜 `onclick` 漏掉 `onkeyup`，且未剥离 6 个内联 `<script>` 块内的字符串模板 |
 | **B. 内联 `<script>` 块** | `script-src` | **0 块 / 0 行** ✅（T3-4e 外置，原为 6 块 / 2512 行） | 原分布：#1 全局错误兜底 44 · #2 主题引导 32（须 body 渲染前同步执行，否则首屏闪白）· #3 主逻辑 2292（含 T3-4d 插入的 3 个计算器函数与 quickTool；最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
 | **C. JS 生成的内联事件属性** | `script-src` | **js/ 0 处 + index.html 内联脚本内 0 处** ✅（T3-4d 清零，原为 js/ 371 + index 25） | 原分布：click 307 / change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1（js 侧）。**这部分曾是移除 `unsafe-inline` 的真实主体工作量**，DEV-PLAN 的「32 处」严重低估 |
-| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3952 + `cssText` 43 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
+| **D. 内联样式** | `style-src` | **静态 `style` 属性 37 → 0 ✅ / `<style>` 块 2 → 0 ✅**（T3-4f D1/D2 清零）+ JS 模板 `style` 属性 **3624 处 / 42 文件**（20 动态 + 3604 静态，受管辖，D3 待立项） | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因。**口径纠正（T3-4f 实测）**：`style-src 'unsafe-inline'` 只管辖「产生 `style="..."` 属性字符串」的三种来源（静态属性 / `<style>` 块 / JS 字符串模板）；`el.style.prop=` / `el.style.cssText=` 属 CSSOM 写入，**不受管辖**。旧口径把 3624 + 328 = 3952 混计为「JS 样式写入」，据此推算的 D 类工作量含 328 处无效项；另 `ctx.fillStyle`/`ctx.strokeStyle`（Canvas API，305 处）曾被无前导空白正则误计为模板属性（3929 之误） |
 
 **分步路线（script-src 去 `unsafe-inline`）**：
 
@@ -780,6 +780,11 @@ function getCE() { return window.ContentEnhancer; }
    B2（`script-src` 无 `'unsafe-inline'`）两条断言，A3 作用域改为「index.html + 其引用的
    js/ 外部脚本」；index.html meta CSP 的 `script-src` 已收紧为 `'self'`
    （`style-src` 的 `'unsafe-inline'` 保留，属 D 类范围）
+5. ✅ **D1/D2 清零**（T3-4f 完成）：2 个 `<style>` 块外置 + 37 处静态 `style` 属性类化，
+   门禁追加 D1（`<style>` 块 = 0）/ D2（静态 `style` 属性 = 0）两条断言；`style-src`
+   的 `'unsafe-inline'` **暂保留**——js/ 侧仍有 3624 处模板 `style` 属性（D3）依赖它
+6. ⏳ **D3 决策**（待用户立项）：3624 处 JS 模板 `style` 属性的类化/令牌化改造，
+   完成后 `style-src` 方可收紧为 `'self'`
 
 **已落地的改造（T3-4c）**：
 
@@ -860,6 +865,50 @@ function getCE() { return window.ContentEnhancer; }
   （HSPCBStore 头部注释明列「主题引导脚本早于本文件执行」），外置后须登记方可过门禁
 - `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6 / csp 7/7 /
   lint 9+2 基线 / content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）
+
+#### 已落地的改造（T3-4f）——D1/D2 清零 + `style-src` 口径精确化
+
+- **D1：2 个 `<style>` 块外置**（逐字节保真，原块与文件内容哈希一致）：
+
+  | 原内联块 | 新文件 | 规模 | 层叠地位 |
+  | --- | --- | --- | --- |
+  | 响应式补充（媒体查询） | `css/responsive.css` | 1159 B | 原位于三条 `link` 之后，外移后经 `link` 引入，地位不变 |
+  | 语文知识面板样式 | `css/chinese-knowledge.css` | 8894 B | 同上 |
+
+  `sw.js` CORE_ASSETS 补入 2 个新 CSS，CACHE_NAME `hspcb-v15` → `hspcb-v16`
+
+- **D2：37 处静态 `style` 属性类化**（computed-style 回归零差异，见下）。实测分布：
+  工具徽标 16（math 7 / chinese 5 / english 4 的 bg+fg）· 区块间距 11
+  （`mt-16` ×5 / `mt-20` ×1 / `mt-24` ×5）· 知识面板 4（math/english 各 1 个
+  wrapper 的 bg/padding/font/radius + 1 个 h2 标题色）· tab-pane 6
+  （`display` + `margin-top`，含 `.is-hidden` 变体）：
+  - 工具徽标 → `.tool-tag.math/.chinese/.english` 类规则 + `tokens.css` 的
+    `--tag-math-bg/fg`、`--tag-chinese-*`、`--tag-english-*` 令牌
+  - 区块间距 → `.tools-section.mt-16/20/24` 类 + `--space-4/5/6` 令牌
+    （`--space-4: 16px`、`--space-8: 32px` 已在 `:root`）
+  - 知识面板 → `.knowledge-panel--math/--english` 类（含 h2 标题色）+
+    `--panel-math-bg/title`、`--panel-english-bg/title` 令牌
+  - tab-pane → `.tab-pane` / `.tab-pane.is-hidden` 类规则
+- **theme-dark.css 暗色对等重建**：第 6 节原用 `[style*="..."]` 属性选择器 + `!important`
+  精确覆盖内联样式（`!important` 压过非 important 内联），D2 移除 style 属性后这些规则
+  **静默失效**；按类选择器重建 7 条对等规则（徽标 bg/fg ×3 + 面板 bg/h2 ×2），
+  靠特异性 (0,2,0)/(0,3,0) 压过 style.css 侧 (0,1,0)/(0,2,0) 类化规则，**不加 `!important`**
+  （补丁层从 158 压到 21，为重映射层承重墙 99 留出余量）
+- **回归根因修复（CSS 注释 `*/` 陷阱）**：`style.css` L713 注释含 `--tag-*/--panel-*`，
+  `*/` 提前闭合注释，后续注释文字连同 `.tools-section.mt-16` 规则被吞成一个非法选择器
+  规则遭解析器整体丢弃（CSSOM 584 条中 mt-16 缺失，而 mt-20/24 均在）——首轮 D2 后
+  `.tools-section.mt-16` 实算 32px 而非 16px。修复为 `--tag-* 与 --panel-*` 后恢复解析
+- **computed-style 回归 harness**（Edge headless，9 学科 × light/dark = 18 组合，
+  每快照 4141 元素 / exam 4404）：D1/D2 + 注释修复 + 暗色重建**前**（pre）与**后**（post3）
+  逐元素逐属性比对，**18/18 完全一致**，外观零变化
+- **门禁口径精确化**（`scripts/check-csp-inline.mjs`，7 → 9 条断言）：
+  - 新增 D1（`<style>` 块 = 0）/ D2（静态 `style` 属性 = 0）两条门禁，反向注入验证
+    （临时注入 1 块 + 1 属性 → D1/D2 按预期 FAIL、exit=1 → 备份还原、SHA-256 字节一致）
+  - D 类计数拆分为「受管辖：JS 模板 `style` 属性 3624 处 / 42 文件」与
+    「不受管辖：CSSOM 写入 328 处 / 34 文件（含 cssText 整体写 43 处）」，纠正旧口径
+    3952 混计（`jsStyleWrites` 拆项）；报告与 console 输出同步
+- `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6（T2=21/T3=99）/
+  csp 9/9 / lint 9+2 基线 / content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）
 
 ### T3-5 · 内容扩充（需人力，非代码） — ✅ 代码侧结项（缺口量化 + 规范 + 门禁；**题目内容待人力**）
 
