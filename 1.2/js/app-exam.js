@@ -372,6 +372,12 @@ const examPracticeSystem = {
         this.saveStats();
     },
 
+    /** T3-4d：重置统计并重绘看板（原内联 onclick 的 resetStats + renderExamDashboard 双语句，CSP 改造为具名方法） */
+    resetStatsAndRender() {
+        this.resetStats();
+        this.renderExamDashboard(document.getElementById('exam-content'));
+    },
+
     renderExamDashboard(container) {
         if (!this.examData) {
             container.innerHTML = '<div class="no-results">📚 题库加载中，请稍候…</div>';
@@ -427,13 +433,13 @@ const examPracticeSystem = {
                             </div>
                         </div>
 
-                        <button class="btn-reset-stats" onclick="examPracticeSystem.resetStats(); examPracticeSystem.renderExamDashboard(document.getElementById('exam-content'));">🔄 重置统计数据</button>
+                        <button class="btn-reset-stats" data-call=\"examPracticeSystem.resetStatsAndRender\">🔄 重置统计数据</button>
                     </div>
 
                     <!-- 右侧：练习区域 -->
                     <div class="practice-area">
                         <div class="filter-bar">
-                            <select id="exam-subject-filter" onchange="examPracticeSystem.updateExamList()">
+                            <select id="exam-subject-filter" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部学科</option>
                                 <option value="physics">物理</option>
                                 <option value="chemistry">化学</option>
@@ -442,17 +448,17 @@ const examPracticeSystem = {
                                 <option value="chinese">语文</option>
                                 <option value="english">英语</option>
                             </select>
-                            <select id="exam-year-filter" onchange="examPracticeSystem.updateExamList()">
+                            <select id="exam-year-filter" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部年份</option>
                                 ${[2026,2025,2024,2023,2022,2021,2020,2019,2018].map(y => `<option value="${y}">${y}年</option>`).join('')}
                             </select>
-                            <select id="exam-difficulty-filter" onchange="examPracticeSystem.updateExamList()">
+                            <select id="exam-difficulty-filter" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部难度</option>
                                 <option value="easy">简单</option>
                                 <option value="medium">中等</option>
                                 <option value="hard">困难</option>
                             </select>
-                            <button class="btn-random-exam" onclick="examPracticeSystem.startRandomQuiz()">🎲 随机出题</button>
+                            <button class="btn-random-exam" data-call=\"examPracticeSystem.startRandomQuiz\">🎲 随机出题</button>
                         </div>
 
                         <div class="exam-list" id="exam-list"></div>
@@ -535,7 +541,7 @@ const examPracticeSystem = {
                 </div>
                 <div class="exam-question-preview">${this._esc(exam.question).substring(0, 60)}...</div>
                 <div class="exam-actions">
-                    <button class="btn-start-exam" onclick="examPracticeSystem.showExamDetail('${exam.id}')">开始答题</button>
+                    <button class="btn-start-exam" data-call="examPracticeSystem.showExamDetail" data-arg1="@s:${exam.id}">开始答题</button>
                 </div>
             </div>
         `).join('');
@@ -610,7 +616,7 @@ const examPracticeSystem = {
         detailEl.innerHTML = `
             <div class="exam-detail-content">
                 <div class="detail-header">
-                    <button class="btn-back-list" onclick="examPracticeSystem.backToList()">← 返回列表</button>
+                    <button class="btn-back-list" data-call=\"examPracticeSystem.backToList\">← 返回列表</button>
                     <div class="detail-meta">
                         <span class="exam-subject-tag ${exam.subject}">${this._subjectCn(exam.subject)}</span>
                         <span>${exam.year}年 · ${this._esc(exam.type)} · ${exam.points}分 · ${exam.difficulty==='hard'?'困难':exam.difficulty==='medium'?'中等':'简单'}</span>
@@ -625,7 +631,7 @@ const examPracticeSystem = {
                 ${answerAreaHtml}
 
                 <div class="action-buttons">
-                    <button class="btn-submit-answer" onclick="examPracticeSystem.submitCurrentAnswer()">✅ 提交答案</button>
+                    <button class="btn-submit-answer" data-call=\"examPracticeSystem.submitCurrentAnswer\">✅ 提交答案</button>
                 </div>
 
                 <div class="result-box" id="result-box" style="display:none;"></div>
@@ -1010,7 +1016,7 @@ const pcrSimulator = {
             <div class="pcr-header">
                 <h3>🧬 PCR聚合酶链式反应模拟实验系统</h3>
                 <p class="pcr-intro">PCR是一种体外扩增DNA的技术，通过变性-退火-延伸三个步骤循环进行，实现DNA片段的指数级扩增</p>
-                <button class="help-btn" onclick="pcrSimulator.toggleHelp()">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
+                <button class="help-btn" data-call=\"pcrSimulator.toggleHelp\">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
             </div>
 
             ${showHelp ? `
@@ -1049,29 +1055,29 @@ const pcrSimulator = {
                     <h4>⚙️ 实验参数设置</h4>
                     <div class="param-group">
                         <label>变性温度 (°C)</label>
-                        <input type="range" min="94" max="98" value="${params.denaturationTemp}" onchange="pcrSimulator.updateParam('denaturationTemp', this.value)">
+                        <input type="range" min="94" max="98" value="${params.denaturationTemp}" data-call=\"pcrSimulator.updateParam\" data-arg1=\"@s:denaturationTemp\" data-arg2=\"@val\">
                         <span class="param-value">${params.denaturationTemp}°C</span>
                     </div>
                     <div class="param-group">
                         <label>退火温度 (°C)</label>
-                        <input type="range" min="50" max="65" value="${params.annealingTemp}" onchange="pcrSimulator.updateParam('annealingTemp', this.value)">
+                        <input type="range" min="50" max="65" value="${params.annealingTemp}" data-call=\"pcrSimulator.updateParam\" data-arg1=\"@s:annealingTemp\" data-arg2=\"@val\">
                         <span class="param-value">${params.annealingTemp}°C</span>
                     </div>
                     <div class="param-group">
                         <label>延伸温度 (°C)</label>
-                        <input type="range" min="68" max="75" value="${params.extensionTemp}" onchange="pcrSimulator.updateParam('extensionTemp', this.value)">
+                        <input type="range" min="68" max="75" value="${params.extensionTemp}" data-call=\"pcrSimulator.updateParam\" data-arg1=\"@s:extensionTemp\" data-arg2=\"@val\">
                         <span class="param-value">${params.extensionTemp}°C</span>
                     </div>
                     <div class="param-group">
                         <label>循环次数</label>
-                        <input type="range" min="25" max="40" value="${params.cycles}" onchange="pcrSimulator.updateParam('cycles', this.value)">
+                        <input type="range" min="25" max="40" value="${params.cycles}" data-call=\"pcrSimulator.updateParam\" data-arg1=\"@s:cycles\" data-arg2=\"@val\">
                         <span class="param-value">${params.cycles}次</span>
                     </div>
 
                     <div class="control-buttons">
-                        <button class="btn btn-primary" onclick="pcrSimulator.startSimulation()" ${isRunning ? 'disabled' : ''}>▶ 开始模拟</button>
-                        <button class="btn btn-secondary" onclick="pcrSimulator.pauseSimulation()" ${!isRunning ? 'disabled' : ''}>⏸ 暂停</button>
-                        <button class="btn btn-secondary" onclick="pcrSimulator.resetSimulation()">↺ 重置</button>
+                        <button class="btn btn-primary" data-call=\"pcrSimulator.startSimulation\" ${isRunning ? 'disabled' : ''}>▶ 开始模拟</button>
+                        <button class="btn btn-secondary" data-call=\"pcrSimulator.pauseSimulation\" ${!isRunning ? 'disabled' : ''}>⏸ 暂停</button>
+                        <button class="btn btn-secondary" data-call=\"pcrSimulator.resetSimulation\">↺ 重置</button>
                     </div>
                 </div>
 
@@ -1325,7 +1331,7 @@ const gelElectrophoresisSimulator = {
             <div class="gel-header">
                 <h3>🔬 琼脂糖凝胶电泳模拟工具</h3>
                 <p class="gel-intro">电泳是根据DNA片段大小进行分离的技术，小片段迁移更快，大片段迁移更慢</p>
-                <button class="help-btn" onclick="gelElectrophoresisSimulator.toggleHelp()">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
+                <button class="help-btn" data-call=\"gelElectrophoresisSimulator.toggleHelp\">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
             </div>
 
             ${showHelp ? `
@@ -1363,19 +1369,19 @@ const gelElectrophoresisSimulator = {
                     <h4>⚙️ 实验参数</h4>
                     <div class="param-group">
                         <label>电压 (V)</label>
-                        <input type="range" min="50" max="150" value="${voltage}" onchange="gelElectrophoresisSimulator.updateVoltage(this.value)">
+                        <input type="range" min="50" max="150" value="${voltage}" data-call=\"gelElectrophoresisSimulator.updateVoltage\" data-arg1=\"@val\">
                         <span class="param-value">${voltage}V</span>
                     </div>
                     <div class="param-group">
                         <label>凝胶浓度 (%)</label>
-                        <input type="range" min="0.8" max="2.5" step="0.1" value="${gelPercentage}" onchange="gelElectrophoresisSimulator.updateGelPercentage(this.value)">
+                        <input type="range" min="0.8" max="2.5" step="0.1" value="${gelPercentage}" data-call=\"gelElectrophoresisSimulator.updateGelPercentage\" data-arg1=\"@val\">
                         <span class="param-value">${gelPercentage}%</span>
                     </div>
 
                     <div class="control-buttons">
-                        <button class="btn btn-primary" onclick="gelElectrophoresisSimulator.startRun()" ${isRunning ? 'disabled' : ''}>▶ 开始电泳</button>
-                        <button class="btn btn-secondary" onclick="gelElectrophoresisSimulator.pauseRun()" ${!isRunning ? 'disabled' : ''}>⏸ 暂停</button>
-                        <button class="btn btn-secondary" onclick="gelElectrophoresisSimulator.resetRun()">↺ 重置</button>
+                        <button class="btn btn-primary" data-call=\"gelElectrophoresisSimulator.startRun\" ${isRunning ? 'disabled' : ''}>▶ 开始电泳</button>
+                        <button class="btn btn-secondary" data-call=\"gelElectrophoresisSimulator.pauseRun\" ${!isRunning ? 'disabled' : ''}>⏸ 暂停</button>
+                        <button class="btn btn-secondary" data-call=\"gelElectrophoresisSimulator.resetRun\">↺ 重置</button>
                     </div>
 
                     <div class="time-display">

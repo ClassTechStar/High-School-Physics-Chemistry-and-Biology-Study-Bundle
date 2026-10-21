@@ -647,7 +647,7 @@ const biologyMindMap = {
                 <g class="node ${node.isCenter ? 'center-node' : ''}"
                     style="cursor: move"
                     data-id="${node.id}"
-                    onmousedown="biologyMindMap.startDrag('${node.id}', event)">
+                    data-call="biologyMindMap.startDrag" data-arg1="@s:${node.id}" data-arg2="@ev">
                     <rect x="${node.x - width/2}" y="${node.y - height/2}"
                         width="${width}" height="${height}"
                         fill="${fillColor}" stroke="${isSelected ? '#ff9800' : 'transparent'}"
@@ -670,19 +670,19 @@ const biologyMindMap = {
                 <div class="mm-header">
                     <h3>🧠 生物概念图/思维导图生成器</h3>
                     <div class="mm-controls">
-                        <select onchange="biologyMindMap.generateMindMap(this.value)">
+                        <select data-call=\"biologyMindMap.generateMindMap\" data-arg1=\"@val\">
                             <option value="">选择核心概念...</option>
                             ${conceptNames.map(c => `<option value="${c}">${c}</option>`).join('')}
                         </select>
                         <div class="layout-buttons">
                             <button class="btn ${this.state.layoutMode === 'radial' ? 'btn-primary' : 'btn-secondary'}"
-                                onclick="biologyMindMap.setLayout('radial')">放射状</button>
+                                data-call=\"biologyMindMap.setLayout\" data-arg1=\"@s:radial\">放射状</button>
                             <button class="btn ${this.state.layoutMode === 'tree' ? 'btn-primary' : 'btn-secondary'}"
-                                onclick="biologyMindMap.setLayout('tree')">树状</button>
+                                data-call=\"biologyMindMap.setLayout\" data-arg1=\"@s:tree\">树状</button>
                             <button class="btn ${this.state.layoutMode === 'flow' ? 'btn-primary' : 'btn-secondary'}"
-                                onclick="biologyMindMap.setLayout('flow')">流程式</button>
+                                data-call=\"biologyMindMap.setLayout\" data-arg1=\"@s:flow\">流程式</button>
                         </div>
-                        <button class="btn btn-primary" onclick="biologyMindMap.exportAsImage()">
+                        <button class="btn btn-primary" data-call=\"biologyMindMap.exportAsImage\">
                             📷 导出PNG
                         </button>
                     </div>
@@ -733,17 +733,17 @@ const biologyMindMap = {
             <div class="editor-form">
                 <div class="form-group">
                     <label>节点文本</label>
-                    <input type="text" id="node-text" value="${node.text}" onchange="biologyMindMap.updateNodeText(this.value)">
+                    <input type="text" id="node-text" value="${node.text}" data-call=\"biologyMindMap.updateNodeText\" data-arg1=\"@val\">
                 </div>
                 ${!node.isCenter ? `
                     <div class="form-group">
                         <label>添加子节点</label>
                         <div class="add-sub">
                             <input type="text" id="sub-text" placeholder="输入子节点内容...">
-                            <button class="btn btn-primary" onclick="biologyMindMap.addSubNode()">添加</button>
+                            <button class="btn btn-primary" data-call=\"biologyMindMap.addSubNode\">添加</button>
                         </div>
                     </div>
-                    <button class="btn btn-danger" onclick="biologyMindMap.deleteNode('${node.id}')">🗑️ 删除此节点</button>
+                    <button class="btn btn-danger" data-call="biologyMindMap.deleteNode" data-arg1="@s:${node.id}">🗑️ 删除此节点</button>
                 ` : '<p class="tip">中心节点不能删除，但可以修改文本</p>'}
             </div>
         `;
@@ -1329,7 +1329,7 @@ const geneticsPedigreeTrainer = {
                             <div class="category">
                                 <h5>常染色体遗传</h5>
                                 ${this.problems.filter(p => p.type.startsWith('autosomal')).map(p => `
-                                    <button class="problem-btn" onclick="geneticsPedigreeTrainer.loadProblem(${p.id})">
+                                    <button class="problem-btn" data-call="geneticsPedigreeTrainer.loadProblem" data-arg1="${p.id}">
                                         ${p.name}
                                     </button>
                                 `).join('')}
@@ -1337,7 +1337,7 @@ const geneticsPedigreeTrainer = {
                             <div class="category">
                                 <h5>X染色体遗传</h5>
                                 ${this.problems.filter(p => p.type.includes('x-')).map(p => `
-                                    <button class="problem-btn" onclick="geneticsPedigreeTrainer.loadProblem(${p.id})">
+                                    <button class="problem-btn" data-call="geneticsPedigreeTrainer.loadProblem" data-arg1="${p.id}">
                                         ${p.name}
                                     </button>
                                 `).join('')}
@@ -1345,7 +1345,7 @@ const geneticsPedigreeTrainer = {
                             <div class="category">
                                 <h5>其他类型</h5>
                                 ${this.problems.filter(p => !p.type.startsWith('autosomal') && !p.type.includes('x-')).map(p => `
-                                    <button class="problem-btn" onclick="geneticsPedigreeTrainer.loadProblem(${p.id})">
+                                    <button class="problem-btn" data-call="geneticsPedigreeTrainer.loadProblem" data-arg1="${p.id}">
                                         ${p.name}
                                     </button>
                                 `).join('')}
@@ -1357,7 +1357,7 @@ const geneticsPedigreeTrainer = {
                             ${this.state.wrongAnswers.length === 0 ?
                                 '<p class="no-wrong">暂无错题记录</p>' :
                                 this.state.wrongAnswers.map(w => `
-                                    <button class="problem-btn wrong-btn" onclick="geneticsPedigreeTrainer.loadProblem(${w.problemId})">
+                                    <button class="problem-btn wrong-btn" data-call="geneticsPedigreeTrainer.loadProblem" data-arg1="${w.problemId}">
                                         ${w.name} - 第${w.questionIndex + 1}题
                                     </button>
                                 `).join('')
@@ -1387,7 +1387,7 @@ const geneticsPedigreeTrainer = {
             <div class="pedigree-trainer">
                 <div class="pt-header">
                     <h3>🧬 遗传系谱图练习器</h3>
-                    <button class="btn btn-secondary" onclick="geneticsPedigreeTrainer.selectProblem()">← 返回选题</button>
+                    <button class="btn btn-secondary" data-call=\"geneticsPedigreeTrainer.selectProblem\">← 返回选题</button>
                 </div>
 
                 <div class="pt-main">
@@ -1406,7 +1406,7 @@ const geneticsPedigreeTrainer = {
                                 <div class="options">
                                     ${q.options.map((opt, optIdx) => `
                                         <div class="option ${this.getOptionClass(q, idx, optIdx)}"
-                                            onclick="geneticsPedigreeTrainer.selectAnswer(${idx}, ${optIdx})">
+                                            data-call="geneticsPedigreeTrainer.selectAnswer" data-arg1="${idx}" data-arg2="${optIdx}">
                                             <span class="opt-letter">${String.fromCharCode(65 + optIdx)}</span>
                                             <span class="opt-text">${opt}</span>
                                             ${this.state.userAnswers[idx] === optIdx ? this.getResultIcon(q, idx, optIdx) : ''}
@@ -1425,7 +1425,7 @@ const geneticsPedigreeTrainer = {
                                 ` : ''}
 
                                 ${this.state.showAnswer ? '' : this.state.hintLevel > idx ? '' : `
-                                    <button class="btn btn-hint" onclick="geneticsPedigreeTrainer.showHint(${idx})">
+                                    <button class="btn btn-hint" data-call="geneticsPedigreeTrainer.showHint" data-arg1="${idx}">
                                         💡 提示
                                     </button>
                                 `}
@@ -1433,7 +1433,7 @@ const geneticsPedigreeTrainer = {
                         `).join('')}
 
                         ${this.state.showAnswer ? '' : `
-                            <button class="btn btn-primary btn-block" onclick="geneticsPedigreeTrainer.submitAll()">
+                            <button class="btn btn-primary btn-block" data-call=\"geneticsPedigreeTrainer.submitAll\">
                                 提交答案
                             </button>
                         `}
@@ -1447,7 +1447,7 @@ const geneticsPedigreeTrainer = {
                                         ${problem.keyPoints.map(kp => `<li>${kp}</li>`).join('')}
                                     </ul>
                                 </div>
-                                <button class="btn btn-secondary" onclick="geneticsPedigreeTrainer.selectProblem()">
+                                <button class="btn btn-secondary" data-call=\"geneticsPedigreeTrainer.selectProblem\">
                                     选择下一题
                                 </button>
                             </div>
@@ -1576,7 +1576,7 @@ const geneticsPedigreeTrainer = {
             <div class="pedigree-trainer">
                 <div class="pt-header">
                     <h3>🧬 遗传系谱图练习器</h3>
-                    <button class="btn btn-secondary" onclick="geneticsPedigreeTrainer.selectProblem()">← 返回选题</button>
+                    <button class="btn btn-secondary" data-call=\"geneticsPedigreeTrainer.selectProblem\">← 返回选题</button>
                 </div>
 
                 <div class="pt-main">
@@ -1601,12 +1601,12 @@ const geneticsPedigreeTrainer = {
                                         ${problem.keyPoints.map(kp => `<li>${kp}</li>`).join('')}
                                     </ul>
                                 </div>
-                                <button class="btn btn-secondary" onclick="geneticsPedigreeTrainer.selectProblem()">
+                                <button class="btn btn-secondary" data-call=\"geneticsPedigreeTrainer.selectProblem\">
                                     选择下一题
                                 </button>
                             </div>
                         ` : `
-                            <button class="btn btn-primary btn-block" onclick="geneticsPedigreeTrainer.submitAll()"
+                            <button class="btn btn-primary btn-block" data-call=\"geneticsPedigreeTrainer.submitAll\"
                                 ${Object.keys(this.state.userAnswers).length < problem.questions.length ? 'disabled' : ''}>
                                 提交答案
                             </button>
@@ -1624,7 +1624,7 @@ const geneticsPedigreeTrainer = {
                 <div class="options">
                     ${q.options.map((opt, optIdx) => `
                         <div class="option ${this.getOptionClass(q, idx, optIdx)}"
-                            onclick="geneticsPedigreeTrainer.selectAnswer(${idx}, ${optIdx})">
+                            data-call="geneticsPedigreeTrainer.selectAnswer" data-arg1="${idx}" data-arg2="${optIdx}">
                             <span class="opt-letter">${String.fromCharCode(65 + optIdx)}</span>
                             <span class="opt-text">${opt}</span>
                             ${this.state.showAnswer && optIdx === q.correct ? '<span class="result-icon correct">✓</span>' : ''}
@@ -1641,7 +1641,7 @@ const geneticsPedigreeTrainer = {
                 ` : ''}
 
                 ${!this.state.showAnswer ? `
-                    <button class="btn btn-hint" onclick="geneticsPedigreeTrainer.showHint(${idx})">💡 提示</button>
+                    <button class="btn btn-hint" data-call="geneticsPedigreeTrainer.showHint" data-arg1="${idx}">💡 提示</button>
                 ` : ''}
             </div>
         `;
@@ -2049,10 +2049,10 @@ const photosynthesisTrainer = {
                 <div class="pt-header">
                     <h3>🌿 光合/呼吸曲线解读训练</h3>
                     <div class="pt-controls">
-                        <button class="btn btn-secondary" onclick="photosynthesisTrainer.exportWrongQuestions()">
+                        <button class="btn btn-secondary" data-call=\"photosynthesisTrainer.exportWrongQuestions\">
                             📝 导出错题
                         </button>
-                        <button class="btn btn-secondary" onclick="photosynthesisTrainer.clearWrongQuestions()">
+                        <button class="btn btn-secondary" data-call=\"photosynthesisTrainer.clearWrongQuestions\">
                             🗑️ 清空错题
                         </button>
                     </div>
@@ -2065,7 +2065,7 @@ const photosynthesisTrainer = {
                             <div class="category">
                                 <h5>光合作用曲线</h5>
                                 ${this.curves.filter(c => c.type === 'photosynthesis').map(c => `
-                                    <button class="curve-btn" onclick="photosynthesisTrainer.loadCurve(${c.id})">
+                                    <button class="curve-btn" data-call="photosynthesisTrainer.loadCurve" data-arg1="${c.id}">
                                         ${c.name}
                                     </button>
                                 `).join('')}
@@ -2073,7 +2073,7 @@ const photosynthesisTrainer = {
                             <div class="category">
                                 <h5>呼吸作用曲线</h5>
                                 ${this.curves.filter(c => c.type === 'respiration').map(c => `
-                                    <button class="curve-btn" onclick="photosynthesisTrainer.loadCurve(${c.id})">
+                                    <button class="curve-btn" data-call="photosynthesisTrainer.loadCurve" data-arg1="${c.id}">
                                         ${c.name}
                                     </button>
                                 `).join('')}
@@ -2081,7 +2081,7 @@ const photosynthesisTrainer = {
                             <div class="category">
                                 <h5>综合关系曲线</h5>
                                 ${this.curves.filter(c => c.type === 'relationship' || c.type === 'comprehensive').map(c => `
-                                    <button class="curve-btn" onclick="photosynthesisTrainer.loadCurve(${c.id})">
+                                    <button class="curve-btn" data-call="photosynthesisTrainer.loadCurve" data-arg1="${c.id}">
                                         ${c.name}
                                     </button>
                                 `).join('')}
@@ -2092,7 +2092,7 @@ const photosynthesisTrainer = {
                             <div class="wrong-review">
                                 <h4>📚 错题复习 (${this.state.wrongQuestions.length})</h4>
                                 ${this.state.wrongQuestions.map(w => `
-                                    <button class="curve-btn wrong-btn" onclick="photosynthesisTrainer.loadCurve(${w.curveId})">
+                                    <button class="curve-btn wrong-btn" data-call="photosynthesisTrainer.loadCurve" data-arg1="${w.curveId}">
                                         ${w.curveName}
                                     </button>
                                 `).join('')}
@@ -2147,7 +2147,7 @@ const photosynthesisTrainer = {
                                 <div class="option ${this.state.showExplanation ?
                                     (idx === q.correct ? 'correct' : (idx === this.state.userAnswer ? 'wrong' : '')) :
                                     (idx === this.state.userAnswer ? 'selected' : '')}"
-                                    onclick="photosynthesisTrainer.selectAnswer(${idx})">
+                                    data-call="photosynthesisTrainer.selectAnswer" data-arg1="${idx}">
                                     <span class="opt-letter">${String.fromCharCode(65 + idx)}</span>
                                     <span class="opt-text">${opt}</span>
                                     ${this.state.showExplanation && idx === q.correct ? '<span class="result-icon correct">✓</span>' : ''}
@@ -2164,12 +2164,12 @@ const photosynthesisTrainer = {
                         ` : ''}
 
                         ${!this.state.showExplanation ? `
-                            <button class="btn btn-primary btn-block" onclick="photosynthesisTrainer.submitAnswer()"
+                            <button class="btn btn-primary btn-block" data-call=\"photosynthesisTrainer.submitAnswer\"
                                 ${this.state.userAnswer === null ? 'disabled' : ''}>
                                 提交答案
                             </button>
                         ` : `
-                            <button class="btn btn-secondary btn-block" onclick="photosynthesisTrainer.renderTrainer()">
+                            <button class="btn btn-secondary btn-block" data-call=\"photosynthesisTrainer.renderTrainer\">
                                 选择其他曲线
                             </button>
                         `}
@@ -2190,6 +2190,12 @@ const experimentDesigner = {
         currentType: null,
         template: null,
         userInputs: {}
+    },
+
+    /** T3-4d：返回类型选择（原内联 onclick 的 state 赋值 + renderDesigner 双语句，CSP 改造为具名方法） */
+    backToTypeSelector() {
+        this.state.currentType = null;
+        this.renderDesigner();
     },
 
     experimentTypes: [
@@ -2441,7 +2447,7 @@ const experimentDesigner = {
                         <h4>📚 实验类型</h4>
                         <div class="type-grid">
                             ${this.experimentTypes.map(t => `
-                                <div class="type-card" onclick="experimentDesigner.selectType('${t.id}')">
+                                <div class="type-card" data-call="experimentDesigner.selectType" data-arg1="@s:${t.id}">
                                     <div class="type-icon">${t.icon}</div>
                                     <h5>${t.name}</h5>
                                     <p>${t.description}</p>
@@ -2452,11 +2458,11 @@ const experimentDesigner = {
                 ` : `
                     <div class="template-workspace">
                         <div class="workspace-header">
-                            <button class="btn btn-secondary" onclick="experimentDesigner.state.currentType = null; experimentDesigner.renderDesigner();">
+                            <button class="btn btn-secondary" data-call=\"experimentDesigner.backToTypeSelector\">
                                 ← 返回类型选择
                             </button>
                             <h4>${this.state.currentType.name}</h4>
-                            <button class="btn btn-primary" onclick="experimentDesigner.exportTemplate()">
+                            <button class="btn btn-primary" data-call=\"experimentDesigner.exportTemplate\">
                                 📄 导出模板
                             </button>
                         </div>
@@ -2465,14 +2471,14 @@ const experimentDesigner = {
                             <div class="form-section">
                                 <h5>📌 实验目的</h5>
                                 <textarea id="input-purpose" placeholder="${this.state.template.purpose}"
-                                    onchange="experimentDesigner.updateInput('purpose', 'main', this.value)"></textarea>
+                                    data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:purpose\" data-arg2=\"@s:main\" data-arg3=\"@val\"></textarea>
                             </div>
 
                             ${this.state.template.hypothesis ? `
                                 <div class="form-section">
                                     <h5>💡 实验假设</h5>
                                     <textarea id="input-hypothesis" placeholder="${this.state.template.hypothesis}"
-                                        onchange="experimentDesigner.updateInput('hypothesis', 'main', this.value)"></textarea>
+                                        data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:hypothesis\" data-arg2=\"@s:main\" data-arg3=\"@val\"></textarea>
                                 </div>
                             ` : ''}
 
@@ -2482,17 +2488,17 @@ const experimentDesigner = {
                                     <div class="var-group">
                                         <label>自变量</label>
                                         <textarea id="input-iv" placeholder="${this.state.template.variables.independent}"
-                                            onchange="experimentDesigner.updateInput('variables', 'independent', this.value)"></textarea>
+                                            data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:variables\" data-arg2=\"@s:independent\" data-arg3=\"@val\"></textarea>
                                     </div>
                                     <div class="var-group">
                                         <label>因变量</label>
                                         <textarea id="input-dv" placeholder="${this.state.template.variables.dependent}"
-                                            onchange="experimentDesigner.updateInput('variables', 'dependent', this.value)"></textarea>
+                                            data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:variables\" data-arg2=\"@s:dependent\" data-arg3=\"@val\"></textarea>
                                     </div>
                                     <div class="var-group">
                                         <label>无关变量（控制）</label>
                                         <textarea id="input-cv" placeholder="${this.state.template.variables.controlled}"
-                                            onchange="experimentDesigner.updateInput('variables', 'controlled', this.value)"></textarea>
+                                            data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:variables\" data-arg2=\"@s:controlled\" data-arg3=\"@val\"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -2512,13 +2518,13 @@ const experimentDesigner = {
                             <div class="form-section">
                                 <h5>🎯 预期结果</h5>
                                 <textarea id="input-result" placeholder="${this.state.template.expectedResult}"
-                                    onchange="experimentDesigner.updateInput('expectedResult', 'main', this.value)"></textarea>
+                                    data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:expectedResult\" data-arg2=\"@s:main\" data-arg3=\"@val\"></textarea>
                             </div>
 
                             <div class="form-section">
                                 <h5>📊 结论</h5>
                                 <textarea id="input-conclusion" placeholder="${this.state.template.conclusion}"
-                                    onchange="experimentDesigner.updateInput('conclusion', 'main', this.value)"></textarea>
+                                    data-call=\"experimentDesigner.updateInput\" data-arg1=\"@s:conclusion\" data-arg2=\"@s:main\" data-arg3=\"@val\"></textarea>
                             </div>
 
                             <div class="form-section">

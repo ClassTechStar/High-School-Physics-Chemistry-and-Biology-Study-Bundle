@@ -6,6 +6,11 @@
  * 才能移除 unsafe-inline」。v1.4 勘察实测该数字与现状不符，本脚本以实测口径为准，
  * 并把「静态 HTML 不得出现内联事件属性」固化为可回归的门禁断言。
  *
+ * 进度：T3-4c（A 类静态属性清零 + data-action 委托）与 T3-4d（C 类 js/ 侧与
+ * index.html 内联脚本清零，委托中枢 js/csp-delegation.js）均已完成，
+ * A1/A2/A3/C1/C2 五条断言现行有效；B 类（6 个内联脚本块）与 D 类（内联样式）
+ * 按计划留待后续阶段，当前只清点不设门禁。
+ *
  * 三分类口径（务必区分，否则会得出错误工作量结论）：
  *   A. 静态 HTML 内联事件属性  —— index.html 中真实写在标签上的 on* 属性，
  *      由浏览器在解析时编译，受 script-src 'unsafe-inline' 管辖。
@@ -121,11 +126,31 @@ const checks = [
   },
   {
     id: 'A3',
-    name: 'window.toggleTheme 仍导出（js/*.js 的 319 处 onclick 仍依赖）',
+    name: 'window.toggleTheme 仍导出（data-action 委托与外部调用方仍引用）',
     got: (html.match(/window\.toggleTheme\s*=/g) || []).length,
     want: 1,
     pass: (html.match(/window\.toggleTheme\s*=/g) || []).length === 1,
-    detail: '清零内联属性不等于删除全局 API，js/ 侧生成的事件属性仍引用它',
+    detail: '清零内联属性不等于删除全局 API；data-action="toggle-theme" 委托处理器与外部调用方仍引用它',
+  },
+  {
+    id: 'C1',
+    name: 'js/*.js 生成的内联事件属性清零（T3-4d）',
+    got: genTotal,
+    want: 0,
+    pass: genTotal === 0,
+    detail: genTotal === 0
+      ? 'js/ 侧字符串模板已全部改为 data-call / data-hook + js/csp-delegation.js 委托'
+      : `残留：${[...genByEvent.entries()].map(([k, v]) => `${k}×${v}`).join(', ')}`,
+  },
+  {
+    id: 'C2',
+    name: 'index.html 内联脚本生成的内联事件属性清零（T3-4d）',
+    got: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0),
+    want: 0,
+    pass: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0) === 0,
+    detail: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0) === 0
+      ? '3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮已改为 data-call / data-hook，注释字样不再误计'
+      : `残留：${[...inlineGenByEvent.entries()].map(([k, v]) => `${k}×${v}`).join(', ')}`,
   },
 ];
 

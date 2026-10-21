@@ -1583,7 +1583,7 @@ function renderInputArea(){
     // 预置例句选择下拉
     html += '<div style="margin-bottom:12px;">';
     html += '<label style="display:block;font-size:13px;color:#666;margin-bottom:6px;">从预置例句选择：</label>';
-    html += '<select id="sentence-select" onchange="window.englishSentenceAnalyzer._onSelectPreset(this.value)" style="'+
+    html += '<select id="sentence-select" data-call=\"window.englishSentenceAnalyzer._onSelectPreset\" data-arg1=\"@val\" style="'+
         'width:100%;padding:8px 10px;border:2px solid #ddd;border-radius:6px;font-size:14px;box-sizing:border-box;background:#fff;">';
     for(var i=0;i<PRESET_SENTENCES.length;i++){
         var s = PRESET_SENTENCES[i];
@@ -1603,9 +1603,9 @@ function renderInputArea(){
 
     // 分析按钮
     html += '<div style="display:flex;gap:8px;">';
-    html += '<button onclick="window.englishSentenceAnalyzer._analyzeCustom()" style="'+
+    html += '<button data-call=\"window.englishSentenceAnalyzer._analyzeCustom\" style="'+
         'padding:8px 20px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;">🔍 分析自定义句子</button>';
-    html += '<button onclick="window.englishSentenceAnalyzer._clearCustom()" style="'+
+    html += '<button data-call=\"window.englishSentenceAnalyzer._clearCustom\" style="'+
         'padding:8px 20px;background:#fff;color:#666;border:2px solid #ddd;border-radius:6px;font-size:14px;cursor:pointer;">清空</button>';
     html += '</div>';
 

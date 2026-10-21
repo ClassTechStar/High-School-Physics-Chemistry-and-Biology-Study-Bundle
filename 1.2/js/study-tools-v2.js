@@ -625,7 +625,7 @@ window.studyPlanGenerator = (function() {
             html += '</tr>';
         }
         html += '</tbody></table>';
-        html += '<button onclick="window.print()" style="margin-top:20px;padding:10px 24px;background:#4a90e2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u6253\u5370\u6216\u4FDD\u5B58\u4E3APDF</button>';
+        html += '<button data-call=\"window.print\" style="margin-top:20px;padding:10px 24px;background:#4a90e2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u6253\u5370\u6216\u4FDD\u5B58\u4E3APDF</button>';
         html += '</body></html>';
 
         var w = window.open('', '_blank');
@@ -1922,8 +1922,8 @@ window.noteSystem = (function() {
             }
             html += '</div>';
             html += '<div style="display:flex;gap:6px;flex-shrink:0;">';
-            html += '<button onclick="window.noteSystem._startEdit(\'' + n.id + '\')" style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u7F16\u8F91</button>';
-            html += '<button onclick="window.noteSystem._removeNote(\'' + n.id + '\')" style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u5220\u9664</button>';
+            html += '<button data-call="window.noteSystem._startEdit" data-arg1="@s:' + n.id + '" style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u7F16\u8F91</button>';
+            html += '<button data-call="window.noteSystem._removeNote" data-arg1="@s:' + n.id + '" style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u5220\u9664</button>';
             html += '</div>';
             html += '</div>';
             html += '<div style="font-size:14px;line-height:1.7;color:#444;">' + renderMarkdown(n.content) + '</div>';

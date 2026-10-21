@@ -1,5 +1,14 @@
 # 更新日志
 
+## Unreleased
+
+### 安全（CSP 收紧 T12，DEV-PLAN T3-4）
+- **A 类清零**（T3-4c）：`index.html` 静态内联事件属性（`onclick="toggleTheme()"` / `onkeyup="chineseSearch()"`）改为 `data-action` 委托，标签上不再有任何 `on*` 属性；`window.toggleTheme` 保留导出。
+- **C 类清零**（T3-4d）：`js/*.js` 371 处 + `index.html` 内联脚本内 25 处 JS 生成的内联事件属性全部改为 `data-call` / `data-hook` 声明式委托，新增委托中枢 `1.2/js/csp-delegation.js`（参数编码集 `@el`/`@ev`/`@val`/`@s:`/`@n:` 等）。
+- **门禁加严**：`check:csp`（`scripts/check-csp-inline.mjs`）由 3 条断言增至 5 条（A1/A2/A3/C1/C2），C 两类有残留即失败；`npm run verify` 九阶段全绿。
+- **顺带修复透镜计算器两个存量缺陷**（ERRATA P0-20）：5 个三元字符串缺 opening quote，浏览器模拟实证该按钮自上线起编译失败、从未可用；`m=v/u` 缺负号，实像/虚像场景正倒立输出与页面自有参考文本相反。
+- 遗留：B 类 6 个内联 `<script>` 块（2512 行）外置（#2 主题引导须保持 body 渲染前同步执行以防闪白），完成后即可移除 `script-src 'unsafe-inline'`。
+
 ## v1.3 (2026-09-30)
 
 工程化与体验优化版本。全部改动基于 [docs/OPTIMIZATION-TASKLIST.md](docs/OPTIMIZATION-TASKLIST.md) 的深度优化任务清单（T1–T14）。

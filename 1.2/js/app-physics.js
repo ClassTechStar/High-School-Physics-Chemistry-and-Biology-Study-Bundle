@@ -245,7 +245,7 @@ const physicsFormulaCalculator = {
         let html = `<div class="formula-list"><h4>${cat.name}</h4>`;
         cat.formulas.forEach((f, idx) => {
             html += `
-                <div class="formula-item" onclick="physicsFormulaCalculator.selectFormula('${category}', ${idx})">
+                <div class="formula-item" data-call="physicsFormulaCalculator.selectFormula" data-arg1="@s:${category}" data-arg2="${idx}">
                     <div class="formula-name">${f.name}</div>
                     <div class="formula-expr">${f.formula}</div>
                 </div>
@@ -280,7 +280,7 @@ const physicsFormulaCalculator = {
                 </div>
             `;
         });
-        html += `<button class="btn btn-primary" onclick="physicsFormulaCalculator.calculate()">🔍 计算</button>`;
+        html += `<button class="btn btn-primary" data-call=\"physicsFormulaCalculator.calculate\">🔍 计算</button>`;
         html += '</div>';
 
         varsEl.innerHTML = html;
@@ -404,7 +404,7 @@ const physicsFormulaCalculator = {
             const resultKey = Object.keys(entry.results)[0];
             const resultVal = Object.values(entry.results)[0];
             html += `
-                <div class="history-item" onclick="physicsFormulaCalculator.loadFromHistory(${idx})">
+                <div class="history-item" data-call="physicsFormulaCalculator.loadFromHistory" data-arg1="${idx}">
                     <div class="history-formula">${entry.formula}</div>
                     <div class="history-result">${resultKey} = ${typeof resultVal === 'number' ? resultVal.toPrecision(3) : resultVal}</div>
                     <div class="history-time">${entry.timestamp}</div>
@@ -457,12 +457,12 @@ const physicsFormulaCalculator = {
                     <div class="voice-input-wrapper">
                         <input type="text" id="formula-input" class="formula-input-field"
                             placeholder="输入公式名称或物理量，如：加速度、初速度、末速度、时间..."
-                            onkeypress="if(event.key==='Enter')physicsFormulaCalculator.parseAndCalculate(this.value)">
-                        <button id="voice-btn" class="voice-btn" onclick="physicsFormulaCalculator.toggleVoice()" title="语音输入">
+                            data-hook="formula-enter">
+                        <button id="voice-btn" class="voice-btn" data-call=\"physicsFormulaCalculator.toggleVoice\" title="语音输入">
                             🎤
                         </button>
                     </div>
-                    <button class="btn btn-primary" onclick="physicsFormulaCalculator.parseAndCalculate(document.getElementById('formula-input').value)">
+                    <button class="btn btn-primary" data-call=\"physicsFormulaCalculator.parseAndCalculate\" data-arg1=\"@docval:formula-input\">
                         🔍 解析
                     </button>
                 </div>
@@ -470,12 +470,12 @@ const physicsFormulaCalculator = {
                 <div id="formula-list" class="formula-list-container">
                     <h4>📚 公式分类</h4>
                     <div class="category-tabs">
-                        <button class="cat-tab active" onclick="physicsFormulaCalculator.selectCategory('mechanics')">力学</button>
-                        <button class="cat-tab" onclick="physicsFormulaCalculator.selectCategory('projectile')">抛体运动</button>
-                        <button class="cat-tab" onclick="physicsFormulaCalculator.selectCategory('electricity')">电学</button>
-                        <button class="cat-tab" onclick="physicsFormulaCalculator.selectCategory('thermodynamics')">热学</button>
-                        <button class="cat-tab" onclick="physicsFormulaCalculator.selectCategory('waves')">波动</button>
-                        <button class="cat-tab" onclick="physicsFormulaCalculator.selectCategory('atomic')">原子物理</button>
+                        <button class="cat-tab active" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:mechanics\">力学</button>
+                        <button class="cat-tab" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:projectile\">抛体运动</button>
+                        <button class="cat-tab" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:electricity\">电学</button>
+                        <button class="cat-tab" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:thermodynamics\">热学</button>
+                        <button class="cat-tab" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:waves\">波动</button>
+                        <button class="cat-tab" data-call=\"physicsFormulaCalculator.selectCategory\" data-arg1=\"@s:atomic\">原子物理</button>
                     </div>
                 </div>
 
@@ -584,7 +584,7 @@ const projectileSimulator = {
             <div class="ps-header">
                 <h3>🎯 抛物线运动模拟器</h3>
                 <p class="ps-intro">模拟物体在重力作用下的抛物线运动，支持空气阻力计算</p>
-                <button class="help-btn" onclick="projectileSimulator.toggleHelp()">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
+                <button class="help-btn" data-call=\"projectileSimulator.toggleHelp\">${showHelp ? '📖 隐藏说明' : '📖 使用说明'}</button>
             </div>
 
             ${showHelp ? `
@@ -625,19 +625,19 @@ const projectileSimulator = {
 
                     <div class="param-group">
                         <label>初始速度 v₀</label>
-                        <input type="range" id="v0-slider" min="5" max="50" value="${v0}" oninput="projectileSimulator.updateParam('v0', this.value)" ${isRunning && !isPaused ? 'disabled' : ''}>
+                        <input type="range" id="v0-slider" min="5" max="50" value="${v0}" data-call=\"projectileSimulator.updateParam\" data-arg1=\"@s:v0\" data-arg2=\"@val\" ${isRunning && !isPaused ? 'disabled' : ''}>
                         <span class="param-value">${v0} m/s</span>
                     </div>
 
                     <div class="param-group">
                         <label>发射角度 θ</label>
-                        <input type="range" id="theta-slider" min="5" max="85" value="${theta}" oninput="projectileSimulator.updateParam('theta', this.value)" ${isRunning && !isPaused ? 'disabled' : ''}>
+                        <input type="range" id="theta-slider" min="5" max="85" value="${theta}" data-call=\"projectileSimulator.updateParam\" data-arg1=\"@s:theta\" data-arg2=\"@val\" ${isRunning && !isPaused ? 'disabled' : ''}>
                         <span class="param-value">${theta}°</span>
                     </div>
 
                     <div class="param-group">
                         <label>重力加速度 g</label>
-                        <select id="g-select" onchange="projectileSimulator.updateParam('g', parseFloat(this.value))" ${isRunning && !isPaused ? 'disabled' : ''}>
+                        <select id="g-select" data-call=\"projectileSimulator.updateParam\" data-arg1=\"@s:g\" data-arg2=\"@valn\" ${isRunning && !isPaused ? 'disabled' : ''}>
                             <option value="9.8" ${g === 9.8 ? 'selected' : ''}>地球 g = 9.8 m/s²</option>
                             <option value="1.62" ${g === 1.62 ? 'selected' : ''}>月球 g = 1.62 m/s²</option>
                             <option value="3.71" ${g === 3.71 ? 'selected' : ''}>火星 g = 3.71 m/s²</option>
@@ -647,26 +647,26 @@ const projectileSimulator = {
 
                     <div class="param-group">
                         <label>空气阻力系数</label>
-                        <input type="range" id="drag-slider" min="0" max="2" step="0.1" value="${dragCoeff}" oninput="projectileSimulator.updateParam('dragCoeff', parseFloat(this.value))" ${isRunning && !isPaused ? 'disabled' : ''}>
+                        <input type="range" id="drag-slider" min="0" max="2" step="0.1" value="${dragCoeff}" data-call=\"projectileSimulator.updateParam\" data-arg1=\"@s:dragCoeff\" data-arg2=\"@valn\" ${isRunning && !isPaused ? 'disabled' : ''}>
                         <span class="param-value">${dragCoeff.toFixed(1)}</span>
                     </div>
 
                     <div class="param-group">
                         <label>模拟速度</label>
-                        <input type="range" id="speed-slider" min="0.5" max="3" step="0.5" value="${speed}" oninput="projectileSimulator.updateParam('speed', parseFloat(this.value))">
+                        <input type="range" id="speed-slider" min="0.5" max="3" step="0.5" value="${speed}" data-call=\"projectileSimulator.updateParam\" data-arg1=\"@s:speed\" data-arg2=\"@valn\">
                         <span class="param-value">${speed}x</span>
                     </div>
 
                     <div class="control-buttons">
                         ${!isRunning ? `
-                            <button class="btn btn-primary" onclick="projectileSimulator.startSimulation()">▶ 开始模拟</button>
+                            <button class="btn btn-primary" data-call=\"projectileSimulator.startSimulation\">▶ 开始模拟</button>
                         ` : isPaused ? `
-                            <button class="btn btn-primary" onclick="projectileSimulator.resumeSimulation()">▶ 继续</button>
+                            <button class="btn btn-primary" data-call=\"projectileSimulator.resumeSimulation\">▶ 继续</button>
                         ` : `
-                            <button class="btn btn-secondary" onclick="projectileSimulator.pauseSimulation()">⏸ 暂停</button>
+                            <button class="btn btn-secondary" data-call=\"projectileSimulator.pauseSimulation\">⏸ 暂停</button>
                         `}
-                        <button class="btn btn-secondary" onclick="projectileSimulator.resetSimulation()">↺ 重置</button>
-                        <button class="btn btn-info" onclick="projectileSimulator.toggleCharts()">${showCharts ? '📊 隐藏图表' : '📊 数据图表'}</button>
+                        <button class="btn btn-secondary" data-call=\"projectileSimulator.resetSimulation\">↺ 重置</button>
+                        <button class="btn btn-info" data-call=\"projectileSimulator.toggleCharts\">${showCharts ? '📊 隐藏图表' : '📊 数据图表'}</button>
                     </div>
 
                     <div class="stats-box">
@@ -677,11 +677,11 @@ const projectileSimulator = {
                     <div class="presets-box">
                         <h4>🎯 快捷预设</h4>
                         <div class="presets-grid">
-                            <button class="preset-btn" onclick="projectileSimulator.loadPreset(20, 45, 0)">标准抛射</button>
-                            <button class="preset-btn" onclick="projectileSimulator.loadPreset(30, 30, 0)">平射</button>
-                            <button class="preset-btn" onclick="projectileSimulator.loadPreset(30, 60, 0)">高射</button>
-                            <button class="preset-btn" onclick="projectileSimulator.loadPreset(20, 45, 0.5)">有阻力</button>
-                            <button class="preset-btn" onclick="projectileSimulator.loadPreset(20, 45, 0, 1.62)">月球抛射</button>
+                            <button class="preset-btn" data-call=\"projectileSimulator.loadPreset\" data-arg1=\"20\" data-arg2=\"45\" data-arg3=\"0\">标准抛射</button>
+                            <button class="preset-btn" data-call=\"projectileSimulator.loadPreset\" data-arg1=\"30\" data-arg2=\"30\" data-arg3=\"0\">平射</button>
+                            <button class="preset-btn" data-call=\"projectileSimulator.loadPreset\" data-arg1=\"30\" data-arg2=\"60\" data-arg3=\"0\">高射</button>
+                            <button class="preset-btn" data-call=\"projectileSimulator.loadPreset\" data-arg1=\"20\" data-arg2=\"45\" data-arg3=\"0.5\">有阻力</button>
+                            <button class="preset-btn" data-call=\"projectileSimulator.loadPreset\" data-arg1=\"20\" data-arg2=\"45\" data-arg3=\"0\" data-arg4=\"1.62\">月球抛射</button>
                         </div>
                     </div>
                 </div>
@@ -1304,9 +1304,9 @@ const ecosystemSimulator = {
         h.push('<div class="eco-sim-toolbar">');
         h.push('<div class="eco-sim-title"><span class="eco-sim-icon">\uD83C\uDF0D</span><h2>\u751F\u6001\u52A8\u6001\u7CFB\u7EDF\u6A21\u62DF</h2></div>');
         h.push('<div class="eco-sim-actions">');
-        h.push('<button class="eco-btn eco-btn-start" onclick="ecosystemSimulator.startSimulation()">\u25B6 \u5F00\u59CB\u6A21\u62DF</button>');
-        h.push('<button class="eco-btn eco-btn-pause" onclick="ecosystemSimulator.pauseSimulation()">\u23F8 \u6682\u505C</button>');
-        h.push('<button class="eco-btn eco-btn-reset" onclick="ecosystemSimulator.resetSimulation()">\u21BB \u91CD\u7F6E</button>');
+        h.push('<button class="eco-btn eco-btn-start" data-call=\"ecosystemSimulator.startSimulation\">\u25B6 \u5F00\u59CB\u6A21\u62DF</button>');
+        h.push('<button class="eco-btn eco-btn-pause" data-call=\"ecosystemSimulator.pauseSimulation\">\u23F8 \u6682\u505C</button>');
+        h.push('<button class="eco-btn eco-btn-reset" data-call=\"ecosystemSimulator.resetSimulation\">\u21BB \u91CD\u7F6E</button>');
         h.push('</div></div>');
         h.push('<div class="eco-sim-main">');
         h.push('<div class="eco-species-panel">');
@@ -1341,12 +1341,12 @@ const ecosystemSimulator = {
         h.push('<div class="eco-slider-group">');
         h.push('<div class="eco-slider-item">');
         h.push('<div class="eco-slider-header"><label>\uD83C\uDF21\uFE0F \u6E29\u5EA6</label><span class="eco-slider-value">' + st.temperature + '\u00B0C</span></div>');
-        h.push('<input type="range" class="eco-range" min="-10" max="40" value="' + st.temperature + '" oninput="ecosystemSimulator.state.temperature=parseInt(this.value);ecosystemSimulator.renderSimulation();">');
+        h.push('<input type="range" class="eco-range" min="-10" max="40" value="' + st.temperature + '" data-hook="eco-temp">');
         h.push('<div class="eco-slider-labels"><span>-10\u00B0C</span><span>15\u00B0C</span><span>40\u00B0C</span></div>');
         h.push('</div>');
         h.push('<div class="eco-slider-item">');
         h.push('<div class="eco-slider-header"><label>\uD83D\uDCA7 \u6E7F\u5EA6</label><span class="eco-slider-value">' + (st.moisture * 100).toFixed(0) + '%</span></div>');
-        h.push('<input type="range" class="eco-range" min="0" max="100" value="' + (st.moisture * 100) + '" oninput="ecosystemSimulator.state.moisture=parseInt(this.value)/100;ecosystemSimulator.renderSimulation();">');
+        h.push('<input type="range" class="eco-range" min="0" max="100" value="' + (st.moisture * 100) + '" data-hook="eco-moisture">');
         h.push('<div class="eco-slider-labels"><span>0%</span><span>50%</span><span>100%</span></div>');
         h.push('</div>');
         h.push('</div></div>');
@@ -1354,10 +1354,10 @@ const ecosystemSimulator = {
         h.push('<div class="eco-panel-section">');
         h.push('<h4 class="eco-panel-title">\uD83C\uDF43 \u5B63\u8282\u9884\u8BBE</h4>');
         h.push('<div class="eco-season-grid">');
-        h.push('<button class="eco-season-btn" onclick="ecosystemSimulator.setEnvironment(\'spring\')"><span class="eco-season-icon">\uD83C\uDF38</span><span class="eco-season-name">\u6625\u5B63</span><span class="eco-season-desc">\u6E29\u6696\u6E7F\u6DA6</span></button>');
-        h.push('<button class="eco-season-btn" onclick="ecosystemSimulator.setEnvironment(\'summer\')"><span class="eco-season-icon">\u2600\uFE0F</span><span class="eco-season-name">\u590F\u5B63</span><span class="eco-season-desc">\u708E\u70ED\u5E72\u71E5</span></button>');
-        h.push('<button class="eco-season-btn" onclick="ecosystemSimulator.setEnvironment(\'autumn\')"><span class="eco-season-icon">\uD83C\uDF42</span><span class="eco-season-name">\u79CB\u5B63</span><span class="eco-season-desc">\u51C9\u723D\u8212\u9002</span></button>');
-        h.push('<button class="eco-season-btn" onclick="ecosystemSimulator.setEnvironment(\'winter\')"><span class="eco-season-icon">\u2744\uFE0F</span><span class="eco-season-name">\u51AC\u5B63</span><span class="eco-season-desc">\u5BD2\u51B7\u6F6E\u6E7F</span></button>');
+        h.push('<button class="eco-season-btn" data-call="ecosystemSimulator.setEnvironment" data-arg1="@s:spring"><span class="eco-season-icon">\uD83C\uDF38</span><span class="eco-season-name">\u6625\u5B63</span><span class="eco-season-desc">\u6E29\u6696\u6E7F\u6DA6</span></button>');
+        h.push('<button class="eco-season-btn" data-call="ecosystemSimulator.setEnvironment" data-arg1="@s:summer"><span class="eco-season-icon">\u2600\uFE0F</span><span class="eco-season-name">\u590F\u5B63</span><span class="eco-season-desc">\u708E\u70ED\u5E72\u71E5</span></button>');
+        h.push('<button class="eco-season-btn" data-call="ecosystemSimulator.setEnvironment" data-arg1="@s:autumn"><span class="eco-season-icon">\uD83C\uDF42</span><span class="eco-season-name">\u79CB\u5B63</span><span class="eco-season-desc">\u51C9\u723D\u8212\u9002</span></button>');
+        h.push('<button class="eco-season-btn" data-call="ecosystemSimulator.setEnvironment" data-arg1="@s:winter"><span class="eco-season-icon">\u2744\uFE0F</span><span class="eco-season-name">\u51AC\u5B63</span><span class="eco-season-desc">\u5BD2\u51B7\u6F6E\u6E7F</span></button>');
         h.push('</div></div>');
 
         h.push('<div class="eco-panel-section">');
@@ -1433,3 +1433,29 @@ window.loadPhysicsTool = loadPhysicsTool;
 window.physicsFormulaCalculator = physicsFormulaCalculator;
 window.projectileSimulator = projectileSimulator;
 window.ecosystemSimulator = ecosystemSimulator;
+
+
+/* ============================================================
+ * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 物理公式计算器：回车解析（原 onkeypress 条件调用） */
+    HSPCBEV.on('keypress', '[data-hook="formula-enter"]', function (el, ev) {
+        if (ev.key === 'Enter') physicsFormulaCalculator.parseAndCalculate(el.value);
+    });
+
+    /* 生态系统模拟器：温度滑杆（赋值 + 重绘，保留 parseInt 无 radix 的原语义） */
+    HSPCBEV.on('input', '[data-hook="eco-temp"]', function (el) {
+        ecosystemSimulator.state.temperature = parseInt(el.value);
+        ecosystemSimulator.renderSimulation();
+    });
+
+    /* 生态系统模拟器：湿度滑杆（百分值除以 100 归一） */
+    HSPCBEV.on('input', '[data-hook="eco-moisture"]', function (el) {
+        ecosystemSimulator.state.moisture = parseInt(el.value) / 100;
+        ecosystemSimulator.renderSimulation();
+    });
+})();

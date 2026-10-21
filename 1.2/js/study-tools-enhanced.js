@@ -744,7 +744,7 @@ window.dataExporter = (function () {
         html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
         html += '<h3 style="margin:0 0 8px 0;color:#7CB342;">Export Data</h3>';
         html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Download all your study data as a JSON backup file. Includes error notebook, exam history, game scores, notes, and more.</p>';
-        html += '<button id="de-export-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">';
+        html += '<button id="de-export-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
         html += 'Download Backup (JSON)';
         html += '</button>';
         html += '</div>';
@@ -753,7 +753,7 @@ window.dataExporter = (function () {
         html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
         html += '<h3 style="margin:0 0 8px 0;color:#4A90D9;">Import Data</h3>';
         html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Restore from a previously exported JSON backup file. This will overwrite existing data.</p>';
-        html += '<label for="de-import-input" style="display:block;width:100%;padding:14px;background:#1a3a5e;color:#fff;border:2px dashed #4A90D9;border-radius:8px;font-size:1rem;cursor:pointer;text-align:center;transition:background 0.2s;" onmouseover="this.style.background=\'#1a4a7e\'" onmouseout="this.style.background=\'#1a3a5e\'">';
+        html += '<label for="de-import-input" style="display:block;width:100%;padding:14px;background:#1a3a5e;color:#fff;border:2px dashed #4A90D9;border-radius:8px;font-size:1rem;cursor:pointer;text-align:center;transition:background 0.2s;" data-hover="background: #1a4a7e" data-rest="background: #1a3a5e">';
         html += 'Choose JSON File to Import';
         html += '</label>';
         html += '<input type="file" id="de-import-input" accept=".json,application/json" style="display:none" />';
@@ -764,7 +764,7 @@ window.dataExporter = (function () {
         html += '<div style="background:#1a1a2e;border:1px solid #e53935;border-radius:12px;padding:24px;margin-bottom:16px;">';
         html += '<h3 style="margin:0 0 8px 0;color:#e53935;">Clear All Data</h3>';
         html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Permanently delete all study data. This action cannot be undone. Make sure to export a backup first.</p>';
-        html += '<button id="de-clear-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#c62828);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">';
+        html += '<button id="de-clear-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#c62828);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
         html += 'Delete All Data';
         html += '</button>';
         html += '</div>';

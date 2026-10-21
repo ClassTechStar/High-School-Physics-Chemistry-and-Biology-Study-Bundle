@@ -155,20 +155,20 @@ const chemistryProcessAnalyzerEnhanced = {
         app.innerHTML=`
         <div class="pa-enhanced">
             <div class="pa-head"><h2>🏭 化学工业流程核心反应提取工具 <span class="gd-badge">广东卷专用</span></h2>
-                <div class="mode-switch"><button class="msw ${this.state.mode==='core'?'act':''}" onclick="chemistryProcessAnalyzerEnhanced.setMode('core')">🎯 核心提取</button><button class="msw ${this.state.mode==='line'?'act':''}" onclick="chemistryProcessAnalyzerEnhanced.setMode('line')">📋 逐行分析</button></div>
+                <div class="mode-switch"><button class="msw ${this.state.mode==='core'?'act':''}" data-call=\"chemistryProcessAnalyzerEnhanced.setMode\" data-arg1=\"@s:core\">🎯 核心提取</button><button class="msw ${this.state.mode==='line'?'act':''}" data-call=\"chemistryProcessAnalyzerEnhanced.setMode\" data-arg1=\"@s:line\">📋 逐行分析</button></div>
             </div>
             <div class="pa-body">
                 <div class="input-zone">
                     <div class="samples"><span>📚 示例：</span>
-                        <button class="bs" onclick="chemistryProcessAnalyzerEnhanced.loadSample('iron')">⚙️ 高炉炼铁</button>
-                        <button class="bs" onclick="chemistryProcessAnalyzerEnhanced.loadSample('sulfuric')">💧 硫酸工业</button>
-                        <button class="bs" onclick="chemistryProcessAnalyzerEnhanced.loadSample('cobalt')">🔵 钴冶炼</button>
-                        <button class="bs" onclick="chemistryProcessAnalyzerEnhanced.loadSample('lithium')">🔋 锂电池</button>
+                        <button class="bs" data-call=\"chemistryProcessAnalyzerEnhanced.loadSample\" data-arg1=\"@s:iron\">⚙️ 高炉炼铁</button>
+                        <button class="bs" data-call=\"chemistryProcessAnalyzerEnhanced.loadSample\" data-arg1=\"@s:sulfuric\">💧 硫酸工业</button>
+                        <button class="bs" data-call=\"chemistryProcessAnalyzerEnhanced.loadSample\" data-arg1=\"@s:cobalt\">🔵 钴冶炼</button>
+                        <button class="bs" data-call=\"chemistryProcessAnalyzerEnhanced.loadSample\" data-arg1=\"@s:lithium\">🔋 锂电池</button>
                     </div>
-                    <label class="bi">📁 批量导入：<input type="file" accept=".txt,.json" onchange="chemistryProcessAnalyzerEnhanced.importBatch(this)"></label>
+                    <label class="bi">📁 批量导入：<input type="file" accept=".txt,.json" data-call=\"chemistryProcessAnalyzerEnhanced.importBatch\" data-arg1=\"@el\"></label>
                     <div id="batch-lst"></div>
-                    <textarea id="process-input" placeholder="粘贴工业流程题文本..." oninput="if(this.value.length>30)chemistryProcessAnalyzerEnhanced.analyzeText(this.value)"></textarea>
-                    <div class="iactions"><span id="ccnt">0</span><button class="bgo" onclick="chemistryProcessAnalyzerEnhanced.analyzeText(document.getElementById('process-input').value)">🔍 智能分析</button></div>
+                    <textarea id="process-input" placeholder="粘贴工业流程题文本..." data-hook="batch-analyze"></textarea>
+                    <div class="iactions"><span id="ccnt">0</span><button class="bgo" data-call=\"chemistryProcessAnalyzerEnhanced.analyzeText\" data-arg1=\"@docval:process-input\">🔍 智能分析</button></div>
                 </div>
                 ${er.length>0?`
                 <div class="results-e">
@@ -176,7 +176,7 @@ const chemistryProcessAnalyzerEnhanced = {
                     `<div class="rc ${r.conf>0.85?'hc':r.conf>0.7?'mc':'lc'}"><div class="rt"><span>#${i+1}</span><span class="tp">${r.type}</span><span class="cf">${Math.round(r.conf*100)}%</span></div><div class="eq">${r.eq}</div>${r.desc?`<div class="ds">${r.desc}</div>`:''}${r.category?`<span class="ct">${r.category}</span>`:''}</div>`
                     ).join('')}</div>
                     ${an?`
-                    <div class="tabs"><div class="tb"><button class="tc act" onclick="chemistryProcessAnalyzerEnhanced.switchTab('t1')">⚡ 氧化还原</button><button class="tc" onclick="chemistryProcessAnalyzerEnhanced.switchTab('t2')">🔄 物质循环</button><button class="tc" onclick="chemistryProcessAnalyzerEnhanced.switchTab('t3')">🧹 除杂原理</button><button class="tc" onclick="chemistryProcessAnalyzerEnhanced.switchTab('t4')">⚙️ 操作步骤</button><button class="tc" onclick="chemistryProcessAnalyzerEnhanced.switchTab('t5')">♻️ 绿色化学</button></div>
+                    <div class="tabs"><div class="tb"><button class="tc act" data-call=\"chemistryProcessAnalyzerEnhanced.switchTab\" data-arg1=\"@s:t1\">⚡ 氧化还原</button><button class="tc" data-call=\"chemistryProcessAnalyzerEnhanced.switchTab\" data-arg1=\"@s:t2\">🔄 物质循环</button><button class="tc" data-call=\"chemistryProcessAnalyzerEnhanced.switchTab\" data-arg1=\"@s:t3\">🧹 除杂原理</button><button class="tc" data-call=\"chemistryProcessAnalyzerEnhanced.switchTab\" data-arg1=\"@s:t4\">⚙️ 操作步骤</button><button class="tc" data-call=\"chemistryProcessAnalyzerEnhanced.switchTab\" data-arg1=\"@s:t5\">♻️ 绿色化学</button></div>
                         <div class="tab-c active" id="t1">${an.redox.length?`<table class="rot"><tr><th>反应</th><th>氧化剂</th><th>还原剂</th></tr>${an.redox.map(x=>'<tr><td>'+x.rxn+'</td><td class="ox">'+x.ox+'</td><td class="rd">'+x.rd+'</td></tr>').join('')}</table>`:'<p class="nd">未检测到氧化还原</p>'}</div>
                         <div class="tab-c" id="t2">${an.cycles.substances.length?`<div class="cycl">${an.cycles.substances.map(s=>'<span class="cy">'+s+'</span>').join('')}</div><div class="cp">${an.cycles.paths.map(p=>p.from+'→['+p.via+']→'+p.to+': '+p.purpose).join('<br>')}</div>`:'<p class="nd">无</p>'}</div>
                         <div class="tab-c" id="t3">${an.impurity.length?`<div class="imp">${an.impurity.map(i=>'<div class="ic"><b>'+i.op+'</b>: '+i.principle+'<br><small>方法:'+i.method+'</small></div>').join('')}</div>`:'<p class="nd">无</p>'}</div>
@@ -199,7 +199,7 @@ const chemistryProcessAnalyzerEnhanced = {
 
     _renderBatch() {
         const el=document.getElementById('batch-lst'); if(!el) return;
-        el.innerHTML=this.state.batchHistory.map(i=>`<div class="bi" onclick="chemistryProcessAnalyzerEnhanced._loadBi(${i.id})">${i.title} <span>${i.time}</span></div>`).join('');
+        el.innerHTML=this.state.batchHistory.map(i=>`<div class="bi" data-call="chemistryProcessAnalyzerEnhanced._loadBi" data-arg1="${i.id}">${i.title} <span>${i.time}</span></div>`).join('');
     },
     _loadBi(id){const it=this.state.batchHistory.find(i=>i.id===id);if(it){document.getElementById('process-input').value=it.content;this.analyzeText(it.content);}}
 };
@@ -349,17 +349,17 @@ const biologyMindMapEnhanced = {
             <div class="mm-header">
                 <h2>🗺️ 生物概念图/思维导图生成器</h2>
                 <div class="mm-controls">
-                    <select id="concept-select" onchange="biologyMindMapEnhanced.init(this.value)">
+                    <select id="concept-select" data-call=\"biologyMindMapEnhanced.init\" data-arg1=\"@val\">
                         <option value="">-- 选择中心概念 --</option>
                         ${Object.keys(this.concepts).map(c=>`<option value="${c}">${c}</option>`).join('')}
                         <option value="custom">自定义概念...</option>
                     </select>
                     <div class="layout-btns">
-                        <button class="${this.currentLayout==='tree'?'lb-act':''}" onclick="biologyMindMapEnhanced.setLayout('tree')">🌳 树状</button>
-                        <button class="${this.currentLayout==='radial'?'lb-act':''}" onclick="biologyMindMapEnhanced.setLayout('radial')">☀️ 辐射状</button>
-                        <button class="${this.currentLayout==='hierarchy'?'lb-act':''}" onclick="biologyMindMapEnhanced.setLayout('hierarchy')">📊 层级状</button>
+                        <button class="${this.currentLayout==='tree'?'lb-act':''}" data-call=\"biologyMindMapEnhanced.setLayout\" data-arg1=\"@s:tree\">🌳 树状</button>
+                        <button class="${this.currentLayout==='radial'?'lb-act':''}" data-call=\"biologyMindMapEnhanced.setLayout\" data-arg1=\"@s:radial\">☀️ 辐射状</button>
+                        <button class="${this.currentLayout==='hierarchy'?'lb-act':''}" data-call=\"biologyMindMapEnhanced.setLayout\" data-arg1=\"@s:hierarchy\">📊 层级状</button>
                     </div>
-                    <button class="btn-export" onclick="biologyMindMapEnhanced.exportPNG()">💾 导出图片</button>
+                    <button class="btn-export" data-call=\"biologyMindMapEnhanced.exportPNG\">💾 导出图片</button>
                 </div>
             </div>
 
@@ -709,7 +709,7 @@ const geneticsPedigreeTrainerEnhanced = {
                     <span>📊 总题数: ${this.score.total}</span>
                     <span>✅ 正确: ${this.score.correct}</span>
                     <span>📈 正确率: ${this.score.total > 0 ? Math.round(this.score.correct/this.score.total*100) : 0}%</span>
-                    <button onclick="geneticsPedigreeTrainerEnhanced.resetScore()" title="重置统计">🔄</button>
+                    <button data-call=\"geneticsPedigreeTrainerEnhanced.resetScore\" title="重置统计">🔄</button>
                 </div>
             </div>
 
@@ -719,7 +719,7 @@ const geneticsPedigreeTrainerEnhanced = {
                     <div class="type-grid">
                         ${this.types.map(t => `
                             <button class="type-card ${this.currentType?.id===t.id?'tc-active':''}" 
-                                    onclick="geneticsPedigreeTrainerEnhanced.selectType('${t.id}')"
+                                    data-call="geneticsPedigreeTrainerEnhanced.selectType" data-arg1="@s:${t.id}"
                                     data-diff="${t.difficulty}">
                                 <div class="tc-name">${t.name}</div>
                                 <div class="tc-example">例：${t.example}</div>
@@ -745,7 +745,7 @@ const geneticsPedigreeTrainerEnhanced = {
                     <div class="options-grid">
                         ${this.currentQuestion.options.map((opt, i) => `
                             <button class="opt-btn ${this.userAnswer!==null?(i===this.currentQuestion.answer?'opt-correct':i===this.userAnswer?'opt-wrong':''):''}"
-                                    onclick="geneticsPedigreeTrainerEnhanced.checkAnswer(${i})"
+                                    data-call="geneticsPedigreeTrainerEnhanced.checkAnswer" data-arg1="${i}"
                                     ${this.userAnswer!==null?'disabled':''}>
                                 <span class="opt-label">${['A','B','C','D'][i]}</span>
                                 <span class="opt-text">${opt}</span>
@@ -767,13 +767,13 @@ const geneticsPedigreeTrainerEnhanced = {
                             </div>
                         </div>
                         <div class="action-btns">
-                            <button onclick="geneticsPedigreeTrainerEnhanced.nextQuestion()">📝 下一题</button>
-                            <button onclick="geneticsPedigreeTrainerEnhanced.showHint()" ${this.hintLevel>=3?'disabled':''}>💡 提示(${this.hintLevel}/3)</button>
+                            <button data-call=\"geneticsPedigreeTrainerEnhanced.nextQuestion\">📝 下一题</button>
+                            <button data-call=\"geneticsPedigreeTrainerEnhanced.showHint\" ${this.hintLevel>=3?'disabled':''}>💡 提示(${this.hintLevel}/3)</button>
                         </div>
                     </div>
                     ` : `
                     <div class="action-bar">
-                        <button onclick="geneticsPedigreeTrainerEnhanced.showHint()" ${this.hintLevel>=3?'disabled':''}>💡 获取提示</button>
+                        <button data-call=\"geneticsPedigreeTrainerEnhanced.showHint\" ${this.hintLevel>=3?'disabled':''}>💡 获取提示</button>
                     </div>
                     `}
 
@@ -799,7 +799,7 @@ const geneticsPedigreeTrainerEnhanced = {
             </div>
 
             <div class="gt-footer">
-                <button onclick="geneticsPedigreeTrainerEnhanced.exportWrongPDF()">📥 导出错题</button>
+                <button data-call=\"geneticsPedigreeTrainerEnhanced.exportWrongPDF\">📥 导出错题</button>
                 <div class="tips-bar">
                     💡 <strong>解题技巧：</strong>"无中生有为隐性，有中生无为显性"；"隐性看女病，显性看男病"
                 </div>
@@ -1394,7 +1394,7 @@ const experimentDesignerEnhanced = {
                     <div class="type-grid-ed">
                         ${this.experimentTypes.map(t => `
                             <button class="type-card-ed ${this.state.selectedType?.id===t.id?'tce-active':''}" 
-                                    onclick="experimentDesignerEnhanced.selectType('${t.id}')">
+                                    data-call="experimentDesignerEnhanced.selectType" data-arg1="@s:${t.id}">
                                 <span class="tce-icon">${t.icon}</span>
                                 <span class="tce-name">${t.name}</span>
                                 <span class="tce-desc">${t.desc}</span>
@@ -1408,7 +1408,7 @@ const experimentDesignerEnhanced = {
                     <div class="case-grid">
                         ${this.caseLibrary.map(c => `
                             <button class="case-card ${this.state.selectedCase?.id===c.id?'case-active':''}"
-                                    onclick="experimentDesignerEnhanced.loadCase(${c.id})">
+                                    data-call="experimentDesignerEnhanced.loadCase" data-arg1="${c.id}">
                                 <span class="case-type">${this.experimentTypes.find(t=>t.id===c.type)?.icon||''} ${c.type==='explore'?'探究':c.type==='verify'?'验证':c.type==='observe'?'观察':'调查'}</span>
                                 <span class="case-title">${c.title}</span>
                                 <span class="case-diff">${'⭐'.repeat(c.difficulty)}</span>
@@ -1432,10 +1432,10 @@ const experimentDesignerEnhanced = {
                     <div class="tb-header">
                         <h3>📝 ${this.state.selectedType.name}模板生成器</h3>
                         <div class="tb-actions">
-                            <button onclick="experimentDesignerEnhanced.toggleTips()">
+                            <button data-call=\"experimentDesignerEnhanced.toggleTips\">
                                 ${this.state.showTips?'隐藏提示':'显示提示'}
                             </button>
-                            <button onclick="experimentDesignerEnhanced.exportTemplate()" class="btn-primary">💾 导出模板</button>
+                            <button data-call=\"experimentDesignerEnhanced.exportTemplate\" class="btn-primary">💾 导出模板</button>
                         </div>
                     </div>
 
@@ -1443,7 +1443,7 @@ const experimentDesignerEnhanced = {
                         <div class="form-group fg-wide">
                             <label>🎯 实验目的 <span class="required">*</span></label>
                             <textarea id="input-purpose" placeholder="例如：探究光照强度对黑藻光合速率的影响"
-                                      oninput="experimentDesignerEnhanced.updateInput('purpose', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:purpose\" data-arg2=\"@val\"
                                       rows="2">${this.state.userInputs.purpose||''}</textarea>
                             ${this.state.validationErrors.some(e=>e.includes('目的'))?`<div class="error-msg">${this.state.validationErrors.find(e=>e.includes('目的'))}</div>`:''}
                         </div>
@@ -1451,7 +1451,7 @@ const experimentDesignerEnhanced = {
                         <div class="form-group fg-wide">
                             <label>💭 实验假设 <span class="required">*</span></label>
                             <textarea id="input-hypothesis" placeholder="如果...则...（预测实验结果）"
-                                      oninput="experimentDesignerEnhanced.updateInput('hypothesis', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:hypothesis\" data-arg2=\"@val\"
                                       rows="2">${this.state.userInputs.hypothesis||''}</textarea>
                             ${this.state.validationErrors.some(e=>e.includes('假设'))?`<div class="error-msg">${this.state.validationErrors.find(e=>e.includes('假设'))}</div>`:''}
                         </div>
@@ -1464,7 +1464,7 @@ const experimentDesignerEnhanced = {
                                     <div class="var-item">
                                         <strong>${key}:</strong>
                                         <textarea placeholder="${val.slice(0,50)}..."
-                                                  oninput="experimentDesignerEnhanced.updateInput('${key}', this.value)"
+                                                  data-call="experimentDesignerEnhanced.updateInput" data-arg1="@s:${key}" data-arg2="@val"
                                                   rows="2">${this.state.userInputs[key]||''}</textarea>
                                     </div>
                                 `).join('')}
@@ -1475,7 +1475,7 @@ const experimentDesignerEnhanced = {
                         <div class="form-group fg-half">
                             <label>🧪 材料与器材</label>
                             <textarea id="input-materials" placeholder="列出所需的实验材料、仪器设备和试剂..."
-                                      oninput="experimentDesignerEnhanced.updateInput('materials', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:materials\" data-arg2=\"@val\"
                                       rows="3">${this.state.userInputs.materials||''}</textarea>
                         </div>
 
@@ -1484,21 +1484,21 @@ const experimentDesignerEnhanced = {
                             <textarea id="input-steps" placeholder="按顺序写出详细的实验操作步骤...
 1. ...
 2. ..."
-                                      oninput="experimentDesignerEnhanced.updateInput('steps', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:steps\" data-arg2=\"@val\"
                                       rows="4">${this.state.userInputs.steps||''}</textarea>
                         </div>
 
                         <div class="form-group fg-half">
                             <label>📊 预期结果</label>
                             <textarea id="input-expected" placeholder="描述预期的实验现象或数据趋势..."
-                                      oninput="experimentDesignerEnhanced.updateInput('expected', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:expected\" data-arg2=\"@val\"
                                       rows="2">${this.state.userInputs.expected||''}</textarea>
                         </div>
 
                         <div class="form-group fg-half">
                             <label>✅ 实验结论</label>
                             <textarea id="input-conclusion" placeholder="根据预期结果得出的科学结论..."
-                                      oninput="experimentDesignerEnhanced.updateInput('conclusion', this.value)"
+                                      data-call=\"experimentDesignerEnhanced.updateInput\" data-arg1=\"@s:conclusion\" data-arg2=\"@val\"
                                       rows="2">${this.state.userInputs.conclusion||''}</textarea>
                         </div>
                     </div>
@@ -2018,7 +2018,7 @@ const photosynthesisTrainerEnhanced = {
                     <div class="curve-grid">
                         ${this.curves.map(c => `
                             <button class="curve-card ${this.state.currentCurve?.id===c.id?'cc-active':''}" 
-                                    onclick="photosynthesisTrainerEnhanced.selectCurve(${c.id})"
+                                    data-call="photosynthesisTrainerEnhanced.selectCurve" data-arg1="${c.id}"
                                     data-diff="${c.difficulty}">
                                 <div class="cc-name">${c.name}</div>
                                 <div class="cc-cat">${c.category}</div>
@@ -2034,8 +2034,8 @@ const photosynthesisTrainerEnhanced = {
                         <span class="cp-title">${this.state.currentCurve.name}</span>
                         <span class="cp-desc">${this.state.currentCurve.desc}</span>
                         <div class="mode-switch">
-                            <button class="${this.state.mode==='learn'?'ms-act':''}" onclick="photosynthesisTrainerEnhanced.setMode('learn')">📖 学习模式</button>
-                            <button class="${this.state.mode==='practice'?'ms-act':''}" onclick="photosynthesisTrainerEnhanced.setMode('practice')">✏️ 练习模式</button>
+                            <button class="${this.state.mode==='learn'?'ms-act':''}" data-call=\"photosynthesisTrainerEnhanced.setMode\" data-arg1=\"@s:learn\">📖 学习模式</button>
+                            <button class="${this.state.mode==='practice'?'ms-act':''}" data-call=\"photosynthesisTrainerEnhanced.setMode\" data-arg1=\"@s:practice\">✏️ 练习模式</button>
                         </div>
                     </div>
 
@@ -2056,7 +2056,7 @@ const photosynthesisTrainerEnhanced = {
                         <div class="options-area">
                             ${this.state.currentCurve.questions[this.state.questionIndex].options.map((opt, i) => `
                                 <button class="opt-btn ${this.state.userAnswer!==null?(i===this.state.currentCurve.questions[this.state.questionIndex].answer?'opt-correct':i===this.state.userAnswer?'opt-wrong':''):''}"
-                                        onclick="photosynthesisTrainerEnhanced.checkAnswer(${i})"
+                                        data-call="photosynthesisTrainerEnhanced.checkAnswer" data-arg1="${i}"
                                         ${this.state.userAnswer!==null?'disabled':''}>
                                     ${['A','B','C','D'][i]}. ${opt}
                                 </button>
@@ -2064,10 +2064,10 @@ const photosynthesisTrainerEnhanced = {
                         </div>
                         ` : `
                         <div class="fill-area">
-                            <input type="text" id="fill-answer" placeholder="请输入答案..." 
-                                   onkeypress="if(event.key==='Enter')photosynthesisTrainerEnhanced.checkAnswer(document.getElementById('fill-answer').value)"
+                            <input type="text" id="fill-answer" placeholder="请输入答案..."
+                                   data-hook="fill-check-enter"
                                    ${this.state.userAnswer!==null?'disabled':''}>
-                            <button onclick="photosynthesisTrainerEnhanced.checkAnswer(document.getElementById('fill-answer').value)"
+                            <button data-call=\"photosynthesisTrainerEnhanced.checkAnswer\" data-arg1=\"@docval:fill-answer\"
                                     ${this.state.userAnswer!==null?'disabled':''}>提交</button>
                         </div>
                         `}
@@ -2081,7 +2081,7 @@ const photosynthesisTrainerEnhanced = {
                             <strong>${(typeof this.state.userAnswer === 'string' && this.state.userAnswer.toLowerCase().trim() === this.state.currentCurve.questions[this.state.questionIndex].answer.toLowerCase().trim()) || 
                                     (this.state.userAnswer === this.state.currentCurve.questions[this.state.questionIndex].answer) ? '✅ 回答正确！' : '❌ 回答错误'}</strong>
                             <p class="analysis-text">${this.state.currentCurve.questions[this.state.questionIndex].analysis}</p>
-                            <button onclick="photosynthesisTrainerEnhanced.nextQuestion()">下一题 →</button>
+                            <button data-call=\"photosynthesisTrainerEnhanced.nextQuestion\">下一题 →</button>
                         </div>
                         ` : ''}
                     </div>
@@ -2112,7 +2112,7 @@ const photosynthesisTrainerEnhanced = {
             </div>
             ` : ''}
             <div class="pt-footer">
-                <button onclick="photosynthesisTrainerEnhanced.exportWrongPDF()">📥 导出错题集</button>
+                <button data-call=\"photosynthesisTrainerEnhanced.exportWrongPDF\">📥 导出错题集</button>
                 <div class="tips-bar">
                     💡 <strong>核心公式：</strong>Pg（总光合）= Pn（净光合）+ R（呼吸）| 记住这个公式解决90%的曲线问题
                 </div>
@@ -2129,3 +2129,21 @@ window.biologyMindMapEnhanced = biologyMindMapEnhanced;
 window.geneticsPedigreeTrainerEnhanced = geneticsPedigreeTrainerEnhanced;
 window.experimentDesignerEnhanced = experimentDesignerEnhanced;
 window.photosynthesisTrainerEnhanced = photosynthesisTrainerEnhanced;
+
+/* ============================================================
+ * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 工业流程题批量分析：输入超过 30 字自动触发（原 oninput 条件调用） */
+    HSPCBEV.on('input', '[data-hook="batch-analyze"]', function (el) {
+        if (el.value.length > 30) chemistryProcessAnalyzerEnhanced.analyzeText(el.value);
+    });
+
+    /* 光合作用填空训练：回车提交（原 onkeypress 条件调用，this 即输入框本身） */
+    HSPCBEV.on('keypress', '[data-hook="fill-check-enter"]', function (el, ev) {
+        if (ev.key === 'Enter') photosynthesisTrainerEnhanced.checkAnswer(el.value);
+    });
+})();

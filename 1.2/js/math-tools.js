@@ -690,7 +690,7 @@ window.mathHandbook = (function() {
             var catKeys = Object.keys(catMap);
             for (var c = 0; c < catKeys.length; c++) {
                 var cat = catKeys[c];
-                html += '<div style="margin-bottom:8px;font-weight:bold;font-size:14px;color:#3b82f6;padding:8px;background:#eff6ff;border-radius:6px;cursor:pointer;" onclick="var n=this.nextElementSibling;n.style.display=n.style.display===\'none\'?\'block\':\'none\';">' + cat + ' (' + catMap[cat].length + '个)</div>';
+                html += '<div style="margin-bottom:8px;font-weight:bold;font-size:14px;color:#3b82f6;padding:8px;background:#eff6ff;border-radius:6px;cursor:pointer;" data-hook="cat-toggle">' + cat + ' (' + catMap[cat].length + '个)</div>';
                 html += '<div style="display:block;">';
                 for (var k = 0; k < catMap[cat].length; k++) {
                     var f2 = catMap[cat][k];
@@ -950,4 +950,18 @@ window.mathIntegral = (function() {
     }
 
     return { renderIntegral: renderIntegral };
+})();
+
+/* ============================================================
+ * T3-4d：内联 onclick 的事件委托注册（CSP 改造）
+ * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
+ * ============================================================ */
+(function () {
+    if (!window.HSPCBEV) return;
+
+    /* 公式库分类标题：点击折叠/展开下一邻块（原 onclick 三目切换 display） */
+    HSPCBEV.on('click', '[data-hook="cat-toggle"]', function (el) {
+        var n = el.nextElementSibling;
+        n.style.display = n.style.display === 'none' ? 'block' : 'none';
+    });
 })();

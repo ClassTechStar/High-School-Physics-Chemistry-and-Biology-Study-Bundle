@@ -542,11 +542,11 @@ var ExamSystem={
         h+='</div>';
         h+='<div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">';
         h+='<span style="font-weight:600;">难度筛选：</span>';
-        h+='<button class="quiz-filter-btn active" onclick="ExamSystem.filterQuiz(\''+subject+'\',0)" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">全部</button>';
-        h+='<button class="quiz-filter-btn" onclick="ExamSystem.filterQuiz(\''+subject+'\',1)" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐基础</button>';
-        h+='<button class="quiz-filter-btn" onclick="ExamSystem.filterQuiz(\''+subject+'\',2)" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐中等</button>';
-        h+='<button class="quiz-filter-btn" onclick="ExamSystem.filterQuiz(\''+subject+'\',3)" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐⭐较难</button>';
-        h+='<button onclick="ExamSystem.showErrorBook(\''+subject+'\')" style="padding:6px 14px;border-radius:20px;border:1px solid #f44336;background:#fff0f0;cursor:pointer;font-size:0.85rem;color:#c62828;">📓错题本</button>';
+        h+='<button class="quiz-filter-btn active" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="0" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">全部</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="1" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐基础</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="2" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐中等</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="3" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐⭐较难</button>';
+        h+='<button data-call="ExamSystem.showErrorBook" data-arg1="@s:' + subject + '" style="padding:6px 14px;border-radius:20px;border:1px solid #f44336;background:#fff0f0;cursor:pointer;font-size:0.85rem;color:#c62828;">📓错题本</button>';
         h+='</div>';
         h+='<div id="quiz-container-'+subject+'">';
         questions.forEach(function(q,idx){
@@ -555,7 +555,7 @@ var ExamSystem={
             h+='<h4>第'+(idx+1)+'题 <span style="font-size:0.8rem;color:var(--text-secondary);">['+q.chapter+'] '+diffStr+'</span></h4>';
             h+='<p style="font-weight:bold;margin-bottom:10px;">'+q.question+'</p>';
             q.options.forEach(function(opt,oi){
-                h+='<div class="quiz-option" data-subject="'+subject+'" data-qidx="'+idx+'" data-oidx="'+oi+'" style="padding:8px 12px;margin:4px 0;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;transition:all 0.2s;" onclick="ExamSystem.checkAnswer(this,\''+subject+'\','+idx+','+oi+')">';
+                h+='<div class="quiz-option" data-subject="'+subject+'" data-qidx="'+idx+'" data-oidx="'+oi+'" style="padding:8px 12px;margin:4px 0;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;transition:all 0.2s;" data-call="ExamSystem.checkAnswer" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '" data-arg4="' + oi + '">';
                 h+=String.fromCharCode(65+oi)+'. '+opt;
                 h+='</div>';
             });

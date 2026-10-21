@@ -1976,6 +1976,7 @@
 
 <script src="js/common-utils.js"></script>
 <script src="js/progress.js"></script>
+<script src="js/csp-delegation.js"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/app-chemistry.js"></script>
 <script defer src="js/app-physics.js"></script>
@@ -2685,7 +2686,7 @@
             '<div class="var-input-group"><label>动摩擦因数 μ</label><input type="number" id="mech-mu" value="0.3" step="0.01" min="0" max="1"></div>'+
             '<div class="var-input-group"><label>外力 F (N) (沿斜面向上)</label><input type="number" id="mech-force" value="0" step="1"></div>'+
             '</div>'+
-            '<button class="btn btn-primary" onclick="(function(){var m=parseFloat(document.getElementById(\'mech-mass\').value)||0;var ang=parseFloat(document.getElementById(\'mech-angle\').value)||0;var mu=parseFloat(document.getElementById(\'mech-mu\').value)||0;var F=parseFloat(document.getElementById(\'mech-force\').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById(\'mech-result\');if(res){var cls=a>0.01?\'#10b981\':(a<-0.01?\'#ef4444\':\'#f59e0b\');var desc=a>0.01?\'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a\':(a<-0.01?\'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b\':\'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09\');res.innerHTML=\'<div class=\\\'result-card\\\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\\\'key-point\\\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = \'+Fgs.toFixed(2)+\' N</div><div class=\\\'key-point\\\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = \'+Fgn.toFixed(2)+\' N</div><div class=\\\'key-point\\\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = \'+f.toFixed(2)+\' N</div><div class=\\\'key-point\\\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>\'+(F-Fgs-f).toFixed(2)+\' N</div><div class=\\\'key-point\\\'>\u00b7 \u52a0\u901f\u5ea6 a = <b style=\\\'color:\'+cls+\'\\\'>\'+a.toFixed(2)+\' m/s\u00b2</b> \'+desc+\'</div></div>\';}})()" style="margin-top:10px;">🖩 计算受力</button>'+
+            '<button class="btn btn-primary" data-call="calcMechIncline" style="margin-top:10px;">🖩 计算受力</button>'+
             '<div id="mech-result"></div>'+
             '</div></div>'+
             '<div class="knowledge-card"><h4>📋 常见力学模型解题模板</h4>'+
@@ -2707,7 +2708,7 @@
             '<div class="var-input-group"><label>电阻 R₂ (Ω)</label><input type="number" id="elec-r2" value="20" step="0.1" min="0.1"></div>'+
             '<div class="var-input-group"><label>连接方式</label><select id="elec-conn" class="sim-select"><option value="series">串联</option><option value="parallel">并联</option></select></div>'+
             '</div>'+
-            '<button class="btn btn-primary" onclick="(function(){var U=parseFloat(document.getElementById(\'elec-volt\').value)||0;var R1=parseFloat(document.getElementById(\'elec-r1\').value)||0;var R2=parseFloat(document.getElementById(\'elec-r2\').value)||0;var conn=document.getElementById(\'elec-conn\').value;var res=document.getElementById(\'elec-result\');if(!res)return;var Req,I1,I2,U1,U2,P;if(conn===\'series\'){Req=R1+R2;I1=I2=U/Req;U1=I1*R1;U2=I2*R2;P=U*I1;res.innerHTML=\'<div class=\\\'result-card\\\'><h4>\ud83d\udcca \u4e32\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\\\'key-point\\\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081 + R\u2082 = \'+Req.toFixed(1)+\' \u03a9</div><div class=\\\'key-point\\\'><strong>\u7535\u6d41\uff1a</strong>I = I\u2081 = I\u2082 = U/R<sub>\u603b</sub> = \'+I1.toFixed(3)+\' A</div><div class=\\\'key-point\\\'><strong>\u5206\u538b\uff1a</strong>U\u2081 = \'+U1.toFixed(2)+\' V, U\u2082 = \'+U2.toFixed(2)+\' V (\u5206\u538b\u6bd4 R\u2081:R\u2082 = \'+(R1/Req*100).toFixed(1)+\'%:\'+(R2/Req*100).toFixed(1)+\'%)</div><div class=\\\'key-point\\\'><strong>\u603b\u529f\u7387\uff1a</strong>P = UI = \'+P.toFixed(2)+\' W</div></div>\';}else{Req=(R1*R2)/(R1+R2);I1=U/R1;I2=U/R2;U1=U2=U;P=U*(I1+I2);res.innerHTML=\'<div class=\\\'result-card\\\'><h4>\ud83d\udcca \u5e76\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\\\'key-point\\\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081R\u2082/(R\u2081+R\u2082) = \'+Req.toFixed(1)+\' \u03a9</div><div class=\\\'key-point\\\'><strong>\u5206\u6d41\uff1a</strong>I\u2081 = U/R\u2081 = \'+I1.toFixed(3)+\' A, I\u2082 = U/R\u2082 = \'+I2.toFixed(3)+\' A (I\u2081:I\u2082 = R\u2082:R\u2081 = \'+I1.toFixed(3)+\':\'+I2.toFixed(3)+\')</div><div class=\\\'key-point\\\'><strong>\u603b\u7535\u6d41\uff1a</strong>I<sub>\u603b</sub> = I\u2081 + I\u2082 = \'+(I1+I2).toFixed(3)+\' A</div><div class=\\\'key-point\\\'><strong>\u603b\u529f\u7387\uff1a</strong>P = \'+P.toFixed(2)+\' W</div></div>\';}})()" style="margin-top:10px;">🖩 计算</button>'+
+            '<button class="btn btn-primary" data-call="calcElecCircuit" style="margin-top:10px;">🖩 计算</button>'+
             '<div id="elec-result"></div>'+
             '</div>'+
             '<div class="knowledge-card"><h4>📐 电磁学核心公式速查</h4>'+
@@ -2731,7 +2732,7 @@
             '<div class="var-input-group"><label>焦距 f (cm)</label><input type="number" id="opt-f" value="15" step="0.1" min="0.1"></div>'+
             '<div class="var-input-group"><label>物距 u (cm)</label><input type="number" id="opt-u" value="30" step="0.1" min="0.1"></div>'+
             '</div>'+
-            '<button class="btn btn-primary" onclick="(function(){var f=parseFloat(document.getElementById(\'opt-f\').value)||0;var u=parseFloat(document.getElementById(\'opt-u\').value)||0;var res=document.getElementById(\'opt-result\');if(!res||f<=0||u<=0)return;var v=1/(1/f-1/u);var m=v/u;var vAbs=Math.abs(v);var mAbs=Math.abs(m);var imgType=v>0?\u5b9e\u50cf\':\'\u865a\u50cf\';var orientation=m>0?\u6b63\u7acb\':\'\u5012\u7acb\';var size=mAbs>1?\u653e\u5927\':(mAbs<1?\u7f29\u5c0f\':\u7b49\u5927\');res.innerHTML=\'<div class=\\\'result-card\\\'><h4>\ud83d\udcca \u900f\u955c\u6210\u50cf\u8ba1\u7b97\u7ed3\u679c</h4><div class=\\\'key-point\\\'><strong>\u50cf\u8ddd v =</strong> \'+v.toFixed(2)+\' cm \uff08\'+imgType+\' \uff09</div><div class=\\\'key-point\\\'><strong>\u653e\u5927\u7387 m =</strong> \'+Math.abs(m).toFixed(2)+\' \u00d7 \uff08\'+orientation+\' \uff09</div><div class=\\\'key-point\\\'><strong>\u6210\u50cf\u6027\u8d28\uff1a</strong>\'+size+\' \u00b7 \'+orientation+\' \u00b7 \'+imgType+\'</div></div>\';})()" style="margin-top:10px;">🖩 计算像距</button>'+
+            '<button class="btn btn-primary" data-call="calcOpticsMirror" style="margin-top:10px;">🖩 计算像距</button>'+
             '<div id="opt-result"></div>'+
             '</div>'+
             '<div class="knowledge-card"><h4>📏 光学核心知识</h4>'+
@@ -3426,7 +3427,7 @@
         var html = '<div class="experiments-section"><h3>🔬 物理实验指导</h3>';
         html += '<div class="exp-cards">';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">⏱️</span><h4>实验一：用打点计时器测速度</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">⏱️</span><h4>实验一：用打点计时器测速度</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>学会使用打点计时器测速度，区分平均速度和瞬时速度</p>'+
             '<p><strong>实验原理：</strong>利用打点计时器记录物体运动的时间间隔，通过纸带上的点间距计算速度。打点周期T=0.02s（50Hz电源）。</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3444,7 +3445,7 @@
             '<li>纸带要平直穿过限位孔，避免卡纸</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">⚡</span><h4>实验二：测定金属的电阻率</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">⚡</span><h4>实验二：测定金属的电阻率</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>学会用伏安法测电阻，掌握螺旋测微器的使用，测定金属的电阻率</p>'+
             '<p><strong>实验原理：</strong>R=ρl/S，通过测金属丝长度l、直径d（算截面积S=πd²/4）、电压U、电流I，计算电阻率ρ=RS/l=πd²U/(4lI)</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3462,7 +3463,7 @@
             '<li>金属丝接入长度应从接线柱内侧量起</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🔍</span><h4>实验三：测定玻璃的折射率</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🔍</span><h4>实验三：测定玻璃的折射率</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>用插针法测定玻璃的折射率</p>'+
             '<p><strong>实验原理：</strong>n=sin i/sin r，利用光从空气射入玻璃的折射现象</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3481,7 +3482,7 @@
             '<li>实验过程中玻璃砖不能移动</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🌈</span><h4>实验四：用双缝干涉测光的波长</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🌈</span><h4>实验四：用双缝干涉测光的波长</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>测定单色光的波长</p>'+
             '<p><strong>实验原理：</strong>相邻亮条纹间距Δx=λL/d，其中L为缝到屏距离，d为双缝间距</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3499,7 +3500,7 @@
             '<li>不要用眼睛直接观察激光</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🎯</span><h4>实验五：验证动量守恒定律</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🎯</span><h4>实验五：验证动量守恒定律</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>验证碰撞中的动量守恒定律</p>'+
             '<p><strong>实验原理：</strong>m₁v₁+m₂v₂=m₁v₁\'+m₂v₂\'，利用平抛运动水平位移之比替代速度之比</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3518,7 +3519,7 @@
             '<li>用尽量小的圆将所有落点圈入，取圆心为落点位置</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🕰️</span><h4>实验六：用单摆测定重力加速度</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🕰️</span><h4>实验六：用单摆测定重力加速度</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>利用单摆测定当地的重力加速度g</p>'+
             '<p><strong>实验原理：</strong>单摆周期T=2π√(l/g)，得g=(4π²l)/T²</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3547,7 +3548,7 @@
         var html = '<div class="experiments-section"><h3>🧪 化学实验指导</h3>';
         html += '<div class="exp-cards">';
 
-        html += '<div class="exp-card exp-open"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🧪</span><h4>实验一：酸碱中和滴定</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card exp-open"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🧪</span><h4>实验一：酸碱中和滴定</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>学会用滴定法测定酸或碱的浓度，练习滴定管的使用</p>'+
             '<p><strong>实验原理：</strong>h₊·c₊·V₊=h₋·c₋·V₋（一元酸碱：c₊V₊=c₋V₋）</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3573,7 +3574,7 @@
             '<li>强碱溶液须用碱式滴定管（橡皮管+玻璃珠），酸用酸式滴定管（玻璃活塞）</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">⚗️</span><h4>实验二：配制一定物质的量浓度溶液</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">⚗️</span><h4>实验二：配制一定物质的量浓度溶液</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>掌握配制一定物质的量浓度溶液的方法和容量瓶的使用</p>'+
             '<p><strong>仪器：</strong>×00mL容量瓶、烧杯、玻璃棒、胶头滴管、托盘天平（或分析天平）</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤（以配制100mL 1.00mol/L NaCl为例）</h5><ol>'+
@@ -3595,7 +3596,7 @@
             '<li>摇匀后液面可能略低于刻度线——正常，不能再加水</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">☣️</span><h4>实验三：氯气的实验室制法</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">☣️</span><h4>实验三：氯气的实验室制法</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>反应原理：</strong></p><div class="exp-formula">MnO₂+4HCl（浓）<span class="exp-arrow-r">→</span><sup>Δ</sup>MnCl₂+Cl₂↑+2H₂O</div>'+
             '<p><strong>气体发生装置：</strong>固+液<span class="exp-arrow-r">→</span><sup>Δ</sup>气体（固液加热型）</p>'+
             '<div class="exp-steps"><h5>📋 实验流程</h5><ol>'+
@@ -3614,7 +3615,7 @@
             '<li>用NaOH溶液吸尾气后，废液应中和处理</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🍇</span><h4>实验四：乙酸乙酯的制备</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🍇</span><h4>实验四：乙酸乙酯的制备</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>反应原理：</strong></p><div class="exp-formula">CH₃COOH+CH₃CH₂OH<span class="exp-arrow-r">⇌</span><sup>浓H₂SO₄,Δ</sup>CH₃COOCH₂CH₃+H₂O</div>'+
             '<p><strong>反应类型：</strong>酯化反应（取代反应），可逆反应</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3634,7 +3635,7 @@
             '</ul></div>'+
             '<div class="exp-smell"><h5>👃 鉴别特征</h5><p>乙酸乙酯具有<strong>果香味</strong>（类似香蕉/苹果气味），用于调配香精</p></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🔬</span><h4>化学实验仪器分类全解</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🔬</span><h4>化学实验仪器分类全解</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<div class="equipment-grid">'+
             '<div class="eq-card"><h5>🔥 反应加热类</h5><p><strong>烧杯：</strong>配制溶液、溶解、加热（需垫石棉网）</p><p><strong>锥形瓶：</strong>滴定反应、振荡（液体不易溅出）</p><p><strong>圆底烧瓶：</strong>加热、蒸馏、回流（受热均匀）</p><p><strong>试管：</strong>少量试剂反应、可直接加热</p></div>'+
             '<div class="eq-card"><h5>📏 量器类</h5><p><strong>容量瓶：</strong>精确配制溶液（不可加热/储存）</p><p><strong>量筒：</strong>粗略量取液体体积</p><p><strong>移液管：</strong>精确移取一定体积液体</p><p><strong>滴定管：</strong>滴定分析，精确到0.01mL</p></div>'+
@@ -3652,7 +3653,7 @@
         var html = '<div class="experiments-section"><h3>🧬 生物实验指导</h3>';
         html += '<div class="exp-cards">';
 
-        html += '<div class="exp-card exp-open"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🧪</span><h4>实验一：探究酶的专一性</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card exp-open"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🧪</span><h4>实验一：探究酶的专一性</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>验证酶具有催化作用和专一性（一种酶只能催化一种或一类化学反应）</p>'+
             '<p><strong>实验原理：</strong>淀粉酶只能催化淀粉水解为麦芽糖，不能催化蔗糖水解。用<strong>斐林试剂</strong>检测还原糖的存在。</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3670,7 +3671,7 @@
             '<li>对照组（2号和4号）是验证自发水解的可能性</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🔬</span><h4>实验二：观察根尖分生组织细胞的有丝分裂</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🔬</span><h4>实验二：观察根尖分生组织细胞的有丝分裂</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>观察植物细胞有丝分裂各个时期的特征，理解细胞周期的过程</p>'+
             '<p><strong>实验材料：</strong>洋葱根尖（提前3-4天培养至根长2-5cm）</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3697,7 +3698,7 @@
             '<li>大多数细胞处于间期（间期占细胞周期90%以上）</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">💧</span><h4>实验三：探究植物细胞的吸水与失水</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">💧</span><h4>实验三：探究植物细胞的吸水与失水</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>观察植物细胞的质壁分离和复原现象，验证渗透吸水原理</p>'+
             '<p><strong>实验原理：</strong>成熟植物细胞是一个渗透系统，原生质层（细胞膜+液泡膜+两层膜间细胞质）相当于<strong>半透膜</strong></p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3716,7 +3717,7 @@
             '<li>未成熟的植物细胞（分生区细胞）无大液泡，不发生质壁分离</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🍃</span><h4>实验四：叶绿体色素的提取和分离</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🍃</span><h4>实验四：叶绿体色素的提取和分离</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>提取和分离叶绿体中的光合色素</p>'+
             '<p><strong>实验原理：</strong>色素溶于有机溶剂（无水乙醇提取）；不同色素在层析液中溶解度不同，在滤纸上扩散速率不同→分离</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3740,7 +3741,7 @@
             '<li>层析液<strong>绝对不能没及滤液细线</strong>（色素会溶入层析液）</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🧬</span><h4>实验五：DNA的粗提取与鉴定</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🧬</span><h4>实验五：DNA的粗提取与鉴定</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>掌握从生物组织中粗提取DNA的方法，学会鉴定DNA</p>'+
             '<p><strong>实验原理：</strong>DNA在不同浓度NaCl中溶解度不同（0.14mol/L时最低）；DNA不溶于冷酒精（可析出）；DNA+二苯胺试剂<span class="exp-arrow-r">→</span><sup>沸水浴</sup>蓝色</p>'+
             '<div class="exp-steps"><h5>📋 实验步骤</h5><ol>'+
@@ -3758,7 +3759,7 @@
             '<li>酒精要预冷，提高DNA析出效果</li>'+
             '</ul></div></div></div>';
 
-        html += '<div class="exp-card"><div class="exp-card-header" onclick="this.parentElement.classList.toggle(\'exp-open\')"><span class="exp-card-icon">🔬</span><h4>实验六：显微镜的使用与生物绘图</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
+        html += '<div class="exp-card"><div class="exp-card-header" data-hook="exp-card-toggle"><span class="exp-card-icon">🔬</span><h4>实验六：显微镜的使用与生物绘图</h4><span class="exp-card-arrow">▼</span></div><div class="exp-card-body">'+
             '<p><strong>实验目的：</strong>熟练掌握光学显微镜的使用方法和生物绘图规范</p>'+
             '<div class="exp-steps"><h5>📋 使用步骤</h5><ol>'+
             '<li><strong>取镜安放：</strong>右手握镜臂，左手托镜座，轻放实验台距边缘5-7cm处</li>'+
@@ -3817,9 +3818,9 @@
         }
         if (module === 'tools') {
             var tHtml = '<div class="knowledge-section"><h3>🛠️ 特色工具</h3><div class="knowledge-card"><h4>快速入口</h4><div class="quick-tools-grid">';
-            tHtml += '<button class="quick-tool-btn" onclick="showSection(\'physics-section\');setActiveNav(\'physics\');setTimeout(function(){try{navigateToolPage(\'physics-formula\')}catch(e){}},200)">⚡物理公式计算器</button>';
-            tHtml += '<button class="quick-tool-btn" onclick="showSection(\'chemistry-section\');setActiveNav(\'chemistry\');setTimeout(function(){try{navigateToolPage(\'chemistry-balancer\')}catch(e){}},200)">⚗️化学方程配平</button>';
-            tHtml += '<button class="quick-tool-btn" onclick="showSection(\'biology-section\');setActiveNav(\'biology\');setTimeout(function(){try{navigateToolPage(\'biology-genetics\')}catch(e){}},200)">🧬遗传模拟器</button>';
+            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:physics-section" data-arg2="@s:physics" data-arg3="@s:physics-formula">⚡物理公式计算器</button>';
+            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:chemistry-section" data-arg2="@s:chemistry" data-arg3="@s:chemistry-balancer">⚗️化学方程配平</button>';
+            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:biology-section" data-arg2="@s:biology" data-arg3="@s:biology-genetics">🧬遗传模拟器</button>';
             tHtml += '</div></div></div>';
             contentEl.innerHTML = tHtml; return;
         }
@@ -4255,7 +4256,7 @@
         }
     };
 
-    // v1.3: 暴露到全局 —— 修复 onclick="showSection(...)" 等内联事件无法引用 IIFE 内部函数的问题
+    // v1.3: 暴露到全局 —— 修复内联事件属性无法引用 IIFE 内部函数的问题
     window.showSection = showSection;
     window.setActiveNav = setActiveNav;
     // T0-18: handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
@@ -4276,6 +4277,41 @@
         chineseSearch();
     });
 
+    // ===== T3-4d：字符串模板内的内联 onclick 改委托 =====
+    // CSP script-src 去掉 'unsafe-inline' 后，innerHTML/字符串拼出的 on* 属性同样被
+    // 浏览器拦截。原 3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮分别改为：
+    // 具名函数 + data-call、data-hook + HSPCBEV 委托、quickTool 包装函数。
+    // 委托中枢 js/csp-delegation.js 以非 defer 方式先于本脚本加载，window.HSPCBEV 必就绪。
+
+    /* 斜面力学计算器（原 index.html:2688 内联 onclick IIFE，逻辑原样搬移） */
+    function calcMechIncline() {
+        var m=parseFloat(document.getElementById('mech-mass').value)||0;var ang=parseFloat(document.getElementById('mech-angle').value)||0;var mu=parseFloat(document.getElementById('mech-mu').value)||0;var F=parseFloat(document.getElementById('mech-force').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById('mech-result');if(res){var cls=a>0.01?'#10b981':(a<-0.01?'#ef4444':'#f59e0b');var desc=a>0.01?'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a':(a<-0.01?'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b':'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = '+Fgs.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = '+Fgn.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = '+f.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>'+(F-Fgs-f).toFixed(2)+' N</div><div class=\'key-point\'>\u00b7 \u52a0\u901f\u5ea6 a = <b style=\'color:'+cls+'\'>'+a.toFixed(2)+' m/s\u00b2</b> '+desc+'</div></div>';}
+    }
+    /* 串/并联电路计算器（原 index.html:2710 内联 onclick IIFE，逻辑原样搬移） */
+    function calcElecCircuit() {
+        var U=parseFloat(document.getElementById('elec-volt').value)||0;var R1=parseFloat(document.getElementById('elec-r1').value)||0;var R2=parseFloat(document.getElementById('elec-r2').value)||0;var conn=document.getElementById('elec-conn').value;var res=document.getElementById('elec-result');if(!res)return;var Req,I1,I2,U1,U2,P;if(conn==='series'){Req=R1+R2;I1=I2=U/Req;U1=I1*R1;U2=I2*R2;P=U*I1;res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u4e32\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081 + R\u2082 = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u7535\u6d41\uff1a</strong>I = I\u2081 = I\u2082 = U/R<sub>\u603b</sub> = '+I1.toFixed(3)+' A</div><div class=\'key-point\'><strong>\u5206\u538b\uff1a</strong>U\u2081 = '+U1.toFixed(2)+' V, U\u2082 = '+U2.toFixed(2)+' V (\u5206\u538b\u6bd4 R\u2081:R\u2082 = '+(R1/Req*100).toFixed(1)+'%:'+(R2/Req*100).toFixed(1)+'%)</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = UI = '+P.toFixed(2)+' W</div></div>';}else{Req=(R1*R2)/(R1+R2);I1=U/R1;I2=U/R2;U1=U2=U;P=U*(I1+I2);res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u5e76\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081R\u2082/(R\u2081+R\u2082) = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u5206\u6d41\uff1a</strong>I\u2081 = U/R\u2081 = '+I1.toFixed(3)+' A, I\u2082 = U/R\u2082 = '+I2.toFixed(3)+' A (I\u2081:I\u2082 = R\u2082:R\u2081 = '+I1.toFixed(3)+':'+I2.toFixed(3)+')</div><div class=\'key-point\'><strong>\u603b\u7535\u6d41\uff1a</strong>I<sub>\u603b</sub> = I\u2081 + I\u2082 = '+(I1+I2).toFixed(3)+' A</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = '+P.toFixed(2)+' W</div></div>';}
+    }
+    /* 透镜成像计算器（原 index.html:2734 内联 onclick IIFE，逻辑原样搬移） */
+    function calcOpticsMirror() {
+        var f=parseFloat(document.getElementById('opt-f').value)||0;var u=parseFloat(document.getElementById('opt-u').value)||0;var res=document.getElementById('opt-result');if(!res||f<=0||u<=0)return;var v=1/(1/f-1/u);var m=-v/u;var vAbs=Math.abs(v);var mAbs=Math.abs(m);var imgType=v>0?'\u5b9e\u50cf':'\u865a\u50cf';var orientation=m>0?'\u6b63\u7acb':'\u5012\u7acb';var size=mAbs>1?'\u653e\u5927':(mAbs<1?'\u7f29\u5c0f':'\u7b49\u5927');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u900f\u955c\u6210\u50cf\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u50cf\u8ddd v =</strong> '+v.toFixed(2)+' cm \uff08'+imgType+' \uff09</div><div class=\'key-point\'><strong>\u653e\u5927\u7387 m =</strong> '+Math.abs(m).toFixed(2)+' \u00d7 \uff08'+orientation+' \uff09</div><div class=\'key-point\'><strong>\u6210\u50cf\u6027\u8d28\uff1a</strong>'+size+' \u00b7 '+orientation+' \u00b7 '+imgType+'</div></div>';
+    }
+    window.calcMechIncline = calcMechIncline;
+    window.calcElecCircuit = calcElecCircuit;
+    window.calcOpticsMirror = calcOpticsMirror;
+
+    /* 首页快捷工具跳转（原 3 处内联 onclick 的三语句包装） */
+    window.quickTool = function (section, nav, tool) {
+        showSection(section);
+        setActiveNav(nav);
+        setTimeout(function () { try { navigateToolPage(tool); } catch (e) {} }, 200);
+    };
+
+    /* 实验卡片折叠（原 17 处内联 onclick 的 classList.toggle） */
+    if (window.HSPCBEV) {
+        HSPCBEV.on('click', '[data-hook="exp-card-toggle"]', function (el) {
+            el.parentElement.classList.toggle('exp-open');
+        });
+    }
 })();
 </script>
 <button class="theme-toggle" id="themeToggle" data-action="toggle-theme" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
@@ -4407,10 +4443,10 @@
     window.setTheme = apply;
     window.getTheme = current;
 
-    // ===== T3-4c / T12：主题切换按钮的内联 onclick 改事件委托 =====
-    // 原：<button onclick="toggleTheme()">（内联事件属性，CSP script-src 去掉
+    // ===== T3-4c / T12：主题切换按钮的内联事件属性改事件委托 =====
+    // 原：<button ...>（内联事件属性，CSP script-src 去掉
     // 'unsafe-inline' 后会被浏览器拦截）。现改为 data-action="toggle-theme" + 文档级委托。
-    // window.toggleTheme 仍保留：js/*.js 生成的 319 处 onclick 与外部调用方仍可能引用它。
+    // window.toggleTheme 仍保留：外部调用方仍可能引用它（js/ 侧内联属性已于 T3-4d 清零）。
     document.addEventListener('click', function (e) {
         var t = e.target && e.target.closest ? e.target.closest('[data-action="toggle-theme"]') : null;
         if (!t) return;

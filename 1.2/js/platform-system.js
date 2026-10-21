@@ -405,7 +405,7 @@ var PlatformSystem={
             html+='<div class="knowledge-card" style="border-left:4px solid '+data.color+';"><h4>'+cat.category+'</h4>';
             cat.items.forEach(function(item,idx){
                 html+='<div style="display:flex;align-items:flex-start;gap:8px;margin:6px 0;padding:8px;background:rgba(255,255,255,0.5);border-radius:6px;">';
-                html+='<input type="checkbox" id="chk_'+subject+'_'+idx+'" style="margin-top:3px;cursor:pointer;" onchange="PlatformSystem.saveChecklist(this,\''+subject+'\','+idx+')">';
+                html+='<input type="checkbox" id="chk_'+subject+'_'+idx+'" style="margin-top:3px;cursor:pointer;" data-call="PlatformSystem.saveChecklist" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '">';
                 html+='<label for="chk_'+subject+'_'+idx+'" style="cursor:pointer;font-size:0.9rem;line-height:1.5;">'+item+'</label></div>';
             });
             html+='</div>';
