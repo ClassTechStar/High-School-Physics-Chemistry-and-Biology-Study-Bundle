@@ -115,10 +115,10 @@ window.globalSearch = (function() {
 
         // === 跨学科 / 平台工具 Platform (7 tools) ===
         { name: '备考数据中心', desc: '分数线·知识图谱·个性化推荐·进度追踪', tool: 'exam-dashboard', subject: '备考', icon: '🎯' },
-        { name: '平台架构总览', desc: '一体两翼·三层四柱·命题趋势分析', tool: 'platform-overview', subject: '平台', icon: '🏛️' },
+        { name: '平台结构总览', desc: '三层结构·模块权重·题库构成', tool: 'platform-overview', subject: '平台', icon: '🏛️' },
         { name: '物化二级结论', desc: '物理快捷公式·化学核心结论速查', tool: 'secondary-conclusions', subject: '跨学科', icon: '📋' },
         { name: '命题规律白皮书', desc: '广东高考趋势分析·考点权重变化', tool: 'guangdong-analysis', subject: '备考', icon: '📊' },
-        { name: '情境化试题训练', desc: '无情境不成题·科技前沿·生活实践', tool: 'situational-quiz', subject: '备考', icon: '🌍' },
+        { name: '情境化试题训练', desc: '科技前沿·生活实践·生产生活情境', tool: 'situational-quiz', subject: '备考', icon: '🌍' },
         { name: '跨学科融合专题', desc: '理化生综合·知识交叉·综合能力', tool: 'cross-subject-enhanced', subject: '跨学科', icon: '🔬' },
         { name: '科技前沿关联', desc: '诺贝尔奖·最新科研成果·学科前沿', tool: 'tech-frontiers', subject: '跨学科', icon: '🏆' }
     ];

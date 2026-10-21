@@ -17,28 +17,28 @@ var PlatformSystem={
         var el=document.getElementById('platform-content');
         if(!el) return;
         el.innerHTML='<div class="knowledge-section">'+
-            '<h3>🏛️ "一体两翼·三层四柱" 智能备考平台架构</h3>'+
+            '<h3>平台结构</h3>'+
 
             '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:2px solid rgba(239,68,68,0.2);">'+
-            '<h4 style="color:#e74c3c;">📐 五年广东高考趋势（2022-2026）驱动的平台设计</h4>'+
+            '<h4 style="color:#e74c3c;">页面结构</h4>'+
             '<div class="platform-arch-diagram">'+
-            '<div class="arch-core">🎯 核心目标：赋能素养备考</div>'+
+            '<div class="arch-core">🎯 核心：三科的知识点、题库和工具都在这一个页面里</div>'+
             '<span class="arch-arrow">⬇</span>'+
-            '<div class="arch-brain">🧠 一体：智能学习中枢（学习路径推荐与数据反馈）</div>'+
+            '<div class="arch-brain">🧠 中枢：各模块的说明页，写清楚这一块具体有什么</div>'+
             '<span class="arch-arrow">⬇ ⬇</span>'+
             '<div class="arch-wings">'+
-            '<div class="arch-wing-left"><div>📖 左翼</div><div style="font-size:0.85rem;margin-top:4px;">知识体系构建</div><div style="font-size:0.75rem;opacity:0.85;">一轮复习模块</div><div style="font-size:0.75rem;opacity:0.85;">学科知识图谱</div></div>'+
-            '<div class="arch-wing-right"><div>🚀 右翼</div><div style="font-size:0.85rem;margin-top:4px;">能力素养提升</div><div style="font-size:0.75rem;opacity:0.85;">二轮专题模块</div><div style="font-size:0.75rem;opacity:0.85;">情境题库·实验中心</div></div>'+
+            '<div class="arch-wing-left"><div>📖 一轮</div><div style="font-size:0.85rem;margin-top:4px;">知识体系构建</div><div style="font-size:0.75rem;opacity:0.85;">一轮复习模块</div><div style="font-size:0.75rem;opacity:0.85;">学科知识图谱</div></div>'+
+            '<div class="arch-wing-right"><div>🚀 二轮</div><div style="font-size:0.85rem;margin-top:4px;">专题训练</div><div style="font-size:0.75rem;opacity:0.85;">二轮专题模块</div><div style="font-size:0.75rem;opacity:0.85;">情境题库·实验中心</div></div>'+
             '</div></div>'+
 
             '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">'+
-            '<div style="flex:1;min-width:140px;background:rgba(239,68,68,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(239,68,68,0.2);"><div style="font-weight:700;color:#e74c3c;">紧扣考情</div><div style="font-size:0.75rem;color:#666;">基于2022-2026广东高考趋势</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(245,158,11,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,158,11,0.2);"><div style="font-weight:700;color:#f59e0b;">情境赋能</div><div style="font-size:0.75rem;color:#666;">无情境不成题训练</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(59,130,246,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(59,130,246,0.2);"><div style="font-weight:700;color:#3b82f6;">素养贯通</div><div style="font-size:0.75rem;color:#666;">知识到能力跃升</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(16,185,129,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-weight:700;color:#10b981;">规范为先</div><div style="font-size:0.75rem;color:#666;">减少非智力失分</div></div>'+
+            '<div style="flex:1;min-width:140px;background:rgba(239,68,68,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(239,68,68,0.2);"><div style="font-weight:700;color:#e74c3c;">按考情组织</div><div style="font-size:0.75rem;color:#666;">题库覆盖 2018-2024</div></div>'+
+            '<div style="flex:1;min-width:140px;background:rgba(245,158,11,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,158,11,0.2);"><div style="font-weight:700;color:#f59e0b;">重情境</div><div style="font-size:0.75rem;color:#666;">题目按学科和章节分类</div></div>'+
+            '<div style="flex:1;min-width:140px;background:rgba(59,130,246,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(59,130,246,0.2);"><div style="font-weight:700;color:#3b82f6;">知识与题目对应</div><div style="font-size:0.75rem;color:#666;">每题标了对应考点</div></div>'+
+            '<div style="flex:1;min-width:140px;background:rgba(16,185,129,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-weight:700;color:#10b981;">答题规范</div><div style="font-size:0.75rem;color:#666;">主观题给出参考答案与解析</div></div>'+
             '</div></div>'+
 
-            '<div class="knowledge-card"><h4>📊 三科模块权重与命题趋势</h4>'+
+            '<div class="knowledge-card"><h4>三科在广东卷中的分值分布</h4>'+
             '<div style="margin:10px 0;"><div style="font-weight:700;color:#8b5cf6;margin-bottom:6px;">⚡ 物理：力学≈40% | 电磁学≈33%</div>'+
             '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:80px;font-size:0.85rem;">力学</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">40%</div></div></div>'+
             '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:80px;font-size:0.85rem;">电磁学</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#7c3aed,#8b5cf6);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">33%</div></div></div>'+
@@ -55,14 +55,14 @@ var PlatformSystem={
             '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:100px;font-size:0.85rem;">分子与细胞</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:22%;height:100%;background:linear-gradient(90deg,#047857,#059669);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">18-22%</div></div></div>'+
             '</div></div>'+
 
-            '<div class="knowledge-card"><h4>🏗️ 三层技术架构</h4>'+
+            '<div class="knowledge-card"><h4>三层技术架构</h4>'+
             '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#10b981;">💾 数据层</div><div style="font-size:0.85rem;color:#666;">全量真题库+知识图谱+学习行为数据</div></div>'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(99,102,241,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(99,102,241,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#6366f1;">⚙️ 逻辑层</div><div style="font-size:0.85rem;color:#666;">智能推荐算法+图谱关联+标签匹配引擎</div></div>'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(245,158,11,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#f59e0b;">🖥️ 应用层</div><div style="font-size:0.85rem;color:#666;">学生端+教师端+比赛级输出界面</div></div>'+
+            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#10b981;">💾 数据层</div><div style="font-size:0.85rem;color:#666;">题库 JSON + 三科知识点 JSON + 浏览器本地学习记录</div></div>'+
+            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(99,102,241,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(99,102,241,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#6366f1;">⚙️ 逻辑层</div><div style="font-size:0.85rem;color:#666;">页面渲染 + 题目筛选 + 知识点对照</div></div>'+
+            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(245,158,11,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#f59e0b;">🖥️ 应用层</div><div style="font-size:0.85rem;color:#666;">三科学习页 + 32 个工具入口 + 备考中心</div></div>'+
             '</div></div>'+
 
-            '<div class="knowledge-card"><h4>📋 命题转型特征（2022-2026）</h4>'+
+            '<div class="knowledge-card"><h4>命题转型特征（2022-2026）</h4>'+
             '<div class="key-point"><strong>难度分布：</strong>基础题约60% | 中档题约25%-30% | 难题约10%-15%（易:中:难≈5:3:2）</div>'+
             '<div class="key-point"><strong>命题共识：</strong>"无情境，不物理"、"无情境，不成题" — 试题素材来源科技前沿/生产生活/地域文化/社会热点</div>'+
             '<div class="key-point"><strong>核心转型：</strong>从"知识立意"向"素养立意"全面转型，呈现"情境化、综合化、探究化"鲜明特点</div>'+
@@ -76,7 +76,7 @@ var PlatformSystem={
                 modules:['力学（≈40%）','电磁学（≈30-35%）','热学','光学与近代物理'],
                 keyPoints:['牛顿运动定律（传送带、斜面模型）','动能定理与机械能守恒定律','动量定理与动量守恒定律','静电场（场强、电势）','电磁感应定律','带电粒子在匀强磁场中运动基础','气体实验定律与热力学第一定律'],
                 resources:{lecture:'30%',practice:'50%',diagnostic:'20%'},
-                designPrinciples:['📌 情境化基础训练：一轮从生活实践/教材原型切入','📚 模块化系统覆盖：按分值权重确保无遗漏','🛠️ 资源形态多元：微课+概念辨析+诊断卷闭环','⚡ 精准纠错与规范：源头减少非智力失分']
+                designPrinciples:['情境化基础训练：一轮从生活实践和教材原型切入','模块化覆盖：按章节和分值权重排，不遗漏主干','资源形态：知识点讲解 + 典型例题 + 课后检测','规范表达：减少非智力失分']
             },
             chemistry:{
                 modules:['化学反应原理','化学实验基础','有机化学','无机流程基础'],
@@ -93,9 +93,9 @@ var PlatformSystem={
         };
 
         this.round1Methodology={
-            textbook:['教材精读微课系列（每概念5-10分钟）','教材插图/旁栏/课后习题命题价值解析','教材实验全景复盘（目标/原理/步骤逻辑/结果分析）'],
-            diagnostic:['标准化错因标签库','定向纠错练习系统','规范表达强化营'],
-            transition:['模块末设置"中档过渡题"','输出个性化知识网络图','数据汇总至统一用户画像供二轮调用']
+            textbook:['教材精读（每个概念5-10分钟）','教材插图/旁栏/课后习题命题价值解析','教材实验全景复盘（目标/原理/步骤逻辑/结果分析）'],
+            diagnostic:['常见错误清单','按考点重做错题','答题规范训练'],
+            transition:['每个模块末尾安排几道中档过渡题','整理出这一模块的知识网络','把错题按章节汇总，供二轮复习时使用']
         };
     },
 
@@ -116,33 +116,33 @@ var PlatformSystem={
                 {name:'生态工程与生物技术实践',desc:'碳汇渔业、红树林修复等广东特色情境',target:'运用生命观念分析生态问题，理解科研逻辑'}
             ],
             abilityTraining:[
-                {name:'表述规范化工厂',desc:'高考官方评分细则样例 | 口语化vs标准术语对比纠错 | 模板化逻辑链训练'},
-                {name:'情境建模工作坊',desc:'训练"阅读题干→提取关键参数→匹配学科模型→建立方程/推理路径"标准化流程'},
-                {name:'实验设计竞技场',desc:'半开放式课题：自主提出假设、设计对照、控制变量、分析潜在误差'}
+                {name:'表述规范训练',desc:'对照参考答案检查答题步骤 | 口语化表述改成标准术语 | 按逻辑链检查步骤是否完整'},
+                {name:'情境建模练习',desc:'按"阅读题干→提取关键参数→匹配学科模型→建立方程/推理路径"的顺序练'},
+                {name:'实验设计练习',desc:'半开放式课题：自主提出假设、设计对照、控制变量、分析潜在误差'}
             ],
-            smartLoop:'诊断→推送→训练→再诊断增长闭环：定位能力标签缺陷→动态组装微专题补强包→追踪表现趋势→阈值触发升级'
+            smartLoop:'复习循环：先做一轮基础题 → 看错题在哪一章 → 针对错题多的章节再练 → 隔一段时间回看正确率有没有提高'
         };
     },
 
     renderQuestionBank:function(){
         this.questionBank={
             dataSources:{
-                gk:'2022-2026年广东省高考真题（15套，全量入库）',
-                mock:'广州/深圳/佛山/汕头/珠海等地一模试卷（每年每科≥20套）'
+                gk:'21 道真题，2018-2024 年，物理、化学、生物各 7 道（data/exam-bank.json）',
+                mock:'地市模拟卷未收录，题库当前只有这 21 道题'
             },
             tagDimensions:[
-                {name:'学科与模块',tags:'物理(力学/电磁学/热学/光学) | 化学(反应原理/有机/实验/流程) | 生物(遗传/稳态/细胞/生态)'},
-                {name:'情境类型',tags:'科技前沿（基因编辑/新型电池/合成生物学）| 工业生产（化工流程/智能制造）| 生态环境（红树林修复/碳汇渔业）| 生活实践（健康管理/岭南工艺）| 学习探究（教材实验拓展）'},
-                {name:'能力要求',tags:'理解与记忆 | 信息获取与加工 | 逻辑推理与论证 | 实验探究与设计 | 综合应用与创新'},
-                {name:'难度层级',tags:'基础≈60% | 中档≈25-30% | 难题≈10-15%'},
-                {name:'地区特色',tags:'大湾区科创（新能源汽车电池）| 粤西海洋经济 | 佛山智能制造 | 岭南传统文化（潮汕工夫茶）'},
-                {name:'常见失分点',tags:'概念理解不透 | 模型建立错误 | 计算失误 | 步骤不规范 | 术语书写错误'}
+                {name:'章节',tags:'category：物理(力学/电磁学/光学/热学) | 化学(工艺流程/有机/原理/实验) | 生物(遗传与变异/代谢调节/实验设计/生态与环境)'},
+                {name:'考点',tags:'knowledgePoints：每题标注对应考点，与三科 36 个知识点对应'},
+                {name:'题型',tags:'type：选择题、计算题、实验题、解答题等'},
+                {name:'难度',tags:'difficulty：easy / medium / hard 三档'},
+                {name:'分值',tags:'points：按广东卷赋分记录'},
+                {name:'年份',tags:'year：2018-2024 逐年分布，页面可按年份筛选'}
             ],
             propositionEngine:{
-                features:['四维条件筛选组卷（考点-情境-能力-难度）','模拟真实命题流程：知识节点→情境素材→设问设计→整卷评估','个性化变式题推送（基于学生画像）','教师端原创命题辅助（情境素材库调用+合规性检查）'],
+                features:['按学科、章节、年份、难度筛选题目，组成一组练习','每题带解析与考点标注，筛完可以回看同类题','答题结果按章节和题型统计，薄弱点排在前面','随机出题：题库内随机抽题练习'],
                 guangdongFeatures:['大湾区新能源汽车电池技术','潮汕工夫茶中的化学','珠江口湿地生态修复工程','粤西红树林修复','岭南中药有效成分提取','碳汇渔业','绿氨生产','人工智能辅助合成']
             },
-            dataLoop:'使用数据回流→驱动图谱/标签迭代→题库动态更新→新考情同步对齐'
+            dataLoop:'做题记录与错题存在浏览器本地；题库本身是静态 JSON，需要手动补充'
         };
     },
 
@@ -154,39 +154,39 @@ var PlatformSystem={
                 physics:'1道基础实验+1道创新实验，侧重原理迁移（16-20分）'
             },
             coreTiers:[
-                {name:'📚 教材实验深析库',icon:'📚',
+                {name:'教材实验深析库',icon:'📚',
                     features:['原理逻辑链：深度剖析"为什么这么做"','关键操作与误差定量分析','变式拓展："若更换某材料/条件，如何调整方案？"'],
                     positioning:'一轮复习→二轮过渡桥梁'},
-                {name:'🔬 创新实验案例库',icon:'🔬',
-                    features:['来源：广州一模抗肿瘤新药机制探究 | 深圳一模纯氨燃料船催化反应 | 汕头一模海洋生物活性物质提取','结构化解构：探究目标+自变量/因变量+对照设置+预期结果推导','半开放课题：补充步骤/设计验证实验'],
+                {name:'创新实验案例库',icon:'🔬',
+                    features:['来源：教材实验的拓展改编，以及公开的研究报道','结构化解构：探究目标+自变量/因变量+对照设置+预期结果推导','半开放课题：补充步骤/设计验证实验'],
                     positioning:'二轮"实验设计竞技场"核心弹药'},
-                {name:'📄 科研摘要解读库',icon:'📄',
+                {name:'科研摘要解读库',icon:'📄',
                     features:['情境：合成生物学 | 碳汇渔业 | 新型太阳能电池 | 珠江口湿地修复 | 神经-免疫调节','能力训练：从复杂文字图表快速提取关键假设/方法/结论','迁移问题："该研究如何体现对照原则？"'],
                     positioning:'应对高考"科研摘要化"趋势'}
             ],
-            integration:'← 一轮教材实验错题回流 | → 二轮专题调用创新案例 | ↔ 情境题库互馈（实验题素材提炼入"广东特色情境素材库"）'
+            integration:'教材实验的错题可以回头对照本模块；这里整理的实验案例可以配合实验题一起看'
         };
     },
 
     renderLearningPath:function(){
         this.learningPath={
             userProfile:{
-                knowledgeNetwork:'基于知识图谱+答题数据实时计算每节点掌握度权重→可视化"健康度"知识网络图（薄弱节点红色标记）',
-                abilityDefects:'七维标签聚类分析→生成"能力缺陷诊断报告"（如："遗传模块逻辑推理薄弱，科研摘要情境中变量控制不当"）'
+                knowledgeNetwork:'错题按章节和题型归类后统计正确率，标出薄弱项',
+                abilityDefects:'错题对应的考点、题型与难度分布，可以作为复习顺序的依据'
             },
             recommendationLogic:{
-                round1Goal:'优先填补知识网络空白→目标：基础题（约60%）零失分→推送：教材精读+概念辨析+基础变式',
-                round2Goal:'针对"能力缺陷标签集"攻关→目标：攻克中高难题（约30-40%）→推送：跨模块融合专题+创新情境题+规范训练',
+                round1Goal:'先补错误率最高的章节，配合同章节的练习题',
+                round2Goal:'再按题型和难度补齐错得较多的部分',
                 crossDbDispatch:{
-                    experimentWeak:'题库筛选+调用实验中心"变量控制"微课+科研摘要案例',
-                    scenarioWeak:'按"科技前沿/生态热点"标签调取情境题包',
-                    integrationWeak:'利用知识图谱"跨模块关联"标签生成融合专题'
+                    experimentWeak:'从题库筛出实验相关的题，配合实验中心的方法说明',
+                    scenarioWeak:'按考点找出同类题集中练习',
+                    integrationWeak:'按章节找跨考点的综合题'
                 }
             },
             optimization:{
-                complexityGradient:'情境从经典→科技前沿递进（如化学：矿物提取→绿氨生产→电子循环利用）',
-                targetWeighting:'保本科→基础加固 | 冲重本→高频难点深度强化',
-                feedbackLoop:'即时反馈+路径动态调整+群体学情预警'
+                complexityGradient:'先做同考点的同类题，再逐步换表述和情境',
+                targetWeighting:'按自己的薄弱项调整投入时间',
+                feedbackLoop:'每次练习后更新正确率和错题，复习清单随之变化'
             }
         };
     },
@@ -194,33 +194,33 @@ var PlatformSystem={
     renderTeachingApps:function(){
         this.teachingApps={
             scenarios:[
-                {name:'🎯 "诊断-推送-巩固"精准教学闭环',
-                    desc:'教师调取班级"知识网络掌握度图谱"+"七维能力缺陷标签集"→一键生成个性化复习任务包→针对性干预'},
-                {name:'📖 情境化课堂即时素材库',
-                    desc:'教学时从"广东特色情境素材库"调用"大湾区新能源电池"、"粤西红树林修复"等案例→破解"知识脱离实际"难题'},
-                {name:'🔬 实验探究升级教学',
-                    desc:'利用"创新实验案例"+"科研摘要解读"→引导学生探究性学习→对接高考科研思维考查'},
-                {name:'✍️ 规范表达集训系统',
-                    desc:'集中使用"表述规范化工厂"资源→广东高考官方评分细则样例对比教学→明确得分/扣分点'}
+                {name:'按错题排复习清单',
+                    desc:'做完题后按章节和题型统计正确率，错得多的排在前面'},
+                {name:'按考点集中练',
+                    desc:'从题库筛出同一个考点的题，连续做一组'},
+                {name:'实验方法对照',
+                    desc:'实验中心按教材实验、创新案例、科研摘要三层整理，可与实验题对照看'},
+                {name:'答题规范对照',
+                    desc:'主观题给出参考答案与解析，可与自己的作答对照检查步骤和术语'}
             ],
             teacherDev:[
-                {name:'命题教研助手',desc:'四维标签快速组编周测/月考卷→轻松命制岭南文化/湾区科创特色原创题'},
-                {name:'数据驱动教研',desc:'近三年广东卷化学原理题图像类型分析 | 生物遗传题复杂情境考查趋势研讨'},
-                {name:'学情分析报告',desc:'超越得分率→深入至"信息获取能力薄弱"、"模型建构不足"等素养层面诊断'}
+                {name:'组一组题',desc:'按学科、章节、年份、难度筛选题目，组成一组练习'},
+                {name:'当讲义用',desc:'12 章 36 个知识点的核心要点与常见错误，可直接整理成复习材料'},
+                {name:'看自己的记录',desc:'做题正确率与错题存在浏览器本地，可导出后在班级层面汇总'}
             ]
         };
     },
 
     renderCompetitionOutput:function(){
         this.competitionOutput={
-            coreProposition:'本项目作为省级教学比赛参赛作品，呈现为一套<b>有数据·有分析·有实证·可落地</b>的完整解决方案',
+            coreProposition:'一个纯静态的高考学习工具，<b>题库、知识点和工具都在浏览器本地运行</b>，不需要后端也不需要联网',
             materials:[
-                {name:'📋 顶层设计报告',items:['阐明源于新高考"素养立意"与广东命题"情境化/综合化/科研化"特点','"一体两翼"架构如何系统解决"基础分层"+"能力跃升"双重需求','四大设计原则贯穿始终的实证']},
-                {name:'🔧 特色功能模块呈现',items:['知识图谱+动态画像：可视化三科图谱构建逻辑+学生能力画像演变过程','智能题库+命题引擎：全量收录+标签化2022-2026真题→演示快速生成"广东特色"模拟卷','实验探究三层资源：教材深析→创新案例→科研摘要→培养实验操作到科研思维']},
-                {name:'📊 实证分析与效果评估',items:['《近五年广东高考生物遗传题情境类型与能力考查关联分析》','《广东化学卷STSE与传统文化试题考点映射规律》','《"碳汇渔业"情境跨学科项目式学习案例》','《"动态画像"实现高三生物临界生个性化提分路径实践》']},
-                {name:'✅ 合规性与前瞻性',items:['所有设计严格紧扣《中国高考评价体系》与《普通高中课程标准》','基于2022-2026持续考情分析→适应未来"反套路/重思维/强探究"趋势']}
+                {name:'数据',items:['题库：21 道题，2018-2024 年，物理、化学、生物各 7 道，含解析与考点标注','知识点：12 章 36 个考点，物理 13、化学 13、生物 10，含核心要点与常见错误','学习记录：做题正确率、错题与考前清单进度存在浏览器 localStorage']},
+                {name:'功能',items:['真题练习：按学科、章节、年份、难度筛选，作答后出解析','错题本：错题存在浏览器本地，可按章节和题型回看','工具：32 个入口，含化学配平、遗传模拟、PCR 与电泳模拟等']},
+                {name:'工程实现',items:['零依赖：HTML + CSS + 原生 JS，6 个 JS 模块，无构建步骤，不装任何包','离线可用：双击 index.html 就能打开，不联网也能用','题库是静态 JSON，要扩充题目得手动改文件','已知问题：本目录是只读归档，已被 /1.2/ 取代，问题清单见 1.1/README.md']},
+                {name:'数据说明',items:['题目与知识点整理自公开教材与考纲，仅供学习参考','真题内容版权归原作者与出版方']}
             ],
-            competitiveEdge:'<b>创新性：</b>首个基于广东五年真题数据驱动的精准备考平台 | <b>实用性：</b>直击广东卷"情境化/探究化/综合化"命题特点 | <b>学术价值：</b>数据驱动+结构化的教考衔接方法论体系'
+            competitiveEdge:'<b>可离线：</b>断网也能用 | <b>可核对：</b>题量、考点数这些数字都能在仓库里查到 | <b>无账号：</b>不收集任何数据，学习记录只存在本机浏览器里'
         };
     },
 
@@ -250,12 +250,12 @@ var PlatformSystem={
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
         var colors={physics:'#8b5cf6',chemistry:'#3b82f6',biology:'#10b981'};
         var c=colors[subject];
-        var html='<div class="knowledge-section"><h3>📗 '+names[subject]+' 一轮系统复习模块</h3>';
+        var html='<div class="knowledge-section"><h3>'+names[subject]+' 一轮系统复习模块</h3>';
         html+='<div class="knowledge-card" style="background:linear-gradient(135deg,'+c+'10,'+c+'08);border:1px solid '+c+'30;">';
-        html+='<h4 style="color:'+c+';">🎯 阶段目标：基础题零失分（攻克约60%基础题）</h4>';
+        html+='<h4 style="color:'+c+';">阶段目标：基础题零失分（攻克约60%基础题）</h4>';
         html+='<div class="key-point"><strong>核心策略：</strong>回归教材、覆盖主干、深刻理解概念本质。一轮并非追求难题怪题，而是确保基础分"颗粒归仓"</div>';
         html+='<div class="key-point"><strong>设计原则：</strong>'+data.designPrinciples.join(' ● ')+'</div>';
-        html+='</div><div class="knowledge-card"><h4>📊 核心复习模块（按近五年分值权重排序）</h4>';
+        html+='</div><div class="knowledge-card"><h4>核心复习模块（按近五年分值权重排序）</h4>';
         if(subject==='physics'){
             html+='<div style="margin:8px 0;"><div style="font-weight:700;margin-bottom:6px;">核心模块权重分布</div>';
             data.modules.forEach(function(m,i){
@@ -265,14 +265,14 @@ var PlatformSystem={
         }else{
             data.modules.forEach(function(m){html+='<div class="key-point">📌 '+m+'</div>';});
         }
-        html+='</div><div class="knowledge-card"><h4>🔥 高频考点（近五年必考/高频）</h4>';
+        html+='</div><div class="knowledge-card"><h4>高频考点（近五年必考/高频）</h4>';
         data.keyPoints.forEach(function(p){html+='<div class="key-point">✅ '+p+'</div>';});
-        html+='</div><div class="knowledge-card"><h4>📦 一轮资源形态配比</h4><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
-        var labels={lecture:'微课精讲',practice:'基础题组',diagnostic:'单元诊断卷',concept:'概念辨析题组',experiment:'教材实验微课',expression:'长句表述训练',conceptMap:'概念图谱填空',scenario:'情境应用题'};
+        html+='</div><div class="knowledge-card"><h4>一轮资源形态配比</h4><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+        var labels={lecture:'知识点讲解',practice:'典型例题',diagnostic:'课后检测',concept:'核心概念',experiment:'实验',expression:'答题规范训练',conceptMap:'概念梳理',scenario:'典型例题'};
         Object.keys(data.resources).forEach(function(k){
             html+='<div style="flex:1;min-width:100px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid '+c+'20;"><div style="font-size:1.2rem;font-weight:700;color:'+c+';">'+data.resources[k]+'</div><div style="font-size:0.8rem;color:#666;">'+(labels[k]||k)+'</div></div>';
         });
-        html+='</div></div><div class="knowledge-card"><h4>📖 回归教材策略</h4>';
+        html+='</div></div><div class="knowledge-card"><h4>回归教材策略</h4>';
         var mt=this.round1Methodology;
         mt.textbook.forEach(function(t){html+='<div class="key-point">📘 '+t+'</div>';});
         mt.diagnostic.forEach(function(t){html+='<div class="key-point">🔧 '+t+'</div>';});
@@ -285,29 +285,29 @@ var PlatformSystem={
         var data=this.round2Data[subject];
         if(!subject) return '<p>二轮专题模块正在开发中...</p>';
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
-        var html='<div class="knowledge-section"><h3>📕 '+names[subject]+' 二轮专题冲刺模块</h3>';
+        var html='<div class="knowledge-section"><h3>'+names[subject]+' 二轮专题冲刺模块</h3>';
         html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
-        html+='<h4 style="color:#ef4444;">🎯 阶段目标：攻克中高难题（约30-40%区分题）</h4>';
+        html+='<h4 style="color:#ef4444;">阶段目标：攻克中高难题（约30-40%区分题）</h4>';
         html+='<div class="key-point"><strong>三大支柱：</strong>跨模块综合 | 情境迁移 | 规范表达</div>';
         html+='<div class="key-point"><strong>关键跃升：</strong>孤立知识点→跨模块网络 | 熟悉模型→陌生情境建模 | 结论性作答→过程性规范表达</div>';
         html+='</div>';
         if(Array.isArray(data)){
             data.forEach(function(t){
-                html+='<div class="knowledge-card" style="border-left:4px solid #ef4444;"><h4>🔶 '+t.name+'</h4>';
+                html+='<div class="knowledge-card" style="border-left:4px solid #ef4444;"><h4>'+t.name+'</h4>';
                 html+='<div class="key-point"><strong>内容：</strong>'+t.desc+'</div><div class="key-point"><strong>目标：</strong>'+t.target+'</div></div>';
             });
         }
         if(this.round2Data.abilityTraining){
-            html+='<div class="knowledge-card"><h4>🏋️ 能力突破专项训练营</h4>';
+            html+='<div class="knowledge-card"><h4>能力突破专项训练营</h4>';
             this.round2Data.abilityTraining.forEach(function(a){
                 html+='<div class="key-point"><strong>'+a.name+'：</strong>'+a.desc+'</div>';
             });
             html+='</div>';
         }
-        html+='<div class="knowledge-card"><h4>🔄 智能诊断闭环</h4>';
-        html+='<div class="key-point"><strong>诊断：</strong>错题溯源→定位至知识图谱特定"能力标签"缺陷（如"物理几何分析薄弱"/"化学平衡图像信息提取不足"）</div>';
-        html+='<div class="key-point"><strong>推送：</strong>动态组装微专题补强包→同类情境变式题靶向突破</div>';
-        html+='<div class="key-point"><strong>追踪：</strong>阈值触发→自动建议进入下一专题/提升难度→'+(this.round2Data.smartLoop||'')+'</div>';
+        html+='<div class="knowledge-card"><h4>怎么练</h4>';
+        html+='<div class="key-point"><strong>先看错题：</strong>错题按章节和题型归类，定位到具体是哪个考点没掌握（如"力学图像分析"/"化学平衡图像信息提取"）</div>';
+        html+='<div class="key-point"><strong>再练同类：</strong>从题库筛出同一考点的题，连续做一组</div>';
+        html+='<div class="key-point"><strong>最后回看：</strong>隔一段时间重做同一批题，看正确率有没有提高→'+(this.round2Data.smartLoop||'')+'</div>';
         html+='</div></div>';
         return html;
     },
@@ -315,18 +315,18 @@ var PlatformSystem={
     getQuestionBankContent:function(subject){
         var qb=this.questionBank;
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
-        var html='<div class="knowledge-section"><h3>🏦 '+names[subject]+' 情境化题库与命题引擎</h3>';
-        html+='<div class="knowledge-card"><h4>📥 全量真题入库</h4>';
-        html+='<div class="key-point"><strong>高考真题：</strong>'+qb.dataSources.gk+'</div>';
-        html+='<div class="key-point"><strong>主流模拟卷：</strong>'+qb.dataSources.mock+'</div>';
-        html+='<div class="key-point"><strong>深度解构：</strong>每道题标记考点+能力要求+情境类型+难度层级+图谱对应节点</div>';
-        html+='</div><div class="knowledge-card"><h4>🏷️ 六维标签体系</h4>';
+        var html='<div class="knowledge-section"><h3>'+names[subject]+' 题库</h3>';
+        html+='<div class="knowledge-card"><h4>题目来源</h4>';
+        html+='<div class="key-point"><strong>题库内容：</strong>'+qb.dataSources.gk+'</div>';
+        html+='<div class="key-point"><strong>模拟卷：</strong>'+qb.dataSources.mock+'</div>';
+        html+='<div class="key-point"><strong>每题都带：</strong>考点、题型、难度、分值、年份和解析</div>';
+        html+='</div><div class="knowledge-card"><h4>题目字段与筛选</h4>';
         qb.tagDimensions.forEach(function(dim){html+='<div class="key-point"><strong>'+dim.name+'：</strong>'+dim.tags+'</div>';});
-        html+='</div><div class="knowledge-card"><h4>⚙️ 智能命题引擎</h4>';
+        html+='</div><div class="knowledge-card"><h4>做题与组卷</h4>';
         qb.propositionEngine.features.forEach(function(f){html+='<div class="key-point">✅ '+f+'</div>';});
         html+='<div style="margin-top:10px;"><strong>🎨 广东特色情境：</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">';
         qb.propositionEngine.guangdongFeatures.forEach(function(gf){html+='<span style="background:rgba(245,158,11,0.1);padding:3px 8px;border-radius:10px;font-size:0.8rem;border:1px solid rgba(245,158,11,0.3);">'+gf+'</span>';});
-        html+='</div></div></div><div class="knowledge-card"><h4>🔄 数据闭环机制</h4>';
+        html+='</div></div></div><div class="knowledge-card"><h4>练习与复盘</h4>';
         html+='<div class="key-point">'+qb.dataLoop+'</div></div></div>';
         return html;
     },
@@ -334,9 +334,9 @@ var PlatformSystem={
     getExperimentCenterContent:function(subject){
         var ec=this.experimentCenter;
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
-        var html='<div class="knowledge-section"><h3>🔬 '+names[subject]+' 实验与探究资源中心</h3>';
+        var html='<div class="knowledge-section"><h3>'+names[subject]+' 实验与探究资源中心</h3>';
         html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
-        html+='<h4 style="color:#ef4444;">📋 高考命题导向</h4>';
+        html+='<h4 style="color:#ef4444;">高考命题导向</h4>';
         html+='<div class="key-point"><strong>生物：</strong>'+ec.examImperative.biology+'</div>';
         html+='<div class="key-point"><strong>化学：</strong>'+ec.examImperative.chemistry+'</div>';
         html+='<div class="key-point"><strong>物理：</strong>'+ec.examImperative.physics+'</div>';
@@ -346,7 +346,7 @@ var PlatformSystem={
             tier.features.forEach(function(f){html+='<div class="key-point">✅ '+f+'</div>';});
             html+='</div>';
         });
-        html+='<div class="knowledge-card"><h4>⚡ 系统内协同</h4>';
+        html+='<div class="knowledge-card"><h4>系统内协同</h4>';
         html+='<div class="key-point">'+ec.integration+'</div></div></div>';
         return html;
     },
@@ -362,7 +362,7 @@ var PlatformSystem={
     renderChecklist:function(){
         this.checklistData={
             physics:{
-                title:'⚡ 物理考前冲刺清单',
+                title:'物理考前冲刺清单',
                 color:'#8b5cf6',
                 items:[
                     {category:'🔧 实验仪器',items:['刻度尺读数（估读到最小分度下一位，末端对整刻度记为x.xx cm）','螺旋测微器（固定刻度+可动刻度×0.01mm，小数点后三位）','游标卡尺（主尺整数+游标对齐线×精度，不估读）','电流表/电压表（见1估下位，见2估半格，见5估五份）','多用电表欧姆档（换挡必调零，刻度反着读）']},
@@ -372,7 +372,7 @@ var PlatformSystem={
                 ]
             },
             chemistry:{
-                title:'🧪 化学考前冲刺清单',
+                title:'化学考前冲刺清单',
                 color:'#3b82f6',
                 items:[
                     {category:'🔬 实验仪器',items:['烧杯/锥形瓶（加热垫石棉网）','容量瓶（不可加热，标线为准确体积）','分液漏斗（下层液体从下口放出）','滴定管（酸式/碱式区分，读数估到0.01mL）','冷凝管（下进上出）']},
@@ -382,7 +382,7 @@ var PlatformSystem={
                 ]
             },
             biology:{
-                title:'🧬 生物考前冲刺清单',
+                title:'生物考前冲刺清单',
                 color:'#10b981',
                 items:[
                     {category:'🧪 实验操作',items:['斐林试剂（甲液+乙液等量混合，水浴加热）','双缩脲试剂（先A液后B液）','色素提取（无水乙醇提取，层析液分离）','质壁分离（0.3g/mL蔗糖，低倍镜观察）','有丝分裂（解离→漂洗→染色→制片）']},
@@ -399,7 +399,7 @@ var PlatformSystem={
         if(!data) return '<p>考点清单正在生成中...</p>';
         var html='<div class="knowledge-section"><h3>'+data.title+'</h3>';
         html+='<div class="knowledge-card" style="background:linear-gradient(135deg,'+data.color+'10,'+data.color+'08);border:1px solid '+data.color+'30;">';
-        html+='<h4 style="color:'+data.color+';">📋 考前15分钟速查清单</h4>';
+        html+='<h4 style="color:'+data.color+';">考前15分钟速查清单</h4>';
         html+='<div class="key-point"><strong>使用指南：</strong>考试前快速浏览，确认每个要点已掌握。点击复选框标记完成项，系统会自动保存进度。</div></div>';
         data.items.forEach(function(cat){
             html+='<div class="knowledge-card" style="border-left:4px solid '+data.color+';"><h4>'+cat.category+'</h4>';
@@ -410,7 +410,7 @@ var PlatformSystem={
             });
             html+='</div>';
         });
-        html+='<div class="knowledge-card"><h4>📊 完成度统计</h4>';
+        html+='<div class="knowledge-card"><h4>完成度统计</h4>';
         html+='<div id="checklist-stats-'+subject+'" style="font-size:1.1rem;font-weight:600;color:'+data.color+';">已完成 0 / '+data.items.reduce(function(s,c){return s+c.items.length;},0)+' 项</div>';
         html+='<div style="margin-top:8px;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;"><div id="checklist-bar-'+subject+'" style="width:0%;height:100%;background:'+data.color+';transition:width 0.3s;"></div></div></div>';
         html+='</div>';

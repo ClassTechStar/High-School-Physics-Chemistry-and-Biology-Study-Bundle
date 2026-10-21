@@ -665,7 +665,7 @@ window.studyShareCard = (function () {
 
         ctx.globalAlpha = 0.7;
         ctx.font = '14px sans-serif';
-        ctx.fillText('— HSPCB 智能备考 —', CANVAS_W / 2, CANVAS_H - 40);
+        ctx.fillText('— HSPCB 学习记录 —', CANVAS_W / 2, CANVAS_H - 40);
         ctx.globalAlpha = 1;
     }
 

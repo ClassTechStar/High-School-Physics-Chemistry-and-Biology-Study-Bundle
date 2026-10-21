@@ -405,5 +405,74 @@ console.log('=== C10. 解析声明的答案字母 == answer（P0-1，与 validat
       : `${conflict} 道题解析声明字母与 answer 矛盾：${samples.join(', ')}`);
 }
 
-console.log(`\nC1-C10 结果: ${pass} passed, ${noted} 项基线内技术债, ${fail} failed`);
+// ---------------------------------------------------------------- C11 标签式解析
+console.log('=== C11. 标签式解析（【】机器壳） ===');
+{
+  // 批量生成脚本产出的「【考点】…【题干】…【概念】…【判断】…【结论】选 X」结构：
+  // 复述题干 + 空泛排除话术（"不符合上述概念或题干限定"）同句复用数百次。
+  // 与 C7 互补：C7 抓「复述题干 + 报答案字母」，C11 抓「【】标签壳 + 填空式排除」。
+  const LABEL_SHELL = /【(考点|题干|概念|判断|结论|审题|答题思路|参考表述|评分关注|易错|技巧|排除)】/;
+  const FILLER = /不符合上述概念或题干限定|与题意不符|按「手法\/词义|依据物理概念、规律或公式|依据化学概念、物质性质|依据生物学结构、生理过程|依据定义、公式或运算规则|依据语境、语法与文学常识|依据上下文语义与语法规则/;
+  // 第二类变体：前半句带正确选项内容，后半句是批量填充的空话
+  //   「…，正确答案为C（动能）。本题考查力学相关知识，需准确理解其基本概念与规律，由力学的基本原理可判断…」
+  const BOILER_TAIL = /本题考查[^。]{0,40}需?要?准确(理解|掌握)/;
+  const TAIL_FORMULA = /的(基本)?原理可判断/;
+  const hits = [];
+  for (const { subject, q } of allQs) {
+    const a = String(q.analysis || '');
+    if (!a) continue;
+    const labeled = LABEL_SHELL.test(a) && FILLER.test(a);
+    const tail = BOILER_TAIL.test(a) && TAIL_FORMULA.test(a);
+    if (labeled || tail) hits.push({ id: q.id, subject });
+  }
+  const allowed = baseCount('C11-labeled-shell-analysis');
+  const bySub = {};
+  for (const h of hits) bySub[h.subject] = (bySub[h.subject] || 0) + 1;
+  ok(hits.length <= allowed,
+    hits.length <= allowed
+      ? `标签式解析 ${hits.length} 道（基线 ${allowed}）`
+      : `标签式解析从基线 ${allowed} 增至 ${hits.length}`);
+  if (hits.length) {
+    baseline(`标签式解析 ${hits.length} 道：${Object.entries(bySub).map(([k, v]) => `${k} ${v}`).join(' / ')} → 内容治理：去标签壳并逐项写明错因`);
+  }
+}
+
+// ---------------------------------------------------------------- C12 营销腔残留
+console.log('=== C12. 营销腔/自造概念残留（文案层） ===');
+{
+  // 这些词要么是营销套话，要么是代码里并不存在的自造概念。
+  // 例：「六维标签体系」在代码里并不存在（题目只有考点/难度/题型/分值/年份/章节 6 个真实维度，
+  // 但其中「情境类型」「能力要求」「地区特色」三个维度从未实现）。
+  const PHRASES = [
+    '一站式', '智能备考平台', '精准提分', '一体化备考', '赋能素养', '全方位置能',
+    '六维标签体系', '智能命题引擎', '七维能力标签', '群体学情预警', '一体两翼',
+    '省级教学比赛', '比赛级输出', '诊断-推送-巩固', '能力跃升',
+  ];
+  const SURFACES = [
+    'index.html', 'presentation.html', 'promo.html', 'manifest.json',
+    'js/platform-system.js', 'js/content-enhancement.js', 'js/gamification-system.js',
+    'js/global-search.js', 'js/onboarding.js',
+  ];
+  const hits = [];
+  for (const rel of SURFACES) {
+    const p = join(APP, rel);
+    if (!existsSync(p)) continue;
+    const src = readFileSync(p, 'utf8');
+    for (const w of PHRASES) {
+      const n = src.split(w).length - 1;
+      if (n > 0) hits.push({ file: rel, phrase: w, n });
+    }
+  }
+  const allowed = baseCount('C12-marketing-copy');
+  const total = hits.reduce((a, h) => a + h.n, 0);
+  ok(total <= allowed,
+    total <= allowed
+      ? `营销腔残留 ${total} 处（基线 ${allowed}）`
+      : `营销腔残留从基线 ${allowed} 增至 ${total}`);
+  if (hits.length) {
+    baseline(`营销腔 ${total} 处：${hits.map((h) => `${h.file}:${h.phrase}×${h.n}`).join(' / ')}`);
+  }
+}
+
+console.log(`\nC1-C12 结果: ${pass} passed, ${noted} 项基线内技术债, ${fail} failed`);
 process.exit(fail > 0 ? 1 : 0);

@@ -127,7 +127,7 @@ function getKnowledgeGraphContent(subject){
     if(!kg) return '<p>知识图谱正在加载中...</p>';
     var html='<div class="knowledge-section">';
 
-    html+='<h3>🗺️ 高中'+subjectNames[subject]+'智能备考知识图谱</h3>';
+    html+='<h3>🗺️ 高中'+subjectNames[subject]+'知识图谱</h3>';
 
     html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));border:1px solid rgba(102,126,234,0.2);">';
     html+='<h4 style="color:#667eea;">📊 考核框架：分值地图</h4>';
