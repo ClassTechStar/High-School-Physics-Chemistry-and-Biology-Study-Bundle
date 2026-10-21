@@ -1,0 +1,20 @@
+/* ============================================================
+   responsive.css — 外置自 index.html head 内联 <style> 块（T3-4f / D1）
+   原位置：index.html L21-35（15 行，768px 响应式媒体查询）
+   加载序：tokens.css → style.css → theme-dark.css → responsive.css
+           → chinese-knowledge.css（接替原内联块的层叠地位）
+   本文件为纯移动：规则内容与原块逐字节一致（仅新增本头注释）
+   ============================================================ */
+@media (max-width: 768px) {
+  .subject-nav { flex-wrap: wrap; gap: 4px; }
+  .nav-btn { padding: 6px 10px; font-size: 12px; }
+  .nav-btn .label { display: none; }
+  .subject-cards { grid-template-columns: 1fr !important; }
+  .tool-grid { grid-template-columns: 1fr !important; }
+  .tools-access { flex-direction: column; }
+  .tool-access-btn { width: 100%; text-align: left; }
+  canvas { max-width: 100% !important; height: auto !important; }
+  .container { padding: 8px; }
+  .main-header h1 { font-size: 20px; }
+  .theme-toggle { width: 36px; height: 36px; font-size: 16px; bottom: 12px; right: 12px; }
+}

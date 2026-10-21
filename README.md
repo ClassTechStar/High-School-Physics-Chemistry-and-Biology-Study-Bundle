@@ -32,7 +32,9 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
     ├── css/
     │   ├── style.css           主样式
     │   ├── theme-dark.css      暗色主题
-    │   └── tokens.css          设计令牌
+    │   ├── tokens.css          设计令牌
+    │   ├── responsive.css      响应式补充（原 index.html 内联 <style> 块，T3-4f 外置）
+    │   └── chinese-knowledge.css 语文知识面板样式（同上）
     ├── js/                     46 个功能模块
     │   ├── app.js / app-physics.js / app-chemistry.js / app-biology.js / app-exam.js
     │   ├── math-tools.js               数学工具
@@ -132,7 +134,7 @@ npm run check:collisions  # 跨文件顶层声明重名扫描
 npm run check:lint        # 静态规则：裸 localStorage、重复实现、内联色值等
 npm run check:content     # 内容规则：解析质量、模板化解析、答案分布等
 npm run check:runtime     # 运行时：defer 时序导致的静默失效
-npm run check:csp         # CSP 收紧：内联事件属性 / 内联 script 块残留检查 + meta script-src 断言
+npm run check:csp         # CSP 收紧：内联事件属性 / 内联 script 块 / 静态 style 属性 / <style> 块残留检查 + meta CSP 断言
 npm run check:theme       # 暗色主题令牌化检查
 npm run test              # 进度存储单测
 npm run test:smoke        # 功能冒烟

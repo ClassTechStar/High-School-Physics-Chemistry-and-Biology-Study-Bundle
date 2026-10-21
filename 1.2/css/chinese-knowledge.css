@@ -1,0 +1,295 @@
+/* ============================================================
+   chinese-knowledge.css — 外置自 index.html body 内联 <style> 块（T3-4f / D1）
+   原位置：index.html L598-886（289 行，.chinese-knowledge 语文知识体系样式）
+   加载序：tokens.css → style.css → theme-dark.css → responsive.css
+           → chinese-knowledge.css（接替原内联块的层叠地位）
+   注：theme-dark.css 中 [data-theme="dark"] .chinese-knowledge 系特异性更高的专则，
+       不受本文件位置影响；本文件为纯移动，规则内容与原块逐字节一致。
+   ============================================================ */
+.chinese-knowledge {
+    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.8;
+    color: #444;
+    background: #f8fafc;
+    position: relative;
+}
+.chinese-knowledge .top-nav { display: none; }
+.chinese-knowledge .back-to-top { display: none; }
+.chinese-knowledge .footer { display: none; }
+
+.chinese-knowledge .header {
+    background: linear-gradient(120deg, #e0f2fe 0%, #bae6fd 50%, #e0f2fe 100%);
+    color: #0c4a6e;
+    padding: 25px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e0f2fe;
+    border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+}
+.chinese-knowledge .header h1 {
+    font-size: 1.6em;
+    margin-bottom: 6px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #0369a1;
+}
+.chinese-knowledge .header .subtitle {
+    font-size: 0.9em;
+    color: #0891b2;
+    font-weight: 400;
+}
+.chinese-knowledge .search-box {
+    margin: 14px auto 0;
+    max-width: 450px;
+}
+.chinese-knowledge .search-box input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 2px solid #bae6fd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+    transition: all 0.3s;
+}
+.chinese-knowledge .search-box input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.chinese-knowledge .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 16px;
+    display: flex;
+    gap: 20px;
+}
+
+.chinese-knowledge .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0f2fe;
+}
+.chinese-knowledge .sidebar::-webkit-scrollbar { width: 3px; }
+.chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 2px; }
+
+.chinese-knowledge .sidebar-header {
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
+    border-bottom: none !important;
+    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    color: white;
+    padding: 12px 14px;
+    border-radius: 12px 12px 0 0;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.chinese-knowledge .nav-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f9ff;
+}
+.chinese-knowledge .nav-item:last-child { border-bottom: none; }
+
+.chinese-knowledge .nav-item-title {
+    padding: 6px 14px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #0369a1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.chinese-knowledge .nav-item-title:hover { background: #f0f9ff; }
+.chinese-knowledge .nav-item-title .arrow {
+    margin-left: auto;
+    transition: transform 0.2s;
+    font-size: 0.7em;
+    color: #94a3b8;
+}
+.chinese-knowledge .nav-item-title.active .arrow {
+    transform: rotate(90deg);
+    color: #0ea5e9;
+}
+
+.chinese-knowledge .nav-children {
+    display: none;
+    background: #fafefd;
+}
+.chinese-knowledge .nav-children.show { display: block; }
+.chinese-knowledge .nav-children a {
+    display: block;
+    padding: 4px 14px 4px 34px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.78em;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+}
+.chinese-knowledge .nav-children a:hover {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-left-color: #38bdf8;
+}
+
+.chinese-knowledge .main-content { flex: 1; min-width: 0; }
+
+.chinese-knowledge .module {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0f2fe;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.chinese-knowledge .module-header {
+    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    color: white;
+    padding: 14px 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.chinese-knowledge .module-body { padding: 16px 20px; }
+
+.chinese-knowledge .section {
+    display: block !important;
+    margin-bottom: 14px;
+    padding: 14px;
+    background: #fafefd;
+    border-radius: 10px;
+    border: 1px solid #e0f2fe;
+}
+.chinese-knowledge .section:last-child { margin-bottom: 0; }
+
+.chinese-knowledge .section-title {
+    color: #0369a1;
+    font-size: 0.95em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.chinese-knowledge .subsection { margin: 10px 0; }
+.chinese-knowledge .subsection-title {
+    color: #0284c7;
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-bottom: 6px;
+}
+
+.chinese-knowledge ul, .chinese-knowledge ol { padding-left: 18px; margin: 6px 0; }
+.chinese-knowledge li { margin: 3px 0; }
+
+.chinese-knowledge .info-box {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0ea5e9;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 0.9em;
+}
+.chinese-knowledge .info-box.green {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-left-color: #22c55e;
+}
+.chinese-knowledge .info-box.orange {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-left-color: #f59e0b;
+}
+.chinese-knowledge .info-box.purple {
+    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+    border-left-color: #a855f7;
+}
+.chinese-knowledge .info-box.red {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border-left-color: #ef4444;
+}
+.chinese-knowledge .info-box strong { color: #0369a1; }
+.chinese-knowledge .info-box.green strong { color: #15803d; }
+.chinese-knowledge .info-box.orange strong { color: #b45309; }
+.chinese-knowledge .info-box.purple strong { color: #7e22ce; }
+.chinese-knowledge .info-box.red strong { color: #dc2626; }
+
+.chinese-knowledge .template-box {
+    background: #f0f9ff;
+    border-left: 4px solid #0ea5e9;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 0.88em;
+}
+.chinese-knowledge .template-box.green {
+    background: #f0fdf4;
+    border-left-color: #22c55e;
+}
+.chinese-knowledge .template-box.orange {
+    background: #fffbeb;
+    border-left-color: #f59e0b;
+}
+
+.chinese-knowledge table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 0.82em;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.chinese-knowledge th, .chinese-knowledge td {
+    border: 1px solid #e0f2fe;
+    padding: 7px 10px;
+    text-align: left;
+}
+.chinese-knowledge th {
+    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    color: white;
+    font-weight: 600;
+}
+.chinese-knowledge tr:nth-child(even) { background: #f8fafc; }
+.chinese-knowledge tr:hover { background: #e0f2fe; }
+
+.chinese-knowledge .tag {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 0.72em;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.chinese-knowledge .tag.red { background: #fee2e2; color: #dc2626; }
+.chinese-knowledge .tag.orange { background: #fed7aa; color: #ea580c; }
+.chinese-knowledge .tag.green { background: #dcfce7; color: #16a34a; }
+.chinese-knowledge .tag.blue { background: #e0f2fe; color: #0284c7; }
+
+.chinese-knowledge strong { color: #0369a1; }
+.chinese-knowledge .key-point { color: #dc2626; font-weight: bold; }
+.chinese-knowledge .easy-wrong { color: #f59e0b; font-weight: bold; }
+.chinese-knowledge .skill-tag { color: #16a34a; font-weight: bold; }
+
+@media (max-width: 1024px) {
+    .chinese-knowledge .container { flex-direction: column; }
+    .chinese-knowledge .sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+    }
+    .chinese-knowledge .nav-item-title .arrow { display: none; }
+    .chinese-knowledge .nav-children { display: block !important; }
+    .chinese-knowledge .nav-children a { padding-left: 14px; }
+    .chinese-knowledge .header { padding: 20px 15px; }
+    .chinese-knowledge .header h1 { font-size: 1.3em; }
+}

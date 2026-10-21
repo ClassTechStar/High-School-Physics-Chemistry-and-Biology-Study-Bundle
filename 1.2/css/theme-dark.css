@@ -1003,3 +1003,41 @@
 [data-theme="dark"] [style*="color:#e65100" i]:not([style*="-color:#e65100" i]) {
     color: var(--dm-warning-text-3) !important;
 }
+
+
+/* ============================================================
+   D 类类化后的暗色对等覆盖（T3-4f）
+   index.html 静态 style 属性类化后，第 6 节「属性内容匹配」型暗色专则对静态
+   元素失配、覆盖静默失效；以下按类选择器重建，保持暗态 computed 现值：
+   - 徽标 bg/fg：math/chinese/english 原 #dbeafe / #e0f2fe / #ede9fe 与
+     #3b82f6 / #0369a1 / #7c3aed 的暗色映射（--dm-primary-bg、--dm-info-bg-deep、
+     --dm-primary-bg-2 与 --chemistry、--dm-info-text、--physics）
+   - 知识体系面板 bg 与 h2 标题色（--dm-surface-1、--dm-surface-2）
+   特异性 (0,2,0)/(0,3,0) 高于 style.css 侧 (0,1,0)/(0,2,0) 类化规则，无需
+   !important；外观零变化优先，改值须经 computed-style 回归harness 复核。
+   ============================================================ */
+[data-theme="dark"] .tool-tag.math {
+    background-color: var(--dm-primary-bg);
+    color: var(--chemistry);
+}
+[data-theme="dark"] .tool-tag.chinese {
+    background-color: var(--dm-info-bg-deep);
+    color: var(--dm-info-text);
+}
+[data-theme="dark"] .tool-tag.english {
+    background-color: var(--dm-primary-bg-2);
+    color: var(--physics);
+}
+[data-theme="dark"] .knowledge-panel--math {
+    background-color: var(--dm-surface-1);
+}
+[data-theme="dark"] .knowledge-panel--math h2 {
+    color: var(--chemistry);
+}
+[data-theme="dark"] .knowledge-panel--english {
+    background-color: var(--dm-surface-2);
+}
+[data-theme="dark"] .knowledge-panel--english h2 {
+    color: var(--physics);
+}
+

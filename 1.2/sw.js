@@ -1,10 +1,10 @@
 // ============================================================
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v15（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v16（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v15';
+var CACHE_NAME = 'hspcb-v16';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -13,6 +13,8 @@ var CACHE_NAME = 'hspcb-v15';
 // theme-bootstrap / csp-delegation / main-inline 为解析期非 defer，
 // home-collapse / theme-toggle / sw-register 为 defer），全部纳入预缓存；
 // 另补入 v14 遗漏的 js/csp-delegation.js（T3-4d 新增的委托中枢）。
+// T3-4f: index.html 原 2 个内联 <style> 块外置为 css/responsive.css 与
+// css/chinese-knowledge.css，纳入预缓存。
 var CORE_ASSETS = [
     'index.html',
     'presentation.html',
@@ -25,6 +27,8 @@ var CORE_ASSETS = [
     'css/tokens.css',
     'css/style.css',
     'css/theme-dark.css',
+    'css/responsive.css',
+    'css/chinese-knowledge.css',
     'presentation.css',
     'promo.css',
     'js/error-fallback.js',
