@@ -204,3 +204,4 @@ const P = ['一站式','打造','赋能','全方位','助力','精准提分','�
 - **归档目录**：`1.1/` 仍是只读归档，本轮只清文案不改功能；其「平台架构」页同样承载大量已清理的自造概念描述。
 - **新增题目的质量要求**：新增题请勿使用 `scripts/` 下的批量生成脚本（`polish-analyses.mjs` / `enrich-short-analyses.mjs` / `balance-answers.mjs`），它们正是本轮清除的机器模板的来源。解析请按第 2.2 节标准人工撰写。
 - ~~**JS 生成的内联事件属性**~~：**已清零**（T3-4d，2026-10-21）。原 `js/*.js` 371 处 `onclick=` 等字符串模板已全部改为 `data-call` / `data-hook` 委托（委托中枢 `1.2/js/csp-delegation.js`），门禁 C1/C2 断言现行有效，详见 DEV-PLAN T3-4。
+- ~~**index.html 内联 `<script>` 块**~~：**已全部外置**（T3-4e，2026-10-21）。原 6 块 / 2512 行抽为 `js/error-fallback.js` / `theme-bootstrap.js` / `main-inline.js` / `home-collapse.js` / `theme-toggle.js` / `sw-register.js`，meta CSP 的 `script-src 'unsafe-inline'` 随之移除，门禁 B1/B2 断言现行有效，详见 DEV-PLAN T3-4。

@@ -725,7 +725,7 @@ function getCE() { return window.ContentEnhancer; }
 >    （比截图走查更严：覆盖 17 个颜色 longhand × 6 个伪元素态 × 全部元素），
 >    截图走查留待人工抽检
 
-### T3-4 · T11 模块合并 / T12 CSP 收紧 — 🟡 部分完成（T11 评估完成 / T12 A+C 类已完成，B 块外置待办）
+### T3-4 · T11 模块合并 / T12 CSP 收紧 — 🟡 部分完成（T11 评估完成 / T12 A+B+C 类已完成，`script-src 'unsafe-inline'` 已移除；D 类内联样式待办）
 
 - T11：按 T2-4 的结论重估工作量；合并必须有逐模块回归（`smoke-app.mjs` 覆盖 47/47 是前提）
 - T12：先把内联事件属性（静态 HTML + JS 生成，实测 A 2 处 + C 371+25 处——**非原文所称「32 处内联 onclick」**，见下方勘察结论）改为事件委托，才能移除 `unsafe-inline`
@@ -749,7 +749,8 @@ function getCE() { return window.ContentEnhancer; }
 理由：注册表与渲染入口**已经存在**，说明 T2-4 想解决的「无统一装载路径」问题实际已解决；
 真正剩下的是 54305 行的内容回归风险，而收益（减少几个文件）远小于风险。
 若未来仍要合并，前置条件是 `smoke-app.mjs` 覆盖到 47/47 全部脚本的**真实 DOM 装载**，
-而非当前的「13 个关键脚本实装+ 47 个 `node --check` 语法检查」。
+而非当前的「15 个关键脚本实装（T3-4e 起含 csp-delegation.js 与 main-inline.js）
++ 47 个 `node --check` 语法检查」。
 
 #### T12 勘察结论（v1.4，三分类实测）
 
@@ -759,9 +760,9 @@ function getCE() { return window.ContentEnhancer; }
 | 分类 | 管辖指令 | 实测| 说明 |
 | --- | --- | --- | --- |
 | **A. 静态 HTML 内联事件属性** | `script-src` | **2 → 0** ✅ | `onclick="toggleTheme()"`（主题按钮）+ `onkeyup="chineseSearch()"`（语文搜索框）。前次勘察只搜 `onclick` 漏掉 `onkeyup`，且未剥离 6 个内联 `<script>` 块内的字符串模板 |
-| **B. 内联 `<script>` 块** | `script-src` | **6 块 / 2512 行** | #1 全局错误兜底 44 · #2 主题引导 32（**须 body 渲染前同步执行，否则首屏闪白**）· #3 主逻辑 2292（含 T3-4d 插入的 3 个计算器函数与 quickTool；最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
+| **B. 内联 `<script>` 块** | `script-src` | **0 块 / 0 行** ✅（T3-4e 外置，原为 6 块 / 2512 行） | 原分布：#1 全局错误兜底 44 · #2 主题引导 32（须 body 渲染前同步执行，否则首屏闪白）· #3 主逻辑 2292（含 T3-4d 插入的 3 个计算器函数与 quickTool；最大障碍）· #4 首页折叠 92 · #5 统一主题切换 49 · #6 SW 注册 3 |
 | **C. JS 生成的内联事件属性** | `script-src` | **js/ 0 处 + index.html 内联脚本内 0 处** ✅（T3-4d 清零，原为 js/ 371 + index 25） | 原分布：click 307 / change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1（js 侧）。**这部分曾是移除 `unsafe-inline` 的真实主体工作量**，DEV-PLAN 的「32 处」严重低估 |
-| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3672 + `cssText` 41 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
+| **D. 内联样式** | `style-src` |静态 `style` 属性 37 + `<style>` 块 2（15+289 行）+ JS 样式写入 3952 + `cssText` 43 | 依赖 T3-3推迟的「JS 内联色改类名 + 令牌」，是 `style-src` 去除 `unsafe-inline` 的根因 |
 
 **分步路线（script-src 去 `unsafe-inline`）**：
 
@@ -770,11 +771,15 @@ function getCE() { return window.ContentEnhancer; }
    （`data-call="NS.method"` + `data-arg1..N` 编码集 + `data-hook` 事件委托），
    沿用并泛化了 `js/*.js` 已有的 `data-action` 模式（english-tools / english-vocabulary /
    global-search）
-3. ⬜ **B 块外置**（2512 行）——#3 主逻辑 2292 行需抽为 `js/main-inline.js`；
-   #2 主题引导（32 行）**不能简单外置**，它必须在 `<body>` 渲染前同步执行以防闪白，
-   须改为「外部脚本 + 阻塞 `<script>`（无defer）或 CSS 预置dark 兜底」
-4. 🟡 **门禁加严**：`check:csp` 现行 5 条断言（A1/A2/A3 + T3-4d 追加的 C1/C2）已是硬门禁；
-   待 B 块外置后追加 B 类断言并收紧 meta CSP
+3. ✅ **B 块外置**（T3-4e 完成，2512 行 → 0）——6 个内联块全部抽为 `js/` 外部脚本：
+   `error-fallback.js` / `theme-bootstrap.js`（head，非 defer）/ `main-inline.js`
+   （body 原位，非 defer，2290 行主逻辑）/ `home-collapse.js` / `theme-toggle.js` /
+   `sw-register.js`（defer，置于 `app.js` 之前）。#2 主题引导的「渲染前同步执行」以
+   **head 内非 defer 外链脚本**满足（外链脚本同样阻塞解析，先于 body 渲染执行）
+4. ✅ **门禁加严 + meta CSP 收紧**（T3-4e 完成）：`check:csp` 追加 B1（内联块 = 0）/
+   B2（`script-src` 无 `'unsafe-inline'`）两条断言，A3 作用域改为「index.html + 其引用的
+   js/ 外部脚本」；index.html meta CSP 的 `script-src` 已收紧为 `'self'`
+   （`style-src` 的 `'unsafe-inline'` 保留，属 D 类范围）
 
 **已落地的改造（T3-4c）**：
 
@@ -813,6 +818,48 @@ function getCE() { return window.ContentEnhancer; }
 - 门禁追加 C1（js/*.js = 0）/ C2（index.html 内联脚本内 = 0）两条断言；
   `npm run verify` 九阶段全绿（data PASS / theme 6 / csp 5/5 / lint 9+2 基线 /
   content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）
+
+#### 已落地的改造（T3-4e）——B 类外置 + `script-src` 收紧
+
+- **6 个内联块全部外置**（字节级保真：抽取内容与原块逐字节比对一致，纯 CRLF）：
+
+  | 原内联块 | 新文件 | 加载方式 | 位置 |
+  | --- | --- | --- | --- |
+  | #1 错误兜底 42 行 | `js/error-fallback.js` | 非 defer | head 原位 |
+  | #2 主题引导 30 行 | `js/theme-bootstrap.js` | 非 defer | head 原位 |
+  | #3 主逻辑 2290 行 | `js/main-inline.js` | **非 defer** | body 原位 |
+  | #4 首页折叠 90 行 | `js/home-collapse.js` | defer | `app.js` 之前 |
+  | #5 主题切换 47 行 | `js/theme-toggle.js` | defer | `app.js` 之前 |
+  | #6 SW 注册 1 行 | `js/sw-register.js` | defer | `app.js` 之前 |
+
+- **执行序保序论证**（`check:runtime` 复验）：解析期 #1→#2→common-utils→progress→
+  csp-delegation→#3（#3 保持 `readyState==='loading'` 语义，平台初始化仍走
+  `DOMContentLoaded`，未误改 defer）；defer 期 #4→#5→#6→44 个模块脚本（defer 按文档序
+  执行，三件套置于 `app.js` 之前即精确保持原「#3→#4→#5→#6→模块」次序）。
+  `HSPCBStore`（progress.js）先于 #4、`HSPCBEV`（csp-delegation.js）先于 #3 的依赖均不变
+- **meta CSP**：`script-src 'self' 'unsafe-inline'` → `script-src 'self'`；
+  `style-src` 的 `'unsafe-inline'` 保留（D 类 37 处静态 `style` 属性 + 2 个 `<style>` 块未清）
+- **门禁**：`check:csp` 5 → 7 条断言（新增 B1 内联块 = 0 / B2 `script-src` 无
+  `'unsafe-inline'`；A3 作用域改为「index.html + 其引用的 js/ 外部脚本」）；
+  7 项注入熔断自检全部按预期失败后复原
+- **外置暴露并修复的 4 处存量门禁缺陷**（原内联块不在扫描面内，长期潜伏）：
+  1. `runtime-defer-check.mjs` T2-4 的 `window\.loadModuleContent\s*=` 正则会把
+     `typeof window.loadModuleContent === 'function'` 误判为赋值——外置 `main-inline.js`
+     进入扫描面后误报，已修 `(?!=)` 负向前查
+  2. `runtime-defer-check.mjs` 第 2 节静态检查面从「仅内联脚本」扩展到「全部解析期脚本」，
+     否则外置后两处断言恒真；T0-18 `handlePlatformTab` 导出断言与 P0-13 `toggleNav` /
+     P0-10 捕获覆写两条字符串断言的作用域随之外扩
+  3. `smoke-app.mjs` 三条接线断言（`window.toggleTheme` / `data-theme` / `serviceWorker`）
+     改为「html 引用外链 + 外链文件含该符号」双重断言
+  4. `sw.js` CORE_ASSETS 遗漏 `js/csp-delegation.js`（T3-4d 新增即漏）——本次连同 6 个
+     新外置文件一并补入，CACHE_NAME `hspcb-v14` → `hspcb-v15`；53 个引用 js 现全部预缓存
+- **lint 基线登记 2 项既有例外**（`L1-bare-localStorage`，issue T3-4e）：
+  `theme-bootstrap.js`（head 非 defer，早于 progress.js，`HSPCBStore` 尚未定义）与
+  `theme-toggle.js`（与引导共用 `hspcb_theme`/`hspcb_dark_mode` 裸 key，`HSPCBStore`
+  走 `hspcb.st.` 前缀，改走抽象层会破坏主题持久化）——两者均为 v1.3 T4 既有白名单
+  （HSPCBStore 头部注释明列「主题引导脚本早于本文件执行」），外置后须登记方可过门禁
+- `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6 / csp 7/7 /
+  lint 9+2 基线 / content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）
 
 ### T3-5 · 内容扩充（需人力，非代码） — ✅ 代码侧结项（缺口量化 + 规范 + 门禁；**题目内容待人力**）
 

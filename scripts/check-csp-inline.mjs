@@ -6,9 +6,10 @@
  * 才能移除 unsafe-inline」。v1.4 勘察实测该数字与现状不符，本脚本以实测口径为准，
  * 并把「静态 HTML 不得出现内联事件属性」固化为可回归的门禁断言。
  *
- * 进度：T3-4c（A 类静态属性清零 + data-action 委托）与 T3-4d（C 类 js/ 侧与
- * index.html 内联脚本清零，委托中枢 js/csp-delegation.js）均已完成，
- * A1/A2/A3/C1/C2 五条断言现行有效；B 类（6 个内联脚本块）与 D 类（内联样式）
+ * 进度：T3-4c（A 类静态属性清零 + data-action 委托）、T3-4d（C 类 js/ 侧与
+ * index.html 内联脚本清零，委托中枢 js/csp-delegation.js）与 T3-4e（B 类 6 个
+ * 内联脚本块全部外置为 js/ 外部脚本 + meta CSP script-src 移除 'unsafe-inline'）
+ * 均已完成，A1/A2/A3/B1/B2/C1/C2 七条断言现行有效；D 类（内联样式）
  * 按计划留待后续阶段，当前只清点不设门禁。
  *
  * 三分类口径（务必区分，否则会得出错误工作量结论）：
@@ -57,9 +58,25 @@ function inlineScriptCodes(html) {
     .map((m) => m[2]);
 }
 
+/** index.html 的 <script src="js/..."> 引用的外部脚本源码拼接（T3-4e 起 A3 等断言的作用域）。 */
+function referencedJsSources(html) {
+  const files = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)].map((m) => m[1]);
+  const parts = [];
+  for (const rel of files) {
+    if (!/^js\//.test(rel)) continue;
+    try {
+      parts.push(readFileSync(resolve(APP, rel), 'utf8'));
+    } catch {
+      /* 引用不存在的文件由 runtime-defer-check / smoke 门禁负责，此处不重复报 */
+    }
+  }
+  return parts.join('\n');
+}
+
 const html = readFileSync(INDEX, 'utf8');
 const staticHtml = stripScripts(html);
 const codes = inlineScriptCodes(html);
+const extJs = referencedJsSources(html); // T3-4e：原内联脚本的继任作用域
 
 /* ---------------- A. 静态 HTML 内联事件属性 ---------------- */
 const EVENT_ATTR = /\son([a-z]+)\s*=\s*["']/gi;
@@ -127,10 +144,28 @@ const checks = [
   {
     id: 'A3',
     name: 'window.toggleTheme 仍导出（data-action 委托与外部调用方仍引用）',
-    got: (html.match(/window\.toggleTheme\s*=/g) || []).length,
+    got: (html + extJs).match(/window\.toggleTheme\s*=/g)?.length || 0,
     want: 1,
-    pass: (html.match(/window\.toggleTheme\s*=/g) || []).length === 1,
-    detail: '清零内联属性不等于删除全局 API；data-action="toggle-theme" 委托处理器与外部调用方仍引用它',
+    pass: ((html + extJs).match(/window\.toggleTheme\s*=/g) || []).length === 1,
+    detail: '清零内联属性不等于删除全局 API；data-action="toggle-theme" 委托处理器与外部调用方仍引用它（T3-4e 起作用域 = index.html + 其引用的 js/ 外部脚本）',
+  },
+  {
+    id: 'B1',
+    name: '内联 <script> 块清零（T3-4e 全部外置）',
+    got: scriptBlocks.length,
+    want: 0,
+    pass: scriptBlocks.length === 0,
+    detail: scriptBlocks.length === 0
+      ? '原 6 个内联块（错误兜底 / 主题引导 / 主逻辑 / 首页折叠 / 主题切换 / SW 注册）已全部外置为 js/ 外部脚本，执行序经 runtime-defer-check 保序验证'
+      : `残留：${scriptBlocks.map((b) => b.head).join(' | ')}`,
+  },
+  {
+    id: 'B2',
+    name: "meta CSP script-src 移除 'unsafe-inline'（A/B 清零后的收紧）",
+    got: /script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
+    want: 0,
+    pass: !/script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
+    detail: "script-src 已收紧为 'self'（style-src 的 'unsafe-inline' 保留，属 D 类内联样式范围，另行排期）",
   },
   {
     id: 'C1',
@@ -149,7 +184,7 @@ const checks = [
     want: 0,
     pass: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0) === 0,
     detail: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0) === 0
-      ? '3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮已改为 data-call / data-hook，注释字样不再误计'
+      ? '3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮已改为 data-call / data-hook，注释字样不再误计；T3-4e 起内联脚本已外置，本断言转为兜底（一旦回退内联即复检）'
       : `残留：${[...inlineGenByEvent.entries()].map(([k, v]) => `${k}×${v}`).join(', ')}`,
   },
 ];
@@ -179,7 +214,7 @@ if (asJson) {
   console.log(`   数量：${report.A_staticHtmlEventAttrs.count}${staticEventHits.length ? ' → ' + staticEventHits.join(', ') : ' ✓'}`);
 
   console.log('\nB. 内联 <script> 块（受 script-src 管辖）');
-  console.log(`   数量：${scriptBlocks.length} 块，合计 ${scriptBlocks.reduce((a, b) => a + b.lines, 0)} 行`);
+  console.log(`   数量：${scriptBlocks.length} 块，合计 ${scriptBlocks.reduce((a, b) => a + b.lines, 0)} 行${scriptBlocks.length ? '' : ' ✓（T3-4e 起全部外置为 js/ 外部脚本，见 B1 门禁）'}`);
   scriptBlocks.forEach((b, i) => console.log(`     #${i + 1}  ${String(b.lines).padStart(4)} 行  ${b.head}...`));
 
   console.log('\nC. JS 生成的内联事件属性（运行时拼成 DOM 属性，同受 script-src 管辖）');

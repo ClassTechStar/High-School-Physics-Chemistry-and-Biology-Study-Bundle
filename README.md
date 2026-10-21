@@ -132,7 +132,7 @@ npm run check:collisions  # 跨文件顶层声明重名扫描
 npm run check:lint        # 静态规则：裸 localStorage、重复实现、内联色值等
 npm run check:content     # 内容规则：解析质量、模板化解析、答案分布等
 npm run check:runtime     # 运行时：defer 时序导致的静默失效
-npm run check:csp         # 内联事件属性残留检查
+npm run check:csp         # CSP 收紧：内联事件属性 / 内联 script 块残留检查 + meta script-src 断言
 npm run check:theme       # 暗色主题令牌化检查
 npm run test              # 进度存储单测
 npm run test:smoke        # 功能冒烟

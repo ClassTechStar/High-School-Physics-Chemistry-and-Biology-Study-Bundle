@@ -5,9 +5,12 @@
 ### 安全（CSP 收紧 T12，DEV-PLAN T3-4）
 - **A 类清零**（T3-4c）：`index.html` 静态内联事件属性（`onclick="toggleTheme()"` / `onkeyup="chineseSearch()"`）改为 `data-action` 委托，标签上不再有任何 `on*` 属性；`window.toggleTheme` 保留导出。
 - **C 类清零**（T3-4d）：`js/*.js` 371 处 + `index.html` 内联脚本内 25 处 JS 生成的内联事件属性全部改为 `data-call` / `data-hook` 声明式委托，新增委托中枢 `1.2/js/csp-delegation.js`（参数编码集 `@el`/`@ev`/`@val`/`@s:`/`@n:` 等）。
-- **门禁加严**：`check:csp`（`scripts/check-csp-inline.mjs`）由 3 条断言增至 5 条（A1/A2/A3/C1/C2），C 两类有残留即失败；`npm run verify` 九阶段全绿。
+- **B 类清零**（T3-4e）：6 个内联 `<script>` 块（2512 行）全部外置为外部脚本——`js/error-fallback.js` / `js/theme-bootstrap.js`（head，非 defer）/ `js/main-inline.js`（body 原位，非 defer，2290 行主逻辑）/ `js/home-collapse.js` / `js/theme-toggle.js` / `js/sw-register.js`（defer，置于 `app.js` 之前），内容字节级保真，执行序经 `check:runtime` 复验与外置前一致。
+- **meta CSP 收紧**：`script-src` 移除 `'unsafe-inline'`（现为 `'self'`）；`style-src` 的 `'unsafe-inline'` 保留（D 类内联样式未清，另行排期）。
+- **门禁加严**：`check:csp`（`scripts/check-csp-inline.mjs`）由 3 条断言增至 7 条（A1/A2/A3/B1/B2/C1/C2），A/B/C 三类任一残留或 `script-src` 回退 `unsafe-inline` 即失败；7 项注入熔断自检全部按预期触发。
+- **外置暴露并修复的存量缺陷**：`runtime-defer-check` T2-4 正则把 `typeof window.loadModuleContent === 'function'` 误判为赋值（`(?!=)` 修复）；其第 2 节静态检查面扩展至全部解析期脚本；`smoke-app` 三条接线断言改为「html 引用外链 + 外链含符号」双重断言；`sw.js` 补入遗漏的 `csp-delegation.js` 与 6 个新外置文件，CACHE_NAME `hspcb-v14` → `hspcb-v15`（53 个引用 js 全部预缓存）；`theme-bootstrap.js` / `theme-toggle.js` 的裸 `localStorage`（v1.3 T4 既有白名单例外）登记进 lint 基线。
 - **顺带修复透镜计算器两个存量缺陷**（ERRATA P0-20）：5 个三元字符串缺 opening quote，浏览器模拟实证该按钮自上线起编译失败、从未可用；`m=v/u` 缺负号，实像/虚像场景正倒立输出与页面自有参考文本相反。
-- 遗留：B 类 6 个内联 `<script>` 块（2512 行）外置（#2 主题引导须保持 body 渲染前同步执行以防闪白），完成后即可移除 `script-src 'unsafe-inline'`。
+- `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6 / csp 7/7 / lint 9+2 基线 / content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）。
 
 ## v1.3 (2026-09-30)
 
