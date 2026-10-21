@@ -3,12 +3,20 @@
  * 并验证「defer 时序类」缺陷是否已修复。
  *
  * 背景（P0-10 / P0-11 / P0-13）：
- *   内联 <script>（无 defer）在**解析期**执行，<script defer> 在**解析完成后**按 DOM 顺序执行。
+ *   内联 <script>（无 defer）与非 defer 外链 <script> 在**解析期**按文档序执行，
+ *   <script defer> 在**解析完成后**按 DOM 顺序执行。
  *   因此解析期读 window.SomeDeferredModule 必然得到 undefined。
  *   本脚本用 jsdom 之外的极简实现（避免新增依赖）复现该顺序，并断言：
- *     1. index.html 内联脚本中不再有解析期捕获 defer 模块的写法
- *     2. 所有 defer 模块在最后一个内联脚本之后都能被读到
+ *     1. 解析期脚本（T3-4e 起全部为外部 js，含 js/main-inline.js）中不再有
+ *        解析期捕获 defer 模块的写法
+ *     2. 所有 defer 模块在最后一个解析期脚本之后都能被读到
  *     3. chineseSearch / loadModuleContent / render*Experiments 等确实挂到了 window
+ *
+ * T3-4e 结构变化：index.html 原 6 个内联脚本块全部外置为 js/ 外部脚本——
+ *   error-fallback.js / theme-bootstrap.js（head，非 defer）、main-inline.js
+ *   （body 原位，非 defer，2290 行主逻辑）、home-collapse.js / theme-toggle.js /
+ *   sw-register.js（defer，置于 app.js 之前）。解析期执行序与 defer 执行序
+ *   与外置前完全一致，本节静态检查面随之覆盖全部解析期脚本。
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -51,8 +59,17 @@ ok(scripts.length > 0, `解析出 ${scripts.length} 个 <script>`);
 // ------------------------------------------- 2. 静态检查：解析期不得捕获 defer 模块
 console.log('=== 2. 解析期捕获检查（静态） ===');
 {
-  // 非 defer 的外部脚本 + 内联脚本 = 解析期执行集合
-  const parseTimeFiles = [...inlineScripts.map(() => null), ...plainScripts.map((s) => s.src)];
+  // 解析期执行集合 = 内联脚本 + 非 defer 外链脚本（T3-4e 起原 6 个内联块已全部外置为
+  // js/ 外部脚本，其中 #3 主逻辑 2290 行为 js/main-inline.js，仍以非 defer 方式在解析期执行，
+  // 因此本节的静态检查面必须覆盖全部解析期脚本，而非仅 index.html 内联块）
+  /** @type {{label:string, code:string}[]} */
+  const parseTimeSegs = [
+    ...inlineScripts.map((s, i) => ({ label: `inline#${i + 1}`, code: s.code || '' })),
+    ...plainScripts.map((s) => ({
+      label: s.src,
+      code: (() => { try { return readFileSync(join(APP, s.src.replace(/^\//, '')), 'utf8'); } catch { return ''; } })(),
+    })),
+  ];
 
   // 收集每个 defer 脚本会挂到 window 的符号
   /** @type {Map<string, string>} symbol -> src */
@@ -80,7 +97,7 @@ console.log('=== 2. 解析期捕获检查（静态） ===');
     .replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(m.length - p1.length));
 
   const violations = [];
-  for (const seg of inlineScripts) {
+  for (const seg of parseTimeSegs) {
     if (!seg.code) continue;
     const clean = stripComments(seg.code);
     clean.split('\n').forEach((line, i) => {
@@ -89,30 +106,30 @@ console.log('=== 2. 解析期捕获检查（静态） ===');
       if (!m) return;
       const sym = m[2];
       if (deferredSymbols.has(sym)) {
-        violations.push(`顶层 var ${m[1]} = window.${sym}（${deferredSymbols.get(sym)} 为 defer 模块）@inline#${i + 1}`);
+        violations.push(`顶层 var ${m[1]} = window.${sym}（${deferredSymbols.get(sym)} 为 defer 模块）@${seg.label}:${i + 1}`);
       }
     });
   }
   ok(violations.length === 0,
     violations.length === 0
-      ? '内联脚本无解析期捕获 defer 模块的写法'
+      ? '解析期脚本（内联 + 非 defer 外链）无捕获 defer 模块的写法'
       : `发现 ${violations.length} 处解析期捕获：\n      - ${violations.join('\n      - ')}`);
 
-  // 内联脚本里不应再有「解析期必然为假的 typeof 守卫」
+  // 解析期脚本里不应再有「解析期必然为假的 typeof 守卫」
   // 顶层 `typeof X !== 'undefined'` 且 X 由 defer 模块提供 → 解析期必然为假，守卫失效。
   // 函数体内的 typeof 守卫是正确写法（调用时 defer 已就绪），不报。
   const bogusGuards = [];
-  for (const seg of inlineScripts) {
+  for (const seg of parseTimeSegs) {
     if (!seg.code) continue;
     stripComments(seg.code).split('\n').forEach((line, i) => {
       if (/^[ \t]/.test(line)) return;
       const m = /typeof\s+([A-Za-z_$][\w$]*)\s*!==?\s*['"]undefined['"]/.exec(line);
-      if (m && deferredSymbols.has(m[1])) bogusGuards.push(`${m[1]}@inline#${i + 1}`);
+      if (m && deferredSymbols.has(m[1])) bogusGuards.push(`${m[1]}@${seg.label}:${i + 1}`);
     });
   }
   ok(bogusGuards.length === 0,
     bogusGuards.length === 0
-      ? '内联脚本顶层无依赖解析期时序的 typeof 守卫'
+      ? '解析期脚本顶层无依赖解析期时序的 typeof 守卫'
       : `发现 ${bogusGuards.length} 处顶层失效 typeof 守卫: ${[...new Set(bogusGuards)].join(', ')}`);
 }
 
@@ -324,8 +341,12 @@ ok(typeof sandbox.renderChemistryExperiments === 'function', 'P0-11 renderChemis
 ok(typeof sandbox.renderBiologyExperiments === 'function', 'P0-11 renderBiologyExperiments 已导出');
 ok(typeof sandbox.handleModuleTabClick === 'function', 'P0-11 handleModuleTabClick 已导出');
 ok(typeof sandbox.chineseSearch === 'function', 'P0-13 chineseSearch 已挂到 window');
-ok(!html.includes('toggleNav'), 'P0-13 toggleNav 引用已全部移除');
-ok(!html.includes("window.ComprehensiveData = CD"), 'P0-10 不再用失效捕获值覆写全局');
+// T3-4e：原内联脚本外置后，字符串断言的扫描面 = index.html + 全部解析期外链脚本
+const parseTimeCorpus = [html, ...plainScripts.map((s) => {
+  try { return readFileSync(join(APP, s.src.replace(/^\//, '')), 'utf8'); } catch { return ''; }
+})].join('\n');
+ok(!parseTimeCorpus.includes('toggleNav'), 'P0-13 toggleNav 引用已全部移除');
+ok(!parseTimeCorpus.includes('window.ComprehensiveData = CD'), 'P0-10 不再用失效捕获值覆写全局');
 
 // concepts→knowledge 映射真的生效？
 if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
@@ -358,12 +379,14 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
       : `T2-4 模块未注册: ${missing.join(', ')}`);
 
   // 静态：window.loadModuleContent 只允许 app.js 一处赋值
+  // 注意 (?!=)：`typeof window.loadModuleContent === 'function'` 是合法读取，
+  // 朴素正则会把它误判为赋值（T3-4e 外置 main-inline.js 后暴露过该误报）
   const assignSites = [];
   for (const f of readdirSync(join(APP, 'js'))) {
     if (!f.endsWith('.js')) continue;
     const src = readFileSync(join(APP, 'js', f), 'utf8');
     const codeOnly = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
-    for (const _m of codeOnly.matchAll(/window\.loadModuleContent\s*=/g)) assignSites.push(f);
+    for (const _m of codeOnly.matchAll(/window\.loadModuleContent\s*=(?!=)/g)) assignSites.push(f);
   }
   ok(assignSites.length === 1 && assignSites[0] === 'app.js',
     assignSites.length === 1
@@ -747,7 +770,10 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         : `T0-18 路由未指向函数: ${unmappedRoute.join(', ')}`);
 
     // 路由目标必须真的存在于 window
-    ok(/window\.handlePlatformTab\s*=\s*handlePlatformTab/.test(html),
+    // T3-4e：原内联主逻辑外置为 js/main-inline.js（仍为非 defer 解析期执行），
+    // 导出语句随之外移，静态断言改读该文件
+    const mainSrc = readFileSync(join(APP, 'js', 'main-inline.js'), 'utf8');
+    ok(/window\.handlePlatformTab\s*=\s*handlePlatformTab/.test(mainSrc),
       'T0-18 handlePlatformTab 已导出到 window（搜索路由目标可解析）');
     ok(typeof sandbox.handlePlatformTab === 'function',
       'T0-18 handlePlatformTab 在运行时可解析');

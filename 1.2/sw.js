@@ -1,14 +1,18 @@
 // ============================================================
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v14（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v15（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v14';
+var CACHE_NAME = 'hspcb-v15';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
 // 且 manifest.json 的图标已从 data: URI 改为真实文件）。
+// T3-4e: index.html 原 6 个内联脚本外置为 js/ 外部脚本（error-fallback /
+// theme-bootstrap / csp-delegation / main-inline 为解析期非 defer，
+// home-collapse / theme-toggle / sw-register 为 defer），全部纳入预缓存；
+// 另补入 v14 遗漏的 js/csp-delegation.js（T3-4d 新增的委托中枢）。
 var CORE_ASSETS = [
     'index.html',
     'presentation.html',
@@ -23,8 +27,12 @@ var CORE_ASSETS = [
     'css/theme-dark.css',
     'presentation.css',
     'promo.css',
+    'js/error-fallback.js',
+    'js/theme-bootstrap.js',
     'js/common-utils.js',
     'js/progress.js',
+    'js/csp-delegation.js',
+    'js/main-inline.js',
     'js/app.js',
     'js/app-chemistry.js',
     'js/app-physics.js',
@@ -68,7 +76,10 @@ var CORE_ASSETS = [
     'js/exam-review-system.js',
     'js/error-notebook.js',
     'js/global-search.js',
-    'js/comprehensive-data.js'
+    'js/comprehensive-data.js',
+    'js/home-collapse.js',
+    'js/theme-toggle.js',
+    'js/sw-register.js'
 ];
 
 // 数据文件（运行时按需缓存）

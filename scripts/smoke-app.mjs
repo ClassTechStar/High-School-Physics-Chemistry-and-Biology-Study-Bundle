@@ -44,11 +44,13 @@ for (const p of [
 console.log('=== 3. index 关键接线 ===');
 {
   const html = readFileSync(join(APP, 'index.html'), 'utf8');
+  const readJs = (f) => readFileSync(join(APP, 'js', f), 'utf8');
   ok(html.includes('css/theme-dark.css'), '引入 theme-dark.css');
   ok(html.includes('js/progress.js'), '引入 progress.js');
-  ok(html.includes('window.toggleTheme'), '统一 toggleTheme');
-  ok(html.includes('data-theme'), 'data-theme 主题属性');
-  ok(html.includes('serviceWorker'), '注册 SW');
+  // T3-4e：原内联脚本外置为外部 js 后，接线断言 = html 引用外链 + 外链文件含该符号
+  ok(html.includes('js/theme-toggle.js') && readJs('theme-toggle.js').includes('window.toggleTheme'), '统一 toggleTheme');
+  ok(html.includes('js/theme-bootstrap.js') && readJs('theme-bootstrap.js').includes('data-theme'), 'data-theme 主题属性');
+  ok(html.includes('js/sw-register.js') && readJs('sw-register.js').includes('serviceWorker'), '注册 SW');
   // subject cards
   const start = html.indexOf('<div class="subject-cards">');
   const end = html.indexOf('<div class="quick-access">');
@@ -141,6 +143,8 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
   const loadOrder = [
     'js/common-utils.js',
     'js/progress.js',
+    'js/csp-delegation.js',
+    'js/main-inline.js',
     'js/app.js',
     'js/app-chemistry.js',
     'js/app-physics.js',

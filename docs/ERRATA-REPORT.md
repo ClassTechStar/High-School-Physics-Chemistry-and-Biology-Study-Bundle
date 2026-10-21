@@ -4,6 +4,7 @@
 > 方法：全量通读 + 机械实证（`node` 脚本逐项复算，非目视抽查）· 基线提交 `a37369e`（v1.3）
 > 结论一句话：**现有门禁"全绿"是假绿** —— `npm run verify` 覆盖不到本次发现的 8 项 P0 中的任何一项。
 > 增补（2026-10-21，T3-4d CSP 改造期）：新发现 2 项（P0-20 / P1-46），均已随改造修复，见 §1.9。
+> 再补（2026-10-21，T3-4e B 类外置期）：6 个内联 `<script>` 块全部外置为 `js/` 外部脚本，`script-src 'unsafe-inline'` 已移除；外置同时暴露并修复 4 处存量门禁缺陷（T2-4 `===` 误判 / 静态检查面 / smoke 接线断言 / sw.js 遗漏 csp-delegation.js），详见文末 T12 状态更新。
 
 ---
 
@@ -893,7 +894,8 @@ SyntaxError: Unexpected token ';'
 > `escapeHtml` 亦已收敛（5 个文件仍有定义，但均为「委托 `CommonUtils` + 内联兜底」薄壳，
 > 非独立实现，无重复债务）——原P2-1 所述「6 份独立实现」已过时。
 >
-> **T12（CSP 收紧）—— A/C 两类已清零（2026-10-21，T3-4d），B 块外置待办**。
+> **T12（CSP 收紧）—— A/B/C 三类已清零，`script-src 'unsafe-inline'` 已移除**（A/C 于
+> 2026-10-21 T3-4d，B 于 T3-4e；详见 DEV-PLAN T3-4 分步路线）。
 > DEV-PLAN 原文「32 处内联 `onclick`」与实测不符，必须区分三类：
 > - **A 静态 HTML 内联事件属性：2 → 0**（T3-4c 修复）。实为 `onclick="toggleTheme()"`
 >   （主题按钮）+ `onkeyup="chineseSearch()"`（语文搜索框）——前次勘察只搜 `onclick`
@@ -901,19 +903,23 @@ SyntaxError: Unexpected token ';'
 >   已改为 `data-action="toggle-theme"` / `data-action="chinese-search"` + 文档级委托
 >   （注册在对应 IIFE 内而非 `DOMContentLoaded`，因触发元素位于该 script 之前）。
 >   `window.toggleTheme` 保留导出（`data-action` 委托与外部调用方仍引用）。
-> - **B 内联 `<script>` 块：6 块 / 2512 行** —— #3 主逻辑 2292 行（含 T3-4d 插入的
->   3 个计算器函数与 quickTool）是最大障碍；
->   #2 主题引导 32 行**不能简单外置**（须 body 渲染前同步执行以防首屏闪白）。
+> - **B 内联 `<script>` 块：6 块 / 2512 行 → 0** ✅（T3-4e 外置）。#3 主逻辑 2290 行
+>   抽为 `js/main-inline.js`（非 defer，保持解析期执行与 `readyState==='loading'`
+>   语义）；#2 主题引导 30 行抽为 `js/theme-bootstrap.js`（head 内非 defer 外链，
+>   阻塞解析、先于 body 渲染，满足「渲染前同步执行」）；其余四块分别外置为
+>   `error-fallback.js`（非 defer）/ `home-collapse.js` / `theme-toggle.js` /
+>   `sw-register.js`（defer，置于 `app.js` 之前保序）。
 > - **C JS 生成的内联事件属性：`js/*.js` 371 处 + index.html 内联脚本内 25 处 → 0** ✅
 >   （T3-4d，委托中枢 `1.2/js/csp-delegation.js`）—— 这部分曾是移除
 >   `script-src 'unsafe-inline'` 的真实主体工作量（原分布：click 307 /
 >   change 29 / input 18 / mouseover 6 / mouseout 7 / keypress 3 / mousedown 1）。
 > - **D 内联样式（`style-src`）**：静态 `style` 属性 37 + `<style>` 块 2（15+289 行）
->   + JS 样式写入 3672 + `cssText` 41 —— 根治须改 JS 内联色源头（与 P1-15 推迟项同源）。
+>   + JS 样式写入 3952 + `cssText` 43 —— 根治须改 JS 内联色源头（与 P1-15 推迟项同源）。
 >
-> 新增门禁 `scripts/check-csp-inline.mjs`（`check:csp`，现行 5 条断言）接入 verify 链，
-> 同时输出 A/B/C/D 四类清点作为后续改造的跟踪基线。**meta CSP 本次未收紧**
-> （`unsafe-inline` 仍保留），因为 B 类未完成前收紧会直接白屏。
+> 门禁 `scripts/check-csp-inline.mjs`（`check:csp`，现行 7 条断言：A1/A2/A3/B1/B2/C1/C2）
+> 接入 verify 链，同时输出 A/B/C/D 四类清点作为跟踪基线。**meta CSP 已随 T3-4e 收紧**：
+> `script-src` 去除 `'unsafe-inline'`（现为 `'self'`）；`style-src` 的 `'unsafe-inline'`
+> 保留，因 D 类未清（收紧会直接破坏 37 处静态 style 与 2 个 style 块）。
 
 > **状态更新（v1.4 / T3-5 结项）**：题量口径修正。DEV-PLAN 原文与本报告 P0-4
 > 均记载「真实唯一题量 1166」，该数字是 **T1-2 去重前**的旧口径，已随 v1.4 数据失效。

@@ -56,6 +56,16 @@
         "file": "study-tools-v2.js",
         "issue": "P1-4",
         "note": "T2-3 收敛"
+      },
+      {
+        "file": "theme-bootstrap.js",
+        "issue": "T3-4e",
+        "note": "v1.3 T4 既有白名单例外（HSPCBStore 头部注释明列）：head 内非 defer 同步执行，早于 progress.js，HSPCBStore 尚未定义；且主题 key hspcb_theme/hspcb_dark_mode 按设计不走 hspcb.st. 命名空间（legacyKeys 注释：不含主题偏好）。T3-4e 由 index.html 内联外置，须在此登记"
+      },
+      {
+        "file": "theme-toggle.js",
+        "issue": "T3-4e",
+        "note": "与 theme-bootstrap.js 共用同一对裸 key；HSPCBStore get/set 走 hspcb.st. 前缀，改走抽象层会与引导读写不同 key、破坏主题持久化。v1.3 T4 既有白名单例外，T3-4e 外置后登记"
       }
     ],
     "L2-escapeHtml-duplicates": [
