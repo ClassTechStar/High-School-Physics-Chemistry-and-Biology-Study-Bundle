@@ -117,17 +117,17 @@ const biologyGeneticsSimulator = {
                 <div class="chart-title">基因型频率分布 (第${results.length - 1}代)</div>
                 <div class="bar-chart">
                     <div class="bar-group">
-                        <div class="bar aa" style="height: ${Math.max(latest.genotypes.aa * 200, 5)}px;"></div>
+                        <div class="bar aa" data-bar-h="${Math.max(latest.genotypes.aa * 200, 5)}"></div>
                         <div class="bar-label">aa</div>
                         <div class="bar-value">${(latest.genotypes.aa * 100).toFixed(1)}%</div>
                     </div>
                     <div class="bar-group">
-                        <div class="bar Aa" style="height: ${Math.max(latest.genotypes.Aa * 200, 5)}px;"></div>
+                        <div class="bar Aa" data-bar-h="${Math.max(latest.genotypes.Aa * 200, 5)}"></div>
                         <div class="bar-label">Aa</div>
                         <div class="bar-value">${(latest.genotypes.Aa * 100).toFixed(1)}%</div>
                     </div>
                     <div class="bar-group">
-                        <div class="bar AA" style="height: ${Math.max(latest.genotypes.AA * 200, 5)}px;"></div>
+                        <div class="bar AA" data-bar-h="${Math.max(latest.genotypes.AA * 200, 5)}"></div>
                         <div class="bar-label">AA</div>
                         <div class="bar-value">${(latest.genotypes.AA * 100).toFixed(1)}%</div>
                     </div>
@@ -246,6 +246,11 @@ function renderBiologyGenetics() {
 }
 
 function attachGeneticsListeners() {
+    // D3-A3：条形高度由运行时数据算出，改用 CSSOM 写入，避免生成 style 属性字符串
+    // （style-src 'unsafe-inline' 管辖「style="..." 属性」，不管辖 CSSOM 写入）
+    document.querySelectorAll('#biology-genetics-app .bar[data-bar-h]').forEach(function(el) {
+        el.style.height = el.dataset.barH + 'px';
+    });
     const pSlider = document.getElementById('p-slider');
     const qSlider = document.getElementById('q-slider');
     const selectionSlider = document.getElementById('selection-slider');
