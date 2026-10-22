@@ -77,17 +77,28 @@ jobs:
       - name: 自检 C · 运行时门禁能否检出解析期捕获
         run: |
           set -e
-          cp 1.2/index.html /tmp/index.bak
+          # T3-4e 起 index.html 内联脚本已全部外置，syncModules 现居 1.2/js/main-inline.js
+          #（非 defer 解析期脚本），注入目标随之迁移。注入后必须断言 probe 真实落盘，
+          # 否则锚点漂移会让 replace 静默空转，把「自检装置失效」误报成「门禁失效」。
+          cp 1.2/js/main-inline.js /tmp/main-inline.bak
           python3 - <<'PY'
-          p='1.2/index.html'
+          p='1.2/js/main-inline.js'
           s=open(p,encoding='utf-8').read()
-          s=s.replace('    function syncModules() {',
-                      'var PS_probe = window.PlatformSystem;\n    function syncModules() {',1)
+          anchor='    function syncModules() {'
+          if anchor not in s:
+              raise SystemExit('注入锚点不存在: '+anchor+' —— 自检装置需随代码迁移更新')
+          s=s.replace(anchor,
+                      'var PS_probe = window.PlatformSystem;\n'+anchor,1)
           open(p,'w',encoding='utf-8').write(s)
           PY
+          if ! grep -q 'var PS_probe = window.PlatformSystem;' 1.2/js/main-inline.js; then
+            echo "::error::probe 注入未生效 —— 自检装置失效（锚点漂移）"
+            cp /tmp/main-inline.bak 1.2/js/main-inline.js
+            exit 1
+          fi
           rc=0
           npm run check:runtime >/dev/null 2>&1 || rc=1
-          cp /tmp/index.bak 1.2/index.html
+          cp /tmp/main-inline.bak 1.2/js/main-inline.js
           if [ "$rc" = "0" ]; then
             echo "::error::解析期捕获 defer 模块未被检出 —— P0-10 防回归失效"
             exit 1
