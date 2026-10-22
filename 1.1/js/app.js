@@ -2551,6 +2551,12 @@ const physicsFormulaCalculator = {
         this.showFormulaInput(formula);
     },
 
+    escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, ch => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[ch]));
+    },
+
     showFormulaInput(formula) {
         const inputEl = document.getElementById('formula-input');
         if (inputEl) inputEl.value = formula.formula;
@@ -2560,11 +2566,12 @@ const physicsFormulaCalculator = {
 
         let html = `<div class="vars-input-grid"><h4>输入已知量（留空一个变量自动求解）</h4>`;
         formula.variables.forEach(v => {
-            const label = this.varLabels[v] || v;
+            const label = this.escapeHtml(this.varLabels[v] || v);
+            const safeV = this.escapeHtml(v);
             html += `
                 <div class="var-input-group">
-                    <label for="var-${v}">${label}</label>
-                    <input type="number" id="var-${v}" placeholder="留空=待求" step="any">
+                    <label for="var-${safeV}">${label}</label>
+                    <input type="number" id="var-${safeV}" placeholder="留空=待求" step="any">
                 </div>
             `;
         });
