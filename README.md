@@ -1,6 +1,9 @@
 # 高中物化生语数英学习大礼包
 
-> 版本 1.3 · 六科（物理 / 化学 / 生物 / 数学 / 语文 / 英语）· 纯静态前端
+> 版本 1.4 · 六科（物理 / 化学 / 生物 / 数学 / 语文 / 英语）· 纯静态前端
+
+**🔗 在线使用：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>**
+（GitHub Pages 托管，无需安装；支持 PWA 离线安装）
 
 面向广东高考的网页端学习工具，覆盖六科的知识点体系、题库、错题本与模拟考试。
 全部内容为静态资源，无后端、无构建步骤、无运行时依赖，打开 `1.2/index.html` 即可使用，支持 PWA 离线安装。

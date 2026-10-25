@@ -1,12 +1,25 @@
 # 更新日志
 
-## Unreleased
+## v1.4 (2026-10-25)
+
+「开前门」版本：分发可访问、安全边界闭环、工程债务继续清偿。
+
+### 分发（P0）
+- **GitHub Pages 上线**：`.github/workflows/pages.yml` 在 push 到 `main` 时自动把 `1.2/` 目录发布为静态站点（`actions/upload-pages-artifact` + `deploy-pages`），纯静态仓库无构建步骤；README 顶部加入在线使用入口。
+- **仓库清污**：`.uploads/`（372 KB）与 `.trae-html-share-packages/`（5.6 MB）移出工作区并写入 `.gitignore`（连同 `*.zip`），阻断后续误提交；README 指向已删除 `docs/` 的悬空引用同步清理。
+
+### 安全（P0/P2）
+- **备份导入 schema 校验**：进度导入不再直接信任外部 JSON，按白名单重建对象（键名/类型/长度逐项校验），非法字段丢弃而非合并；配套 12 项单测覆盖原型污染、超长字段、类型错位等用例。
+- **SECURITY.md**：新增漏洞报告渠道与响应预期。
+- **CSP 闭环**（见下）：`script-src` 与 `style-src` 双双收紧为 `'self'`。
 
 ### 安全（CSP 收紧 T12，DEV-PLAN T3-4）
 - **A 类清零**（T3-4c）：`index.html` 静态内联事件属性（`onclick="toggleTheme()"` / `onkeyup="chineseSearch()"`）改为 `data-action` 委托，标签上不再有任何 `on*` 属性；`window.toggleTheme` 保留导出。
 - **C 类清零**（T3-4d）：`js/*.js` 371 处 + `index.html` 内联脚本内 25 处 JS 生成的内联事件属性全部改为 `data-call` / `data-hook` 声明式委托，新增委托中枢 `1.2/js/csp-delegation.js`（参数编码集 `@el`/`@ev`/`@val`/`@s:`/`@n:` 等）。
 - **B 类清零**（T3-4e）：6 个内联 `<script>` 块（2512 行）全部外置为外部脚本——`js/error-fallback.js` / `js/theme-bootstrap.js`（head，非 defer）/ `js/main-inline.js`（body 原位，非 defer，2290 行主逻辑）/ `js/home-collapse.js` / `js/theme-toggle.js` / `js/sw-register.js`（defer，置于 `app.js` 之前），内容字节级保真，执行序经 `check:runtime` 复验与外置前一致。
-- **meta CSP 收紧**：`script-src` 移除 `'unsafe-inline'`（现为 `'self'`）；`style-src` 的 `'unsafe-inline'` 暂保留——静态侧虽已于 T3-4f 清零（D1/D2），但 js/ 侧仍有 3624 处模板 `style` 属性（D3）依赖它，移除须待 D3 立项完成。
+- **meta CSP 收紧**：`script-src` 移除 `'unsafe-inline'`（现为 `'self'`）；`style-src` 的 `'unsafe-inline'` 已于 D3 完成后一并移除（见下条）。
+- **D3 模板内联样式清零 + `style-src` 去 `unsafe-inline`**：js/ 侧 **3620 处**模板 `style` 属性改写为 `data-style`，由新增 `js/cssom-style-bridge.js`（MutationObserver 监听新增节点后 `el.style.setProperty` 写入）落地；`theme-dark.css` 第 6 节 **344 条** `[style*="..."]` 覆盖选择器同步改写为 `[data-style*="..."]`（data-* 保留模板原文、不参与 CSSOM 序列化归一，暗色匹配语义不变）。**弹窗样式外置**（D4）：分析报告 / 复习计划表 / 知识点卡片打印三个 `window.open` 文档的内联 `<style>` 抽为 `css/print-report.css`、`css/study-plan-print.css`、`css/knowledge-card-print.css`，加载指示器 `@keyframes ll-spin` 迁入 `css/style.css`。门禁 9 → 12 条断言（新增 B3 `style-src` 无 `unsafe-inline` / D3 模板 `style` 属性 = 0 / D4 模板内联 `<style>` = 0），反向注入验证按预期熔断。**`computed-style` 回归 18/18 组合零差异在 `style-src 'self'` 下取得。**
+  > 一并否决的方案：`style="..." → data-st="st-<hash>"` + 生成 `[data-st][data-st]` 属性选择器规则。因内联样式击败一切非 `!important` 选择器，(0,2,0) 的属性选择器无法等价复现优先级，实测光态每科 186 处、暗态每科 338 处回归（共 4716 处），已回滚。
 - **D 类静态侧清零**（T3-4f）：2 个 `<style>` 块外置为 `css/responsive.css`（1159 B）与 `css/chinese-knowledge.css`（8894 B，逐字节保真，层叠地位不变）；37 处静态 `style` 属性类化——工具徽标 ×16 → `.tool-tag.math/.chinese/.english`、区块间距 ×11 → `.tools-section.mt-16/20/24`、知识面板 ×4 → `.knowledge-panel--math/--english`、tab-pane ×6 → `.tab-pane/.is-hidden`，令牌补入 `tokens.css`；`theme-dark.css` 原「属性内容匹配」型暗色专则（`[style*="..."]` + `!important`）随 style 属性移除而静默失效，已按类选择器重建 7 条对等规则（不加 `!important`，靠特异性 (0,2,0)/(0,3,0) 胜出，补丁层 `!important` 158 → 21）。**computed-style 回归 harness**（Edge headless，9 学科 × light/dark = 18 组合逐元素逐属性比对）验证外观零变化。
 - **style-src 口径精确化**（T3-4f）：`style-src 'unsafe-inline'` 只管辖产生 `style="..."` 属性字符串的三种来源（静态属性 / `<style>` 块 / JS 字符串模板）；`el.style.prop=` / `el.style.cssText=` 属 CSSOM 写入，**不受管辖**。据此纠正旧口径把 3624（模板属性，受管辖）+ 328（CSSOM，不受管辖）= 3952 混计为「JS 样式写入」的错误；`ctx.fillStyle`/`ctx.strokeStyle` 等 Canvas API 亦不算样式写入（曾致 3929 之误）。实测 **js/ 侧模板 style 属性 3624 处 / 42 文件 = 20 动态（`${}` 插值）+ 3604 静态**，为 D3 立项的准确基数。
 - **门禁加严**：`check:csp`（`scripts/check-csp-inline.mjs`）由 3 条断言增至 7 条（A1/A2/A3/B1/B2/C1/C2），A/B/C 三类任一残留或 `script-src` 回退 `unsafe-inline` 即失败；7 项注入熔断自检全部按预期触发。
@@ -14,7 +27,8 @@
 - **修复 CSS 注释 `*/` 陷阱导致的规则静默丢失**（T3-4f）：`css/style.css` 注释中 `--tag-*/--panel-*` 的 `*/` 提前闭合注释，后续文字连同 `.tools-section.mt-16` 规则被吞成非法选择器遭解析器整体丢弃（CSSOM 584 条中 mt-16 缺失而 mt-20/24 均在），该类化区块实算值一度偏离 16px；改为 `--tag-* 与 --panel-*` 后恢复。
 - **外置暴露并修复的存量缺陷**：`runtime-defer-check` T2-4 正则把 `typeof window.loadModuleContent === 'function'` 误判为赋值（`(?!=)` 修复）；其第 2 节静态检查面扩展至全部解析期脚本；`smoke-app` 三条接线断言改为「html 引用外链 + 外链含符号」双重断言；`sw.js` 补入遗漏的 `csp-delegation.js` 与 6 个新外置文件，CACHE_NAME `hspcb-v14` → `hspcb-v15`（53 个引用 js 全部预缓存）；`theme-bootstrap.js` / `theme-toggle.js` 的裸 `localStorage`（v1.3 T4 既有白名单例外）登记进 lint 基线。
 - **顺带修复透镜计算器两个存量缺陷**（ERRATA P0-20）：5 个三元字符串缺 opening quote，浏览器模拟实证该按钮自上线起编译失败、从未可用；`m=v/u` 缺负号，实像/虚像场景正倒立输出与页面自有参考文本相反。
-- `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6（T2 补丁层 `!important` 158 → 21、T3 承重墙 99 完整）/ csp 9/9 / lint 9+2 基线 / content 13+6 基线 / runtime 121 / test 39+14 / smoke 46）；computed-style 回归 18/18 组合零差异。
+- `npm run verify` 九阶段全绿（data PASS / collisions OK / theme 6（T2 补丁层 `!important` 158 → 21、T3 承重墙 99 完整）/ **csp 12/12** / lint 9+1 基线 / content 13+6 基线 / runtime 121 / **test 49+14** / smoke 46）；computed-style 回归 18/18 组合零差异（`style-src 'self'` 下）。
+- `sw.js` CACHE_NAME `hspcb-v16` → `hspcb-v17`，`cssom-style-bridge.js` 与 3 个弹窗样式表纳入预缓存。
 
 ## v1.3 (2026-09-30)
 
