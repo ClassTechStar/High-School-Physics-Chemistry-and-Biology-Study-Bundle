@@ -514,39 +514,39 @@ window.learningPathRecommender = (function () {
         if (!container) return;
 
         var html = '';
-        html += '<div style="max-width:1100px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
+        html += '<div data-style="max-width:1100px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
 
         // 标题
-        html += '<div style="text-align:center;margin-bottom:18px;">';
-        html += '<h2 style="margin:0 0 6px;font-size:22px;color:#1f2937;">🧭 学习路径推荐</h2>';
-        html += '<p style="margin:0;font-size:13px;color:#6b7280;">知识图谱 × 题库联动 · 智能推荐薄弱知识点学习路径</p>';
+        html += '<div data-style="text-align:center;margin-bottom:18px;">';
+        html += '<h2 data-style="margin:0 0 6px;font-size:22px;color:#1f2937;">🧭 学习路径推荐</h2>';
+        html += '<p data-style="margin:0;font-size:13px;color:#6b7280;">知识图谱 × 题库联动 · 智能推荐薄弱知识点学习路径</p>';
         html += '</div>';
 
         // 学科选择
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:13px;color:#6b7280;margin-bottom:8px;">选择学科</div>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:13px;color:#6b7280;margin-bottom:8px;">选择学科</div>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">';
         var subjects = ['物理', '化学', '生物', '数学', '语文', '英语'];
         for (var i = 0; i < subjects.length; i++) {
             var active = subjects[i] === state.currentSubject;
             html += '<button data-call="window.learningPathRecommender.selectSubject" data-arg1="@s:' + subjects[i] + '" ' +
-                'style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
+                'data-style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
                 'background:' + (active ? '#3b82f6' : '#fff') + ';color:' + (active ? '#fff' : '#374151') + ';' +
                 'cursor:pointer;font-size:13px;font-weight:' + (active ? '600' : '400') + ';">' + subjects[i] + '</button>';
         }
         html += '</div></div>';
 
         // 刷新按钮
-        html += '<div style="text-align:center;margin-bottom:14px;">';
-        html += '<button data-call=\"window.learningPathRecommender.refresh\" style="padding:8px 20px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔄 重新分析并生成路径</button>';
+        html += '<div data-style="text-align:center;margin-bottom:14px;">';
+        html += '<button data-call=\"window.learningPathRecommender.refresh\" data-style="padding:8px 20px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔄 重新分析并生成路径</button>';
         html += '</div>';
 
         // 薄弱知识点概览
         if (state.weakTopics.length === 0 && !state.loading) {
-            html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:24px;text-align:center;">';
-            html += '<div style="font-size:48px;margin-bottom:10px;">📭</div>';
-            html += '<div style="font-size:15px;color:#6b7280;margin-bottom:6px;">暂无错题记录</div>';
-            html += '<div style="font-size:12px;color:#9ca3af;">去做一些练习题，错题将自动记录，系统会根据错题为你推荐学习路径</div>';
+            html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:24px;text-align:center;">';
+            html += '<div data-style="font-size:48px;margin-bottom:10px;">📭</div>';
+            html += '<div data-style="font-size:15px;color:#6b7280;margin-bottom:6px;">暂无错题记录</div>';
+            html += '<div data-style="font-size:12px;color:#9ca3af;">去做一些练习题，错题将自动记录，系统会根据错题为你推荐学习路径</div>';
             html += '</div>';
         } else {
             // 路径步骤
@@ -558,13 +558,13 @@ window.learningPathRecommender = (function () {
         }
 
         // 知识图谱可视化
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-top:14px;">';
-        html += '<div style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">🕸 知识图谱可视化</div>';
-        html += '<canvas id="lpr-graph-canvas" width="1060" height="400" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafafa;max-width:100%;"></canvas>';
-        html += '<div style="font-size:11px;color:#9ca3af;margin-top:6px;">节点大小表示题目数量，红色表示薄弱知识点，绿色表示已掌握</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-top:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">🕸 知识图谱可视化</div>';
+        html += '<canvas id="lpr-graph-canvas" width="1060" height="400" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafafa;max-width:100%;"></canvas>';
+        html += '<div data-style="font-size:11px;color:#9ca3af;margin-top:6px;">节点大小表示题目数量，红色表示薄弱知识点，绿色表示已掌握</div>';
         html += '</div>';
 
-        html += '<div style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">基于错题本+知识图谱+题库联动分析 · 数据存储在 localStorage</div>';
+        html += '<div data-style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">基于错题本+知识图谱+题库联动分析 · 数据存储在 localStorage</div>';
         html += '</div>';
 
         container.innerHTML = html;
@@ -578,26 +578,26 @@ window.learningPathRecommender = (function () {
         var levelColor = step.weakLevel === '高' ? '#ef4444' : (step.weakLevel === '中' ? '#f59e0b' : '#10b981');
         var levelBg = step.weakLevel === '高' ? '#fef2f2' : (step.weakLevel === '中' ? '#fffbeb' : '#f0fdf4');
 
-        html += '<div style="background:' + levelBg + ';border:1px solid ' + levelColor + ';border-left:4px solid ' + levelColor + ';border-radius:10px;padding:16px;margin-bottom:12px;">';
+        html += '<div data-style="background:' + levelBg + ';border:1px solid ' + levelColor + ';border-left:4px solid ' + levelColor + ';border-radius:10px;padding:16px;margin-bottom:12px;">';
 
         // 步骤头
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
         html += '<div>';
-        html += '<span style="background:' + levelColor + ';color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:6px;">步骤 ' + step.step + '</span>';
-        html += '<span style="font-size:16px;font-weight:600;color:#1f2937;">' + step.topic + '</span>';
+        html += '<span data-style="background:' + levelColor + ';color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:6px;">步骤 ' + step.step + '</span>';
+        html += '<span data-style="font-size:16px;font-weight:600;color:#1f2937;">' + step.topic + '</span>';
         if (step.chapter) {
-            html += '<span style="font-size:12px;color:#6b7280;margin-left:8px;">(' + step.chapter + ')</span>';
+            html += '<span data-style="font-size:12px;color:#6b7280;margin-left:8px;">(' + step.chapter + ')</span>';
         }
         html += '</div>';
-        html += '<div style="font-size:12px;color:' + levelColor + ';font-weight:600;">' + step.weakLevel;
+        html += '<div data-style="font-size:12px;color:' + levelColor + ';font-weight:600;">' + step.weakLevel;
         if (step.wrongCount > 0) html += ' · 错' + step.wrongCount + '次';
         html += '</div>';
         html += '</div>';
 
         // 关键知识点
         if (step.keyPoints && step.keyPoints.length > 0) {
-            html += '<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-size:13px;color:#374151;font-weight:600;">📚 核心知识点（' + step.keyPoints.length + '）</summary>';
-            html += '<ul style="margin:6px 0 0 18px;font-size:12px;color:#4b5563;line-height:1.6;">';
+            html += '<details data-style="margin-bottom:8px;"><summary data-style="cursor:pointer;font-size:13px;color:#374151;font-weight:600;">📚 核心知识点（' + step.keyPoints.length + '）</summary>';
+            html += '<ul data-style="margin:6px 0 0 18px;font-size:12px;color:#4b5563;line-height:1.6;">';
             for (var i = 0; i < step.keyPoints.length; i++) {
                 html += '<li>' + step.keyPoints[i] + '</li>';
             }
@@ -606,8 +606,8 @@ window.learningPathRecommender = (function () {
 
         // 公式
         if (step.formulas && step.formulas.length > 0) {
-            html += '<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-size:13px;color:#374151;font-weight:600;">📐 重要公式（' + step.formulas.length + '）</summary>';
-            html += '<ul style="margin:6px 0 0 18px;font-size:12px;color:#4b5563;line-height:1.6;font-family:Consolas,monospace;">';
+            html += '<details data-style="margin-bottom:8px;"><summary data-style="cursor:pointer;font-size:13px;color:#374151;font-weight:600;">📐 重要公式（' + step.formulas.length + '）</summary>';
+            html += '<ul data-style="margin:6px 0 0 18px;font-size:12px;color:#4b5563;line-height:1.6;font-family:Consolas,monospace;">';
             for (var f = 0; f < step.formulas.length; f++) {
                 html += '<li>' + step.formulas[f] + '</li>';
             }
@@ -616,8 +616,8 @@ window.learningPathRecommender = (function () {
 
         // 常见错误
         if (step.commonMistakes && step.commonMistakes.length > 0) {
-            html += '<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-size:13px;color:#ef4444;font-weight:600;">⚠️ 易错点（' + step.commonMistakes.length + '）</summary>';
-            html += '<ul style="margin:6px 0 0 18px;font-size:12px;color:#dc2626;line-height:1.6;">';
+            html += '<details data-style="margin-bottom:8px;"><summary data-style="cursor:pointer;font-size:13px;color:#ef4444;font-weight:600;">⚠️ 易错点（' + step.commonMistakes.length + '）</summary>';
+            html += '<ul data-style="margin:6px 0 0 18px;font-size:12px;color:#dc2626;line-height:1.6;">';
             for (var m = 0; m < step.commonMistakes.length; m++) {
                 html += '<li>' + step.commonMistakes[m] + '</li>';
             }
@@ -626,8 +626,8 @@ window.learningPathRecommender = (function () {
 
         // 考试技巧
         if (step.examTips && step.examTips.length > 0) {
-            html += '<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-size:13px;color:#7c3aed;font-weight:600;">💡 考试技巧（' + step.examTips.length + '）</summary>';
-            html += '<ul style="margin:6px 0 0 18px;font-size:12px;color:#6d28d9;line-height:1.6;">';
+            html += '<details data-style="margin-bottom:8px;"><summary data-style="cursor:pointer;font-size:13px;color:#7c3aed;font-weight:600;">💡 考试技巧（' + step.examTips.length + '）</summary>';
+            html += '<ul data-style="margin:6px 0 0 18px;font-size:12px;color:#6d28d9;line-height:1.6;">';
             for (var t = 0; t < step.examTips.length; t++) {
                 html += '<li>' + step.examTips[t] + '</li>';
             }
@@ -636,18 +636,18 @@ window.learningPathRecommender = (function () {
 
         // 推荐题目
         if (step.recommendedQuestions && step.recommendedQuestions.length > 0) {
-            html += '<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e5e7eb;">';
-            html += '<div style="font-size:13px;font-weight:600;color:#1f2937;margin-bottom:6px;">📝 推荐练习题（' + step.recommendedQuestions.length + '）</div>';
-            html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;">';
+            html += '<div data-style="margin-top:10px;padding-top:10px;border-top:1px dashed #e5e7eb;">';
+            html += '<div data-style="font-size:13px;font-weight:600;color:#1f2937;margin-bottom:6px;">📝 推荐练习题（' + step.recommendedQuestions.length + '）</div>';
+            html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;">';
             for (var q = 0; q < step.recommendedQuestions.length; q++) {
                 var question = step.recommendedQuestions[q];
                 var diffColor = question.difficulty === 'hard' ? '#ef4444' : (question.difficulty === 'medium' ? '#f59e0b' : '#10b981');
-                html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:8px;font-size:11px;cursor:pointer;" data-call="window.learningPathRecommender.startPractice" data-arg1="@s:' + (question.id || '') + '">';
-                html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">';
-                html += '<span style="color:#6b7280;">' + (question.year || '') + ' · ' + (question.type || '') + '</span>';
-                html += '<span style="color:' + diffColor + ';font-size:10px;">' + (question.difficulty || '') + '</span>';
+                html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:8px;font-size:11px;cursor:pointer;" data-call="window.learningPathRecommender.startPractice" data-arg1="@s:' + (question.id || '') + '">';
+                html += '<div data-style="display:flex;justify-content:space-between;margin-bottom:3px;">';
+                html += '<span data-style="color:#6b7280;">' + (question.year || '') + ' · ' + (question.type || '') + '</span>';
+                html += '<span data-style="color:' + diffColor + ';font-size:10px;">' + (question.difficulty || '') + '</span>';
                 html += '</div>';
-                html += '<div style="color:#374151;line-height:1.4;">' + (question.question || '').substring(0, 50) + '...</div>';
+                html += '<div data-style="color:#374151;line-height:1.4;">' + (question.question || '').substring(0, 50) + '...</div>';
                 html += '</div>';
             }
             html += '</div></div>';
@@ -655,8 +655,8 @@ window.learningPathRecommender = (function () {
 
         // 推荐模板
         if (step.recommendedTemplate) {
-            html += '<div style="margin-top:8px;padding-top:8px;border-top:1px dashed #e5e7eb;font-size:12px;color:#6b7280;">';
-            html += '📋 推荐答题模板：<span style="color:#3b82f6;cursor:pointer;text-decoration:underline;" data-call="window.learningPathRecommender.openTemplate" data-arg1="@s:' + (step.recommendedTemplate.id || '') + '">' + step.recommendedTemplate.name + '</span>';
+            html += '<div data-style="margin-top:8px;padding-top:8px;border-top:1px dashed #e5e7eb;font-size:12px;color:#6b7280;">';
+            html += '📋 推荐答题模板：<span data-style="color:#3b82f6;cursor:pointer;text-decoration:underline;" data-call="window.learningPathRecommender.openTemplate" data-arg1="@s:' + (step.recommendedTemplate.id || '') + '">' + step.recommendedTemplate.name + '</span>';
             html += '</div>';
         }
 

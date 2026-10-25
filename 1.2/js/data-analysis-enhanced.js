@@ -86,10 +86,13 @@
   function printHTML(html) {
     var w = window.open('', '_blank');
     if (!w) { alert('请允许弹出窗口以打印报告'); return; }
-    w.document.write('<html><head><meta charset="utf-8"><title>分析报告</title><style>' +
-      'body{font-family:"Microsoft YaHei",sans-serif;padding:24px;color:#222;line-height:1.6}' +
-      'h2{color:#2c3e50;border-bottom:2px solid #3498db;padding-bottom:8px}h4{color:#34495e;margin-top:18px}' +
-      'svg{max-width:100%}</style></head><body>' + html + '</body></html>');
+    // D3：弹窗文档不继承本页 CSS，且 CSP style-src 'self' 禁止内联 <style>/style 属性。
+    // 样式外置为 css/print-report.css；data-style 由桥接脚本在弹窗内写入 CSSOM。
+    var BASE = location.href.replace(/[^/]*$/, '');
+    w.document.write('<html><head><meta charset="utf-8"><title>分析报告</title>' +
+      '<link rel="stylesheet" href="' + BASE + 'css/print-report.css"></head><body>' +
+      html +
+      '<script src="' + BASE + 'js/cssom-style-bridge.js"><\/script></body></html>');
     w.document.close();
     w.focus();
     setTimeout(function () { w.print(); }, 300);
@@ -142,17 +145,17 @@
       this._generate();
     },
     _shell: function () {
-      var s = '<div style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">';
-      s += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
-      s += '<h3 style="margin:0;color:#2c3e50;font-size:18px;">错题智能分析报告</h3>';
-      s += '<div style="display:flex;gap:8px;align-items:center;">';
-      s += '<select id="ear-range" style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;">';
+      var s = '<div data-style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">';
+      s += '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
+      s += '<h3 data-style="margin:0;color:#2c3e50;font-size:18px;">错题智能分析报告</h3>';
+      s += '<div data-style="display:flex;gap:8px;align-items:center;">';
+      s += '<select id="ear-range" data-style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;">';
       s += '<option value="7">近7天</option><option value="30">近30天</option><option value="all">全部</option></select>';
-      s += '<button id="ear-gen" style="padding:6px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;">生成报告</button>';
+      s += '<button id="ear-gen" data-style="padding:6px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;">生成报告</button>';
       s += '</div></div>';
       s += '<div id="ear-body">正在生成分析报告...</div>';
-      s += '<div style="margin-top:14px;text-align:right;">';
-      s += '<button id="ear-print" style="padding:8px 18px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;">打印报告</button>';
+      s += '<div data-style="margin-top:14px;text-align:right;">';
+      s += '<button id="ear-print" data-style="padding:8px 18px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;">打印报告</button>';
       s += '</div></div>';
       return s;
     },
@@ -249,10 +252,10 @@
       var d = this.data;
       if (!d) return '';
       if (d.wrongCount === 0 && d.quizCount === 0) {
-        var s = '<div style="text-align:center;padding:40px;color:#888;">';
-        s += '<div style="font-size:40px;margin-bottom:10px;">📊</div>';
+        var s = '<div data-style="text-align:center;padding:40px;color:#888;">';
+        s += '<div data-style="font-size:40px;margin-bottom:10px;">📊</div>';
         s += '<p>当前时间范围内暂无错题/做题记录。</p>';
-        s += '<p style="font-size:13px;color:#aaa;">请先在错题本或模拟练习中产生记录，再生成分析报告。</p></div>';
+        s += '<p data-style="font-size:13px;color:#aaa;">请先在错题本或模拟练习中产生记录，再生成分析报告。</p></div>';
         return s;
       }
       return this._heatCard() + this._typeCard() + this._trendCard() + this._suggestCard();
@@ -274,7 +277,7 @@
       var cellW = 80, cellH = 42, padL = 56, padT = 24, gap = 4;
       var W = padL + Math.max(maxChap, 1) * (cellW + gap) + 10;
       var H = padT + SUBJECTS.length * (cellH + gap) + 10;
-      var svg = '<svg width="' + W + '" height="' + H + '" style="max-width:100%;">';
+      var svg = '<svg width="' + W + '" height="' + H + '" data-style="max-width:100%;">';
       for (i = 0; i < SUBJECTS.length; i++) {
         var subj = SUBJECTS[i];
         var y = padT + i * (cellH + gap);
@@ -294,14 +297,14 @@
         if (list2.length === 0) svg += '<text x="' + padL + '" y="' + (y + cellH / 2 + 4) + '" font-size="11" fill="#ccc">无数据</text>';
       }
       svg += '</svg>';
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">① 章节错误率热力图</h4>';
-      s += '<div style="display:flex;gap:12px;font-size:11px;margin-bottom:10px;align-items:center;flex-wrap:wrap;"><span>错误率：</span>';
-      s += '<span><span style="display:inline-block;width:12px;height:12px;background:#4caf50;vertical-align:middle;margin-right:3px;"></span>0-30%</span>';
-      s += '<span><span style="display:inline-block;width:12px;height:12px;background:#ffeb3b;vertical-align:middle;margin-right:3px;"></span>30-50%</span>';
-      s += '<span><span style="display:inline-block;width:12px;height:12px;background:#ff9800;vertical-align:middle;margin-right:3px;"></span>50-70%</span>';
-      s += '<span><span style="display:inline-block;width:12px;height:12px;background:#f44336;vertical-align:middle;margin-right:3px;"></span>70-100%</span></div>';
-      s += '<div style="overflow-x:auto;">' + svg + '</div></div>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">① 章节错误率热力图</h4>';
+      s += '<div data-style="display:flex;gap:12px;font-size:11px;margin-bottom:10px;align-items:center;flex-wrap:wrap;"><span>错误率：</span>';
+      s += '<span><span data-style="display:inline-block;width:12px;height:12px;background:#4caf50;vertical-align:middle;margin-right:3px;"></span>0-30%</span>';
+      s += '<span><span data-style="display:inline-block;width:12px;height:12px;background:#ffeb3b;vertical-align:middle;margin-right:3px;"></span>30-50%</span>';
+      s += '<span><span data-style="display:inline-block;width:12px;height:12px;background:#ff9800;vertical-align:middle;margin-right:3px;"></span>50-70%</span>';
+      s += '<span><span data-style="display:inline-block;width:12px;height:12px;background:#f44336;vertical-align:middle;margin-right:3px;"></span>70-100%</span></div>';
+      s += '<div data-style="overflow-x:auto;">' + svg + '</div></div>';
       return s;
     },
     _typeCard: function () {
@@ -309,15 +312,15 @@
       var colors = { '粗心失误': '#3498db', '知识盲区': '#e74c3c', '审题失误': '#f39c12', '计算错误': '#9b59b6' };
       var data = [];
       for (var t in d.typeMap) if (d.typeMap[t] > 0) data.push({ value: d.typeMap[t], color: colors[t], label: t });
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">② 错误类型分类</h4>';
-      if (data.length === 0) { s += '<p style="color:#aaa;">暂无错题数据用于分类。</p></div>'; return s; }
-      s += '<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">';
-      s += '<svg width="180" height="180" style="flex-shrink:0;">' + pieSVG(data, 180, 75) + '</svg><div>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">② 错误类型分类</h4>';
+      if (data.length === 0) { s += '<p data-style="color:#aaa;">暂无错题数据用于分类。</p></div>'; return s; }
+      s += '<div data-style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">';
+      s += '<svg width="180" height="180" data-style="flex-shrink:0;">' + pieSVG(data, 180, 75) + '</svg><div>';
       for (var i = 0; i < data.length; i++) {
         var pct = d.typeTotal > 0 ? (data[i].value / d.typeTotal * 100).toFixed(1) : '0';
-        s += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;">';
-        s += '<span style="display:inline-block;width:12px;height:12px;background:' + data[i].color + ';border-radius:2px;"></span>';
+        s += '<div data-style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;">';
+        s += '<span data-style="display:inline-block;width:12px;height:12px;background:' + data[i].color + ';border-radius:2px;"></span>';
         s += '<span>' + esc(data[i].label) + '：<b>' + data[i].value + '</b> 题 (' + pct + '%)</span></div>';
       }
       s += '</div></div>';
@@ -328,7 +331,7 @@
         '计算错误': '建议：每天10道计算专项训练，草稿纸分区书写，逐步验算。'
       };
       if (d.topType) {
-        s += '<div style="margin-top:10px;padding:8px 12px;background:#fff8e1;border-left:3px solid #f39c12;font-size:12px;color:#6d6012;">';
+        s += '<div data-style="margin-top:10px;padding:8px 12px;background:#fff8e1;border-left:3px solid #f39c12;font-size:12px;color:#6d6012;">';
         s += '主要错误类型：<b>' + esc(d.topType) + '</b>。' + esc(hints[d.topType] || '') + '</div>';
       }
       s += '</div>';
@@ -336,12 +339,12 @@
     },
     _trendCard: function () {
       var d = this.data, trend = d.trend;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">③ 错误率时间趋势（近' + trend.length + '天）</h4>';
-      if (trend.length === 0) { s += '<p style="color:#aaa;">无趋势数据。</p></div>'; return s; }
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">③ 错误率时间趋势（近' + trend.length + '天）</h4>';
+      if (trend.length === 0) { s += '<p data-style="color:#aaa;">无趋势数据。</p></div>'; return s; }
       var W = 600, H = 200, padL = 36, padB = 30, padT = 16, padR = 16;
       var n = trend.length, maxX = W - padL - padR, maxY = H - padT - padB;
-      var svg = '<svg width="' + W + '" height="' + H + '" style="max-width:100%;">';
+      var svg = '<svg width="' + W + '" height="' + H + '" data-style="max-width:100%;">';
       for (var r = 0; r <= 100; r += 25) {
         var y = padT + maxY - (r / 100) * maxY;
         svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#eee"/>';
@@ -365,54 +368,54 @@
         svg += '<text x="' + xx.toFixed(1) + '" y="' + (padT + maxY + 14) + '" font-size="9" text-anchor="middle" fill="#999">' + trend[i].date.slice(5) + '</text>';
       }
       svg += '</svg>';
-      s += '<div style="overflow-x:auto;">' + svg + '</div>';
+      s += '<div data-style="overflow-x:auto;">' + svg + '</div>';
       var half = Math.floor(n / 2), fa = 0, fc = 0, la = 0, lc = 0;
       for (i = 0; i < half; i++) { fa += trend[i].rate; fc++; }
       for (i = half; i < n; i++) { la += trend[i].rate; lc++; }
       var fAvg = fc ? fa / fc : 0, lAvg = lc ? la / lc : 0, diff = lAvg - fAvg, trendText;
       if (Math.abs(diff) < 2) trendText = '错误率基本持平，保持稳定。';
-      else if (diff < 0) trendText = '错误率下降 <b style="color:#27ae60;">' + Math.abs(diff).toFixed(1) + '%</b>，进步明显，继续保持！';
-      else trendText = '错误率上升 <b style="color:#e74c3c;">' + diff.toFixed(1) + '%</b>，需注意调整学习方法。';
-      s += '<div style="margin-top:8px;padding:8px 12px;background:#f0f7ff;border-left:3px solid #3498db;font-size:12px;color:#2c5d8f;">趋势分析：' + trendText + '</div></div>';
+      else if (diff < 0) trendText = '错误率下降 <b data-style="color:#27ae60;">' + Math.abs(diff).toFixed(1) + '%</b>，进步明显，继续保持！';
+      else trendText = '错误率上升 <b data-style="color:#e74c3c;">' + diff.toFixed(1) + '%</b>，需注意调整学习方法。';
+      s += '<div data-style="margin-top:8px;padding:8px 12px;background:#f0f7ff;border-left:3px solid #3498db;font-size:12px;color:#2c5d8f;">趋势分析：' + trendText + '</div></div>';
       return s;
     },
     _suggestCard: function () {
       var d = this.data;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">④ 改善建议</h4>';
-      s += '<div style="margin-bottom:12px;"><div style="font-weight:bold;color:#34495e;margin-bottom:6px;">最薄弱 TOP3 章节：</div>';
-      if (d.top3.length === 0) { s += '<div style="font-size:13px;color:#aaa;">暂无足够数据。</div>'; }
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">④ 改善建议</h4>';
+      s += '<div data-style="margin-bottom:12px;"><div data-style="font-weight:bold;color:#34495e;margin-bottom:6px;">最薄弱 TOP3 章节：</div>';
+      if (d.top3.length === 0) { s += '<div data-style="font-size:13px;color:#aaa;">暂无足够数据。</div>'; }
       else {
-        s += '<ol style="margin:0;padding-left:20px;font-size:13px;color:#444;line-height:1.7;">';
+        s += '<ol data-style="margin:0;padding-left:20px;font-size:13px;color:#444;line-height:1.7;">';
         for (var i = 0; i < d.top3.length; i++) {
           var c = d.top3[i];
           s += '<li><b>' + esc(subjectName(c.subject)) + ' · ' + esc(c.chapter) + '</b>（错误率 ' + c.rate.toFixed(0) + '%）';
-          s += '<div style="color:#888;font-size:12px;">建议：针对该章节重做错题、做3-5道同类题巩固，并梳理知识脉络。</div></li>';
+          s += '<div data-style="color:#888;font-size:12px;">建议：针对该章节重做错题、做3-5道同类题巩固，并梳理知识脉络。</div></li>';
         }
         s += '</ol>';
       }
       s += '</div>';
-      s += '<div style="margin-bottom:12px;"><div style="font-weight:bold;color:#34495e;margin-bottom:6px;">错误类型应对策略：</div>';
+      s += '<div data-style="margin-bottom:12px;"><div data-style="font-weight:bold;color:#34495e;margin-bottom:6px;">错误类型应对策略：</div>';
       var strategies = {
         '粗心失误': '每日限时训练，强制复查；建立"易错点便签"提醒自己。',
         '知识盲区': '本周回归教材，结合知识图谱逐个补盲；优先攻破高频考点。',
         '审题失误': '训练"读两遍再动笔"习惯，圈出否定词、单位、条件限定。',
         '计算错误': '每天15分钟计算专项，规范草稿纸书写，分步验算。'
       };
-      if (d.topType) s += '<div style="font-size:13px;color:#444;line-height:1.7;">主要类型 <b>' + esc(d.topType) + '</b>：' + esc(strategies[d.topType] || '') + '</div>';
-      else s += '<div style="font-size:13px;color:#aaa;">暂无错误类型数据。</div>';
+      if (d.topType) s += '<div data-style="font-size:13px;color:#444;line-height:1.7;">主要类型 <b>' + esc(d.topType) + '</b>：' + esc(strategies[d.topType] || '') + '</div>';
+      else s += '<div data-style="font-size:13px;color:#aaa;">暂无错误类型数据。</div>';
       s += '</div>';
-      s += '<div style="padding:10px 12px;background:#eafaf1;border-left:3px solid #27ae60;border-radius:0 6px 6px 0;">';
-      s += '<div style="font-weight:bold;color:#1e7e45;margin-bottom:4px;">📌 下周重点攻克方向：</div>';
+      s += '<div data-style="padding:10px 12px;background:#eafaf1;border-left:3px solid #27ae60;border-radius:0 6px 6px 0;">';
+      s += '<div data-style="font-weight:bold;color:#1e7e45;margin-bottom:4px;">📌 下周重点攻克方向：</div>';
       if (d.top3.length > 0) {
         var focus = d.top3[0];
-        s += '<div style="font-size:13px;color:#225e3b;">1. 重点突破 <b>' + esc(subjectName(focus.subject)) + '·' + esc(focus.chapter) + '</b>，每天30分钟专项。</div>';
+        s += '<div data-style="font-size:13px;color:#225e3b;">1. 重点突破 <b>' + esc(subjectName(focus.subject)) + '·' + esc(focus.chapter) + '</b>，每天30分钟专项。</div>';
       }
       if (d.top3.length > 1) {
         var f2 = d.top3[1];
-        s += '<div style="font-size:13px;color:#225e3b;">2. 巩固 <b>' + esc(subjectName(f2.subject)) + '·' + esc(f2.chapter) + '</b>，做2套小测验证。</div>';
+        s += '<div data-style="font-size:13px;color:#225e3b;">2. 巩固 <b>' + esc(subjectName(f2.subject)) + '·' + esc(f2.chapter) + '</b>，做2套小测验证。</div>';
       }
-      if (d.topType) s += '<div style="font-size:13px;color:#225e3b;">3. 针对"' + esc(d.topType) + '"做针对性训练，降低该类错误。</div>';
+      if (d.topType) s += '<div data-style="font-size:13px;color:#225e3b;">3. 针对"' + esc(d.topType) + '"做针对性训练，降低该类错误。</div>';
       s += '</div></div>';
       return s;
     },
@@ -421,7 +424,7 @@
       if (!el) return;
       var body = el.querySelector('#ear-body');
       var html = '<h2>错题智能分析报告</h2>';
-      html += '<p style="color:#666;font-size:13px;">生成时间：' + fmtDate(new Date()) + '　时间范围：' + (this.timeRange === 'all' ? '全部' : '近' + this.timeRange + '天') + '</p>';
+      html += '<p data-style="color:#666;font-size:13px;">生成时间：' + fmtDate(new Date()) + '　时间范围：' + (this.timeRange === 'all' ? '全部' : '近' + this.timeRange + '天') + '</p>';
       html += body ? body.innerHTML : '';
       printHTML(html);
     }
@@ -446,14 +449,14 @@
       this._generate();
     },
     _shell: function () {
-      var s = '<div style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">';
-      s += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
-      s += '<h3 style="margin:0;color:#2c3e50;font-size:18px;">时间管理分析器</h3>';
-      s += '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">';
-      s += '<select id="tma-range" style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;">';
+      var s = '<div data-style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">';
+      s += '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
+      s += '<h3 data-style="margin:0;color:#2c3e50;font-size:18px;">时间管理分析器</h3>';
+      s += '<div data-style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">';
+      s += '<select id="tma-range" data-style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;">';
       s += '<option value="7">近7天</option><option value="30">近30天</option><option value="all">全部</option></select>';
-      s += '<button id="tma-gen" style="padding:6px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;">分析</button>';
-      s += '<button id="tma-manual" style="padding:6px 14px;background:#9b59b6;color:#fff;border:none;border-radius:6px;cursor:pointer;">手动输入</button>';
+      s += '<button id="tma-gen" data-style="padding:6px 14px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;">分析</button>';
+      s += '<button id="tma-manual" data-style="padding:6px 14px;background:#9b59b6;color:#fff;border:none;border-radius:6px;cursor:pointer;">手动输入</button>';
       s += '</div></div><div id="tma-body">正在分析...</div></div>';
       return s;
     },
@@ -480,17 +483,17 @@
     _showManual: function () {
       var body = document.getElementById('tma-body');
       if (!body) return;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;">手动输入各科学习时长（分钟）</h4>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;">手动输入各科学习时长（分钟）</h4>';
       s += '<div id="tma-manual-msg"></div>';
-      s += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+      s += '<table data-style="width:100%;border-collapse:collapse;font-size:13px;">';
       for (var i = 0; i < SUBJECTS.length; i++) {
-        s += '<tr><td style="padding:6px;border:1px solid #eee;width:80px;">' + esc(SUBJECTS[i].name) + '</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;"><input data-subj="' + SUBJECTS[i].key + '" type="number" min="0" value="0" style="width:100px;padding:4px;border:1px solid #ccc;border-radius:4px;" /> 分钟</td></tr>';
+        s += '<tr><td data-style="padding:6px;border:1px solid #eee;width:80px;">' + esc(SUBJECTS[i].name) + '</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;"><input data-subj="' + SUBJECTS[i].key + '" type="number" min="0" value="0" data-style="width:100px;padding:4px;border:1px solid #ccc;border-radius:4px;" /> 分钟</td></tr>';
       }
       s += '</table>';
-      s += '<div style="margin-top:10px;"><label style="font-size:13px;">日期：</label><input id="tma-manual-date" type="date" value="' + fmtDate(new Date()) + '" style="padding:4px;border:1px solid #ccc;border-radius:4px;" /></div>';
-      s += '<button id="tma-manual-save" style="margin-top:10px;padding:8px 18px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;">保存并分析</button>';
+      s += '<div data-style="margin-top:10px;"><label data-style="font-size:13px;">日期：</label><input id="tma-manual-date" type="date" value="' + fmtDate(new Date()) + '" data-style="padding:4px;border:1px solid #ccc;border-radius:4px;" /></div>';
+      s += '<button id="tma-manual-save" data-style="margin-top:10px;padding:8px 18px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;">保存并分析</button>';
       s += '</div>';
       body.innerHTML = s;
       var selfObj = this;
@@ -514,7 +517,7 @@
       // 导致"手动录入学习时长"在仪表盘/进度页看不到。统一写 v2 权威轨。
       try { setProgress('studyTime', arr); } catch (e) {}
       var msg = bodyEl.querySelector('#tma-manual-msg');
-      if (msg) msg.innerHTML = '<div style="color:#27ae60;font-size:12px;margin-bottom:8px;">已保存 ' + added + ' 条记录。</div>';
+      if (msg) msg.innerHTML = '<div data-style="color:#27ae60;font-size:12px;margin-bottom:8px;">已保存 ' + added + ' 条记录。</div>';
       var selfObj = this;
       setTimeout(function () { selfObj._generate(); }, 600);
     },
@@ -556,16 +559,16 @@
     _render: function () {
       var d = this.data;
       if (d.total === 0) {
-        var s = '<div style="text-align:center;padding:30px;color:#888;">';
-        s += '<div style="font-size:36px;margin-bottom:8px;">⏱️</div>';
+        var s = '<div data-style="text-align:center;padding:30px;color:#888;">';
+        s += '<div data-style="font-size:36px;margin-bottom:8px;">⏱️</div>';
         s += '<p>暂无学习时长记录。</p>';
-        s += '<p style="font-size:13px;color:#aaa;">点击右上角"手动输入"录入各科学习时长后即可分析。</p></div>';
+        s += '<p data-style="font-size:13px;color:#aaa;">点击右上角"手动输入"录入各科学习时长后即可分析。</p></div>';
         return s;
       }
       var out = '';
-      out += '<div style="display:flex;gap:14px;flex-wrap:wrap;">';
-      out += '<div style="flex:1;min-width:300px;">' + this._pieCard() + this._dataTableCard() + '</div>';
-      out += '<div style="flex:1;min-width:300px;">' + this._compareCard() + this._suggestCardTMA() + '</div>';
+      out += '<div data-style="display:flex;gap:14px;flex-wrap:wrap;">';
+      out += '<div data-style="flex:1;min-width:300px;">' + this._pieCard() + this._dataTableCard() + '</div>';
+      out += '<div data-style="flex:1;min-width:300px;">' + this._compareCard() + this._suggestCardTMA() + '</div>';
       out += '</div>';
       out += this._trendCardTMA();
       return out;
@@ -578,15 +581,15 @@
         var sk = SUBJECTS[i].key;
         if (d.subjTime[sk] > 0) data.push({ value: d.subjTime[sk], color: colors[sk] || '#888', label: SUBJECTS[i].name });
       }
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">各科学习时长占比</h4>';
-      s += '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">';
-      s += '<svg width="180" height="180" style="flex-shrink:0;">' + pieSVG(data, 180, 75) + '</svg>';
-      s += '<div style="font-size:12px;"><div style="margin-bottom:4px;color:#666;">总时长：<b>' + fmtDuration(d.total) + '</b></div>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">各科学习时长占比</h4>';
+      s += '<div data-style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">';
+      s += '<svg width="180" height="180" data-style="flex-shrink:0;">' + pieSVG(data, 180, 75) + '</svg>';
+      s += '<div data-style="font-size:12px;"><div data-style="margin-bottom:4px;color:#666;">总时长：<b>' + fmtDuration(d.total) + '</b></div>';
       for (var i2 = 0; i2 < data.length; i2++) {
         var pct = d.total > 0 ? (data[i2].value / d.total * 100).toFixed(1) : '0';
-        s += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">';
-        s += '<span style="display:inline-block;width:10px;height:10px;background:' + data[i2].color + ';"></span>';
+        s += '<div data-style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">';
+        s += '<span data-style="display:inline-block;width:10px;height:10px;background:' + data[i2].color + ';"></span>';
         s += '<span>' + esc(data[i2].label) + ' ' + pct + '%</span></div>';
       }
       s += '</div></div></div>';
@@ -594,19 +597,19 @@
     },
     _dataTableCard: function () {
       var d = this.data;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">各科时长数据</h4>';
-      s += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
-      s += '<tr style="background:#f5f5f5;"><th style="padding:6px;border:1px solid #eee;text-align:left;">科目</th><th style="padding:6px;border:1px solid #eee;">时长</th><th style="padding:6px;border:1px solid #eee;">占比</th><th style="padding:6px;border:1px solid #eee;">建议</th></tr>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">各科时长数据</h4>';
+      s += '<table data-style="width:100%;border-collapse:collapse;font-size:12px;">';
+      s += '<tr data-style="background:#f5f5f5;"><th data-style="padding:6px;border:1px solid #eee;text-align:left;">科目</th><th data-style="padding:6px;border:1px solid #eee;">时长</th><th data-style="padding:6px;border:1px solid #eee;">占比</th><th data-style="padding:6px;border:1px solid #eee;">建议</th></tr>';
       for (var i = 0; i < SUBJECTS.length; i++) {
         var sk = SUBJECTS[i].key;
         var t = d.subjTime[sk] || 0;
         var pct = d.total > 0 ? (t / d.total * 100).toFixed(1) : '0';
         var rec = ((d.recommended[sk] || 0) * 100).toFixed(0) + '%';
-        s += '<tr><td style="padding:6px;border:1px solid #eee;">' + SUBJECTS[i].name + '</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;text-align:center;">' + fmtDuration(t) + '</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;text-align:center;">' + pct + '%</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;text-align:center;">' + rec + '</td></tr>';
+        s += '<tr><td data-style="padding:6px;border:1px solid #eee;">' + SUBJECTS[i].name + '</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;text-align:center;">' + fmtDuration(t) + '</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;text-align:center;">' + pct + '%</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;text-align:center;">' + rec + '</td></tr>';
       }
       s += '</table></div>';
       return s;
@@ -616,7 +619,7 @@
       var W = 480, H = 220, padL = 50, padB = 30, padT = 16, padR = 16, i;
       var n = SUBJECTS.length, groupW = (W - padL - padR) / n, barW = 14;
       var maxY = H - padT - padB;
-      var svg = '<svg width="' + W + '" height="' + H + '" style="max-width:100%;">';
+      var svg = '<svg width="' + W + '" height="' + H + '" data-style="max-width:100%;">';
       for (var p = 0; p <= 100; p += 25) {
         var y = padT + maxY - (p / 100) * maxY;
         svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#eee"/>';
@@ -634,17 +637,17 @@
         svg += '<text x="' + cx + '" y="' + (padT + maxY + 14) + '" font-size="9" text-anchor="middle" fill="#666">' + SUBJECTS[i].name + '</text>';
       }
       svg += '</svg>';
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">实际 vs 建议时间分配</h4>';
-      s += '<div style="overflow-x:auto;">' + svg + '</div>';
-      s += '<div style="font-size:11px;color:#888;margin-top:6px;"><span style="display:inline-block;width:10px;height:10px;background:#3498db;vertical-align:middle;margin-right:3px;"></span>实际　<span style="display:inline-block;width:10px;height:10px;background:#bdc3c7;vertical-align:middle;margin-right:3px;"></span>建议</div></div>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">实际 vs 建议时间分配</h4>';
+      s += '<div data-style="overflow-x:auto;">' + svg + '</div>';
+      s += '<div data-style="font-size:11px;color:#888;margin-top:6px;"><span data-style="display:inline-block;width:10px;height:10px;background:#3498db;vertical-align:middle;margin-right:3px;"></span>实际　<span data-style="display:inline-block;width:10px;height:10px;background:#bdc3c7;vertical-align:middle;margin-right:3px;"></span>建议</div></div>';
       return s;
     },
     _suggestCardTMA: function () {
       var d = this.data;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">效率分析与建议</h4>';
-      s += '<div style="font-size:13px;line-height:1.8;color:#444;">';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">效率分析与建议</h4>';
+      s += '<div data-style="font-size:13px;line-height:1.8;color:#444;">';
       s += '<div>📊 平均每日学习：<b>' + fmtDuration(d.avgPerDay) + '</b>（' + d.dayCount + '天）</div>';
       s += '<div>🏆 学习最多：<b>' + esc(subjectName(d.maxSubj)) + '</b>（' + fmtDuration(d.maxVal) + '）</div>';
       s += '<div>⚠️ 学习最少：<b>' + esc(subjectName(d.minSubj)) + '</b>（' + fmtDuration(d.minVal) + '）— 可能被忽视</div>';
@@ -657,7 +660,7 @@
         if (actualPct < recPct - 0.03) needMore.push({ name: SUBJECTS[i].name, gap: (recPct - actualPct) });
       }
       needMore.sort(function (a, b) { return b.gap - a.gap; });
-      s += '<div style="margin-top:10px;padding:10px 12px;background:#fff3e0;border-left:3px solid #ff9800;font-size:12px;color:#8a5a00;">';
+      s += '<div data-style="margin-top:10px;padding:10px 12px;background:#fff3e0;border-left:3px solid #ff9800;font-size:12px;color:#8a5a00;">';
       if (needMore.length > 0) {
         s += '<b>💡 建议加强：</b>下阶段增加 <b>' + esc(needMore[0].name);
         if (needMore[1]) s += '、' + esc(needMore[1].name);
@@ -670,14 +673,14 @@
     },
     _trendCardTMA: function () {
       var d = this.data, trend = d.trend;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">每日学习时长趋势（近' + trend.length + '天）</h4>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">每日学习时长趋势（近' + trend.length + '天）</h4>';
       var W = 600, H = 200, padL = 50, padB = 30, padT = 16, padR = 16;
       var n = trend.length, maxX = W - padL - padR, maxY = H - padT - padB;
       var maxSec = 0, i;
       for (i = 0; i < n; i++) if (trend[i].seconds > maxSec) maxSec = trend[i].seconds;
       if (maxSec === 0) maxSec = 3600;
-      var svg = '<svg width="' + W + '" height="' + H + '" style="max-width:100%;">';
+      var svg = '<svg width="' + W + '" height="' + H + '" data-style="max-width:100%;">';
       for (var g = 0; g <= 4; g++) {
         var y = padT + maxY - (g / 4) * maxY;
         svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#eee"/>';
@@ -701,7 +704,7 @@
         svg += '<text x="' + xx.toFixed(1) + '" y="' + (padT + maxY + 14) + '" font-size="9" text-anchor="middle" fill="#999">' + trend[i].date.slice(5) + '</text>';
       }
       svg += '</svg>';
-      s += '<div style="overflow-x:auto;">' + svg + '</div></div>';
+      s += '<div data-style="overflow-x:auto;">' + svg + '</div></div>';
       return s;
     }
   };
@@ -735,7 +738,7 @@
     render: function () {
       var el = document.getElementById(this.containerId);
       if (!el) return;
-      el.innerHTML = '<div style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">' + this._header() + this._body() + '</div>';
+      el.innerHTML = '<div data-style="font-family:sans-serif;background:#f5f7fa;border-radius:10px;padding:16px;color:#222;">' + this._header() + this._body() + '</div>';
       var self = this;
       var phyBtn = el.querySelector('#slv-phy');
       var hisBtn = el.querySelector('#slv-his');
@@ -750,30 +753,30 @@
     },
     _header: function () {
       var isPhy = this.category === 'physics';
-      var s = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
-      s += '<h3 style="margin:0;color:#2c3e50;font-size:18px;">广东历年分数线可视化（2020-2026）</h3>';
-      s += '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">';
-      s += '<button id="slv-phy" style="padding:6px 14px;border:none;border-radius:6px;cursor:pointer;background:' + (isPhy ? '#1a5276' : '#bdc3c7') + ';color:#fff;">物理类</button>';
-      s += '<button id="slv-his" style="padding:6px 14px;border:none;border-radius:6px;cursor:pointer;background:' + (!isPhy ? '#935116' : '#bdc3c7') + ';color:#fff;">历史类</button>';
-      s += '<label style="font-size:13px;margin-left:8px;">我的预估分：</label>';
-      s += '<input id="slv-score" type="number" min="0" max="750" placeholder="如 550" style="width:90px;padding:5px 8px;border:1px solid #ccc;border-radius:6px;" />';
+      var s = '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">';
+      s += '<h3 data-style="margin:0;color:#2c3e50;font-size:18px;">广东历年分数线可视化（2020-2026）</h3>';
+      s += '<div data-style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">';
+      s += '<button id="slv-phy" data-style="padding:6px 14px;border:none;border-radius:6px;cursor:pointer;background:' + (isPhy ? '#1a5276' : '#bdc3c7') + ';color:#fff;">物理类</button>';
+      s += '<button id="slv-his" data-style="padding:6px 14px;border:none;border-radius:6px;cursor:pointer;background:' + (!isPhy ? '#935116' : '#bdc3c7') + ';color:#fff;">历史类</button>';
+      s += '<label data-style="font-size:13px;margin-left:8px;">我的预估分：</label>';
+      s += '<input id="slv-score" type="number" min="0" max="750" placeholder="如 550" data-style="width:90px;padding:5px 8px;border:1px solid #ccc;border-radius:6px;" />';
       s += '</div></div>';
       return s;
     },
     _body: function () {
-      var s = '<div style="display:flex;gap:14px;flex-wrap:wrap;">';
-      s += '<div style="flex:2;min-width:400px;">';
-      s += '<div style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">分数线折线图</h4>';
-      s += '<div id="slv-chart" style="overflow-x:auto;">' + this._chart() + '</div>';
+      var s = '<div data-style="display:flex;gap:14px;flex-wrap:wrap;">';
+      s += '<div data-style="flex:2;min-width:400px;">';
+      s += '<div data-style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">分数线折线图</h4>';
+      s += '<div id="slv-chart" data-style="overflow-x:auto;">' + this._chart() + '</div>';
       s += '<div id="slv-pred"></div>';
-      s += '<div style="display:flex;gap:14px;font-size:11px;margin-top:8px;flex-wrap:wrap;">';
-      s += '<span><span style="display:inline-block;width:14px;height:3px;background:#3498db;vertical-align:middle;margin-right:3px;"></span>物理本科</span>';
-      s += '<span><span style="display:inline-block;width:14px;height:3px;background:#1a5276;vertical-align:middle;margin-right:3px;"></span>物理特招</span>';
-      s += '<span><span style="display:inline-block;width:14px;height:3px;background:#e67e22;vertical-align:middle;margin-right:3px;"></span>历史本科</span>';
-      s += '<span><span style="display:inline-block;width:14px;height:3px;background:#935116;vertical-align:middle;margin-right:3px;"></span>历史特招</span>';
+      s += '<div data-style="display:flex;gap:14px;font-size:11px;margin-top:8px;flex-wrap:wrap;">';
+      s += '<span><span data-style="display:inline-block;width:14px;height:3px;background:#3498db;vertical-align:middle;margin-right:3px;"></span>物理本科</span>';
+      s += '<span><span data-style="display:inline-block;width:14px;height:3px;background:#1a5276;vertical-align:middle;margin-right:3px;"></span>物理特招</span>';
+      s += '<span><span data-style="display:inline-block;width:14px;height:3px;background:#e67e22;vertical-align:middle;margin-right:3px;"></span>历史本科</span>';
+      s += '<span><span data-style="display:inline-block;width:14px;height:3px;background:#935116;vertical-align:middle;margin-right:3px;"></span>历史特招</span>';
       s += '</div></div></div>';
-      s += '<div style="flex:1;min-width:260px;">' + this._trendText() + '</div>';
+      s += '<div data-style="flex:1;min-width:260px;">' + this._trendText() + '</div>';
       s += '</div>';
       s += this._rankTable();
       return s;
@@ -791,7 +794,7 @@
         { key: 'hisBench', name: '历史类本科', color: '#e67e22' },
         { key: 'hisSpecial', name: '历史类特招', color: '#935116' }
       ];
-      var svg = '<svg width="' + W + '" height="' + H + '" style="max-width:100%;background:#fff;">';
+      var svg = '<svg width="' + W + '" height="' + H + '" data-style="max-width:100%;background:#fff;">';
       for (var v = 400; v <= 560; v += 20) {
         var y = yAt(v);
         svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + maxX + '" y2="' + y + '" stroke="#f0f0f0"/>';
@@ -826,13 +829,13 @@
       return svg;
     },
     _trendText: function () {
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">趋势分析</h4>';
-      s += '<div style="font-size:13px;line-height:1.8;color:#444;">';
-      s += '<div>📈 <b>物理类本科线</b>：2020年410分 → 2026年448分，整体上升 <b style="color:#e74c3c;">+38分</b>。</div>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">趋势分析</h4>';
+      s += '<div data-style="font-size:13px;line-height:1.8;color:#444;">';
+      s += '<div>📈 <b>物理类本科线</b>：2020年410分 → 2026年448分，整体上升 <b data-style="color:#e74c3c;">+38分</b>。</div>';
       s += '<div>📊 <b>历史类本科线</b>：428-448间波动，相对稳定。</div>';
       s += '<div>🚀 <b>特招线</b>：物理类524→548（+24），历史类536→544（+8），逐年上升。</div>';
-      s += '<div style="margin-top:6px;color:#888;font-size:12px;">注：分数线受当年试题难度、招生计划、报考人数等影响，趋势仅供参考。</div>';
+      s += '<div data-style="margin-top:6px;color:#888;font-size:12px;">注：分数线受当年试题难度、招生计划、报考人数等影响，趋势仅供参考。</div>';
       s += '</div></div>';
       return s;
     },
@@ -841,10 +844,10 @@
       var last = this.data[this.data.length - 1];
       var bench = isPhy ? last.phyBench : last.hisBench;
       var special = isPhy ? last.phySpecial : last.hisSpecial;
-      var s = '<div style="background:#fff;border-radius:8px;padding:14px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      s += '<h4 style="margin:0 0 10px;color:#34495e;font-size:15px;">位次参考表（' + (isPhy ? '物理类' : '历史类') + '）</h4>';
-      s += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
-      s += '<tr style="background:#f5f5f5;"><th style="padding:6px;border:1px solid #eee;">分数段</th><th style="padding:6px;border:1px solid #eee;">约省排名</th><th style="padding:6px;border:1px solid #eee;">批次参考</th></tr>';
+      var s = '<div data-style="background:#fff;border-radius:8px;padding:14px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+      s += '<h4 data-style="margin:0 0 10px;color:#34495e;font-size:15px;">位次参考表（' + (isPhy ? '物理类' : '历史类') + '）</h4>';
+      s += '<table data-style="width:100%;border-collapse:collapse;font-size:12px;">';
+      s += '<tr data-style="background:#f5f5f5;"><th data-style="padding:6px;border:1px solid #eee;">分数段</th><th data-style="padding:6px;border:1px solid #eee;">约省排名</th><th data-style="padding:6px;border:1px solid #eee;">批次参考</th></tr>';
       for (var i = 0; i < this.rankTable.length; i++) {
         var r = this.rankTable[i];
         var rank = isPhy ? r.physicsRank : r.historyRank;
@@ -852,12 +855,12 @@
         if (r.score >= special) batch = '特招线以上';
         else if (r.score >= bench) batch = '本科线以上';
         else batch = '本科线附近';
-        s += '<tr><td style="padding:6px;border:1px solid #eee;text-align:center;">' + r.score + '</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;text-align:center;">约 ' + rank.toLocaleString() + ' 名</td>';
-        s += '<td style="padding:6px;border:1px solid #eee;text-align:center;">' + batch + '</td></tr>';
+        s += '<tr><td data-style="padding:6px;border:1px solid #eee;text-align:center;">' + r.score + '</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;text-align:center;">约 ' + rank.toLocaleString() + ' 名</td>';
+        s += '<td data-style="padding:6px;border:1px solid #eee;text-align:center;">' + batch + '</td></tr>';
       }
       s += '</table>';
-      s += '<div style="font-size:11px;color:#aaa;margin-top:6px;">* 位次为估算值，实际以广东省教育考试院公布为准。</div></div>';
+      s += '<div data-style="font-size:11px;color:#aaa;margin-top:6px;">* 位次为估算值，实际以广东省教育考试院公布为准。</div></div>';
       return s;
     },
     _updatePosition: function () {
@@ -875,7 +878,7 @@
       if (ms >= special) msg = '🟢 预估达特招线以上，可冲击重点院校（位次约前' + this._estimateRank(ms) + '名）。';
       else if (ms >= bench) msg = '🟡 预估达本科线，可报考本科院校。';
       else msg = '🔴 预估低于本科线（' + bench + '），需加强提升 ' + (bench - ms) + ' 分以达本科。';
-      pred.innerHTML = '<div style="margin-top:10px;padding:10px 12px;background:#eaf6ff;border-left:3px solid #3498db;font-size:13px;color:#1a5276;">' + msg + '</div>';
+      pred.innerHTML = '<div data-style="margin-top:10px;padding:10px 12px;background:#eaf6ff;border-left:3px solid #3498db;font-size:13px;color:#1a5276;">' + msg + '</div>';
     },
     _estimateRank: function (score) {
       var isPhy = this.category === 'physics';

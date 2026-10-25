@@ -721,72 +721,72 @@ window.dataExporter = (function () {
         var data = collectAllData();
         var sizeKB = (data.__meta.approxSizeBytes / 1024).toFixed(1);
 
-        var html = '<div class="knowledge-section" style="max-width:700px;margin:0 auto;padding:30px;">';
-        html += '<h2 style="text-align:center;margin-bottom:8px;">Data Management Center</h2>';
-        html += '<p style="text-align:center;color:#888;margin-bottom:30px;">Backup, restore, or clear your study data</p>';
+        var html = '<div class="knowledge-section" data-style="max-width:700px;margin:0 auto;padding:30px;">';
+        html += '<h2 data-style="text-align:center;margin-bottom:8px;">Data Management Center</h2>';
+        html += '<p data-style="text-align:center;color:#888;margin-bottom:30px;">Backup, restore, or clear your study data</p>';
 
         // Stats card
-        html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:24px;">';
-        html += '<h3 style="margin:0 0 16px 0;color:#4A90D9;">Data Overview</h3>';
-        html += '<div style="display:flex;gap:20px;flex-wrap:wrap;">';
-        html += '<div style="flex:1;min-width:140px;text-align:center;padding:16px;background:#2a2a4a;border-radius:8px;">';
-        html += '<div style="font-size:2rem;font-weight:bold;color:#7CB342;">' + data.__meta.keyCount + '</div>';
-        html += '<div style="color:#888;font-size:0.85rem;">Data Keys</div>';
+        html += '<div data-style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:24px;">';
+        html += '<h3 data-style="margin:0 0 16px 0;color:#4A90D9;">Data Overview</h3>';
+        html += '<div data-style="display:flex;gap:20px;flex-wrap:wrap;">';
+        html += '<div data-style="flex:1;min-width:140px;text-align:center;padding:16px;background:#2a2a4a;border-radius:8px;">';
+        html += '<div data-style="font-size:2rem;font-weight:bold;color:#7CB342;">' + data.__meta.keyCount + '</div>';
+        html += '<div data-style="color:#888;font-size:0.85rem;">Data Keys</div>';
         html += '</div>';
-        html += '<div style="flex:1;min-width:140px;text-align:center;padding:16px;background:#2a2a4a;border-radius:8px;">';
-        html += '<div style="font-size:2rem;font-weight:bold;color:#4A90D9;">' + sizeKB + ' KB</div>';
-        html += '<div style="color:#888;font-size:0.85rem;">Total Size</div>';
+        html += '<div data-style="flex:1;min-width:140px;text-align:center;padding:16px;background:#2a2a4a;border-radius:8px;">';
+        html += '<div data-style="font-size:2rem;font-weight:bold;color:#4A90D9;">' + sizeKB + ' KB</div>';
+        html += '<div data-style="color:#888;font-size:0.85rem;">Total Size</div>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
 
         // Export section
-        html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
-        html += '<h3 style="margin:0 0 8px 0;color:#7CB342;">Export Data</h3>';
-        html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Download all your study data as a JSON backup file. Includes error notebook, exam history, game scores, notes, and more.</p>';
-        html += '<button id="de-export-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
+        html += '<div data-style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
+        html += '<h3 data-style="margin:0 0 8px 0;color:#7CB342;">Export Data</h3>';
+        html += '<p data-style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Download all your study data as a JSON backup file. Includes error notebook, exam history, game scores, notes, and more.</p>';
+        html += '<button id="de-export-btn" data-style="width:100%;padding:14px;background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
         html += 'Download Backup (JSON)';
         html += '</button>';
         html += '</div>';
 
         // Import section
-        html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
-        html += '<h3 style="margin:0 0 8px 0;color:#4A90D9;">Import Data</h3>';
-        html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Restore from a previously exported JSON backup file. This will overwrite existing data.</p>';
-        html += '<label for="de-import-input" style="display:block;width:100%;padding:14px;background:#1a3a5e;color:#fff;border:2px dashed #4A90D9;border-radius:8px;font-size:1rem;cursor:pointer;text-align:center;transition:background 0.2s;" data-hover="background: #1a4a7e" data-rest="background: #1a3a5e">';
+        html += '<div data-style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;margin-bottom:16px;">';
+        html += '<h3 data-style="margin:0 0 8px 0;color:#4A90D9;">Import Data</h3>';
+        html += '<p data-style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Restore from a previously exported JSON backup file. This will overwrite existing data.</p>';
+        html += '<label for="de-import-input" data-style="display:block;width:100%;padding:14px;background:#1a3a5e;color:#fff;border:2px dashed #4A90D9;border-radius:8px;font-size:1rem;cursor:pointer;text-align:center;transition:background 0.2s;" data-hover="background: #1a4a7e" data-rest="background: #1a3a5e">';
         html += 'Choose JSON File to Import';
         html += '</label>';
-        html += '<input type="file" id="de-import-input" accept=".json,application/json" style="display:none" />';
-        html += '<p id="de-import-status" style="color:#888;font-size:0.85rem;margin:8px 0 0 0;text-align:center;"></p>';
+        html += '<input type="file" id="de-import-input" accept=".json,application/json" data-style="display:none" />';
+        html += '<p id="de-import-status" data-style="color:#888;font-size:0.85rem;margin:8px 0 0 0;text-align:center;"></p>';
         html += '</div>';
 
         // Clear section
-        html += '<div style="background:#1a1a2e;border:1px solid #e53935;border-radius:12px;padding:24px;margin-bottom:16px;">';
-        html += '<h3 style="margin:0 0 8px 0;color:#e53935;">Clear All Data</h3>';
-        html += '<p style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Permanently delete all study data. This action cannot be undone. Make sure to export a backup first.</p>';
-        html += '<button id="de-clear-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#c62828);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
+        html += '<div data-style="background:#1a1a2e;border:1px solid #e53935;border-radius:12px;padding:24px;margin-bottom:16px;">';
+        html += '<h3 data-style="margin:0 0 8px 0;color:#e53935;">Clear All Data</h3>';
+        html += '<p data-style="color:#888;font-size:0.9rem;margin:0 0 16px 0;">Permanently delete all study data. This action cannot be undone. Make sure to export a backup first.</p>';
+        html += '<button id="de-clear-btn" data-style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#c62828);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:opacity 0.2s;" data-hover="opacity: 0.85" data-rest="opacity: 1">';
         html += 'Delete All Data';
         html += '</button>';
         html += '</div>';
 
         // Data breakdown
-        html += '<div style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;">';
-        html += '<h3 style="margin:0 0 12px 0;color:#aaa;">Data Breakdown</h3>';
-        html += '<div style="display:flex;flex-direction:column;gap:6px;">';
+        html += '<div data-style="background:#1a1a2e;border:1px solid #333;border-radius:12px;padding:24px;">';
+        html += '<h3 data-style="margin:0 0 12px 0;color:#aaa;">Data Breakdown</h3>';
+        html += '<div data-style="display:flex;flex-direction:column;gap:6px;">';
         var hasAny = false;
         STORAGE_KEYS.forEach(function (key) {
             var raw = localStorage.getItem(key);
             if (raw !== null) {
                 hasAny = true;
                 var size = (raw.length / 1024).toFixed(1);
-                html += '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2a2a3a;font-size:0.85rem;">';
-                html += '<span style="color:#ccc;">' + key + '</span>';
-                html += '<span style="color:#666;">' + size + ' KB</span>';
+                html += '<div data-style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2a2a3a;font-size:0.85rem;">';
+                html += '<span data-style="color:#ccc;">' + key + '</span>';
+                html += '<span data-style="color:#666;">' + size + ' KB</span>';
                 html += '</div>';
             }
         });
         if (!hasAny) {
-            html += '<p style="color:#666;text-align:center;padding:12px;">No data stored yet</p>';
+            html += '<p data-style="color:#666;text-align:center;padding:12px;">No data stored yet</p>';
         }
         html += '</div>';
         html += '</div>';
@@ -923,12 +923,12 @@ window.lazyLoader = (function () {
     function showLoadingSpinner(container) {
         if (!container) return;
         container.innerHTML =
-            '<div style="display:flex;align-items:center;justify-content:center;min-height:200px;flex-direction:column;">' +
-            '<div style="width:48px;height:48px;border:4px solid #333;border-top-color:#4A90D9;border-radius:50%;' +
+            '<div data-style="display:flex;align-items:center;justify-content:center;min-height:200px;flex-direction:column;">' +
+            '<div data-style="width:48px;height:48px;border:4px solid #333;border-top-color:#4A90D9;border-radius:50%;' +
             'animation:ll-spin 0.8s linear infinite;"></div>' +
-            '<p style="color:#888;margin-top:16px;font-size:0.9rem;">Loading tool...</p>' +
-            '</div>' +
-            '<style>@keyframes ll-spin{to{transform:rotate(360deg)}}</style>';
+            '<p data-style="color:#888;margin-top:16px;font-size:0.9rem;">Loading tool...</p>' +
+            '</div>';
+        // D3：@keyframes ll-spin 已移至 css/style.css（CSP style-src 'self' 禁止内联 <style> 块）
     }
 
     function enhancedNavigateToolPage(tool) {
@@ -975,7 +975,7 @@ window.lazyLoader = (function () {
         loadScript(mapEntry.file, function (err) {
             if (err) {
                 if (appEl) {
-                    appEl.innerHTML = '<div class="knowledge-section"><p style="color:#e53935;text-align:center;padding:40px;">' +
+                    appEl.innerHTML = '<div class="knowledge-section"><p data-style="color:#e53935;text-align:center;padding:40px;">' +
                         'Failed to load tool. Please refresh the page and try again.</p></div>';
                 }
                 return;
@@ -988,7 +988,7 @@ window.lazyLoader = (function () {
                     if (originalNavigateToolPage) {
                         originalNavigateToolPage(tool);
                     } else if (appEl) {
-                        appEl.innerHTML = '<div class="knowledge-section"><p style="color:#888;text-align:center;padding:40px;">' +
+                        appEl.innerHTML = '<div class="knowledge-section"><p data-style="color:#888;text-align:center;padding:40px;">' +
                             'Tool is loading. Please wait...</p></div>';
                     }
                 }

@@ -93,25 +93,25 @@ window.mathGrapher = (function() {
     function renderGrapher() {
         var container = document.getElementById('math-grapher-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">f(x)=</label><br><input id="grapher-input" style="width:220px;padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: sin(x), x^2, 2*x+1"></div>' +
-            '<div><label style="font-size:13px;color:#666;">颜色</label><br><select id="grapher-color" style="padding:6px 8px;border:1px solid #d1d5db;border-radius:6px;"><option value="#ef4444">红</option><option value="#3b82f6">蓝</option><option value="#10b981">绿</option></select></div>' +
-            '<button id="grapher-add" style="padding:7px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">添加</button>' +
-            '<button id="grapher-clear" style="padding:7px 16px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;">清空</button>' +
-            '<div><label style="font-size:13px;color:#666;">X范围</label><br><input id="grapher-xmin" type="number" value="-10" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"> ~ <input id="grapher-xmax" type="number" value="10" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<button id="grapher-update" style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">更新</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">f(x)=</label><br><input id="grapher-input" data-style="width:220px;padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: sin(x), x^2, 2*x+1"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">颜色</label><br><select id="grapher-color" data-style="padding:6px 8px;border:1px solid #d1d5db;border-radius:6px;"><option value="#ef4444">红</option><option value="#3b82f6">蓝</option><option value="#10b981">绿</option></select></div>' +
+            '<button id="grapher-add" data-style="padding:7px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">添加</button>' +
+            '<button id="grapher-clear" data-style="padding:7px 16px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;">清空</button>' +
+            '<div><label data-style="font-size:13px;color:#666;">X范围</label><br><input id="grapher-xmin" type="number" value="-10" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"> ~ <input id="grapher-xmax" type="number" value="10" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<button id="grapher-update" data-style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">更新</button>' +
             '</div>' +
-            '<div id="grapher-funcs" style="margin-bottom:8px;font-size:13px;color:#555;"></div>' +
-            '<canvas id="grapher-canvas" width="700" height="450" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
-            '<div style="margin-top:8px;font-size:12px;color:#999;">支持: sin cos tan exp log sqrt abs ^ + - * / () | 如: sin(x), x^2-3*x+2, 2^x, sqrt(x)</div>' +
+            '<div id="grapher-funcs" data-style="margin-bottom:8px;font-size:13px;color:#555;"></div>' +
+            '<canvas id="grapher-canvas" width="700" height="450" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
+            '<div data-style="margin-top:8px;font-size:12px;color:#999;">支持: sin cos tan exp log sqrt abs ^ + - * / () | 如: sin(x), x^2-3*x+2, 2^x, sqrt(x)</div>' +
             '</div>';
 
         function updateFuncs() {
             var el = document.getElementById('grapher-funcs');
             var html = '';
             for (var i = 0; i < state.functions.length; i++) {
-                html += '<span style="display:inline-block;margin-right:12px;color:' + state.functions[i].color + ';">f(x)=' + state.functions[i].expr + ' <a href="#" style="color:#999;font-size:11px;" data-idx="' + i + '">x</a></span>';
+                html += '<span data-style="display:inline-block;margin-right:12px;color:' + state.functions[i].color + ';">f(x)=' + state.functions[i].expr + ' <a href="#" data-style="color:#999;font-size:11px;" data-idx="' + i + '">x</a></span>';
             }
             el.innerHTML = html;
             var links = el.querySelectorAll('a');
@@ -231,22 +231,22 @@ window.mathDerivative = (function() {
     function renderDerivative() {
         var container = document.getElementById('math-derivative-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">f(x)=</label><br><input id="derivative-input" style="width:240px;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: x^3, sin(x), 3*x^2+2*x"></div>' +
-            '<button id="derivative-calc" style="padding:8px 18px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">计算导数</button>' +
-            '<div><label style="font-size:13px;color:#666;">在x=</label><input id="derivative-point" type="number" value="1" style="width:60px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<button id="derivative-eval" style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">求值</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">f(x)=</label><br><input id="derivative-input" data-style="width:240px;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: x^3, sin(x), 3*x^2+2*x"></div>' +
+            '<button id="derivative-calc" data-style="padding:8px 18px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">计算导数</button>' +
+            '<div><label data-style="font-size:13px;color:#666;">在x=</label><input id="derivative-point" type="number" value="1" data-style="width:60px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<button id="derivative-eval" data-style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">求值</button>' +
             '</div>' +
-            '<div id="derivative-result" style="margin-bottom:12px;font-size:14px;padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;min-height:24px;color:#1e40af;"></div>' +
-            '<canvas id="derivative-canvas" width="700" height="350" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;margin-bottom:16px;"></canvas>' +
-            '<div style="margin-bottom:6px;font-size:13px;color:#666;">常用导数公式表</div>' +
-            '<table style="width:100%;border-collapse:collapse;font-size:12px;"><tr style="background:#f3f4f6;"><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">名称</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">原函数</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">导函数</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">示例</th></tr></table></div>';
+            '<div id="derivative-result" data-style="margin-bottom:12px;font-size:14px;padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;min-height:24px;color:#1e40af;"></div>' +
+            '<canvas id="derivative-canvas" width="700" height="350" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;margin-bottom:16px;"></canvas>' +
+            '<div data-style="margin-bottom:6px;font-size:13px;color:#666;">常用导数公式表</div>' +
+            '<table data-style="width:100%;border-collapse:collapse;font-size:12px;"><tr data-style="background:#f3f4f6;"><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">名称</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">原函数</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">导函数</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">示例</th></tr></table></div>';
         var table = container.querySelector('table');
         for (var i = 0; i < derivativeRules.length; i++) {
             var r = derivativeRules[i];
             var row = table.insertRow(-1);
-            row.innerHTML = '<td style="padding:6px 8px;border:1px solid #e5e7eb;">' + r.name + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.rule + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.derivative + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-size:11px;">' + r.example + '</td>';
+            row.innerHTML = '<td data-style="padding:6px 8px;border:1px solid #e5e7eb;">' + r.name + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.rule + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.derivative + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-size:11px;">' + r.example + '</td>';
         }
         document.getElementById('derivative-calc').onclick = function() {
             var expr = document.getElementById('derivative-input').value.trim();
@@ -359,34 +359,34 @@ window.mathGeometry = (function() {
     function renderGeometry() {
         var container = document.getElementById('math-geometry-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">' +
-            '<button class="geo-tab" data-tab="line" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">直线</button>' +
-            '<button class="geo-tab" data-tab="circle" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">圆</button>' +
-            '<button class="geo-tab" data-tab="ellipse" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">椭圆</button>' +
-            '<button class="geo-tab" data-tab="hyperbola" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">双曲线</button>' +
-            '<button class="geo-tab" data-tab="parabola" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">抛物线</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">' +
+            '<button class="geo-tab" data-tab="line" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">直线</button>' +
+            '<button class="geo-tab" data-tab="circle" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">圆</button>' +
+            '<button class="geo-tab" data-tab="ellipse" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">椭圆</button>' +
+            '<button class="geo-tab" data-tab="hyperbola" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">双曲线</button>' +
+            '<button class="geo-tab" data-tab="parabola" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">抛物线</button>' +
             '</div>' +
-            '<div id="geo-params" style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:end;"></div>' +
-            '<canvas id="geo-canvas" width="700" height="500" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
+            '<div id="geo-params" data-style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:end;"></div>' +
+            '<canvas id="geo-canvas" width="700" height="500" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
             '</div>';
 
         function updateParams() {
             var d = document.getElementById('geo-params');
             if (currentTab === 'line') {
-                d.innerHTML = '<div><label>斜率k</label><br><input id="geo-k" type="number" value="' + params.line.k + '" step="0.1" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>截距b</label><br><input id="geo-b" type="number" value="' + params.line.b + '" step="0.1" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
+                d.innerHTML = '<div><label>斜率k</label><br><input id="geo-k" type="number" value="' + params.line.k + '" step="0.1" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>截距b</label><br><input id="geo-b" type="number" value="' + params.line.b + '" step="0.1" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
                 document.getElementById('geo-draw').onclick = function() { params.line.k = parseFloat(document.getElementById('geo-k').value) || 1; params.line.b = parseFloat(document.getElementById('geo-b').value) || 0; drawGeoCanvas(); };
             } else if (currentTab === 'circle') {
-                d.innerHTML = '<div><label>圆心(h,k)</label><br><input id="geo-h" type="number" value="' + params.circle.h + '" step="0.5" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"> <input id="geo-kc" type="number" value="' + params.circle.k + '" step="0.5" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>半径r</label><br><input id="geo-r" type="number" value="' + params.circle.r + '" step="0.5" min="0.5" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
+                d.innerHTML = '<div><label>圆心(h,k)</label><br><input id="geo-h" type="number" value="' + params.circle.h + '" step="0.5" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"> <input id="geo-kc" type="number" value="' + params.circle.k + '" step="0.5" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>半径r</label><br><input id="geo-r" type="number" value="' + params.circle.r + '" step="0.5" min="0.5" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
                 document.getElementById('geo-draw').onclick = function() { params.circle.h = parseFloat(document.getElementById('geo-h').value) || 0; params.circle.k = parseFloat(document.getElementById('geo-kc').value) || 0; params.circle.r = parseFloat(document.getElementById('geo-r').value) || 3; drawGeoCanvas(); };
             } else if (currentTab === 'ellipse') {
-                d.innerHTML = '<div><label>长半轴a</label><br><input id="geo-a" type="number" value="' + params.ellipse.a + '" step="0.5" min="0.5" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>短半轴b</label><br><input id="geo-bv" type="number" value="' + params.ellipse.b + '" step="0.5" min="0.5" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
+                d.innerHTML = '<div><label>长半轴a</label><br><input id="geo-a" type="number" value="' + params.ellipse.a + '" step="0.5" min="0.5" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>短半轴b</label><br><input id="geo-bv" type="number" value="' + params.ellipse.b + '" step="0.5" min="0.5" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
                 document.getElementById('geo-draw').onclick = function() { params.ellipse.a = parseFloat(document.getElementById('geo-a').value) || 4; params.ellipse.b = parseFloat(document.getElementById('geo-bv').value) || 2; drawGeoCanvas(); };
             } else if (currentTab === 'hyperbola') {
-                d.innerHTML = '<div><label>实半轴a</label><br><input id="geo-ah" type="number" value="' + params.hyperbola.a + '" step="0.5" min="0.5" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>虚半轴b</label><br><input id="geo-bh" type="number" value="' + params.hyperbola.b + '" step="0.5" min="0.5" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
+                d.innerHTML = '<div><label>实半轴a</label><br><input id="geo-ah" type="number" value="' + params.hyperbola.a + '" step="0.5" min="0.5" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>虚半轴b</label><br><input id="geo-bh" type="number" value="' + params.hyperbola.b + '" step="0.5" min="0.5" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
                 document.getElementById('geo-draw').onclick = function() { params.hyperbola.a = parseFloat(document.getElementById('geo-ah').value) || 2; params.hyperbola.b = parseFloat(document.getElementById('geo-bh').value) || 1.5; drawGeoCanvas(); };
             } else if (currentTab === 'parabola') {
-                d.innerHTML = '<div><label>a</label><br><input id="geo-pa" type="number" value="' + params.parabola.a + '" step="0.1" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>b</label><br><input id="geo-pb" type="number" value="' + params.parabola.b + '" step="0.1" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>c</label><br><input id="geo-pc" type="number" value="' + params.parabola.c + '" step="0.1" style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
+                d.innerHTML = '<div><label>a</label><br><input id="geo-pa" type="number" value="' + params.parabola.a + '" step="0.1" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>b</label><br><input id="geo-pb" type="number" value="' + params.parabola.b + '" step="0.1" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label>c</label><br><input id="geo-pc" type="number" value="' + params.parabola.c + '" step="0.1" data-style="width:60px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="geo-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>';
                 document.getElementById('geo-draw').onclick = function() { params.parabola.a = parseFloat(document.getElementById('geo-pa').value) || 1; params.parabola.b = parseFloat(document.getElementById('geo-pb').value) || 0; params.parabola.c = parseFloat(document.getElementById('geo-pc').value) || 0; drawGeoCanvas(); };
             }
         }
@@ -460,19 +460,19 @@ window.mathSequence = (function() {
     function renderSequence() {
         var container = document.getElementById('math-sequence-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;">' +
-            '<button class="seq-tab" data-tab="arithmetic" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">等差数列</button>' +
-            '<button class="seq-tab" data-tab="geometric" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">等比数列</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;">' +
+            '<button class="seq-tab" data-tab="arithmetic" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">等差数列</button>' +
+            '<button class="seq-tab" data-tab="geometric" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">等比数列</button>' +
             '</div>' +
-            '<div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">首项a1</label><br><input id="seq-a1" type="number" value="1" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;" id="seq-d-label">公差d</label><br><input id="seq-d" type="number" value="2" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">项数n</label><br><input id="seq-n" type="number" value="10" min="1" max="50" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<button id="seq-draw" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>' +
+            '<div data-style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">首项a1</label><br><input id="seq-a1" type="number" value="1" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;" id="seq-d-label">公差d</label><br><input id="seq-d" type="number" value="2" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">项数n</label><br><input id="seq-n" type="number" value="10" min="1" max="50" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<button id="seq-draw" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">绘制</button>' +
             '</div>' +
-            '<div id="seq-formula" style="margin-bottom:12px;padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;"></div>' +
-            '<canvas id="sequence-canvas" width="700" height="400" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
+            '<div id="seq-formula" data-style="margin-bottom:12px;padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;"></div>' +
+            '<canvas id="sequence-canvas" width="700" height="400" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
             '</div>';
 
         function updateFormula() {
@@ -587,21 +587,21 @@ window.mathProbability = (function() {
     function renderProbability() {
         var container = document.getElementById('math-probability-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;">' +
-            '<button class="prob-tab" data-tab="classical" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">古典概型</button>' +
-            '<button class="prob-tab" data-tab="binomial" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">二项分布</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;">' +
+            '<button class="prob-tab" data-tab="classical" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">古典概型</button>' +
+            '<button class="prob-tab" data-tab="binomial" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;">二项分布</button>' +
             '</div>' +
-            '<div id="prob-params" style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:end;"></div>' +
-            '<canvas id="prob-canvas" width="700" height="400" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
+            '<div id="prob-params" data-style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:end;"></div>' +
+            '<canvas id="prob-canvas" width="700" height="400" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;"></canvas>' +
             '</div>';
 
         function updateProbParams() {
             var d = document.getElementById('prob-params');
             if (currentProbTab === 'classical') {
-                d.innerHTML = '<div><label style="font-size:13px;">类型</label><br><select id="prob-type" style="padding:6px;border:1px solid #d1d5db;border-radius:6px;"><option value="coin">硬币</option><option value="dice">骰子</option></select></div><div><label style="font-size:13px;">次数</label><br><input id="prob-n" type="number" value="100" min="10" max="10000" style="width:80px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="prob-run" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">模拟</button>';
+                d.innerHTML = '<div><label data-style="font-size:13px;">类型</label><br><select id="prob-type" data-style="padding:6px;border:1px solid #d1d5db;border-radius:6px;"><option value="coin">硬币</option><option value="dice">骰子</option></select></div><div><label data-style="font-size:13px;">次数</label><br><input id="prob-n" type="number" value="100" min="10" max="10000" data-style="width:80px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="prob-run" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">模拟</button>';
             } else {
-                d.innerHTML = '<div><label style="font-size:13px;">n</label><br><input id="binom-n" type="number" value="20" min="5" max="50" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label style="font-size:13px;">p</label><br><input id="binom-p" type="number" value="0.5" step="0.1" min="0.1" max="0.9" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label style="font-size:13px;">轮数</label><br><input id="binom-trials" type="number" value="1000" min="100" max="10000" style="width:80px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="prob-run" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">模拟</button>';
+                d.innerHTML = '<div><label data-style="font-size:13px;">n</label><br><input id="binom-n" type="number" value="20" min="5" max="50" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label data-style="font-size:13px;">p</label><br><input id="binom-p" type="number" value="0.5" step="0.1" min="0.1" max="0.9" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><div><label data-style="font-size:13px;">轮数</label><br><input id="binom-trials" type="number" value="1000" min="100" max="10000" data-style="width:80px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div><button id="prob-run" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">模拟</button>';
             }
             document.getElementById('prob-run').onclick = function() { drawProbCanvas(); };
         }
@@ -666,9 +666,9 @@ window.mathHandbook = (function() {
     function renderHandbook() {
         var container = document.getElementById('math-handbook-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="margin-bottom:12px;"><input id="handbook-search" placeholder="搜索公式..." style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;max-width:400px;"></div>' +
-            '<div id="handbook-cats" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="margin-bottom:12px;"><input id="handbook-search" placeholder="搜索公式..." data-style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;max-width:400px;"></div>' +
+            '<div id="handbook-cats" data-style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
             '<div id="handbook-list"></div></div>';
 
         var cats = ['全部', '代数与函数', '三角函数', '数列', '立体几何', '解析几何', '概率统计', '导数'];
@@ -690,19 +690,19 @@ window.mathHandbook = (function() {
             var catKeys = Object.keys(catMap);
             for (var c = 0; c < catKeys.length; c++) {
                 var cat = catKeys[c];
-                html += '<div style="margin-bottom:8px;font-weight:bold;font-size:14px;color:#3b82f6;padding:8px;background:#eff6ff;border-radius:6px;cursor:pointer;" data-hook="cat-toggle">' + cat + ' (' + catMap[cat].length + '个)</div>';
-                html += '<div style="display:block;">';
+                html += '<div data-style="margin-bottom:8px;font-weight:bold;font-size:14px;color:#3b82f6;padding:8px;background:#eff6ff;border-radius:6px;cursor:pointer;" data-hook="cat-toggle">' + cat + ' (' + catMap[cat].length + '个)</div>';
+                html += '<div data-style="display:block;">';
                 for (var k = 0; k < catMap[cat].length; k++) {
                     var f2 = catMap[cat][k];
-                    html += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:8px;background:#fff;">' +
-                        '<div style="font-weight:bold;font-size:14px;color:#333;">' + f2.name + '</div>' +
-                        '<div style="font-family:monospace;font-size:14px;color:#1e40af;margin:6px 0;">' + f2.formula + '</div>' +
-                        '<div style="font-size:12px;color:#666;">' + f2.desc + '</div>' +
-                        '<div style="font-size:11px;color:#999;margin-top:4px;">示例: ' + f2.example + '</div></div>';
+                    html += '<div data-style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:8px;background:#fff;">' +
+                        '<div data-style="font-weight:bold;font-size:14px;color:#333;">' + f2.name + '</div>' +
+                        '<div data-style="font-family:monospace;font-size:14px;color:#1e40af;margin:6px 0;">' + f2.formula + '</div>' +
+                        '<div data-style="font-size:12px;color:#666;">' + f2.desc + '</div>' +
+                        '<div data-style="font-size:11px;color:#999;margin-top:4px;">示例: ' + f2.example + '</div></div>';
                 }
                 html += '</div>';
             }
-            if (!html) html = '<div style="padding:20px;text-align:center;color:#999;">没有找到匹配的公式</div>';
+            if (!html) html = '<div data-style="padding:20px;text-align:center;color:#999;">没有找到匹配的公式</div>';
             list.innerHTML = html;
         }
 
@@ -909,24 +909,24 @@ window.mathIntegral = (function() {
     function renderIntegral() {
         var container = document.getElementById('math-integral-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">f(x)=</label><br><input id="integral-input" style="width:240px;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: x^2, sin(x), 2*x+1"></div>' +
-            '<div><label style="font-size:13px;color:#666;">下限 a</label><br><input id="integral-a" type="number" value="0" step="0.1" style="width:70px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">上限 b</label><br><input id="integral-b" type="number" value="2" step="0.1" style="width:70px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">区间数</label><br><input id="integral-n" type="number" value="1000" min="100" max="100000" style="width:80px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<button id="integral-calc" style="padding:8px 18px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">计算积分</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">f(x)=</label><br><input id="integral-input" data-style="width:240px;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;" placeholder="如: x^2, sin(x), 2*x+1"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">下限 a</label><br><input id="integral-a" type="number" value="0" step="0.1" data-style="width:70px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">上限 b</label><br><input id="integral-b" type="number" value="2" step="0.1" data-style="width:70px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">区间数</label><br><input id="integral-n" type="number" value="1000" min="100" max="100000" data-style="width:80px;padding:6px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<button id="integral-calc" data-style="padding:8px 18px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">计算积分</button>' +
             '</div>' +
-            '<div id="integral-result" style="margin-bottom:12px;padding:12px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;font-size:15px;color:#166534;min-height:28px;"></div>' +
-            '<canvas id="integral-canvas" width="700" height="420" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;margin-bottom:16px;"></canvas>' +
-            '<div style="margin-bottom:6px;font-size:13px;color:#666;">常用积分公式表</div>' +
-            '<table style="width:100%;border-collapse:collapse;font-size:12px;"><tr style="background:#f3f4f6;"><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">名称</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">被积函数</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">原函数（不定积分）</th><th style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">示例</th></tr></table></div>';
+            '<div id="integral-result" data-style="margin-bottom:12px;padding:12px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;font-size:15px;color:#166534;min-height:28px;"></div>' +
+            '<canvas id="integral-canvas" width="700" height="420" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:700px;margin-bottom:16px;"></canvas>' +
+            '<div data-style="margin-bottom:6px;font-size:13px;color:#666;">常用积分公式表</div>' +
+            '<table data-style="width:100%;border-collapse:collapse;font-size:12px;"><tr data-style="background:#f3f4f6;"><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">名称</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">被积函数</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">原函数（不定积分）</th><th data-style="padding:6px 8px;border:1px solid #e5e7eb;text-align:left;">示例</th></tr></table></div>';
 
         var table = container.querySelector('table');
         for (var i = 0; i < integralRules.length; i++) {
             var r = integralRules[i];
             var row = table.insertRow(-1);
-            row.innerHTML = '<td style="padding:6px 8px;border:1px solid #e5e7eb;">' + r.name + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.rule + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.integral + '</td><td style="padding:6px 8px;border:1px solid #e5e7eb;font-size:11px;">' + r.example + '</td>';
+            row.innerHTML = '<td data-style="padding:6px 8px;border:1px solid #e5e7eb;">' + r.name + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.rule + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">' + r.integral + '</td><td data-style="padding:6px 8px;border:1px solid #e5e7eb;font-size:11px;">' + r.example + '</td>';
         }
 
         function updateResult() {
@@ -940,7 +940,7 @@ window.mathIntegral = (function() {
             if (isNaN(result)) {
                 resultEl.innerHTML = '无法计算该积分，请检查表达式是否有效或区间内是否存在奇点。';
             } else {
-                resultEl.innerHTML = '<div style="font-size:18px;font-family:serif;">∫<sub>' + a.toFixed(2) + '</sub><sup>' + b.toFixed(2) + '</sup> ' + expr + ' dx = <strong>' + result.toFixed(6) + '</strong></div><div style="font-size:12px;margin-top:4px;color:#999;">使用' + n + '个区间的黎曼中点法计算</div>';
+                resultEl.innerHTML = '<div data-style="font-size:18px;font-family:serif;">∫<sub>' + a.toFixed(2) + '</sub><sup>' + b.toFixed(2) + '</sup> ' + expr + ' dx = <strong>' + result.toFixed(6) + '</strong></div><div data-style="font-size:12px;margin-top:4px;color:#999;">使用' + n + '个区间的黎曼中点法计算</div>';
             }
             drawIntegralCanvas();
         }

@@ -343,24 +343,24 @@ var crossSubjectTopics = {
     _renderList: function() {
         var app = document.getElementById('cross-subject-app');
         if (!app) return;
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:18px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">🌐 物化生跨学科融合专题</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 个专题，覆盖物理·化学·生物三大学科交叉点，紧扣高考命题趋势</p></div>' +
-            '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:18px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">🌐 物化生跨学科融合专题</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 个专题，覆盖物理·化学·生物三大学科交叉点，紧扣高考命题趋势</p></div>' +
+            '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;">';
         for (var i = 0; i < this.data.length; i++) {
             var t = this.data[i];
-            html += '<div data-call="crossSubjectTopics._showDetail" data-arg1="@s:' + t.id + '" style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid ' + t.color + ';border-radius:10px;padding:16px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" data-hover="transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1)" data-rest="transform:; box-shadow:">' +
-                '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
-                '<span style="font-size:1.8rem;">' + t.icon + '</span>' +
-                '<h4 style="margin:0;color:#0f172a;font-size:1.05rem;flex:1;">' + t.title + '</h4></div>' +
-                '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;">';
+            html += '<div data-call="crossSubjectTopics._showDetail" data-arg1="@s:' + t.id + '" data-style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid ' + t.color + ';border-radius:10px;padding:16px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" data-hover="transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1)" data-rest="transform:; box-shadow:">' +
+                '<div data-style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
+                '<span data-style="font-size:1.8rem;">' + t.icon + '</span>' +
+                '<h4 data-style="margin:0;color:#0f172a;font-size:1.05rem;flex:1;">' + t.title + '</h4></div>' +
+                '<div data-style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;">';
             for (var j = 0; j < t.subjects.length; j++) {
-                html += '<span style="background:' + t.color + ';color:#fff;padding:2px 9px;border-radius:10px;font-size:0.75rem;">' + t.subjects[j] + '</span>';
+                html += '<span data-style="background:' + t.color + ';color:#fff;padding:2px 9px;border-radius:10px;font-size:0.75rem;">' + t.subjects[j] + '</span>';
             }
             html += '</div>' +
-                '<p style="margin:0;color:#475569;font-size:0.85rem;line-height:1.6;">' + t.principle.substring(0, 70) + '...</p>' +
-                '<div style="margin-top:10px;color:' + t.color + ';font-size:0.85rem;font-weight:600;">查看详情 →</div></div>';
+                '<p data-style="margin:0;color:#475569;font-size:0.85rem;line-height:1.6;">' + t.principle.substring(0, 70) + '...</p>' +
+                '<div data-style="margin-top:10px;color:' + t.color + ';font-size:0.85rem;font-weight:600;">查看详情 →</div></div>';
         }
         html += '</div></div>';
         app.innerHTML = html;
@@ -386,37 +386,37 @@ var crossSubjectTopics = {
             if (this.data[i].id === this.state.currentId) { t = this.data[i]; break; }
         }
         if (!t) { this._backToList(); return; }
-        var html = '<div style="padding:16px;">' +
-            '<button data-call=\"crossSubjectTopics._backToList\" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回专题列表</button>' +
-            '<div style="background:linear-gradient(135deg,' + t.color + ',' + t.color + 'cc);color:#fff;padding:22px;border-radius:12px;margin-bottom:18px;">' +
-            '<div style="display:flex;align-items:center;gap:12px;">' +
-            '<span style="font-size:2.5rem;">' + t.icon + '</span>' +
-            '<div><h3 style="margin:0;font-size:1.4rem;">' + t.title + '</h3>' +
-            '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<button data-call=\"crossSubjectTopics._backToList\" data-style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回专题列表</button>' +
+            '<div data-style="background:linear-gradient(135deg,' + t.color + ',' + t.color + 'cc);color:#fff;padding:22px;border-radius:12px;margin-bottom:18px;">' +
+            '<div data-style="display:flex;align-items:center;gap:12px;">' +
+            '<span data-style="font-size:2.5rem;">' + t.icon + '</span>' +
+            '<div><h3 data-style="margin:0;font-size:1.4rem;">' + t.title + '</h3>' +
+            '<div data-style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">';
         for (var j = 0; j < t.subjects.length; j++) {
-            html += '<span style="background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:0.8rem;">' + t.subjects[j] + '</span>';
+            html += '<span data-style="background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:0.8rem;">' + t.subjects[j] + '</span>';
         }
         html += '</div></div></div></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + t.color + ';border-radius:8px;padding:16px;margin-bottom:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:' + t.color + ';">📖 原理讲解</h4>' +
-            '<p style="margin:0;color:#334155;line-height:1.8;font-size:0.92rem;">' + t.principle + '</p></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#0f172a;">🔑 关键知识点</h4>' +
-            '<ul style="margin:0;padding-left:20px;">';
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + t.color + ';border-radius:8px;padding:16px;margin-bottom:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:' + t.color + ';">📖 原理讲解</h4>' +
+            '<p data-style="margin:0;color:#334155;line-height:1.8;font-size:0.92rem;">' + t.principle + '</p></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#0f172a;">🔑 关键知识点</h4>' +
+            '<ul data-style="margin:0;padding-left:20px;">';
         for (var k = 0; k < t.keyPoints.length; k++) {
-            html += '<li style="margin:6px 0;color:#334155;line-height:1.6;font-size:0.9rem;">' + t.keyPoints[k] + '</li>';
+            html += '<li data-style="margin:6px 0;color:#334155;line-height:1.6;font-size:0.9rem;">' + t.keyPoints[k] + '</li>';
         }
         html += '</ul></div>' +
-            '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px;margin-bottom:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#b45309;">📝 典型例题</h4>' +
-            '<p style="margin:0 0 12px 0;color:#1f2937;line-height:1.7;font-size:0.92rem;">' + t.example.question + '</p>' +
-            '<div style="display:flex;flex-direction:column;gap:7px;" id="cs-options"></div>' +
-            '<div id="cs-analysis" style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:6px;border-left:3px solid #16a34a;">' +
-            '<strong style="color:#15803d;">解析：</strong>' +
-            '<p style="margin:6px 0 0;color:#475569;font-size:0.88rem;line-height:1.7;">' + t.example.analysis + '</p></div></div>' +
-            '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#1e40af;">📈 命题趋势</h4>' +
-            '<p style="margin:0;color:#1e3a8a;line-height:1.7;font-size:0.9rem;">' + t.trend + '</p></div></div>';
+            '<div data-style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px;margin-bottom:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#b45309;">📝 典型例题</h4>' +
+            '<p data-style="margin:0 0 12px 0;color:#1f2937;line-height:1.7;font-size:0.92rem;">' + t.example.question + '</p>' +
+            '<div data-style="display:flex;flex-direction:column;gap:7px;" id="cs-options"></div>' +
+            '<div id="cs-analysis" data-style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:6px;border-left:3px solid #16a34a;">' +
+            '<strong data-style="color:#15803d;">解析：</strong>' +
+            '<p data-style="margin:6px 0 0;color:#475569;font-size:0.88rem;line-height:1.7;">' + t.example.analysis + '</p></div></div>' +
+            '<div data-style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#1e40af;">📈 命题趋势</h4>' +
+            '<p data-style="margin:0;color:#1e3a8a;line-height:1.7;font-size:0.9rem;">' + t.trend + '</p></div></div>';
         app.innerHTML = html;
         this._renderOptions();
     },
@@ -431,7 +431,7 @@ var crossSubjectTopics = {
         if (!t) return;
         var html = '';
         for (var i = 0; i < t.example.options.length; i++) {
-            html += '<button data-call=\"crossSubjectTopics._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + t.example.options[i] + '</button>';
+            html += '<button data-call=\"crossSubjectTopics._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" data-style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + t.example.options[i] + '</button>';
         }
         container.innerHTML = html;
     },
@@ -523,54 +523,54 @@ var techFrontiers = {
         var app = document.getElementById('tech-frontiers-app');
         if (!app) return;
         var allSubjects = ['all', '物理', '化学', '生物'];
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">🏆 诺贝尔奖/科技前沿 × 高考考点映射</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 项前沿科技，关联高考核心考点</p></div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">🏆 诺贝尔奖/科技前沿 × 高考考点映射</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 项前沿科技，关联高考核心考点</p></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
         for (var i = 0; i < allSubjects.length; i++) {
             var s = allSubjects[i];
             var active = (this.state.filter === s);
-            html += '<button data-call="techFrontiers._setFilter" data-arg1="@s:' + s + '" style="background:' + (active ? '#7c3aed' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#7c3aed' : '#cbd5e1') + ';padding:6px 16px;border-radius:20px;cursor:pointer;font-size:0.88rem;">' + (s === 'all' ? '全部' : s) + '</button>';
+            html += '<button data-call="techFrontiers._setFilter" data-arg1="@s:' + s + '" data-style="background:' + (active ? '#7c3aed' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#7c3aed' : '#cbd5e1') + ';padding:6px 16px;border-radius:20px;cursor:pointer;font-size:0.88rem;">' + (s === 'all' ? '全部' : s) + '</button>';
         }
-        html += '</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;">';
+        html += '</div><div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;">';
         var count = 0;
         for (var i = 0; i < this.data.length; i++) {
             var d = this.data[i];
             if (this.state.filter !== 'all' && d.subjects.indexOf(this.state.filter) < 0) continue;
             count++;
-            html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;">' +
-                '<div style="background:linear-gradient(135deg,#f5f3ff,#fce7f3);padding:14px 16px;border-bottom:1px solid #e2e8f0;">' +
-                '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">' +
-                '<div style="display:flex;align-items:center;gap:10px;">' +
-                '<span style="font-size:1.6rem;">' + d.icon + '</span>' +
-                '<div><h4 style="margin:0;color:#0f172a;font-size:1.05rem;">' + d.topic + '</h4>' +
-                '<div style="font-size:0.78rem;color:#64748b;margin-top:2px;">' + d.year + ' · ' + d.field + '</div></div></div></div>' +
-                '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;">';
+            html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;">' +
+                '<div data-style="background:linear-gradient(135deg,#f5f3ff,#fce7f3);padding:14px 16px;border-bottom:1px solid #e2e8f0;">' +
+                '<div data-style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">' +
+                '<div data-style="display:flex;align-items:center;gap:10px;">' +
+                '<span data-style="font-size:1.6rem;">' + d.icon + '</span>' +
+                '<div><h4 data-style="margin:0;color:#0f172a;font-size:1.05rem;">' + d.topic + '</h4>' +
+                '<div data-style="font-size:0.78rem;color:#64748b;margin-top:2px;">' + d.year + ' · ' + d.field + '</div></div></div></div>' +
+                '<div data-style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;">';
             for (var j = 0; j < d.subjects.length; j++) {
-                html += '<span style="background:#ede9fe;color:#6d28d9;padding:2px 8px;border-radius:8px;font-size:0.72rem;">' + d.subjects[j] + '</span>';
+                html += '<span data-style="background:#ede9fe;color:#6d28d9;padding:2px 8px;border-radius:8px;font-size:0.72rem;">' + d.subjects[j] + '</span>';
             }
             html += '</div></div>' +
-                '<div style="padding:14px 16px;">' +
-                '<p style="margin:0 0 10px 0;color:#475569;font-size:0.85rem;line-height:1.6;">' + d.intro + '</p>' +
-                '<div style="margin-bottom:10px;"><div style="font-size:0.78rem;color:#7c3aed;font-weight:600;margin-bottom:5px;">📌 关联考点</div>' +
-                '<div style="display:flex;flex-wrap:wrap;gap:5px;">';
+                '<div data-style="padding:14px 16px;">' +
+                '<p data-style="margin:0 0 10px 0;color:#475569;font-size:0.85rem;line-height:1.6;">' + d.intro + '</p>' +
+                '<div data-style="margin-bottom:10px;"><div data-style="font-size:0.78rem;color:#7c3aed;font-weight:600;margin-bottom:5px;">📌 关联考点</div>' +
+                '<div data-style="display:flex;flex-wrap:wrap;gap:5px;">';
             for (var k = 0; k < d.points.length; k++) {
-                html += '<span style="background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:6px;font-size:0.75rem;">' + d.points[k] + '</span>';
+                html += '<span data-style="background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:6px;font-size:0.75rem;">' + d.points[k] + '</span>';
             }
             html += '</div></div>' +
-                '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px;margin-top:8px;">' +
-                '<div style="font-size:0.78rem;color:#b45309;font-weight:600;margin-bottom:6px;">📝 关联例题</div>' +
-                '<p style="margin:0 0 8px 0;font-size:0.82rem;color:#1f2937;line-height:1.5;">' + d.example.question + '</p>' +
-                '<div id="tf-opts-' + d.id + '" style="display:flex;flex-direction:column;gap:5px;">';
+                '<div data-style="background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px;margin-top:8px;">' +
+                '<div data-style="font-size:0.78rem;color:#b45309;font-weight:600;margin-bottom:6px;">📝 关联例题</div>' +
+                '<p data-style="margin:0 0 8px 0;font-size:0.82rem;color:#1f2937;line-height:1.5;">' + d.example.question + '</p>' +
+                '<div id="tf-opts-' + d.id + '" data-style="display:flex;flex-direction:column;gap:5px;">';
             for (var m = 0; m < d.example.options.length; m++) {
-                html += '<button data-call="techFrontiers._answer" data-arg1="@s:' + d.id + '" data-arg2="' + m + '" data-idx="' + m + '" style="text-align:left;padding:6px 10px;background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:0.78rem;color:#475569;">' + d.example.options[m] + '</button>';
+                html += '<button data-call="techFrontiers._answer" data-arg1="@s:' + d.id + '" data-arg2="' + m + '" data-idx="' + m + '" data-style="text-align:left;padding:6px 10px;background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:0.78rem;color:#475569;">' + d.example.options[m] + '</button>';
             }
-            html += '</div><div id="tf-ana-' + d.id + '" style="display:none;margin-top:8px;padding:8px;background:#f0fdf4;border-radius:4px;font-size:0.78rem;color:#166534;line-height:1.5;"><strong>解析：</strong>' + d.example.analysis + '</div></div></div></div>';
+            html += '</div><div id="tf-ana-' + d.id + '" data-style="display:none;margin-top:8px;padding:8px;background:#f0fdf4;border-radius:4px;font-size:0.78rem;color:#166534;line-height:1.5;"><strong>解析：</strong>' + d.example.analysis + '</div></div></div></div>';
         }
         html += '</div>';
         if (count === 0) {
-            html += '<p style="text-align:center;color:#94a3b8;padding:30px;">该学科下暂无条目</p>';
+            html += '<p data-style="text-align:center;color:#94a3b8;padding:30px;">该学科下暂无条目</p>';
         }
         html += '</div>';
         app.innerHTML = html;
@@ -681,26 +681,26 @@ var formulaDerivation = {
         var app = document.getElementById('formula-derivation-app');
         if (!app) return;
         var keys = ['kinetic', 'projectile', 'centripetal', 'gas'];
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">📐 物理公式推导可视化</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">逐步展示推导过程，高亮关键步骤，支持自动播放</p></div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">📐 物理公式推导可视化</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">逐步展示推导过程，高亮关键步骤，支持自动播放</p></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
         for (var i = 0; i < keys.length; i++) {
             var f = this.data[keys[i]];
             var active = (this.state.formulaId === keys[i]);
-            html += '<button data-call="formulaDerivation._setFormula" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + f.icon + ' ' + f.name + '</button>';
+            html += '<button data-call="formulaDerivation._setFormula" data-arg1="@s:' + keys[i] + '" data-style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + f.icon + ' ' + f.name + '</button>';
         }
         html += '</div>';
         var cur = this.data[this.state.formulaId];
         var step = this.state.step;
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">' +
-            '<div style="background:' + cur.color + ';color:#fff;padding:14px 20px;">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-            '<h4 style="margin:0;font-size:1.1rem;">' + cur.icon + ' ' + cur.name + '</h4>' +
-            '<span style="background:rgba(255,255,255,0.25);padding:4px 12px;border-radius:12px;font-size:0.85rem;">步骤 ' + (step + 1) + ' / ' + cur.steps.length + '</span></div></div>' +
-            '<div style="padding:24px;">' +
-            '<svg viewBox="0 0 600 200" style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' +
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">' +
+            '<div data-style="background:' + cur.color + ';color:#fff;padding:14px 20px;">' +
+            '<div data-style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<h4 data-style="margin:0;font-size:1.1rem;">' + cur.icon + ' ' + cur.name + '</h4>' +
+            '<span data-style="background:rgba(255,255,255,0.25);padding:4px 12px;border-radius:12px;font-size:0.85rem;">步骤 ' + (step + 1) + ' / ' + cur.steps.length + '</span></div></div>' +
+            '<div data-style="padding:24px;">' +
+            '<svg viewBox="0 0 600 200" data-style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' +
             '<defs><style>.fstep{font-family:Georgia,serif;font-size:18px;fill:#1e293b;text-anchor:middle}.fhl{fill:#fbbf24;font-weight:bold}.fnum{font-size:13px;fill:#64748b;text-anchor:start}</style></defs>';
         for (var i = 0; i <= step; i++) {
             var s = cur.steps[i];
@@ -727,16 +727,16 @@ var formulaDerivation = {
             }
         }
         html += '</svg>' +
-            '<div style="margin-top:16px;padding:14px;background:#f0f9ff;border-left:4px solid ' + cur.color + ';border-radius:6px;">' +
-            '<div style="font-size:0.85rem;color:' + cur.color + ';font-weight:600;margin-bottom:6px;">💡 当前步骤说明</div>' +
-            '<p style="margin:0;color:#1e3a8a;line-height:1.7;font-size:0.9rem;">' + cur.steps[step].explain + '</p></div>' +
-            '<div style="margin-top:16px;display:flex;gap:10px;justify-content:center;align-items:center;">' +
-            '<button data-call=\"formulaDerivation._prev\" ' + (step === 0 ? 'disabled' : '') + ' style="background:' + (step === 0 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === 0 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === 0 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">⬅ 上一步</button>' +
-            '<button data-call=\"formulaDerivation._togglePlay\" style="background:' + cur.color + ';color:#fff;border:0;padding:8px 22px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.playing ? '⏸ 暂停' : '▶ 自动播放') + '</button>' +
-            '<button data-call=\"formulaDerivation._next\" ' + (step === cur.steps.length - 1 ? 'disabled' : '') + ' style="background:' + (step === cur.steps.length - 1 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === cur.steps.length - 1 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === cur.steps.length - 1 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">下一步 ➡</button></div>' +
-            '<div style="margin-top:14px;display:flex;gap:3px;justify-content:center;">';
+            '<div data-style="margin-top:16px;padding:14px;background:#f0f9ff;border-left:4px solid ' + cur.color + ';border-radius:6px;">' +
+            '<div data-style="font-size:0.85rem;color:' + cur.color + ';font-weight:600;margin-bottom:6px;">💡 当前步骤说明</div>' +
+            '<p data-style="margin:0;color:#1e3a8a;line-height:1.7;font-size:0.9rem;">' + cur.steps[step].explain + '</p></div>' +
+            '<div data-style="margin-top:16px;display:flex;gap:10px;justify-content:center;align-items:center;">' +
+            '<button data-call=\"formulaDerivation._prev\" ' + (step === 0 ? 'disabled' : '') + ' data-style="background:' + (step === 0 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === 0 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === 0 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">⬅ 上一步</button>' +
+            '<button data-call=\"formulaDerivation._togglePlay\" data-style="background:' + cur.color + ';color:#fff;border:0;padding:8px 22px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.playing ? '⏸ 暂停' : '▶ 自动播放') + '</button>' +
+            '<button data-call=\"formulaDerivation._next\" ' + (step === cur.steps.length - 1 ? 'disabled' : '') + ' data-style="background:' + (step === cur.steps.length - 1 ? '#e2e8f0' : '#f1f5f9') + ';color:' + (step === cur.steps.length - 1 ? '#94a3b8' : '#475569') + ';border:0;padding:8px 18px;border-radius:6px;cursor:' + (step === cur.steps.length - 1 ? 'not-allowed' : 'pointer') + ';font-size:0.9rem;">下一步 ➡</button></div>' +
+            '<div data-style="margin-top:14px;display:flex;gap:3px;justify-content:center;">';
         for (var i = 0; i < cur.steps.length; i++) {
-            html += '<div data-call=\"formulaDerivation._goto\" data-arg1=\"@n:' + i + '" style="width:' + (i === step ? '28px' : '10px') + ';height:6px;background:' + (i === step ? cur.color : '#cbd5e1') + ';border-radius:3px;cursor:pointer;transition:width 0.3s;"></div>';
+            html += '<div data-call=\"formulaDerivation._goto\" data-arg1=\"@n:' + i + '" data-style="width:' + (i === step ? '28px' : '10px') + ';height:6px;background:' + (i === step ? cur.color : '#cbd5e1') + ';border-radius:3px;cursor:pointer;transition:width 0.3s;"></div>';
         }
         html += '</div></div></div></div>';
         app.innerHTML = html;
@@ -859,41 +859,41 @@ var physicsModelSim = {
         if (!app) return;
         try {
         var keys = ['block', 'belt', 'spring', 'collision'];
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#0891b2,#0d9488);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">⚙️ 物理模型动态演示</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">板块·传送带·弹簧振子·碰撞，可调参数，实时受力与v-t图</p></div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#0891b2,#0d9488);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">⚙️ 物理模型动态演示</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">板块·传送带·弹簧振子·碰撞，可调参数，实时受力与v-t图</p></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
         for (var i = 0; i < keys.length; i++) {
             var m = this.models[keys[i]];
             var active = (this.state.modelId === keys[i]);
-            html += '<button data-call="physicsModelSim._setModel" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? m.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? m.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + m.icon + ' ' + m.name + '</button>';
+            html += '<button data-call="physicsModelSim._setModel" data-arg1="@s:' + keys[i] + '" data-style="background:' + (active ? m.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? m.color : '#cbd5e1') + ';padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;">' + m.icon + ' ' + m.name + '</button>';
         }
         html += '</div>';
         var cur = this.models[this.state.modelId];
-        html += '<div style="display:grid;grid-template-columns:1fr;gap:14px;">' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
-            '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">';
+        html += '<div data-style="display:grid;grid-template-columns:1fr;gap:14px;">' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
+            '<div data-style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">';
         for (var i = 0; i < cur.params.length; i++) {
             var p = cur.params[i];
-            html += '<label style="font-size:0.85rem;color:#475569;">' + p.label + ': ' +
-                '<input type="number" id="pm-' + p.key + '" value="' + this.state.params[p.key] + '" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" style="width:65px;padding:4px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.85rem;"></label>';
+            html += '<label data-style="font-size:0.85rem;color:#475569;">' + p.label + ': ' +
+                '<input type="number" id="pm-' + p.key + '" value="' + this.state.params[p.key] + '" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" data-style="width:65px;padding:4px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.85rem;"></label>';
         }
-        html += '<button data-call=\"physicsModelSim._toggle\" style="background:' + cur.color + ';color:#fff;border:0;padding:7px 18px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.running ? '⏸ 暂停' : '▶ 播放') + '</button>' +
-            '<button data-call=\"physicsModelSim._reset\" style="background:#f1f5f9;color:#475569;border:0;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:0.9rem;">🔄 重置</button></div></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#0f172a;">🎬 动态演示</h4>' +
-            '<svg id="pm-svg" viewBox="0 0 600 220" style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' + this._renderScene() + '</svg></div>' +
-            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#0f172a;">🔍 受力分析</h4>' +
-            '<div id="pm-force" style="font-size:0.85rem;color:#475569;line-height:1.7;">' + this._forceAnalysis() + '</div></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#0f172a;">📊 速度-时间图像</h4>' +
-            '<svg id="pm-vt" viewBox="0 0 280 160" style="width:100%;height:auto;background:#fafafa;border-radius:6px;">' + this._renderVT() + '</svg></div></div>' +
-            '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;">' +
-            '<h4 style="margin:0 0 8px 0;color:#b45309;">📖 模型要点</h4>' +
-            '<p style="margin:0;color:#92400e;font-size:0.85rem;line-height:1.7;">' + this._modelTips() + '</p></div></div></div>';
+        html += '<button data-call=\"physicsModelSim._toggle\" data-style="background:' + cur.color + ';color:#fff;border:0;padding:7px 18px;border-radius:6px;cursor:pointer;font-size:0.9rem;">' + (this.state.running ? '⏸ 暂停' : '▶ 播放') + '</button>' +
+            '<button data-call=\"physicsModelSim._reset\" data-style="background:#f1f5f9;color:#475569;border:0;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:0.9rem;">🔄 重置</button></div></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#0f172a;">🎬 动态演示</h4>' +
+            '<svg id="pm-svg" viewBox="0 0 600 220" data-style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' + this._renderScene() + '</svg></div>' +
+            '<div data-style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#0f172a;">🔍 受力分析</h4>' +
+            '<div id="pm-force" data-style="font-size:0.85rem;color:#475569;line-height:1.7;">' + this._forceAnalysis() + '</div></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#0f172a;">📊 速度-时间图像</h4>' +
+            '<svg id="pm-vt" viewBox="0 0 280 160" data-style="width:100%;height:auto;background:#fafafa;border-radius:6px;">' + this._renderVT() + '</svg></div></div>' +
+            '<div data-style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 8px 0;color:#b45309;">📖 模型要点</h4>' +
+            '<p data-style="margin:0;color:#92400e;font-size:0.85rem;line-height:1.7;">' + this._modelTips() + '</p></div></div></div>';
         app.innerHTML = html;
         this._bindParamEvents();
         } catch (err) {
@@ -1039,32 +1039,32 @@ var physicsModelSim = {
             var a1 = p.mu * g;
             var a2 = p.mu * p.m1 / p.m2 * g;
             return '<div>🟦 <strong>滑块m₁：</strong>重力m₁g=' + (p.m1 * g).toFixed(1) + 'N ↓，支持力N=m₁g ↑，摩擦力f=μm₁g=' + f.toFixed(2) + 'N ←(反向)</div>' +
-                '<div style="margin-top:6px;">🟫 <strong>木板m₂：</strong>重力m₂g=' + (p.m2 * g).toFixed(1) + 'N，支持力N=(m₁+m₂)g，摩擦力f=\'=' + f.toFixed(2) + 'N →(驱动)</div>' +
-                '<div style="margin-top:6px;">📐 <strong>加速度：</strong>a₁=' + a1.toFixed(2) + 'm/s²(减速)，a₂=' + a2.toFixed(2) + 'm/s²(加速)</div>' +
-                '<div style="margin-top:6px;">⏱ <strong>共速时间：</strong>t=' + (p.v0 / (p.mu * g * (1 + p.m1 / p.m2))).toFixed(2) + 's</div>';
+                '<div data-style="margin-top:6px;">🟫 <strong>木板m₂：</strong>重力m₂g=' + (p.m2 * g).toFixed(1) + 'N，支持力N=(m₁+m₂)g，摩擦力f=\'=' + f.toFixed(2) + 'N →(驱动)</div>' +
+                '<div data-style="margin-top:6px;">📐 <strong>加速度：</strong>a₁=' + a1.toFixed(2) + 'm/s²(减速)，a₂=' + a2.toFixed(2) + 'm/s²(加速)</div>' +
+                '<div data-style="margin-top:6px;">⏱ <strong>共速时间：</strong>t=' + (p.v0 / (p.mu * g * (1 + p.m1 / p.m2))).toFixed(2) + 's</div>';
         }
         if (id === 'belt') {
             var f2 = p.mu * p.m1 * g;
             return '<div>🟧 <strong>物体：</strong>重力mg=' + (p.m1 * g).toFixed(1) + 'N ↓，支持力N=mg ↑</div>' +
-                '<div style="margin-top:6px;">↔️ <strong>摩擦力：</strong>f=μmg=' + f2.toFixed(2) + 'N(方向取决于v物与v带关系)</div>' +
-                '<div style="margin-top:6px;">📐 v物&gt;v带：f向后(减速)；v物&lt;v带：f向前(加速)</div>' +
-                '<div style="margin-top:6px;">⏱ <strong>共速后：</strong>若水平传送带，物体随带匀速；若倾斜，需比较mgsinθ与μmgcosθ</div>';
+                '<div data-style="margin-top:6px;">↔️ <strong>摩擦力：</strong>f=μmg=' + f2.toFixed(2) + 'N(方向取决于v物与v带关系)</div>' +
+                '<div data-style="margin-top:6px;">📐 v物&gt;v带：f向后(减速)；v物&lt;v带：f向前(加速)</div>' +
+                '<div data-style="margin-top:6px;">⏱ <strong>共速后：</strong>若水平传送带，物体随带匀速；若倾斜，需比较mgsinθ与μmgcosθ</div>';
         }
         if (id === 'spring') {
             var omega = Math.sqrt(p.k / p.m1);
             var F = p.k * p.A;
             return '<div>🟩 <strong>振子：</strong>重力mg=' + (p.m1 * g).toFixed(1) + 'N ↓，支持力N=mg ↑</div>' +
-                '<div style="margin-top:6px;">🌀 <strong>弹力：</strong>F=-kx，最大F=kA=' + F.toFixed(2) + 'N</div>' +
-                '<div style="margin-top:6px;">📐 <strong>周期：</strong>T=2π√(m/k)=' + (2 * Math.PI / omega).toFixed(2) + 's</div>' +
-                '<div style="margin-top:6px;">⚡ <strong>能量：</strong>Ep=½kx²，Ek=½mv²，总机械能E=½kA²=' + (0.5 * p.k * p.A * p.A).toFixed(3) + 'J</div>';
+                '<div data-style="margin-top:6px;">🌀 <strong>弹力：</strong>F=-kx，最大F=kA=' + F.toFixed(2) + 'N</div>' +
+                '<div data-style="margin-top:6px;">📐 <strong>周期：</strong>T=2π√(m/k)=' + (2 * Math.PI / omega).toFixed(2) + 's</div>' +
+                '<div data-style="margin-top:6px;">⚡ <strong>能量：</strong>Ep=½kx²，Ek=½mv²，总机械能E=½kA²=' + (0.5 * p.k * p.A * p.A).toFixed(3) + 'J</div>';
         }
         if (id === 'collision') {
             var pBefore = p.m1 * p.v1 + p.m2 * p.v2;
             var ekBefore = 0.5 * p.m1 * p.v1 * p.v1 + 0.5 * p.m2 * p.v2 * p.v2;
             return '<div>🔴 <strong>物体1：</strong>动量p₁=m₁v₁=' + (p.m1 * p.v1).toFixed(2) + 'kg·m/s</div>' +
-                '<div style="margin-top:6px;">🔵 <strong>物体2：</strong>动量p₂=m₂v₂=' + (p.m2 * p.v2).toFixed(2) + 'kg·m/s</div>' +
-                '<div style="margin-top:6px;">⚖️ <strong>总动量：</strong>P=' + pBefore.toFixed(2) + 'kg·m/s(守恒)</div>' +
-                '<div style="margin-top:6px;">⚡ <strong>总动能(碰前)：</strong>Ek=' + ekBefore.toFixed(2) + 'J(弹性碰撞守恒)</div>';
+                '<div data-style="margin-top:6px;">🔵 <strong>物体2：</strong>动量p₂=m₂v₂=' + (p.m2 * p.v2).toFixed(2) + 'kg·m/s</div>' +
+                '<div data-style="margin-top:6px;">⚖️ <strong>总动量：</strong>P=' + pBefore.toFixed(2) + 'kg·m/s(守恒)</div>' +
+                '<div data-style="margin-top:6px;">⚡ <strong>总动能(碰前)：</strong>Ek=' + ekBefore.toFixed(2) + 'J(弹性碰撞守恒)</div>';
         }
         return '';
     },
@@ -1368,22 +1368,22 @@ var chemTransformNet = {
         var app = document.getElementById('chem-transform-app');
         if (!app) return;
         var keys = ['sodium', 'iron', 'copper', 'carbon', 'nitrogen', 'oxygen', 'halogen'];
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">🔗 元素化合物转化网络图</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">点击节点查看性质，点击边查看方程式</p></div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">🔗 元素化合物转化网络图</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">点击节点查看性质，点击边查看方程式</p></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
         for (var i = 0; i < keys.length; i++) {
             var f = this.data[keys[i]];
             var active = (this.state.familyId === keys[i]);
-            html += '<button data-call="chemTransformNet._setFamily" data-arg1="@s:' + keys[i] + '" style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:7px 14px;border-radius:8px;cursor:pointer;font-size:0.85rem;">' + f.icon + ' ' + f.name + '</button>';
+            html += '<button data-call="chemTransformNet._setFamily" data-arg1="@s:' + keys[i] + '" data-style="background:' + (active ? f.color : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? f.color : '#cbd5e1') + ';padding:7px 14px;border-radius:8px;cursor:pointer;font-size:0.85rem;">' + f.icon + ' ' + f.name + '</button>';
         }
         html += '</div>';
         var cur = this.data[this.state.familyId];
-        html += '<div style="display:grid;grid-template-columns:1fr 280px;gap:14px;">' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:' + cur.color + ';">' + cur.icon + ' ' + cur.name + '转化网络</h4>' +
-            '<svg viewBox="0 0 600 480" style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' +
+        html += '<div data-style="display:grid;grid-template-columns:1fr 280px;gap:14px;">' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:' + cur.color + ';">' + cur.icon + ' ' + cur.name + '转化网络</h4>' +
+            '<svg viewBox="0 0 600 480" data-style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' +
             '<defs><marker id="ct-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8"/></marker></defs>';
         for (var i = 0; i < cur.edges.length; i++) {
             var e = cur.edges[i];
@@ -1393,25 +1393,25 @@ var chemTransformNet = {
             var mx = (n1.x + n2.x) / 2;
             var my = (n1.y + n2.y) / 2;
             var isSel = (this.state.selectedEdge === i);
-            html += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isSel ? cur.color : '#cbd5e1') + '" stroke-width="' + (isSel ? '2.5' : '1.5') + '" marker-end="url(#ct-arrow)" style="cursor:pointer;" data-call=\"chemTransformNet._clickEdge\" data-arg1=\"@n:' + i + '"/>';
-            html += '<text x="' + mx + '" y="' + (my - 4) + '" font-size="9" fill="' + (isSel ? cur.color : '#64748b') + '" text-anchor="middle" style="pointer-events:none;">' + e.cond + '</text>';
+            html += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isSel ? cur.color : '#cbd5e1') + '" stroke-width="' + (isSel ? '2.5' : '1.5') + '" marker-end="url(#ct-arrow)" data-style="cursor:pointer;" data-call=\"chemTransformNet._clickEdge\" data-arg1=\"@n:' + i + '"/>';
+            html += '<text x="' + mx + '" y="' + (my - 4) + '" font-size="9" fill="' + (isSel ? cur.color : '#64748b') + '" text-anchor="middle" data-style="pointer-events:none;">' + e.cond + '</text>';
         }
         for (var i = 0; i < cur.nodes.length; i++) {
             var n = cur.nodes[i];
             var isSel = (this.state.selectedNode === n.id);
-            html += '<g style="cursor:pointer;" data-call="chemTransformNet._clickNode" data-arg1="@s:' + n.id + '">' +
+            html += '<g data-style="cursor:pointer;" data-call="chemTransformNet._clickNode" data-arg1="@s:' + n.id + '">' +
                 '<circle cx="' + n.x + '" cy="' + n.y + '" r="26" fill="' + (isSel ? cur.color : '#fff') + '" stroke="' + cur.color + '" stroke-width="2"/>' +
                 '<text x="' + n.x + '" y="' + (n.y + 4) + '" font-size="11" fill="' + (isSel ? '#fff' : cur.color) + '" text-anchor="middle" font-weight="600">' + n.name + '</text></g>';
         }
         html += '</svg></div>' +
-            '<div style="display:flex;flex-direction:column;gap:14px;">' +
-            '<div id="ct-node-info" style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + cur.color + ';border-radius:8px;padding:14px;min-height:120px;">' +
-            '<div style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px 0;">点击节点查看物质性质</div></div>' +
-            '<div id="ct-edge-info" style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:8px;padding:14px;min-height:120px;">' +
-            '<div style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px 0;">点击边查看反应方程式</div></div></div></div>' +
-            '<div style="margin-top:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;">' +
-            '<h4 style="margin:0 0 8px 0;color:#b45309;">📖 ' + cur.name + '学习要点</h4>' +
-            '<p style="margin:0;color:#92400e;font-size:0.85rem;line-height:1.7;">' + this._familyTips(cur) + '</p></div></div>';
+            '<div data-style="display:flex;flex-direction:column;gap:14px;">' +
+            '<div id="ct-node-info" data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + cur.color + ';border-radius:8px;padding:14px;min-height:120px;">' +
+            '<div data-style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px 0;">点击节点查看物质性质</div></div>' +
+            '<div id="ct-edge-info" data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:8px;padding:14px;min-height:120px;">' +
+            '<div data-style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px 0;">点击边查看反应方程式</div></div></div></div>' +
+            '<div data-style="margin-top:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;">' +
+            '<h4 data-style="margin:0 0 8px 0;color:#b45309;">📖 ' + cur.name + '学习要点</h4>' +
+            '<p data-style="margin:0;color:#92400e;font-size:0.85rem;line-height:1.7;">' + this._familyTips(cur) + '</p></div></div>';
         app.innerHTML = html;
         if (this.state.selectedNode) this._showNodeInfo();
         if (this.state.selectedEdge !== null) this._showEdgeInfo();
@@ -1442,8 +1442,8 @@ var chemTransformNet = {
         var cur = this.data[this.state.familyId];
         var n = this._findNode(cur, this.state.selectedNode);
         if (!n) return;
-        box.innerHTML = '<h4 style="margin:0 0 8px 0;color:' + cur.color + ';font-size:1.05rem;">🔬 ' + n.name + '</h4>' +
-            '<p style="margin:0;color:#334155;font-size:0.88rem;line-height:1.7;">' + n.props + '</p>';
+        box.innerHTML = '<h4 data-style="margin:0 0 8px 0;color:' + cur.color + ';font-size:1.05rem;">🔬 ' + n.name + '</h4>' +
+            '<p data-style="margin:0;color:#334155;font-size:0.88rem;line-height:1.7;">' + n.props + '</p>';
     },
 
     _showEdgeInfo: function() {
@@ -1453,10 +1453,10 @@ var chemTransformNet = {
         if (this.state.selectedEdge === null) return;
         var e = cur.edges[this.state.selectedEdge];
         if (!e) return;
-        box.innerHTML = '<h4 style="margin:0 0 8px 0;color:#16a34a;font-size:1.05rem;">⚗️ 反应方程式</h4>' +
-            '<div style="background:#f0fdf4;padding:10px;border-radius:6px;font-family:Georgia,serif;font-size:0.95rem;color:#15803d;line-height:1.6;">' + e.eq + '</div>' +
-            '<div style="margin-top:8px;font-size:0.82rem;color:#475569;">条件：<strong>' + e.cond + '</strong></div>' +
-            '<div style="margin-top:6px;font-size:0.82rem;color:#475569;">' + this._findNode(cur, e.from).name + ' → ' + this._findNode(cur, e.to).name + '</div>';
+        box.innerHTML = '<h4 data-style="margin:0 0 8px 0;color:#16a34a;font-size:1.05rem;">⚗️ 反应方程式</h4>' +
+            '<div data-style="background:#f0fdf4;padding:10px;border-radius:6px;font-family:Georgia,serif;font-size:0.95rem;color:#15803d;line-height:1.6;">' + e.eq + '</div>' +
+            '<div data-style="margin-top:8px;font-size:0.82rem;color:#475569;">条件：<strong>' + e.cond + '</strong></div>' +
+            '<div data-style="margin-top:6px;font-size:0.82rem;color:#475569;">' + this._findNode(cur, e.from).name + ' → ' + this._findNode(cur, e.to).name + '</div>';
     },
 
     _setFamily: function(id) {
@@ -1566,32 +1566,32 @@ var bioChartTrainer = {
         var app = document.getElementById('bio-chart-app');
         if (!app) return;
         var types = ['all', '光合作用曲线', '种群数量曲线', '遗传图谱', '酶活性曲线', '细胞分裂图'];
-        var html = '<div style="padding:16px;">' +
-            '<div style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
-            '<h3 style="margin:0 0 6px 0;font-size:1.25rem;">📊 生物图表题解读专项训练</h3>' +
-            '<p style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 道图表题，覆盖光合·种群·遗传·酶·分裂</p></div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:16px;">' +
+            '<h3 data-style="margin:0 0 6px 0;font-size:1.25rem;">📊 生物图表题解读专项训练</h3>' +
+            '<p data-style="margin:0;font-size:0.9rem;opacity:0.95;">共 ' + this.data.length + ' 道图表题，覆盖光合·种群·遗传·酶·分裂</p></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
         for (var i = 0; i < types.length; i++) {
             var t = types[i];
             var active = (this.state.filter === t);
-            html += '<button data-call="bioChartTrainer._setFilter" data-arg1="@s:' + t + '" style="background:' + (active ? '#16a34a' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#16a34a' : '#cbd5e1') + ';padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;">' + (t === 'all' ? '全部' : t) + '</button>';
+            html += '<button data-call="bioChartTrainer._setFilter" data-arg1="@s:' + t + '" data-style="background:' + (active ? '#16a34a' : '#fff') + ';color:' + (active ? '#fff' : '#475569') + ';border:1.5px solid ' + (active ? '#16a34a' : '#cbd5e1') + ';padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.85rem;">' + (t === 'all' ? '全部' : t) + '</button>';
         }
-        html += '</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;">';
+        html += '</div><div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;">';
         var count = 0;
         for (var i = 0; i < this.data.length; i++) {
             var d = this.data[i];
             if (this.state.filter !== 'all' && d.type !== this.state.filter) continue;
             count++;
             var done = this.state.answered[d.id];
-            html += '<div data-call="bioChartTrainer._showDetail" data-arg1="@s:' + d.id + '" style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:10px;padding:14px;cursor:pointer;">' +
-                '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
-                '<span style="font-size:1.5rem;">' + d.icon + '</span>' +
-                '<div><div style="font-weight:600;color:#0f172a;">' + d.type + ' #' + (i + 1) + '</div>' +
-                '<div style="font-size:0.75rem;color:#94a3b8;">' + (done ? '✓ 已作答' : '未作答') + '</div></div></div>' +
-                '<p style="margin:0;color:#475569;font-size:0.82rem;line-height:1.5;">' + d.question.substring(0, 50) + '...</p></div>';
+            html += '<div data-call="bioChartTrainer._showDetail" data-arg1="@s:' + d.id + '" data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:10px;padding:14px;cursor:pointer;">' +
+                '<div data-style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+                '<span data-style="font-size:1.5rem;">' + d.icon + '</span>' +
+                '<div><div data-style="font-weight:600;color:#0f172a;">' + d.type + ' #' + (i + 1) + '</div>' +
+                '<div data-style="font-size:0.75rem;color:#94a3b8;">' + (done ? '✓ 已作答' : '未作答') + '</div></div></div>' +
+                '<p data-style="margin:0;color:#475569;font-size:0.82rem;line-height:1.5;">' + d.question.substring(0, 50) + '...</p></div>';
         }
         html += '</div>';
-        if (count === 0) html += '<p style="text-align:center;color:#94a3b8;padding:30px;">该题型下暂无题目</p>';
+        if (count === 0) html += '<p data-style="text-align:center;color:#94a3b8;padding:30px;">该题型下暂无题目</p>';
         html += '</div>';
         app.innerHTML = html;
     },
@@ -1619,26 +1619,26 @@ var bioChartTrainer = {
             if (this.data[i].id === this.state.currentId) { d = this.data[i]; break; }
         }
         if (!d) { this._backToList(); return; }
-        var html = '<div style="padding:16px;">' +
-            '<button data-call=\"bioChartTrainer._backToList\" style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回题目列表</button>' +
-            '<div style="background:' + d.color + ';color:#fff;padding:14px 20px;border-radius:10px;margin-bottom:16px;">' +
-            '<div style="display:flex;align-items:center;gap:10px;">' +
-            '<span style="font-size:1.8rem;">' + d.icon + '</span>' +
-            '<div><h4 style="margin:0;font-size:1.1rem;">' + d.type + '</h4>' +
-            '<div style="font-size:0.82rem;opacity:0.9;">图表解读训练</div></div></div></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:14px;">' +
-            '<h4 style="margin:0 0 12px 0;color:#0f172a;">📊 图表</h4>' +
-            '<svg viewBox="0 0 500 280" style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' + this._renderChart(d.chart) + '</svg></div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:8px;padding:16px;margin-bottom:14px;">' +
-            '<h4 style="margin:0 0 10px 0;color:#0f172a;">❓ 问题</h4>' +
-            '<p style="margin:0 0 12px 0;color:#1f2937;line-height:1.7;font-size:0.92rem;">' + d.question + '</p>' +
-            '<div id="bc-opts" style="display:flex;flex-direction:column;gap:7px;">';
+        var html = '<div data-style="padding:16px;">' +
+            '<button data-call=\"bioChartTrainer._backToList\" data-style="background:#f1f5f9;color:#475569;border:0;padding:8px 16px;border-radius:6px;cursor:pointer;margin-bottom:14px;">← 返回题目列表</button>' +
+            '<div data-style="background:' + d.color + ';color:#fff;padding:14px 20px;border-radius:10px;margin-bottom:16px;">' +
+            '<div data-style="display:flex;align-items:center;gap:10px;">' +
+            '<span data-style="font-size:1.8rem;">' + d.icon + '</span>' +
+            '<div><h4 data-style="margin:0;font-size:1.1rem;">' + d.type + '</h4>' +
+            '<div data-style="font-size:0.82rem;opacity:0.9;">图表解读训练</div></div></div></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:14px;">' +
+            '<h4 data-style="margin:0 0 12px 0;color:#0f172a;">📊 图表</h4>' +
+            '<svg viewBox="0 0 500 280" data-style="width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">' + this._renderChart(d.chart) + '</svg></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid ' + d.color + ';border-radius:8px;padding:16px;margin-bottom:14px;">' +
+            '<h4 data-style="margin:0 0 10px 0;color:#0f172a;">❓ 问题</h4>' +
+            '<p data-style="margin:0 0 12px 0;color:#1f2937;line-height:1.7;font-size:0.92rem;">' + d.question + '</p>' +
+            '<div id="bc-opts" data-style="display:flex;flex-direction:column;gap:7px;">';
         for (var i = 0; i < d.options.length; i++) {
-            html += '<button data-call=\"bioChartTrainer._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + d.options[i] + '</button>';
+            html += '<button data-call=\"bioChartTrainer._answer\" data-arg1=\"@n:' + i + '" data-idx="' + i + '" data-style="text-align:left;padding:10px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:0.9rem;color:#334155;">' + d.options[i] + '</button>';
         }
-        html += '</div><div id="bc-analysis" style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:6px;border-left:3px solid #16a34a;">' +
-            '<strong style="color:#15803d;">解析：</strong>' +
-            '<p style="margin:6px 0 0;color:#475569;font-size:0.88rem;line-height:1.7;">' + d.analysis + '</p></div></div></div>';
+        html += '</div><div id="bc-analysis" data-style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:6px;border-left:3px solid #16a34a;">' +
+            '<strong data-style="color:#15803d;">解析：</strong>' +
+            '<p data-style="margin:6px 0 0;color:#475569;font-size:0.88rem;line-height:1.7;">' + d.analysis + '</p></div></div></div>';
         app.innerHTML = html;
     },
 

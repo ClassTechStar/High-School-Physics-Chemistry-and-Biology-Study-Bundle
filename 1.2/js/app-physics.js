@@ -359,7 +359,7 @@ const physicsFormulaCalculator = {
             </div>`;
         }
 
-        html += '<div style="margin-top:10px;font-size:0.85rem;color:#666;">已知量：';
+        html += '<div data-style="margin-top:10px;font-size:0.85rem;color:#666;">已知量：';
         for (const [k, v] of Object.entries(inputVars)) {
             const lb = this.varLabels[k] || k;
             const un = this.varUnits[k] || '';
@@ -1323,13 +1323,13 @@ const ecosystemSimulator = {
             tIcon = sp.type === 'producer' ? '\uD83C\uDF31' : sp.type === 'herbivore' ? '\uD83D\uDC07' : '\uD83E\uDD8A';
             modClass = mod > 1 ? 'good' : mod > 0.7 ? 'medium' : 'bad';
 
-            h.push('<div class="eco-species-card" style="--sp-color:' + sp.color + '">');
+            h.push('<div class="eco-species-card" data-style="--sp-color:' + sp.color + '">');
             h.push('<div class="eco-sp-header">');
             h.push('<div class="eco-sp-icon">' + tIcon + '</div>');
             h.push('<div class="eco-sp-info"><span class="eco-sp-name">' + sp.name + '</span><span class="eco-sp-type">' + tLabel + '</span></div>');
             h.push('<div class="eco-sp-count">' + pop + ' <small>\u53EA</small></div>');
             h.push('</div>');
-            h.push('<div class="eco-sp-bar-wrapper"><div class="eco-sp-bar"><div class="eco-sp-bar-fill" style="width:' + pct + '%;background:' + sp.color + '"></div></div><span class="eco-sp-percent">' + pct + '%</span></div>');
+            h.push('<div class="eco-sp-bar-wrapper"><div class="eco-sp-bar"><div class="eco-sp-bar-fill" data-style="width:' + pct + '%;background:' + sp.color + '"></div></div><span class="eco-sp-percent">' + pct + '%</span></div>');
             h.push('<div class="eco-sp-meta"><span class="eco-sp-modifier ' + modClass + '">\uD83C\uDF21\uFE0F \u9002\u5E94\u5EA6 \u00D7' + mod.toFixed(2) + '</span></div>');
             h.push('</div>');
         }

@@ -90,17 +90,17 @@ function getSubjectColor(subject){
 }
 
 function step1SelectQuestion(){
-    var html = '<div style="padding:20px;">';
-    html += '<h3 style="color:#333;margin-bottom:12px;">Step 1: 选择题目</h3>';
+    var html = '<div data-style="padding:20px;">';
+    html += '<h3 data-style="color:#333;margin-bottom:12px;">Step 1: 选择题目</h3>';
 
     // 框架筛选按钮
-    html += '<div style="margin-bottom:16px;">';
-    html += '<span style="font-weight:600;margin-right:10px;">框架类型：</span>';
+    html += '<div data-style="margin-bottom:16px;">';
+    html += '<span data-style="font-weight:600;margin-right:10px;">框架类型：</span>';
     var frameworks = ['原因分析','实验设计','曲线分析'];
     for(var i=0;i<frameworks.length;i++){
         var fw = frameworks[i];
         var active = state.selectedFramework === fw;
-        html += '<button data-framework="'+fw+'" style="'+
+        html += '<button data-framework="'+fw+'" data-style="'+
             'padding:6px 14px;margin-right:8px;margin-bottom:6px;border:2px solid #ddd;border-radius:20px;background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#333')+';cursor:pointer;font-size:13px;'+
             '" data-call="window.frameworkAnswerTrainer._selectFramework" data-arg1="@s:' + fw + '">'+fw+'</button>';
     }
@@ -109,26 +109,26 @@ function step1SelectQuestion(){
     // 题目列表（数据由 QuestionDataLoader 动态加载）
     var questions = QuestionDataLoader.getCached();
     var filtered = state.selectedFramework ? questions.filter(function(q){return q.framework===state.selectedFramework;}) : questions;
-    html += '<div style="max-height:400px;overflow-y:auto;">';
+    html += '<div data-style="max-height:400px;overflow-y:auto;">';
     for(var j=0;j<filtered.length;j++){
         var q = filtered[j];
         var records = loadRecords();
         var done = records[q.id];
-        html += '<div data-qid="'+q.id+'" data-call="window.frameworkAnswerTrainer._selectQuestion" data-arg1="@s:' + q.id + '" style="'+
+        html += '<div data-qid="'+q.id+'" data-call="window.frameworkAnswerTrainer._selectQuestion" data-arg1="@s:' + q.id + '" data-style="'+
             'padding:12px 14px;margin-bottom:8px;border:2px solid '+(state.selectedQuestion&&state.selectedQuestion.id===q.id?'#1a73e8':'#e0e0e0')+';border-radius:10px;cursor:pointer;background:'+(state.selectedQuestion&&state.selectedQuestion.id===q.id?'#e8f0fe':'#fff')+';transition:all 0.2s;'+
             '">';
-        html += '<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:4px;">';
-        html += '<span style="display:inline-block;background:'+getSubjectColor(q.subject)+';color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;margin-right:8px;">'+q.subject+'</span>';
-        html += '<span style="color:#888;font-size:12px;">'+q.year+'</span>';
-        if(done){ html += '<span style="color:#0d7a3e;font-size:12px;margin-left:8px;">✓ 已完成 (得分:'+done.score+')</span>'; }
+        html += '<div data-style="font-size:14px;font-weight:600;color:#333;margin-bottom:4px;">';
+        html += '<span data-style="display:inline-block;background:'+getSubjectColor(q.subject)+';color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;margin-right:8px;">'+q.subject+'</span>';
+        html += '<span data-style="color:#888;font-size:12px;">'+q.year+'</span>';
+        if(done){ html += '<span data-style="color:#0d7a3e;font-size:12px;margin-left:8px;">✓ 已完成 (得分:'+done.score+')</span>'; }
         html += '</div>';
-        html += '<div style="font-size:15px;color:#555;">'+q.question+'</div>';
+        html += '<div data-style="font-size:15px;color:#555;">'+q.question+'</div>';
         html += '</div>';
     }
     html += '</div>';
 
     // 继续按钮
-    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" style="'+
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" data-style="'+
         'margin-top:16px;padding:10px 28px;background:'+(state.selectedQuestion?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(state.selectedQuestion?'pointer':'not-allowed')+';'+
         '" '+(state.selectedQuestion?'':'disabled')+'>下一步：填写框架</button>';
 
@@ -142,33 +142,33 @@ function step2FillFramework(){
     var fw = FRAMEWORKS[q.framework];
     var steps = fw.steps;
 
-    var html = '<div style="padding:20px;">';
-    html += '<h3 style="color:#333;margin-bottom:8px;">Step 2: 按框架填写答案</h3>';
-    html += '<div style="background:#f0f4ff;padding:12px 16px;border-radius:10px;margin-bottom:16px;">';
-    html += '<span style="color:'+getSubjectColor(q.subject)+';font-weight:600;">'+q.subject+' | '+q.year+'</span>';
-    html += '<p style="margin:8px 0 0 0;color:#555;">'+q.question+'</p>';
-    html += '<p style="margin:4px 0 0 0;color:#999;font-size:13px;font-style:italic;">'+q.context+'</p>';
+    var html = '<div data-style="padding:20px;">';
+    html += '<h3 data-style="color:#333;margin-bottom:8px;">Step 2: 按框架填写答案</h3>';
+    html += '<div data-style="background:#f0f4ff;padding:12px 16px;border-radius:10px;margin-bottom:16px;">';
+    html += '<span data-style="color:'+getSubjectColor(q.subject)+';font-weight:600;">'+q.subject+' | '+q.year+'</span>';
+    html += '<p data-style="margin:8px 0 0 0;color:#555;">'+q.question+'</p>';
+    html += '<p data-style="margin:4px 0 0 0;color:#999;font-size:13px;font-style:italic;">'+q.context+'</p>';
     html += '</div>';
 
-    html += '<div style="background:#fff3e0;padding:10px 14px;border-radius:8px;margin-bottom:16px;font-size:13px;color:#e65100;">';
+    html += '<div data-style="background:#fff3e0;padding:10px 14px;border-radius:8px;margin-bottom:16px;font-size:13px;color:#e65100;">';
     html += '📋 框架：<strong>'+fw.name+'</strong><br>'+fw.description;
     html += '</div>';
 
     for(var i=0;i<steps.length;i++){
         var idx = i+1;
-        html += '<div style="margin-bottom:14px;">';
-        html += '<div style="font-weight:600;color:#333;margin-bottom:6px;">步骤'+idx+'：'+steps[i]+'</div>';
-        html += '<textarea id="fw-input-'+i+'" placeholder="请输入'+steps[i]+'的内容..." style="'+
+        html += '<div data-style="margin-bottom:14px;">';
+        html += '<div data-style="font-weight:600;color:#333;margin-bottom:6px;">步骤'+idx+'：'+steps[i]+'</div>';
+        html += '<textarea id="fw-input-'+i+'" placeholder="请输入'+steps[i]+'的内容..." data-style="'+
             'width:100%;min-height:70px;padding:10px 12px;border:2px solid #ddd;border-radius:8px;font-size:14px;resize:vertical;box-sizing:border-box;'+
             'line-height:1.6;font-family:inherit;" data-call=\"window.frameworkAnswerTrainer._onInput\" data-arg1=\"@n:'+i+'" data-arg2=\"@val\">'+(state.userAnswers[i]||'')+'</textarea>';
         html += '</div>';
     }
 
-    html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep1\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 上一步</button>';
+    html += '<div data-style="display:flex;gap:12px;margin-top:16px;">';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep1\" data-style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 上一步</button>';
     var allFilled = true;
     for(var k=0;k<steps.length;k++){ if(!state.userAnswers[k]||state.userAnswers[k].trim()===''){allFilled=false;break;} }
-    html += '<button data-call=\"window.frameworkAnswerTrainer._submit\" style="padding:10px 28px;background:'+(allFilled?'#0d7a3e':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(allFilled?'pointer':'not-allowed')+';" '+(allFilled?'':'disabled')+'>提交并查看对比</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._submit\" data-style="padding:10px 28px;background:'+(allFilled?'#0d7a3e':'#ccc')+';color:#fff;border:none;border-radius:8px;font-size:15px;cursor:'+(allFilled?'pointer':'not-allowed')+';" '+(allFilled?'':'disabled')+'>提交并查看对比</button>';
     html += '</div>';
 
     html += '</div>';
@@ -184,42 +184,42 @@ function step3Compare(){
     var modelKeys = ['step1','step2','step3','step4','step5'];
     if(steps.length===4) modelKeys = ['step1','step2','step3','step4'];
 
-    var html = '<div style="padding:20px;">';
-    html += '<h3 style="color:#333;margin-bottom:12px;">Step 3: 标准答案对比</h3>';
+    var html = '<div data-style="padding:20px;">';
+    html += '<h3 data-style="color:#333;margin-bottom:12px;">Step 3: 标准答案对比</h3>';
 
     for(var i=0;i<steps.length;i++){
         var userAns = state.userAnswers[i]||'（未填写）';
         var modelAns = q.modelAnswer[modelKeys[i]]||'';
-        html += '<div style="margin-bottom:20px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;">';
-        html += '<div style="background:#f5f5f5;padding:10px 14px;font-weight:600;color:#333;font-size:14px;">步骤'+(i+1)+'：'+steps[i]+'</div>';
+        html += '<div data-style="margin-bottom:20px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;">';
+        html += '<div data-style="background:#f5f5f5;padding:10px 14px;font-weight:600;color:#333;font-size:14px;">步骤'+(i+1)+'：'+steps[i]+'</div>';
 
         // 用户答案
-        html += '<div style="padding:12px 14px;border-bottom:1px solid #f0f0f0;">';
-        html += '<div style="font-size:12px;color:#999;margin-bottom:4px;">📝 你的答案：</div>';
+        html += '<div data-style="padding:12px 14px;border-bottom:1px solid #f0f0f0;">';
+        html += '<div data-style="font-size:12px;color:#999;margin-bottom:4px;">📝 你的答案：</div>';
         var isEmpty = !userAns || userAns.trim()==='';
-        html += '<div style="font-size:14px;color:'+(isEmpty?'#e53935':'#333')+';line-height:1.6;white-space:pre-wrap;">'+userAns+'</div>';
+        html += '<div data-style="font-size:14px;color:'+(isEmpty?'#e53935':'#333')+';line-height:1.6;white-space:pre-wrap;">'+userAns+'</div>';
         html += '</div>';
 
         // 标准答案
-        html += '<div style="padding:12px 14px;background:#f9fff9;">';
-        html += '<div style="font-size:12px;color:#999;margin-bottom:4px;">✅ 标准答案：</div>';
-        html += '<div style="font-size:14px;color:#2e7d32;line-height:1.6;">'+modelAns+'</div>';
+        html += '<div data-style="padding:12px 14px;background:#f9fff9;">';
+        html += '<div data-style="font-size:12px;color:#999;margin-bottom:4px;">✅ 标准答案：</div>';
+        html += '<div data-style="font-size:14px;color:#2e7d32;line-height:1.6;">'+modelAns+'</div>';
         html += '</div>';
 
         // 对比标签
-        html += '<div style="padding:8px 14px;background:#fff;">';
+        html += '<div data-style="padding:8px 14px;background:#fff;">';
         if(isEmpty){
-            html += '<span style="color:#e53935;font-size:12px;">❌ 未填写</span>';
+            html += '<span data-style="color:#e53935;font-size:12px;">❌ 未填写</span>';
         } else {
-            html += '<span style="color:#0d7a3e;font-size:12px;">✓ 已填写 — 请自行逐条对比匹配</span>';
+            html += '<span data-style="color:#0d7a3e;font-size:12px;">✓ 已填写 — 请自行逐条对比匹配</span>';
         }
         html += '</div>';
         html += '</div>';
     }
 
-    html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回修改</button>';
-    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep4\" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">查看详细解析 →</button>';
+    html += '<div data-style="display:flex;gap:12px;margin-top:16px;">';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep2\" data-style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回修改</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep4\" data-style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">查看详细解析 →</button>';
     html += '</div>';
 
     html += '</div>';
@@ -260,53 +260,53 @@ function step4Analysis(){
     // 保存记录
     saveRecord(q.id, totalScore);
 
-    var html = '<div style="padding:20px;">';
-    html += '<h3 style="color:#333;margin-bottom:12px;">Step 4: 详细解析</h3>';
+    var html = '<div data-style="padding:20px;">';
+    html += '<h3 data-style="color:#333;margin-bottom:12px;">Step 4: 详细解析</h3>';
 
     // 总分展示
     var gradeColor = totalScore>=8?'#0d7a3e':(totalScore>=5?'#e65100':'#e53935');
     var gradeText = totalScore>=8?'优秀':(totalScore>=5?'良好':'需加强');
-    html += '<div style="text-align:center;padding:20px;margin-bottom:16px;background:#f5f5f5;border-radius:12px;">';
-    html += '<div style="font-size:36px;font-weight:700;color:'+gradeColor+';">'+totalScore+'<span style="font-size:16px;"> / 10</span></div>';
-    html += '<div style="font-size:16px;color:'+gradeColor+';margin-top:4px;">'+gradeText+'</div>';
+    html += '<div data-style="text-align:center;padding:20px;margin-bottom:16px;background:#f5f5f5;border-radius:12px;">';
+    html += '<div data-style="font-size:36px;font-weight:700;color:'+gradeColor+';">'+totalScore+'<span data-style="font-size:16px;"> / 10</span></div>';
+    html += '<div data-style="font-size:16px;color:'+gradeColor+';margin-top:4px;">'+gradeText+'</div>';
     html += '</div>';
 
     // 每步得分
-    html += '<div style="margin-bottom:20px;">';
-    html += '<h4 style="color:#333;margin-bottom:8px;">📊 各步骤得分</h4>';
+    html += '<div data-style="margin-bottom:20px;">';
+    html += '<h4 data-style="color:#333;margin-bottom:8px;">📊 各步骤得分</h4>';
     for(var j=0;j<steps.length;j++){
         var maxS = sp[modelKeys[j]]||Math.floor(10/steps.length);
-        html += '<div style="display:flex;align-items:center;margin-bottom:8px;">';
-        html += '<span style="width:120px;font-size:13px;color:#555;">步骤'+(j+1)+'：'+steps[j]+'</span>';
-        html += '<div style="flex:1;height:20px;background:#e0e0e0;border-radius:10px;overflow:hidden;margin:0 8px;">';
-        html += '<div style="height:100%;width:'+(stepScores[j]/maxS*100)+'%;background:'+getSubjectColor(q.subject)+';border-radius:10px;"></div>';
+        html += '<div data-style="display:flex;align-items:center;margin-bottom:8px;">';
+        html += '<span data-style="width:120px;font-size:13px;color:#555;">步骤'+(j+1)+'：'+steps[j]+'</span>';
+        html += '<div data-style="flex:1;height:20px;background:#e0e0e0;border-radius:10px;overflow:hidden;margin:0 8px;">';
+        html += '<div data-style="height:100%;width:'+(stepScores[j]/maxS*100)+'%;background:'+getSubjectColor(q.subject)+';border-radius:10px;"></div>';
         html += '</div>';
-        html += '<span style="font-size:13px;font-weight:600;color:#333;">'+stepScores[j]+'/'+maxS+'</span>';
+        html += '<span data-style="font-size:13px;font-weight:600;color:#333;">'+stepScores[j]+'/'+maxS+'</span>';
         html += '</div>';
     }
     html += '</div>';
 
     // 逻辑结构评价
-    html += '<div style="background:#f0f4ff;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
-    html += '<h4 style="color:#1a73e8;margin:0 0 6px 0;">🧠 逻辑结构评价</h4>';
-    html += '<p style="margin:0;color:#555;font-size:14px;line-height:1.6;">框架类型为<strong>'+FRAMEWORKS[q.framework].name+'</strong>，其核心逻辑在于按'+(q.framework==='原因分析'?'"原理→过程→结论"':'（请参照标准答案的步骤组织）')+'的因果链条组织答题。请将你的答案与标准答案逐步骤对照，检查是否每个步骤都涵盖了相应的得分关键点。</p>';
+    html += '<div data-style="background:#f0f4ff;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
+    html += '<h4 data-style="color:#1a73e8;margin:0 0 6px 0;">🧠 逻辑结构评价</h4>';
+    html += '<p data-style="margin:0;color:#555;font-size:14px;line-height:1.6;">框架类型为<strong>'+FRAMEWORKS[q.framework].name+'</strong>，其核心逻辑在于按'+(q.framework==='原因分析'?'"原理→过程→结论"':'（请参照标准答案的步骤组织）')+'的因果链条组织答题。请将你的答案与标准答案逐步骤对照，检查是否每个步骤都涵盖了相应的得分关键点。</p>';
     html += '</div>';
 
     // 关键得分点
-    html += '<div style="background:#fff9f0;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
-    html += '<h4 style="color:#e65100;margin:0 0 6px 0;">🎯 得分关键词</h4>';
-    html += '<p style="margin:0;color:#555;font-size:14px;">'+q.keyPoints.join('、')+'</p>';
+    html += '<div data-style="background:#fff9f0;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
+    html += '<h4 data-style="color:#e65100;margin:0 0 6px 0;">🎯 得分关键词</h4>';
+    html += '<p data-style="margin:0;color:#555;font-size:14px;">'+q.keyPoints.join('、')+'</p>';
     html += '</div>';
 
     // 常见失分点
-    html += '<div style="background:#fff0f0;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
-    html += '<h4 style="color:#e53935;margin:0 0 6px 0;">⚠️ 常见失分点</h4>';
-    html += '<p style="margin:0;color:#555;font-size:14px;line-height:1.6;">'+q.commonErrors+'</p>';
+    html += '<div data-style="background:#fff0f0;padding:14px 16px;border-radius:10px;margin-bottom:14px;">';
+    html += '<h4 data-style="color:#e53935;margin:0 0 6px 0;">⚠️ 常见失分点</h4>';
+    html += '<p data-style="margin:0;color:#555;font-size:14px;line-height:1.6;">'+q.commonErrors+'</p>';
     html += '</div>';
 
-    html += '<div style="display:flex;gap:12px;margin-top:16px;">';
-    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep3\" style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回对比</button>';
-    html += '<button data-call=\"window.frameworkAnswerTrainer._reset\" style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">做下一题</button>';
+    html += '<div data-style="display:flex;gap:12px;margin-top:16px;">';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._goStep3\" data-style="padding:10px 24px;background:#fff;color:#555;border:2px solid #ddd;border-radius:8px;font-size:14px;cursor:pointer;">← 返回对比</button>';
+    html += '<button data-call=\"window.frameworkAnswerTrainer._reset\" data-style="padding:10px 28px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;">做下一题</button>';
     html += '</div>';
 
     html += '</div>';
@@ -379,8 +379,8 @@ var trainer = {
         QuestionDataLoader._loadingPromise = null;
         var container = document.getElementById('framework-trainer-app');
         if(container){
-            container.innerHTML = '<div style="padding:40px;text-align:center;color:#666;">' +
-                '<div style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
+                '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
                 '<div>题库重新加载中...</div></div>';
         }
         QuestionDataLoader.load()
@@ -399,8 +399,8 @@ window.frameworkAnswerTrainer = trainer;
         setTimeout(init, 50);
         return;
     }
-    container.innerHTML = '<div style="padding:40px;text-align:center;color:#666;">' +
-        '<div style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+    container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
         '<div>题库加载中...</div></div>';
 
     QuestionDataLoader.load()
@@ -409,10 +409,10 @@ window.frameworkAnswerTrainer = trainer;
             render();
         })
         .catch(function(){
-            container.innerHTML = '<div style="padding:40px;text-align:center;color:#d32f2f;">' +
-                '<div style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
+            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
+                '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
                 '<div>题库加载失败，请检查网络后重试</div>' +
-                '<button data-call=\"window.frameworkAnswerTrainer._retry\" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+                '<button data-call=\"window.frameworkAnswerTrainer._retry\" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
                 '</div>';
         });
 })();
@@ -624,15 +624,15 @@ function renderExperimentTable(){
     var color = SUBJECT_COLORS[etState.currentSubject]||'#333';
     var exps = EXPERIMENTS[etState.currentSubject];
 
-    var html = '<div style="font-family:sans-serif;">';
+    var html = '<div data-style="font-family:sans-serif;">';
 
     // 顶部：tab切换
-    html += '<div style="display:flex;border-bottom:3px solid '+color+';margin-bottom:12px;">';
+    html += '<div data-style="display:flex;border-bottom:3px solid '+color+';margin-bottom:12px;">';
     var subjects = ['物理','化学','生物'];
     for(var i=0;i<subjects.length;i++){
         var s = subjects[i];
         var active = etState.currentSubject===s;
-        html += '<div data-call="window.experimentTable._switchSubject" data-arg1="@s:' + s + '" style="'+
+        html += '<div data-call="window.experimentTable._switchSubject" data-arg1="@s:' + s + '" data-style="'+
             'flex:1;text-align:center;padding:12px 8px;cursor:pointer;font-weight:'+(active?'700':'400')+';'+
             'color:'+(active?SUBJECT_COLORS[s]:'#999')+';border-bottom:'+(active?'3px solid '+SUBJECT_COLORS[s]:'3px solid transparent')+';'+
             'margin-bottom:-3px;transition:all 0.2s;font-size:15px;">'+s+'实验 ('+EXPERIMENTS[s].length+'个)</div>';
@@ -640,9 +640,9 @@ function renderExperimentTable(){
     html += '</div>';
 
     // 工具栏
-    html += '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px;">';
+    html += '<div data-style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px;">';
     // 筛选
-    html += '<select data-call=\"window.experimentTable._filterModule\" data-arg1=\"@val\" style="padding:6px 12px;border:2px solid #ddd;border-radius:8px;font-size:13px;cursor:pointer;">';
+    html += '<select data-call=\"window.experimentTable._filterModule\" data-arg1=\"@val\" data-style="padding:6px 12px;border:2px solid #ddd;border-radius:8px;font-size:13px;cursor:pointer;">';
     html += '<option value="all">全部实验</option>';
     var mods = getModulesForSubject(etState.currentSubject);
     for(var m=0;m<mods.length;m++){
@@ -650,33 +650,33 @@ function renderExperimentTable(){
     }
     html += '</select>';
     // 全覆盖按钮
-    html += '<button data-call=\"window.experimentTable._toggleAll\" style="padding:6px 16px;border:2px solid '+color+';border-radius:8px;background:#fff;color:'+color+';cursor:pointer;font-size:13px;">'+(etState.expandedAll?'全部收起':'全部展开')+'</button>';
+    html += '<button data-call=\"window.experimentTable._toggleAll\" data-style="padding:6px 16px;border:2px solid '+color+';border-radius:8px;background:#fff;color:'+color+';cursor:pointer;font-size:13px;">'+(etState.expandedAll?'全部收起':'全部展开')+'</button>';
     // 导出按钮
-    html += '<button data-call=\"window.experimentTable._exportAll\" style="padding:6px 16px;border:2px solid #28a745;border-radius:8px;background:#fff;color:#28a745;cursor:pointer;font-size:13px;">📋 导出纯文本</button>';
+    html += '<button data-call=\"window.experimentTable._exportAll\" data-style="padding:6px 16px;border:2px solid #28a745;border-radius:8px;background:#fff;color:#28a745;cursor:pointer;font-size:13px;">📋 导出纯文本</button>';
     html += '</div>';
 
     // 实验列表
-    html += '<div style="max-height:500px;overflow-y:auto;">';
+    html += '<div data-style="max-height:500px;overflow-y:auto;">';
     for(var j=0;j<exps.length;j++){
         var exp = exps[j];
         if(etState.filterModule!=='all' && exp.module!==etState.filterModule) continue;
         var isOpen = etState.expandedAll;
-        html += '<div style="margin-bottom:8px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;">';
+        html += '<div data-style="margin-bottom:8px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;">';
         // 标题栏
-        html += '<div data-call="window.experimentTable._toggleExperiment" data-arg1="@s:' + exp.id + '" style="'+
+        html += '<div data-call="window.experimentTable._toggleExperiment" data-arg1="@s:' + exp.id + '" data-style="'+
             'padding:10px 14px;background:'+color+';color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">';
-        html += '<span style="font-weight:600;font-size:14px;">'+(j+1)+'. '+exp['实验目的']+'</span>';
-        html += '<span style="font-size:12px;opacity:0.9;">'+exp.module+' '+(isOpen?'▲':'▼')+'</span>';
+        html += '<span data-style="font-weight:600;font-size:14px;">'+(j+1)+'. '+exp['实验目的']+'</span>';
+        html += '<span data-style="font-size:12px;opacity:0.9;">'+exp.module+' '+(isOpen?'▲':'▼')+'</span>';
         html += '</div>';
         // 表格内容
-        html += '<div style="display:'+(isOpen?'block':'none')+';" id="exp-body-'+exp.id+'">';
-        html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+        html += '<div data-style="display:'+(isOpen?'block':'none')+';" id="exp-body-'+exp.id+'">';
+        html += '<table data-style="width:100%;border-collapse:collapse;font-size:13px;">';
         for(var c=0;c<COLUMNS.length;c++){
             var col = COLUMNS[c];
             var colContent = exp[col]||'';
-            html += '<tr style="border-bottom:1px solid #f0f0f0;">';
-            html += '<td style="padding:8px 12px;background:#f9f9f9;font-weight:600;color:'+color+';width:120px;vertical-align:top;font-size:12px;">'+col+'</td>';
-            html += '<td style="padding:8px 12px;line-height:1.7;color:#444;">'+colContent+'</td>';
+            html += '<tr data-style="border-bottom:1px solid #f0f0f0;">';
+            html += '<td data-style="padding:8px 12px;background:#f9f9f9;font-weight:600;color:'+color+';width:120px;vertical-align:top;font-size:12px;">'+col+'</td>';
+            html += '<td data-style="padding:8px 12px;line-height:1.7;color:#444;">'+colContent+'</td>';
             html += '</tr>';
         }
         html += '</table>';
@@ -894,18 +894,18 @@ function renderThinkingChain(){
     var container = document.getElementById('thinking-chain-app');
     if(!container) return;
 
-    var html = '<div style="display:flex;height:600px;font-family:sans-serif;gap:0;">';
+    var html = '<div data-style="display:flex;height:600px;font-family:sans-serif;gap:0;">';
 
     // 左侧：题目列表
-    html += '<div style="width:280px;min-width:280px;border-right:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;">';
-    html += '<div style="padding:12px;background:#333;color:#fff;font-weight:600;font-size:14px;">📋 题目列表</div>';
+    html += '<div data-style="width:280px;min-width:280px;border-right:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;">';
+    html += '<div data-style="padding:12px;background:#333;color:#fff;font-weight:600;font-size:14px;">📋 题目列表</div>';
     // 科目过滤
-    html += '<div style="padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap;">';
+    html += '<div data-style="padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap;">';
     var subFilters = ['all','物理','化学','生物'];
     for(var i=0;i<subFilters.length;i++){
         var sf = subFilters[i];
         var active = tcState.selectedSubject===sf;
-        html += '<button data-call="window.thinkingChain._filterSubject" data-arg1="@s:' + sf + '" style="'+
+        html += '<button data-call="window.thinkingChain._filterSubject" data-arg1="@s:' + sf + '" data-style="'+
             'padding:3px 10px;border:1px solid '+(active?'#1a73e8':'#ddd')+';border-radius:14px;font-size:11px;'+
             'background:'+(active?'#1a73e8':'#fff')+';color:'+(active?'#fff':'#555')+';cursor:pointer;">'+(sf==='all'?'全部':sf)+'</button>';
     }
@@ -914,49 +914,49 @@ function renderThinkingChain(){
         var q = THINKING_QUESTIONS[j];
         if(tcState.selectedSubject!=='all' && q.subject!==tcState.selectedSubject) continue;
         var isSelected = tcState.currentQuestion && tcState.currentQuestion.id===q.id;
-        html += '<div data-call="window.thinkingChain._selectQuestion" data-arg1="@s:' + q.id + '" style="'+
+        html += '<div data-call="window.thinkingChain._selectQuestion" data-arg1="@s:' + q.id + '" data-style="'+
             'padding:10px 12px;border-bottom:1px solid #eee;cursor:pointer;'+
             'background:'+(isSelected?'#e8f0fe':'#fff')+';border-left:'+(isSelected?'4px solid #1a73e8':'4px solid transparent')+';">';
-        html += '<div style="font-size:11px;color:#888;">'+q.subject+' · '+q.year+'</div>';
-        html += '<div style="font-size:13px;font-weight:600;color:#333;">'+q.title+'</div>';
+        html += '<div data-style="font-size:11px;color:#888;">'+q.subject+' · '+q.year+'</div>';
+        html += '<div data-style="font-size:13px;font-weight:600;color:#333;">'+q.title+'</div>';
         html += '</div>';
     }
     html += '</div>';
 
     // 中间：思维链SVG可视化
-    html += '<div style="flex:1;overflow-y:auto;padding:16px;background:#fff;">';
+    html += '<div data-style="flex:1;overflow-y:auto;padding:16px;background:#fff;">';
     if(tcState.currentQuestion){
-        html += '<h3 style="color:#333;margin:0 0 16px 0;font-size:16px;">'+tcState.currentQuestion.title+'</h3>';
+        html += '<h3 data-style="color:#333;margin:0 0 16px 0;font-size:16px;">'+tcState.currentQuestion.title+'</h3>';
         html += renderSVGChain(tcState.currentQuestion);
     } else {
-        html += '<div style="text-align:center;color:#999;padding-top:200px;">👈 请从左侧选择一道题目开始分析</div>';
+        html += '<div data-style="text-align:center;color:#999;padding-top:200px;">👈 请从左侧选择一道题目开始分析</div>';
     }
     html += '</div>';
 
     // 右侧：详情面板
-    html += '<div style="width:300px;min-width:300px;border-left:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;padding:16px;">';
+    html += '<div data-style="width:300px;min-width:300px;border-left:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;padding:16px;">';
     if(tcState.currentQuestion && tcState.currentQuestion.thinkingSteps[tcState.currentStepIndex]){
         var step = tcState.currentQuestion.thinkingSteps[tcState.currentStepIndex];
-        html += '<h4 style="color:#1a73e8;margin:0 0 12px 0;">步骤 '+(tcState.currentStepIndex+1)+'/'+tcState.currentQuestion.thinkingSteps.length+'</h4>';
-        html += '<div style="background:#fff;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #e0e0e0;">';
-        html += '<div style="font-size:12px;color:#888;margin-bottom:4px;">📌 看到条件</div>';
-        html += '<div style="font-size:13px;color:#333;">'+step.condition+'</div>';
+        html += '<h4 data-style="color:#1a73e8;margin:0 0 12px 0;">步骤 '+(tcState.currentStepIndex+1)+'/'+tcState.currentQuestion.thinkingSteps.length+'</h4>';
+        html += '<div data-style="background:#fff;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #e0e0e0;">';
+        html += '<div data-style="font-size:12px;color:#888;margin-bottom:4px;">📌 看到条件</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+step.condition+'</div>';
         html += '</div>';
-        html += '<div style="background:#e8f5e9;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #c8e6c9;">';
-        html += '<div style="font-size:12px;color:#2e7d32;margin-bottom:4px;">💡 应该想到</div>';
-        html += '<div style="font-size:13px;color:#333;">'+step.think+'</div>';
+        html += '<div data-style="background:#e8f5e9;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #c8e6c9;">';
+        html += '<div data-style="font-size:12px;color:#2e7d32;margin-bottom:4px;">💡 应该想到</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+step.think+'</div>';
         html += '</div>';
-        html += '<div style="background:#fff3e0;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #ffe0b2;">';
-        html += '<div style="font-size:12px;color:#e65100;margin-bottom:4px;">🤔 为什么这样想</div>';
-        html += '<div style="font-size:13px;color:#333;">'+step.why+'</div>';
+        html += '<div data-style="background:#fff3e0;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #ffe0b2;">';
+        html += '<div data-style="font-size:12px;color:#e65100;margin-bottom:4px;">🤔 为什么这样想</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+step.why+'</div>';
         html += '</div>';
-        html += '<div style="background:#e3f2fd;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #bbdefb;">';
-        html += '<div style="font-size:12px;color:#1565c0;margin-bottom:4px;">➡️ 下一步</div>';
-        html += '<div style="font-size:13px;color:#333;">'+step.next+'</div>';
+        html += '<div data-style="background:#e3f2fd;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #bbdefb;">';
+        html += '<div data-style="font-size:12px;color:#1565c0;margin-bottom:4px;">➡️ 下一步</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+step.next+'</div>';
         html += '</div>';
-        html += '<div style="background:#fce4ec;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #f8bbd0;">';
-        html += '<div style="font-size:12px;color:#c62828;margin-bottom:4px;">⚠️ 可能的弯路</div>';
-        html += '<div style="font-size:13px;color:#333;">'+step.pitfall+'</div>';
+        html += '<div data-style="background:#fce4ec;padding:12px;border-radius:8px;margin-bottom:10px;border:1px solid #f8bbd0;">';
+        html += '<div data-style="font-size:12px;color:#c62828;margin-bottom:4px;">⚠️ 可能的弯路</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+step.pitfall+'</div>';
         html += '</div>';
     }
     html += '</div>';
@@ -965,12 +965,12 @@ function renderThinkingChain(){
 
     // 底部：控制栏
     if(tcState.currentQuestion){
-        html += '<div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:12px;background:#f5f5f5;border-top:1px solid #e0e0e0;">';
-        html += '<button data-call=\"window.thinkingChain._prevStep\" style="padding:8px 18px;background:'+(tcState.currentStepIndex>0?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex>0?'pointer':'default')+';" '+(tcState.currentStepIndex>0?'':'disabled')+'>◀ 上一步</button>';
-        html += '<span style="font-size:13px;color:#555;">步骤 '+(tcState.currentStepIndex+1)+' / '+tcState.currentQuestion.thinkingSteps.length+'</span>';
-        html += '<button data-call=\"window.thinkingChain._nextStep\" style="padding:8px 18px;background:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'pointer':'default')+';" '+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'':'disabled')+'>下一步 ▶</button>';
-        html += '<button data-call=\"window.thinkingChain._autoPlay\" style="padding:8px 18px;background:'+(tcState.autoPlaying?'#e53935':'#0d7a3e')+';color:#fff;border:none;border-radius:6px;cursor:pointer;">'+(tcState.autoPlaying?'⏸ 停止':'▶ 自动播放')+'</button>';
-        html += '<button data-call=\"window.thinkingChain._showAnswer\" style="padding:8px 18px;background:#7b1fa2;color:#fff;border:none;border-radius:6px;cursor:pointer;">📝 完整答案</button>';
+        html += '<div data-style="display:flex;align-items:center;justify-content:center;gap:16px;padding:12px;background:#f5f5f5;border-top:1px solid #e0e0e0;">';
+        html += '<button data-call=\"window.thinkingChain._prevStep\" data-style="padding:8px 18px;background:'+(tcState.currentStepIndex>0?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex>0?'pointer':'default')+';" '+(tcState.currentStepIndex>0?'':'disabled')+'>◀ 上一步</button>';
+        html += '<span data-style="font-size:13px;color:#555;">步骤 '+(tcState.currentStepIndex+1)+' / '+tcState.currentQuestion.thinkingSteps.length+'</span>';
+        html += '<button data-call=\"window.thinkingChain._nextStep\" data-style="padding:8px 18px;background:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'#1a73e8':'#ccc')+';color:#fff;border:none;border-radius:6px;cursor:'+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'pointer':'default')+';" '+(tcState.currentStepIndex<tcState.currentQuestion.thinkingSteps.length-1?'':'disabled')+'>下一步 ▶</button>';
+        html += '<button data-call=\"window.thinkingChain._autoPlay\" data-style="padding:8px 18px;background:'+(tcState.autoPlaying?'#e53935':'#0d7a3e')+';color:#fff;border:none;border-radius:6px;cursor:pointer;">'+(tcState.autoPlaying?'⏸ 停止':'▶ 自动播放')+'</button>';
+        html += '<button data-call=\"window.thinkingChain._showAnswer\" data-style="padding:8px 18px;background:#7b1fa2;color:#fff;border:none;border-radius:6px;cursor:pointer;">📝 完整答案</button>';
         html += '</div>';
     }
 
@@ -985,7 +985,7 @@ function renderSVGChain(q){
     var totalH = steps.length*(nodeH+gapY)+40;
     var svgW = 480;
 
-    var svg = '<svg width="'+svgW+'" height="'+totalH+'" style="display:block;margin:0 auto;">';
+    var svg = '<svg width="'+svgW+'" height="'+totalH+'" data-style="display:block;margin:0 auto;">';
     // 连线
     for(var i=0;i<steps.length-1;i++){
         var y1 = i*(nodeH+gapY)+nodeH+20;
@@ -1197,11 +1197,11 @@ function renderVariationRecommender(){
     var container = document.getElementById('variation-rec-app');
     if(!container) return;
 
-    var html = '<div style="display:flex;font-family:sans-serif;min-height:500px;">';
+    var html = '<div data-style="display:flex;font-family:sans-serif;min-height:500px;">';
 
     // 左侧：知识点分组列表
-    html += '<div style="width:220px;min-width:220px;border-right:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;">';
-    html += '<div style="padding:12px;background:#333;color:#fff;font-weight:600;font-size:14px;">📚 知识点分类</div>';
+    html += '<div data-style="width:220px;min-width:220px;border-right:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;">';
+    html += '<div data-style="padding:12px;background:#333;color:#fff;font-weight:600;font-size:14px;">📚 知识点分类</div>';
     var groups = getKnowledgeGroups();
     var bank = VariationDataLoader.getCached();
     for(var i=0;i<groups.length;i++){
@@ -1210,25 +1210,25 @@ function renderVariationRecommender(){
         var active = vrState.selectedGroup===g;
         var count = 0;
         for(var k=0;k<bank.length;k++){ if(bank[k].knowledge===g) count++; }
-        html += '<div data-call="window.variationRecommender._selectGroup" data-arg1="@s:' + g + '" style="'+
+        html += '<div data-call="window.variationRecommender._selectGroup" data-arg1="@s:' + g + '" data-style="'+
             'padding:10px 12px;border-bottom:1px solid #eee;cursor:pointer;'+
             'background:'+(active?'#e8f0fe':'#fff')+';border-left:'+(active?'4px solid '+getSubjectColor2(subj):'4px solid transparent')+';">';
-        html += '<div style="font-size:12px;color:'+getSubjectColor2(subj)+';font-weight:600;">'+subj+'</div>';
-        html += '<div style="font-size:13px;color:#333;">'+g+' ('+count+'题)</div>';
+        html += '<div data-style="font-size:12px;color:'+getSubjectColor2(subj)+';font-weight:600;">'+subj+'</div>';
+        html += '<div data-style="font-size:13px;color:#333;">'+g+' ('+count+'题)</div>';
         html += '</div>';
     }
     html += '</div>';
 
     // 中间：题目展示区
-    html += '<div style="flex:1;overflow-y:auto;padding:16px;background:#fff;">';
+    html += '<div data-style="flex:1;overflow-y:auto;padding:16px;background:#fff;">';
     if(vrState.selectedGroup){
         var groupQuestions = [];
         for(var q=0;q<bank.length;q++){
             if(bank[q].knowledge===vrState.selectedGroup) groupQuestions.push(bank[q]);
         }
         var subjCol = getSubjectColor2(getSubjectForGroup(vrState.selectedGroup));
-        html += '<h3 style="color:'+subjCol+';font-size:16px;margin:0 0 4px 0;">'+vrState.selectedGroup+'</h3>';
-        html += '<p style="color:#999;font-size:12px;margin:0 0 16px 0;">共 '+groupQuestions.length+' 道变式题</p>';
+        html += '<h3 data-style="color:'+subjCol+';font-size:16px;margin:0 0 4px 0;">'+vrState.selectedGroup+'</h3>';
+        html += '<p data-style="color:#999;font-size:12px;margin:0 0 16px 0;">共 '+groupQuestions.length+' 道变式题</p>';
 
         for(var qi=0;qi<groupQuestions.length;qi++){
             var gq = groupQuestions[qi];
@@ -1236,23 +1236,23 @@ function renderVariationRecommender(){
             var isDone = history[gq.id];
             var isSelected = vrState.selectedQuestion && vrState.selectedQuestion.id===gq.id;
 
-            html += '<div style="margin-bottom:12px;border:2px solid '+(isSelected?subjCol:'#e0e0e0')+';border-radius:10px;overflow:hidden;">';
+            html += '<div data-style="margin-bottom:12px;border:2px solid '+(isSelected?subjCol:'#e0e0e0')+';border-radius:10px;overflow:hidden;">';
             // 题目标题
-            html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + gq.id + '" style="'+
+            html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + gq.id + '" data-style="'+
                 'padding:10px 14px;background:'+(isSelected?subjCol:'#f5f5f5')+';color:'+(isSelected?'#fff':'#333')+';cursor:pointer;font-size:13px;font-weight:600;">';
             html += (qi+1)+'. '+gq.title;
-            html += '<span style="float:right;font-size:11px;opacity:0.8;margin-left:8px;">难度：'+gq.difficulty+'</span>';
-            if(isDone){ html += '<span style="float:right;font-size:11px;color:#4caf50;">✓ 已做</span>'; }
+            html += '<span data-style="float:right;font-size:11px;opacity:0.8;margin-left:8px;">难度：'+gq.difficulty+'</span>';
+            if(isDone){ html += '<span data-style="float:right;font-size:11px;color:#4caf50;">✓ 已做</span>'; }
             html += '</div>';
 
             // 题目详情
             if(isSelected){
-                html += '<div style="padding:14px;">';
-                html += '<div style="font-size:14px;color:#333;line-height:1.7;margin-bottom:12px;">'+gq.question+'</div>';
+                html += '<div data-style="padding:14px;">';
+                html += '<div data-style="font-size:14px;color:#333;line-height:1.7;margin-bottom:12px;">'+gq.question+'</div>';
                 // 选项
                 if(gq.options){
                     var opts = gq.options;
-                    html += '<div style="margin-bottom:12px;">';
+                    html += '<div data-style="margin-bottom:12px;">';
                     var optKeys = Object.keys(opts);
                     for(var oi=0;oi<optKeys.length;oi++){
                         var ok = optKeys[oi];
@@ -1261,7 +1261,7 @@ function renderVariationRecommender(){
                         var isWrong = vrState.showAnswer[gq.id] && userChoice===ok && ok!==gq.answer;
                         var bgColor = isCorrect?'#e8f5e9':(isWrong?'#ffebee':'#fafafa');
                         var borderColor = isCorrect?'#4caf50':(isWrong?'#e53935':'#e0e0e0');
-                        html += '<div data-call="window.variationRecommender._chooseOption" data-arg1="@s:' + gq.id + '" data-arg2="@s:' + ok + '" style="'+
+                        html += '<div data-call="window.variationRecommender._chooseOption" data-arg1="@s:' + gq.id + '" data-arg2="@s:' + ok + '" data-style="'+
                             'padding:8px 12px;margin-bottom:4px;border:1px solid '+borderColor+';border-radius:6px;'+
                             'background:'+bgColor+';cursor:pointer;font-size:13px;">';
                         html += ok+'. '+opts[ok];
@@ -1273,14 +1273,14 @@ function renderVariationRecommender(){
                 }
                 // 按钮
                 if(!vrState.showAnswer[gq.id]){
-                    html += '<button data-call="window.variationRecommender._checkAnswer" data-arg1="@s:' + gq.id + '" style="'+
+                    html += '<button data-call="window.variationRecommender._checkAnswer" data-arg1="@s:' + gq.id + '" data-style="'+
                         'padding:8px 20px;background:'+subjCol+';color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">提交答案</button>';
                 } else {
-                    html += '<div style="background:#f0f4ff;padding:10px 14px;border-radius:8px;margin-top:8px;">';
-                    html += '<div style="font-size:12px;color:'+subjCol+';font-weight:600;">📝 解析</div>';
-                    html += '<div style="font-size:13px;color:#555;line-height:1.6;">'+gq.explanation+'</div>';
+                    html += '<div data-style="background:#f0f4ff;padding:10px 14px;border-radius:8px;margin-top:8px;">';
+                    html += '<div data-style="font-size:12px;color:'+subjCol+';font-weight:600;">📝 解析</div>';
+                    html += '<div data-style="font-size:13px;color:#555;line-height:1.6;">'+gq.explanation+'</div>';
                     html += '</div>';
-                    html += '<button data-call="window.variationRecommender._resetQuestion" data-arg1="@s:' + gq.id + '" style="'+
+                    html += '<button data-call="window.variationRecommender._resetQuestion" data-arg1="@s:' + gq.id + '" data-style="'+
                         'margin-top:8px;padding:6px 16px;background:#fff;color:#555;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;">重新作答</button>';
                 }
                 html += '</div>';
@@ -1288,30 +1288,30 @@ function renderVariationRecommender(){
             html += '</div>';
         }
     } else {
-        html += '<div style="text-align:center;color:#999;padding-top:200px;">👈 请从左侧选择一个知识点分组</div>';
+        html += '<div data-style="text-align:center;color:#999;padding-top:200px;">👈 请从左侧选择一个知识点分组</div>';
     }
     html += '</div>';
 
     // 右侧：推荐变式题列表
-    html += '<div style="width:240px;min-width:240px;border-left:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;padding:12px;">';
-    html += '<div style="font-weight:600;color:#333;font-size:14px;margin-bottom:12px;">🔗 变式推荐</div>';
+    html += '<div data-style="width:240px;min-width:240px;border-left:1px solid #e0e0e0;overflow-y:auto;background:#fafafa;padding:12px;">';
+    html += '<div data-style="font-weight:600;color:#333;font-size:14px;margin-bottom:12px;">🔗 变式推荐</div>';
     if(vrState.selectedQuestion){
         var related = getTagRelatedQuestions(vrState.selectedQuestion);
         if(related.length>0){
             for(var ri=0;ri<related.length;ri++){
                 var rq = related[ri].question;
-                html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + rq.id + '" style="'+
+                html += '<div data-call="window.variationRecommender._selectVarQuestion" data-arg1="@s:' + rq.id + '" data-style="'+
                     'padding:8px 10px;margin-bottom:6px;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;'+
                     'background:#fff;transition:all 0.15s;">';
-                html += '<div style="font-size:12px;font-weight:600;color:#333;">'+rq.title+'</div>';
-                html += '<div style="font-size:11px;color:#888;margin-top:2px;">难度：'+rq.difficulty+' | 关联度：★★★★★</div>';
+                html += '<div data-style="font-size:12px;font-weight:600;color:#333;">'+rq.title+'</div>';
+                html += '<div data-style="font-size:11px;color:#888;margin-top:2px;">难度：'+rq.difficulty+' | 关联度：★★★★★</div>';
                 html += '</div>';
             }
         } else {
-            html += '<div style="color:#999;font-size:12px;">暂无同组变式题</div>';
+            html += '<div data-style="color:#999;font-size:12px;">暂无同组变式题</div>';
         }
     } else {
-        html += '<div style="color:#999;font-size:12px;">选择一道题目后<br>自动推荐变式题</div>';
+        html += '<div data-style="color:#999;font-size:12px;">选择一道题目后<br>自动推荐变式题</div>';
     }
     html += '</div>';
 
@@ -1356,8 +1356,8 @@ var vrModule = {
         VariationDataLoader._loadingPromise = null;
         var container = document.getElementById('variation-rec-app');
         if(container){
-            container.innerHTML = '<div style="padding:40px;text-align:center;color:#666;">' +
-                '<div style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
+                '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
                 '<div>题库重新加载中...</div></div>';
         }
         VariationDataLoader.load()
@@ -1375,8 +1375,8 @@ window.variationRecommender = vrModule;
         setTimeout(init, 50);
         return;
     }
-    container.innerHTML = '<div style="padding:40px;text-align:center;color:#666;">' +
-        '<div style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+    container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
         '<div>变式题库加载中...</div></div>';
 
     VariationDataLoader.load()
@@ -1385,10 +1385,10 @@ window.variationRecommender = vrModule;
             renderVariationRecommender();
         })
         .catch(function(){
-            container.innerHTML = '<div style="padding:40px;text-align:center;color:#d32f2f;">' +
-                '<div style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
+            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
+                '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
                 '<div>变式题库加载失败，请检查网络后重试</div>' +
-                '<button data-call=\"window.variationRecommender._retry\" style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+                '<button data-call=\"window.variationRecommender._retry\" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
                 '</div>';
         });
 })();

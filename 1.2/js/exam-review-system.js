@@ -477,15 +477,15 @@ var ExamSystem={
         h+='<div class="knowledge-card"><h4>📅 年度命题分析</h4>';
         data.yearlyAnalysis.forEach(function(y){
             h+='<div class="key-point"><strong>'+y.year+'年</strong>（难度系数'+y.difficulty+'）：'+y.features+'</div>';
-            h+='<div style="margin-left:20px;margin-bottom:8px;">高频考点：'+y.hotTopics.join('、')+'</div>';
+            h+='<div data-style="margin-left:20px;margin-bottom:8px;">高频考点：'+y.hotTopics.join('、')+'</div>';
         });
         h+='</div>';
         h+='<div class="knowledge-card"><h4>🔥 高频考点统计（5年累计）</h4>';
-        h+='<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
-        h+='<tr style="background:var(--primary);color:#fff;"><th style="padding:8px;border:1px solid #ddd;">考点</th><th style="padding:8px;border:1px solid #ddd;">出现次数</th><th style="padding:8px;border:1px solid #ddd;">难度</th><th style="padding:8px;border:1px solid #ddd;">题型</th><th style="padding:8px;border:1px solid #ddd;">趋势</th></tr>';
+        h+='<table data-style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
+        h+='<tr data-style="background:var(--primary);color:#fff;"><th data-style="padding:8px;border:1px solid #ddd;">考点</th><th data-style="padding:8px;border:1px solid #ddd;">出现次数</th><th data-style="padding:8px;border:1px solid #ddd;">难度</th><th data-style="padding:8px;border:1px solid #ddd;">题型</th><th data-style="padding:8px;border:1px solid #ddd;">趋势</th></tr>';
         data.frequency.forEach(function(f){
             var stars='';for(var i=0;i<f.frequency;i++) stars+='★';
-            h+='<tr><td style="padding:6px;border:1px solid #ddd;">'+f.topic+'</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">'+stars+'</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">'+f.difficulty+'</td><td style="padding:6px;border:1px solid #ddd;">'+f.type+'</td><td style="padding:6px;border:1px solid #ddd;">'+f.trend+'</td></tr>';
+            h+='<tr><td data-style="padding:6px;border:1px solid #ddd;">'+f.topic+'</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">'+stars+'</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">'+f.difficulty+'</td><td data-style="padding:6px;border:1px solid #ddd;">'+f.type+'</td><td data-style="padding:6px;border:1px solid #ddd;">'+f.trend+'</td></tr>';
         });
         h+='</table></div>';
         h+='<div class="knowledge-card"><h4>📋 分值分布</h4>';
@@ -500,11 +500,11 @@ var ExamSystem={
         var data=this.reviewRound1[subject];
         if(!data) return '<p>一轮复习内容正在开发中...</p>';
         var h='<div class="knowledge-section"><h3>📖 '+data.name+'一轮复习计划</h3>';
-        h+='<p style="color:var(--text-secondary);margin-bottom:16px;">'+data.description+'</p>';
+        h+='<p data-style="color:var(--text-secondary);margin-bottom:16px;">'+data.description+'</p>';
         data.schedule.forEach(function(s){
             h+='<div class="knowledge-card"><h4>'+s.phase+'：'+s.topic+'</h4>';
             h+='<div class="key-point"><strong>难度梯度：</strong>'+s.difficulty+'</div>';
-            h+='<div class="key-point"><strong>核心要点：</strong></div><ul style="margin-left:20px;">';
+            h+='<div class="key-point"><strong>核心要点：</strong></div><ul data-style="margin-left:20px;">';
             s.keyPoints.forEach(function(kp){h+='<li>'+kp+'</li>';});
             h+='</ul>';
             h+='<div class="key-point"><strong>配套练习：</strong>'+s.exercises+'题</div>';
@@ -518,7 +518,7 @@ var ExamSystem={
         var data=this.reviewRound2[subject];
         if(!data) return '<p>二轮专题内容正在开发中...</p>';
         var h='<div class="knowledge-section"><h3>🎯 '+data.name+'二轮专题复习</h3>';
-        h+='<p style="color:var(--text-secondary);margin-bottom:16px;">'+data.description+'</p>';
+        h+='<p data-style="color:var(--text-secondary);margin-bottom:16px;">'+data.description+'</p>';
         data.topics.forEach(function(t){
             h+='<div class="knowledge-card"><h4>'+t.title+'</h4>';
             h+='<div class="key-point"><strong>核心突破：</strong>'+t.core+'</div>';
@@ -537,34 +537,34 @@ var ExamSystem={
         if(!questions) return '<p>互动练习正在开发中...</p>';
         var subjectNames={physics:'物理',chemistry:'化学',biology:'生物',chinese:'语文',math:'数学'};
         var h='<div class="knowledge-section"><h3>✍️ '+subjectNames[subject]+'互动练习</h3>';
-        h+='<div style="margin-bottom:16px;padding:12px;background:var(--bg-secondary);border-radius:8px;">';
+        h+='<div data-style="margin-bottom:16px;padding:12px;background:var(--bg-secondary);border-radius:8px;">';
         h+='<strong>答题说明：</strong>点击选项选择答案，系统将即时反馈正误并显示解析。难度标记：⭐基础 ⭐⭐中等 ⭐⭐⭐较难';
         h+='</div>';
-        h+='<div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">';
-        h+='<span style="font-weight:600;">难度筛选：</span>';
-        h+='<button class="quiz-filter-btn active" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="0" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">全部</button>';
-        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="1" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐基础</button>';
-        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="2" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐中等</button>';
-        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="3" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐⭐较难</button>';
-        h+='<button data-call="ExamSystem.showErrorBook" data-arg1="@s:' + subject + '" style="padding:6px 14px;border-radius:20px;border:1px solid #f44336;background:#fff0f0;cursor:pointer;font-size:0.85rem;color:#c62828;">📓错题本</button>';
+        h+='<div data-style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">';
+        h+='<span data-style="font-weight:600;">难度筛选：</span>';
+        h+='<button class="quiz-filter-btn active" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="0" data-style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">全部</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="1" data-style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐基础</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="2" data-style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐中等</button>';
+        h+='<button class="quiz-filter-btn" data-call="ExamSystem.filterQuiz" data-arg1="@s:' + subject + '" data-arg2="3" data-style="padding:6px 14px;border-radius:20px;border:1px solid var(--border-color);cursor:pointer;font-size:0.85rem;">⭐⭐⭐较难</button>';
+        h+='<button data-call="ExamSystem.showErrorBook" data-arg1="@s:' + subject + '" data-style="padding:6px 14px;border-radius:20px;border:1px solid #f44336;background:#fff0f0;cursor:pointer;font-size:0.85rem;color:#c62828;">📓错题本</button>';
         h+='</div>';
         h+='<div id="quiz-container-'+subject+'">';
         questions.forEach(function(q,idx){
             var diffStr='';for(var d=0;d<q.difficulty;d++) diffStr+='⭐';
-            h+='<div class="knowledge-card quiz-question-card" id="quiz-q-'+subject+'-'+idx+'" data-difficulty="'+q.difficulty+'" style="margin-bottom:12px;">';
-            h+='<h4>第'+(idx+1)+'题 <span style="font-size:0.8rem;color:var(--text-secondary);">['+q.chapter+'] '+diffStr+'</span></h4>';
-            h+='<p style="font-weight:bold;margin-bottom:10px;">'+q.question+'</p>';
+            h+='<div class="knowledge-card quiz-question-card" id="quiz-q-'+subject+'-'+idx+'" data-difficulty="'+q.difficulty+'" data-style="margin-bottom:12px;">';
+            h+='<h4>第'+(idx+1)+'题 <span data-style="font-size:0.8rem;color:var(--text-secondary);">['+q.chapter+'] '+diffStr+'</span></h4>';
+            h+='<p data-style="font-weight:bold;margin-bottom:10px;">'+q.question+'</p>';
             q.options.forEach(function(opt,oi){
-                h+='<div class="quiz-option" data-subject="'+subject+'" data-qidx="'+idx+'" data-oidx="'+oi+'" style="padding:8px 12px;margin:4px 0;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;transition:all 0.2s;" data-call="ExamSystem.checkAnswer" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '" data-arg4="' + oi + '">';
+                h+='<div class="quiz-option" data-subject="'+subject+'" data-qidx="'+idx+'" data-oidx="'+oi+'" data-style="padding:8px 12px;margin:4px 0;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;transition:all 0.2s;" data-call="ExamSystem.checkAnswer" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '" data-arg4="' + oi + '">';
                 h+=String.fromCharCode(65+oi)+'. '+opt;
                 h+='</div>';
             });
-            h+='<div id="quiz-feedback-'+subject+'-'+idx+'" style="display:none;margin-top:8px;"></div>';
+            h+='<div id="quiz-feedback-'+subject+'-'+idx+'" data-style="display:none;margin-top:8px;"></div>';
             h+='</div>';
         });
         h+='</div>';
-        h+='<div id="quiz-score-'+subject+'" style="margin-top:16px;padding:16px;background:var(--bg-secondary);border-radius:8px;display:none;"></div>';
-        h+='<div id="quiz-errorbook-'+subject+'" style="display:none;margin-top:16px;"></div>';
+        h+='<div id="quiz-score-'+subject+'" data-style="margin-top:16px;padding:16px;background:var(--bg-secondary);border-radius:8px;display:none;"></div>';
+        h+='<div id="quiz-errorbook-'+subject+'" data-style="display:none;margin-top:16px;"></div>';
         h+='</div>';
         return h;
     },
@@ -592,12 +592,12 @@ var ExamSystem={
         if(!el) return;
         var errors=this.errorBook[subject]||[];
         if(el.style.display==='block'){el.style.display='none';return;}
-        if(errors.length===0){el.style.display='block';el.innerHTML='<div style="padding:16px;background:#e8f5e9;border-radius:8px;text-align:center;">🎉 暂无错题，继续保持！</div>';return;}
+        if(errors.length===0){el.style.display='block';el.innerHTML='<div data-style="padding:16px;background:#e8f5e9;border-radius:8px;text-align:center;">🎉 暂无错题，继续保持！</div>';return;}
         var subjectNames={physics:'物理',chemistry:'化学',biology:'生物',chinese:'语文',math:'数学'};
-        var h='<div style="padding:16px;background:#fff3e0;border-radius:8px;"><h4>📓 '+subjectNames[subject]+'错题本（'+errors.length+'题）</h4>';
+        var h='<div data-style="padding:16px;background:#fff3e0;border-radius:8px;"><h4>📓 '+subjectNames[subject]+'错题本（'+errors.length+'题）</h4>';
         errors.forEach(function(e,i){
-            h+='<div style="margin:8px 0;padding:8px;background:#fff;border-radius:6px;border-left:3px solid #f44336;">';
-            h+='<strong>'+e.chapter+'</strong>：'+e.question+'<br><span style="color:#4caf50;">正确答案：'+String.fromCharCode(65+e.answer)+'</span><br><span style="font-size:0.85rem;color:#666;">'+e.explanation+'</span></div>';
+            h+='<div data-style="margin:8px 0;padding:8px;background:#fff;border-radius:6px;border-left:3px solid #f44336;">';
+            h+='<strong>'+e.chapter+'</strong>：'+e.question+'<br><span data-style="color:#4caf50;">正确答案：'+String.fromCharCode(65+e.answer)+'</span><br><span data-style="font-size:0.85rem;color:#666;">'+e.explanation+'</span></div>';
         });
         h+='</div>';
         el.style.display='block';
@@ -637,7 +637,7 @@ var ExamSystem={
                 var exists=this.errorBook[subject].some(function(e){return e.id===q.id;});
                 if(!exists) this.errorBook[subject].push(q);
             }
-            feedback.innerHTML='<div style="padding:10px;border-radius:6px;background:'+(isCorrect?'#e8f5e9':'#fff3e0')+';border-left:4px solid '+(isCorrect?'#4caf50':'#ff9800')+';">'+
+            feedback.innerHTML='<div data-style="padding:10px;border-radius:6px;background:'+(isCorrect?'#e8f5e9':'#fff3e0')+';border-left:4px solid '+(isCorrect?'#4caf50':'#ff9800')+';">'+
                 '<strong>'+(isCorrect?'✅ 回答正确！':'❌ 回答错误，正确答案是'+String.fromCharCode(65+correct))+'</strong><br>'+q.explanation+'</div>';
         }
         this.updateScore(subject);
@@ -667,7 +667,7 @@ var ExamSystem={
             var emoji=pct>=80?'🎉':pct>=60?'👍':'💪';
             scoreEl.innerHTML='<h4>'+emoji+' 当前成绩：'+correct+'/'+answered+' 正确（'+pct+'%）</h4>'+
                 '<p>共'+total+'题，已完成'+answered+'题，还剩'+(total-answered)+'题</p>'+
-                '<div style="background:#e0e0e0;border-radius:4px;height:12px;margin-top:8px;"><div style="background:'+(pct>=80?'#4caf50':pct>=60?'#ff9800':'#f44336')+';border-radius:4px;height:12px;width:'+pct+'%;"></div></div>';
+                '<div data-style="background:#e0e0e0;border-radius:4px;height:12px;margin-top:8px;"><div data-style="background:'+(pct>=80?'#4caf50':pct>=60?'#ff9800':'#f44336')+';border-radius:4px;height:12px;width:'+pct+'%;"></div></div>';
         }
     }
 };

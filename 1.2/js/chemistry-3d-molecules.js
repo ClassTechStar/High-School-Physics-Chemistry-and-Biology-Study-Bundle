@@ -201,20 +201,20 @@ window.chemistry3DMolecules = (function() {
         var container = document.getElementById('chemistry-3d-molecules-app');
         if (!container) return;
 
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">' +
-            '<select id="mol-select" style="padding:7px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;">' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">' +
+            '<select id="mol-select" data-style="padding:7px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;">' +
             '<option value="H2O">H\u2082O \u2014 \u6C34</option>' +
             '<option value="CH4">CH\u2084 \u2014 \u7532\u70F7</option>' +
             '<option value="NH3">NH\u2083 \u2014 \u6C28</option>' +
             '<option value="CO2">CO\u2082 \u2014 \u4E8C\u6C27\u5316\u78B3</option>' +
             '<option value="C6H6">C\u2086H\u2086 \u2014 \u82EF</option>' +
             '</select>' +
-            '<button id="mol-autorot" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u6682\u505C\u65CB\u8F6C</button>' +
-            '<button id="mol-reset" style="padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u590D\u4F4D</button>' +
+            '<button id="mol-autorot" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u6682\u505C\u65CB\u8F6C</button>' +
+            '<button id="mol-reset" data-style="padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u590D\u4F4D</button>' +
             '</div>' +
-            '<canvas id="molecule-canvas" width="600" height="500" style="border:1px solid #e5e7eb;border-radius:8px;background:linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);width:100%;max-width:600px;cursor:grab;"></canvas>' +
-            '<div id="mol-info" style="margin-top:12px;padding:12px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;"></div>' +
+            '<canvas id="molecule-canvas" width="600" height="500" data-style="border:1px solid #e5e7eb;border-radius:8px;background:linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);width:100%;max-width:600px;cursor:grab;"></canvas>' +
+            '<div id="mol-info" data-style="margin-top:12px;padding:12px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;"></div>' +
             '</div>';
 
         function updateInfo() {
@@ -222,13 +222,13 @@ window.chemistry3DMolecules = (function() {
             if (!mol) { console.error('未找到分子数据:', currentMol); return; }
             var el = document.getElementById('mol-info');
             if (!el) return;
-            el.innerHTML = '<div style="font-size:15px;font-weight:bold;color:#1e40af;margin-bottom:4px;">' + mol.name + '</div>' +
-                '<div style="font-size:13px;color:#333;margin-bottom:4px;"><strong>\u5206\u5B50\u6784\u578B\uFF1A</strong>' + mol.geometry + '</div>' +
-                '<div style="font-size:12px;color:#666;">' + mol.info + '</div>' +
-                '<div style="font-size:11px;color:#999;margin-top:6px;">\u539F\u5B50\u989C\u8272\uFF1A<span style="color:#ef4444;">\u25CF</span> \u6C27(O) \u00A0 ' +
-                '<span style="color:#333;">\u25CF</span> \u78B3(C) \u00A0 ' +
-                '<span style="color:#3b82f6;">\u25CF</span> \u6C2E(N) \u00A0 ' +
-                '<span style="color:#ccc;">\u25CF</span> \u6C22(H)</div>';
+            el.innerHTML = '<div data-style="font-size:15px;font-weight:bold;color:#1e40af;margin-bottom:4px;">' + mol.name + '</div>' +
+                '<div data-style="font-size:13px;color:#333;margin-bottom:4px;"><strong>\u5206\u5B50\u6784\u578B\uFF1A</strong>' + mol.geometry + '</div>' +
+                '<div data-style="font-size:12px;color:#666;">' + mol.info + '</div>' +
+                '<div data-style="font-size:11px;color:#999;margin-top:6px;">\u539F\u5B50\u989C\u8272\uFF1A<span data-style="color:#ef4444;">\u25CF</span> \u6C27(O) \u00A0 ' +
+                '<span data-style="color:#333;">\u25CF</span> \u78B3(C) \u00A0 ' +
+                '<span data-style="color:#3b82f6;">\u25CF</span> \u6C2E(N) \u00A0 ' +
+                '<span data-style="color:#ccc;">\u25CF</span> \u6C22(H)</div>';
         }
 
         document.getElementById('mol-select').onchange = function() {

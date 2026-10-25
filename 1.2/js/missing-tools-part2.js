@@ -126,23 +126,23 @@ const formulaHandbook = {
         if (!app) return;
         const s = this.state;
         const self = this;
-        let html = '<div style="padding:16px;">';
-        html += '<h3 style="margin:0 0 14px 0;color:#0f172a;">📐 公式手册与速查卡</h3>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:14px;">';
-        html += '<label>学科：<select id="fh-subject" style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;">';
+        let html = '<div data-style="padding:16px;">';
+        html += '<h3 data-style="margin:0 0 14px 0;color:#0f172a;">📐 公式手册与速查卡</h3>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:14px;">';
+        html += '<label>学科：<select id="fh-subject" data-style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;">';
         Object.keys(this.data).forEach(function(k){
             html += '<option value="' + k + '"' + (s.subject===k?' selected':'') + '>' + self.data[k].icon + ' ' + self.data[k].name + '</option>';
         });
         html += '</select></label>';
-        html += '<label>分类：<select id="fh-category" style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;">';
+        html += '<label>分类：<select id="fh-category" data-style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;">';
         html += '<option value="all">全部分类</option>';
         const sub = this.data[s.subject];
         Object.keys(sub.categories).forEach(function(c){
             html += '<option value="' + c + '"' + (s.category===c?' selected':'') + '>' + c + '</option>';
         });
         html += '</select></label>';
-        html += '<input type="text" id="fh-search" placeholder="🔍 搜索公式或描述..." value="' + s.search + '" style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;min-width:200px;">';
-        html += '<button data-call=\"formulaHandbook._reset\" style="background:#f1f5f9;color:#475569;border:0;padding:4px 12px;border-radius:4px;cursor:pointer;">🔄 重置</button></div>';
+        html += '<input type="text" id="fh-search" placeholder="🔍 搜索公式或描述..." value="' + s.search + '" data-style="padding:4px 8px;border:1px solid #cbd5e1;border-radius:4px;min-width:200px;">';
+        html += '<button data-call=\"formulaHandbook._reset\" data-style="background:#f1f5f9;color:#475569;border:0;padding:4px 12px;border-radius:4px;cursor:pointer;">🔄 重置</button></div>';
 
         const cats = s.category === 'all' ? Object.keys(sub.categories) : [s.category];
         let totalShown = 0;
@@ -153,24 +153,24 @@ const formulaHandbook = {
             }) : items;
             if (filtered.length === 0) return;
             totalShown += filtered.length;
-            html += '<div style="margin-top:14px;">';
-            html += '<h4 style="color:#1e40af;border-left:4px solid #3b82f6;padding-left:10px;margin:0 0 10px 0;">' + sub.icon + ' ' + cat + ' <span style="color:#64748b;font-size:0.85rem;font-weight:normal;">(' + filtered.length + '条)</span></h4>';
-            html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">';
+            html += '<div data-style="margin-top:14px;">';
+            html += '<h4 data-style="color:#1e40af;border-left:4px solid #3b82f6;padding-left:10px;margin:0 0 10px 0;">' + sub.icon + ' ' + cat + ' <span data-style="color:#64748b;font-size:0.85rem;font-weight:normal;">(' + filtered.length + '条)</span></h4>';
+            html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">';
             filtered.forEach(function(it) {
-                html += '<div style="background:#fff;border:1px solid #e2e8f0;border-left:3px solid #3b82f6;border-radius:8px;padding:12px;transition:all 0.2s;" data-hover="box-shadow: 0 2px 8px rgba(59,130,246,0.15)" data-rest="box-shadow: none">' +
-                    '<div style="font-weight:700;color:#0f172a;margin-bottom:6px;">' + it.name + '</div>' +
-                    '<div style="font-family:Consolas,monospace;background:#eff6ff;padding:6px 8px;border-radius:4px;color:#1e40af;margin-bottom:6px;font-size:0.95rem;">' + it.formula + '</div>' +
-                    '<div style="font-size:0.82rem;color:#64748b;">' + it.desc + '</div>' +
-                    '<div style="margin-top:6px;">';
+                html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-left:3px solid #3b82f6;border-radius:8px;padding:12px;transition:all 0.2s;" data-hover="box-shadow: 0 2px 8px rgba(59,130,246,0.15)" data-rest="box-shadow: none">' +
+                    '<div data-style="font-weight:700;color:#0f172a;margin-bottom:6px;">' + it.name + '</div>' +
+                    '<div data-style="font-family:Consolas,monospace;background:#eff6ff;padding:6px 8px;border-radius:4px;color:#1e40af;margin-bottom:6px;font-size:0.95rem;">' + it.formula + '</div>' +
+                    '<div data-style="font-size:0.82rem;color:#64748b;">' + it.desc + '</div>' +
+                    '<div data-style="margin-top:6px;">';
                 it.tags.forEach(function(t) {
-                    html += '<span style="display:inline-block;background:#f1f5f9;color:#475569;padding:1px 6px;border-radius:3px;font-size:0.7rem;margin-right:3px;">#' + t + '</span>';
+                    html += '<span data-style="display:inline-block;background:#f1f5f9;color:#475569;padding:1px 6px;border-radius:3px;font-size:0.7rem;margin-right:3px;">#' + t + '</span>';
                 });
                 html += '</div></div>';
             });
             html += '</div></div>';
         });
         if (totalShown === 0) {
-            html += '<div style="background:#fef3c7;border:1px solid #fcd34d;padding:18px;border-radius:8px;text-align:center;color:#92400e;">未找到匹配的公式，请调整搜索条件</div>';
+            html += '<div data-style="background:#fef3c7;border:1px solid #fcd34d;padding:18px;border-radius:8px;text-align:center;color:#92400e;">未找到匹配的公式，请调整搜索条件</div>';
         }
         html += '</div>';
         app.innerHTML = html;
@@ -267,44 +267,44 @@ const timedQuiz = {
             this._renderResults();
             return;
         }
-        let html = '<div style="padding:16px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:12px;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border-radius:8px;margin-bottom:14px;">';
-        html += '<div style="font-size:1.1rem;font-weight:700;">⏱️ 计时刷题模式</div>';
-        html += '<div style="display:flex;gap:14px;align-items:center;">';
+        let html = '<div data-style="padding:16px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:12px;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border-radius:8px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:1.1rem;font-weight:700;">⏱️ 计时刷题模式</div>';
+        html += '<div data-style="display:flex;gap:14px;align-items:center;">';
         const mins = Math.floor(s.timeLeft / 60);
         const secs = s.timeLeft % 60;
         const timeColor = s.timeLeft < 60 ? '#fee2e2' : '#fff';
-        html += '<div style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:1.1rem;color:' + timeColor + ';">⏰ ' + mins + ':' + (secs < 10 ? '0' : '') + secs + '</div>';
-        html += '<div style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;">题 ' + (s.current + 1) + '/' + s.questions.length + '</div>';
-        html += '<div style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;">已答 ' + s.answers.filter(function(a){return a>=0;}).length + '</div>';
+        html += '<div data-style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:1.1rem;color:' + timeColor + ';">⏰ ' + mins + ':' + (secs < 10 ? '0' : '') + secs + '</div>';
+        html += '<div data-style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;">题 ' + (s.current + 1) + '/' + s.questions.length + '</div>';
+        html += '<div data-style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;">已答 ' + s.answers.filter(function(a){return a>=0;}).length + '</div>';
         html += '</div></div>';
 
         const q = s.questions[s.current];
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
-        html += '<div style="background:#eff6ff;padding:6px 12px;border-radius:6px;font-size:0.85rem;color:#1e40af;display:inline-block;margin-bottom:10px;">📌 ' + (q.subject || '综合') + ' · 第 ' + (s.current+1) + ' 题</div>';
-        html += '<h4 style="margin:10px 0;color:#0f172a;line-height:1.6;">❓ ' + q.q + '</h4>';
-        html += '<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
+        html += '<div data-style="background:#eff6ff;padding:6px 12px;border-radius:6px;font-size:0.85rem;color:#1e40af;display:inline-block;margin-bottom:10px;">📌 ' + (q.subject || '综合') + ' · 第 ' + (s.current+1) + ' 题</div>';
+        html += '<h4 data-style="margin:10px 0;color:#0f172a;line-height:1.6;">❓ ' + q.q + '</h4>';
+        html += '<div data-style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">';
         const userAns = s.answers[s.current];
         q.options.forEach(function(opt, i) {
             let bg = '#fff', border = '#e2e8f0', color = '#0f172a';
             if (userAns === i) {
                 bg = '#dbeafe'; border = '#3b82f6'; color = '#1e40af';
             }
-            html += '<button data-call=\"timedQuiz._answer\" data-arg1=\"@n:' + i + '" style="text-align:left;padding:10px 14px;background:' + bg + ';border:1.5px solid ' + border + ';border-radius:6px;cursor:pointer;font-size:0.95rem;color:' + color + ';">' + String.fromCharCode(65+i) + '. ' + opt + '</button>';
+            html += '<button data-call=\"timedQuiz._answer\" data-arg1=\"@n:' + i + '" data-style="text-align:left;padding:10px 14px;background:' + bg + ';border:1.5px solid ' + border + ';border-radius:6px;cursor:pointer;font-size:0.95rem;color:' + color + ';">' + String.fromCharCode(65+i) + '. ' + opt + '</button>';
         });
         html += '</div>';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;">';
-        html += '<button data-call=\"timedQuiz._prev\" ' + (s.current===0?'disabled':'') + ' style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===0?'not-allowed':'pointer') + ';">← 上一题</button>';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;">';
+        html += '<button data-call=\"timedQuiz._prev\" ' + (s.current===0?'disabled':'') + ' data-style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===0?'not-allowed':'pointer') + ';">← 上一题</button>';
         const isLast = s.current === s.questions.length - 1;
-        html += '<button data-call=\"timedQuiz._next\" style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;">' + (isLast ? '📊 交卷' : '下一题 →') + '</button>';
+        html += '<button data-call=\"timedQuiz._next\" data-style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;">' + (isLast ? '📊 交卷' : '下一题 →') + '</button>';
         html += '</div></div>';
-        html += '<div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:4px;">';
+        html += '<div data-style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:4px;">';
         for (let i = 0; i < s.questions.length; i++) {
             const ans = s.answers[i];
             let bg = '#fff', color = '#64748b', border = '#e2e8f0';
             if (ans !== undefined && ans >= 0) { bg = '#dbeafe'; color = '#1e40af'; border = '#3b82f6'; }
             if (i === s.current) { border = '#dc2626'; }
-            html += '<button data-call=\"timedQuiz._goto\" data-arg1=\"@n:' + i + '" style="padding:6px 0;background:' + bg + ';color:' + color + ';border:1.5px solid ' + border + ';border-radius:4px;cursor:pointer;font-size:0.8rem;">' + (i+1) + '</button>';
+            html += '<button data-call=\"timedQuiz._goto\" data-arg1=\"@n:' + i + '" data-style="padding:6px 0;background:' + bg + ';color:' + color + ';border:1.5px solid ' + border + ';border-radius:4px;cursor:pointer;font-size:0.8rem;">' + (i+1) + '</button>';
         }
         html += '</div></div>';
         app.innerHTML = html;
@@ -314,24 +314,24 @@ const timedQuiz = {
         const app = document.getElementById('timed-quiz-app');
         if (!app) return;
         const s = this.state;
-        let html = '<div style="padding:16px;">';
-        html += '<h3 style="margin:0 0 14px 0;color:#0f172a;">⏱️ 计时刷题模式</h3>';
-        html += '<div style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;padding:18px;border-radius:8px;margin-bottom:14px;">';
-        html += '<div style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">⚡ 模拟限时训练</div>';
-        html += '<div style="font-size:0.9rem;opacity:0.95;">广东高考理综答题节奏训练，计时挑战助你熟悉时间分配</div>';
+        let html = '<div data-style="padding:16px;">';
+        html += '<h3 data-style="margin:0 0 14px 0;color:#0f172a;">⏱️ 计时刷题模式</h3>';
+        html += '<div data-style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;padding:18px;border-radius:8px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">⚡ 模拟限时训练</div>';
+        html += '<div data-style="font-size:0.9rem;opacity:0.95;">广东高考理综答题节奏训练，计时挑战助你熟悉时间分配</div>';
         html += '</div>';
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
-        html += '<h4 style="margin-top:0;color:#0f172a;">🎯 配置训练</h4>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px;">';
-        html += '<div><label style="font-weight:600;">学科：</label><select id="tq-subject" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="all">🌐 全科综合</option><option value="physics">⚛️ 物理</option><option value="chemistry">🧪 化学</option><option value="biology">🧬 生物</option></select></div>';
-        html += '<div><label style="font-weight:600;">难度：</label><select id="tq-difficulty" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="all">📊 全部难度</option><option value="easy">⭐ 基础</option><option value="medium">⭐⭐ 中等</option><option value="hard">⭐⭐⭐ 困难</option></select></div>';
-        html += '<div><label style="font-weight:600;">时长(分钟)：</label><select id="tq-time" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="300">5分钟(快测)</option><option value="600" selected>10分钟(标准)</option><option value="900">15分钟(挑战)</option><option value="1800">30分钟(模拟)</option></select></div>';
-        html += '<div><label style="font-weight:600;">题数：</label><select id="tq-count" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="5">5题</option><option value="10" selected>10题</option><option value="15">15题</option><option value="20">20题</option></select></div>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
+        html += '<h4 data-style="margin-top:0;color:#0f172a;">🎯 配置训练</h4>';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px;">';
+        html += '<div><label data-style="font-weight:600;">学科：</label><select id="tq-subject" data-style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="all">🌐 全科综合</option><option value="physics">⚛️ 物理</option><option value="chemistry">🧪 化学</option><option value="biology">🧬 生物</option></select></div>';
+        html += '<div><label data-style="font-weight:600;">难度：</label><select id="tq-difficulty" data-style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="all">📊 全部难度</option><option value="easy">⭐ 基础</option><option value="medium">⭐⭐ 中等</option><option value="hard">⭐⭐⭐ 困难</option></select></div>';
+        html += '<div><label data-style="font-weight:600;">时长(分钟)：</label><select id="tq-time" data-style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="300">5分钟(快测)</option><option value="600" selected>10分钟(标准)</option><option value="900">15分钟(挑战)</option><option value="1800">30分钟(模拟)</option></select></div>';
+        html += '<div><label data-style="font-weight:600;">题数：</label><select id="tq-count" data-style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;width:100%;margin-top:4px;"><option value="5">5题</option><option value="10" selected>10题</option><option value="15">15题</option><option value="20">20题</option></select></div>';
         html += '</div>';
-        html += '<button data-call=\"timedQuiz._start\" style="margin-top:18px;background:#dc2626;color:#fff;border:0;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:700;">🚀 开始计时训练</button>';
+        html += '<button data-call=\"timedQuiz._start\" data-style="margin-top:18px;background:#dc2626;color:#fff;border:0;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:700;">🚀 开始计时训练</button>';
         html += '</div>';
-        html += '<div style="margin-top:14px;background:#fffbeb;border:1px solid #fde68a;padding:14px;border-radius:8px;">';
-        html += '<strong style="color:#92400e;">📖 刷题策略：</strong><br>';
+        html += '<div data-style="margin-top:14px;background:#fffbeb;border:1px solid #fde68a;padding:14px;border-radius:8px;">';
+        html += '<strong data-style="color:#92400e;">📖 刷题策略：</strong><br>';
         html += '① <strong>先易后难</strong>：5分钟内做完基础题<br>';
         html += '② <strong>卡住即跳</strong>：30秒没思路就标记跳过<br>';
         html += '③ <strong>留时间复查</strong>：最后3分钟用于检查<br>';
@@ -355,34 +355,34 @@ const timedQuiz = {
         const timeMins = Math.floor(timeUsed / 60);
         const timeSecs = timeUsed % 60;
 
-        let html = '<div style="padding:16px;">';
-        html += '<h3 style="margin:0 0 14px 0;color:#0f172a;">📊 训练结果</h3>';
-        html += '<div style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;padding:24px;border-radius:8px;margin-bottom:14px;text-align:center;">';
-        html += '<div style="font-size:3rem;font-weight:900;">' + accuracy + '%</div>';
-        html += '<div style="font-size:1.1rem;margin-top:6px;">正确率 ' + correct + '/' + total + '</div>';
-        html += '<div style="font-size:0.9rem;margin-top:6px;opacity:0.95;">用时 ' + timeMins + '分' + timeSecs + '秒 · 已答 ' + answered + '/' + total + '</div>';
+        let html = '<div data-style="padding:16px;">';
+        html += '<h3 data-style="margin:0 0 14px 0;color:#0f172a;">📊 训练结果</h3>';
+        html += '<div data-style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;padding:24px;border-radius:8px;margin-bottom:14px;text-align:center;">';
+        html += '<div data-style="font-size:3rem;font-weight:900;">' + accuracy + '%</div>';
+        html += '<div data-style="font-size:1.1rem;margin-top:6px;">正确率 ' + correct + '/' + total + '</div>';
+        html += '<div data-style="font-size:0.9rem;margin-top:6px;opacity:0.95;">用时 ' + timeMins + '分' + timeSecs + '秒 · 已答 ' + answered + '/' + total + '</div>';
         html += '</div>';
 
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin-bottom:14px;">';
-        html += '<h4 style="margin-top:0;color:#0f172a;">📋 答题详情</h4>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin-bottom:14px;">';
+        html += '<h4 data-style="margin-top:0;color:#0f172a;">📋 答题详情</h4>';
         s.questions.forEach(function(q, i) {
             const ua = s.answers[i];
             const isCorrect = ua === q.answer;
             const isSkipped = ua < 0;
             const bgColor = isSkipped ? '#fef3c7' : (isCorrect ? '#dcfce7' : '#fee2e2');
             const icon = isSkipped ? '⏭️' : (isCorrect ? '✅' : '❌');
-            html += '<div style="background:' + bgColor + ';border-left:3px solid ' + (isSkipped ? '#f59e0b' : (isCorrect ? '#16a34a' : '#dc2626')) + ';padding:12px;border-radius:6px;margin-bottom:8px;">';
-            html += '<div style="font-weight:600;margin-bottom:4px;">' + icon + ' 第 ' + (i+1) + ' 题：' + q.q + '</div>';
-            html += '<div style="font-size:0.85rem;color:#475569;">你的答案：<strong>' + (isSkipped ? '未作答' : String.fromCharCode(65+ua)) + '</strong> | 正确答案：<strong style="color:#16a34a;">' + String.fromCharCode(65+q.answer) + '</strong></div>';
+            html += '<div data-style="background:' + bgColor + ';border-left:3px solid ' + (isSkipped ? '#f59e0b' : (isCorrect ? '#16a34a' : '#dc2626')) + ';padding:12px;border-radius:6px;margin-bottom:8px;">';
+            html += '<div data-style="font-weight:600;margin-bottom:4px;">' + icon + ' 第 ' + (i+1) + ' 题：' + q.q + '</div>';
+            html += '<div data-style="font-size:0.85rem;color:#475569;">你的答案：<strong>' + (isSkipped ? '未作答' : String.fromCharCode(65+ua)) + '</strong> | 正确答案：<strong data-style="color:#16a34a;">' + String.fromCharCode(65+q.answer) + '</strong></div>';
             if (q.analysis) {
-                html += '<div style="font-size:0.82rem;margin-top:4px;background:rgba(255,255,255,0.6);padding:6px 8px;border-radius:4px;"><strong>解析：</strong>' + q.analysis + '</div>';
+                html += '<div data-style="font-size:0.82rem;margin-top:4px;background:rgba(255,255,255,0.6);padding:6px 8px;border-radius:4px;"><strong>解析：</strong>' + q.analysis + '</div>';
             }
             html += '</div>';
         });
         html += '</div>';
-        html += '<div style="display:flex;gap:10px;">';
-        html += '<button data-call=\"timedQuiz._retry\" style="background:#3b82f6;color:#fff;border:0;padding:10px 20px;border-radius:6px;cursor:pointer;">🔄 再来一组</button>';
-        html += '<button data-call=\"timedQuiz._exit\" style="background:#f1f5f9;color:#475569;border:0;padding:10px 20px;border-radius:6px;cursor:pointer;">🚪 返回设置</button>';
+        html += '<div data-style="display:flex;gap:10px;">';
+        html += '<button data-call=\"timedQuiz._retry\" data-style="background:#3b82f6;color:#fff;border:0;padding:10px 20px;border-radius:6px;cursor:pointer;">🔄 再来一组</button>';
+        html += '<button data-call=\"timedQuiz._exit\" data-style="background:#f1f5f9;color:#475569;border:0;padding:10px 20px;border-radius:6px;cursor:pointer;">🚪 返回设置</button>';
         html += '</div></div>';
         app.innerHTML = html;
     },
@@ -640,61 +640,61 @@ const dailyLearning = {
         const accuracy = totalQ > 0 ? Math.round(totalC / totalQ * 100) : 0;
         const streak = this._calcStreak();
 
-        let html = '<div style="padding:16px;">';
-        html += '<h3 style="margin:0 0 14px 0;color:#0f172a;">📅 每日一题·30天学习计划</h3>';
-        html += '<div style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;padding:18px;border-radius:8px;margin-bottom:14px;">';
-        html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center;">';
-        html += '<div><div style="font-size:1.6rem;font-weight:900;">' + s.currentDay + '/30</div><div style="font-size:0.8rem;opacity:0.9;">当前天数</div></div>';
-        html += '<div><div style="font-size:1.6rem;font-weight:900;">' + streak + '</div><div style="font-size:0.8rem;opacity:0.9;">连续打卡</div></div>';
-        html += '<div><div style="font-size:1.6rem;font-weight:900;">' + totalQ + '</div><div style="font-size:0.8rem;opacity:0.9;">累计答题</div></div>';
-        html += '<div><div style="font-size:1.6rem;font-weight:900;">' + accuracy + '%</div><div style="font-size:0.8rem;opacity:0.9;">总正确率</div></div>';
+        let html = '<div data-style="padding:16px;">';
+        html += '<h3 data-style="margin:0 0 14px 0;color:#0f172a;">📅 每日一题·30天学习计划</h3>';
+        html += '<div data-style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;padding:18px;border-radius:8px;margin-bottom:14px;">';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center;">';
+        html += '<div><div data-style="font-size:1.6rem;font-weight:900;">' + s.currentDay + '/30</div><div data-style="font-size:0.8rem;opacity:0.9;">当前天数</div></div>';
+        html += '<div><div data-style="font-size:1.6rem;font-weight:900;">' + streak + '</div><div data-style="font-size:0.8rem;opacity:0.9;">连续打卡</div></div>';
+        html += '<div><div data-style="font-size:1.6rem;font-weight:900;">' + totalQ + '</div><div data-style="font-size:0.8rem;opacity:0.9;">累计答题</div></div>';
+        html += '<div><div data-style="font-size:1.6rem;font-weight:900;">' + accuracy + '%</div><div data-style="font-size:0.8rem;opacity:0.9;">总正确率</div></div>';
         html += '</div></div>';
 
         if (today) {
-            html += '<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #10b981;border-radius:8px;padding:18px;margin-bottom:14px;">';
-            html += '<h4 style="margin-top:0;color:#065f46;">📌 今日学习任务 (第' + s.currentDay + '天)</h4>';
-            html += '<div style="background:#f0fdf4;padding:10px 14px;border-radius:6px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;">';
+            html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #10b981;border-radius:8px;padding:18px;margin-bottom:14px;">';
+            html += '<h4 data-style="margin-top:0;color:#065f46;">📌 今日学习任务 (第' + s.currentDay + '天)</h4>';
+            html += '<div data-style="background:#f0fdf4;padding:10px 14px;border-radius:6px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;">';
             html += '<span><strong>学科：</strong>' + today.subjectName + '</span>';
             html += '<span><strong>主题：</strong>' + today.topic + '</span>';
-            html += '<span style="color:' + (today.done ? '#16a34a' : '#f59e0b') + ';font-weight:700;">' + (today.done ? '✅ 已完成' : '⏳ 进行中') + '</span>';
+            html += '<span data-style="color:' + (today.done ? '#16a34a' : '#f59e0b') + ';font-weight:700;">' + (today.done ? '✅ 已完成' : '⏳ 进行中') + '</span>';
             html += '</div>';
-            html += '<div style="background:#fffbeb;padding:10px 14px;border-radius:6px;margin-top:10px;font-size:0.9rem;color:#92400e;">' +
+            html += '<div data-style="background:#fffbeb;padding:10px 14px;border-radius:6px;margin-top:10px;font-size:0.9rem;color:#92400e;">' +
                 '<strong>🎯 学习目标：</strong>理解' + today.topic + '的核心概念，完成3-5道相关练习题。' +
                 '</div>';
-            html += '<div style="margin-top:14px;">';
-            html += '<button data-call=\"dailyLearning._practiceToday\" style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;margin-right:8px;">📝 开始今日练习</button>';
-            html += '<button data-call=\"dailyLearning._markDone\" ' + (today.done ? 'disabled' : '') + ' style="background:' + (today.done ? '#94a3b8' : '#16a34a') + ';color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:' + (today.done ? 'not-allowed' : 'pointer') + ';">✓ 标记完成</button>';
+            html += '<div data-style="margin-top:14px;">';
+            html += '<button data-call=\"dailyLearning._practiceToday\" data-style="background:#3b82f6;color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;margin-right:8px;">📝 开始今日练习</button>';
+            html += '<button data-call=\"dailyLearning._markDone\" ' + (today.done ? 'disabled' : '') + ' data-style="background:' + (today.done ? '#94a3b8' : '#16a34a') + ';color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:' + (today.done ? 'not-allowed' : 'pointer') + ';">✓ 标记完成</button>';
             html += '</div></div>';
         }
 
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin-bottom:14px;">';
-        html += '<h4 style="margin-top:0;color:#0f172a;">🗓️ 30天学习计划总览</h4>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:10px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin-bottom:14px;">';
+        html += '<h4 data-style="margin-top:0;color:#0f172a;">🗓️ 30天学习计划总览</h4>';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:10px;">';
         s.plan.forEach(function(p) {
             const bg = p.done ? '#dcfce7' : (p.day === s.currentDay ? '#dbeafe' : '#f8fafc');
             const border = p.day === s.currentDay ? '#3b82f6' : (p.done ? '#16a34a' : '#e2e8f0');
             const icon = p.done ? '✅' : (p.day === s.currentDay ? '📍' : '○');
-            html += '<div data-call=\"dailyLearning._goDay\" data-arg1=\"@n:' + p.day + '" style="background:' + bg + ';border:1.5px solid ' + border + ';border-radius:6px;padding:8px;cursor:pointer;font-size:0.8rem;">' +
-                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">' +
+            html += '<div data-call=\"dailyLearning._goDay\" data-arg1=\"@n:' + p.day + '" data-style="background:' + bg + ';border:1.5px solid ' + border + ';border-radius:6px;padding:8px;cursor:pointer;font-size:0.8rem;">' +
+                '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">' +
                 '<strong>Day ' + p.day + '</strong><span>' + icon + '</span></div>' +
-                '<div style="color:#64748b;">' + p.subjectName + '</div>' +
-                '<div style="color:#475569;font-size:0.75rem;">' + p.topic + '</div>' +
+                '<div data-style="color:#64748b;">' + p.subjectName + '</div>' +
+                '<div data-style="color:#475569;font-size:0.75rem;">' + p.topic + '</div>' +
                 '</div>';
         });
         html += '</div></div>';
 
         if (s.history.length > 0) {
-            html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
-            html += '<h4 style="margin-top:0;color:#0f172a;">📊 最近学习记录</h4>';
-            html += '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
-            html += '<tr style="background:#eff6ff;"><th style="padding:6px;border:1px solid #cbd5e1;text-align:left;">日期</th><th style="padding:6px;border:1px solid #cbd5e1;text-align:left;">学科</th><th style="padding:6px;border:1px solid #cbd5e1;text-align:left;">主题</th><th style="padding:6px;border:1px solid #cbd5e1;">答题</th><th style="padding:6px;border:1px solid #cbd5e1;">正确率</th></tr>';
+            html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;">';
+            html += '<h4 data-style="margin-top:0;color:#0f172a;">📊 最近学习记录</h4>';
+            html += '<table data-style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
+            html += '<tr data-style="background:#eff6ff;"><th data-style="padding:6px;border:1px solid #cbd5e1;text-align:left;">日期</th><th data-style="padding:6px;border:1px solid #cbd5e1;text-align:left;">学科</th><th data-style="padding:6px;border:1px solid #cbd5e1;text-align:left;">主题</th><th data-style="padding:6px;border:1px solid #cbd5e1;">答题</th><th data-style="padding:6px;border:1px solid #cbd5e1;">正确率</th></tr>';
             s.history.slice(-10).reverse().forEach(function(h) {
-                html += '<tr><td style="padding:6px;border:1px solid #e2e8f0;">' + h.date + '</td><td style="padding:6px;border:1px solid #e2e8f0;">' + h.subject + '</td><td style="padding:6px;border:1px solid #e2e8f0;">' + h.topic + '</td><td style="padding:6px;border:1px solid #e2e8f0;text-align:center;">' + h.answered + '</td><td style="padding:6px;border:1px solid #e2e8f0;text-align:center;">' + h.accuracy + '%</td></tr>';
+                html += '<tr><td data-style="padding:6px;border:1px solid #e2e8f0;">' + h.date + '</td><td data-style="padding:6px;border:1px solid #e2e8f0;">' + h.subject + '</td><td data-style="padding:6px;border:1px solid #e2e8f0;">' + h.topic + '</td><td data-style="padding:6px;border:1px solid #e2e8f0;text-align:center;">' + h.answered + '</td><td data-style="padding:6px;border:1px solid #e2e8f0;text-align:center;">' + h.accuracy + '%</td></tr>';
             });
             html += '</table></div>';
         }
-        html += '<div style="margin-top:14px;display:flex;gap:8px;">';
-        html += '<button data-call=\"dailyLearning._reset\" style="background:#fee2e2;color:#dc2626;border:0;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.85rem;">🔄 重置学习计划</button>';
+        html += '<div data-style="margin-top:14px;display:flex;gap:8px;">';
+        html += '<button data-call=\"dailyLearning._reset\" data-style="background:#fee2e2;color:#dc2626;border:0;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.85rem;">🔄 重置学习计划</button>';
         html += '</div></div>';
         app.innerHTML = html;
     },
@@ -881,45 +881,45 @@ const interdisciplinaryTopics = {
         const s = this.state;
         const t = this.topics[s.current];
 
-        let html = '<div style="padding:16px;">';
-        html += '<h3 style="margin:0 0 14px 0;color:#0f172a;">🌐 学科交叉专题</h3>';
-        html += '<div style="background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:14px;border-radius:8px;margin-bottom:14px;">';
-        html += '<div style="font-size:1.05rem;font-weight:700;margin-bottom:4px;">🔗 跨学科融合·核心考点</div>';
-        html += '<div style="font-size:0.85rem;opacity:0.95;">突破学科壁垒，贯通物化生综合思维</div>';
+        let html = '<div data-style="padding:16px;">';
+        html += '<h3 data-style="margin:0 0 14px 0;color:#0f172a;">🌐 学科交叉专题</h3>';
+        html += '<div data-style="background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:14px;border-radius:8px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:1.05rem;font-weight:700;margin-bottom:4px;">🔗 跨学科融合·核心考点</div>';
+        html += '<div data-style="font-size:0.85rem;opacity:0.95;">突破学科壁垒，贯通物化生综合思维</div>';
         html += '</div>';
 
-        html += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding:10px;background:#f8fafc;border-radius:8px;">';
+        html += '<div data-style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding:10px;background:#f8fafc;border-radius:8px;">';
         this.topics.forEach(function(tp, i) {
             const bg = s.current === i ? '#7c3aed' : '#fff';
             const color = s.current === i ? '#fff' : '#475569';
-            html += '<button data-call=\"interdisciplinaryTopics._setCurrent\" data-arg1=\"@n:' + i + '" style="background:' + bg + ';color:' + color + ';border:1px solid ' + (s.current === i ? '#7c3aed' : '#cbd5e1') + ';padding:6px 12px;border-radius:6px;cursor:pointer;font-size:0.85rem;">' + (i+1) + '. ' + tp.title + '</button>';
+            html += '<button data-call=\"interdisciplinaryTopics._setCurrent\" data-arg1=\"@n:' + i + '" data-style="background:' + bg + ';color:' + color + ';border:1px solid ' + (s.current === i ? '#7c3aed' : '#cbd5e1') + ';padding:6px 12px;border-radius:6px;cursor:pointer;font-size:0.85rem;">' + (i+1) + '. ' + tp.title + '</button>';
         });
         html += '</div>';
 
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid #7c3aed;border-radius:8px;padding:18px;margin-bottom:14px;">';
-        html += '<h3 style="margin-top:0;color:#6d28d9;">' + t.title + '</h3>';
-        html += '<div style="margin:10px 0;display:flex;gap:6px;flex-wrap:wrap;">';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-top:4px solid #7c3aed;border-radius:8px;padding:18px;margin-bottom:14px;">';
+        html += '<h3 data-style="margin-top:0;color:#6d28d9;">' + t.title + '</h3>';
+        html += '<div data-style="margin:10px 0;display:flex;gap:6px;flex-wrap:wrap;">';
         t.subjects.forEach(function(s) {
             const colorMap = { '物理': '#3b82f6', '化学': '#16a34a', '生物': '#dc2626' };
-            html += '<span style="background:' + colorMap[s] + ';color:#fff;padding:2px 10px;border-radius:4px;font-size:0.8rem;">' + s + '</span>';
+            html += '<span data-style="background:' + colorMap[s] + ';color:#fff;padding:2px 10px;border-radius:4px;font-size:0.8rem;">' + s + '</span>';
         });
         html += '</div>';
-        html += '<div style="background:#f8fafc;padding:14px;border-radius:6px;border-left:3px solid #7c3aed;margin-bottom:14px;">';
+        html += '<div data-style="background:#f8fafc;padding:14px;border-radius:6px;border-left:3px solid #7c3aed;margin-bottom:14px;">';
         html += '<strong>📌 跨学科核心考点：</strong>';
-        html += '<ul style="margin:8px 0;padding-left:20px;line-height:1.8;">';
+        html += '<ul data-style="margin:8px 0;padding-left:20px;line-height:1.8;">';
         t.keyPoints.forEach(function(kp) { html += '<li>' + kp + '</li>'; });
         html += '</ul></div>';
-        html += '<div style="background:#eff6ff;padding:14px;border-radius:6px;border-left:3px solid #3b82f6;margin-bottom:14px;">';
+        html += '<div data-style="background:#eff6ff;padding:14px;border-radius:6px;border-left:3px solid #3b82f6;margin-bottom:14px;">';
         html += '<strong>🌍 实际情境案例：</strong><br>' + t.caseStudy + '</div>';
-        html += '<div style="background:#fef3c7;padding:14px;border-radius:6px;border-left:3px solid #f59e0b;">';
+        html += '<div data-style="background:#fef3c7;padding:14px;border-radius:6px;border-left:3px solid #f59e0b;">';
         html += '<strong>📝 学科交叉例题：</strong><br>' + t.exam;
-        html += '<div style="background:#dcfce7;padding:10px;border-radius:4px;margin-top:10px;"><strong style="color:#16a34a;">✅ 答案：' + t.answer + '</strong> &nbsp; ' + t.analysis + '</div></div>';
+        html += '<div data-style="background:#dcfce7;padding:10px;border-radius:4px;margin-top:10px;"><strong data-style="color:#16a34a;">✅ 答案：' + t.answer + '</strong> &nbsp; ' + t.analysis + '</div></div>';
         html += '</div>';
 
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">';
-        html += '<button data-call=\"interdisciplinaryTopics._prev\" ' + (s.current===0?'disabled':'') + ' style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===0?'not-allowed':'pointer') + ';">← 上一专题</button>';
-        html += '<span style="color:#64748b;">第 ' + (s.current+1) + ' / ' + this.topics.length + ' 个专题</span>';
-        html += '<button data-call=\"interdisciplinaryTopics._next\" ' + (s.current===this.topics.length-1?'disabled':'') + ' style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===this.topics.length-1?'not-allowed':'pointer') + ';">下一专题 →</button>';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">';
+        html += '<button data-call=\"interdisciplinaryTopics._prev\" ' + (s.current===0?'disabled':'') + ' data-style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===0?'not-allowed':'pointer') + ';">← 上一专题</button>';
+        html += '<span data-style="color:#64748b;">第 ' + (s.current+1) + ' / ' + this.topics.length + ' 个专题</span>';
+        html += '<button data-call=\"interdisciplinaryTopics._next\" ' + (s.current===this.topics.length-1?'disabled':'') + ' data-style="background:#f1f5f9;color:#475569;border:0;padding:8px 18px;border-radius:6px;cursor:' + (s.current===this.topics.length-1?'not-allowed':'pointer') + ';">下一专题 →</button>';
         html += '</div></div>';
         app.innerHTML = html;
     },

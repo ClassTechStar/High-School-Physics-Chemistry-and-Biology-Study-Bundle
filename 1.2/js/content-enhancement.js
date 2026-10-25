@@ -129,83 +129,83 @@ function getKnowledgeGraphContent(subject){
 
     html+='<h3>🗺️ 高中'+subjectNames[subject]+'知识图谱</h3>';
 
-    html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));border:1px solid rgba(102,126,234,0.2);">';
-    html+='<h4 style="color:#667eea;">📊 考核框架：分值地图</h4>';
-    html+='<p style="margin-bottom:8px;font-size:0.9rem;">依据广东高考命题权重，确定复习优先级：</p>';
+    html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));border:1px solid rgba(102,126,234,0.2);">';
+    html+='<h4 data-style="color:#667eea;">📊 考核框架：分值地图</h4>';
+    html+='<p data-style="margin-bottom:8px;font-size:0.9rem;">依据广东高考命题权重，确定复习优先级：</p>';
     kg.examFramework.scoreWeights.forEach(function(m){
         var barWidth=Math.round(m.score*2.5);
         var colors=['#e74c3c','#e67e22','#f1c40f','#27ae60','#3498db'];
-        html+='<div style="display:flex;align-items:center;margin:4px 0;gap:8px;">';
-        html+='<span style="min-width:180px;font-size:0.85rem;">'+m.module+'</span>';
-        html+='<div style="flex:1;background:#eee;border-radius:4px;height:20px;overflow:hidden;">';
-        html+='<div style="width:'+barWidth+'%;height:100%;background:'+colors[m.priority-1]+';border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:600;">≈'+m.score+'分</div>';
+        html+='<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;">';
+        html+='<span data-style="min-width:180px;font-size:0.85rem;">'+m.module+'</span>';
+        html+='<div data-style="flex:1;background:#eee;border-radius:4px;height:20px;overflow:hidden;">';
+        html+='<div data-style="width:'+barWidth+'%;height:100%;background:'+colors[m.priority-1]+';border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:600;">≈'+m.score+'分</div>';
         html+='</div>';
         html+='</div>';
     });
     html+='</div>';
 
-    html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(39,174,96,0.08),rgba(46,204,113,0.08));border:1px solid rgba(39,174,96,0.2);">';
-    html+='<h4 style="color:#27ae60;">📋 实验评分标准（'+kg.experimentScoring.total+'分制）</h4>';
-    html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+    html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(39,174,96,0.08),rgba(46,204,113,0.08));border:1px solid rgba(39,174,96,0.2);">';
+    html+='<h4 data-style="color:#27ae60;">📋 实验评分标准（'+kg.experimentScoring.total+'分制）</h4>';
+    html+='<div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
     kg.experimentScoring.dimensions.forEach(function(d){
-        html+='<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(39,174,96,0.2);">';
-        html+='<div style="font-size:1.5rem;font-weight:700;color:#27ae60;">'+d.score+'分</div>';
-        html+='<div style="font-size:0.85rem;font-weight:600;margin:4px 0;">'+d.name+'</div>';
-        html+='<div style="font-size:0.75rem;color:#666;">'+d.desc+'</div>';
+        html+='<div data-style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(39,174,96,0.2);">';
+        html+='<div data-style="font-size:1.5rem;font-weight:700;color:#27ae60;">'+d.score+'分</div>';
+        html+='<div data-style="font-size:0.85rem;font-weight:600;margin:4px 0;">'+d.name+'</div>';
+        html+='<div data-style="font-size:0.75rem;color:#666;">'+d.desc+'</div>';
         html+='</div>';
     });
     html+='</div></div>';
 
     if(kg.relations&&kg.relations.length>0){
         html+='<div class="knowledge-card"><h4>🔗 知识关联网络</h4>';
-        html+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">';
+        html+='<div data-style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">';
         kg.relations.forEach(function(r){
             var fromTopic=kg.topics.find(function(t){return t.id===r.from;});
             var toTopic=kg.topics.find(function(t){return t.id===r.to;});
             if(!fromTopic||!toTopic) return;
             var typeColor=r.type==='PRECEDES'?'#e74c3c':'#3498db';
             var typeLabel=r.type==='PRECEDES'?'前置依赖':'横向关联';
-            html+='<div style="background:white;border:1px solid '+typeColor+';border-radius:6px;padding:6px 10px;font-size:0.8rem;">';
-            html+='<span style="color:'+typeColor+';font-weight:600;">['+typeLabel+']</span> ';
+            html+='<div data-style="background:white;border:1px solid '+typeColor+';border-radius:6px;padding:6px 10px;font-size:0.8rem;">';
+            html+='<span data-style="color:'+typeColor+';font-weight:600;">['+typeLabel+']</span> ';
             html+=fromTopic.name+' → '+toTopic.name;
-            html+='<div style="color:#999;font-size:0.75rem;">'+r.desc+'</div>';
+            html+='<div data-style="color:#999;font-size:0.75rem;">'+r.desc+'</div>';
             html+='</div>';
         });
         html+='</div></div>';
     }
 
-    html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(231,76,60,0.06),rgba(230,126,34,0.06));border:1px solid rgba(231,76,60,0.2);">';
-    html+='<h4 style="color:#e74c3c;">📌 考点冲刺清单</h4>';
-    html+='<p style="font-size:0.85rem;color:#666;margin-bottom:10px;">核心考点→命题角度→备考策略 三维清单</p>';
-    html+='<table style="width:100%;border-collapse:collapse;font-size:0.82rem;">';
-    html+='<tr style="background:var(--primary);color:#fff;"><th style="padding:8px;border:1px solid #ddd;text-align:left;">考点</th><th style="padding:8px;border:1px solid #ddd;">权重</th><th style="padding:8px;border:1px solid #ddd;text-align:left;">命题角度</th><th style="padding:8px;border:1px solid #ddd;text-align:left;">备考策略</th></tr>';
+    html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(231,76,60,0.06),rgba(230,126,34,0.06));border:1px solid rgba(231,76,60,0.2);">';
+    html+='<h4 data-style="color:#e74c3c;">📌 考点冲刺清单</h4>';
+    html+='<p data-style="font-size:0.85rem;color:#666;margin-bottom:10px;">核心考点→命题角度→备考策略 三维清单</p>';
+    html+='<table data-style="width:100%;border-collapse:collapse;font-size:0.82rem;">';
+    html+='<tr data-style="background:var(--primary);color:#fff;"><th data-style="padding:8px;border:1px solid #ddd;text-align:left;">考点</th><th data-style="padding:8px;border:1px solid #ddd;">权重</th><th data-style="padding:8px;border:1px solid #ddd;text-align:left;">命题角度</th><th data-style="padding:8px;border:1px solid #ddd;text-align:left;">备考策略</th></tr>';
     kg.topics.forEach(function(t){
         var wp=Math.round(t.weight*100);
         var wc=t.weight>=0.10?'#e74c3c':t.weight>=0.06?'#e67e22':'#27ae60';
         var examAngle=t.examRef||'常规考查';
         var stratShort=t.strategy?t.strategy.substring(0,40)+'...':'—';
-        html+='<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">'+t.name+'</td>';
-        html+='<td style="padding:6px;border:1px solid #ddd;text-align:center;color:'+wc+';font-weight:700;">'+wp+'%</td>';
-        html+='<td style="padding:6px;border:1px solid #ddd;font-size:0.8rem;">'+examAngle+'</td>';
-        html+='<td style="padding:6px;border:1px solid #ddd;font-size:0.8rem;">'+stratShort+'</td></tr>';
+        html+='<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">'+t.name+'</td>';
+        html+='<td data-style="padding:6px;border:1px solid #ddd;text-align:center;color:'+wc+';font-weight:700;">'+wp+'%</td>';
+        html+='<td data-style="padding:6px;border:1px solid #ddd;font-size:0.8rem;">'+examAngle+'</td>';
+        html+='<td data-style="padding:6px;border:1px solid #ddd;font-size:0.8rem;">'+stratShort+'</td></tr>';
     });
     html+='</table></div>';
 
     kg.topics.forEach(function(topic,idx){
         var weightPercent=Math.round(topic.weight*100);
         var weightColor=topic.weight>=0.10?'#e74c3c':topic.weight>=0.06?'#e67e22':'#27ae60';
-        html+='<div class="knowledge-card" id="topic-'+topic.id+'" style="border-left:4px solid '+weightColor+';">';
-        html+='<h4 style="display:flex;justify-content:space-between;align-items:center;">';
+        html+='<div class="knowledge-card" id="topic-'+topic.id+'" data-style="border-left:4px solid '+weightColor+';">';
+        html+='<h4 data-style="display:flex;justify-content:space-between;align-items:center;">';
         html+='<span>'+(idx+1)+'. '+topic.name+'</span>';
-        html+='<span style="font-size:0.8rem;color:'+weightColor+';background:'+weightColor+'15;padding:2px 8px;border-radius:10px;">权重'+weightPercent+'%</span>';
+        html+='<span data-style="font-size:0.8rem;color:'+weightColor+';background:'+weightColor+'15;padding:2px 8px;border-radius:10px;">权重'+weightPercent+'%</span>';
         html+='</h4>';
-        html+='<div style="font-size:0.8rem;color:#888;margin-bottom:8px;">📍 '+topic.module+' | 📝 '+topic.examRef+'</div>';
+        html+='<div data-style="font-size:0.8rem;color:#888;margin-bottom:8px;">📍 '+topic.module+' | 📝 '+topic.examRef+'</div>';
 
         html+='<div class="key-point"><strong>🧠 核心概念：</strong>'+topic.concept+'</div>';
         html+='<div class="key-point"><strong>📊 高频图像/模型：</strong>'+topic.diagram+'</div>';
         html+='<div class="key-point"><strong>🔬 典型实验情境：</strong>'+topic.experiment+'</div>';
         html+='<div class="common-mistake"><strong>⚠️ 易错警示：</strong>'+topic.pitfall+'</div>';
-        html+='<div style="background:rgba(102,126,234,0.08);padding:10px 14px;border-radius:6px;margin:8px 0;border-left:3px solid #667eea;font-size:0.85rem;line-height:1.7;">';
+        html+='<div data-style="background:rgba(102,126,234,0.08);padding:10px 14px;border-radius:6px;margin:8px 0;border-left:3px solid #667eea;font-size:0.85rem;line-height:1.7;">';
         html+='<strong>🎯 备考策略：</strong>'+topic.strategy;
         html+='</div>';
         html+='</div>';
@@ -219,7 +219,7 @@ function getModelsContent(subject){
     var data=ContentEnhancer.models[subject];
     if(!data) return '<p>题型模型正在开发中...</p>';
     var html='<div class="knowledge-section"><h3>🔧 '+data.name+' 常见题型/模型</h3>';
-    html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">';
+    html+='<div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">';
     data.categories.forEach(function(cat){
         html+='<button class="module-tab" data-call="ContentEnhancer.filterModels" data-arg1="@s:' + subject + '" data-arg2="@s:' + cat.id + '">'+cat.name+'</button>';
     });
@@ -245,19 +245,19 @@ function getHotspotContent(subject){
         if(!data) return '<p>热点聚焦内容正在加载中...</p>';
         var html='<div class="knowledge-section"><h3>🔥 高中生物热点聚焦</h3>';
         data.topics.forEach(function(topic){
-            html+='<div class="knowledge-card" style="margin-bottom:16px;">';
-            html+='<h4 style="color:var(--primary);">'+topic.title+'</h4>';
-            if(topic.intro) html+='<p style="color:var(--text-secondary);margin-bottom:10px;">'+topic.intro+'</p>';
+            html+='<div class="knowledge-card" data-style="margin-bottom:16px;">';
+            html+='<h4 data-style="color:var(--primary);">'+topic.title+'</h4>';
+            if(topic.intro) html+='<p data-style="color:var(--text-secondary);margin-bottom:10px;">'+topic.intro+'</p>';
             topic.sections.forEach(function(sec){
-                html+='<div style="margin-bottom:10px;">';
-                html+='<h5 style="color:var(--secondary);margin-bottom:6px;">'+sec.subtitle+'</h5>';
+                html+='<div data-style="margin-bottom:10px;">';
+                html+='<h5 data-style="color:var(--secondary);margin-bottom:6px;">'+sec.subtitle+'</h5>';
                 sec.points.forEach(function(pt){
                     if(pt.type==='key'){
                         html+='<div class="key-point"><strong>'+pt.label+'：</strong>'+pt.content+'</div>';
                     }else if(pt.type==='mistake'){
                         html+='<div class="common-mistake">⚠️ '+pt.content+'</div>';
                     }else if(pt.type==='example'){
-                        html+='<div style="background:var(--bg-secondary);padding:8px 12px;border-radius:6px;margin:6px 0;font-size:0.9rem;border-left:3px solid var(--primary);">'+pt.content+'</div>';
+                        html+='<div data-style="background:var(--bg-secondary);padding:8px 12px;border-radius:6px;margin:6px 0;font-size:0.9rem;border-left:3px solid var(--primary);">'+pt.content+'</div>';
                     }else{
                         html+='<div class="key-point">'+pt.content+'</div>';
                     }
@@ -275,14 +275,14 @@ function getHotspotContent(subject){
     kg.topics.forEach(function(topic){
         var wp=Math.round(topic.weight*100);
         var wc=topic.weight>=0.10?'#e74c3c':topic.weight>=0.06?'#e67e22':'#27ae60';
-        html+='<div class="knowledge-card" style="margin-bottom:16px;border-left:4px solid '+wc+';">';
-        html+='<h4 style="color:var(--primary);">'+topic.name+' <span style="font-size:0.8rem;color:'+wc+';">权重'+wp+'%</span></h4>';
-        html+='<div style="font-size:0.8rem;color:#888;margin-bottom:8px;">📍 '+topic.module+' | 📝 '+topic.examRef+'</div>';
+        html+='<div class="knowledge-card" data-style="margin-bottom:16px;border-left:4px solid '+wc+';">';
+        html+='<h4 data-style="color:var(--primary);">'+topic.name+' <span data-style="font-size:0.8rem;color:'+wc+';">权重'+wp+'%</span></h4>';
+        html+='<div data-style="font-size:0.8rem;color:#888;margin-bottom:8px;">📍 '+topic.module+' | 📝 '+topic.examRef+'</div>';
         html+='<div class="key-point"><strong>🧠 核心概念：</strong>'+topic.concept+'</div>';
         html+='<div class="key-point"><strong>📊 高频图像：</strong>'+topic.diagram+'</div>';
         html+='<div class="key-point"><strong>🔬 实验情境：</strong>'+topic.experiment+'</div>';
         html+='<div class="common-mistake"><strong>⚠️ 易错警示：</strong>'+topic.pitfall+'</div>';
-        html+='<div style="background:rgba(102,126,234,0.08);padding:10px 14px;border-radius:6px;margin:8px 0;border-left:3px solid #667eea;font-size:0.85rem;line-height:1.7;">';
+        html+='<div data-style="background:rgba(102,126,234,0.08);padding:10px 14px;border-radius:6px;margin:8px 0;border-left:3px solid #667eea;font-size:0.85rem;line-height:1.7;">';
         html+='<strong>🎯 备考策略：</strong>'+topic.strategy;
         html+='</div></div>';
     });
@@ -466,7 +466,7 @@ var CE={
 
     _buildBiologyModels:function(){var models=[];var m=function(n,c,f,a,e,v){return{name:n,category:c,features:f,approach:a,example:e||'',variation:v||''};};models.push(m('孟德尔遗传比例','genetics','分离定律3:1，自由组合9:3:3:1','判断显隐性；写基因型；计算比例','Aa×Aa→3:1','致死基因改变比例'));models.push(m('伴性遗传','genetics','基因位于性染色体','判断遗传方式；写基因型；计算概率','色盲携带者女性：儿子50%色盲','注意X染色体失活'));models.push(m('遗传系谱图分析','genetics','根据系谱图判断遗传方式','先判显隐；再判常/伴性','无中生有为隐性','外显率不全'));models.push(m('DNA复制计算','genetics','计算标记DNA比例','半保留复制；n次复制后含¹⁵N占2/2ⁿ','复制3次含¹⁵N占1/4','区分DNA数和单链数'));models.push(m('基因表达计算','genetics','计算转录翻译产物','DNA碱基:mRNA碱基:氨基酸=6:3:1','n个碱基DNA→n/3个氨基酸','注意起始和终止密码子'));models.push(m('光合作用曲线分析','metabolism','分析因素对光合速率的影响','识别关键点；分析限制因素','光补偿点：净光合=0','净光合与总光合区别'));models.push(m('呼吸作用计算','metabolism','计算有氧呼吸物质变化','三阶段分别计算','1mol葡萄糖有氧呼吸约30-32ATP','无氧呼吸只在第一阶段产ATP'));models.push(m('细胞分裂图像判断','cell','判断分裂各时期','看染色体数；看同源染色体；看四分体','减Ⅱ后期：无同源染色体','二倍体vs单倍体'));models.push(m('质壁分离','cell','植物细胞渗透作用','外界浓度>细胞液→失水分离','0.3g/mL蔗糖溶液','高浓度导致死亡不能复原'));models.push(m('能量流动','ecology','计算各营养级能量传递','传递效率10-20%','10000kJ→1000-2000kJ','传递效率针对营养级'));models.push(m('种群增长','ecology','J型和S型增长','J型：Nt=N₀λᵗ；S型：K/2增长最快','渔业捕捞维持在K/2以上','K值随环境变化'));models.push(m('免疫调节','cell','体液免疫和细胞免疫','B细胞→抗体；T细胞→效应T细胞','二次免疫更快更强','效应T细胞使靶细胞裂解'));return models;},
 
-    buildPeriodicTable:function(){this.periodicTable={elements:[{z:1,sym:'H',name:'氢',mass:1.008,group:1,period:1,config:'1s¹',en:2.20,ar:25,ie1:1312,cat:'nonmetal'},{z:2,sym:'He',name:'氦',mass:4.003,group:18,period:1,config:'1s²',en:null,ar:31,ie1:2372,cat:'noble'},{z:3,sym:'Li',name:'锂',mass:6.941,group:1,period:2,config:'[He]2s¹',en:0.98,ar:145,ie1:520,cat:'alkali'},{z:4,sym:'Be',name:'铍',mass:9.012,group:2,period:2,config:'[He]2s²',en:1.57,ar:105,ie1:900,cat:'alkaline'},{z:5,sym:'B',name:'硼',mass:10.81,group:13,period:2,config:'[He]2s²2p¹',en:2.04,ar:85,ie1:801,cat:'metalloid'},{z:6,sym:'C',name:'碳',mass:12.01,group:14,period:2,config:'[He]2s²2p²',en:2.55,ar:70,ie1:1086,cat:'nonmetal'},{z:7,sym:'N',name:'氮',mass:14.01,group:15,period:2,config:'[He]2s²2p³',en:3.04,ar:65,ie1:1402,cat:'nonmetal'},{z:8,sym:'O',name:'氧',mass:16.00,group:16,period:2,config:'[He]2s²2p⁴',en:3.44,ar:60,ie1:1314,cat:'nonmetal'},{z:9,sym:'F',name:'氟',mass:19.00,group:17,period:2,config:'[He]2s²2p⁵',en:3.98,ar:50,ie1:1681,cat:'halogen'},{z:10,sym:'Ne',name:'氖',mass:20.18,group:18,period:2,config:'[He]2s²2p⁶',en:null,ar:38,ie1:2081,cat:'noble'},{z:11,sym:'Na',name:'钠',mass:22.99,group:1,period:3,config:'[Ne]3s¹',en:0.93,ar:180,ie1:496,cat:'alkali'},{z:12,sym:'Mg',name:'镁',mass:24.31,group:2,period:3,config:'[Ne]3s²',en:1.31,ar:150,ie1:738,cat:'alkaline'},{z:13,sym:'Al',name:'铝',mass:26.98,group:13,period:3,config:'[Ne]3s²3p¹',en:1.61,ar:125,ie1:578,cat:'metal'},{z:14,sym:'Si',name:'硅',mass:28.09,group:14,period:3,config:'[Ne]3s²3p²',en:1.90,ar:110,ie1:786,cat:'metalloid'},{z:15,sym:'P',name:'磷',mass:30.97,group:15,period:3,config:'[Ne]3s²3p³',en:2.19,ar:100,ie1:1012,cat:'nonmetal'},{z:16,sym:'S',name:'硫',mass:32.07,group:16,period:3,config:'[Ne]3s²3p⁴',en:2.58,ar:100,ie1:1000,cat:'nonmetal'},{z:17,sym:'Cl',name:'氯',mass:35.45,group:17,period:3,config:'[Ne]3s²3p⁵',en:3.16,ar:100,ie1:1251,cat:'halogen'},{z:18,sym:'Ar',name:'氩',mass:39.95,group:18,period:3,config:'[Ne]3s²3p⁶',en:null,ar:71,ie1:1521,cat:'noble'},{z:19,sym:'K',name:'钾',mass:39.10,group:1,period:4,config:'[Ar]4s¹',en:0.82,ar:220,ie1:419,cat:'alkali'},{z:20,sym:'Ca',name:'钙',mass:40.08,group:2,period:4,config:'[Ar]4s²',en:1.00,ar:180,ie1:590,cat:'alkaline'},{z:26,sym:'Fe',name:'铁',mass:55.85,group:8,period:4,config:'[Ar]3d⁶4s²',en:1.83,ar:140,ie1:762,cat:'transition'},{z:29,sym:'Cu',name:'铜',mass:63.55,group:11,period:4,config:'[Ar]3d¹⁰4s¹',en:1.90,ar:135,ie1:745,cat:'transition'},{z:30,sym:'Zn',name:'锌',mass:65.38,group:12,period:4,config:'[Ar]3d¹⁰4s²',en:1.65,ar:135,ie1:906,cat:'transition'},{z:35,sym:'Br',name:'溴',mass:79.90,group:17,period:4,config:'[Ar]3d¹⁰4s²4p⁵',en:2.96,ar:115,ie1:1140,cat:'halogen'},{z:36,sym:'Kr',name:'氪',mass:83.80,group:18,period:4,config:'[Ar]3d¹⁰4s²4p⁶',en:3.00,ar:88,ie1:1351,cat:'noble'}],render:function(cid){var c=document.getElementById(cid);if(!c)return;var h='<div style="overflow-x:auto;"><div style="display:grid;grid-template-columns:repeat(18,58px);gap:2px;min-width:1060px;">';var g=new Array(18*7).fill(null);this.elements.forEach(function(el){var idx=(el.period-1)*18+(el.group-1);if(idx<g.length)g[idx]=el;});for(var i=0;i<7*18;i++){var el=g[i];if(el){var bg='#fff';if(el.cat==='alkali')bg='#e8f5e9';else if(el.cat==='alkaline')bg='#e3f2fd';else if(el.cat==='transition')bg='#fff3e0';else if(el.cat==='nonmetal')bg='#fce4ec';else if(el.cat==='halogen')bg='#e8eaf6';else if(el.cat==='noble')bg='#f3e5f5';else if(el.cat==='metalloid')bg='#efebe9';else bg='#f5f5f5';h+='<div style="background:'+bg+';padding:4px;border-radius:4px;text-align:center;cursor:pointer;border:1px solid #ddd;font-size:0.7rem;" data-call=\"ContentEnhancer.showElementDetail\" data-arg1=\"@n:'+el.z+'" title="'+el.name+'">';h+='<div style="font-size:0.6rem;color:#999;">'+el.z+'</div>';h+='<div style="font-weight:bold;font-size:0.9rem;">'+el.sym+'</div>';h+='<div style="font-size:0.55rem;color:#666;">'+el.mass.toFixed(el.mass<10?3:2)+'</div>';h+='</div>';}else{h+='<div style="padding:4px;"></div>';}}h+='</div></div><div id="element-detail" style="margin-top:20px;"></div>';c.innerHTML=h;},showElement:function(z){var el=this.elements.find(function(e){return e.z===z;});if(!el)return;var d=document.getElementById('element-detail');if(!d)return;var h='<div class="knowledge-card"><h4>'+el.sym+' '+el.name+' (Z='+el.z+')</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';h+='<div class="key-point">原子序数：'+el.z+'</div>';h+='<div class="key-point">相对原子质量：'+el.mass+'</div>';h+='<div class="key-point">电子排布：'+el.config+'</div>';h+='<div class="key-point">原子半径：'+el.ar+'pm</div>';if(el.en)h+='<div class="key-point">电负性：'+el.en+'</div>';h+='<div class="key-point">第一电离能：'+el.ie1+'kJ/mol</div>';h+='</div></div>';d.innerHTML=h;}};},
+    buildPeriodicTable:function(){this.periodicTable={elements:[{z:1,sym:'H',name:'氢',mass:1.008,group:1,period:1,config:'1s¹',en:2.20,ar:25,ie1:1312,cat:'nonmetal'},{z:2,sym:'He',name:'氦',mass:4.003,group:18,period:1,config:'1s²',en:null,ar:31,ie1:2372,cat:'noble'},{z:3,sym:'Li',name:'锂',mass:6.941,group:1,period:2,config:'[He]2s¹',en:0.98,ar:145,ie1:520,cat:'alkali'},{z:4,sym:'Be',name:'铍',mass:9.012,group:2,period:2,config:'[He]2s²',en:1.57,ar:105,ie1:900,cat:'alkaline'},{z:5,sym:'B',name:'硼',mass:10.81,group:13,period:2,config:'[He]2s²2p¹',en:2.04,ar:85,ie1:801,cat:'metalloid'},{z:6,sym:'C',name:'碳',mass:12.01,group:14,period:2,config:'[He]2s²2p²',en:2.55,ar:70,ie1:1086,cat:'nonmetal'},{z:7,sym:'N',name:'氮',mass:14.01,group:15,period:2,config:'[He]2s²2p³',en:3.04,ar:65,ie1:1402,cat:'nonmetal'},{z:8,sym:'O',name:'氧',mass:16.00,group:16,period:2,config:'[He]2s²2p⁴',en:3.44,ar:60,ie1:1314,cat:'nonmetal'},{z:9,sym:'F',name:'氟',mass:19.00,group:17,period:2,config:'[He]2s²2p⁵',en:3.98,ar:50,ie1:1681,cat:'halogen'},{z:10,sym:'Ne',name:'氖',mass:20.18,group:18,period:2,config:'[He]2s²2p⁶',en:null,ar:38,ie1:2081,cat:'noble'},{z:11,sym:'Na',name:'钠',mass:22.99,group:1,period:3,config:'[Ne]3s¹',en:0.93,ar:180,ie1:496,cat:'alkali'},{z:12,sym:'Mg',name:'镁',mass:24.31,group:2,period:3,config:'[Ne]3s²',en:1.31,ar:150,ie1:738,cat:'alkaline'},{z:13,sym:'Al',name:'铝',mass:26.98,group:13,period:3,config:'[Ne]3s²3p¹',en:1.61,ar:125,ie1:578,cat:'metal'},{z:14,sym:'Si',name:'硅',mass:28.09,group:14,period:3,config:'[Ne]3s²3p²',en:1.90,ar:110,ie1:786,cat:'metalloid'},{z:15,sym:'P',name:'磷',mass:30.97,group:15,period:3,config:'[Ne]3s²3p³',en:2.19,ar:100,ie1:1012,cat:'nonmetal'},{z:16,sym:'S',name:'硫',mass:32.07,group:16,period:3,config:'[Ne]3s²3p⁴',en:2.58,ar:100,ie1:1000,cat:'nonmetal'},{z:17,sym:'Cl',name:'氯',mass:35.45,group:17,period:3,config:'[Ne]3s²3p⁵',en:3.16,ar:100,ie1:1251,cat:'halogen'},{z:18,sym:'Ar',name:'氩',mass:39.95,group:18,period:3,config:'[Ne]3s²3p⁶',en:null,ar:71,ie1:1521,cat:'noble'},{z:19,sym:'K',name:'钾',mass:39.10,group:1,period:4,config:'[Ar]4s¹',en:0.82,ar:220,ie1:419,cat:'alkali'},{z:20,sym:'Ca',name:'钙',mass:40.08,group:2,period:4,config:'[Ar]4s²',en:1.00,ar:180,ie1:590,cat:'alkaline'},{z:26,sym:'Fe',name:'铁',mass:55.85,group:8,period:4,config:'[Ar]3d⁶4s²',en:1.83,ar:140,ie1:762,cat:'transition'},{z:29,sym:'Cu',name:'铜',mass:63.55,group:11,period:4,config:'[Ar]3d¹⁰4s¹',en:1.90,ar:135,ie1:745,cat:'transition'},{z:30,sym:'Zn',name:'锌',mass:65.38,group:12,period:4,config:'[Ar]3d¹⁰4s²',en:1.65,ar:135,ie1:906,cat:'transition'},{z:35,sym:'Br',name:'溴',mass:79.90,group:17,period:4,config:'[Ar]3d¹⁰4s²4p⁵',en:2.96,ar:115,ie1:1140,cat:'halogen'},{z:36,sym:'Kr',name:'氪',mass:83.80,group:18,period:4,config:'[Ar]3d¹⁰4s²4p⁶',en:3.00,ar:88,ie1:1351,cat:'noble'}],render:function(cid){var c=document.getElementById(cid);if(!c)return;var h='<div data-style="overflow-x:auto;"><div data-style="display:grid;grid-template-columns:repeat(18,58px);gap:2px;min-width:1060px;">';var g=new Array(18*7).fill(null);this.elements.forEach(function(el){var idx=(el.period-1)*18+(el.group-1);if(idx<g.length)g[idx]=el;});for(var i=0;i<7*18;i++){var el=g[i];if(el){var bg='#fff';if(el.cat==='alkali')bg='#e8f5e9';else if(el.cat==='alkaline')bg='#e3f2fd';else if(el.cat==='transition')bg='#fff3e0';else if(el.cat==='nonmetal')bg='#fce4ec';else if(el.cat==='halogen')bg='#e8eaf6';else if(el.cat==='noble')bg='#f3e5f5';else if(el.cat==='metalloid')bg='#efebe9';else bg='#f5f5f5';h+='<div data-style="background:'+bg+';padding:4px;border-radius:4px;text-align:center;cursor:pointer;border:1px solid #ddd;font-size:0.7rem;" data-call=\"ContentEnhancer.showElementDetail\" data-arg1=\"@n:'+el.z+'" title="'+el.name+'">';h+='<div data-style="font-size:0.6rem;color:#999;">'+el.z+'</div>';h+='<div data-style="font-weight:bold;font-size:0.9rem;">'+el.sym+'</div>';h+='<div data-style="font-size:0.55rem;color:#666;">'+el.mass.toFixed(el.mass<10?3:2)+'</div>';h+='</div>';}else{h+='<div data-style="padding:4px;"></div>';}}h+='</div></div><div id="element-detail" data-style="margin-top:20px;"></div>';c.innerHTML=h;},showElement:function(z){var el=this.elements.find(function(e){return e.z===z;});if(!el)return;var d=document.getElementById('element-detail');if(!d)return;var h='<div class="knowledge-card"><h4>'+el.sym+' '+el.name+' (Z='+el.z+')</h4><div data-style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';h+='<div class="key-point">原子序数：'+el.z+'</div>';h+='<div class="key-point">相对原子质量：'+el.mass+'</div>';h+='<div class="key-point">电子排布：'+el.config+'</div>';h+='<div class="key-point">原子半径：'+el.ar+'pm</div>';if(el.en)h+='<div class="key-point">电负性：'+el.en+'</div>';h+='<div class="key-point">第一电离能：'+el.ie1+'kJ/mol</div>';h+='</div></div>';d.innerHTML=h;}};},
 
     buildChemistryEquations:function(){this.chemistryEquations={inorganic:[{eq:'2Na+2H₂O→2NaOH+H₂↑',type:'置换',cat:'碱金属'},{eq:'2Na₂O₂+2H₂O→4NaOH+O₂↑',type:'歧化',cat:'碱金属'},{eq:'2Na₂O₂+2CO₂→2Na₂CO₃+O₂',type:'歧化',cat:'碱金属'},{eq:'2Al+2NaOH+2H₂O→2NaAlO₂+3H₂↑',type:'置换',cat:'铝'},{eq:'Al₂O₃+2NaOH→2NaAlO₂+H₂O',type:'复分解',cat:'铝'},{eq:'Al(OH)₃+NaOH→NaAlO₂+2H₂O',type:'复分解',cat:'铝'},{eq:'2Fe+3Cl₂→2FeCl₃',type:'化合',cat:'铁'},{eq:'3Fe+2O₂→Fe₃O₄',type:'化合',cat:'铁'},{eq:'2FeCl₂+Cl₂→2FeCl₃',type:'氧化还原',cat:'铁'},{eq:'2FeCl₃+Fe→3FeCl₂',type:'氧化还原',cat:'铁'},{eq:'Cu+4HNO₃(浓)→Cu(NO₃)₂+2NO₂↑+2H₂O',type:'氧化还原',cat:'铜'},{eq:'3Cu+8HNO₃(稀)→3Cu(NO₃)₂+2NO↑+4H₂O',type:'氧化还原',cat:'铜'},{eq:'Cl₂+2NaOH→NaCl+NaClO+H₂O',type:'歧化',cat:'卤素'},{eq:'MnO₂+4HCl(浓)→MnCl₂+Cl₂↑+2H₂O',type:'氧化还原',cat:'卤素'},{eq:'2KMnO₄+16HCl→2KCl+2MnCl₂+5Cl₂↑+8H₂O',type:'氧化还原',cat:'卤素'},{eq:'SO₂+2NaOH→Na₂SO₃+H₂O',type:'复分解',cat:'硫'},{eq:'2SO₂+O₂⇌2SO₃',type:'催化氧化',cat:'硫'},{eq:'Cu+2H₂SO₄(浓)→CuSO₄+SO₂↑+2H₂O',type:'氧化还原',cat:'硫'},{eq:'4NH₃+5O₂→4NO+6H₂O',type:'催化氧化',cat:'氮'},{eq:'Na₂CO₃+2HCl→2NaCl+H₂O+CO₂↑',type:'复分解',cat:'盐'},{eq:'NaHCO₃+HCl→NaCl+H₂O+CO₂↑',type:'复分解',cat:'盐'},{eq:'2NaHCO₃→Na₂CO₃+H₂O+CO₂↑',type:'分解',cat:'盐'},{eq:'SiO₂+2NaOH→Na₂SiO₃+H₂O',type:'复分解',cat:'硅'},{eq:'2NaCl+2H₂O→2NaOH+H₂↑+Cl₂↑',type:'电解',cat:'电解'},{eq:'2Al₂O₃(熔融)→4Al+3O₂↑',type:'电解',cat:'电解'}],organic:[{eq:'CH₄+Cl₂→CH₃Cl+HCl(光照)',type:'取代',cat:'烷烃'},{eq:'CH₂=CH₂+Br₂→CH₂BrCH₂Br',type:'加成',cat:'烯烃'},{eq:'CH₂=CH₂+H₂O→CH₃CH₂OH',type:'加成',cat:'烯烃'},{eq:'nCH₂=CH₂→[CH₂-CH₂]ₙ',type:'加聚',cat:'烯烃'},{eq:'C₆H₆+Br₂→C₆H₅Br+HBr(FeBr₃)',type:'取代',cat:'芳香烃'},{eq:'C₂H₅OH+3O₂→2CO₂+3H₂O',type:'燃烧',cat:'醇'},{eq:'2C₂H₅OH+2Na→2C₂H₅ONa+H₂↑',type:'置换',cat:'醇'},{eq:'C₂H₅OH+O₂→CH₃CHO+H₂O(Cu)',type:'催化氧化',cat:'醇'},{eq:'CH₃CHO+2Cu(OH)₂→CH₃COOH+Cu₂O↓+2H₂O',type:'氧化',cat:'醛'},{eq:'CH₃COOH+C₂H₅OH⇌CH₃COOC₂H₅+H₂O',type:'酯化',cat:'酸'},{eq:'CH₃COOCH₃+NaOH→CH₃COONa+CH₃OH',type:'水解',cat:'酯'},{eq:'C₂H₅Cl+NaOH(醇)→CH₂=CH₂+NaCl+H₂O',type:'消去',cat:'卤代烃'},{eq:'C₂H₅Cl+NaOH(水)→C₂H₅OH+NaCl',type:'水解',cat:'卤代烃'},{eq:'(C₆H₁₀O₅)ₙ+nH₂O→nC₆H₁₂O₆',type:'水解',cat:'糖类'},{eq:'C₆H₁₂O₆→2C₂H₅OH+2CO₂',type:'分解',cat:'糖类'}]};},
 
@@ -494,33 +494,33 @@ var CE={
     _buildChemistryExperimentsContent:function(){var ce=this.chemistryExperiments;if(!ce)return'';var h='<div class="experiments-section"><h3>🔬 化学实验指导</h3>';h+='<div class="knowledge-card"><h4>🛡️ 实验安全</h4>';ce.safety.forEach(function(s){h+='<div class="key-point"><strong>'+s.category+'</strong>：'+s.items.join('；')+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🔄 分离提纯</h4>';ce.separation.forEach(function(s){h+='<div class="key-point"><strong>'+s.method+'</strong>：'+s.principle+'，适用：'+s.scope+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>🧪 滴定</h4>';ce.titration.forEach(function(t){h+='<div class="key-point"><strong>'+t.type+'</strong>：'+t.principle+'，步骤：'+t.steps+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>📐 常用仪器</h4>';ce.instruments.forEach(function(inst){h+='<div class="key-point"><strong>'+inst.name+'</strong>：'+inst.usage+'，注意：'+inst.notes+'</div>';});h+='</div>';h+='<div class="knowledge-card"><h4>📦 药品储存</h4>';ce.storage.forEach(function(s){h+='<div class="key-point"><strong>'+s.substance+'</strong>：'+s.method+'（'+s.reason+'）</div>';});h+='</div></div>';return h;},
     _buildBiologyExperimentsContent:function(){return '<div class="experiments-section"><h3>🔬 生物实验指导</h3>'+this._card('质壁分离与复原','原理：渗透作用。材料：紫色洋葱外表皮。步骤：装片→0.3g/mL蔗糖→观察分离→换清水→观察复原')+this._card('探究酶的专一性','自变量：酶种类或底物种类。检测：碘液/斐林试剂/双缩脲试剂')+this._card('观察根尖分生组织有丝分裂','流程：培养→固定→解离→漂洗→染色→制片→观察。解离液：盐酸+酒精')+this._card('探究酵母菌呼吸方式','自变量：有氧/无氧。检测：CO₂用澄清石灰水，酒精用酸性重铬酸钾')+'</div>';},
     _buildPhysicsTests:function(){return '<div class="tests-section"><h3>📋 物理模拟测试</h3>'+
-        this._card('基础·运动学','关于匀变速直线运动，下列说法正确的是：<br>A.速度越大加速度越大 ✗<br>B.速度变化越大加速度越大 ✗<br>C.加速度越大速度变化越快 ✓<br>D.加速度方向与速度方向一定相同 ✗<br><span style="color:#27ae60;">解析：a=Δv/Δt，加速度描述速度变化快慢，与速度大小无直接关系</span>')+
-        this._card('基础·牛顿定律','质量为2kg的物体在光滑水平面上受6N水平力作用，3s内位移为（初速度为零）：<br>A.9m ✗<br>B.13.5m ✓<br>C.18m ✗<br>D.27m ✗<br><span style="color:#27ae60;">解析：a=F/m=3m/s²，x=½at²=½×3×9=13.5m</span>')+
-        this._card('提升·曲线运动','从同一高度以不同初速度水平抛出两个相同小球（不计空气阻力），下列说法正确的是：<br>A.初速度大的先落地 ✗<br>B.两球同时落地 ✓<br>C.初速度大的落地速度小 ✗<br>D.两球落地速度相同 ✗<br><span style="color:#27ae60;">解析：t=√(2h/g)与v₀无关；落地速度v=√(v₀²+2gh)，v₀大则v大</span>')+
-        this._card('提升·万有引力','关于地球同步卫星，下列说法正确的是：<br>A.可以在北京正上方 ✗<br>B.周期等于地球自转周期 ✓<br>C.线速度等于第一宇宙速度 ✗<br>D.向心加速度等于地面g ✗<br><span style="color:#27ae60;">解析：同步卫星在赤道正上方，T=24h，v<v₁=7.9km/s，a<g</span>')+
-        this._card('提升·机械能','从高h处自由下落的物体，动能等于势能时距地面高度为：<br>A.h/4 ✗<br>B.h/2 ✓<br>C.2h/3 ✗<br>D.3h/4 ✗<br><span style="color:#27ae60;">解析：Ek=Ep时，mgh/2=mgh\'，h\'=h/2</span>')+
-        this._card('冲刺·电磁感应','导体棒在匀强磁场中匀速切割磁力线，外力做功等于：<br>A.导体棒动能增量 ✗<br>B.电路产生的焦耳热 ✓<br>C.安培力做的功 ✗<br>D.导体棒重力势能变化 ✗<br><span style="color:#27ae60;">解析：匀速→a=0→F外=F安，W外=W克服安培力=Q焦耳</span>')+
-        this._card('冲刺·动量能量','质量m的子弹以v₀射入静止木块M并留在其中，损失的机械能为：<br>A.½mv₀² ✗<br>B.½Mv₀² ✗<br>C.Mmv₀²/[2(M+m)] ✓<br>D.½mv₀²·M/(M+m) ✗<br><span style="color:#27ae60;">解析：mv₀=(M+m)v，ΔE=½mv₀²-½(M+m)v²=Mmv₀²/[2(M+m)]</span>')+
-        this._card('冲刺·电场','关于电场强度和电势，下列正确的是：<br>A.E=0处φ一定为0 ✗<br>B.φ高处E一定大 ✗<br>C.E与φ无直接关系 ✓<br>D.沿电场线方向φ升高 ✗<br><span style="color:#27ae60;">解析：等量同种电荷连线中点E=0但φ≠0；沿电场线φ降低</span>')+
+        this._card('基础·运动学','关于匀变速直线运动，下列说法正确的是：<br>A.速度越大加速度越大 ✗<br>B.速度变化越大加速度越大 ✗<br>C.加速度越大速度变化越快 ✓<br>D.加速度方向与速度方向一定相同 ✗<br><span data-style="color:#27ae60;">解析：a=Δv/Δt，加速度描述速度变化快慢，与速度大小无直接关系</span>')+
+        this._card('基础·牛顿定律','质量为2kg的物体在光滑水平面上受6N水平力作用，3s内位移为（初速度为零）：<br>A.9m ✗<br>B.13.5m ✓<br>C.18m ✗<br>D.27m ✗<br><span data-style="color:#27ae60;">解析：a=F/m=3m/s²，x=½at²=½×3×9=13.5m</span>')+
+        this._card('提升·曲线运动','从同一高度以不同初速度水平抛出两个相同小球（不计空气阻力），下列说法正确的是：<br>A.初速度大的先落地 ✗<br>B.两球同时落地 ✓<br>C.初速度大的落地速度小 ✗<br>D.两球落地速度相同 ✗<br><span data-style="color:#27ae60;">解析：t=√(2h/g)与v₀无关；落地速度v=√(v₀²+2gh)，v₀大则v大</span>')+
+        this._card('提升·万有引力','关于地球同步卫星，下列说法正确的是：<br>A.可以在北京正上方 ✗<br>B.周期等于地球自转周期 ✓<br>C.线速度等于第一宇宙速度 ✗<br>D.向心加速度等于地面g ✗<br><span data-style="color:#27ae60;">解析：同步卫星在赤道正上方，T=24h，v<v₁=7.9km/s，a<g</span>')+
+        this._card('提升·机械能','从高h处自由下落的物体，动能等于势能时距地面高度为：<br>A.h/4 ✗<br>B.h/2 ✓<br>C.2h/3 ✗<br>D.3h/4 ✗<br><span data-style="color:#27ae60;">解析：Ek=Ep时，mgh/2=mgh\'，h\'=h/2</span>')+
+        this._card('冲刺·电磁感应','导体棒在匀强磁场中匀速切割磁力线，外力做功等于：<br>A.导体棒动能增量 ✗<br>B.电路产生的焦耳热 ✓<br>C.安培力做的功 ✗<br>D.导体棒重力势能变化 ✗<br><span data-style="color:#27ae60;">解析：匀速→a=0→F外=F安，W外=W克服安培力=Q焦耳</span>')+
+        this._card('冲刺·动量能量','质量m的子弹以v₀射入静止木块M并留在其中，损失的机械能为：<br>A.½mv₀² ✗<br>B.½Mv₀² ✗<br>C.Mmv₀²/[2(M+m)] ✓<br>D.½mv₀²·M/(M+m) ✗<br><span data-style="color:#27ae60;">解析：mv₀=(M+m)v，ΔE=½mv₀²-½(M+m)v²=Mmv₀²/[2(M+m)]</span>')+
+        this._card('冲刺·电场','关于电场强度和电势，下列正确的是：<br>A.E=0处φ一定为0 ✗<br>B.φ高处E一定大 ✗<br>C.E与φ无直接关系 ✓<br>D.沿电场线方向φ升高 ✗<br><span data-style="color:#27ae60;">解析：等量同种电荷连线中点E=0但φ≠0；沿电场线φ降低</span>')+
         '</div>';},
     _buildChemistryTests:function(){return '<div class="tests-section"><h3>📋 化学模拟测试</h3>'+
-        this._card('基础·化学计量','标准状况下，22.4L CO₂的物质的量为：<br>A.1mol ✓<br>B.22.4mol ✗<br>C.44mol ✗<br>D.无法确定 ✗<br><span style="color:#27ae60;">解析：标况下22.4L任何气体=1mol</span>')+
-        this._card('基础·离子反应','下列离子能大量共存的是：<br>A.H⁺、CO₃²⁻ ✗<br>B.Na⁺、K⁺、NO₃⁻、SO₄²⁻ ✓<br>C.Fe³⁺、OH⁻ ✗<br>D.NH₄⁺、OH⁻ ✗<br><span style="color:#27ae60;">解析：A产生CO₂；C产生Fe(OH)₃沉淀；D产生NH₃·H₂O</span>')+
-        this._card('提升·氧化还原','3Cu+8HNO₃(稀)→3Cu(NO₃)₂+2NO↑+4H₂O，被还原与未被还原的HNO₃之比为：<br>A.1:3 ✓<br>B.2:3 ✗<br>C.1:4 ✗<br>D.3:1 ✗<br><span style="color:#27ae60;">解析：8mol HNO₃中2mol被还原(N+5→+2)，6mol起酸性作用</span>')+
-        this._card('提升·电化学','锌铜原电池负极反应为：<br>A.Zn-2e⁻→Zn²⁺ ✓<br>B.Cu²⁺+2e⁻→Cu ✗<br>C.2H⁺+2e⁻→H₂↑ ✗<br>D.Zn²⁺+2e⁻→Zn ✗<br><span style="color:#27ae60;">解析：锌比铜活泼，锌为负极失电子氧化反应</span>')+
-        this._card('提升·化学平衡','N₂+3H₂⇌2NH₃(放热)，提高H₂转化率的措施：<br>A.增大压强 ✓<br>B.升高温度 ✗<br>C.加催化剂 ✗<br>D.减小N₂ ✗<br><span style="color:#27ae60;">解析：增大压强平衡正向移动，H₂转化率升高</span>')+
-        this._card('冲刺·盐类水解','下列溶液pH最大的是：<br>A.NaCl ✗<br>B.Na₂CO₃ ✓<br>C.NH₄Cl ✗<br>D.NaHCO₃ ✗<br><span style="color:#27ae60;">解析：Na₂CO₃水解程度最大，碱性最强</span>')+
-        this._card('冲刺·有机推断','C₂H₄O₂能与NaHCO₃反应放出气体，该有机物为：<br>A.甲酸甲酯 ✗<br>B.乙酸 ✓<br>C.乙醇 ✗<br>D.乙醛 ✗<br><span style="color:#27ae60;">解析：与NaHCO₃反应→含-COOH，C₂H₄O₂含-COOH的只有乙酸</span>')+
+        this._card('基础·化学计量','标准状况下，22.4L CO₂的物质的量为：<br>A.1mol ✓<br>B.22.4mol ✗<br>C.44mol ✗<br>D.无法确定 ✗<br><span data-style="color:#27ae60;">解析：标况下22.4L任何气体=1mol</span>')+
+        this._card('基础·离子反应','下列离子能大量共存的是：<br>A.H⁺、CO₃²⁻ ✗<br>B.Na⁺、K⁺、NO₃⁻、SO₄²⁻ ✓<br>C.Fe³⁺、OH⁻ ✗<br>D.NH₄⁺、OH⁻ ✗<br><span data-style="color:#27ae60;">解析：A产生CO₂；C产生Fe(OH)₃沉淀；D产生NH₃·H₂O</span>')+
+        this._card('提升·氧化还原','3Cu+8HNO₃(稀)→3Cu(NO₃)₂+2NO↑+4H₂O，被还原与未被还原的HNO₃之比为：<br>A.1:3 ✓<br>B.2:3 ✗<br>C.1:4 ✗<br>D.3:1 ✗<br><span data-style="color:#27ae60;">解析：8mol HNO₃中2mol被还原(N+5→+2)，6mol起酸性作用</span>')+
+        this._card('提升·电化学','锌铜原电池负极反应为：<br>A.Zn-2e⁻→Zn²⁺ ✓<br>B.Cu²⁺+2e⁻→Cu ✗<br>C.2H⁺+2e⁻→H₂↑ ✗<br>D.Zn²⁺+2e⁻→Zn ✗<br><span data-style="color:#27ae60;">解析：锌比铜活泼，锌为负极失电子氧化反应</span>')+
+        this._card('提升·化学平衡','N₂+3H₂⇌2NH₃(放热)，提高H₂转化率的措施：<br>A.增大压强 ✓<br>B.升高温度 ✗<br>C.加催化剂 ✗<br>D.减小N₂ ✗<br><span data-style="color:#27ae60;">解析：增大压强平衡正向移动，H₂转化率升高</span>')+
+        this._card('冲刺·盐类水解','下列溶液pH最大的是：<br>A.NaCl ✗<br>B.Na₂CO₃ ✓<br>C.NH₄Cl ✗<br>D.NaHCO₃ ✗<br><span data-style="color:#27ae60;">解析：Na₂CO₃水解程度最大，碱性最强</span>')+
+        this._card('冲刺·有机推断','C₂H₄O₂能与NaHCO₃反应放出气体，该有机物为：<br>A.甲酸甲酯 ✗<br>B.乙酸 ✓<br>C.乙醇 ✗<br>D.乙醛 ✗<br><span data-style="color:#27ae60;">解析：与NaHCO₃反应→含-COOH，C₂H₄O₂含-COOH的只有乙酸</span>')+
         '</div>';},
     _buildBiologyTests:function(){return '<div class="tests-section"><h3>📋 生物模拟测试</h3>'+
-        this._card('基础·细胞结构','下列不具有膜结构的细胞器是：<br>A.线粒体 ✗<br>B.核糖体 ✓<br>C.内质网 ✗<br>D.高尔基体 ✗<br><span style="color:#27ae60;">解析：核糖体是无膜细胞器，还有中心体</span>')+
-        this._card('基础·蛋白质','关于蛋白质，正确的是：<br>A.蛋白质是生命活动的主要承担者 ✓<br>B.所有蛋白质都含S ✗<br>C.多样性只与氨基酸种类有关 ✗<br>D.每种蛋白质都含20种氨基酸 ✗<br><span style="color:#27ae60;">解析：蛋白质功能多样性；多样性由种类/数目/排列/空间结构决定</span>')+
-        this._card('提升·细胞代谢','有氧呼吸释放CO₂的阶段是：<br>A.只有第二阶段 ✓<br>B.第二和第三阶段 ✗<br>C.只有第三阶段 ✗<br>D.第一和第二阶段 ✗<br><span style="color:#27ae60;">解析：第二阶段丙酮酸+H₂O→CO₂+[H]释放CO₂</span>')+
-        this._card('提升·细胞分裂','减数分裂中同源染色体分离发生在：<br>A.减Ⅰ前期 ✗<br>B.减Ⅰ后期 ✓<br>C.减Ⅱ后期 ✗<br>D.有丝分裂后期 ✗<br><span style="color:#27ae60;">解析：减Ⅰ后期同源染色体分离，减Ⅱ后期姐妹染色单体分离</span>')+
-        this._card('提升·遗传规律','正常夫妇，女方父亲白化病(常隐)，男方有一白化病弟弟，后代白化病概率：<br>A.1/4 ✗<br>B.1/6 ✗<br>C.1/9 ✗<br>D.1/18 ✗<br><span style="color:#27ae60;">解析：女方Aa(1)，男方Aa(2/3)，aa=2/3×1/4=1/6</span>')+
-        this._card('冲刺·光合作用','暗反应中CO₂固定是指：<br>A.CO₂与C₃结合 ✗<br>B.CO₂与C₅结合生成C₃ ✓<br>C.C₃被[H]还原 ✗<br>D.ATP水解 ✗<br><span style="color:#27ae60;">解析：CO₂+C₅→2C₃（RuBisCO酶催化）</span>')+
-        this._card('冲刺·免疫调节','关于特异性免疫，正确的是：<br>A.浆细胞能识别抗原 ✗<br>B.效应T细胞产生抗体 ✗<br>C.B细胞增殖分化为浆细胞和记忆细胞 ✓<br>D.二次免疫比初次慢 ✗<br><span style="color:#27ae60;">解析：浆细胞不能识别抗原；效应T细胞使靶细胞裂解；二次免疫更快更强</span>')+
-        this._card('冲刺·基因工程','限制酶的作用是：<br>A.连接DNA片段 ✗<br>B.识别特定序列并切割DNA ✓<br>C.导入目的基因 ✗<br>D.检测基因表达 ✗<br><span style="color:#27ae60;">解析：限制酶识别回文序列并切割DNA双链</span>')+
+        this._card('基础·细胞结构','下列不具有膜结构的细胞器是：<br>A.线粒体 ✗<br>B.核糖体 ✓<br>C.内质网 ✗<br>D.高尔基体 ✗<br><span data-style="color:#27ae60;">解析：核糖体是无膜细胞器，还有中心体</span>')+
+        this._card('基础·蛋白质','关于蛋白质，正确的是：<br>A.蛋白质是生命活动的主要承担者 ✓<br>B.所有蛋白质都含S ✗<br>C.多样性只与氨基酸种类有关 ✗<br>D.每种蛋白质都含20种氨基酸 ✗<br><span data-style="color:#27ae60;">解析：蛋白质功能多样性；多样性由种类/数目/排列/空间结构决定</span>')+
+        this._card('提升·细胞代谢','有氧呼吸释放CO₂的阶段是：<br>A.只有第二阶段 ✓<br>B.第二和第三阶段 ✗<br>C.只有第三阶段 ✗<br>D.第一和第二阶段 ✗<br><span data-style="color:#27ae60;">解析：第二阶段丙酮酸+H₂O→CO₂+[H]释放CO₂</span>')+
+        this._card('提升·细胞分裂','减数分裂中同源染色体分离发生在：<br>A.减Ⅰ前期 ✗<br>B.减Ⅰ后期 ✓<br>C.减Ⅱ后期 ✗<br>D.有丝分裂后期 ✗<br><span data-style="color:#27ae60;">解析：减Ⅰ后期同源染色体分离，减Ⅱ后期姐妹染色单体分离</span>')+
+        this._card('提升·遗传规律','正常夫妇，女方父亲白化病(常隐)，男方有一白化病弟弟，后代白化病概率：<br>A.1/4 ✗<br>B.1/6 ✗<br>C.1/9 ✗<br>D.1/18 ✗<br><span data-style="color:#27ae60;">解析：女方Aa(1)，男方Aa(2/3)，aa=2/3×1/4=1/6</span>')+
+        this._card('冲刺·光合作用','暗反应中CO₂固定是指：<br>A.CO₂与C₃结合 ✗<br>B.CO₂与C₅结合生成C₃ ✓<br>C.C₃被[H]还原 ✗<br>D.ATP水解 ✗<br><span data-style="color:#27ae60;">解析：CO₂+C₅→2C₃（RuBisCO酶催化）</span>')+
+        this._card('冲刺·免疫调节','关于特异性免疫，正确的是：<br>A.浆细胞能识别抗原 ✗<br>B.效应T细胞产生抗体 ✗<br>C.B细胞增殖分化为浆细胞和记忆细胞 ✓<br>D.二次免疫比初次慢 ✗<br><span data-style="color:#27ae60;">解析：浆细胞不能识别抗原；效应T细胞使靶细胞裂解；二次免疫更快更强</span>')+
+        this._card('冲刺·基因工程','限制酶的作用是：<br>A.连接DNA片段 ✗<br>B.识别特定序列并切割DNA ✓<br>C.导入目的基因 ✗<br>D.检测基因表达 ✗<br><span data-style="color:#27ae60;">解析：限制酶识别回文序列并切割DNA双链</span>')+
         '</div>';},
 
     buildBiologyHotspot:function(){

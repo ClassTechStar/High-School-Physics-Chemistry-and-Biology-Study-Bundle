@@ -1,0 +1,51 @@
+/* ============================================================
+   study-plan-print.css — 高考复习计划表弹窗样式（D3，v1.4）
+   原为 js/study-tools-v2.js 内 window.open 文档里的内联 <style> 块，
+   CSP style-src 收紧为 'self' 后内联样式块会被拦截，故外置为独立文件，
+   由弹窗文档以 <link rel="stylesheet"> 引入（同源，'self' 允许）。
+   ============================================================ */
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #4a90e2;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: #4a90e2;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 8px 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 12px;
+}
+
+.rest {
+    background: #fffbe6;
+}
+
+@media print {
+    button {
+        display: none;
+    }
+    body {
+        padding: 10px;
+    }
+}

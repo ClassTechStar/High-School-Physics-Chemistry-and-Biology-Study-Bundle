@@ -275,15 +275,15 @@ window.pomodoroTimer = (function() {
         if (!container) return;
         var sessions = getTodaySessions();
         if (sessions.length === 0) {
-            container.innerHTML = '<div style="color:#999;font-size:13px;text-align:center;padding:10px;">\u4ECA\u5929\u8FD8\u6CA1\u6709\u5B8C\u6210\u7684\u756A\u8304\u949F</div>';
+            container.innerHTML = '<div data-style="color:#999;font-size:13px;text-align:center;padding:10px;">\u4ECA\u5929\u8FD8\u6CA1\u6709\u5B8C\u6210\u7684\u756A\u8304\u949F</div>';
             return;
         }
         var html = '';
         for (var i = 0; i < sessions.length; i++) {
             var s = sessions[i];
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f5f5f5;">';
-            html += '<span style="font-size:13px;color:#555;">' + (i + 1) + '. ' + _util.escapeHtml(s.subject) + '</span>';
-            html += '<span style="font-size:12px;color:#999;">' + s.duration + '\u5206\u949F</span>';
+            html += '<div data-style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f5f5f5;">';
+            html += '<span data-style="font-size:13px;color:#555;">' + (i + 1) + '. ' + _util.escapeHtml(s.subject) + '</span>';
+            html += '<span data-style="font-size:12px;color:#999;">' + s.duration + '\u5206\u949F</span>';
             html += '</div>';
         }
         container.innerHTML = html;
@@ -365,41 +365,41 @@ window.pomodoroTimer = (function() {
         }
 
         var html = '';
-        html += '<div style="' + _ST.card + '">';
-        html += '<h2 style="margin:0 0 16px;font-size:20px;color:#333;">\u756A\u8304\u949F\u5B66\u4E60\u6CD5</h2>';
-        html += '<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">';
+        html += '<div data-style="' + _ST.card + '">';
+        html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u756A\u8304\u949F\u5B66\u4E60\u6CD5</h2>';
+        html += '<div data-style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">';
 
         /* canvas area */
-        html += '<div style="flex:0 0 auto;text-align:center;">';
-        html += '<canvas id="pomodoro-canvas" width="220" height="220" style="display:block;margin:0 auto;"></canvas>';
-        html += '<div style="margin-top:12px;display:flex;gap:10px;justify-content:center;">';
-        html += '<button id="pomo-start-btn" style="' + _ST.btn + _ST.btnPrimary + '">' + (state.running ? '\u6B63\u5728\u8FD0\u884C' : '\u5F00\u59CB') + '</button>';
-        html += '<button id="pomo-pause-btn" style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u6682\u505C</button>';
-        html += '<button id="pomo-reset-btn" style="' + _ST.btn + _ST.btnGray + _ST.btnSm + '">\u91CD\u7F6E</button>';
+        html += '<div data-style="flex:0 0 auto;text-align:center;">';
+        html += '<canvas id="pomodoro-canvas" width="220" height="220" data-style="display:block;margin:0 auto;"></canvas>';
+        html += '<div data-style="margin-top:12px;display:flex;gap:10px;justify-content:center;">';
+        html += '<button id="pomo-start-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">' + (state.running ? '\u6B63\u5728\u8FD0\u884C' : '\u5F00\u59CB') + '</button>';
+        html += '<button id="pomo-pause-btn" data-style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u6682\u505C</button>';
+        html += '<button id="pomo-reset-btn" data-style="' + _ST.btn + _ST.btnGray + _ST.btnSm + '">\u91CD\u7F6E</button>';
         html += '</div></div>';
 
         /* controls area */
-        html += '<div style="flex:1;min-width:240px;">';
-        html += '<label style="' + _ST.label + '">\u5B66\u79D1\u9009\u62E9</label>';
-        html += '<select id="pomo-subject-select" style="' + _ST.select + 'width:100%;">' + subjectOpts + '</select>';
-        html += '<div style="margin-top:16px;display:flex;gap:24px;">';
-        html += '<div style="text-align:center;flex:1;background:#f0f7ff;padding:12px;border-radius:8px;">';
-        html += '<div style="font-size:32px;font-weight:bold;color:#4a90e2;" id="pomo-session-count">' + getTodayCount() + '</div>';
-        html += '<div style="font-size:12px;color:#666;">\u4ECA\u65E5\u5B8C\u6210\u6570</div>';
+        html += '<div data-style="flex:1;min-width:240px;">';
+        html += '<label data-style="' + _ST.label + '">\u5B66\u79D1\u9009\u62E9</label>';
+        html += '<select id="pomo-subject-select" data-style="' + _ST.select + 'width:100%;">' + subjectOpts + '</select>';
+        html += '<div data-style="margin-top:16px;display:flex;gap:24px;">';
+        html += '<div data-style="text-align:center;flex:1;background:#f0f7ff;padding:12px;border-radius:8px;">';
+        html += '<div data-style="font-size:32px;font-weight:bold;color:#4a90e2;" id="pomo-session-count">' + getTodayCount() + '</div>';
+        html += '<div data-style="font-size:12px;color:#666;">\u4ECA\u65E5\u5B8C\u6210\u6570</div>';
         html += '</div>';
-        html += '<div style="text-align:center;flex:1;background:#f6ffed;padding:12px;border-radius:8px;">';
-        html += '<div style="font-size:32px;font-weight:bold;color:#52c41a;" id="pomo-today-time">' + getTodayTime() + '</div>';
-        html += '<div style="font-size:12px;color:#666;">\u4ECA\u65E6\u5B66\u4E60(\u5206\u949F)</div>';
+        html += '<div data-style="text-align:center;flex:1;background:#f6ffed;padding:12px;border-radius:8px;">';
+        html += '<div data-style="font-size:32px;font-weight:bold;color:#52c41a;" id="pomo-today-time">' + getTodayTime() + '</div>';
+        html += '<div data-style="font-size:12px;color:#666;">\u4ECA\u65E6\u5B66\u4E60(\u5206\u949F)</div>';
         html += '</div>';
         html += '</div>';
-        html += '<div style="margin-top:12px;font-size:13px;color:#999;text-align:center;" id="pomo-mode-label">' + (state.mode === 'focus' ? '\u4E13\u6CE8\u65F6\u95F4' : '\u4F11\u606F\u65F6\u95F4') + '</div>';
+        html += '<div data-style="margin-top:12px;font-size:13px;color:#999;text-align:center;" id="pomo-mode-label">' + (state.mode === 'focus' ? '\u4E13\u6CE8\u65F6\u95F4' : '\u4F11\u606F\u65F6\u95F4') + '</div>';
         html += '</div>';
         html += '</div>'; /* end flex */
 
         /* session list */
-        html += '<div style="margin-top:20px;">';
-        html += '<h3 style="font-size:15px;color:#555;margin:0 0 8px;">\u4ECA\u65E5\u5B8C\u6210\u8BB0\u5F55</h3>';
-        html += '<div id="pomo-session-list" style="max-height:200px;overflow-y:auto;"></div>';
+        html += '<div data-style="margin-top:20px;">';
+        html += '<h3 data-style="font-size:15px;color:#555;margin:0 0 8px;">\u4ECA\u65E5\u5B8C\u6210\u8BB0\u5F55</h3>';
+        html += '<div id="pomo-session-list" data-style="max-height:200px;overflow-y:auto;"></div>';
         html += '</div>';
 
         html += '</div>';
@@ -544,12 +544,12 @@ window.studyPlanGenerator = (function() {
     }
 
     function renderPlanTable(plan) {
-        var html = '<div style="' + _ST.card + '">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
-        html += '<h3 style="margin:0;font-size:16px;color:#333;">\u590D\u4E60\u8BA1\u5212\u8868</h3>';
+        var html = '<div data-style="' + _ST.card + '">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
+        html += '<h3 data-style="margin:0;font-size:16px;color:#333;">\u590D\u4E60\u8BA1\u5212\u8868</h3>';
         html += '<div>';
-        html += '<button id="sp-export-btn" style="' + _ST.btn + _ST.btnPrimary + _ST.btnSm + ';margin-right:8px;">\u5BFC\u51FA\u6253\u5370</button>';
-        html += '<button id="sp-save-btn" style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u4FDD\u5B58\u8BA1\u5212</button>';
+        html += '<button id="sp-export-btn" data-style="' + _ST.btn + _ST.btnPrimary + _ST.btnSm + ';margin-right:8px;">\u5BFC\u51FA\u6253\u5370</button>';
+        html += '<button id="sp-save-btn" data-style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u4FDD\u5B58\u8BA1\u5212</button>';
         html += '</div>';
         html += '</div>';
 
@@ -569,34 +569,34 @@ window.studyPlanGenerator = (function() {
             }
         }
 
-        html += '<div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;">';
-        html += '<div style="background:#e6f7ff;padding:8px 16px;border-radius:8px;font-size:13px;">\u603B\u5929\u6570: <b>' + plan.length + '</b></div>';
-        html += '<div style="background:#f6ffed;padding:8px 16px;border-radius:8px;font-size:13px;">\u5B66\u4E60\u5929: <b>' + studyDays + '</b></div>';
-        html += '<div style="background:#fff7e6;padding:8px 16px;border-radius:8px;font-size:13px;">\u4F11\u606F\u5929: <b>' + restDays + '</b></div>';
+        html += '<div data-style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;">';
+        html += '<div data-style="background:#e6f7ff;padding:8px 16px;border-radius:8px;font-size:13px;">\u603B\u5929\u6570: <b>' + plan.length + '</b></div>';
+        html += '<div data-style="background:#f6ffed;padding:8px 16px;border-radius:8px;font-size:13px;">\u5B66\u4E60\u5929: <b>' + studyDays + '</b></div>';
+        html += '<div data-style="background:#fff7e6;padding:8px 16px;border-radius:8px;font-size:13px;">\u4F11\u606F\u5929: <b>' + restDays + '</b></div>';
         html += '</div>';
 
         /* subject distribution */
-        html += '<div style="margin-bottom:12px;font-size:13px;color:#666;">';
+        html += '<div data-style="margin-bottom:12px;font-size:13px;color:#666;">';
         var subjKeys = Object.keys(subjCount);
         for (var s = 0; s < subjKeys.length; s++) {
-            html += '<span style="' + _ST.tag + 'background:#f0f5ff;color:#4a90e2;">' + subjKeys[s] + ': ' + subjCount[subjKeys[s]] + ' \u6B21</span>';
+            html += '<span data-style="' + _ST.tag + 'background:#f0f5ff;color:#4a90e2;">' + subjKeys[s] + ': ' + subjCount[subjKeys[s]] + ' \u6B21</span>';
         }
         html += '</div>';
 
         /* table */
-        html += '<div style="overflow-x:auto;max-height:500px;overflow-y:auto;">';
-        html += '<table style="' + _ST.table + '">';
-        html += '<thead><tr><th style="' + _ST.th + '">\u65E5\u671F</th><th style="' + _ST.th + '">\u4E0A\u5348</th><th style="' + _ST.th + '">\u4E0B\u5348</th><th style="' + _ST.th + '">\u665A\u95F4\u590D\u4E60</th><th style="' + _ST.th + '">\u7EC3\u4E60\u6D4B\u8BD5</th></tr></thead>';
+        html += '<div data-style="overflow-x:auto;max-height:500px;overflow-y:auto;">';
+        html += '<table data-style="' + _ST.table + '">';
+        html += '<thead><tr><th data-style="' + _ST.th + '">\u65E5\u671F</th><th data-style="' + _ST.th + '">\u4E0A\u5348</th><th data-style="' + _ST.th + '">\u4E0B\u5348</th><th data-style="' + _ST.th + '">\u665A\u95F4\u590D\u4E60</th><th data-style="' + _ST.th + '">\u7EC3\u4E60\u6D4B\u8BD5</th></tr></thead>';
         html += '<tbody>';
         for (var r = 0; r < plan.length; r++) {
             var day = plan[r];
             var rowStyle = day.isRestDay ? 'background:#fffbe6;' : (r % 2 === 1 ? 'background:#fafafa;' : '');
-            html += '<tr style="' + rowStyle + '">';
-            html += '<td style="' + _ST.td + 'white-space:nowrap;font-weight:bold;">' + day.date + '</td>';
-            html += '<td style="' + _ST.td + '">' + _util.escapeHtml(day.morning) + '</td>';
-            html += '<td style="' + _ST.td + '">' + _util.escapeHtml(day.afternoon) + '</td>';
-            html += '<td style="' + _ST.td + '">' + _util.escapeHtml(day.evening) + '</td>';
-            html += '<td style="' + _ST.td + (day.practiceTest !== '\u65E0' ? 'color:#fa8c16;font-weight:bold;' : 'color:#ccc;') + '">' + _util.escapeHtml(day.practiceTest) + '</td>';
+            html += '<tr data-style="' + rowStyle + '">';
+            html += '<td data-style="' + _ST.td + 'white-space:nowrap;font-weight:bold;">' + day.date + '</td>';
+            html += '<td data-style="' + _ST.td + '">' + _util.escapeHtml(day.morning) + '</td>';
+            html += '<td data-style="' + _ST.td + '">' + _util.escapeHtml(day.afternoon) + '</td>';
+            html += '<td data-style="' + _ST.td + '">' + _util.escapeHtml(day.evening) + '</td>';
+            html += '<td data-style="' + _ST.td + (day.practiceTest !== '\u65E0' ? 'color:#fa8c16;font-weight:bold;' : 'color:#ccc;') + '">' + _util.escapeHtml(day.practiceTest) + '</td>';
             html += '</tr>';
         }
         html += '</tbody></table>';
@@ -607,15 +607,12 @@ window.studyPlanGenerator = (function() {
     }
 
     function exportPlan(plan) {
-        var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>\u9AD8\u8003\u590D\u4E60\u8BA1\u5212</title><style>';
-        html += 'body{font-family:Arial,sans-serif;padding:30px;max-width:1000px;margin:0 auto;}';
-        html += 'h1{color:#4a90e2;text-align:center;}';
-        html += 'table{width:100%;border-collapse:collapse;margin-top:20px;}';
-        html += 'th{background:#4a90e2;color:#fff;padding:10px;text-align:left;font-size:13px;}';
-        html += 'td{padding:8px 10px;border:1px solid #e0e0e0;font-size:12px;}';
-        html += '.rest{background:#fffbe6;}';
-        html += '@media print{button{display:none;}body{padding:10px;}}';
-        html += '</style></head><body>';
+        // D3：弹窗文档不继承本页 CSS，且 CSP style-src 'self' 禁止内联 <style>/style 属性。
+        // 样式外置为 css/study-plan-print.css；data-style 由桥接脚本在弹窗内写入 CSSOM。
+        var BASE = location.href.replace(/[^/]*$/, '');
+        var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>\u9AD8\u8003\u590D\u4E60\u8BA1\u5212</title>';
+        html += '<link rel="stylesheet" href="' + BASE + 'css/study-plan-print.css">';
+        html += '</head><body>';
         html += '<h1>\u9AD8\u8003\u590D\u4E60\u8BA1\u5212\u8868</h1>';
         html += '<table><thead><tr><th>\u65E5\u671F</th><th>\u4E0A\u5348</th><th>\u4E0B\u5348</th><th>\u665A\u95F4\u590D\u4E60</th><th>\u7EC3\u4E60\u6D4B\u8BD5</th></tr></thead><tbody>';
         for (var i = 0; i < plan.length; i++) {
@@ -625,7 +622,8 @@ window.studyPlanGenerator = (function() {
             html += '</tr>';
         }
         html += '</tbody></table>';
-        html += '<button data-call=\"window.print\" style="margin-top:20px;padding:10px 24px;background:#4a90e2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u6253\u5370\u6216\u4FDD\u5B58\u4E3APDF</button>';
+        html += '<button data-call=\"window.print\" data-style="margin-top:20px;padding:10px 24px;background:#4a90e2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u6253\u5370\u6216\u4FDD\u5B58\u4E3APDF</button>';
+        html += '<script src="' + BASE + 'js/cssom-style-bridge.js"><\/script>';
         html += '</body></html>';
 
         var w = window.open('', '_blank');
@@ -672,34 +670,34 @@ window.studyPlanGenerator = (function() {
         var defaultDays = calcDaysUntilGaokao();
 
         var html = '';
-        html += '<div style="' + _ST.card + '">';
-        html += '<h2 style="margin:0 0 16px;font-size:20px;color:#333;">\u9AD8\u8003\u590D\u4E60\u8BA1\u5212\u751F\u6210\u5668</h2>';
+        html += '<div data-style="' + _ST.card + '">';
+        html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u9AD8\u8003\u590D\u4E60\u8BA1\u5212\u751F\u6210\u5668</h2>';
 
         /* input form */
-        html += '<div style="' + _ST.flexCol + 'margin-bottom:16px;">';
-        html += '<div style="' + _ST.flexRow + '">';
-        html += '<div style="flex:1;min-width:180px;"><label style="' + _ST.label + '">\u8DDD\u9AD8\u8003\u5929\u6570</label>';
-        html += '<input id="sp-days-input" type="number" value="' + defaultDays + '" min="1" max="365" style="' + _ST.input + '"></div>';
-        html += '<div style="flex:1;min-width:180px;"><label style="' + _ST.label + '">\u76EE\u6807\u5206\u6570</label>';
-        html += '<input id="sp-score-input" type="number" value="600" min="300" max="750" style="' + _ST.input + '"></div>';
+        html += '<div data-style="' + _ST.flexCol + 'margin-bottom:16px;">';
+        html += '<div data-style="' + _ST.flexRow + '">';
+        html += '<div data-style="flex:1;min-width:180px;"><label data-style="' + _ST.label + '">\u8DDD\u9AD8\u8003\u5929\u6570</label>';
+        html += '<input id="sp-days-input" type="number" value="' + defaultDays + '" min="1" max="365" data-style="' + _ST.input + '"></div>';
+        html += '<div data-style="flex:1;min-width:180px;"><label data-style="' + _ST.label + '">\u76EE\u6807\u5206\u6570</label>';
+        html += '<input id="sp-score-input" type="number" value="600" min="300" max="750" data-style="' + _ST.input + '"></div>';
         html += '</div>';
 
         /* weak subjects checkboxes */
-        html += '<div><label style="' + _ST.label + '">\u8584\u5F31\u5B66\u79D1\uFF08\u52FE\u9009\u540E\u5C06\u83B7\u5F97\u66F4\u591A\u65F6\u95F4\u5206\u914D\uFF09</label>';
-        html += '<div style="' + _ST.flexRow + '">';
+        html += '<div><label data-style="' + _ST.label + '">\u8584\u5F31\u5B66\u79D1\uFF08\u52FE\u9009\u540E\u5C06\u83B7\u5F97\u66F4\u591A\u65F6\u95F4\u5206\u914D\uFF09</label>';
+        html += '<div data-style="' + _ST.flexRow + '">';
         for (var i = 0; i < SUBJECTS.length; i++) {
-            html += '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;padding:6px 12px;border:1px solid #d9d9d9;border-radius:6px;">';
+            html += '<label data-style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;padding:6px 12px;border:1px solid #d9d9d9;border-radius:6px;">';
             html += '<input type="checkbox" name="sp-weak-subject" value="' + SUBJECTS[i] + '"> ' + SUBJECTS[i] + '</label>';
         }
         html += '</div></div>';
 
-        html += '<div><button id="sp-generate-btn" style="' + _ST.btn + _ST.btnPrimary + '">\u751F\u6210\u590D\u4E60\u8BA1\u5212</button></div>';
+        html += '<div><button id="sp-generate-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u751F\u6210\u590D\u4E60\u8BA1\u5212</button></div>';
         html += '</div>';
 
         /* saved plan notice */
         var saved = loadSavedPlan();
         if (saved && saved.plan) {
-            html += '<div style="background:#f6ffed;border:1px solid #b7eb84;padding:10px 16px;border-radius:8px;font-size:13px;color:#52c41a;margin-bottom:12px;">';
+            html += '<div data-style="background:#f6ffed;border:1px solid #b7eb84;padding:10px 16px;border-radius:8px;font-size:13px;color:#52c41a;margin-bottom:12px;">';
             html += '\u5DF2\u4FDD\u5B58\u7684\u8BA1\u5212: ' + (saved.config ? saved.config.days + '\u5929\u8BA1\u5212' : '\u672A\u77E5\u5929\u6570') + ' (\u4FDD\u5B58\u4E8E ' + (saved.savedAt || '').slice(0, 10) + ')';
             html += '</div>';
         }
@@ -1035,12 +1033,12 @@ window.masteryRadar = (function() {
             var src = sources[i];
             var srcLabel = src === 'error' ? '\u9519\u9898\u63A8\u7B97' : (src === 'self' ? '\u81EA\u8BC4' : '\u9ED8\u8BA4');
             var srcColor = src === 'error' ? '#fa8c16' : (src === 'self' ? '#52c41a' : '#bfbfbf');
-            html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">';
-            html += '<span style="width:70px;font-size:13px;color:#555;flex-shrink:0;">' + dims[i] + '</span>';
+            html += '<div data-style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">';
+            html += '<span data-style="width:70px;font-size:13px;color:#555;flex-shrink:0;">' + dims[i] + '</span>';
             html += '<input type="range" min="0" max="100" value="' + values[i] + '" data-idx="' + i + '" ';
-            html += 'style="flex:1;accent-color:#4a90e2;" class="mastery-slider">';
-            html += '<span id="mastery-slider-val-' + i + '" style="width:36px;text-align:right;font-size:13px;font-weight:bold;color:#4a90e2;">' + values[i] + '</span>';
-            html += '<span style="font-size:11px;color:' + srcColor + ';width:56px;">' + srcLabel + '</span>';
+            html += 'data-style="flex:1;accent-color:#4a90e2;" class="mastery-slider">';
+            html += '<span id="mastery-slider-val-' + i + '" data-style="width:36px;text-align:right;font-size:13px;font-weight:bold;color:#4a90e2;">' + values[i] + '</span>';
+            html += '<span data-style="font-size:11px;color:' + srcColor + ';width:56px;">' + srcLabel + '</span>';
             html += '</div>';
         }
         container.innerHTML = html;
@@ -1060,15 +1058,15 @@ window.masteryRadar = (function() {
         if (!container) return;
 
         var html = '';
-        html += '<div style="' + _ST.card + '">';
-        html += '<h2 style="margin:0 0 16px;font-size:20px;color:#333;">\u638C\u63E1\u5EA6\u96F7\u8FBE\u56FE</h2>';
+        html += '<div data-style="' + _ST.card + '">';
+        html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u638C\u63E1\u5EA6\u96F7\u8FBE\u56FE</h2>';
 
         /* subject tabs */
-        html += '<div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;">';
+        html += '<div data-style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;">';
         for (var i = 0; i < SUBJECT_KEYS.length; i++) {
             var key = SUBJECT_KEYS[i];
             var active = key === currentSubject;
-            html += '<button class="mastery-subj-btn" data-key="' + key + '" style="';
+            html += '<button class="mastery-subj-btn" data-key="' + key + '" data-style="';
             html += 'padding:8px 16px;border:1px solid ' + (active ? '#4a90e2' : '#d9d9d9') + ';';
             html += 'border-radius:8px;cursor:pointer;font-size:13px;';
             html += 'background:' + (active ? '#4a90e2' : '#fff') + ';';
@@ -1077,14 +1075,14 @@ window.masteryRadar = (function() {
         html += '</div>';
 
         /* canvas + sliders */
-        html += '<div style="display:flex;gap:24px;flex-wrap:wrap;">';
-        html += '<div style="flex:0 0 360px;text-align:center;">';
-        html += '<canvas id="mastery-canvas" width="360" height="360" style="display:block;margin:0 auto;"></canvas>';
+        html += '<div data-style="display:flex;gap:24px;flex-wrap:wrap;">';
+        html += '<div data-style="flex:0 0 360px;text-align:center;">';
+        html += '<canvas id="mastery-canvas" width="360" height="360" data-style="display:block;margin:0 auto;"></canvas>';
         html += '</div>';
-        html += '<div style="flex:1;min-width:280px;">';
-        html += '<h3 style="font-size:14px;color:#555;margin:0 0 12px;">\u8C03\u6574\u5404\u7EF4\u5EA6\u638C\u63E1\u5EA6 (0-100)</h3>';
+        html += '<div data-style="flex:1;min-width:280px;">';
+        html += '<h3 data-style="font-size:14px;color:#555;margin:0 0 12px;">\u8C03\u6574\u5404\u7EF4\u5EA6\u638C\u63E1\u5EA6 (0-100)</h3>';
         html += '<div id="mastery-sliders"></div>';
-        html += '<div style="margin-top:12px;padding:10px;background:#f5f5f5;border-radius:8px;font-size:12px;color:#888;line-height:1.6;">';
+        html += '<div data-style="margin-top:12px;padding:10px;background:#f5f5f5;border-radius:8px;font-size:12px;color:#888;line-height:1.6;">';
         html += '<b>\u6570\u636E\u6765\u6E90:</b><br>';
         html += '\u2022 \u9519\u9898\u63A8\u7B97: \u4ECE\u9519\u9898\u672C\u638C\u63E1\u7387\u8BA1\u7B97<br>';
         html += '\u2022 \u81EA\u8BC4: \u624B\u52A8\u8C03\u6574\u540E\u4FDD\u5B58\u7684\u503C<br>';
@@ -1307,10 +1305,10 @@ window.errorVariation = (function() {
         if (state.variations.length === 0) {
             var container = document.getElementById('error-variation-app');
             if (!container) return;
-            var noData = '<div style="' + _ST.card + 'text-align:center;padding:40px;">';
-            noData += '<div style="font-size:48px;margin-bottom:12px;">\u{1F4DD}</div>';
-            noData += '<p style="font-size:16px;color:#666;">\u9519\u9898\u672C\u4E2D\u6CA1\u6709\u53EF\u7528\u7684\u672A\u638C\u63E1\u9519\u9898</p>';
-            noData += '<p style="font-size:13px;color:#999;">\u8BF7\u5148\u5728\u9519\u9898\u672C\u4E2D\u6DFB\u52A0\u9519\u9898\uFF0C\u7136\u540E\u56DE\u6765\u7EC3\u4E60\u53D8\u5F0F</p>';
+            var noData = '<div data-style="' + _ST.card + 'text-align:center;padding:40px;">';
+            noData += '<div data-style="font-size:48px;margin-bottom:12px;">\u{1F4DD}</div>';
+            noData += '<p data-style="font-size:16px;color:#666;">\u9519\u9898\u672C\u4E2D\u6CA1\u6709\u53EF\u7528\u7684\u672A\u638C\u63E1\u9519\u9898</p>';
+            noData += '<p data-style="font-size:13px;color:#999;">\u8BF7\u5148\u5728\u9519\u9898\u672C\u4E2D\u6DFB\u52A0\u9519\u9898\uFF0C\u7136\u540E\u56DE\u6765\u7EC3\u4E60\u53D8\u5F0F</p>';
             noData += '</div>';
             container.innerHTML = noData;
             return;
@@ -1329,54 +1327,54 @@ window.errorVariation = (function() {
         }
 
         var html = '';
-        html += '<div style="' + _ST.card + '">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">';
-        html += '<h2 style="margin:0;font-size:18px;color:#333;">\u53D8\u5F0F\u7EC3\u4E60</h2>';
-        html += '<span style="font-size:13px;color:#999;">\u7B2C ' + (state.currentIdx + 1) + ' / ' + state.variations.length + ' \u9053</span>';
+        html += '<div data-style="' + _ST.card + '">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">';
+        html += '<h2 data-style="margin:0;font-size:18px;color:#333;">\u53D8\u5F0F\u7EC3\u4E60</h2>';
+        html += '<span data-style="font-size:13px;color:#999;">\u7B2C ' + (state.currentIdx + 1) + ' / ' + state.variations.length + ' \u9053</span>';
         html += '</div>';
 
         /* progress bar */
         var progress = state.variations.length > 0 ? (state.currentIdx / state.variations.length) * 100 : 0;
-        html += '<div style="background:#f0f0f0;border-radius:4px;height:6px;margin-bottom:16px;overflow:hidden;">';
-        html += '<div style="width:' + progress + '%;height:100%;background:#4a90e2;transition:width .3s;"></div></div>';
+        html += '<div data-style="background:#f0f0f0;border-radius:4px;height:6px;margin-bottom:16px;overflow:hidden;">';
+        html += '<div data-style="width:' + progress + '%;height:100%;background:#4a90e2;transition:width .3s;"></div></div>';
 
         /* score so far */
-        html += '<div style="display:flex;gap:12px;margin-bottom:16px;">';
-        html += '<span style="' + _ST.tag + 'background:#e6f7ff;color:#4a90e2;">\u6B63\u786E: ' + state.correctCount + '</span>';
-        html += '<span style="' + _ST.tag + 'background:#fff1f0;color:#ff4d4f;">\u9519\u8BEF: ' + (state.totalCount - state.correctCount) + '</span>';
-        html += '<span style="' + _ST.tag + 'background:#f6ffed;color:#52c41a;">\u5B66\u79D1: ' + SUBJECT_NAMES[v.subject] + '</span>';
+        html += '<div data-style="display:flex;gap:12px;margin-bottom:16px;">';
+        html += '<span data-style="' + _ST.tag + 'background:#e6f7ff;color:#4a90e2;">\u6B63\u786E: ' + state.correctCount + '</span>';
+        html += '<span data-style="' + _ST.tag + 'background:#fff1f0;color:#ff4d4f;">\u9519\u8BEF: ' + (state.totalCount - state.correctCount) + '</span>';
+        html += '<span data-style="' + _ST.tag + 'background:#f6ffed;color:#52c41a;">\u5B66\u79D1: ' + SUBJECT_NAMES[v.subject] + '</span>';
         html += '</div>';
 
         /* variation question */
-        html += '<div style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
-        html += '<div style="font-size:11px;color:#fa8c16;margin-bottom:8px;">\u2191 \u4EE5\u4E0B\u4E3A\u53D8\u5F0F\u9898\u76EE\uFF08\u6570\u503C\u5DF2\u4FEE\u6539\uFF09</div>';
-        html += '<p style="font-size:15px;line-height:1.8;color:#333;margin:0;">' + _util.escapeHtml(v.variationQuestion) + '</p>';
+        html += '<div data-style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
+        html += '<div data-style="font-size:11px;color:#fa8c16;margin-bottom:8px;">\u2191 \u4EE5\u4E0B\u4E3A\u53D8\u5F0F\u9898\u76EE\uFF08\u6570\u503C\u5DF2\u4FEE\u6539\uFF09</div>';
+        html += '<p data-style="font-size:15px;line-height:1.8;color:#333;margin:0;">' + _util.escapeHtml(v.variationQuestion) + '</p>';
         html += '</div>';
 
         /* options or input */
         if (v.variationOptions && v.variationOptions.length > 0) {
-            html += '<div id="ev-options-area" style="margin-bottom:16px;">';
+            html += '<div id="ev-options-area" data-style="margin-bottom:16px;">';
             for (var i = 0; i < v.variationOptions.length; i++) {
                 var letter = String.fromCharCode(65 + i);
-                html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin-bottom:6px;border:1px solid #e0e0e0;border-radius:6px;cursor:pointer;" class="ev-option" data-idx="' + i + '">';
-                html += '<span style="font-weight:bold;color:#4a90e2;">' + letter + '.</span>';
-                html += '<span style="font-size:14px;color:#555;">' + _util.escapeHtml(v.variationOptions[i]) + '</span>';
+                html += '<div data-style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin-bottom:6px;border:1px solid #e0e0e0;border-radius:6px;cursor:pointer;" class="ev-option" data-idx="' + i + '">';
+                html += '<span data-style="font-weight:bold;color:#4a90e2;">' + letter + '.</span>';
+                html += '<span data-style="font-size:14px;color:#555;">' + _util.escapeHtml(v.variationOptions[i]) + '</span>';
                 html += '</div>';
             }
             html += '</div>';
         } else {
-            html += '<div style="margin-bottom:16px;">';
-            html += '<label style="' + _ST.label + '">\u4F60\u7684\u7B54\u6848</label>';
-            html += '<input id="ev-answer-input" type="text" style="' + _ST.input + '" placeholder="\u8F93\u5165\u7B54\u6848...">';
+            html += '<div data-style="margin-bottom:16px;">';
+            html += '<label data-style="' + _ST.label + '">\u4F60\u7684\u7B54\u6848</label>';
+            html += '<input id="ev-answer-input" type="text" data-style="' + _ST.input + '" placeholder="\u8F93\u5165\u7B54\u6848...">';
             html += '</div>';
         }
 
         /* action buttons */
         if (!state.answered) {
             html += '<div id="ev-action-area">';
-            html += '<button id="ev-submit-btn" style="' + _ST.btn + _ST.btnPrimary + '">\u63D0\u4EA4\u7B54\u6848</button>';
+            html += '<button id="ev-submit-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u63D0\u4EA4\u7B54\u6848</button>';
             if (!v.canCompute) {
-                html += '<span style="margin-left:8px;font-size:12px;color:#fa8c16;">\u26A0 \u6B64\u9898\u65E0\u6CD5\u81EA\u52A8\u5224\u65AD\uFF0C\u8BF7\u81EA\u884C\u5BF9\u7167\u539F\u9898\u7B54\u6848</span>';
+                html += '<span data-style="margin-left:8px;font-size:12px;color:#fa8c16;">\u26A0 \u6B64\u9898\u65E0\u6CD5\u81EA\u52A8\u5224\u65AD\uFF0C\u8BF7\u81EA\u884C\u5BF9\u7167\u539F\u9898\u7B54\u6848</span>';
             }
             html += '</div>';
         }
@@ -1429,7 +1427,7 @@ window.errorVariation = (function() {
             }
             if (selectedOpt === null) {
                 var resultArea = document.getElementById('ev-result-area');
-                if (resultArea) resultArea.innerHTML = '<div style="color:#ff4d4f;font-size:13px;">\u8BF7\u5148\u9009\u62E9\u4E00\u4E2A\u9009\u9879</div>';
+                if (resultArea) resultArea.innerHTML = '<div data-style="color:#ff4d4f;font-size:13px;">\u8BF7\u5148\u9009\u62E9\u4E00\u4E2A\u9009\u9879</div>';
                 state.answered = false;
                 return;
             }
@@ -1438,7 +1436,7 @@ window.errorVariation = (function() {
             userInput = input ? input.value : '';
             if (!userInput.trim()) {
                 var resultArea2 = document.getElementById('ev-result-area');
-                if (resultArea2) resultArea2.innerHTML = '<div style="color:#ff4d4f;font-size:13px;">\u8BF7\u8F93\u5165\u7B54\u6848</div>';
+                if (resultArea2) resultArea2.innerHTML = '<div data-style="color:#ff4d4f;font-size:13px;">\u8BF7\u8F93\u5165\u7B54\u6848</div>';
                 state.answered = false;
                 return;
             }
@@ -1451,27 +1449,27 @@ window.errorVariation = (function() {
         if (isCorrect === true) {
             state.correctCount++;
             recordResult(v.subject, true);
-            resultHtml += '<div style="background:#f6ffed;border:1px solid #b7eb84;padding:14px;border-radius:8px;margin-top:12px;">';
-            resultHtml += '<div style="font-size:16px;color:#52c41a;font-weight:bold;margin-bottom:8px;">\u2714 \u7B54\u5BF9\u4E86\uFF01</div>';
+            resultHtml += '<div data-style="background:#f6ffed;border:1px solid #b7eb84;padding:14px;border-radius:8px;margin-top:12px;">';
+            resultHtml += '<div data-style="font-size:16px;color:#52c41a;font-weight:bold;margin-bottom:8px;">\u2714 \u7B54\u5BF9\u4E86\uFF01</div>';
         } else if (isCorrect === false) {
             recordResult(v.subject, false);
-            resultHtml += '<div style="background:#fff1f0;border:1px solid #ffa39e;padding:14px;border-radius:8px;margin-top:12px;">';
-            resultHtml += '<div style="font-size:16px;color:#ff4d4f;font-weight:bold;margin-bottom:8px;">\u2718 \u7B54\u9519\u4E86</div>';
+            resultHtml += '<div data-style="background:#fff1f0;border:1px solid #ffa39e;padding:14px;border-radius:8px;margin-top:12px;">';
+            resultHtml += '<div data-style="font-size:16px;color:#ff4d4f;font-weight:bold;margin-bottom:8px;">\u2718 \u7B54\u9519\u4E86</div>';
         } else {
             /* self-grade */
-            resultHtml += '<div style="background:#fffbe6;border:1px solid #ffe58f;padding:14px;border-radius:8px;margin-top:12px;">';
-            resultHtml += '<div style="font-size:16px;color:#faad14;font-weight:bold;margin-bottom:8px;">\u8BF7\u81EA\u884C\u5224\u65AD</div>';
+            resultHtml += '<div data-style="background:#fffbe6;border:1px solid #ffe58f;padding:14px;border-radius:8px;margin-top:12px;">';
+            resultHtml += '<div data-style="font-size:16px;color:#faad14;font-weight:bold;margin-bottom:8px;">\u8BF7\u81EA\u884C\u5224\u65AD</div>';
         }
 
         /* show original vs variation */
-        resultHtml += '<div style="margin-top:10px;font-size:13px;">';
-        resultHtml += '<div style="margin-bottom:6px;color:#666;"><b>\u539F\u9898:</b> ' + _util.escapeHtml(v.originalQuestion) + '</div>';
-        resultHtml += '<div style="margin-bottom:6px;color:#666;"><b>\u539F\u7B54\u6848:</b> ' + _util.escapeHtml(v.originalAnswer) + '</div>';
+        resultHtml += '<div data-style="margin-top:10px;font-size:13px;">';
+        resultHtml += '<div data-style="margin-bottom:6px;color:#666;"><b>\u539F\u9898:</b> ' + _util.escapeHtml(v.originalQuestion) + '</div>';
+        resultHtml += '<div data-style="margin-bottom:6px;color:#666;"><b>\u539F\u7B54\u6848:</b> ' + _util.escapeHtml(v.originalAnswer) + '</div>';
         if (v.canCompute) {
-            resultHtml += '<div style="margin-bottom:6px;color:#4a90e2;"><b>\u53D8\u5F0F\u53C2\u8003\u7B54\u6848:</b> ' + _util.escapeHtml(v.variationAnswer) + '</div>';
+            resultHtml += '<div data-style="margin-bottom:6px;color:#4a90e2;"><b>\u53D8\u5F0F\u53C2\u8003\u7B54\u6848:</b> ' + _util.escapeHtml(v.variationAnswer) + '</div>';
         }
         if (v.changes && v.changes.length > 0) {
-            resultHtml += '<div style="margin-bottom:6px;color:#fa8c16;"><b>\u6570\u503C\u53D8\u5316:</b> ';
+            resultHtml += '<div data-style="margin-bottom:6px;color:#fa8c16;"><b>\u6570\u503C\u53D8\u5316:</b> ';
             for (var c = 0; c < v.changes.length; c++) {
                 if (c > 0) resultHtml += ', ';
                 resultHtml += v.changes[c].from + ' \u2192 ' + v.changes[c].to;
@@ -1482,13 +1480,13 @@ window.errorVariation = (function() {
 
         /* self-grade buttons if needed */
         if (isCorrect === null) {
-            resultHtml += '<div style="margin-top:10px;display:flex;gap:8px;">';
-            resultHtml += '<button id="ev-self-correct" style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u6211\u7B54\u5BF9\u4E86</button>';
-            resultHtml += '<button id="ev-self-wrong" style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u6211\u7B54\u9519\u4E86</button>';
+            resultHtml += '<div data-style="margin-top:10px;display:flex;gap:8px;">';
+            resultHtml += '<button id="ev-self-correct" data-style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u6211\u7B54\u5BF9\u4E86</button>';
+            resultHtml += '<button id="ev-self-wrong" data-style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u6211\u7B54\u9519\u4E86</button>';
             resultHtml += '</div>';
         }
 
-        resultHtml += '<button id="ev-next-btn" style="' + _ST.btn + _ST.btnPrimary + ';margin-top:12px;">' + (state.currentIdx < state.variations.length - 1 ? '\u4E0B\u4E00\u9053 \u2192' : '\u67E5\u770B\u7ED3\u679C') + '</button>';
+        resultHtml += '<button id="ev-next-btn" data-style="' + _ST.btn + _ST.btnPrimary + ';margin-top:12px;">' + (state.currentIdx < state.variations.length - 1 ? '\u4E0B\u4E00\u9053 \u2192' : '\u67E5\u770B\u7ED3\u679C') + '</button>';
         resultHtml += '</div>';
 
         var resultArea = document.getElementById('ev-result-area');
@@ -1540,18 +1538,18 @@ window.errorVariation = (function() {
         var overallAcc = stats.totalAttempts > 0 ? Math.round(stats.totalCorrect / stats.totalAttempts * 100) : 0;
 
         var html = '';
-        html += '<div style="' + _ST.card + 'text-align:center;padding:40px;">';
-        html += '<h2 style="margin:0 0 20px;font-size:22px;color:#333;">\u7EC3\u4E60\u5B8C\u6210\uFF01</h2>';
-        html += '<div style="font-size:48px;font-weight:bold;color:' + (accuracy >= 60 ? '#52c41a' : '#fa8c16') + ';">' + accuracy + '%</div>';
-        html += '<p style="font-size:14px;color:#666;margin:8px 0 20px;">\u672C\u6B21\u6B63\u786E\u7387</p>';
-        html += '<div style="display:flex;justify-content:center;gap:24px;margin-bottom:24px;">';
-        html += '<div><div style="font-size:24px;font-weight:bold;color:#52c41a;">' + state.correctCount + '</div><div style="font-size:12px;color:#999;">\u6B63\u786E</div></div>';
-        html += '<div><div style="font-size:24px;font-weight:bold;color:#ff4d4f;">' + (state.totalCount - state.correctCount) + '</div><div style="font-size:12px;color:#999;">\u9519\u8BEF</div></div>';
-        html += '<div><div style="font-size:24px;font-weight:bold;color:#4a90e2;">' + state.totalCount + '</div><div style="font-size:12px;color:#999;">\u603B\u8BA1</div></div>';
+        html += '<div data-style="' + _ST.card + 'text-align:center;padding:40px;">';
+        html += '<h2 data-style="margin:0 0 20px;font-size:22px;color:#333;">\u7EC3\u4E60\u5B8C\u6210\uFF01</h2>';
+        html += '<div data-style="font-size:48px;font-weight:bold;color:' + (accuracy >= 60 ? '#52c41a' : '#fa8c16') + ';">' + accuracy + '%</div>';
+        html += '<p data-style="font-size:14px;color:#666;margin:8px 0 20px;">\u672C\u6B21\u6B63\u786E\u7387</p>';
+        html += '<div data-style="display:flex;justify-content:center;gap:24px;margin-bottom:24px;">';
+        html += '<div><div data-style="font-size:24px;font-weight:bold;color:#52c41a;">' + state.correctCount + '</div><div data-style="font-size:12px;color:#999;">\u6B63\u786E</div></div>';
+        html += '<div><div data-style="font-size:24px;font-weight:bold;color:#ff4d4f;">' + (state.totalCount - state.correctCount) + '</div><div data-style="font-size:12px;color:#999;">\u9519\u8BEF</div></div>';
+        html += '<div><div data-style="font-size:24px;font-weight:bold;color:#4a90e2;">' + state.totalCount + '</div><div data-style="font-size:12px;color:#999;">\u603B\u8BA1</div></div>';
         html += '</div>';
 
         /* overall stats */
-        html += '<div style="background:#f5f5f5;padding:12px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#666;">';
+        html += '<div data-style="background:#f5f5f5;padding:12px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#666;">';
         html += '\u5386\u53F2\u53D8\u5F0F\u7EC3\u4E60: ' + stats.totalAttempts + ' \u6B21\uFF0C\u603B\u6B63\u786E\u7387: ' + overallAcc + '%';
         html += '</div>';
 
@@ -1559,22 +1557,22 @@ window.errorVariation = (function() {
         if (stats.bySubject) {
             var keys = Object.keys(stats.bySubject);
             if (keys.length > 0) {
-                html += '<div style="margin-bottom:20px;"><h3 style="font-size:14px;color:#555;margin:0 0 8px;">\u5404\u5B66\u79D1\u53D8\u5F0F\u6B63\u786E\u7387</h3>';
+                html += '<div data-style="margin-bottom:20px;"><h3 data-style="font-size:14px;color:#555;margin:0 0 8px;">\u5404\u5B66\u79D1\u53D8\u5F0F\u6B63\u786E\u7387</h3>';
                 for (var i = 0; i < keys.length; i++) {
                     var s = stats.bySubject[keys[i]];
                     var acc = s.total > 0 ? Math.round(s.correct / s.total * 100) : 0;
-                    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">';
-                    html += '<span style="width:50px;font-size:13px;">' + (SUBJECT_NAMES[keys[i]] || keys[i]) + '</span>';
-                    html += '<div style="flex:1;background:#f0f0f0;border-radius:4px;height:18px;overflow:hidden;">';
-                    html += '<div style="width:' + acc + '%;height:100%;background:' + (acc >= 60 ? '#52c41a' : '#fa8c16') + ';"></div></div>';
-                    html += '<span style="width:60px;font-size:12px;color:#666;">' + s.correct + '/' + s.total + ' (' + acc + '%)</span>';
+                    html += '<div data-style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">';
+                    html += '<span data-style="width:50px;font-size:13px;">' + (SUBJECT_NAMES[keys[i]] || keys[i]) + '</span>';
+                    html += '<div data-style="flex:1;background:#f0f0f0;border-radius:4px;height:18px;overflow:hidden;">';
+                    html += '<div data-style="width:' + acc + '%;height:100%;background:' + (acc >= 60 ? '#52c41a' : '#fa8c16') + ';"></div></div>';
+                    html += '<span data-style="width:60px;font-size:12px;color:#666;">' + s.correct + '/' + s.total + ' (' + acc + '%)</span>';
                     html += '</div>';
                 }
                 html += '</div>';
             }
         }
 
-        html += '<button id="ev-restart-btn" style="' + _ST.btn + _ST.btnPrimary + '">\u518D\u6B21\u7EC3\u4E60</button>';
+        html += '<button id="ev-restart-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u518D\u6B21\u7EC3\u4E60</button>';
         html += '</div>';
 
         container.innerHTML = html;
@@ -1602,26 +1600,26 @@ window.errorVariation = (function() {
         var overallAcc = stats.totalAttempts > 0 ? Math.round(stats.totalCorrect / stats.totalAttempts * 100) : 0;
 
         var html = '';
-        html += '<div style="' + _ST.card + 'text-align:center;padding:32px;">';
-        html += '<h2 style="margin:0 0 16px;font-size:20px;color:#333;">\u9519\u9898\u53D8\u5F0F\u7EC3\u4E60</h2>';
-        html += '<p style="font-size:14px;color:#666;line-height:1.8;margin-bottom:16px;">\u4ECE\u9519\u9898\u672C\u4E2D\u8BFB\u53D6\u672A\u638C\u63E1\u7684\u9519\u9898\uFF0C\u81EA\u52A8\u4FEE\u6539\u6570\u503C\u751F\u6210\u53D8\u5F0F\u9898\u76EE\uFF0C\u5E2E\u52A9\u4F60\u53CD\u590D\u7EC3\u4E60\u540C\u7C7B\u9898\u578B</p>';
+        html += '<div data-style="' + _ST.card + 'text-align:center;padding:32px;">';
+        html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u9519\u9898\u53D8\u5F0F\u7EC3\u4E60</h2>';
+        html += '<p data-style="font-size:14px;color:#666;line-height:1.8;margin-bottom:16px;">\u4ECE\u9519\u9898\u672C\u4E2D\u8BFB\u53D6\u672A\u638C\u63E1\u7684\u9519\u9898\uFF0C\u81EA\u52A8\u4FEE\u6539\u6570\u503C\u751F\u6210\u53D8\u5F0F\u9898\u76EE\uFF0C\u5E2E\u52A9\u4F60\u53CD\u590D\u7EC3\u4E60\u540C\u7C7B\u9898\u578B</p>';
 
-        html += '<div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px;">';
-        html += '<div style="background:#e6f7ff;padding:12px 24px;border-radius:8px;text-align:center;">';
-        html += '<div style="font-size:28px;font-weight:bold;color:#4a90e2;">' + unmastered + '</div>';
-        html += '<div style="font-size:12px;color:#666;">\u672A\u638C\u63E1\u9519\u9898</div>';
+        html += '<div data-style="display:flex;justify-content:center;gap:16px;margin-bottom:24px;">';
+        html += '<div data-style="background:#e6f7ff;padding:12px 24px;border-radius:8px;text-align:center;">';
+        html += '<div data-style="font-size:28px;font-weight:bold;color:#4a90e2;">' + unmastered + '</div>';
+        html += '<div data-style="font-size:12px;color:#666;">\u672A\u638C\u63E1\u9519\u9898</div>';
         html += '</div>';
-        html += '<div style="background:#f6ffed;padding:12px 24px;border-radius:8px;text-align:center;">';
-        html += '<div style="font-size:28px;font-weight:bold;color:#52c41a;">' + overallAcc + '%</div>';
-        html += '<div style="font-size:12px;color:#666;">\u5386\u53F2\u6B63\u786E\u7387</div>';
+        html += '<div data-style="background:#f6ffed;padding:12px 24px;border-radius:8px;text-align:center;">';
+        html += '<div data-style="font-size:28px;font-weight:bold;color:#52c41a;">' + overallAcc + '%</div>';
+        html += '<div data-style="font-size:12px;color:#666;">\u5386\u53F2\u6B63\u786E\u7387</div>';
         html += '</div>';
         html += '</div>';
 
         if (unmastered === 0) {
-            html += '<div style="background:#fffbe6;padding:16px;border-radius:8px;font-size:14px;color:#fa8c16;margin-bottom:16px;">';
+            html += '<div data-style="background:#fffbe6;padding:16px;border-radius:8px;font-size:14px;color:#fa8c16;margin-bottom:16px;">';
             html += '\u9519\u9898\u672C\u4E2D\u6CA1\u6709\u672A\u638C\u63E1\u7684\u9519\u9898\uFF0C\u8BF7\u5148\u53BB\u505A\u9898\u5E76\u8BB0\u5F55\u9519\u9898</div>';
         } else {
-            html += '<button id="ev-start-btn" style="' + _ST.btn + _ST.btnPrimary + ';font-size:16px;padding:12px 32px;">\u5F00\u59CB\u53D8\u5F0F\u7EC3\u4E60</button>';
+            html += '<button id="ev-start-btn" data-style="' + _ST.btn + _ST.btnPrimary + ';font-size:16px;padding:12px 32px;">\u5F00\u59CB\u53D8\u5F0F\u7EC3\u4E60</button>';
         }
         html += '</div>';
 
@@ -1705,7 +1703,7 @@ window.noteSystem = (function() {
         /* bold */
         t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         /* inline code */
-        t = t.replace(/`([^`]+)`/g, '<code style="background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:13px;">$1</code>');
+        t = t.replace(/`([^`]+)`/g, '<code data-style="background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:13px;">$1</code>');
         return t;
     }
 
@@ -1727,7 +1725,7 @@ window.noteSystem = (function() {
                     inCode = false;
                 } else {
                     if (inList) { html += '</ul>'; inList = false; }
-                    html += '<pre style="background:#f5f5f5;padding:12px;border-radius:6px;overflow-x:auto;margin:8px 0;"><code style="font-size:13px;">';
+                    html += '<pre data-style="background:#f5f5f5;padding:12px;border-radius:6px;overflow-x:auto;margin:8px 0;"><code data-style="font-size:13px;">';
                     inCode = true;
                 }
                 continue;
@@ -1740,27 +1738,27 @@ window.noteSystem = (function() {
             /* headers */
             if (trimmed.indexOf('### ') === 0) {
                 if (inList) { html += '</ul>'; inList = false; }
-                html += '<h3 style="margin:10px 0 5px;font-size:15px;color:#333;">' + inlineFormat(trimmed.slice(4)) + '</h3>';
+                html += '<h3 data-style="margin:10px 0 5px;font-size:15px;color:#333;">' + inlineFormat(trimmed.slice(4)) + '</h3>';
             } else if (trimmed.indexOf('## ') === 0) {
                 if (inList) { html += '</ul>'; inList = false; }
-                html += '<h2 style="margin:12px 0 6px;font-size:17px;color:#333;">' + inlineFormat(trimmed.slice(3)) + '</h2>';
+                html += '<h2 data-style="margin:12px 0 6px;font-size:17px;color:#333;">' + inlineFormat(trimmed.slice(3)) + '</h2>';
             } else if (trimmed.indexOf('# ') === 0) {
                 if (inList) { html += '</ul>'; inList = false; }
-                html += '<h1 style="margin:14px 0 8px;font-size:19px;color:#333;">' + inlineFormat(trimmed.slice(2)) + '</h1>';
+                html += '<h1 data-style="margin:14px 0 8px;font-size:19px;color:#333;">' + inlineFormat(trimmed.slice(2)) + '</h1>';
             } else if (trimmed.charAt(0) === '-' || trimmed.charAt(0) === '*') {
                 if (trimmed.charAt(1) === ' ') {
-                    if (!inList) { html += '<ul style="margin:5px 0;padding-left:20px;">'; inList = true; }
-                    html += '<li style="margin:3px 0;font-size:14px;line-height:1.6;">' + inlineFormat(trimmed.slice(2)) + '</li>';
+                    if (!inList) { html += '<ul data-style="margin:5px 0;padding-left:20px;">'; inList = true; }
+                    html += '<li data-style="margin:3px 0;font-size:14px;line-height:1.6;">' + inlineFormat(trimmed.slice(2)) + '</li>';
                 } else {
                     if (inList) { html += '</ul>'; inList = false; }
-                    html += '<p style="margin:5px 0;font-size:14px;line-height:1.6;">' + inlineFormat(line) + '</p>';
+                    html += '<p data-style="margin:5px 0;font-size:14px;line-height:1.6;">' + inlineFormat(line) + '</p>';
                 }
             } else if (trimmed === '') {
                 if (inList) { html += '</ul>'; inList = false; }
                 html += '<br>';
             } else {
                 if (inList) { html += '</ul>'; inList = false; }
-                html += '<p style="margin:5px 0;font-size:14px;line-height:1.6;">' + inlineFormat(line) + '</p>';
+                html += '<p data-style="margin:5px 0;font-size:14px;line-height:1.6;">' + inlineFormat(line) + '</p>';
             }
         }
         if (inList) html += '</ul>';
@@ -1905,7 +1903,7 @@ window.noteSystem = (function() {
         if (countEl) countEl.textContent = notes.length;
 
         if (notes.length === 0) {
-            container.innerHTML = '<div style="text-align:center;padding:30px;color:#999;font-size:14px;">\u{1F4DD} \u8FD8\u6CA1\u6709\u7B14\u8BB0\uFF0C\u5F00\u59CB\u8BB0\u5F55\u5427\uFF01</div>';
+            container.innerHTML = '<div data-style="text-align:center;padding:30px;color:#999;font-size:14px;">\u{1F4DD} \u8FD8\u6CA1\u6709\u7B14\u8BB0\uFF0C\u5F00\u59CB\u8BB0\u5F55\u5427\uFF01</div>';
             return;
         }
 
@@ -1913,21 +1911,21 @@ window.noteSystem = (function() {
         for (var i = 0; i < notes.length; i++) {
             var n = notes[i];
             var isEditing = (editingId === n.id);
-            html += '<div style="background:' + (isEditing ? '#e6f7ff' : '#fafafa') + ';border:1px solid ' + (isEditing ? '#4a90e2' : '#eee') + ';border-radius:8px;padding:14px;margin-bottom:10px;">';
-            html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">';
-            html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
-            html += '<span style="' + _ST.tag + 'background:#e6f7ff;color:#4a90e2;font-weight:bold;">' + _util.escapeHtml(n.subject) + '</span>';
+            html += '<div data-style="background:' + (isEditing ? '#e6f7ff' : '#fafafa') + ';border:1px solid ' + (isEditing ? '#4a90e2' : '#eee') + ';border-radius:8px;padding:14px;margin-bottom:10px;">';
+            html += '<div data-style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">';
+            html += '<div data-style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
+            html += '<span data-style="' + _ST.tag + 'background:#e6f7ff;color:#4a90e2;font-weight:bold;">' + _util.escapeHtml(n.subject) + '</span>';
             if (n.topic) {
-                html += '<span style="' + _ST.tag + 'background:#f6ffed;color:#52c41a;">' + _util.escapeHtml(n.topic) + '</span>';
+                html += '<span data-style="' + _ST.tag + 'background:#f6ffed;color:#52c41a;">' + _util.escapeHtml(n.topic) + '</span>';
             }
             html += '</div>';
-            html += '<div style="display:flex;gap:6px;flex-shrink:0;">';
-            html += '<button data-call="window.noteSystem._startEdit" data-arg1="@s:' + n.id + '" style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u7F16\u8F91</button>';
-            html += '<button data-call="window.noteSystem._removeNote" data-arg1="@s:' + n.id + '" style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u5220\u9664</button>';
+            html += '<div data-style="display:flex;gap:6px;flex-shrink:0;">';
+            html += '<button data-call="window.noteSystem._startEdit" data-arg1="@s:' + n.id + '" data-style="' + _ST.btn + _ST.btnWarning + _ST.btnSm + '">\u7F16\u8F91</button>';
+            html += '<button data-call="window.noteSystem._removeNote" data-arg1="@s:' + n.id + '" data-style="' + _ST.btn + _ST.btnDanger + _ST.btnSm + '">\u5220\u9664</button>';
             html += '</div>';
             html += '</div>';
-            html += '<div style="font-size:14px;line-height:1.7;color:#444;">' + renderMarkdown(n.content) + '</div>';
-            html += '<div style="font-size:11px;color:#bbb;margin-top:8px;">' + (n.updated || n.created || '').slice(0, 16).replace('T', ' ') + '</div>';
+            html += '<div data-style="font-size:14px;line-height:1.7;color:#444;">' + renderMarkdown(n.content) + '</div>';
+            html += '<div data-style="font-size:11px;color:#bbb;margin-top:8px;">' + (n.updated || n.created || '').slice(0, 16).replace('T', ' ') + '</div>';
             html += '</div>';
         }
         container.innerHTML = html;
@@ -1949,35 +1947,35 @@ window.noteSystem = (function() {
         }
 
         var html = '';
-        html += '<div style="' + _ST.card + '">';
-        html += '<h2 style="margin:0 0 16px;font-size:20px;color:#333;">\u5B66\u4E60\u7B14\u8BB0</h2>';
+        html += '<div data-style="' + _ST.card + '">';
+        html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u5B66\u4E60\u7B14\u8BB0</h2>';
 
         /* editor form */
-        html += '<div style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
-        html += '<div style="' + _ST.flexRow + 'margin-bottom:10px;">';
-        html += '<div style="flex:0 0 120px;"><label style="' + _ST.label + '">\u5B66\u79D1</label>';
-        html += '<select id="note-subject-select" style="' + _ST.select + 'width:100%;">' + subjectOptsForm + '</select></div>';
-        html += '<div style="flex:1;"><label style="' + _ST.label + '">\u77E5\u8BC6\u70B9</label>';
-        html += '<input id="note-topic-input" type="text" style="' + _ST.input + '" placeholder="\u5982: \u4E8C\u6B21\u51FD\u6570"></div>';
+        html += '<div data-style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
+        html += '<div data-style="' + _ST.flexRow + 'margin-bottom:10px;">';
+        html += '<div data-style="flex:0 0 120px;"><label data-style="' + _ST.label + '">\u5B66\u79D1</label>';
+        html += '<select id="note-subject-select" data-style="' + _ST.select + 'width:100%;">' + subjectOptsForm + '</select></div>';
+        html += '<div data-style="flex:1;"><label data-style="' + _ST.label + '">\u77E5\u8BC6\u70B9</label>';
+        html += '<input id="note-topic-input" type="text" data-style="' + _ST.input + '" placeholder="\u5982: \u4E8C\u6B21\u51FD\u6570"></div>';
         html += '</div>';
-        html += '<div><label style="' + _ST.label + '">\u5185\u5BB9\uFF08\u652F\u6301 Markdown: # \u6807\u9898, **\u52A0\u7C97**, - \u5217\u8868, ```\u4EE3\u7801\u5757```\uFF09</label>';
-        html += '<textarea id="note-content-input" style="' + _ST.input + 'min-height:120px;resize:vertical;font-family:inherit;" placeholder="\u5728\u6B64\u8F93\u5165\u7B14\u8BB0\u5185\u5BB9..."></textarea></div>';
-        html += '<div style="margin-top:10px;display:flex;gap:8px;align-items:center;">';
-        html += '<button id="note-submit-btn" style="' + _ST.btn + _ST.btnPrimary + '">\u6DFB\u52A0\u7B14\u8BB0</button>';
-        html += '<button id="note-cancel-btn" style="' + _ST.btn + _ST.btnGray + _ST.btnSm + ';display:none;">\u53D6\u6D88\u7F16\u8F91</button>';
-        html += '<span id="note-form-msg" style="font-size:13px;"></span>';
+        html += '<div><label data-style="' + _ST.label + '">\u5185\u5BB9\uFF08\u652F\u6301 Markdown: # \u6807\u9898, **\u52A0\u7C97**, - \u5217\u8868, ```\u4EE3\u7801\u5757```\uFF09</label>';
+        html += '<textarea id="note-content-input" data-style="' + _ST.input + 'min-height:120px;resize:vertical;font-family:inherit;" placeholder="\u5728\u6B64\u8F93\u5165\u7B14\u8BB0\u5185\u5BB9..."></textarea></div>';
+        html += '<div data-style="margin-top:10px;display:flex;gap:8px;align-items:center;">';
+        html += '<button id="note-submit-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u6DFB\u52A0\u7B14\u8BB0</button>';
+        html += '<button id="note-cancel-btn" data-style="' + _ST.btn + _ST.btnGray + _ST.btnSm + ';display:none;">\u53D6\u6D88\u7F16\u8F91</button>';
+        html += '<span id="note-form-msg" data-style="font-size:13px;"></span>';
         html += '</div>';
         html += '</div>';
 
         /* search and filter bar */
-        html += '<div style="' + _ST.flexRow + 'margin-bottom:12px;">';
-        html += '<input id="note-search-input" type="text" style="' + _ST.input + 'flex:1;" placeholder="\u641C\u7D22\u7B14\u8BB0...">';
-        html += '<select id="note-filter-select" style="' + _ST.select + 'width:140px;">' + subjectOpts + '</select>';
-        html += '<button id="note-export-btn" style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u5BFC\u51FA JSON</button>';
+        html += '<div data-style="' + _ST.flexRow + 'margin-bottom:12px;">';
+        html += '<input id="note-search-input" type="text" data-style="' + _ST.input + 'flex:1;" placeholder="\u641C\u7D22\u7B14\u8BB0...">';
+        html += '<select id="note-filter-select" data-style="' + _ST.select + 'width:140px;">' + subjectOpts + '</select>';
+        html += '<button id="note-export-btn" data-style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u5BFC\u51FA JSON</button>';
         html += '</div>';
 
         /* note count */
-        html += '<div style="font-size:13px;color:#999;margin-bottom:8px;">\u5171 <span id="note-count">0</span> \u6761\u7B14\u8BB0</div>';
+        html += '<div data-style="font-size:13px;color:#999;margin-bottom:8px;">\u5171 <span id="note-count">0</span> \u6761\u7B14\u8BB0</div>';
 
         /* note list */
         html += '<div id="note-list"></div>';

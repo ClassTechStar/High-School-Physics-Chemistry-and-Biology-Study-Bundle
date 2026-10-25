@@ -411,7 +411,7 @@ const examPracticeSystem = {
                                     <span class="subj-icon">${s==='physics'?'⚡':s==='chemistry'?'🧪':'🧬'}</span>
                                     <span class="subj-name">${this.examData[s]?.name||s}</span>
                                     <div class="score-bar-container">
-                                        <div class="score-bar" style="width:${this.getSubjectScore(s)}%"></div>
+                                        <div class="score-bar" data-style="width:${this.getSubjectScore(s)}%"></div>
                                         <span class="score-text">${this.getSubjectScore(s)}%</span>
                                     </div>
                                 </div>
@@ -463,9 +463,9 @@ const examPracticeSystem = {
 
                         <div class="exam-list" id="exam-list"></div>
 
-                        <div class="exam-detail" id="exam-detail" style="display:none;"></div>
+                        <div class="exam-detail" id="exam-detail" data-style="display:none;"></div>
                         
-                        <div class="weakness-panel" id="weakness-panel" style="display:none;">
+                        <div class="weakness-panel" id="weakness-panel" data-style="display:none;">
                             <h4>🔍 薄弱点分析</h4>
                             <div class="weakness-list" id="weakness-list"></div>
                             
@@ -634,9 +634,9 @@ const examPracticeSystem = {
                     <button class="btn-submit-answer" data-call=\"examPracticeSystem.submitCurrentAnswer\">✅ 提交答案</button>
                 </div>
 
-                <div class="result-box" id="result-box" style="display:none;"></div>
+                <div class="result-box" id="result-box" data-style="display:none;"></div>
 
-                <div class="analysis-box" id="analysis-box" style="display:none;">
+                <div class="analysis-box" id="analysis-box" data-style="display:none;">
                     <h4>📖 详细解析</h4>
                     <div class="analysis-content">${this._esc(exam.analysis).replace(/\n/g, '<br>')}</div>
 
@@ -834,7 +834,7 @@ const examPracticeSystem = {
         } else {
             listEl.innerHTML = weak.map(w => `
                 <div class="weak-item">
-                    <span class="weak-score" style="color:${parseFloat(w.score)<40?'#e74c3c':parseFloat(w.score)<60?'#f39c12':'#27ae60'}">${w.score}%</span>
+                    <span class="weak-score" data-style="color:${parseFloat(w.score)<40?'#e74c3c':parseFloat(w.score)<60?'#f39c12':'#27ae60'}">${w.score}%</span>
                     <span class="weak-name">${w.name || w.category || w.subject}</span>
                     <span class="weak-desc">${parseFloat(w.score)<40?'急需加强':parseFloat(w.score)<60?'需要提升':'有待提高'}</span>
                 </div>
@@ -867,8 +867,8 @@ const examPracticeSystem = {
                     <div class="bar-row">
                         <span class="bar-year">${d.year}</span>
                         <div class="bar-track-v">
-                            <div class="bar-fill-v correct" style="height:${(d.correct/d.maxTotal*100)||0}%"></div>
-                            <div class="bar-fill-v total" style="height:${(d.total/d.maxTotal*100)||0}%"></div>
+                            <div class="bar-fill-v correct" data-style="height:${(d.correct/d.maxTotal*100)||0}%"></div>
+                            <div class="bar-fill-v total" data-style="height:${(d.total/d.maxTotal*100)||0}%"></div>
                         </div>
                         <div class="bar-stats-v">
                             <span class="stat-correct">${d.correct}/${d.total}</span>
@@ -1083,7 +1083,7 @@ const pcrSimulator = {
 
                 <div class="pcr-visualization">
                     <div class="temp-display">
-                        <div class="temp-circle" style="background: ${temperature > 80 ? '#e74c3c' : temperature > 60 ? '#f39c12' : '#3498db'}">
+                        <div class="temp-circle" data-style="background: ${temperature > 80 ? '#e74c3c' : temperature > 60 ? '#f39c12' : '#3498db'}">
                             <span class="temp-value">${temperature.toFixed(1)}</span>
                             <span class="temp-unit">°C</span>
                         </div>
@@ -1091,10 +1091,10 @@ const pcrSimulator = {
 
                     <div class="steps-display">
                         ${this.steps.map((step, idx) => `
-                            <div class="step-card ${currentStep === idx && isRunning ? 'active' : ''}" style="border-color: ${step.color}">
+                            <div class="step-card ${currentStep === idx && isRunning ? 'active' : ''}" data-style="border-color: ${step.color}">
                                 <div class="step-icon">${step.icon}</div>
                                 <div class="step-info">
-                                    <h5 style="color: ${step.color}">${step.name}</h5>
+                                    <h5 data-style="color: ${step.color}">${step.name}</h5>
                                     <p>${step.temp} | ${step.time}</p>
                                     <p class="step-desc">${step.description}</p>
                                 </div>
@@ -1387,7 +1387,7 @@ const gelElectrophoresisSimulator = {
                     <div class="time-display">
                         <span>运行时间: ${runTime.toFixed(1)} / ${maxTime} 分钟</span>
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${(runTime / maxTime) * 100}%"></div>
+                            <div class="progress-fill" data-style="width: ${(runTime / maxTime) * 100}%"></div>
                         </div>
                     </div>
                 </div>
@@ -1406,7 +1406,7 @@ const gelElectrophoresisSimulator = {
                     <h4>📊 结果分析</h4>
                     <div class="sample-list">
                         ${samples.map(s => `
-                            <div class="sample-item" style="border-left: 3px solid ${s.color}">
+                            <div class="sample-item" data-style="border-left: 3px solid ${s.color}">
                                 <span class="sample-name">${s.name}</span>
                                 <span class="sample-bands">${s.bands.map(b => b + 'bp').join(', ')}</span>
                             </div>

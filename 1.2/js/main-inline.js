@@ -94,7 +94,7 @@
         html += '</div>';
         html += '<div class="knowledge-card"><h4>🔧 ' + pi.physicalModels.title + '</h4>';
         pi.physicalModels.models.forEach(function(m) {
-            html += '<div class="key-point"><strong>' + m.name + '：</strong>' + m.description + ' <span style="color:#8b5cf6;font-size:0.95rem;">[' + m.examWeight + ']</span></div>';
+            html += '<div class="key-point"><strong>' + m.name + '：</strong>' + m.description + ' <span data-style="color:#8b5cf6;font-size:0.95rem;">[' + m.examWeight + ']</span></div>';
         });
         html += '</div></div>';
         app.innerHTML = html;
@@ -111,7 +111,7 @@
             if (!cat) return;
             html += '<div class="knowledge-card"><h4>' + cat.title + '</h4>';
             cat.equipments.forEach(function(eq) {
-                html += '<div class="key-point"><strong>' + eq.name + '：</strong>' + eq.usage + '<br><span style="color:#ef4444;">⚠️ 常见错误：</span>' + eq.pitfall + '<br><span style="color:#3b82f6;">📌 考试要点：</span>' + eq.examTip + '</div>';
+                html += '<div class="key-point"><strong>' + eq.name + '：</strong>' + eq.usage + '<br><span data-style="color:#ef4444;">⚠️ 常见错误：</span>' + eq.pitfall + '<br><span data-style="color:#3b82f6;">📌 考试要点：</span>' + eq.examTip + '</div>';
             });
             html += '</div>';
         });
@@ -129,13 +129,13 @@
 
         if (typeof CD === 'undefined') {
             console.error('[生物答题技巧] CD 对象未定义，检查 comprehensive-data.js 是否加载');
-            app.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>综合数据文件 (comprehensive-data.js) 未正确加载</p><p>请刷新页面重试，或检查浏览器控制台错误信息</p></div>';
+            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>综合数据文件 (comprehensive-data.js) 未正确加载</p><p>请刷新页面重试，或检查浏览器控制台错误信息</p></div>';
             return;
         }
 
         if (!CD.biologyExamStrategies) {
             console.error('[生物答题技巧] biologyExamStrategies 数据不存在');
-            app.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物答题策略数据未找到</p><p>请检查数据文件完整性</p></div>';
+            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物答题策略数据未找到</p><p>请检查数据文件完整性</p></div>';
             return;
         }
 
@@ -144,13 +144,13 @@
 
         var html = '<div class="knowledge-section"><h3>📝 ' + bes.title + '</h3>';
 
-        html += '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(52,211,153,0.06));border:1px solid rgba(16,185,129,0.2);">';
-        html += '<h4 style="color:#10b981;">🎯 广东高考生物题型分值分布</h4>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
-        html += '<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.5rem;font-weight:700;color:#10b981;">30-40%</div><div style="font-size:1rem;">信息获取题</div></div>';
-        html += '<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.5rem;font-weight:700;color:#3b82f6;">36分</div><div style="font-size:1rem;">选择题(6×6)</div></div>';
-        html += '<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.5rem;font-weight:700;color:#f59e0b;">~30%</div><div style="font-size:1rem;">实验设计题</div></div>';
-        html += '<div style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.5rem;font-weight:700;color:#ef4444;">~25%</div><div style="font-size:1rem;">遗传计算题</div></div>';
+        html += '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(52,211,153,0.06));border:1px solid rgba(16,185,129,0.2);">';
+        html += '<h4 data-style="color:#10b981;">🎯 广东高考生物题型分值分布</h4>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+        html += '<div data-style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-size:1.5rem;font-weight:700;color:#10b981;">30-40%</div><div data-style="font-size:1rem;">信息获取题</div></div>';
+        html += '<div data-style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-size:1.5rem;font-weight:700;color:#3b82f6;">36分</div><div data-style="font-size:1rem;">选择题(6×6)</div></div>';
+        html += '<div data-style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-size:1.5rem;font-weight:700;color:#f59e0b;">~30%</div><div data-style="font-size:1rem;">实验设计题</div></div>';
+        html += '<div data-style="flex:1;min-width:120px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-size:1.5rem;font-weight:700;color:#ef4444;">~25%</div><div data-style="font-size:1rem;">遗传计算题</div></div>';
         html += '</div></div>';
 
         var info = bes.infoQuestions;
@@ -168,7 +168,7 @@
         html += '</div>';
 
         var ed = bes.experimentDesign;
-        html += '<div class="knowledge-card" style="border-left:4px solid #10b981;"><h4>🔬 ' + ed.title + '</h4><div class="key-point">' + ed.description + '</div>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>🔬 ' + ed.title + '</h4><div class="key-point">' + ed.description + '</div>';
         ed.scoringTemplate.forEach(function(d) {
             html += '<div class="key-point"><strong>' + d.dimension + '：</strong>' + d.items.join('<br>') + '</div>';
         });
@@ -182,28 +182,28 @@
         html += '</div>';
 
         var ec = bes.errorCompilation;
-        html += '<div class="knowledge-card" style="border-left:4px solid #ef4444;"><h4>⚠️ ' + ec.title + '</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #ef4444;"><h4>⚠️ ' + ec.title + '</h4>';
         ec.items.forEach(function(item) {
             html += '<div class="common-mistake"><strong>' + item.concept + '</strong><br>' + item.mistake + '</div>';
         });
         html += '</div>';
 
-        html += '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(102,126,234,0.06),rgba(118,75,162,0.06));border:1px solid rgba(102,126,234,0.2);">';
-        html += '<h4 style="color:#667eea;">💡 答题时间分配建议（生物卷75分钟）</h4>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
-        html += '<div style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>选择题（6题）</strong><br>⏱️ 15-18分钟<br><span style="font-size:0.95rem;color:#666;">平均2.5-3分钟/题，先易后难</span></div>';
-        html += '<div style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>非选择题（5题）</strong><br>⏱️ 50-55分钟<br><span style="font-size:0.95rem;color:#666;">遗传题15min+实验题15min+其余20min</span></div>';
-        html += '<div style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>检查时间</strong><br>⏱️ 2-5分钟<br><span style="font-size:0.95rem;color:#666;">重点检查答题规范和术语</span></div>';
+        html += '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(102,126,234,0.06),rgba(118,75,162,0.06));border:1px solid rgba(102,126,234,0.2);">';
+        html += '<h4 data-style="color:#667eea;">💡 答题时间分配建议（生物卷75分钟）</h4>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+        html += '<div data-style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>选择题（6题）</strong><br>⏱️ 15-18分钟<br><span data-style="font-size:0.95rem;color:#666;">平均2.5-3分钟/题，先易后难</span></div>';
+        html += '<div data-style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>非选择题（5题）</strong><br>⏱️ 50-55分钟<br><span data-style="font-size:0.95rem;color:#666;">遗传题15min+实验题15min+其余20min</span></div>';
+        html += '<div data-style="flex:1;min-width:150px;padding:10px;background:white;border-radius:8px;border:1px solid rgba(102,126,234,0.2);"><strong>检查时间</strong><br>⏱️ 2-5分钟<br><span data-style="font-size:0.95rem;color:#666;">重点检查答题规范和术语</span></div>';
         html += '</div></div>';
 
         html += '<div class="knowledge-card"><h4>📝 非选择题答题规范速查表</h4>';
-        html += '<table style="width:100%;border-collapse:collapse;font-size:0.95rem;margin-top:8px;">';
-        html += '<tr style="background:var(--primary);color:#fff;"><th style="padding:8px;border:1px solid #ddd;">题型</th><th style="padding:8px;border:1px solid #ddd;">规范要点</th><th style="padding:8px;border:1px solid #ddd;">常见失分</th></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">原因分析题</td><td style="padding:6px;border:1px solid #ddd;">从机理层面分析，先因后果，用专业术语</td><td style="padding:6px;border:1px solid #ddd;">只答表面现象，不用专业术语</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">实验设计题</td><td style="padding:6px;border:1px solid #ddd;">分组→处理→培养→观察，单一变量+对照</td><td style="padding:6px;border:1px solid #ddd;">缺少对照组，变量不单一</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">遗传推断题</td><td style="padding:6px;border:1px solid #ddd;">先判显隐→判常/伴→写基因型→算概率</td><td style="padding:6px;border:1px solid #ddd;">基因型写错，概率计算无过程</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">曲线分析题</td><td style="padding:6px;border:1px solid #ddd;">描述趋势+解释原因+比较差异</td><td style="padding:6px;border:1px solid #ddd;">只描述不解释，忽略关键拐点</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">表格数据题</td><td style="padding:6px;border:1px solid #ddd;">先看表头→找规律→用数据支撑结论</td><td style="padding:6px;border:1px solid #ddd;">结论无数据支撑，忽略异常数据</td></tr>';
+        html += '<table data-style="width:100%;border-collapse:collapse;font-size:0.95rem;margin-top:8px;">';
+        html += '<tr data-style="background:var(--primary);color:#fff;"><th data-style="padding:8px;border:1px solid #ddd;">题型</th><th data-style="padding:8px;border:1px solid #ddd;">规范要点</th><th data-style="padding:8px;border:1px solid #ddd;">常见失分</th></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">原因分析题</td><td data-style="padding:6px;border:1px solid #ddd;">从机理层面分析，先因后果，用专业术语</td><td data-style="padding:6px;border:1px solid #ddd;">只答表面现象，不用专业术语</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">实验设计题</td><td data-style="padding:6px;border:1px solid #ddd;">分组→处理→培养→观察，单一变量+对照</td><td data-style="padding:6px;border:1px solid #ddd;">缺少对照组，变量不单一</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">遗传推断题</td><td data-style="padding:6px;border:1px solid #ddd;">先判显隐→判常/伴→写基因型→算概率</td><td data-style="padding:6px;border:1px solid #ddd;">基因型写错，概率计算无过程</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">曲线分析题</td><td data-style="padding:6px;border:1px solid #ddd;">描述趋势+解释原因+比较差异</td><td data-style="padding:6px;border:1px solid #ddd;">只描述不解释，忽略关键拐点</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:600;">表格数据题</td><td data-style="padding:6px;border:1px solid #ddd;">先看表头→找规律→用数据支撑结论</td><td data-style="padding:6px;border:1px solid #ddd;">结论无数据支撑，忽略异常数据</td></tr>';
         html += '</table></div>';
 
         html += '</div>';
@@ -220,13 +220,13 @@
 
         if (typeof CE === 'undefined') {
             console.error('[生物知识图谱] CE 对象未定义，检查 content-enhancement.js 是否加载');
-            app.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>内容增强文件 (content-enhancement.js) 未正确加载</p></div>';
+            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>内容增强文件 (content-enhancement.js) 未正确加载</p></div>';
             return;
         }
 
         if (!CE.biologyKnowledgeGraph) {
             console.error('[生物知识图谱] biologyKnowledgeGraph 数据不存在');
-            app.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物知识图谱数据未找到</p></div>';
+            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物知识图谱数据未找到</p></div>';
             return;
         }
 
@@ -236,12 +236,12 @@
         var html = '<div class="knowledge-section"><h3>🔥 ' + kg.title + '</h3>'+
             '<div class="knowledge-card"><div class="key-point">共收录<strong>' + kg.nodes.length + '</strong>个热点专题节点，<strong>' + kg.relations.length + '</strong>条知识关联关系，覆盖近五年广东高考生物高频考点。</div></div>';
         kg.nodes.forEach(function(node) {
-            html += '<div class="knowledge-card" style="position:relative;">'+
-                '<h4>🔥 ' + node.name + ' <span style="font-size:0.9rem;background:#e8edff;padding:2px 8px;border-radius:10px;">权重：'+(node.weight*100).toFixed(0)+'%</span></h4>'+
+            html += '<div class="knowledge-card" data-style="position:relative;">'+
+                '<h4>🔥 ' + node.name + ' <span data-style="font-size:0.9rem;background:#e8edff;padding:2px 8px;border-radius:10px;">权重：'+(node.weight*100).toFixed(0)+'%</span></h4>'+
                 '<div class="key-point"><strong>📖 核心概念：</strong>' + node.concept + '</div>'+
                 '<div class="key-point"><strong>🖼️ 关键图解：</strong>' + node.diagram + '</div>'+
                 '<div class="key-point"><strong>🔬 实验/情境：</strong>' + node.experiment + '</div>'+
-                '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>' + node.pitfall + '</div>'+
+                '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>' + node.pitfall + '</div>'+
                 '<div class="key-point"><strong>📝 真题参考：</strong>' + node.examRef + '</div>'+
                 '<div class="key-point"><strong>💡 备考策略：</strong>' + node.strategy + '</div>'+
                 '</div>';
@@ -362,10 +362,10 @@
             '<div class="sim-controls pcr-controls">'+
             '<div class="sim-status-row">'+
             '<div class="sim-stat"><span class="sim-stat-label">\u5f53\u524d\u5faa\u73af</span><span class="sim-stat-value" id="pcr-cycle-num">0</span><span class="sim-stat-unit">/ <span id="pcr-total-cycles">20</span></span></div>'+
-            '<div class="sim-stat"><span class="sim-stat-label">\u6b65\u9aa4</span><span class="sim-stat-value" id="pcr-step-name" style="font-size:1rem;">\u5c31\u7eea</span></div>'+
+            '<div class="sim-stat"><span class="sim-stat-label">\u6b65\u9aa4</span><span class="sim-stat-value" id="pcr-step-name" data-style="font-size:1rem;">\u5c31\u7eea</span></div>'+
             '<div class="sim-stat"><span class="sim-stat-label">\u4f30\u8ba1\u4ea7\u7269</span><span class="sim-stat-value" id="pcr-copies-num">1</span><span class="sim-stat-unit">\u62f7\u8d1d (2^n)</span></div>'+
             '</div>'+
-            '<div class="sim-progress-bar-wrap"><div class="sim-progress-bar" id="pcr-progress-bar" style="width:0%;"></div></div>'+
+            '<div class="sim-progress-bar-wrap"><div class="sim-progress-bar" id="pcr-progress-bar" data-style="width:0%;"></div></div>'+
             '<div class="sim-param-row">'+
             '<div class="sim-param"><label>\u5faa\u73af\u6b21\u6570: <span id="pcr-cycles-val">20</span></label><input type="range" id="pcr-cycles-slider" min="1" max="35" value="20" class="sim-slider"></div>'+
             '<div class="sim-param"><label>\u9000\u706b\u6e29\u5ea6: <span id="pcr-temp-val">55</span>\u00b0C</label><input type="range" id="pcr-temp-slider" min="45" max="65" value="55" class="sim-slider"></div>'+
@@ -373,15 +373,15 @@
             '</div>'+
             '<div class="sim-btn-row">'+
             '<button class="btn btn-primary sim-play-btn" id="pcr-play-btn">\u25b6 \u5f00\u59cb</button>'+
-            '<button class="btn btn-secondary" id="pcr-reset-btn" style="display:none;">\u21a9 \u91cd\u7f6e</button>'+
+            '<button class="btn btn-secondary" id="pcr-reset-btn" data-style="display:none;">\u21a9 \u91cd\u7f6e</button>'+
             '</div>'+
             '</div></div>'+
             '<div class="knowledge-card"><h4>\ud83d\udcd6 PCR\u6280\u672f\u539f\u7406</h4>'+
             '<div class="key-point"><strong>\u5b9a\u4e49\uff1a</strong>PCR\uff08Polymerase Chain Reaction\uff09\u662f\u4e00\u79cd\u4f53\u5916\u6269\u589e\u7279\u5b9aDNA\u7247\u6bb5\u7684\u5206\u5b50\u751f\u7269\u5b66\u6280\u672f\uff0c\u7531Kary Mullis\u4e8e1983\u5e74\u53d1\u660e\uff08\u83b71993\u5e74\u8bfa\u8d1d\u5c14\u5316\u5b66\u5956\uff09\u3002</div>'+
             '<div class="key-point"><strong>\u57fa\u672c\u539f\u7406\uff1a</strong>\u5229\u7528DNA\u534a\u4fdd\u7559\u590d\u5236\u7684\u539f\u7406\uff0c\u5728\u4f53\u5916\u901a\u8fc7\u6e29\u5ea6\u5faa\u73af\u63a7\u5236DNA\u7684\u53d8\u6027\u2192\u9000\u706b\u2192\u5ef6\u4f38\u4e09\u4e2a\u6b65\u9aa4\u7684\u53cd\u590d\u5faa\u73af\uff0c\u5b9e\u73b0\u76ee\u6807DNA\u7247\u6bb5\u7684\u6307\u6570\u7ea7\u6269\u589e\uff082^n\uff09\u3002</div></div>'+
             '<div class="knowledge-card"><h4>\u26a1 \u6ce8\u610f\u4e8b\u9879\u4e0e\u5e38\u89c1\u9519\u8bef</h4>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>Taq\u9176\u7279\u6027\uff1a</strong>\u8010\u9ad8\u6e29\uff08\u6700\u9002\u6e29\u5ea672\u00b0C\uff09\uff0c\u4f46<b>\u65e03\'-5\'\u6821\u5bf9\u529f\u80fd</b>\u2192PCR\u4ea7\u7269\u53ef\u80fd\u6709\u9519\u914d\u78b1\u57fa</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>\u9000\u706b\u6e29\u5ea6\uff1a</strong>\u4e09\u4e2a\u6e29\u5ea6\u4e2d<b>\u6700\u4f4e</b>\uff08\u5f15\u7269\u4e0e\u6a21\u677f\u7279\u5f02\u6027\u7ed3\u5408\u7684\u5173\u952e\u6e29\u5ea6\uff09\uff0c\u6e29\u5ea6\u8d8a\u4f4e\u7279\u5f02\u6027\u8d8a\u5dee</div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>Taq\u9176\u7279\u6027\uff1a</strong>\u8010\u9ad8\u6e29\uff08\u6700\u9002\u6e29\u5ea672\u00b0C\uff09\uff0c\u4f46<b>\u65e03\'-5\'\u6821\u5bf9\u529f\u80fd</b>\u2192PCR\u4ea7\u7269\u53ef\u80fd\u6709\u9519\u914d\u78b1\u57fa</div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>\u9000\u706b\u6e29\u5ea6\uff1a</strong>\u4e09\u4e2a\u6e29\u5ea6\u4e2d<b>\u6700\u4f4e</b>\uff08\u5f15\u7269\u4e0e\u6a21\u677f\u7279\u5f02\u6027\u7ed3\u5408\u7684\u5173\u952e\u6e29\u5ea6\uff09\uff0c\u6e29\u5ea6\u8d8a\u4f4e\u7279\u5f02\u6027\u8d8a\u5dee</div>'+
             '<div class="key-point"><strong>\u5f15\u7269\u8bbe\u8ba1\uff1a</strong>\u957f\u5ea618-25bp\uff0cGC\u542b\u91cf40%-60%\uff0c3\' \u7aef\u4e25\u7981\u4fee\u9970\uff0c5\' \u7aef\u53ef\u6dfb\u52a0\u9176\u5207\u4f4d\u70b9</div>'+
             '</div></div>';
         app.innerHTML = html;
@@ -576,7 +576,7 @@
             '<div class="sim-stat"><span class="sim-stat-label">\u7535\u538b</span><span class="sim-stat-value" id="ep-voltage-display">100V</span></div>'+
             '<div class="sim-stat"><span class="sim-stat-label">\u743c\u8102\u7cd6</span><span class="sim-stat-value" id="ep-agarose-display">1.0%</span></div>'+
             '</div>'+
-            '<div class="sim-progress-bar-wrap"><div class="sim-progress-bar ep-progress-fill" id="ep-progress-bar" style="width:0%;"></div></div>'+
+            '<div class="sim-progress-bar-wrap"><div class="sim-progress-bar ep-progress-fill" id="ep-progress-bar" data-style="width:0%;"></div></div>'+
             '<div class="sim-param-row">'+
             '<div class="sim-param"><label>\u7535\u538b: <span id="ep-voltage-val">100</span>V</label><input type="range" id="ep-voltage-slider" min="20" max="200" value="100" class="sim-slider"></div>'+
             '<div class="sim-param"><label>\u743c\u8102\u7cd6\u6d53\u5ea6: <span id="ep-agarose-val">1.0</span>%</label><input type="range" id="ep-agarose-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="sim-slider"></div>'+
@@ -585,15 +585,15 @@
             '</div>'+
             '<div class="sim-btn-row">'+
             '<button class="btn btn-primary sim-play-btn" id="ep-play-btn">\u25b6 \u5f00\u59cb\u7535\u6cf3</button>'+
-            '<button class="btn btn-secondary" id="ep-reset-btn" style="display:none;">\u21a9 \u91cd\u7f6e</button>'+
-            '<button class="btn btn-accent" id="ep-uv-btn" style="margin-left:8px;">\ud83d\udd2c UV\u663e\u5f71</button>'+
+            '<button class="btn btn-secondary" id="ep-reset-btn" data-style="display:none;">\u21a9 \u91cd\u7f6e</button>'+
+            '<button class="btn btn-accent" id="ep-uv-btn" data-style="margin-left:8px;">\ud83d\udd2c UV\u663e\u5f71</button>'+
             '</div></div></div>'+
             '<div class="knowledge-card"><h4>\ud83d\udcd6 \u7535\u6cf3\u539f\u7406</h4>'+
             '<div class="key-point"><strong>\u539f\u7406\uff1a</strong>DNA\u5206\u5b50\u5e26\u8d1f\u7535\u8377\u2192\u5728\u7535\u573a\u4e2d\u5411\u6b63\u6781\u79fb\u52a8\u3002\u743c\u8102\u7cd6\u51dd\u80f6\u5177\u6709<b>\u5206\u5b50\u7b5b\u6548\u5e94</b>\u2192\u5c0f\u5206\u5b50DNA\u79fb\u52a8\u901f\u5ea6\u5feb\uff0c\u5927\u5206\u5b50DNA\u79fb\u52a8\u901f\u5ea6\u6162\u2192\u5b9e\u73b0\u4e0d\u540c\u5927\u5c0fDNA\u7247\u6bb5\u7684\u5206\u79bb\u3002</div></div>'+
             '<div class="knowledge-card"><h4>\ud83d\udcca \u6838\u5fc3\u53c2\u6570</h4>'+
             '<div class="key-point"><strong>\u743c\u8102\u7cd6\u6d53\u5ea6\uff1a</strong>0.7%-2.0%\u3002\u9ad8\u6d53\u5ea6\u2192\u5206\u8fa8\u5c0f\u5206\u5b50DNA\uff08500bp\u4ee5\u4e0b\uff09\uff1b\u4f4e\u6d53\u5ea6\u2192\u5206\u8fa8\u5927\u5206\u5b50DNA\uff08>1kb\uff09</div>'+
             '<div class="key-point"><strong>\u7535\u538b\uff1a</strong>1-10 V/cm\uff08\u7535\u573a\u5f3a\u5ea6\uff09\u3002\u8fc7\u9ad8\u2192\u4ea7\u70ed\u2192\u6761\u5e26\u6269\u6563/\u51dd\u80f6\u53d8\u5f62</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>\u5b89\u5168\u8b66\u793a\uff1a</strong>\u6eb4\u5316\u4e59\u9326\uff08EB\uff09\u66ff\u4ee3\u7269\u67d3\u8272\u65f6\u5fc5\u987b\u6234\u624b\u5957\uff01EB\u4e3a\u5f3a\u81f4\u764c\u7269\uff0c\u9700\u4e13\u4e1a\u5904\u7406\u3002\u73b0\u4ee3\u5b9e\u9a8c\u5ba4\u591a\u7528SYBR Safe\u7b49\u5b89\u5168\u66ff\u4ee3\u54c1\u3002</div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>\u5b89\u5168\u8b66\u793a\uff1a</strong>\u6eb4\u5316\u4e59\u9326\uff08EB\uff09\u66ff\u4ee3\u7269\u67d3\u8272\u65f6\u5fc5\u987b\u6234\u624b\u5957\uff01EB\u4e3a\u5f3a\u81f4\u764c\u7269\uff0c\u9700\u4e13\u4e1a\u5904\u7406\u3002\u73b0\u4ee3\u5b9e\u9a8c\u5ba4\u591a\u7528SYBR Safe\u7b49\u5b89\u5168\u66ff\u4ee3\u54c1\u3002</div>'+
             '</div></div>';
         app.innerHTML = html;
         setTimeout(function() {
@@ -662,7 +662,7 @@
             '<div class="var-input-group"><label>动摩擦因数 μ</label><input type="number" id="mech-mu" value="0.3" step="0.01" min="0" max="1"></div>'+
             '<div class="var-input-group"><label>外力 F (N) (沿斜面向上)</label><input type="number" id="mech-force" value="0" step="1"></div>'+
             '</div>'+
-            '<button class="btn btn-primary" data-call="calcMechIncline" style="margin-top:10px;">🖩 计算受力</button>'+
+            '<button class="btn btn-primary" data-call="calcMechIncline" data-style="margin-top:10px;">🖩 计算受力</button>'+
             '<div id="mech-result"></div>'+
             '</div></div>'+
             '<div class="knowledge-card"><h4>📋 常见力学模型解题模板</h4>'+
@@ -684,7 +684,7 @@
             '<div class="var-input-group"><label>电阻 R₂ (Ω)</label><input type="number" id="elec-r2" value="20" step="0.1" min="0.1"></div>'+
             '<div class="var-input-group"><label>连接方式</label><select id="elec-conn" class="sim-select"><option value="series">串联</option><option value="parallel">并联</option></select></div>'+
             '</div>'+
-            '<button class="btn btn-primary" data-call="calcElecCircuit" style="margin-top:10px;">🖩 计算</button>'+
+            '<button class="btn btn-primary" data-call="calcElecCircuit" data-style="margin-top:10px;">🖩 计算</button>'+
             '<div id="elec-result"></div>'+
             '</div>'+
             '<div class="knowledge-card"><h4>📐 电磁学核心公式速查</h4>'+
@@ -692,7 +692,7 @@
             '<div class="key-point"><strong>电功率：</strong>P = UI = I²R = U²/R；焦耳热 Q = I²Rt</div>'+
             '<div class="key-point"><strong>带电粒子在磁场中：</strong>r = mv/(qB)，T = 2πm/(qB)，回旋周期与速度无关（非相对论）</div>'+
             '<div class="key-point"><strong>电磁感应：</strong>E = BLv（动生），E = nΔΦ/Δt（感生），方向用楞次定律判定</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 常见错误：</strong>混淆左手定则（力）与右手定则（电流/磁感线）| 安培力F=BIL中L为有效长度 | 混淆"磁通量变化率"与"磁通量大小"</div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 常见错误：</strong>混淆左手定则（力）与右手定则（电流/磁感线）| 安培力F=BIL中L为有效长度 | 混淆"磁通量变化率"与"磁通量大小"</div>'+
             '</div></div>';
         app.innerHTML = html;
     }
@@ -708,7 +708,7 @@
             '<div class="var-input-group"><label>焦距 f (cm)</label><input type="number" id="opt-f" value="15" step="0.1" min="0.1"></div>'+
             '<div class="var-input-group"><label>物距 u (cm)</label><input type="number" id="opt-u" value="30" step="0.1" min="0.1"></div>'+
             '</div>'+
-            '<button class="btn btn-primary" data-call="calcOpticsMirror" style="margin-top:10px;">🖩 计算像距</button>'+
+            '<button class="btn btn-primary" data-call="calcOpticsMirror" data-style="margin-top:10px;">🖩 计算像距</button>'+
             '<div id="opt-result"></div>'+
             '</div>'+
             '<div class="knowledge-card"><h4>📏 光学核心知识</h4>'+
@@ -738,12 +738,12 @@
         var html = '<div class="knowledge-section"><h3>🔬 细胞结构与功能浏览器</h3>'+
             '<div class="knowledge-card"><h4>🧬 真核细胞亚显微结构概览</h4>'+
             '<div class="key-point"><strong>核心考点：</strong>①结构与功能相适应的生物学观念 ②分泌蛋白的合成与运输路径（核糖体→内质网→高尔基体→细胞膜外）③动植物细胞结构差异（细胞壁/中心体/叶绿体/液泡）</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混点：</strong>①植物根尖细胞<strong>无叶绿体</strong>（地下部分不需光合作用）②哺乳动物成熟红细胞<strong>无线粒体</strong>（靠无氧呼吸供能）③原核细胞<strong>唯一的细胞器</strong>是核糖体</div></div>';
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混点：</strong>①植物根尖细胞<strong>无叶绿体</strong>（地下部分不需光合作用）②哺乳动物成熟红细胞<strong>无线粒体</strong>（靠无氧呼吸供能）③原核细胞<strong>唯一的细胞器</strong>是核糖体</div></div>';
         organelles.forEach(function(o) {
-            html += '<div class="knowledge-card" style="border-left:4px solid #10b981;"><h4>🔬 '+o.name+'</h4>'+
+            html += '<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>🔬 '+o.name+'</h4>'+
                 '<div class="key-point"><strong>主要功能：</strong>'+o.func+'</div>'+
                 '<div class="key-point"><strong>结构特点：</strong>'+o.detail+'</div>'+
-                '<div class="key-point" style="background:#fef3c7;border-left:3px solid #f59e0b;"><strong>🎯 考试要点：</strong>'+o.examPoint+'</div>'+
+                '<div class="key-point" data-style="background:#fef3c7;border-left:3px solid #f59e0b;"><strong>🎯 考试要点：</strong>'+o.examPoint+'</div>'+
                 '</div>';
         });
         html += '</div>';
@@ -754,20 +754,20 @@
         var app = document.getElementById('biology-protein-synth-app');
         if (!app) return;
         var html = '<div class="knowledge-section"><h3>🧬 蛋白质合成全过程模拟（中心法则）</h3>'+
-            '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(52,211,153,0.06));border:2px solid rgba(16,185,129,0.3);">'+
-            '<h4 style="color:#10b981;">🧬 中心法则全流程</h4>'+
-            '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;">'+
-            '<div style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
-            '<div style="font-size:1.6rem;font-weight:700;color:#10b981;">DNA</div><div style="font-size:1rem;color:#666;margin-top:4px;">遗传信息存储</div>'+
-            '<div style="font-size:0.9rem;color:#999;margin-top:4px;">双螺旋结构·碱基互补配对</div></div>'+
-            '<div style="display:flex;align-items:center;font-size:1.5rem;font-weight:700;color:#10b981;">→转录→</div>'+
-            '<div style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
-            '<div style="font-size:1.6rem;font-weight:700;color:#3b82f6;">mRNA</div><div style="font-size:1rem;color:#666;margin-top:4px;">信使RNA</div>'+
-            '<div style="font-size:0.9rem;color:#999;margin-top:4px;">携带遗传密码·密码子</div></div>'+
-            '<div style="display:flex;align-items:center;font-size:1.5rem;font-weight:700;color:#3b82f6;">→翻译→</div>'+
-            '<div style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
-            '<div style="font-size:1.6rem;font-weight:700;color:#f59e0b;">蛋白质</div><div style="font-size:0.85rem;color:#666;margin-top:4px;">氨基酸多肽链</div>'+
-            '<div style="font-size:0.75rem;color:#999;margin-top:4px;">空间结构决定功能</div></div>'+
+            '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(52,211,153,0.06));border:2px solid rgba(16,185,129,0.3);">'+
+            '<h4 data-style="color:#10b981;">🧬 中心法则全流程</h4>'+
+            '<div data-style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;">'+
+            '<div data-style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
+            '<div data-style="font-size:1.6rem;font-weight:700;color:#10b981;">DNA</div><div data-style="font-size:1rem;color:#666;margin-top:4px;">遗传信息存储</div>'+
+            '<div data-style="font-size:0.9rem;color:#999;margin-top:4px;">双螺旋结构·碱基互补配对</div></div>'+
+            '<div data-style="display:flex;align-items:center;font-size:1.5rem;font-weight:700;color:#10b981;">→转录→</div>'+
+            '<div data-style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
+            '<div data-style="font-size:1.6rem;font-weight:700;color:#3b82f6;">mRNA</div><div data-style="font-size:1rem;color:#666;margin-top:4px;">信使RNA</div>'+
+            '<div data-style="font-size:0.9rem;color:#999;margin-top:4px;">携带遗传密码·密码子</div></div>'+
+            '<div data-style="display:flex;align-items:center;font-size:1.5rem;font-weight:700;color:#3b82f6;">→翻译→</div>'+
+            '<div data-style="flex:1;min-width:140px;background:white;border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(16,185,129,0.2);">'+
+            '<div data-style="font-size:1.6rem;font-weight:700;color:#f59e0b;">蛋白质</div><div data-style="font-size:0.85rem;color:#666;margin-top:4px;">氨基酸多肽链</div>'+
+            '<div data-style="font-size:0.75rem;color:#999;margin-top:4px;">空间结构决定功能</div></div>'+
             '</div></div>'+
             '<div class="knowledge-card"><h4>📝 第一步：转录（DNA → mRNA）</h4>'+
             '<div class="key-point"><strong>场所：</strong>真核细胞——细胞核（线粒体、叶绿体中也可进行）； 原核细胞——细胞质基质</div>'+
@@ -776,7 +776,7 @@
             '<div class="key-point"><strong>酶：</strong>RNA聚合酶——具有解旋（解开DNA双链）+催化合成RNA双功能</div>'+
             '<div class="key-point"><strong>过程：</strong>①RNA聚合酶识别并结合启动子→②解开DNA双链局部区域→③以模板链为模板按碱基互补配对合成RNA→④延伸至终止子时停止</div>'+
             '<div class="key-point"><strong>产物：</strong>前体mRNA（hnRNA）→需经加工（5\'加帽+3\'加polyA尾+剪切除内含子）→成熟mRNA</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>转录产物中U替代T配对A；转录方向5\'→3\'；真核生物mRNA需经剪切加工后才具有翻译功能——内含子被切除，外显子拼接</div></div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>转录产物中U替代T配对A；转录方向5\'→3\'；真核生物mRNA需经剪切加工后才具有翻译功能——内含子被切除，外显子拼接</div></div>'+
             '<div class="knowledge-card"><h4>🔤 密码子与反密码子</h4>'+
             '<div class="key-point"><strong>密码子：</strong>mRNA上3个相邻碱基决定一种氨基酸（共64种，61种编码氨基酸+3种终止密码子UAA/UAG/UGA）</div>'+
             '<div class="key-point"><strong>起始密码子：</strong>AUG（甲硫氨酸，真核）；GUG（缬氨酸，原核）—AUG编码甲硫氨酸同时作为起始信号</div>'+
@@ -789,7 +789,7 @@
             '<div class="key-point"><strong>原料：</strong>游离氨基酸（20种）——通过tRNA特异性识别并搬运</div>'+
             '<div class="key-point"><strong>过程：</strong>①核糖体沿mRNA移动→②tRNA反密码子识别mRNA密码子→③相邻氨基酸脱水缩合形成肽键→④核糖体遇到终止密码子→释放因子结合→肽链脱离</div>'+
             '<div class="key-point"><strong>翻译后加工：</strong>多肽链→内质网腔→初步折叠→高尔基体→进一步修饰（糖基化等）→分类包装→分泌出胞</div>'+
-            '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>①翻译时核糖体沿<strong>mRNA</strong>移动（不是tRNA移动！）②一个密码子对应一种氨基酸，但一种氨基酸可对应多种密码子→简并性≠通用性③分泌蛋白在粗面内质网上的核糖体中合成→进入内质网腔→运输到高尔基体</div></div>'+
+            '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>①翻译时核糖体沿<strong>mRNA</strong>移动（不是tRNA移动！）②一个密码子对应一种氨基酸，但一种氨基酸可对应多种密码子→简并性≠通用性③分泌蛋白在粗面内质网上的核糖体中合成→进入内质网腔→运输到高尔基体</div></div>'+
             '<div class="knowledge-card"><h4>🎯 高考核心考点荟萃</h4>'+
             '<div class="key-point">📊 <strong>转录与翻译的比较：</strong>| 步骤 | 模板 | 原料 | 产物 | 配对 | 酶 | |------|------|------|------|------|-----| | 转录 | DNA模板链 | 核糖核苷酸 | mRNA | A-U, T-A, C-G, G-C | RNA聚合酶 | | DNA复制 | DNA两条链 | 脱氧核苷酸 | DNA | A-T, C-G | 解旋酶+DNA聚合酶 | | 翻译 | mRNA | 氨基酸 | 多肽链 | 密码子-反密码子 | 不需酶 |</div>'+
             '<div class="key-point">🧮 <strong>计算问题：</strong>基因中碱基数 : mRNA碱基数 : 氨基酸数 = <strong>6 : 3 : 1</strong>（不考虑终止密码子和基因非编码区）</div>'+
@@ -802,35 +802,35 @@
         var app = document.getElementById('biology-metabolism-app');
         if (!app) return;
         var html = '<div class="knowledge-section"><h3>🍬 糖类·脂质·ATP专题全解</h3>';
-        html += '<div class="knowledge-card" style="border-left:4px solid #f59e0b;"><h4>🍭 一、糖类（碳水化合物）</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #f59e0b;"><h4>🍭 一、糖类（碳水化合物）</h4>';
         html += '<div class="key-point"><strong>组成元素：</strong>C、H、O 三种元素（大多数糖类符合通式 Cₙ(H₂O)ₙ）</div>';
-        html += '<table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.88rem;"><thead><tr style="background:#fef3c7;"><th style="padding:8px;border:1px solid #fcd34d;text-align:left;">分类</th><th style="padding:8px;border:1px solid #fcd34d;text-align:left;">代表物</th><th style="padding:8px;border:1px solid #fcd34d;text-align:left;">特点与功能</th></tr></thead><tbody>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">单糖<br><span style="font-weight:400;font-size:0.8rem;color:#666;">不能水解</span></td><td style="padding:6px;border:1px solid #fcd34d;">葡萄糖(C₆H₁₂O₆)</td><td style="padding:6px;border:1px solid #fcd34d;">主要能源物质；光合作用产物；血糖主要成分</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">果糖(C₆H₁₂O₆)</td><td style="padding:6px;border:1px solid #fcd34d;">存在于水果、蜂蜜中最甜的天然糖</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">核糖/脱氧核糖</td><td style="padding:6px;border:1px solid #fcd34d;">RNA/DNA的组成成分（五碳糖）</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">二糖<br><span style="font-weight:400;font-size:0.8rem;color:#666;">水解为2分子单糖</span></td><td style="padding:6px;border:1px solid #fcd34d;">蔗糖</td><td style="padding:6px;border:1px solid #fcd34d;">葡萄糖+果糖；甘蔗、甜菜中提取</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">麦芽糖</td><td style="padding:6px;border:1px solid #fcd34d;">葡萄糖+葡萄糖；发芽谷物中产生</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">乳糖</td><td style="padding:6px;border:1px solid #fcd34d;">葡萄糖+半乳糖；乳汁中特有</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">多糖<br><span style="font-weight:400;font-size:0.8rem;color:#666;">水解为多分子单糖</span></td><td style="padding:6px;border:1px solid #fcd34d;">淀粉</td><td style="padding:6px;border:1px solid #fcd34d;">植物储能多糖；遇碘变蓝</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">糖原</td><td style="padding:6px;border:1px solid #fcd34d;">动物储能多糖（肝糖原+肌糖原）；不遇碘变色</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #fcd34d;">纤维素</td><td style="padding:6px;border:1px solid #fcd34d;">植物细胞壁主要成分；人体无法消化（无纤维素酶）</td></tr>';
+        html += '<table data-style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.88rem;"><thead><tr data-style="background:#fef3c7;"><th data-style="padding:8px;border:1px solid #fcd34d;text-align:left;">分类</th><th data-style="padding:8px;border:1px solid #fcd34d;text-align:left;">代表物</th><th data-style="padding:8px;border:1px solid #fcd34d;text-align:left;">特点与功能</th></tr></thead><tbody>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">单糖<br><span data-style="font-weight:400;font-size:0.8rem;color:#666;">不能水解</span></td><td data-style="padding:6px;border:1px solid #fcd34d;">葡萄糖(C₆H₁₂O₆)</td><td data-style="padding:6px;border:1px solid #fcd34d;">主要能源物质；光合作用产物；血糖主要成分</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">果糖(C₆H₁₂O₆)</td><td data-style="padding:6px;border:1px solid #fcd34d;">存在于水果、蜂蜜中最甜的天然糖</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">核糖/脱氧核糖</td><td data-style="padding:6px;border:1px solid #fcd34d;">RNA/DNA的组成成分（五碳糖）</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">二糖<br><span data-style="font-weight:400;font-size:0.8rem;color:#666;">水解为2分子单糖</span></td><td data-style="padding:6px;border:1px solid #fcd34d;">蔗糖</td><td data-style="padding:6px;border:1px solid #fcd34d;">葡萄糖+果糖；甘蔗、甜菜中提取</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">麦芽糖</td><td data-style="padding:6px;border:1px solid #fcd34d;">葡萄糖+葡萄糖；发芽谷物中产生</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">乳糖</td><td data-style="padding:6px;border:1px solid #fcd34d;">葡萄糖+半乳糖；乳汁中特有</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;font-weight:600;" rowspan="3">多糖<br><span data-style="font-weight:400;font-size:0.8rem;color:#666;">水解为多分子单糖</span></td><td data-style="padding:6px;border:1px solid #fcd34d;">淀粉</td><td data-style="padding:6px;border:1px solid #fcd34d;">植物储能多糖；遇碘变蓝</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">糖原</td><td data-style="padding:6px;border:1px solid #fcd34d;">动物储能多糖（肝糖原+肌糖原）；不遇碘变色</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #fcd34d;">纤维素</td><td data-style="padding:6px;border:1px solid #fcd34d;">植物细胞壁主要成分；人体无法消化（无纤维素酶）</td></tr>';
         html += '</tbody></table>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混易错：</strong>①并非所有糖都甜（如淀粉、纤维素不甜）；②并非所有糖都能供能（如纤维素、核糖/脱氧核糖是结构物质）；③还原糖检测用斐林试剂（水浴加热出现砖红色沉淀）：葡萄糖、果糖、麦芽糖、乳糖是还原糖；蔗糖、淀粉、糖原、纤维素是非还原糖</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混易错：</strong>①并非所有糖都甜（如淀粉、纤维素不甜）；②并非所有糖都能供能（如纤维素、核糖/脱氧核糖是结构物质）；③还原糖检测用斐林试剂（水浴加热出现砖红色沉淀）：葡萄糖、果糖、麦芽糖、乳糖是还原糖；蔗糖、淀粉、糖原、纤维素是非还原糖</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #ef4444;"><h4>🥑 二、脂质</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #ef4444;"><h4>🥑 二、脂质</h4>';
         html += '<div class="key-point"><strong>组成元素：</strong>C、H、O（部分含N、P）</div>';
         html += '<div class="key-point"><strong>脂肪（甘油三酯）：</strong>①由甘油+脂肪酸脱水缩合而成 ②主要储能物质（等质量脂肪氧化放能约为糖类的2倍多）③保温缓冲保护内脏器官 ④良好的绝热体（皮下脂肪层）</div>';
         html += '<div class="key-point"><strong>磷脂：</strong>①构成<strong>生物膜</strong>的基本骨架（磷脂双分子层）②头部亲水、尾部疏水 ③脑、卵、大豆含量丰富</div>';
         html += '<div class="key-point"><strong>固醇类：</strong>①胆固醇——动物细胞膜的重要成分（维持膜的流动性）；参与血液中脂质运输 ②性激素——促进生殖器官发育和生殖细胞形成 ③维生素D——促进肠道对Ca、P的吸收（皮肤在紫外线照射下合成）</div>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混易错：</strong>①植物细胞不含胆固醇但含固醇类（如豆固醇）②磷脂不是脂肪，但属于广义的脂质 ③脂肪是储能物质而非结构物质④饱和脂肪酸熔点高（常温固态，如动物脂肪），不饱和脂肪酸熔点低（常温液态，如植物油）</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混易错：</strong>①植物细胞不含胆固醇但含固醇类（如豆固醇）②磷脂不是脂肪，但属于广义的脂质 ③脂肪是储能物质而非结构物质④饱和脂肪酸熔点高（常温固态，如动物脂肪），不饱和脂肪酸熔点低（常温液态，如植物油）</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #3b82f6;"><h4>⚡ 三、ATP——细胞的能量通货</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #3b82f6;"><h4>⚡ 三、ATP——细胞的能量通货</h4>';
         html += '<div class="key-point"><strong>结构简式：</strong>A-P~P~P （A=腺苷=P+核糖；P=磷酸基团；~=高能磷酸键）</div>';
         html += '<div class="key-point"><strong>ATP与ADP的相互转化：</strong>ATP ⇌ ADP + Pi + 能量（约30.5kJ/mol）。注意：<strong>这不是可逆反应</strong>！因为酶不同、能量来源去向不同、场所不同。</div>';
         html += '<div class="key-point"><strong>合成途径（放能反应）：</strong>①<strong>呼吸作用</strong>（主要途径，线粒体+细胞质基质）——分解有机物释放能量 ②<strong>光合作用光反应</strong>（叶绿体类囊体薄膜）——将光能转化为活跃化学能储存在ATP中</div>';
         html += '<div class="key-point"><strong>消耗途径（吸能反应）：</strong>主动运输、肌肉收缩、神经冲动传导、细胞分裂、蛋白质合成、新代谢物质的合成等几乎所有生命活动</div>';
         html += '<div class="key-point"><strong>ATP在体内的含量极少</strong>（约几克），但转化极快——一个成年人在静止状态下24小时内消耗的ATP约40-50kg（相当于体重！）</div>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 高频易错：</strong>①ATP不只在线粒体中产生（细胞质基质第一阶段也产生ATP；叶绿体光反应也产生ATP）②光反应产生的ATP只用于暗反应（不用于其他生命活动）③暗反应消耗的ATP只能来自光反应（不能来自呼吸作用）④ATP水解释放的能量可用于各种生命活动，但<strong>不能直接用于光合作用暗反应以外</strong>的光反应阶段</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 高频易错：</strong>①ATP不只在线粒体中产生（细胞质基质第一阶段也产生ATP；叶绿体光反应也产生ATP）②光反应产生的ATP只用于暗反应（不用于其他生命活动）③暗反应消耗的ATP只能来自光反应（不能来自呼吸作用）④ATP水解释放的能量可用于各种生命活动，但<strong>不能直接用于光合作用暗反应以外</strong>的光反应阶段</div></div>';
 
         html += '</div>';
         app.innerHTML = html;
@@ -841,30 +841,30 @@
         if (!app) return;
         var html = '<div class="knowledge-section"><h3>🦎 进化理论全解</h3>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #8b5cf6;"><h4>📜 一、达尔文自然选择学说</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #8b5cf6;"><h4>📜 一、达尔文自然选择学说</h4>';
         html += '<div class="key-point"><strong>核心内容四要点：</strong></div>';
-        html += '<div style="margin:8px 0;padding:12px;background:#faf5ff;border-radius:8px;border:1px solid #e9d5ff;">';
-        html += '<div style="display:flex;gap:12px;flex-wrap:wrap;"><div style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong style="color:#8b5cf6;">① 过度繁殖</strong><br><span style="font-size:0.85rem;color:#666;">生物具有强大的繁殖能力，后代数量远超过环境承载能力</span></div>';
-        html += '<div style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong style="color:#8b5cf6;">② 生存斗争</strong><br><span style="font-size:0.85rem;color:#666;">个体间争夺有限资源（食物、空间、配偶），大部分被淘汰</span></div>';
-        html += '<div style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong style="color:#8b5cf6;">③ 遗传变异</strong><br><span style="font-size:0.85rem;color:#666;">变异是不定向的、随机的；可遗传变异为进化提供原材料</span></div>';
-        html += '<div style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong style="color:#8b5cf6;">④ 适者生存</strong><br><span style="font-size:0.85rem;color:#666;">适应环境的变异个体生存并繁衍，不利变异被淘汰</span></div></div></div>';
+        html += '<div data-style="margin:8px 0;padding:12px;background:#faf5ff;border-radius:8px;border:1px solid #e9d5ff;">';
+        html += '<div data-style="display:flex;gap:12px;flex-wrap:wrap;"><div data-style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong data-style="color:#8b5cf6;">① 过度繁殖</strong><br><span data-style="font-size:0.85rem;color:#666;">生物具有强大的繁殖能力，后代数量远超过环境承载能力</span></div>';
+        html += '<div data-style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong data-style="color:#8b5cf6;">② 生存斗争</strong><br><span data-style="font-size:0.85rem;color:#666;">个体间争夺有限资源（食物、空间、配偶），大部分被淘汰</span></div>';
+        html += '<div data-style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong data-style="color:#8b5cf6;">③ 遗传变异</strong><br><span data-style="font-size:0.85rem;color:#666;">变异是不定向的、随机的；可遗传变异为进化提供原材料</span></div>';
+        html += '<div data-style="flex:1;min-width:200px;background:white;padding:10px;border-radius:6px;border:1px solid #ddd;"><strong data-style="color:#8b5cf6;">④ 适者生存</strong><br><span data-style="font-size:0.85rem;color:#666;">适应环境的变异个体生存并繁衍，不利变异被淘汰</span></div></div></div>';
         html += '<div class="key-point"><strong>历史意义：</strong>科学地解释了生物的多样性和适应性；否定了神创论和物种不变论；为生物学奠定了唯物主义基础</div>';
         html += '<div class="key-point"><strong>局限性：</strong>①未阐明遗传变异的本质（当时不知道基因/DNA）②对进化的解释局限于个体水平（现代理论强调种群水平）③强调物种形成都是渐变的（实际上也有突变式进化）</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #ec4899;"><h4>🧬 二、现代生物进化理论（综合进化论）</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #ec4899;"><h4>🧬 二、现代生物进化理论（综合进化论）</h4>';
         html += '<div class="key-point"><strong>种群是进化的基本单位：</strong>种群基因库中基因频率的改变就是生物进化的实质。进化的单位是<strong>种群</strong>而非个体。</div>';
         html += '<div class="key-point"><strong>突变和基因重组产生进化的原材料：</strong>①突变（基因突变+染色体变异）——提供新的等位基因 ②基因重组（自由组合+交叉互换）——产生新的基因型组合</div>';
         html += '<div class="key-point"><strong>自然选择决定进化的方向：</strong>自然选择使种群的基因频率发生定向改变，决定生物进化的方向。</div>';
         html += '<div class="key-point"><strong>隔离导致新物种的形成：</strong>①地理隔离——种群因地理障碍不能交配 ②生殖隔离——即使相遇也不能产生可育后代。<strong>生殖隔离是新物种形成的标志</strong>。</div>';
         html += '<div class="key-point"><strong>共同进化与多样性：</strong>不同物种之间、生物与无机环境之间在相互影响中不断进化和发展，形成生物多样性（基因多样性→物种多样性→生态系统多样性）</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #06b6d4;"><h4>🧮 三、哈代-温伯格定律（Hardy-Weinberg平衡）</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #06b6d4;"><h4>🧮 三、哈代-温伯格定律（Hardy-Weinberg平衡）</h4>';
         html += '<div class="key-point"><strong>适用条件：</strong>①种群足够大 ②随机交配 ③无突变 ④无选择 ⑤无迁移（即理想状态下的遗传平衡）</div>';
         html += '<div class="key-point"><strong>核心公式：</strong>(p+q)² = p² + 2pq + q² = 1<br>其中 p = 显性基因频率(A)，q = 隐性基因频率(a)<br>p² = AA基因型频率，2pq = Aa基因型频率，q² = aa基因型频率</div>';
         html += '<div class="key-point"><strong>常用推算方法：</strong>已知隐性性状发病率(q²)→ q = √(发病率)，p = 1-q → 计算各基因型和携带者频率(2pq)</div>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 高频陷阱：</strong>①公式仅适用于理想条件（实际种群通常偏离平衡）②p和q是等位基因频率（不是基因型频率）③若题目给出的是某基因型的比例，先换算成基因频率再代入 ④X染色体上的基因频率计算时要注意男女差异</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 高频陷阱：</strong>①公式仅适用于理想条件（实际种群通常偏离平衡）②p和q是等位基因频率（不是基因型频率）③若题目给出的是某基因型的比例，先换算成基因频率再代入 ④X染色体上的基因频率计算时要注意男女差异</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #10b981;"><h4>🌍 四、共同进化与生物多样性</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>🌍 四、共同进化与生物多样性</h4>';
         html += '<div class="key-point"><strong>共同进化实例：</strong>①捕食者-猎物协同进化（猎豹与羚羊的速度竞赛）②植物-传粉昆虫（花的形态与昆虫口器匹配）③寄生生物-宿主（病原菌与免疫系统的军备竞赛）</div>';
         html += '<div class="key-point"><strong>生物多样性三个层次：</strong>①基因多样性——种群内部基因库的丰富程度 ②物种多样性——一定区域内物种的丰富度 ③生态系统多样性——生态系统的类型和结构的多样性</div>';
         html += '<div class="key-point"><strong>生物多样性的价值：</strong>①直接价值（食用、药用、工业原料、科研、美学价值）②间接价值（生态功能：涵养水源、调节气候、净化空气）③潜在价值（尚未发现的价值）</div>';
@@ -885,28 +885,28 @@
         if (!app) return;
         var html = '<div class="knowledge-section"><h3>🔬 微生物培养·发酵·细胞工程</h3>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #f97316;"><h4>🦠 一、微生物的培养与应用</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #f97316;"><h4>🦠 一、微生物的培养与应用</h4>';
         html += '<div class="key-point"><strong>培养基的分类：</strong>①按物理性质：固体培养基（加琼脂，用于分离纯化）、液体培养基（用于扩大培养）、半固体培养基（观察运动能力） ②按化学成分：天然培养基（牛肉膏蛋白胨培养基）、合成培养基（成分明确） ③按用途：选择培养基（允许特定微生物生长）、鉴别培养基（区分不同微生物）</div>';
         html += '<div class="key-point"><strong>无菌操作技术（关键！）：</strong>①消毒（煮沸/巴氏消毒/化学药剂/紫外线）——杀死物体表面或内部的部分微生物（不包括芽孢和孢子） ②灭菌（干热灭菌/高压蒸汽灭菌121℃15min/灼烧/过滤除菌）——杀死所有微生物包括芽孢和孢子</div>';
         html += '<div class="key-point"><strong>接种方法：</strong>平板划线法（逐步稀释获得单菌落）、稀释涂布平板法（梯度稀释后涂布）</div>';
         html += '<div class="key-point"><strong>计数方法：</strong>①稀释涂布平板计数法（每克样品中的活菌数=平均菌落数÷体积×稀释倍数）②显微镜直接计数法（使用血球计数板，包含死菌）</div>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>①消毒≠灭菌（灭菌更彻底）②倒平板操作要在酒精灯火焰旁进行（防止杂菌污染）③培养皿要倒置培养（防止冷凝水滴落污染菌落）④选择培养基上生长的不一定是目的菌（还需鉴定确认）</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>①消毒≠灭菌（灭菌更彻底）②倒平板操作要在酒精灯火焰旁进行（防止杂菌污染）③培养皿要倒置培养（防止冷凝水滴落污染菌落）④选择培养基上生长的不一定是目的菌（还需鉴定确认）</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #84cc16;"><h4>🍷 二、发酵工程</h4>';
-        html += '<table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.85rem;"><thead><tr style="background:#f0fdf4;"><th style="padding:8px;border:1px solid #86efac;text-align:left;">发酵类型</th><th style="padding:8px;border:1px solid #86efac;text-align:left;">微生物</th><th style="padding:8px;border:1px solid #86efac;text-align:left;">原理</th><th style="padding:8px;border:1px solid #86efac;text-align:left;">关键控制条件</th></tr></thead><tbody>';
-        html += '<tr><td style="padding:6px;border:1px solid #86efac;"><strong>果酒制作</strong></td><td style="padding:6px;border:1px solid #86efac;">酵母菌</td><td style="padding:6px;border:1px solid #86efac;">无氧呼吸（酒精发酵）<br>C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂</td><td style="padding:6px;border:1px solid #86efac;">温度18-25°C；前期密封后期通气（让酵母大量繁殖后发酵）；防止杂菌污染</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #86efac;"><strong>果醋制作</strong></td><td style="padding:6px;border:1px solid #86efac;">醋酸菌</td><td style="padding:6px;border:1px solid #86efac;">有氧条件下将乙醇氧化为乙酸<br>CH₃CH₂OH + O₂ → CH₃COOH + H₂O</td><td style="padding:6px;border:1px solid #86efac;">温度30-35°C；持续通入氧气（醋酸菌是好氧菌）</td></tr>';
-        html += '<tr><td style="padding:6px;border:1px solid #86efac;"><strong>泡菜制作</strong></td><td style="padding:6px;border:1px solid #86efac;">乳酸菌</td><td style="padding:6px;border:1px solid #86efac;">乳酸发酵<br>C₆H₁₂O₆ → 2C₃H₆O₃</td><td style="padding:6px:border:1px solid #86efac;">温度28-30°C；盐水浓度适中（过高抑制过低腐败）；创造无氧环境</td></tr>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #84cc16;"><h4>🍷 二、发酵工程</h4>';
+        html += '<table data-style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.85rem;"><thead><tr data-style="background:#f0fdf4;"><th data-style="padding:8px;border:1px solid #86efac;text-align:left;">发酵类型</th><th data-style="padding:8px;border:1px solid #86efac;text-align:left;">微生物</th><th data-style="padding:8px;border:1px solid #86efac;text-align:left;">原理</th><th data-style="padding:8px;border:1px solid #86efac;text-align:left;">关键控制条件</th></tr></thead><tbody>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #86efac;"><strong>果酒制作</strong></td><td data-style="padding:6px;border:1px solid #86efac;">酵母菌</td><td data-style="padding:6px;border:1px solid #86efac;">无氧呼吸（酒精发酵）<br>C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂</td><td data-style="padding:6px;border:1px solid #86efac;">温度18-25°C；前期密封后期通气（让酵母大量繁殖后发酵）；防止杂菌污染</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #86efac;"><strong>果醋制作</strong></td><td data-style="padding:6px;border:1px solid #86efac;">醋酸菌</td><td data-style="padding:6px;border:1px solid #86efac;">有氧条件下将乙醇氧化为乙酸<br>CH₃CH₂OH + O₂ → CH₃COOH + H₂O</td><td data-style="padding:6px;border:1px solid #86efac;">温度30-35°C；持续通入氧气（醋酸菌是好氧菌）</td></tr>';
+        html += '<tr><td data-style="padding:6px;border:1px solid #86efac;"><strong>泡菜制作</strong></td><td data-style="padding:6px;border:1px solid #86efac;">乳酸菌</td><td data-style="padding:6px;border:1px solid #86efac;">乳酸发酵<br>C₆H₁₂O₆ → 2C₃H₆O₃</td><td data-style="padding:6px:border:1px solid #86efac;">温度28-30°C；盐水浓度适中（过高抑制过低腐败）；创造无氧环境</td></tr>';
         html += '</tbody></table>';
         html += '<div class="key-point"><strong>腐乳制作：</strong>毛霉等微生物分泌蛋白酶和脂肪酶，将豆腐中的蛋白质分解为小分子肽和氨基酸，脂肪分解为甘油和脂肪酸。加盐腌制（析出水分、抑制微生物）、卤汤配制（香辛料+酒+盐）</div></div>';
 
-        html += '<div class="knowledge-card" style="border-left:4px solid #a855f7;"><h4>🔬 三、细胞工程</h4>';
+        html += '<div class="knowledge-card" data-style="border-left:4px solid #a855f7;"><h4>🔬 三、细胞工程</h4>';
         html += '<div class="key-point"><strong>植物组织培养：</strong>①原理——细胞全能性（已分化的细胞仍具有发育成完整个体的潜能） ②过程：外植体→脱分化→愈伤组织→再分化→胚状体/丛芽→完整植株 ③应用：快速繁殖、脱毒苗培育、人工种子、转基因受体</div>';
         html += '<div class="key-point"><strong>植物体细胞杂交：</strong>①去除细胞壁（纤维素酶+果胶酶）→原生质体融合（PEG或电融合）→再生细胞壁→杂种植株 ②意义：克服远缘杂交不亲和的障碍（如番茄-马铃薯）</div>';
         html += '<div class="key-point"><strong>动物细胞培养：</strong>①原代培养 vs 传代培养 ②贴壁生长和接触抑制现象 ③需要血清（提供未知生长因子） ④应用：生产生物制品（单克隆抗体）、检测有毒物质、医学研究</div>';
         html += '<div class="key-point"><strong>动物细胞融合：</strong>①诱导因素：PEG、灭活病毒（仙台病毒）、电激 ②用途：制备单克隆抗体</div>';
         html += '<div class="key-point"><strong>单克隆抗体制备：</strong>B淋巴细胞（产生专一抗体但不能无限增殖）+ 骨髓瘤细胞（无限增殖但不产生抗体）→ 杂交瘤细胞 → 筛选（选择性培养基）→ 克隆化培养（抗原-抗体杂交阳性检测）→ 大规模生产</div>';
-        html += '<div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混对比：</strong>①植物组织培养不需要血清（自养），动物细胞培养需要血清（异养）②植物体细胞杂交最终目标是获得可育植株，动物细胞融合的目标是获得能产特定抗体的细胞系 ③植物去壁用纤维素酶+果胶酶，动物细胞无需去壁（无细胞壁）④单克隆抗体优点：特异性强、灵敏度高、可大量制备</div></div>';
+        html += '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易混对比：</strong>①植物组织培养不需要血清（自养），动物细胞培养需要血清（异养）②植物体细胞杂交最终目标是获得可育植株，动物细胞融合的目标是获得能产特定抗体的细胞系 ③植物去壁用纤维素酶+果胶酶，动物细胞无需去壁（无细胞壁）④单克隆抗体优点：特异性强、灵敏度高、可大量制备</div></div>';
 
         html += '<div class="knowledge-card"><h4>🎯 实验设计核心原则</h4>';
         html += '<div class="key-point">📍 <strong>对照原则：</strong>空白对照（不给处理）、自身对照（前后比较）、条件对照（不同处理组之间互为对照）、相互对照（多组实验互为对照）</div>';
@@ -1310,14 +1310,14 @@
         if (!el) return;
         if (!PS) { el.innerHTML = '<div class="knowledge-section"><p>平台模块加载中...</p></div>'; return; }
         if (module === 'overview') { PS.renderPlatformPage(); }
-        else if (module === 'round1') { el.innerHTML = '<div class="knowledge-section"><h3>📗 一轮系统复习</h3><div class="knowledge-card"><h4>选择学科查看一轮复习详情</h4><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" style="flex:1;min-width:100px;">⚡ 物理一轮</button><button class="btn btn-primary" data-subject="chemistry" style="flex:1;min-width:100px;">🧪 化学一轮</button><button class="btn btn-primary" data-subject="biology" style="flex:1;min-width:100px;">🧬 生物一轮</button></div></div></div>'; }
-        else if (module === 'round2') { el.innerHTML = '<div class="knowledge-section"><h3>📕 二轮专题冲刺</h3><div class="knowledge-card"><h4>选择学科查看二轮专题详情</h4><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" style="flex:1;min-width:100px;">⚡ 物理二轮</button><button class="btn btn-primary" data-subject="chemistry" style="flex:1;min-width:100px;">🧪 化学二轮</button><button class="btn btn-primary" data-subject="biology" style="flex:1;min-width:100px;">🧬 生物二轮</button></div></div></div>'; }
-        else if (module === 'bank') { el.innerHTML = '<div class="knowledge-section"><h3>🏦 题库</h3><div class="knowledge-card"><h4>选择学科查看题库详情</h4><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" style="flex:1;min-width:100px;">⚡ 物理题库</button><button class="btn btn-primary" data-subject="chemistry" style="flex:1;min-width:100px;">🧪 化学题库</button><button class="btn btn-primary" data-subject="biology" style="flex:1;min-width:100px;">🧬 生物题库</button></div></div></div>'; }
+        else if (module === 'round1') { el.innerHTML = '<div class="knowledge-section"><h3>📗 一轮系统复习</h3><div class="knowledge-card"><h4>选择学科查看一轮复习详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理一轮</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学一轮</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物一轮</button></div></div></div>'; }
+        else if (module === 'round2') { el.innerHTML = '<div class="knowledge-section"><h3>📕 二轮专题冲刺</h3><div class="knowledge-card"><h4>选择学科查看二轮专题详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理二轮</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学二轮</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物二轮</button></div></div></div>'; }
+        else if (module === 'bank') { el.innerHTML = '<div class="knowledge-section"><h3>🏦 题库</h3><div class="knowledge-card"><h4>选择学科查看题库详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理题库</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学题库</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物题库</button></div></div></div>'; }
         else if (module === 'experiment-center') {
             var html = '<div class="knowledge-section"><h3>🔬 实验与探究资源中心（三层架构）</h3>';
             if (PS && PS.experimentCenter && PS.experimentCenter.coreTiers) {
                 PS.experimentCenter.coreTiers.forEach(function(tier) {
-                    html += '<div class="knowledge-card" style="border-left:4px solid #10b981;"><h4>' + tier.name + ' <span style="font-size:0.75rem;color:#10b981;">（' + tier.positioning + '）</span></h4>';
+                    html += '<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>' + tier.name + ' <span data-style="font-size:0.75rem;color:#10b981;">（' + tier.positioning + '）</span></h4>';
                     tier.features.forEach(function(f) { html += '<div class="key-point">✅ ' + f + '</div>'; });
                     html += '</div>';
                 });
@@ -1335,16 +1335,16 @@
                 '<div class="key-point"><strong>知识点关系图：</strong>按章节画出考点间的前后关系，标出错题集中的位置</div>'+
                 '</div>'+
                 '<div class="knowledge-card"><h4>📅 两周冲刺计划</h4>'+
-                '<table style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:8px;">'+
-                '<tr style="background:var(--primary);color:#fff;"><th style="padding:8px;border:1px solid #ddd;">阶段</th><th style="padding:8px;border:1px solid #ddd;">天数</th><th style="padding:8px;border:1px solid #ddd;">物理</th><th style="padding:8px;border:1px solid #ddd;">化学</th><th style="padding:8px;border:1px solid #ddd;">生物</th></tr>'+
-                '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e74c3c;">第1阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day1-3</td><td style="padding:6px;border:1px solid #ddd;">运动学与牛顿定律</td><td style="padding:6px;border:1px solid #ddd;">氧化还原与离子反应</td><td style="padding:6px;border:1px solid #ddd;">细胞组成与结构</td></tr>'+
-                '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e67e22;">第2阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day4-6</td><td style="padding:6px;border:1px solid #ddd;">曲线运动与万有引力</td><td style="padding:6px;border:1px solid #ddd;">元素化合物（Na/Fe/Cu）</td><td style="padding:6px;border:1px solid #ddd;">细胞代谢（光合与呼吸）</td></tr>'+
-                '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#f1c40f;">第3阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day7-8</td><td style="padding:6px;border:1px solid #ddd;">动能定理与动量守恒</td><td style="padding:6px;border:1px solid #ddd;">反应速率与化学平衡</td><td style="padding:6px;border:1px solid #ddd;">遗传规律与伴性遗传</td></tr>'+
-                '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#27ae60;">第4阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day9-10</td><td style="padding:6px;border:1px solid #ddd;">电场与电磁感应</td><td style="padding:6px;border:1px solid #ddd;">电化学与盐类水解</td><td style="padding:6px;border:1px solid #ddd;">调节与稳态</td></tr>'+
-                '<tr><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#3498db;">第5阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day11-12</td><td style="padding:6px;border:1px solid #ddd;">热学、光学与近代物理</td><td style="padding:6px;border:1px solid #ddd;">有机化学与实验操作</td><td style="padding:6px;border:1px solid #ddd;">变异、进化与生物技术</td></tr>'+
-                '<tr style="background:#fef2f2;"><td style="padding:6px;border:1px solid #ddd;font-weight:700;color:#c62828;">冲刺阶段</td><td style="padding:6px;border:1px solid #ddd;text-align:center;">Day13-14</td><td style="padding:6px;border:1px solid #ddd;" colspan="3">三科综合模拟 + 错题回顾 + 薄弱点强化</td></tr>'+
+                '<table data-style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:8px;">'+
+                '<tr data-style="background:var(--primary);color:#fff;"><th data-style="padding:8px;border:1px solid #ddd;">阶段</th><th data-style="padding:8px;border:1px solid #ddd;">天数</th><th data-style="padding:8px;border:1px solid #ddd;">物理</th><th data-style="padding:8px;border:1px solid #ddd;">化学</th><th data-style="padding:8px;border:1px solid #ddd;">生物</th></tr>'+
+                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e74c3c;">第1阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day1-3</td><td data-style="padding:6px;border:1px solid #ddd;">运动学与牛顿定律</td><td data-style="padding:6px;border:1px solid #ddd;">氧化还原与离子反应</td><td data-style="padding:6px;border:1px solid #ddd;">细胞组成与结构</td></tr>'+
+                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e67e22;">第2阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day4-6</td><td data-style="padding:6px;border:1px solid #ddd;">曲线运动与万有引力</td><td data-style="padding:6px;border:1px solid #ddd;">元素化合物（Na/Fe/Cu）</td><td data-style="padding:6px;border:1px solid #ddd;">细胞代谢（光合与呼吸）</td></tr>'+
+                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#f1c40f;">第3阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day7-8</td><td data-style="padding:6px;border:1px solid #ddd;">动能定理与动量守恒</td><td data-style="padding:6px;border:1px solid #ddd;">反应速率与化学平衡</td><td data-style="padding:6px;border:1px solid #ddd;">遗传规律与伴性遗传</td></tr>'+
+                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#27ae60;">第4阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day9-10</td><td data-style="padding:6px;border:1px solid #ddd;">电场与电磁感应</td><td data-style="padding:6px;border:1px solid #ddd;">电化学与盐类水解</td><td data-style="padding:6px;border:1px solid #ddd;">调节与稳态</td></tr>'+
+                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#3498db;">第5阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day11-12</td><td data-style="padding:6px;border:1px solid #ddd;">热学、光学与近代物理</td><td data-style="padding:6px;border:1px solid #ddd;">有机化学与实验操作</td><td data-style="padding:6px;border:1px solid #ddd;">变异、进化与生物技术</td></tr>'+
+                '<tr data-style="background:#fef2f2;"><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#c62828;">冲刺阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day13-14</td><td data-style="padding:6px;border:1px solid #ddd;" colspan="3">三科综合模拟 + 错题回顾 + 薄弱点强化</td></tr>'+
                 '</table>'+
-                '<div style="margin-top:10px;font-size:0.82rem;color:#666;">每日时间分配可按自己的薄弱项调整，优先给错误率最高的考点</div>'+
+                '<div data-style="margin-top:10px;font-size:0.82rem;color:#666;">每日时间分配可按自己的薄弱项调整，优先给错误率最高的考点</div>'+
                 '</div>'+
                 '</div>';
         }
@@ -1364,7 +1364,7 @@
         }
         else if (module === 'competition') {
             el.innerHTML = '<div class="knowledge-section"><h3>🏆 项目说明</h3>'+
-                '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(239,68,68,0.06));border:2px solid rgba(245,158,11,0.3);">'+
+                '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(239,68,68,0.06));border:2px solid rgba(245,158,11,0.3);">'+
                 '<h4>📐 一套纯静态、能离线、能核对的学习工具</h4>'+
                 '</div>'+
                 '<div class="knowledge-card"><h4>📋 数据层</h4>'+
@@ -1387,7 +1387,7 @@
                 '<div class="key-point">题目与知识点整理自公开教材与考纲，仅供学习参考，真题版权归原作者与出版方</div>'+
                 '<div class="key-point">本地存储数据可随时导出备份，也可一键清除</div>'+
                 '</div>'+
-                '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(79,110,246,0.06));">'+
+                '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(79,110,246,0.06));">'+
                 '<h4>🏅 特点</h4>'+
                 '<div class="key-point"><strong>可离线：</strong>装上之后断网也能用</div>'+
                 '<div class="key-point"><strong>可核对：</strong>题量、答案分布这些数字都能在仓库里查到</div>'+
@@ -1540,8 +1540,8 @@
             '<li><strong>重复：</strong>实验重复2-3次，取平均值</li>'+
             '</ol></div>'+
             '<div class="exp-indicator-demo"><h5>🎨 指示剂参考</h5><div class="indicator-cards">'+
-            '<div class="ind-card"><span class="ind-color" style="background:#ff6b9d;"></span><strong>酚酞</strong><br>变色范围：8.2-10.0<br>酸：无色 → 碱：红色<br>适用于<strong>强碱滴定强酸/弱酸</strong></div>'+
-            '<div class="ind-card"><span class="ind-color" style="background:#ff9800;"></span><strong>甲基橙</strong><br>变色范围：3.1-4.4<br>酸：红色 → 碱：黄色<br>适用于<strong>强酸滴定强碱/弱碱</strong></div>'+
+            '<div class="ind-card"><span class="ind-color" data-style="background:#ff6b9d;"></span><strong>酚酞</strong><br>变色范围：8.2-10.0<br>酸：无色 → 碱：红色<br>适用于<strong>强碱滴定强酸/弱酸</strong></div>'+
+            '<div class="ind-card"><span class="ind-color" data-style="background:#ff9800;"></span><strong>甲基橙</strong><br>变色范围：3.1-4.4<br>酸：红色 → 碱：黄色<br>适用于<strong>强酸滴定强碱/弱碱</strong></div>'+
             '</div></div>'+
             '<div class="exp-caution"><h5>⚠️ 注意事项</h5><ul>'+
             '<li>滴定管读数必须精确到<strong>0.01mL</strong></li>'+
@@ -1705,10 +1705,10 @@
             '<li><strong>观察：</strong>待层析液扩散至距顶端约1cm时取出，观察色素带</li>'+
             '</ol></div>'+
             '<div class="exp-chromato"><h5>🌈 四条色素带（从上到下）</h5><div class="chromato-strip">'+
-            '<div class="chromato-band" style="background:#f59e0b;color:#fff;">🥕 胡萝卜素（橙黄色）——溶解度最高，扩散最快，含量最少</div>'+
-            '<div class="chromato-band" style="background:#eab308;color:#fff;">🍂 叶黄素（黄色）——溶解度第二</div>'+
-            '<div class="chromato-band" style="background:#10b981;color:#fff;">🌿 叶绿素a（蓝绿色）——含量最多</div>'+
-            '<div class="chromato-band" style="background:#84cc16;color:#fff;">🌱 叶绿素b（黄绿色）——溶解度最低，扩散最慢</div>'+
+            '<div class="chromato-band" data-style="background:#f59e0b;color:#fff;">🥕 胡萝卜素（橙黄色）——溶解度最高，扩散最快，含量最少</div>'+
+            '<div class="chromato-band" data-style="background:#eab308;color:#fff;">🍂 叶黄素（黄色）——溶解度第二</div>'+
+            '<div class="chromato-band" data-style="background:#10b981;color:#fff;">🌿 叶绿素a（蓝绿色）——含量最多</div>'+
+            '<div class="chromato-band" data-style="background:#84cc16;color:#fff;">🌱 叶绿素b（黄绿色）——溶解度最低，扩散最慢</div>'+
             '</div></div>'+
             '<div class="exp-caution"><h5>⚠️ 注意事项</h5><ul>'+
             '<li>研磨要<strong>迅速充分</strong>（减少色素氧化）</li>'+
@@ -1782,7 +1782,7 @@
             contentEl.innerHTML = '<div class="knowledge-section"><h3>📝 解题方法论</h3><div class="knowledge-card"><h4>通用解题框架</h4><div class="key-point">①<strong>审题：</strong>读题干→圈关键词→明确待求量</div><div class="key-point">②<strong>建模：</strong>匹配学科模型→确定适用公式/原理</div><div class="key-point">③<strong>列式：</strong>按步骤列出方程/推理路径</div><div class="key-point">④<strong>求解：</strong>代入数据→统一单位→计算→检查量纲</div><div class="key-point">⑤<strong>规范：</strong>带单位答卷→合理使用有效数字→逻辑链完整</div></div></div>'; return;
         }
         if (module === 'errors') {
-            contentEl.innerHTML = '<div class="knowledge-section"><h3>⚠️ 易错汇编</h3><div class="knowledge-card"><h4>三科高频易错点速查</h4><div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>物理：</strong>混淆平均功率与瞬时功率 | 误用机械能守恒条件（忽略摩擦力做功）| 左手定则与右手定则混用 | 带电粒子在磁场中时间计算直接用t=s/v（应用t=θ/2π·T）</div><div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>化学：</strong>混淆"氧化性强弱"与"得电子数目" | 电解池中离子放电顺序错误 | 同分异构体漏计顺反异构 | 未考虑盐类水解对溶液中离子浓度的影响</div><div class="key-point" style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>生物：</strong>有氧呼吸全过程中并非每一步都需O₂ | 植物细胞≠都有叶绿体（根尖细胞无叶绿体）| ATP不只在线粒体产生（光合作用光反应也产生）| 基因频率计算中显性纯合与杂合混淆</div></div></div>'; return;
+            contentEl.innerHTML = '<div class="knowledge-section"><h3>⚠️ 易错汇编</h3><div class="knowledge-card"><h4>三科高频易错点速查</h4><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>物理：</strong>混淆平均功率与瞬时功率 | 误用机械能守恒条件（忽略摩擦力做功）| 左手定则与右手定则混用 | 带电粒子在磁场中时间计算直接用t=s/v（应用t=θ/2π·T）</div><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>化学：</strong>混淆"氧化性强弱"与"得电子数目" | 电解池中离子放电顺序错误 | 同分异构体漏计顺反异构 | 未考虑盐类水解对溶液中离子浓度的影响</div><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>生物：</strong>有氧呼吸全过程中并非每一步都需O₂ | 植物细胞≠都有叶绿体（根尖细胞无叶绿体）| ATP不只在线粒体产生（光合作用光反应也产生）| 基因频率计算中显性纯合与杂合混淆</div></div></div>'; return;
         }
         if (module === 'graph') {
             try { if (typeof getKnowledgeGraphContent === 'function') { contentEl.innerHTML = getKnowledgeGraphContent(subject); return; } } catch(e) {}
@@ -1968,19 +1968,19 @@
         function render() {
             var data = secondaryConclusions[currentTab];
             var html = '<div class="knowledge-section">';
-            html += '<div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">';
+            html += '<div data-style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">';
             html += '<button class="btn ' + (currentTab==='physics'?'btn-primary':'btn-secondary') + '" id="sc-tab-physics">\u26a1 \u7269\u7406\u4e8c\u7ea7\u7ed3\u8bba</button>';
             html += '<button class="btn ' + (currentTab==='chemistry'?'btn-primary':'btn-secondary') + '" id="sc-tab-chemistry">\u2697\ufe0f \u5316\u5b66\u4e8c\u7ea7\u7ed3\u8bba</button>';
             html += '</div>';
-            html += '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.9rem;color:#92400e;">\u26a0\ufe0f <b>\u9002\u7528\u6761\u4ef6\u63d0\u9192</b>\uff1a\u4e8c\u7ea7\u7ed3\u8bba\u4ec5\u5728\u7279\u5b9a\u6761\u4ef6\u4e0b\u6210\u7acb\uff0c\u4f7f\u7528\u65f6\u8bf7\u6ce8\u610f\u5176\u9002\u7528\u8303\u56f4\uff0c\u5207\u52ff\u751f\u642c\u786c\u5957\uff01</div>';
+            html += '<div data-style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.9rem;color:#92400e;">\u26a0\ufe0f <b>\u9002\u7528\u6761\u4ef6\u63d0\u9192</b>\uff1a\u4e8c\u7ea7\u7ed3\u8bba\u4ec5\u5728\u7279\u5b9a\u6761\u4ef6\u4e0b\u6210\u7acb\uff0c\u4f7f\u7528\u65f6\u8bf7\u6ce8\u610f\u5176\u9002\u7528\u8303\u56f4\uff0c\u5207\u52ff\u751f\u642c\u786c\u5957\uff01</div>';
             data.forEach(function(cat) {
                 html += '<div class="knowledge-card">';
-                html += '<h4 style="color:' + (currentTab==='physics'?'var(--physics)':'var(--chemistry)') + ';">' + cat.category + ' <span style="font-size:0.8rem;color:#94a3b8;">(' + cat.items.length + '\u6761)</span></h4>';
+                html += '<h4 data-style="color:' + (currentTab==='physics'?'var(--physics)':'var(--chemistry)') + ';">' + cat.category + ' <span data-style="font-size:0.8rem;color:#94a3b8;">(' + cat.items.length + '\u6761)</span></h4>';
                 cat.items.forEach(function(item) {
-                    html += '<div class="key-point" style="margin-bottom:8px;">';
+                    html += '<div class="key-point" data-style="margin-bottom:8px;">';
                     html += '<strong>' + item.title + '</strong>';
-                    html += '<div style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,#eff6ff,#f0fdf4);padding:8px 14px;border-radius:6px;margin:6px 0;border:1px solid #c7d2fe;">' + item.formula + '</div>';
-                    if (item.note) html += '<div style="font-size:0.85rem;color:#64748b;font-style:italic;">\ud83d\udca1 ' + item.note + '</div>';
+                    html += '<div data-style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,#eff6ff,#f0fdf4);padding:8px 14px;border-radius:6px;margin:6px 0;border:1px solid #c7d2fe;">' + item.formula + '</div>';
+                    if (item.note) html += '<div data-style="font-size:0.85rem;color:#64748b;font-style:italic;">\ud83d\udca1 ' + item.note + '</div>';
                     html += '</div>';
                 });
                 html += '</div>';
@@ -2110,44 +2110,44 @@
         var showReactions = false;
         function render() {
             var html = '<div class="knowledge-section">';
-            html += '<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">';
+            html += '<div data-style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">';
             valenceAtlasData.elements.forEach(function(el, i) {
-                html += '<button class="btn ' + (currentTab===i&&!showReactions?'btn-primary':'btn-secondary') + '" data-vtab="' + i + '" style="border-color:' + el.color + ';">' + el.symbol + ' ' + el.name + '</button>';
+                html += '<button class="btn ' + (currentTab===i&&!showReactions?'btn-primary':'btn-secondary') + '" data-vtab="' + i + '" data-style="border-color:' + el.color + ';">' + el.symbol + ' ' + el.name + '</button>';
             });
             html += '<button class="btn ' + (showReactions?'btn-primary':'btn-secondary') + '" id="va-tab-reactions">\u269b\ufe0f \u53cd\u5e94\u7f51\u7edc</button>';
             html += '</div>';
             if (showReactions) {
                 valenceAtlasData.reactionNetwork.forEach(function(cat) {
                     html += '<div class="knowledge-card">';
-                    html += '<h4 style="color:var(--chemistry);">' + cat.category + ' <span style="font-size:0.8rem;color:#94a3b8;">(' + cat.reactions.length + '\u6761)</span></h4>';
+                    html += '<h4 data-style="color:var(--chemistry);">' + cat.category + ' <span data-style="font-size:0.8rem;color:#94a3b8;">(' + cat.reactions.length + '\u6761)</span></h4>';
                     cat.reactions.forEach(function(r) {
-                        html += '<div class="key-point" style="margin-bottom:8px;">';
-                        html += '<div style="font-family:var(--font-mono);font-size:1.05rem;font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,#eff6ff,#f0fdf4);padding:8px 14px;border-radius:6px;margin:4px 0;border:1px solid #c7d2fe;">' + r.equation + '</div>';
-                        var tags = r.elements.map(function(e) { return '<span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:0.75rem;font-weight:700;color:white;background:' + valenceAtlasData.elements.filter(function(el){return el.symbol===e;})[0].color + ';">' + e + '</span>'; }).join(' ');
-                        html += '<div style="display:flex;align-items:center;gap:8px;margin-top:4px;">' + tags + '<span style="font-size:0.85rem;color:#64748b;font-style:italic;">' + r.note + '</span></div>';
+                        html += '<div class="key-point" data-style="margin-bottom:8px;">';
+                        html += '<div data-style="font-family:var(--font-mono);font-size:1.05rem;font-weight:700;color:var(--primary-dark);background:linear-gradient(135deg,#eff6ff,#f0fdf4);padding:8px 14px;border-radius:6px;margin:4px 0;border:1px solid #c7d2fe;">' + r.equation + '</div>';
+                        var tags = r.elements.map(function(e) { return '<span data-style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:0.75rem;font-weight:700;color:white;background:' + valenceAtlasData.elements.filter(function(el){return el.symbol===e;})[0].color + ';">' + e + '</span>'; }).join(' ');
+                        html += '<div data-style="display:flex;align-items:center;gap:8px;margin-top:4px;">' + tags + '<span data-style="font-size:0.85rem;color:#64748b;font-style:italic;">' + r.note + '</span></div>';
                         html += '</div>';
                     });
                     html += '</div>';
                 });
             } else {
                 var el = valenceAtlasData.elements[currentTab];
-                html += '<div class="knowledge-card" style="border-left:4px solid ' + el.color + ';">';
-                html += '<h4 style="color:' + el.color + ';">' + el.symbol + ' ' + el.name + ' <span style="font-size:0.85rem;color:#94a3b8;">\u539f\u5b50\u5e8f\u6570 ' + el.atomicNumber + '</span></h4>';
-                html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.9rem;margin-top:10px;">';
-                html += '<thead><tr style="background:var(--bg-tertiary);"><th style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u5316\u5408\u4ef7</th><th style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u7269\u8d28\u5f62\u6001</th><th style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u5178\u578b\u5316\u5408\u7269</th><th style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u8bf4\u660e</th></tr></thead>';
+                html += '<div class="knowledge-card" data-style="border-left:4px solid ' + el.color + ';">';
+                html += '<h4 data-style="color:' + el.color + ';">' + el.symbol + ' ' + el.name + ' <span data-style="font-size:0.85rem;color:#94a3b8;">\u539f\u5b50\u5e8f\u6570 ' + el.atomicNumber + '</span></h4>';
+                html += '<div data-style="overflow-x:auto;"><table data-style="width:100%;border-collapse:collapse;font-size:0.9rem;margin-top:10px;">';
+                html += '<thead><tr data-style="background:var(--bg-tertiary);"><th data-style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u5316\u5408\u4ef7</th><th data-style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u7269\u8d28\u5f62\u6001</th><th data-style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u5178\u578b\u5316\u5408\u7269</th><th data-style="padding:8px 12px;text-align:left;border:1px solid var(--border-default);">\u8bf4\u660e</th></tr></thead>';
                 html += '<tbody>';
                 el.valences.forEach(function(v) {
                     var compoundList = v.compounds.map(function(c) {
-                        return '<div style="margin-bottom:4px;"><b>' + c.formula + '</b> <span style="font-size:0.8rem;color:#64748b;">(' + c.category + ')</span></div>';
+                        return '<div data-style="margin-bottom:4px;"><b>' + c.formula + '</b> <span data-style="font-size:0.8rem;color:#64748b;">(' + c.category + ')</span></div>';
                     }).join('');
                     var noteList = v.compounds.map(function(c) {
-                        return '<div style="margin-bottom:4px;font-size:0.85rem;color:#475569;">' + c.note + '</div>';
+                        return '<div data-style="margin-bottom:4px;font-size:0.85rem;color:#475569;">' + c.note + '</div>';
                     }).join('');
-                    html += '<tr style="border-bottom:1px solid var(--border-light);">';
-                    html += '<td style="padding:8px 12px;font-weight:700;color:' + el.color + ';border:1px solid var(--border-default);text-align:center;">' + v.value + '</td>';
-                    html += '<td style="padding:8px 12px;border:1px solid var(--border-default);">' + v.state + '</td>';
-                    html += '<td style="padding:8px 12px;border:1px solid var(--border-default);">' + compoundList + '</td>';
-                    html += '<td style="padding:8px 12px;border:1px solid var(--border-default);">' + noteList + '</td>';
+                    html += '<tr data-style="border-bottom:1px solid var(--border-light);">';
+                    html += '<td data-style="padding:8px 12px;font-weight:700;color:' + el.color + ';border:1px solid var(--border-default);text-align:center;">' + v.value + '</td>';
+                    html += '<td data-style="padding:8px 12px;border:1px solid var(--border-default);">' + v.state + '</td>';
+                    html += '<td data-style="padding:8px 12px;border:1px solid var(--border-default);">' + compoundList + '</td>';
+                    html += '<td data-style="padding:8px 12px;border:1px solid var(--border-default);">' + noteList + '</td>';
                     html += '</tr>';
                 });
                 html += '</tbody></table></div>';
@@ -2261,7 +2261,7 @@
 
     /* 斜面力学计算器（原 index.html:2688 内联 onclick IIFE，逻辑原样搬移） */
     function calcMechIncline() {
-        var m=parseFloat(document.getElementById('mech-mass').value)||0;var ang=parseFloat(document.getElementById('mech-angle').value)||0;var mu=parseFloat(document.getElementById('mech-mu').value)||0;var F=parseFloat(document.getElementById('mech-force').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById('mech-result');if(res){var cls=a>0.01?'#10b981':(a<-0.01?'#ef4444':'#f59e0b');var desc=a>0.01?'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a':(a<-0.01?'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b':'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = '+Fgs.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = '+Fgn.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = '+f.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>'+(F-Fgs-f).toFixed(2)+' N</div><div class=\'key-point\'>\u00b7 \u52a0\u901f\u5ea6 a = <b style=\'color:'+cls+'\'>'+a.toFixed(2)+' m/s\u00b2</b> '+desc+'</div></div>';}
+        var m=parseFloat(document.getElementById('mech-mass').value)||0;var ang=parseFloat(document.getElementById('mech-angle').value)||0;var mu=parseFloat(document.getElementById('mech-mu').value)||0;var F=parseFloat(document.getElementById('mech-force').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById('mech-result');if(res){var cls=a>0.01?'#10b981':(a<-0.01?'#ef4444':'#f59e0b');var desc=a>0.01?'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a':(a<-0.01?'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b':'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = '+Fgs.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = '+Fgn.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = '+f.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>'+(F-Fgs-f).toFixed(2)+' N</div><div class=\'key-point\'>\u00b7 \u52a0\u901f\u5ea6 a = <b data-style=\'color:'+cls+'\'>'+a.toFixed(2)+' m/s\u00b2</b> '+desc+'</div></div>';}
     }
     /* 串/并联电路计算器（原 index.html:2710 内联 onclick IIFE，逻辑原样搬移） */
     function calcElecCircuit() {

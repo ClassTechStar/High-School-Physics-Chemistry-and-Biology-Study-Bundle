@@ -3527,3 +3527,9 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
 .self-judge button:disabled { opacity: 0.45; cursor: not-allowed; }
 .self-judge .btn-self-correct:not(:disabled):hover { background: var(--secondary-light, #e8f5e9); border-color: var(--secondary, #2e7d32); }
 .self-judge .btn-self-wrong:not(:disabled):hover { background: var(--danger-light, #ffebee); border-color: var(--danger, #c62828); }
+
+/* D3：加载指示器旋转动画原为 study-tools-enhanced.js 内联 <style> 注入，
+   CSP style-src 收紧为 'self' 后内联样式块被拦截，移至此处。 */
+@keyframes ll-spin {
+    to { transform: rotate(360deg); }
+}

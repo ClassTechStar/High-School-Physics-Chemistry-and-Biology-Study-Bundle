@@ -291,10 +291,10 @@ var conceptMatchGame = (function() {
     fb.style.display = 'block';
     fb.style.opacity = '1';
     if (isCorrect) {
-      fb.innerHTML = '<span style="color:#2e7d32;font-size:20px;font-weight:bold;">\u2713 正确！</span>';
+      fb.innerHTML = '<span data-style="color:#2e7d32;font-size:20px;font-weight:bold;">\u2713 正确！</span>';
       fb.style.backgroundColor = '#e8f5e9';
     } else {
-      fb.innerHTML = '<span style="color:#c62828;font-size:20px;font-weight:bold;">\u2717 再想想！</span>';
+      fb.innerHTML = '<span data-style="color:#c62828;font-size:20px;font-weight:bold;">\u2717 再想想！</span>';
       fb.style.backgroundColor = '#ffebee';
     }
     setTimeout(function() {
@@ -341,33 +341,33 @@ var conceptMatchGame = (function() {
 
     var html = '';
     // 模式切换按钮
-    html += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">';
+    html += '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">';
     html += buildModeBtn('timed', '\u23f1 限时模式（60秒）');
     html += buildModeBtn('unlimited', '\u221e 无限模式');
     html += buildModeBtn('level', '\U0001f3af 闯关模式');
     html += '</div>';
 
     // 信息栏
-    html += '<div id="concept-info-bar" style="display:flex;gap:20px;align-items:center;padding:10px 16px;background:#f5f5f5;border-radius:8px;margin-bottom:12px;font-size:14px;flex-wrap:wrap;">';
-    html += '<span style="font-weight:bold;">\u2b50 得分：<span id="concept-score">' + state.score + '</span></span>';
+    html += '<div id="concept-info-bar" data-style="display:flex;gap:20px;align-items:center;padding:10px 16px;background:#f5f5f5;border-radius:8px;margin-bottom:12px;font-size:14px;flex-wrap:wrap;">';
+    html += '<span data-style="font-weight:bold;">\u2b50 得分：<span id="concept-score">' + state.score + '</span></span>';
     if (state.mode === 'timed') {
-      html += '<span style="color:' + (state.timeLeft <= 10 ? '#c62828' : '#1565c0') + ';font-weight:bold;">\u23f1 时间：<span id="concept-timer">' + state.timeLeft + 's</span></span>';
+      html += '<span data-style="color:' + (state.timeLeft <= 10 ? '#c62828' : '#1565c0') + ';font-weight:bold;">\u23f1 时间：<span id="concept-timer">' + state.timeLeft + 's</span></span>';
     } else if (state.mode === 'level') {
-      html += '<span style="font-weight:bold;color:#6a1b9a;">\U0001f3af 第 <span id="concept-level">' + state.level + '</span> / 3 关</span>';
+      html += '<span data-style="font-weight:bold;color:#6a1b9a;">\U0001f3af 第 <span id="concept-level">' + state.level + '</span> / 3 关</span>';
     }
     html += '<span>\U0001f525 连击：<span id="concept-combo">' + state.combo + '</span></span>';
     html += '<span>\U0001f4cb 剩余：<span id="concept-remain">' + (state.totalPairs - state.pairsMatched) + '</span> 组</span>';
-    html += '<span style="font-size:12px;color:#888;">\U0001f3c6 最高分：' + state.bestScore + '</span>';
+    html += '<span data-style="font-size:12px;color:#888;">\U0001f3c6 最高分：' + state.bestScore + '</span>';
     if (state.mode === 'level') {
-      html += '<span style="font-size:12px;color:#666;">正确：' + state.correctCount + ' | 错误：' + state.wrongCount + '</span>';
+      html += '<span data-style="font-size:12px;color:#666;">正确：' + state.correctCount + ' | 错误：' + state.wrongCount + '</span>';
     }
     html += '</div>';
 
     // 游戏区域
-    html += '<div id="concept-game-area" style="display:flex;position:relative;min-height:300px;gap:20px;">';
+    html += '<div id="concept-game-area" data-style="display:flex;position:relative;min-height:300px;gap:20px;">';
     // 左侧列
-    html += '<div id="concept-left-col" style="flex:1;display:flex;flex-direction:column;gap:8px;">';
-    html += '<div style="font-weight:bold;color:#1565c0;margin-bottom:4px;font-size:15px;">\u2753 概念 / 问题</div>';
+    html += '<div id="concept-left-col" data-style="flex:1;display:flex;flex-direction:column;gap:8px;">';
+    html += '<div data-style="font-weight:bold;color:#1565c0;margin-bottom:4px;font-size:15px;">\u2753 概念 / 问题</div>';
     for (var i = 0; i < state.roundQuestions.length; i++) {
       var q = state.roundQuestions[i];
       var isSelected = (i === state.selectedLeftIdx);
@@ -376,15 +376,15 @@ var conceptMatchGame = (function() {
       var border = isSelected ? '2px solid #1565c0' : (isMatched ? '2px solid #4caf50' : '1px solid #ddd');
       var cursor = isMatched ? 'default' : 'pointer';
       var opacity = isMatched ? '0.7' : '1';
-      html += '<div class="concept-left-item" data-idx="' + i + '" style="padding:10px 14px;background:' + bg + ';border:' + border + ';border-radius:6px;cursor:' + cursor + ';opacity:' + opacity + ';transition:all 0.2s;font-size:14px;">';
+      html += '<div class="concept-left-item" data-idx="' + i + '" data-style="padding:10px 14px;background:' + bg + ';border:' + border + ';border-radius:6px;cursor:' + cursor + ';opacity:' + opacity + ';transition:all 0.2s;font-size:14px;">';
       html += (isMatched ? '\u2705 ' : '') + q.question;
       html += '</div>';
     }
     html += '</div>';
 
     // 右侧列
-    html += '<div id="concept-right-col" style="flex:1;display:flex;flex-direction:column;gap:8px;">';
-    html += '<div style="font-weight:bold;color:#c62828;margin-bottom:4px;font-size:15px;">\u2757 答案 / 混淆项</div>';
+    html += '<div id="concept-right-col" data-style="flex:1;display:flex;flex-direction:column;gap:8px;">';
+    html += '<div data-style="font-weight:bold;color:#c62828;margin-bottom:4px;font-size:15px;">\u2757 答案 / 混淆项</div>';
     for (var j = 0; j < state.answers.length; j++) {
       var ans = state.answers[j];
       var isRightMatched = state.rightMatched[j];
@@ -392,18 +392,18 @@ var conceptMatchGame = (function() {
       var rBorder = isRightMatched ? '2px solid #4caf50' : '1px solid #ddd';
       var rCursor = isRightMatched ? 'default' : 'pointer';
       var rOpacity = isRightMatched ? '0.7' : '1';
-      html += '<div class="concept-right-item" data-idx="' + j + '" style="padding:10px 14px;background:' + rBg + ';border:' + rBorder + ';border-radius:6px;cursor:' + rCursor + ';opacity:' + rOpacity + ';transition:all 0.2s;font-size:14px;">';
+      html += '<div class="concept-right-item" data-idx="' + j + '" data-style="padding:10px 14px;background:' + rBg + ';border:' + rBorder + ';border-radius:6px;cursor:' + rCursor + ';opacity:' + rOpacity + ';transition:all 0.2s;font-size:14px;">';
       html += (isRightMatched ? '\u2705 ' : '') + ans;
       html += '</div>';
     }
     html += '</div>';
 
     // SVG 连线层
-    html += '<svg id="concept-svg" style="position:absolute;top:30px;left:0;width:100%;height:calc(100% - 30px);pointer-events:none;z-index:10;"></svg>';
+    html += '<svg id="concept-svg" data-style="position:absolute;top:30px;left:0;width:100%;height:calc(100% - 30px);pointer-events:none;z-index:10;"></svg>';
     html += '</div>';
 
     // 反馈文字
-    html += '<div id="concept-feedback" style="display:none;text-align:center;padding:10px;margin-top:10px;border-radius:8px;transition:opacity 0.3s;"></div>';
+    html += '<div id="concept-feedback" data-style="display:none;text-align:center;padding:10px;margin-top:10px;border-radius:8px;transition:opacity 0.3s;"></div>';
 
     // 结果面板
     if (state.gameOver) {
@@ -422,7 +422,7 @@ var conceptMatchGame = (function() {
     var active = (state.mode === mode && state.gameActive) || (state.mode === mode && !state.gameActive && !state.gameOver);
     var bg = active ? '#1565c0' : '#e0e0e0';
     var color = active ? '#fff' : '#333';
-    return '<button data-mode="' + mode + '" style="padding:8px 16px;background:' + bg + ';color:' + color + ';border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold;">' + label + '</button>';
+    return '<button data-mode="' + mode + '" data-style="padding:8px 16px;background:' + bg + ';color:' + color + ';border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold;">' + label + '</button>';
   }
 
   function buildResultHTML() {
@@ -441,17 +441,17 @@ var conceptMatchGame = (function() {
       msg = '\U0001f389 全部完成！';
     }
     var html = '';
-    html += '<div id="concept-result-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">';
-    html += '<div style="background:#fff;border-radius:16px;padding:30px 40px;text-align:center;min-width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">';
-    html += '<div style="font-size:36px;margin-bottom:10px;">' + msg + '</div>';
-    html += '<div style="font-size:48px;color:#f9a825;margin:10px 0;">' + starStr + '</div>';
-    html += '<div style="font-size:16px;margin:6px 0;">得分：<b style="font-size:24px;color:#1565c0;">' + state.score + '</b></div>';
-    html += '<div style="font-size:14px;color:#666;">\u2705 正确：' + state.correctCount + '  |  \u274c 错误：' + state.wrongCount + '</div>';
-    html += '<div style="font-size:14px;color:#666;">\u23f1 用时：' + elapsed + ' 秒</div>';
-    html += '<div style="font-size:14px;color:#666;">\U0001f525 最大连击：' + state.maxCombo + '</div>';
-    html += '<div style="font-size:14px;color:#888;margin-top:6px;">\U0001f3c6 历史最高分：' + state.bestScore + '</div>';
-    html += '<button id="concept-restart-btn" style="margin-top:18px;padding:10px 30px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f504 再来一局</button>';
-    html += '<button id="concept-close-result" style="margin-top:18px;margin-left:10px;padding:10px 20px;background:#e0e0e0;color:#333;border:none;border-radius:8px;cursor:pointer;font-size:14px;">关闭</button>';
+    html += '<div id="concept-result-overlay" data-style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">';
+    html += '<div data-style="background:#fff;border-radius:16px;padding:30px 40px;text-align:center;min-width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">';
+    html += '<div data-style="font-size:36px;margin-bottom:10px;">' + msg + '</div>';
+    html += '<div data-style="font-size:48px;color:#f9a825;margin:10px 0;">' + starStr + '</div>';
+    html += '<div data-style="font-size:16px;margin:6px 0;">得分：<b data-style="font-size:24px;color:#1565c0;">' + state.score + '</b></div>';
+    html += '<div data-style="font-size:14px;color:#666;">\u2705 正确：' + state.correctCount + '  |  \u274c 错误：' + state.wrongCount + '</div>';
+    html += '<div data-style="font-size:14px;color:#666;">\u23f1 用时：' + elapsed + ' 秒</div>';
+    html += '<div data-style="font-size:14px;color:#666;">\U0001f525 最大连击：' + state.maxCombo + '</div>';
+    html += '<div data-style="font-size:14px;color:#888;margin-top:6px;">\U0001f3c6 历史最高分：' + state.bestScore + '</div>';
+    html += '<button id="concept-restart-btn" data-style="margin-top:18px;padding:10px 30px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f504 再来一局</button>';
+    html += '<button id="concept-close-result" data-style="margin-top:18px;margin-left:10px;padding:10px 20px;background:#e0e0e0;color:#333;border:none;border-radius:8px;cursor:pointer;font-size:14px;">关闭</button>';
     html += '</div></div>';
     return html;
   }
@@ -857,7 +857,7 @@ var scratchpad = (function() {
     if (!sb) return;
     var toolNames = { pen: '自由画笔', line: '直线', circle: '圆/椭圆', rect: '矩形', eraser: '橡皮擦', text: '文字' };
     sb.innerHTML = '\U0001f58c 工具：' + (toolNames[state.tool] || state.tool) +
-      '  |  \u25cf 颜色：<span style="display:inline-block;width:14px;height:14px;background:' + state.color + ';border:1px solid #999;border-radius:2px;vertical-align:middle;"></span>' +
+      '  |  \u25cf 颜色：<span data-style="display:inline-block;width:14px;height:14px;background:' + state.color + ';border:1px solid #999;border-radius:2px;vertical-align:middle;"></span>' +
       '  |  \u2194 笔触：' + state.brushSize + 'px' +
       '  |  \U0001f4e6 网格：' + (state.showGrid ? '开' : '关') +
       '  |  \u2795 坐标轴：' + (state.showAxes ? '开' : '关');
@@ -1105,32 +1105,32 @@ var scratchpad = (function() {
     var html = '';
 
     // 工具栏
-    html += '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;background:#fafafa;border:1px solid #e0e0e0;border-radius:8px 8px 0 0;">';
+    html += '<div data-style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;background:#fafafa;border:1px solid #e0e0e0;border-radius:8px 8px 0 0;">';
 
     // 颜色选择
-    html += '<span style="font-size:12px;color:#666;margin-right:4px;">颜色：</span>';
+    html += '<span data-style="font-size:12px;color:#666;margin-right:4px;">颜色：</span>';
     var colors = ['#000000', '#c62828', '#1565c0', '#2e7d32'];
     var colorNames = ['黑', '红', '蓝', '绿'];
     for (var ci = 0; ci < colors.length; ci++) {
       var isActive = (state.color === colors[ci]);
-      html += '<button class="scratchpad-color-btn" data-color="' + colors[ci] + '" title="' + colorNames[ci] + '" style="width:26px;height:26px;border-radius:50%;background:' + colors[ci] + ';border:' + (isActive ? '3px solid #1565c0' : '2px solid #ccc') + ';outline:' + (isActive ? '2px solid #fff' : 'none') + ';cursor:pointer;"></button>';
+      html += '<button class="scratchpad-color-btn" data-color="' + colors[ci] + '" title="' + colorNames[ci] + '" data-style="width:26px;height:26px;border-radius:50%;background:' + colors[ci] + ';border:' + (isActive ? '3px solid #1565c0' : '2px solid #ccc') + ';outline:' + (isActive ? '2px solid #fff' : 'none') + ';cursor:pointer;"></button>';
     }
-    html += '<input id="scratchpad-custom-color" type="color" value="' + state.color + '" style="width:28px;height:26px;border:none;cursor:pointer;padding:0;" title="自定义颜色">';
+    html += '<input id="scratchpad-custom-color" type="color" value="' + state.color + '" data-style="width:28px;height:26px;border:none;cursor:pointer;padding:0;" title="自定义颜色">';
 
-    html += '<span style="color:#e0e0e0;margin:0 4px;">|</span>';
+    html += '<span data-style="color:#e0e0e0;margin:0 4px;">|</span>';
 
     // 笔触粗细
-    html += '<span style="font-size:12px;color:#666;margin-right:4px;">笔触：</span>';
+    html += '<span data-style="font-size:12px;color:#666;margin-right:4px;">笔触：</span>';
     var sizes = [1, 2, 3, 5];
     for (var si = 0; si < sizes.length; si++) {
       var sActive = (state.brushSize === sizes[si]);
-      html += '<button class="scratchpad-size-btn" data-size="' + sizes[si] + '" style="padding:4px 10px;background:' + (sActive ? '#1565c0' : '#e0e0e0') + ';color:' + (sActive ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;">' + sizes[si] + 'px</button>';
+      html += '<button class="scratchpad-size-btn" data-size="' + sizes[si] + '" data-style="padding:4px 10px;background:' + (sActive ? '#1565c0' : '#e0e0e0') + ';color:' + (sActive ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;">' + sizes[si] + 'px</button>';
     }
 
-    html += '<span style="color:#e0e0e0;margin:0 4px;">|</span>';
+    html += '<span data-style="color:#e0e0e0;margin:0 4px;">|</span>';
 
     // 图形工具
-    html += '<span style="font-size:12px;color:#666;margin-right:4px;">工具：</span>';
+    html += '<span data-style="font-size:12px;color:#666;margin-right:4px;">工具：</span>';
     var tools = [
       { id: 'pen', label: '\u270f 画笔' },
       { id: 'eraser', label: '\u274e 橡皮' },
@@ -1141,28 +1141,28 @@ var scratchpad = (function() {
     ];
     for (var ti = 0; ti < tools.length; ti++) {
       var tActive = (state.tool === tools[ti].id);
-      html += '<button class="scratchpad-tool-btn" data-tool="' + tools[ti].id + '" style="padding:5px 10px;background:' + (tActive ? '#1565c0' : '#e0e0e0') + ';color:' + (tActive ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;">' + tools[ti].label + '</button>';
+      html += '<button class="scratchpad-tool-btn" data-tool="' + tools[ti].id + '" data-style="padding:5px 10px;background:' + (tActive ? '#1565c0' : '#e0e0e0') + ';color:' + (tActive ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;">' + tools[ti].label + '</button>';
     }
 
-    html += '<span style="color:#e0e0e0;margin:0 4px;">|</span>';
+    html += '<span data-style="color:#e0e0e0;margin:0 4px;">|</span>';
 
     // 操作按钮
-    html += '<button id="scratchpad-undo" style="padding:5px 10px;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;border-radius:4px;cursor:pointer;font-size:12px;" title="撤销（最近20步）">\u21a9 撤销</button>';
-    html += '<button id="scratchpad-redo" style="padding:5px 10px;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:4px;cursor:pointer;font-size:12px;" title="重做">\u21aa 重做</button>';
-    html += '<button id="scratchpad-grid" style="padding:5px 10px;background:' + (state.showGrid ? '#1565c0' : '#e0e0e0') + ';color:' + (state.showGrid ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;" title="切换网格背景">\u2394 网格</button>';
-    html += '<button id="scratchpad-axes" style="padding:5px 10px;background:' + (state.showAxes ? '#1565c0' : '#e0e0e0') + ';color:' + (state.showAxes ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;" title="坐标轴">\u2795 坐标轴</button>';
-    html += '<button id="scratchpad-clear" style="padding:5px 10px;background:#ffebee;color:#c62828;border:1px solid #ef9a9a;border-radius:4px;cursor:pointer;font-size:12px;">\U0001f5d1 清空</button>';
-    html += '<button id="scratchpad-download" style="padding:5px 10px;background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;border-radius:4px;cursor:pointer;font-size:12px;">\u2b07 下载PNG</button>';
+    html += '<button id="scratchpad-undo" data-style="padding:5px 10px;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;border-radius:4px;cursor:pointer;font-size:12px;" title="撤销（最近20步）">\u21a9 撤销</button>';
+    html += '<button id="scratchpad-redo" data-style="padding:5px 10px;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:4px;cursor:pointer;font-size:12px;" title="重做">\u21aa 重做</button>';
+    html += '<button id="scratchpad-grid" data-style="padding:5px 10px;background:' + (state.showGrid ? '#1565c0' : '#e0e0e0') + ';color:' + (state.showGrid ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;" title="切换网格背景">\u2394 网格</button>';
+    html += '<button id="scratchpad-axes" data-style="padding:5px 10px;background:' + (state.showAxes ? '#1565c0' : '#e0e0e0') + ';color:' + (state.showAxes ? '#fff' : '#333') + ';border:none;border-radius:4px;cursor:pointer;font-size:12px;" title="坐标轴">\u2795 坐标轴</button>';
+    html += '<button id="scratchpad-clear" data-style="padding:5px 10px;background:#ffebee;color:#c62828;border:1px solid #ef9a9a;border-radius:4px;cursor:pointer;font-size:12px;">\U0001f5d1 清空</button>';
+    html += '<button id="scratchpad-download" data-style="padding:5px 10px;background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;border-radius:4px;cursor:pointer;font-size:12px;">\u2b07 下载PNG</button>';
 
     html += '</div>';
 
     // 画布区域
-    html += '<div style="position:relative;border:1px solid #e0e0e0;border-top:none;background:#fff;line-height:0;">';
-    html += '<canvas id="scratchpad-canvas" width="600" height="400" style="display:block;cursor:default;width:100%;max-width:600px;height:auto;" title="在此绘画"></canvas>';
+    html += '<div data-style="position:relative;border:1px solid #e0e0e0;border-top:none;background:#fff;line-height:0;">';
+    html += '<canvas id="scratchpad-canvas" width="600" height="400" data-style="display:block;cursor:default;width:100%;max-width:600px;height:auto;" title="在此绘画"></canvas>';
     html += '</div>';
 
     // 状态栏
-    html += '<div id="scratchpad-status" style="padding:6px 12px;background:#f5f5f5;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px;font-size:12px;color:#666;"></div>';
+    html += '<div id="scratchpad-status" data-style="padding:6px 12px;background:#f5f5f5;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px;font-size:12px;color:#666;"></div>';
 
     container.innerHTML = html;
 
@@ -1525,8 +1525,8 @@ var cardMatchGame = (function() {
     var ds = dataSets[state.dataSet];
 
     // 游戏选择器
-    html += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">';
-    html += '<span style="font-weight:bold;font-size:14px;">\u6e38\u620f\u9009\u62e9\uff1a</span>';
+    html += '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">';
+    html += '<span data-style="font-weight:bold;font-size:14px;">\u6e38\u620f\u9009\u62e9\uff1a</span>';
     var dsKeys = ['poetry', 'formula'];
     var d;
     for (d = 0; d < dsKeys.length; d++) {
@@ -1534,29 +1534,29 @@ var cardMatchGame = (function() {
       var active = (state.dataSet === key);
       var bg = active ? dataSets[key].color : '#e0e0e0';
       var color = active ? '#fff' : '#333';
-      html += '<button class="card-dataset-btn" data-dataset="' + key + '" style="padding:8px 16px;background:' + bg + ';color:' + color + ';border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold;">' + dataSets[key].name + '</button>';
+      html += '<button class="card-dataset-btn" data-dataset="' + key + '" data-style="padding:8px 16px;background:' + bg + ';color:' + color + ';border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold;">' + dataSets[key].name + '</button>';
     }
     html += '</div>';
 
     // 信息栏
-    html += '<div id="card-info-bar" style="display:flex;gap:20px;align-items:center;padding:10px 16px;background:#f5f5f5;border-radius:8px;margin-bottom:12px;font-size:14px;flex-wrap:wrap;">';
-    html += '<span style="font-weight:bold;">\u2b50 \u5f97\u5206\uff1a<span id="card-score">' + state.score + '</span></span>';
-    html += '<span style="color:' + (state.timeLeft <= 10 ? '#c62828' : '#1565c0') + ';font-weight:bold;">\u23f1 \u65f6\u95f4\uff1a<span id="card-timer">' + state.timeLeft + 's</span></span>';
+    html += '<div id="card-info-bar" data-style="display:flex;gap:20px;align-items:center;padding:10px 16px;background:#f5f5f5;border-radius:8px;margin-bottom:12px;font-size:14px;flex-wrap:wrap;">';
+    html += '<span data-style="font-weight:bold;">\u2b50 \u5f97\u5206\uff1a<span id="card-score">' + state.score + '</span></span>';
+    html += '<span data-style="color:' + (state.timeLeft <= 10 ? '#c62828' : '#1565c0') + ';font-weight:bold;">\u23f1 \u65f6\u95f4\uff1a<span id="card-timer">' + state.timeLeft + 's</span></span>';
     html += '<span>\U0001f4cb \u7ffb\u724c\u6b21\u6570\uff1a<span id="card-moves">' + state.moves + '</span></span>';
     html += '<span>\u2705 \u5df2\u914d\u5bf9\uff1a<span id="card-matched">' + state.matchedCount + '</span>/' + state.totalPairs + '</span>';
-    html += '<span style="font-size:12px;color:#888;">\U0001f3c6 \u6700\u9ad8\u5206\uff1a' + state.bestScore + '</span>';
+    html += '<span data-style="font-size:12px;color:#888;">\U0001f3c6 \u6700\u9ad8\u5206\uff1a' + state.bestScore + '</span>';
     html += '</div>';
 
     // 游戏区域
     if (!state.gameActive && !state.gameOver) {
-      html += '<div style="text-align:center;padding:40px;background:#f5f5f5;border-radius:8px;">';
-      html += '<div style="font-size:18px;margin-bottom:20px;">\U0001f3af ' + ds.name + '</div>';
-      html += '<p style="color:#666;margin-bottom:20px;">\u70b9\u51fb\u5361\u7247\u7ffb\u9762\uff0c\u627e\u51fa\u6240\u6709\u914d\u5bf9\uff01\u9650\u65f660\u79d2\uff0c\u914d\u5bf9\u6210\u529f\u5f9710\u5206\uff0c\u5b8c\u6210\u65f6\u5269\u4f59\u6bcf\u79d2\u989d\u5916\u52a02\u5206\u3002</p>';
-      html += '<button id="card-start-btn" style="padding:12px 40px;background:' + ds.color + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f3ae \u5f00\u59cb\u6e38\u620f</button>';
+      html += '<div data-style="text-align:center;padding:40px;background:#f5f5f5;border-radius:8px;">';
+      html += '<div data-style="font-size:18px;margin-bottom:20px;">\U0001f3af ' + ds.name + '</div>';
+      html += '<p data-style="color:#666;margin-bottom:20px;">\u70b9\u51fb\u5361\u7247\u7ffb\u9762\uff0c\u627e\u51fa\u6240\u6709\u914d\u5bf9\uff01\u9650\u65f660\u79d2\uff0c\u914d\u5bf9\u6210\u529f\u5f9710\u5206\uff0c\u5b8c\u6210\u65f6\u5269\u4f59\u6bcf\u79d2\u989d\u5916\u52a02\u5206\u3002</p>';
+      html += '<button id="card-start-btn" data-style="padding:12px 40px;background:' + ds.color + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f3ae \u5f00\u59cb\u6e38\u620f</button>';
       html += '</div>';
     } else {
       // \u5361\u7247\u7f51\u683c
-      html += '<div id="card-grid" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">';
+      html += '<div id="card-grid" data-style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">';
       var i;
       for (i = 0; i < state.cards.length; i++) {
         var card = state.cards[i];
@@ -1567,7 +1567,7 @@ var cardMatchGame = (function() {
         var cursor = (isFlipped || state.lockBoard) ? 'default' : 'pointer';
         var displayText = isFlipped ? card.text : '\uff1f';
         var fontSize = isFlipped ? (card.text.length > 6 ? '12px' : '14px') : '28px';
-        html += '<div class="card-item" data-idx="' + i + '" style="width:110px;height:110px;display:flex;align-items:center;justify-content:center;background:' + cardBg + ';color:' + cardColor + ';border:' + cardBorder + ';border-radius:8px;cursor:' + cursor + ';font-size:' + fontSize + ';font-weight:bold;text-align:center;padding:4px;transition:all 0.3s;user-select:none;word-break:break-all;box-shadow:0 2px 4px rgba(0,0,0,0.1);">';
+        html += '<div class="card-item" data-idx="' + i + '" data-style="width:110px;height:110px;display:flex;align-items:center;justify-content:center;background:' + cardBg + ';color:' + cardColor + ';border:' + cardBorder + ';border-radius:8px;cursor:' + cursor + ';font-size:' + fontSize + ';font-weight:bold;text-align:center;padding:4px;transition:all 0.3s;user-select:none;word-break:break-all;box-shadow:0 2px 4px rgba(0,0,0,0.1);">';
         html += displayText;
         html += '</div>';
       }
@@ -1595,17 +1595,17 @@ var cardMatchGame = (function() {
     var msg = allMatched ? '\U0001f389 \u5168\u90e8\u914d\u5bf9\u6210\u529f\uff01' : (state.timeLeft <= 0 ? '\u23f0 \u65f6\u95f4\u5230\uff01' : '\u6e38\u620f\u7ed3\u675f\uff01');
     var ds = dataSets[state.dataSet];
     var html = '';
-    html += '<div id="card-result-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">';
-    html += '<div style="background:#fff;border-radius:16px;padding:30px 40px;text-align:center;min-width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">';
-    html += '<div style="font-size:36px;margin-bottom:10px;">' + msg + '</div>';
-    html += '<div style="font-size:48px;color:#f9a825;margin:10px 0;">' + starStr + '</div>';
-    html += '<div style="font-size:16px;margin:6px 0;">\u5f97\u5206\uff1a<b style="font-size:24px;color:' + ds.color + ';">' + state.score + '</b></div>';
-    html += '<div style="font-size:14px;color:#666;">\u2705 \u914d\u5bf9\uff1a' + state.matchedCount + '/' + state.totalPairs + '</div>';
-    html += '<div style="font-size:14px;color:#666;">\U0001f4cb \u7ffb\u724c\u6b21\u6570\uff1a' + state.moves + '</div>';
-    html += '<div style="font-size:14px;color:#666;">\u23f1 \u7528\u65f6\uff1a' + elapsed + ' \u79d2</div>';
-    html += '<div style="font-size:14px;color:#888;margin-top:6px;">\U0001f3c6 \u5386\u53f2\u6700\u9ad8\u5206\uff1a' + state.bestScore + '</div>';
-    html += '<button id="card-restart-btn" style="margin-top:18px;padding:10px 30px;background:' + ds.color + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f504 \u518d\u6765\u4e00\u5c40</button>';
-    html += '<button id="card-close-result" style="margin-top:18px;margin-left:10px;padding:10px 20px;background:#e0e0e0;color:#333;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u5173\u95ed</button>';
+    html += '<div id="card-result-overlay" data-style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">';
+    html += '<div data-style="background:#fff;border-radius:16px;padding:30px 40px;text-align:center;min-width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">';
+    html += '<div data-style="font-size:36px;margin-bottom:10px;">' + msg + '</div>';
+    html += '<div data-style="font-size:48px;color:#f9a825;margin:10px 0;">' + starStr + '</div>';
+    html += '<div data-style="font-size:16px;margin:6px 0;">\u5f97\u5206\uff1a<b data-style="font-size:24px;color:' + ds.color + ';">' + state.score + '</b></div>';
+    html += '<div data-style="font-size:14px;color:#666;">\u2705 \u914d\u5bf9\uff1a' + state.matchedCount + '/' + state.totalPairs + '</div>';
+    html += '<div data-style="font-size:14px;color:#666;">\U0001f4cb \u7ffb\u724c\u6b21\u6570\uff1a' + state.moves + '</div>';
+    html += '<div data-style="font-size:14px;color:#666;">\u23f1 \u7528\u65f6\uff1a' + elapsed + ' \u79d2</div>';
+    html += '<div data-style="font-size:14px;color:#888;margin-top:6px;">\U0001f3c6 \u5386\u53f2\u6700\u9ad8\u5206\uff1a' + state.bestScore + '</div>';
+    html += '<button id="card-restart-btn" data-style="margin-top:18px;padding:10px 30px;background:' + ds.color + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">\U0001f504 \u518d\u6765\u4e00\u5c40</button>';
+    html += '<button id="card-close-result" data-style="margin-top:18px;margin-left:10px;padding:10px 20px;background:#e0e0e0;color:#333;border:none;border-radius:8px;cursor:pointer;font-size:14px;">\u5173\u95ed</button>';
     html += '</div></div>';
     return html;
   }

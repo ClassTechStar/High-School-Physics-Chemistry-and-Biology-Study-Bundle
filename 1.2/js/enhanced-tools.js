@@ -379,10 +379,10 @@ const biologyMindMapEnhanced = {
                     <span>📐 布局: ${this.currentLayout==='tree'?'树状':this.currentLayout==='radial'?'辐射':'层级'}</span>
                 </div>
                 <div class="mm-legend">
-                    <span class="lg-item"><span style="background:#667eea"></span> 核心概念</span>
-                    <span class="lg-item"><span style="background:#48A9A6"></span> 一级分支</span>
-                    <span class="lg-item"><span style="background:#FF9800"></span> 二级分支</span>
-                    <span class="lg-item"><span style="background:#E74C3C"></span> 广东卷高频</span>
+                    <span class="lg-item"><span data-style="background:#667eea"></span> 核心概念</span>
+                    <span class="lg-item"><span data-style="background:#48A9A6"></span> 一级分支</span>
+                    <span class="lg-item"><span data-style="background:#FF9800"></span> 二级分支</span>
+                    <span class="lg-item"><span data-style="background:#E74C3C"></span> 广东卷高频</span>
                 </div>
             </div>
         </div>`;
@@ -1511,7 +1511,7 @@ const experimentDesignerEnhanced = {
                         </div>
                         
                         ${this.state.selectedType.commonErrors?.length > 0 ? `
-                        <h4 style="margin-top:15px;">❌ 常见错误警示</h4>
+                        <h4 data-style="margin-top:15px;">❌ 常见错误警示</h4>
                         <div class="errors-list">
                             ${this.state.selectedType.commonErrors.map(err => `<div class="err-item">❌ ${err}</div>`).join('')}
                         </div>

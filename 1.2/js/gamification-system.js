@@ -224,15 +224,15 @@ window.achievementSystem = (function () {
         var overlay = document.createElement('div');
         overlay.id = 'achievement-celebrate';
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99999;display:flex;align-items:center;justify-content:center;';
-        var html = '<div style="background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:16px;padding:28px 36px;text-align:center;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,0.3);animation:achPop 0.5s ease;">';
-        html += '<div style="font-size:14px;color:#fff;letter-spacing:2px;margin-bottom:10px;">🎉 成就解锁</div>';
+        var html = '<div data-style="background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:16px;padding:28px 36px;text-align:center;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,0.3);animation:achPop 0.5s ease;">';
+        html += '<div data-style="font-size:14px;color:#fff;letter-spacing:2px;margin-bottom:10px;">🎉 成就解锁</div>';
         for (var i = 0; i < achievements.length; i++) {
             var a = achievements[i];
-            html += '<div style="margin:10px 0;"><div style="font-size:48px;">' + a.icon + '</div>' +
-                '<div style="font-size:18px;font-weight:bold;color:#fff;">' + a.name + '</div>' +
-                '<div style="font-size:12px;color:#fef3c7;">' + a.desc + ' (+' + a.score + '分)</div></div>';
+            html += '<div data-style="margin:10px 0;"><div data-style="font-size:48px;">' + a.icon + '</div>' +
+                '<div data-style="font-size:18px;font-weight:bold;color:#fff;">' + a.name + '</div>' +
+                '<div data-style="font-size:12px;color:#fef3c7;">' + a.desc + ' (+' + a.score + '分)</div></div>';
         }
-        html += '<button id="ach-celebrate-close" style="margin-top:12px;background:#fff;color:#d97706;border:none;border-radius:20px;padding:6px 20px;font-size:13px;cursor:pointer;font-weight:bold;">太棒了</button>';
+        html += '<button id="ach-celebrate-close" data-style="margin-top:12px;background:#fff;color:#d97706;border:none;border-radius:20px;padding:6px 20px;font-size:13px;cursor:pointer;font-weight:bold;">太棒了</button>';
         html += '</div>';
         overlay.innerHTML = html;
         document.body.appendChild(overlay);
@@ -270,22 +270,22 @@ window.achievementSystem = (function () {
             descStyle = 'color:#9ca3af;font-size:12px;';
             barBg = '#e5e7eb';
         }
-        var html = '<div data-cat="' + a.cat + '" style="' + cardStyle + 'border-radius:12px;padding:14px;position:relative;">';
-        html += '<div style="position:absolute;top:8px;right:10px;font-size:10px;background:' + catColor + ';color:#fff;padding:2px 8px;border-radius:10px;">' + a.cat + '</div>';
+        var html = '<div data-cat="' + a.cat + '" data-style="' + cardStyle + 'border-radius:12px;padding:14px;position:relative;">';
+        html += '<div data-style="position:absolute;top:8px;right:10px;font-size:10px;background:' + catColor + ';color:#fff;padding:2px 8px;border-radius:10px;">' + a.cat + '</div>';
         if (!isUnlocked) {
-            html += '<div style="position:absolute;top:8px;left:10px;font-size:14px;">🔒</div>';
+            html += '<div data-style="position:absolute;top:8px;left:10px;font-size:14px;">🔒</div>';
         }
-        html += '<div style="text-align:center;margin:6px 0 4px;"><span style="' + iconStyle + '">' + a.icon + '</span></div>';
-        html += '<div style="text-align:center;' + nameStyle + '">' + a.name + '</div>';
-        html += '<div style="text-align:center;' + descStyle + 'margin:2px 0 8px;">' + a.desc + '</div>';
-        html += '<div style="background:' + barBg + ';border-radius:8px;height:8px;overflow:hidden;margin-bottom:4px;">' +
-            '<div style="width:' + pct + '%;height:100%;background:' + (isUnlocked ? '#f59e0b' : catColor) + ';transition:width .3s;"></div></div>';
-        html += '<div style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280;">';
+        html += '<div data-style="text-align:center;margin:6px 0 4px;"><span data-style="' + iconStyle + '">' + a.icon + '</span></div>';
+        html += '<div data-style="text-align:center;' + nameStyle + '">' + a.name + '</div>';
+        html += '<div data-style="text-align:center;' + descStyle + 'margin:2px 0 8px;">' + a.desc + '</div>';
+        html += '<div data-style="background:' + barBg + ';border-radius:8px;height:8px;overflow:hidden;margin-bottom:4px;">' +
+            '<div data-style="width:' + pct + '%;height:100%;background:' + (isUnlocked ? '#f59e0b' : catColor) + ';transition:width .3s;"></div></div>';
+        html += '<div data-style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280;">';
         html += '<span>' + Math.min(val, a.goal) + '/' + a.goal + '</span>';
         html += '<span>' + (isUnlocked ? ('✅ ' + dateStr) : (pct + '%')) + '</span>';
         html += '</div>';
         if (isUnlocked) {
-            html += '<div style="text-align:center;margin-top:6px;font-size:11px;color:#d97706;font-weight:bold;">+' + a.score + ' 积分</div>';
+            html += '<div data-style="text-align:center;margin-top:6px;font-size:11px;color:#d97706;font-weight:bold;">+' + a.score + ' 积分</div>';
         }
         html += '</div>';
         return html;
@@ -302,37 +302,37 @@ window.achievementSystem = (function () {
         for (var k in unlocked) { if (unlocked.hasOwnProperty(k)) unlockedCount++; }
         var score = totalScore(unlocked);
 
-        var html = '<div class="tool-app-container" style="padding:16px;font-family:sans-serif;">';
+        var html = '<div class="tool-app-container" data-style="padding:16px;font-family:sans-serif;">';
 
-        html += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">' +
-            '<div style="flex:1;min-width:140px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">已解锁成就</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + unlockedCount + '<span style="font-size:14px;opacity:0.8;">/20</span></div>' +
-            '<div style="font-size:11px;opacity:0.75;">徽章总数</div></div>' +
-            '<div style="flex:1;min-width:140px;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">成就总积分</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + score + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">分</div></div>' +
-            '<div style="flex:1;min-width:140px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">累计做题</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + stats.totalQuestions + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">题</div></div>' +
-            '<div style="flex:1;min-width:140px;background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">连续打卡</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + stats.streakDays + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">天</div></div>' +
+        html += '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">' +
+            '<div data-style="flex:1;min-width:140px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">已解锁成就</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + unlockedCount + '<span data-style="font-size:14px;opacity:0.8;">/20</span></div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">徽章总数</div></div>' +
+            '<div data-style="flex:1;min-width:140px;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">成就总积分</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + score + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">分</div></div>' +
+            '<div data-style="flex:1;min-width:140px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">累计做题</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + stats.totalQuestions + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">题</div></div>' +
+            '<div data-style="flex:1;min-width:140px;background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">连续打卡</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + stats.streakDays + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">天</div></div>' +
             '</div>';
 
         var cats = ['全部', '刷题', '打卡', '正确率', '探索'];
-        html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="ach-filter-bar">';
+        html += '<div data-style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="ach-filter-bar">';
         for (var ci = 0; ci < cats.length; ci++) {
             var c = cats[ci];
             var col = c === '全部' ? '#6b7280' : (CAT_COLORS[c] || '#6b7280');
-            html += '<button class="ach-filter-btn" data-cat="' + c + '" style="background:#fff;border:2px solid ' + col + ';color:' + col + ';padding:4px 14px;border-radius:16px;font-size:12px;cursor:pointer;">' + c + '</button>';
+            html += '<button class="ach-filter-btn" data-cat="' + c + '" data-style="background:#fff;border:2px solid ' + col + ';color:' + col + ';padding:4px 14px;border-radius:16px;font-size:12px;cursor:pointer;">' + c + '</button>';
         }
         html += '</div>';
 
-        html += '<div id="ach-wall" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">';
+        html += '<div id="ach-wall" data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">';
         for (var i = 0; i < ACHIEVEMENTS.length; i++) {
             html += renderBadge(ACHIEVEMENTS[i], unlocked, stats);
         }
@@ -676,29 +676,29 @@ window.studyShareCard = (function () {
         pickQuote();
         var data = gatherTodayData();
 
-        var html = '<div class="tool-app-container" style="padding:16px;font-family:sans-serif;">';
-        html += '<div style="text-align:center;margin-bottom:12px;">';
-        html += '<h3 style="margin:0 0 8px;color:#333;font-size:18px;">📸 学习打卡分享图</h3>';
-        html += '<div style="font-size:13px;color:#666;">一键生成精美海报，分享你的学习成果</div>';
+        var html = '<div class="tool-app-container" data-style="padding:16px;font-family:sans-serif;">';
+        html += '<div data-style="text-align:center;margin-bottom:12px;">';
+        html += '<h3 data-style="margin:0 0 8px;color:#333;font-size:18px;">📸 学习打卡分享图</h3>';
+        html += '<div data-style="font-size:13px;color:#666;">一键生成精美海报，分享你的学习成果</div>';
         html += '</div>';
 
-        html += '<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;">';
-        html += '<span style="font-size:13px;color:#666;">背景主题：</span>';
+        html += '<div data-style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;">';
+        html += '<span data-style="font-size:13px;color:#666;">背景主题：</span>';
         var keys = ['blue', 'green', 'purple'];
         for (var i = 0; i < keys.length; i++) {
             var t = THEMES[keys[i]];
-            html += '<button class="share-theme-btn" data-theme="' + keys[i] + '" style="background:linear-gradient(135deg,' + t.bg1 + ',' + t.bg2 + ');border:2px solid #fff;color:#fff;padding:6px 16px;border-radius:18px;font-size:12px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.15);">' + t.name + '</button>';
+            html += '<button class="share-theme-btn" data-theme="' + keys[i] + '" data-style="background:linear-gradient(135deg,' + t.bg1 + ',' + t.bg2 + ');border:2px solid #fff;color:#fff;padding:6px 16px;border-radius:18px;font-size:12px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.15);">' + t.name + '</button>';
         }
         html += '</div>';
 
-        html += '<div style="text-align:center;background:#f3f4f6;border-radius:12px;padding:12px;margin-bottom:14px;overflow:auto;">';
-        html += '<canvas id="share-card-canvas" width="' + CANVAS_W + '" height="' + CANVAS_H + '" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.2);"></canvas>';
+        html += '<div data-style="text-align:center;background:#f3f4f6;border-radius:12px;padding:12px;margin-bottom:14px;overflow:auto;">';
+        html += '<canvas id="share-card-canvas" width="' + CANVAS_W + '" height="' + CANVAS_H + '" data-style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.2);"></canvas>';
         html += '</div>';
 
-        html += '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">';
-        html += '<button id="share-download-btn" style="background:#3b82f6;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">⬇️ 下载海报</button>';
-        html += '<button id="share-quote-btn" style="background:#f59e0b;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">🔄 换一张语录</button>';
-        html += '<button id="share-redraw-btn" style="background:#10b981;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">🎨 重绘海报</button>';
+        html += '<div data-style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">';
+        html += '<button id="share-download-btn" data-style="background:#3b82f6;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">⬇️ 下载海报</button>';
+        html += '<button id="share-quote-btn" data-style="background:#f59e0b;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">🔄 换一张语录</button>';
+        html += '<button id="share-redraw-btn" data-style="background:#10b981;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">🎨 重绘海报</button>';
         html += '</div>';
 
         html += '</div>';
@@ -860,77 +860,77 @@ window.scoreCalculator = (function () {
         var container = document.getElementById('score-calculator-app');
         if (!container) return;
 
-        var html = '<div class="tool-app-container" style="padding:16px;font-family:sans-serif;">';
+        var html = '<div class="tool-app-container" data-style="padding:16px;font-family:sans-serif;">';
 
-        html += '<div style="text-align:center;margin-bottom:16px;">';
-        html += '<h3 style="margin:0 0 6px;color:#333;font-size:18px;">🎯 高考分数计算器 / 志愿参考</h3>';
-        html += '<div style="font-size:13px;color:#666;">广东新高考 · 总分 750 分（语数英各 150 + 物化生各 100）</div>';
+        html += '<div data-style="text-align:center;margin-bottom:16px;">';
+        html += '<h3 data-style="margin:0 0 6px;color:#333;font-size:18px;">🎯 高考分数计算器 / 志愿参考</h3>';
+        html += '<div data-style="font-size:13px;color:#666;">广东新高考 · 总分 750 分（语数英各 150 + 物化生各 100）</div>';
         html += '</div>';
 
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📝 输入各科预估分</div>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📝 输入各科预估分</div>';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">';
         for (var i = 0; i < SUBJECTS.length; i++) {
             var s = SUBJECTS[i];
-            html += '<div style="display:flex;align-items:center;gap:8px;background:#f9fafb;border-radius:8px;padding:8px;">';
-            html += '<span style="display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border-radius:50%;background:' + s.color + ';color:#fff;font-size:13px;font-weight:bold;">' + s.short + '</span>';
-            html += '<label style="font-size:13px;color:#555;flex:1;">' + s.name + ' <span style="color:#999;font-size:11px;">/ ' + s.full + '</span></label>';
-            html += '<input type="number" class="score-input" data-key="' + s.key + '" min="0" max="' + s.full + '" value="' + (currentScores[s.key] || 0) + '" style="width:64px;padding:4px 6px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;text-align:center;">';
+            html += '<div data-style="display:flex;align-items:center;gap:8px;background:#f9fafb;border-radius:8px;padding:8px;">';
+            html += '<span data-style="display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border-radius:50%;background:' + s.color + ';color:#fff;font-size:13px;font-weight:bold;">' + s.short + '</span>';
+            html += '<label data-style="font-size:13px;color:#555;flex:1;">' + s.name + ' <span data-style="color:#999;font-size:11px;">/ ' + s.full + '</span></label>';
+            html += '<input type="number" class="score-input" data-key="' + s.key + '" min="0" max="' + s.full + '" value="' + (currentScores[s.key] || 0) + '" data-style="width:64px;padding:4px 6px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;text-align:center;">';
             html += '</div>';
         }
         html += '</div>';
         html += '</div>';
 
-        html += '<div id="score-result" style="margin-bottom:14px;"></div>';
+        html += '<div id="score-result" data-style="margin-bottom:14px;"></div>';
 
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📊 各科得分率雷达图</div>';
-        html += '<div id="score-radar" style="text-align:center;"></div>';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📊 各科得分率雷达图</div>';
+        html += '<div id="score-radar" data-style="text-align:center;"></div>';
         html += '</div>';
 
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">🔮 "如果提高" 模拟器</div>';
-        html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">';
-        html += '<span style="font-size:13px;color:#555;">如果</span>';
-        html += '<select id="sim-subject" style="padding:4px 8px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">🔮 "如果提高" 模拟器</div>';
+        html += '<div data-style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">';
+        html += '<span data-style="font-size:13px;color:#555;">如果</span>';
+        html += '<select id="sim-subject" data-style="padding:4px 8px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
         for (var si = 0; si < SUBJECTS.length; si++) {
             var sel = SUBJECTS[si].key === sliderSubject ? ' selected' : '';
             html += '<option value="' + SUBJECTS[si].key + '"' + sel + '>' + SUBJECTS[si].name + '</option>';
         }
         html += '</select>';
-        html += '<span style="font-size:13px;color:#555;">提高</span>';
-        html += '<input type="range" id="sim-boost" min="0" max="50" value="' + sliderBoost + '" style="flex:1;min-width:140px;">';
-        html += '<span id="sim-boost-val" style="font-size:13px;font-weight:bold;color:#f59e0b;width:50px;">+' + sliderBoost + '分</span>';
+        html += '<span data-style="font-size:13px;color:#555;">提高</span>';
+        html += '<input type="range" id="sim-boost" min="0" max="50" value="' + sliderBoost + '" data-style="flex:1;min-width:140px;">';
+        html += '<span id="sim-boost-val" data-style="font-size:13px;font-weight:bold;color:#f59e0b;width:50px;">+' + sliderBoost + '分</span>';
         html += '</div>';
-        html += '<div id="sim-result" style="background:#fef3c7;border-radius:8px;padding:10px;font-size:13px;color:#92400e;"></div>';
+        html += '<div id="sim-result" data-style="background:#fef3c7;border-radius:8px;padding:10px;font-size:13px;color:#92400e;"></div>';
         html += '</div>';
 
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📋 广东历年高考分数线参考（2022-2026）</div>';
-        html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">';
-        html += '<thead><tr style="background:#f3f4f6;">';
-        html += '<th style="border:1px solid #e5e7eb;padding:8px;">年份</th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:8px;" colspan="2">物理类</th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:8px;" colspan="2">历史类</th>';
-        html += '</tr><tr style="background:#f9fafb;">';
-        html += '<th style="border:1px solid #e5e7eb;padding:6px;"></th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:6px;">本科线</th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:6px;">特招线</th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:6px;">本科线</th>';
-        html += '<th style="border:1px solid #e5e7eb;padding:6px;">特招线</th>';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">📋 广东历年高考分数线参考（2022-2026）</div>';
+        html += '<div data-style="overflow-x:auto;"><table data-style="width:100%;border-collapse:collapse;font-size:12px;">';
+        html += '<thead><tr data-style="background:#f3f4f6;">';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:8px;">年份</th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:8px;" colspan="2">物理类</th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:8px;" colspan="2">历史类</th>';
+        html += '</tr><tr data-style="background:#f9fafb;">';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:6px;"></th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:6px;">本科线</th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:6px;">特招线</th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:6px;">本科线</th>';
+        html += '<th data-style="border:1px solid #e5e7eb;padding:6px;">特招线</th>';
         html += '</tr></thead><tbody>';
         for (var li = 0; li < SCORE_LINES.length; li++) {
             var row = SCORE_LINES[li];
-            html += '<tr style="text-align:center;">';
-            html += '<td style="border:1px solid #e5e7eb;padding:6px;font-weight:bold;">' + row.year + '</td>';
-            html += '<td style="border:1px solid #e5e7eb;padding:6px;">' + row.phy_b + '</td>';
-            html += '<td style="border:1px solid #e5e7eb;padding:6px;color:#7c3aed;font-weight:bold;">' + row.phy_s + '</td>';
-            html += '<td style="border:1px solid #e5e7eb;padding:6px;">' + row.his_b + '</td>';
-            html += '<td style="border:1px solid #e5e7eb;padding:6px;color:#7c3aed;font-weight:bold;">' + row.his_s + '</td>';
+            html += '<tr data-style="text-align:center;">';
+            html += '<td data-style="border:1px solid #e5e7eb;padding:6px;font-weight:bold;">' + row.year + '</td>';
+            html += '<td data-style="border:1px solid #e5e7eb;padding:6px;">' + row.phy_b + '</td>';
+            html += '<td data-style="border:1px solid #e5e7eb;padding:6px;color:#7c3aed;font-weight:bold;">' + row.phy_s + '</td>';
+            html += '<td data-style="border:1px solid #e5e7eb;padding:6px;">' + row.his_b + '</td>';
+            html += '<td data-style="border:1px solid #e5e7eb;padding:6px;color:#7c3aed;font-weight:bold;">' + row.his_s + '</td>';
             html += '</tr>';
         }
         html += '</tbody></table></div>';
-        html += '<div style="font-size:11px;color:#999;margin-top:6px;">注：数据为广东高考录取控制分数线，仅供参考。特招线相当于原一本线参考。</div>';
+        html += '<div data-style="font-size:11px;color:#999;margin-top:6px;">注：数据为广东高考录取控制分数线，仅供参考。特招线相当于原一本线参考。</div>';
         html += '</div>';
 
         html += '</div>';
@@ -983,29 +983,29 @@ window.scoreCalculator = (function () {
         if (!box) return;
         var total = sumScores(currentScores);
         var rec = recommendCollege(total);
-        var html = '<div style="background:linear-gradient(135deg,' + rec.color + ',#1e293b);color:#fff;border-radius:12px;padding:16px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">';
+        var html = '<div data-style="background:linear-gradient(135deg,' + rec.color + ',#1e293b);color:#fff;border-radius:12px;padding:16px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">';
         html += '<div>';
-        html += '<div style="font-size:12px;opacity:0.85;">预估总分</div>';
-        html += '<div style="font-size:36px;font-weight:bold;">' + total + '<span style="font-size:14px;opacity:0.7;"> / 750</span></div>';
+        html += '<div data-style="font-size:12px;opacity:0.85;">预估总分</div>';
+        html += '<div data-style="font-size:36px;font-weight:bold;">' + total + '<span data-style="font-size:14px;opacity:0.7;"> / 750</span></div>';
         html += '</div>';
-        html += '<div style="text-align:right;">';
-        html += '<div style="font-size:12px;opacity:0.85;">院校推荐</div>';
-        html += '<div style="font-size:18px;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:14px;">' + rec.tier + '</div>';
+        html += '<div data-style="text-align:right;">';
+        html += '<div data-style="font-size:12px;opacity:0.85;">院校推荐</div>';
+        html += '<div data-style="font-size:18px;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:14px;">' + rec.tier + '</div>';
         html += '</div>';
         html += '</div>';
-        html += '<div style="margin-top:10px;font-size:12px;opacity:0.9;">参考院校：' + rec.schools + '</div>';
+        html += '<div data-style="margin-top:10px;font-size:12px;opacity:0.9;">参考院校：' + rec.schools + '</div>';
         html += '</div>';
 
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px;">';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px;">';
         for (var i = 0; i < SUBJECTS.length; i++) {
             var s = SUBJECTS[i];
             var val = currentScores[s.key] || 0;
             var rate = s.full > 0 ? Math.round(val / s.full * 100) : 0;
-            html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;text-align:center;">';
-            html += '<div style="font-size:11px;color:#666;">' + s.name + '</div>';
-            html += '<div style="font-size:16px;font-weight:bold;color:' + s.color + ';">' + val + '/' + s.full + '</div>';
-            html += '<div style="font-size:11px;color:#999;">得分率 ' + rate + '%</div>';
+            html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;text-align:center;">';
+            html += '<div data-style="font-size:11px;color:#666;">' + s.name + '</div>';
+            html += '<div data-style="font-size:16px;font-weight:bold;color:' + s.color + ';">' + val + '/' + s.full + '</div>';
+            html += '<div data-style="font-size:11px;color:#999;">得分率 ' + rate + '%</div>';
             html += '</div>';
         }
         html += '</div>';
@@ -1051,7 +1051,7 @@ window.scoreCalculator = (function () {
             html += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#555">' + s2.short + '</text>';
         }
         html += '</svg>';
-        html += '<div style="font-size:11px;color:#999;margin-top:6px;">外圈为各科满分，蓝色区域为当前得分率</div>';
+        html += '<div data-style="font-size:11px;color:#999;margin-top:6px;">外圈为各科满分，蓝色区域为当前得分率</div>';
         box.innerHTML = html;
     }
 
@@ -1075,11 +1075,11 @@ window.scoreCalculator = (function () {
         var recNew = recommendCollege(newTotal);
 
         var html = '如果 <b>' + subjName + '</b> 由 <b>' + curVal + '</b> 分提高到 <b>' + newVal + '</b> 分（+' + actualBoost + '分），<br>';
-        html += '总分将由 <b>' + baseTotal + '</b> → <b style="color:#d97706;">' + newTotal + '</b> 分。<br>';
+        html += '总分将由 <b>' + baseTotal + '</b> → <b data-style="color:#d97706;">' + newTotal + '</b> 分。<br>';
         if (recOld.tier === recNew.tier) {
             html += '院校推荐区间不变：<b>' + recNew.tier + '</b>。';
         } else {
-            html += '院校推荐区间：<b>' + recOld.tier + '</b> → <b style="color:#10b981;">' + recNew.tier + '</b> 🎉';
+            html += '院校推荐区间：<b>' + recOld.tier + '</b> → <b data-style="color:#10b981;">' + recNew.tier + '</b> 🎉';
         }
         box.innerHTML = html;
     }

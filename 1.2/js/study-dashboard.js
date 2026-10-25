@@ -346,50 +346,50 @@ window.studyDashboard = (function() {
             accuracyLabels.push(accuracyTrend[i].label);
         }
 
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;">' +
-            '<div style="background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">\u7D2F\u8BA1\u5B66\u4E60\u65F6\u957F</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + studyMinutes + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">\u5206\u949F (\u4F30\u7B97)</div></div>' +
-            '<div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">\u5DF2\u7B54\u9898\u76EE</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + totalQuestions + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">\u9898</div></div>' +
-            '<div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">\u9519\u9898\u672C</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + (data.errorNotebook.length || 0) + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">\u6761\u8BB0\u5F55</div></div>' +
-            '<div style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;opacity:0.85;">\u5B66\u4E60\u6B21\u6570</div>' +
-            '<div style="font-size:28px;font-weight:bold;margin:6px 0;">' + (data.examHistory.length + data.gameScores.length) + '</div>' +
-            '<div style="font-size:11px;opacity:0.75;">\u6B21</div></div>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;">' +
+            '<div data-style="background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">\u7D2F\u8BA1\u5B66\u4E60\u65F6\u957F</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + studyMinutes + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">\u5206\u949F (\u4F30\u7B97)</div></div>' +
+            '<div data-style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">\u5DF2\u7B54\u9898\u76EE</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + totalQuestions + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">\u9898</div></div>' +
+            '<div data-style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">\u9519\u9898\u672C</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + (data.errorNotebook.length || 0) + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">\u6761\u8BB0\u5F55</div></div>' +
+            '<div data-style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;border-radius:12px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;opacity:0.85;">\u5B66\u4E60\u6B21\u6570</div>' +
+            '<div data-style="font-size:28px;font-weight:bold;margin:6px 0;">' + (data.examHistory.length + data.gameScores.length) + '</div>' +
+            '<div data-style="font-size:11px;opacity:0.75;">\u6B21</div></div>' +
             '</div>';
 
         if (!hasData) {
-            container.innerHTML += '<div style="text-align:center;padding:30px;background:#fefce8;border-radius:12px;border:2px dashed #facc15;">' +
-                '<div style="font-size:16px;color:#92400e;margin-bottom:8px;">\uD83D\uDCDA \u8FD8\u6CA1\u6709\u5B66\u4E60\u6570\u636E</div>' +
-                '<div style="font-size:13px;color:#a16207;">\u5F00\u59CB\u4F7F\u7528\u5DE5\u5177\u540E\uFF0C\u8FD9\u91CC\u5C06\u5C55\u793A\u4F60\u7684\u5B66\u4E60\u6570\u636E\u7EDF\u8BA1\u3002<br>\u53EF\u4EE5\u5148\u8BD5\u8BD5\u6A21\u62DF\u8003\u8BD5\u3001\u77E5\u8BC6\u95EF\u5173\u6216\u80CC\u8BF5\u6A21\u5F0F\uFF01</div></div>';
+            container.innerHTML += '<div data-style="text-align:center;padding:30px;background:#fefce8;border-radius:12px;border:2px dashed #facc15;">' +
+                '<div data-style="font-size:16px;color:#92400e;margin-bottom:8px;">\uD83D\uDCDA \u8FD8\u6CA1\u6709\u5B66\u4E60\u6570\u636E</div>' +
+                '<div data-style="font-size:13px;color:#a16207;">\u5F00\u59CB\u4F7F\u7528\u5DE5\u5177\u540E\uFF0C\u8FD9\u91CC\u5C06\u5C55\u793A\u4F60\u7684\u5B66\u4E60\u6570\u636E\u7EDF\u8BA1\u3002<br>\u53EF\u4EE5\u5148\u8BD5\u8BD5\u6A21\u62DF\u8003\u8BD5\u3001\u77E5\u8BC6\u95EF\u5173\u6216\u80CC\u8BF5\u6A21\u5F0F\uFF01</div></div>';
             return;
         }
 
-        container.innerHTML += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">' +
-            '<div style="flex:1;min-width:280px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
-            '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:8px;">\u51C6\u786E\u7387\u8D8B\u52BF</div>' +
-            '<canvas id="dashboard-bar" width="420" height="280" style="width:100%;max-width:420px;"></canvas></div>' +
-            '<div style="flex:1;min-width:280px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
-            '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:8px;">\u5B66\u79D1\u5206\u5E03</div>' +
-            '<canvas id="dashboard-pie" width="300" height="300" style="width:100%;max-width:300px;display:block;margin:0 auto;"></canvas></div>' +
+        container.innerHTML += '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">' +
+            '<div data-style="flex:1;min-width:280px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
+            '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:8px;">\u51C6\u786E\u7387\u8D8B\u52BF</div>' +
+            '<canvas id="dashboard-bar" width="420" height="280" data-style="width:100%;max-width:420px;"></canvas></div>' +
+            '<div data-style="flex:1;min-width:280px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
+            '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:8px;">\u5B66\u79D1\u5206\u5E03</div>' +
+            '<canvas id="dashboard-pie" width="300" height="300" data-style="width:100%;max-width:300px;display:block;margin:0 auto;"></canvas></div>' +
             '</div>';
 
         // Recent activity
-        container.innerHTML += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
-            '<div style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">\u8FD1\u671F\u6D3B\u52A8</div>';
+        container.innerHTML += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
+            '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">\u8FD1\u671F\u6D3B\u52A8</div>';
         for (var j = 0; j < recentActivity.length; j++) {
             var act = recentActivity[j];
-            container.innerHTML += '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#555;">' +
-                '<span><span style="background:#eff6ff;color:#3b82f6;padding:2px 8px;border-radius:10px;font-size:11px;margin-right:8px;">' + act.type + '</span>' + act.subject + '</span>' +
-                '<span style="color:#999;">' + act.detail + ' <span style="margin-left:8px;font-size:11px;">' + act.date + '</span></span></div>';
+            container.innerHTML += '<div data-style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#555;">' +
+                '<span><span data-style="background:#eff6ff;color:#3b82f6;padding:2px 8px;border-radius:10px;font-size:11px;margin-right:8px;">' + act.type + '</span>' + act.subject + '</span>' +
+                '<span data-style="color:#999;">' + act.detail + ' <span data-style="margin-left:8px;font-size:11px;">' + act.date + '</span></span></div>';
         }
         container.innerHTML += '</div>';
 

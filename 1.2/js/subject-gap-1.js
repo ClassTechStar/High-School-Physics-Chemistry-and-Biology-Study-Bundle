@@ -139,7 +139,7 @@ window.poemAppreciation = (function () {
             8: ['pavilion', '#3e2a1e', '#8b6f47']
         };
         var info = map[poemId] || map[1];
-        var svg = '<svg viewBox="0 0 280 200" style="width:100%;max-width:280px;height:auto;">';
+        var svg = '<svg viewBox="0 0 280 200" data-style="width:100%;max-width:280px;height:auto;">';
         svg += '<rect width="280" height="200" fill="' + info[1] + '"/>';
         if (poemId === 1) {
             svg += '<circle cx="210" cy="45" r="28" fill="#fef3c7" opacity="0.95"/>';
@@ -217,13 +217,13 @@ window.poemAppreciation = (function () {
             if (kw && p.title.toLowerCase().indexOf(kw) === -1 && p.author.toLowerCase().indexOf(kw) === -1 &&
                 p.dynasty.toLowerCase().indexOf(kw) === -1 && p.theme.toLowerCase().indexOf(kw) === -1) continue;
             var active = p.id === state.currentId;
-            html += '<div data-pid="' + p.id + '" style="padding:10px 12px;cursor:pointer;border-left:3px solid ' +
+            html += '<div data-pid="' + p.id + '" data-style="padding:10px 12px;cursor:pointer;border-left:3px solid ' +
                 (active ? '#3b82f6' : 'transparent') + ';background:' + (active ? '#eff6ff' : 'transparent') +
                 ';border-radius:0 6px 6px 0;margin-bottom:2px;">' +
-                '<div style="font-size:14px;font-weight:600;color:#1e293b;">' + esc(p.title) + '</div>' +
-                '<div style="font-size:11px;color:#64748b;margin-top:2px;">[' + esc(p.dynasty) + '] ' + esc(p.author) + ' · ' + esc(p.theme) + '</div></div>';
+                '<div data-style="font-size:14px;font-weight:600;color:#1e293b;">' + esc(p.title) + '</div>' +
+                '<div data-style="font-size:11px;color:#64748b;margin-top:2px;">[' + esc(p.dynasty) + '] ' + esc(p.author) + ' · ' + esc(p.theme) + '</div></div>';
         }
-        if (!html) html = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:13px;">无匹配结果</div>';
+        if (!html) html = '<div data-style="padding:20px;text-align:center;color:#94a3b8;font-size:13px;">无匹配结果</div>';
         el.innerHTML = html;
         var items = el.getElementsByTagName('div');
         for (var j = 0; j < items.length; j++) {
@@ -245,16 +245,16 @@ window.poemAppreciation = (function () {
         var el = document.getElementById('pa-poem-text');
         if (!el) return;
         var p = getPoem(state.currentId);
-        var html = '<div style="text-align:center;margin-bottom:8px;"><span style="font-size:18px;font-weight:700;color:#1e293b;">' + esc(p.title) + '</span>' +
-            '<span style="font-size:12px;color:#64748b;margin-left:8px;">[' + esc(p.dynasty) + '] ' + esc(p.author) + ' · ' + esc(p.type) + '</span></div>';
+        var html = '<div data-style="text-align:center;margin-bottom:8px;"><span data-style="font-size:18px;font-weight:700;color:#1e293b;">' + esc(p.title) + '</span>' +
+            '<span data-style="font-size:12px;color:#64748b;margin-left:8px;">[' + esc(p.dynasty) + '] ' + esc(p.author) + ' · ' + esc(p.type) + '</span></div>';
         for (var i = 0; i < p.fullText.length; i++) {
             var active = i === state.selectedLine;
-            html += '<div data-line="' + i + '" style="padding:8px 12px;margin:3px 0;cursor:pointer;border-radius:6px;font-size:16px;line-height:1.8;text-align:center;' +
+            html += '<div data-line="' + i + '" data-style="padding:8px 12px;margin:3px 0;cursor:pointer;border-radius:6px;font-size:16px;line-height:1.8;text-align:center;' +
                 (active ? 'background:#dbeafe;color:#1e40af;font-weight:600;' : 'background:#f8fafc;color:#334155;') +
                 '" data-hook="gap-line" data-rest-bg="' + (active ? '#dbeafe' : '#f8fafc') + '">' +
                 esc(p.fullText[i]) + '</div>';
         }
-        html += '<div style="font-size:11px;color:#94a3b8;text-align:center;margin-top:6px;">点击任意诗句查看赏析</div>';
+        html += '<div data-style="font-size:11px;color:#94a3b8;text-align:center;margin-top:6px;">点击任意诗句查看赏析</div>';
         el.innerHTML = html;
         var lines = el.getElementsByTagName('div');
         for (var j = 0; j < lines.length; j++) {
@@ -274,18 +274,18 @@ window.poemAppreciation = (function () {
         if (!el) return;
         var p = getPoem(state.currentId);
         if (state.selectedLine < 0) {
-            el.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:13px;">↑ 点击上方任意诗句查看逐句赏析</div>';
+            el.innerHTML = '<div data-style="padding:20px;text-align:center;color:#94a3b8;font-size:13px;">↑ 点击上方任意诗句查看逐句赏析</div>';
             return;
         }
         var ann = p.annotations[state.selectedLine];
         if (!ann) { el.innerHTML = ''; return; }
         el.innerHTML =
-            '<div style="padding:14px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">' +
-            '<div style="font-size:14px;color:#1e40af;font-weight:600;margin-bottom:8px;">' + esc(p.fullText[state.selectedLine]) + '</div>' +
-            '<div style="font-size:13px;color:#334155;line-height:1.7;margin-bottom:10px;">' + esc(ann.appreciation) + '</div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-            '<span style="display:inline-block;padding:3px 10px;background:#dbeafe;color:#1e40af;border-radius:12px;font-size:11px;font-weight:600;">手法：' + esc(ann.technique) + '</span>' +
-            '<span style="display:inline-block;padding:3px 10px;background:#fce7f3;color:#9f1239;border-radius:12px;font-size:11px;font-weight:600;">意境：' + esc(ann.mood) + '</span>' +
+            '<div data-style="padding:14px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">' +
+            '<div data-style="font-size:14px;color:#1e40af;font-weight:600;margin-bottom:8px;">' + esc(p.fullText[state.selectedLine]) + '</div>' +
+            '<div data-style="font-size:13px;color:#334155;line-height:1.7;margin-bottom:10px;">' + esc(ann.appreciation) + '</div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;">' +
+            '<span data-style="display:inline-block;padding:3px 10px;background:#dbeafe;color:#1e40af;border-radius:12px;font-size:11px;font-weight:600;">手法：' + esc(ann.technique) + '</span>' +
+            '<span data-style="display:inline-block;padding:3px 10px;background:#fce7f3;color:#9f1239;border-radius:12px;font-size:11px;font-weight:600;">意境：' + esc(ann.mood) + '</span>' +
             '</div></div>';
     }
     function renderSvgPanel() {
@@ -298,30 +298,30 @@ window.poemAppreciation = (function () {
         if (!el) return;
         var p = getPoem(state.currentId);
         el.innerHTML =
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;">' +
-            '<div style="flex:1;min-width:280px;padding:12px 14px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a;">' +
-            '<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;">高考考点</div>' +
-            '<div style="font-size:12px;color:#78350f;line-height:1.6;">' + esc(p.examPoints) + '</div></div>' +
-            '<div style="flex:1;min-width:280px;padding:12px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">' +
-            '<div style="font-size:12px;font-weight:700;color:#991b1b;margin-bottom:4px;">默写易错字</div>' +
-            '<div style="font-size:12px;color:#7f1d1d;line-height:1.6;">' + esc(p.reciteKey) + '</div></div></div>';
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;">' +
+            '<div data-style="flex:1;min-width:280px;padding:12px 14px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a;">' +
+            '<div data-style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;">高考考点</div>' +
+            '<div data-style="font-size:12px;color:#78350f;line-height:1.6;">' + esc(p.examPoints) + '</div></div>' +
+            '<div data-style="flex:1;min-width:280px;padding:12px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">' +
+            '<div data-style="font-size:12px;font-weight:700;color:#991b1b;margin-bottom:4px;">默写易错字</div>' +
+            '<div data-style="font-size:12px;color:#7f1d1d;line-height:1.6;">' + esc(p.reciteKey) + '</div></div></div>';
     }
     function render() {
         var c = document.getElementById('poem-appreciation-app');
         if (!c) return;
         c.innerHTML =
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;">' +
-            '<div style="width:220px;flex-shrink:0;">' +
-            '<input id="pa-search" type="text" placeholder="搜索诗题/作者/主题..." style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;margin-bottom:8px;box-sizing:border-box;" />' +
-            '<div id="pa-poem-list" style="max-height:560px;overflow-y:auto;"></div></div>' +
-            '<div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:12px;">' +
-            '<div id="pa-poem-text" style="padding:14px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;"></div>' +
-            '<div id="pa-analysis" style="min-height:80px;"></div></div>' +
-            '<div style="width:300px;flex-shrink:0;">' +
-            '<div style="font-size:13px;font-weight:600;color:#475569;margin-bottom:8px;">意境图</div>' +
-            '<div id="pa-svg" style="padding:12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;text-align:center;"></div></div>' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;">' +
+            '<div data-style="width:220px;flex-shrink:0;">' +
+            '<input id="pa-search" type="text" placeholder="搜索诗题/作者/主题..." data-style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;margin-bottom:8px;box-sizing:border-box;" />' +
+            '<div id="pa-poem-list" data-style="max-height:560px;overflow-y:auto;"></div></div>' +
+            '<div data-style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:12px;">' +
+            '<div id="pa-poem-text" data-style="padding:14px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;"></div>' +
+            '<div id="pa-analysis" data-style="min-height:80px;"></div></div>' +
+            '<div data-style="width:300px;flex-shrink:0;">' +
+            '<div data-style="font-size:13px;font-weight:600;color:#475569;margin-bottom:8px;">意境图</div>' +
+            '<div id="pa-svg" data-style="padding:12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;text-align:center;"></div></div>' +
             '</div>' +
-            '<div id="pa-footer" style="margin-top:12px;"></div>';
+            '<div id="pa-footer" data-style="margin-top:12px;"></div>';
         renderPoemList();
         renderPoemText();
         renderAnalysis();
@@ -481,7 +481,7 @@ window.classicalTranslation = (function () {
         var cur = 0;
         for (var k = 0; k < clean.length; k++) {
             html += esc(sentence.substring(cur, clean[k].start));
-            html += '<span data-ann="' + clean[k].idx + '" style="color:#2563eb;border-bottom:1px dashed #2563eb;cursor:pointer;background:rgba(37,99,235,0.05);border-radius:2px;padding:0 1px;">' + esc(sentence.substring(clean[k].start, clean[k].end)) + '</span>';
+            html += '<span data-ann="' + clean[k].idx + '" data-style="color:#2563eb;border-bottom:1px dashed #2563eb;cursor:pointer;background:rgba(37,99,235,0.05);border-radius:2px;padding:0 1px;">' + esc(sentence.substring(clean[k].start, clean[k].end)) + '</span>';
             cur = clean[k].end;
         }
         html += esc(sentence.substring(cur));
@@ -496,8 +496,8 @@ window.classicalTranslation = (function () {
         bubble.style.cssText = 'position:fixed;left:' + rect.left + 'px;top:' + (rect.bottom + 8) +
             'px;z-index:9999;max-width:320px;padding:12px 16px;background:#1e293b;color:#f1f5f9;' +
             'border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.3);font-size:13px;line-height:1.6;cursor:pointer;';
-        bubble.innerHTML = '<div style="font-weight:700;color:#fbbf24;margin-bottom:4px;font-size:14px;">' + esc(ann.word) + '</div>' +
-            '<div>' + esc(ann.meaning) + '</div><div style="margin-top:6px;font-size:11px;color:#94a3b8;">点击关闭</div>';
+        bubble.innerHTML = '<div data-style="font-weight:700;color:#fbbf24;margin-bottom:4px;font-size:14px;">' + esc(ann.word) + '</div>' +
+            '<div>' + esc(ann.meaning) + '</div><div data-style="margin-top:6px;font-size:11px;color:#94a3b8;">点击关闭</div>';
         document.body.appendChild(bubble);
         if (rect.left + 320 > window.innerWidth) {
             bubble.style.left = Math.max(10, window.innerWidth - 330) + 'px';
@@ -515,29 +515,29 @@ window.classicalTranslation = (function () {
         var el = document.getElementById('ct-content');
         if (!el) return;
         var p = getPassage(state.currentId);
-        var html = '<div style="text-align:center;margin-bottom:14px;"><span style="font-size:18px;font-weight:700;color:#1e293b;">' + esc(p.title) + '</span>' +
-            '<span style="font-size:12px;color:#64748b;margin-left:8px;">' + esc(p.source) + '</span></div>';
+        var html = '<div data-style="text-align:center;margin-bottom:14px;"><span data-style="font-size:18px;font-weight:700;color:#1e293b;">' + esc(p.title) + '</span>' +
+            '<span data-style="font-size:12px;color:#64748b;margin-left:8px;">' + esc(p.source) + '</span></div>';
         if (state.mode === 'compare') {
-            html += '<div style="display:flex;gap:0;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">' +
-                '<div style="flex:1;padding:14px;background:#fefce8;border-right:2px solid #e5e7eb;">';
-            html += '<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:10px;text-align:center;">原文（点击蓝色字词查看注释）</div>';
+            html += '<div data-style="display:flex;gap:0;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">' +
+                '<div data-style="flex:1;padding:14px;background:#fefce8;border-right:2px solid #e5e7eb;">';
+            html += '<div data-style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:10px;text-align:center;">原文（点击蓝色字词查看注释）</div>';
             for (var i = 0; i < p.original.length; i++) {
-                html += '<div style="padding:8px 6px;font-size:15px;line-height:1.9;color:#1e293b;border-bottom:1px dashed #e5e7eb;min-height:24px;">' + buildAnnotatedHTML(p.original[i], p.annotations, i) + '</div>';
+                html += '<div data-style="padding:8px 6px;font-size:15px;line-height:1.9;color:#1e293b;border-bottom:1px dashed #e5e7eb;min-height:24px;">' + buildAnnotatedHTML(p.original[i], p.annotations, i) + '</div>';
             }
-            html += '</div><div style="flex:1;padding:14px;background:#f0f9ff;">';
-            html += '<div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:10px;text-align:center;">译文</div>';
+            html += '</div><div data-style="flex:1;padding:14px;background:#f0f9ff;">';
+            html += '<div data-style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:10px;text-align:center;">译文</div>';
             for (var j = 0; j < p.translation.length; j++) {
-                html += '<div style="padding:8px 6px;font-size:14px;line-height:1.9;color:#334155;border-bottom:1px dashed #e5e7eb;min-height:24px;">' + esc(p.translation[j]) + '</div>';
+                html += '<div data-style="padding:8px 6px;font-size:14px;line-height:1.9;color:#334155;border-bottom:1px dashed #e5e7eb;min-height:24px;">' + esc(p.translation[j]) + '</div>';
             }
             html += '</div></div>';
         } else {
-            html += '<div style="padding:14px;background:#fefce8;border:1px solid #e5e7eb;border-radius:8px;">';
-            html += '<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:10px;text-align:center;">原文（自测模式：尝试自行翻译，点击字词查看注释）</div>';
+            html += '<div data-style="padding:14px;background:#fefce8;border:1px solid #e5e7eb;border-radius:8px;">';
+            html += '<div data-style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:10px;text-align:center;">原文（自测模式：尝试自行翻译，点击字词查看注释）</div>';
             for (var k = 0; k < p.original.length; k++) {
-                html += '<div style="padding:10px 6px;font-size:16px;line-height:1.9;color:#1e293b;border-bottom:1px dashed #e5e7eb;min-height:28px;">' + buildAnnotatedHTML(p.original[k], p.annotations, k) + '</div>';
+                html += '<div data-style="padding:10px 6px;font-size:16px;line-height:1.9;color:#1e293b;border-bottom:1px dashed #e5e7eb;min-height:28px;">' + buildAnnotatedHTML(p.original[k], p.annotations, k) + '</div>';
             }
             html += '</div>';
-            html += '<div style="margin-top:10px;text-align:center;"><button id="ct-reveal" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">显示译文</button></div>';
+            html += '<div data-style="margin-top:10px;text-align:center;"><button id="ct-reveal" data-style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">显示译文</button></div>';
         }
         el.innerHTML = html;
         var annSpans = el.getElementsByTagName('span');
@@ -562,13 +562,13 @@ window.classicalTranslation = (function () {
         var el = document.getElementById('ct-grammar');
         if (!el) return;
         var p = getPassage(state.currentId);
-        var html = '<div style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">重要语法现象</div><div style="display:flex;gap:8px;flex-wrap:wrap;">';
+        var html = '<div data-style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">重要语法现象</div><div data-style="display:flex;gap:8px;flex-wrap:wrap;">';
         for (var i = 0; i < p.keyGrammar.length; i++) {
             var g = p.keyGrammar[i];
-            html += '<div style="flex:1;min-width:260px;padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e5e7eb;">' +
-                '<div style="font-size:13px;font-weight:700;color:#3b82f6;margin-bottom:4px;">' + esc(g.pattern) + '</div>' +
-                '<div style="font-size:12px;color:#475569;margin-bottom:6px;line-height:1.6;">' + esc(g.explanation) + '</div>' +
-                '<div style="font-size:12px;color:#92400e;background:#fefce8;padding:4px 8px;border-radius:4px;">例：' + esc(g.example) + '</div></div>';
+            html += '<div data-style="flex:1;min-width:260px;padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e5e7eb;">' +
+                '<div data-style="font-size:13px;font-weight:700;color:#3b82f6;margin-bottom:4px;">' + esc(g.pattern) + '</div>' +
+                '<div data-style="font-size:12px;color:#475569;margin-bottom:6px;line-height:1.6;">' + esc(g.explanation) + '</div>' +
+                '<div data-style="font-size:12px;color:#92400e;background:#fefce8;padding:4px 8px;border-radius:4px;">例：' + esc(g.example) + '</div></div>';
         }
         html += '</div>';
         el.innerHTML = html;
@@ -581,12 +581,12 @@ window.classicalTranslation = (function () {
             opts += '<option value="' + PASSAGES[i].id + '">' + esc(PASSAGES[i].title) + ' — ' + esc(PASSAGES[i].source) + '</option>';
         }
         c.innerHTML =
-            '<div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">' +
-            '<select id="ct-select" style="padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;flex:1;min-width:200px;">' + opts + '</select>' +
-            '<button id="ct-mode-compare" style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">对照模式</button>' +
-            '<button id="ct-mode-original" style="padding:8px 16px;background:#e5e7eb;color:#475569;border:none;border-radius:6px;cursor:pointer;font-size:13px;">仅原文（自测）</button>' +
+            '<div data-style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">' +
+            '<select id="ct-select" data-style="padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;flex:1;min-width:200px;">' + opts + '</select>' +
+            '<button id="ct-mode-compare" data-style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">对照模式</button>' +
+            '<button id="ct-mode-original" data-style="padding:8px 16px;background:#e5e7eb;color:#475569;border:none;border-radius:6px;cursor:pointer;font-size:13px;">仅原文（自测）</button>' +
             '</div>' +
-            '<div id="ct-content" style="margin-bottom:14px;"></div>' +
+            '<div id="ct-content" data-style="margin-bottom:14px;"></div>' +
             '<div id="ct-grammar"></div>';
         var sel = document.getElementById('ct-select');
         sel.value = state.currentId;
@@ -924,10 +924,10 @@ window.solidGeometry3D = (function () {
         for (var i = 0; i < shape.params.length; i++) {
             var p = shape.params[i];
             var val = params[p.key];
-            html += '<div style="margin-bottom:12px;">' +
-                '<label style="display:flex;justify-content:space-between;font-size:12px;color:#475569;margin-bottom:4px;">' +
-                '<span>' + p.label + '</span><span style="color:#3b82f6;font-weight:700;">' + val.toFixed(1) + '</span></label>' +
-                '<input type="range" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" value="' + val + '" data-key="' + p.key + '" style="width:100%;accent-color:#3b82f6;" /></div>';
+            html += '<div data-style="margin-bottom:12px;">' +
+                '<label data-style="display:flex;justify-content:space-between;font-size:12px;color:#475569;margin-bottom:4px;">' +
+                '<span>' + p.label + '</span><span data-style="color:#3b82f6;font-weight:700;">' + val.toFixed(1) + '</span></label>' +
+                '<input type="range" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" value="' + val + '" data-key="' + p.key + '" data-style="width:100%;accent-color:#3b82f6;" /></div>';
         }
         el.innerHTML = html;
         var sliders = el.getElementsByTagName('input');
@@ -946,24 +946,24 @@ window.solidGeometry3D = (function () {
         var el = document.getElementById('sg3d-formulas');
         if (!el) return;
         var shape = SHAPES[currentShape];
-        var html = '<div style="font-size:12px;font-weight:700;color:#475569;margin-bottom:8px;">公式与计算</div>';
+        var html = '<div data-style="font-size:12px;font-weight:700;color:#475569;margin-bottom:8px;">公式与计算</div>';
         for (var i = 0; i < shape.formulas.length; i++) {
             var f = shape.formulas[i];
             var val = f.calc(params);
-            html += '<div style="padding:8px 10px;background:#f0f9ff;border-radius:6px;margin-bottom:6px;border:1px solid #bae6fd;">' +
-                '<div style="font-size:12px;color:#1e40af;font-weight:600;">' + f.name + '</div>' +
-                '<div style="font-size:13px;color:#334155;margin-top:2px;">公式：<span style="font-family:serif;color:#64748b;">' + f.expr + '</span></div>' +
-                '<div style="font-size:14px;color:#3b82f6;font-weight:700;margin-top:2px;">= ' + val.toFixed(2) + '</div></div>';
+            html += '<div data-style="padding:8px 10px;background:#f0f9ff;border-radius:6px;margin-bottom:6px;border:1px solid #bae6fd;">' +
+                '<div data-style="font-size:12px;color:#1e40af;font-weight:600;">' + f.name + '</div>' +
+                '<div data-style="font-size:13px;color:#334155;margin-top:2px;">公式：<span data-style="font-family:serif;color:#64748b;">' + f.expr + '</span></div>' +
+                '<div data-style="font-size:14px;color:#3b82f6;font-weight:700;margin-top:2px;">= ' + val.toFixed(2) + '</div></div>';
         }
         if (shape.specialLines && shape.specialLines.length > 0) {
-            html += '<div style="font-size:12px;font-weight:700;color:#92400e;margin:10px 0 6px;">特殊线段</div>';
+            html += '<div data-style="font-size:12px;font-weight:700;color:#92400e;margin:10px 0 6px;">特殊线段</div>';
             for (var j = 0; j < shape.specialLines.length; j++) {
                 var sl = shape.specialLines[j];
                 var slVal = sl.calc(params);
-                html += '<div style="padding:6px 10px;background:#fffbeb;border-radius:6px;margin-bottom:4px;border:1px solid #fde68a;">' +
-                    '<span style="font-size:12px;color:#92400e;font-weight:600;">' + sl.name + '</span>' +
-                    '<span style="font-size:11px;color:#a16207;font-family:serif;margin-left:6px;">' + sl.expr + '</span>' +
-                    '<span style="font-size:13px;color:#d97706;font-weight:700;float:right;">' + slVal.toFixed(2) + '</span></div>';
+                html += '<div data-style="padding:6px 10px;background:#fffbeb;border-radius:6px;margin-bottom:4px;border:1px solid #fde68a;">' +
+                    '<span data-style="font-size:12px;color:#92400e;font-weight:600;">' + sl.name + '</span>' +
+                    '<span data-style="font-size:11px;color:#a16207;font-family:serif;margin-left:6px;">' + sl.expr + '</span>' +
+                    '<span data-style="font-size:13px;color:#d97706;font-weight:700;float:right;">' + slVal.toFixed(2) + '</span></div>';
             }
         }
         el.innerHTML = html;
@@ -973,9 +973,9 @@ window.solidGeometry3D = (function () {
         var el = document.getElementById('sg3d-exam');
         if (!el) return;
         var shape = SHAPES[currentShape];
-        el.innerHTML = '<div style="padding:12px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">' +
-            '<div style="font-size:12px;font-weight:700;color:#991b1b;margin-bottom:4px;">高考考点</div>' +
-            '<div style="font-size:12px;color:#7f1d1d;line-height:1.7;">' + shape.examPoints + '</div></div>';
+        el.innerHTML = '<div data-style="padding:12px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">' +
+            '<div data-style="font-size:12px;font-weight:700;color:#991b1b;margin-bottom:4px;">高考考点</div>' +
+            '<div data-style="font-size:12px;color:#7f1d1d;line-height:1.7;">' + shape.examPoints + '</div></div>';
     }
 
     function switchShape(shape) {
@@ -997,17 +997,17 @@ window.solidGeometry3D = (function () {
         var shapeKeys = ['cube','cuboid','triangularPrism','squarePyramid','cylinder','cone','sphere','frustum'];
         for (var i = 0; i < shapeKeys.length; i++) {
             var sk = shapeKeys[i];
-            listHtml += '<div data-shape="' + sk + '" style="padding:10px 12px;cursor:pointer;border-radius:6px;margin-bottom:2px;font-size:13px;color:#334155;" data-hook="shape-item">' + SHAPES[sk].name + '</div>';
+            listHtml += '<div data-shape="' + sk + '" data-style="padding:10px 12px;cursor:pointer;border-radius:6px;margin-bottom:2px;font-size:13px;color:#334155;" data-hook="shape-item">' + SHAPES[sk].name + '</div>';
         }
         c.innerHTML =
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;">' +
-            '<div style="width:150px;flex-shrink:0;"><div style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">几何体</div>' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;">' +
+            '<div data-style="width:150px;flex-shrink:0;"><div data-style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">几何体</div>' +
             '<div id="sg3d-list">' + listHtml + '</div></div>' +
-            '<div style="flex:1;min-width:400px;"><canvas id="sg3d-canvas" width="560" height="440" style="border:1px solid #334155;border-radius:8px;width:100%;max-width:560px;cursor:grab;background:#0f172a;"></canvas></div>' +
-            '<div style="width:240px;flex-shrink:0;"><div style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">属性面板</div>' +
-            '<div id="sg3d-params" style="margin-bottom:12px;"></div>' +
+            '<div data-style="flex:1;min-width:400px;"><canvas id="sg3d-canvas" width="560" height="440" data-style="border:1px solid #334155;border-radius:8px;width:100%;max-width:560px;cursor:grab;background:#0f172a;"></canvas></div>' +
+            '<div data-style="width:240px;flex-shrink:0;"><div data-style="font-size:13px;font-weight:700;color:#475569;margin-bottom:8px;">属性面板</div>' +
+            '<div id="sg3d-params" data-style="margin-bottom:12px;"></div>' +
             '<div id="sg3d-formulas"></div></div></div>' +
-            '<div id="sg3d-exam" style="margin-top:12px;"></div>';
+            '<div id="sg3d-exam" data-style="margin-top:12px;"></div>';
         var listItems = document.getElementById('sg3d-list').getElementsByTagName('div');
         function highlightList() {
             for (var m = 0; m < listItems.length; m++) {
