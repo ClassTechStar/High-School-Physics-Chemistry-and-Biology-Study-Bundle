@@ -192,6 +192,25 @@ function isChoiceType(t) {
 const ANALYSIS_ANSWER_LETTER =
   /(?:故?选(?:正确(?:选项|答案))?|答案(?:是|为)?|正确选项(?:是|为)?|应选)\s*[:：]?\s*([A-D])\b/gi;
 
+/**
+ * 内容去重指纹（P1-6）：题干 + 选项集合 + 正确选项内容。
+ * 选项按内容排序，因此「同一道题仅选项顺序不同」也会被识别为重复；
+ * 只对 ≥2 个选项的选择题启用，避免无选项的英语填空题（题干为通用指令、
+ * 正文在 passage 字段）被误判。
+ */
+function contentFingerprint(q) {
+  if (!isChoiceType(q.type) || !Array.isArray(q.options) || q.options.length < 2) return null;
+  if (!isNonEmptyString(q.answer) || !/^[A-F]$/.test(q.answer.trim().toUpperCase())) return null;
+  const ci = q.answer.trim().toUpperCase().charCodeAt(0) - 65;
+  if (ci >= q.options.length) return null;
+  const norm = (s) => String(s ?? '')
+    .replace(/\s+/g, '')
+    .replace(/[\u3000，。；：、？！""''（）()【】\[\]《》<>.,;:!?"'`~～·\-—_/\\|]/g, '')
+    .toLowerCase();
+  const opts = q.options.map(norm).sort().join('|');
+  return `${norm(q.question)}||${opts}||${norm(q.options[ci])}`;
+}
+
 function validateQuestion(q, subject, index, stats) {
   const id = q.id || `${subject}#${index}`;
   const tag = `exam-bank.${subject}[${index}](${id})`;
@@ -289,9 +308,10 @@ function validateExamBank() {
   if (!data.meta) warn(rel, '缺少 meta');
   if (!Array.isArray(data.meta?.subjects)) warn(rel, 'meta.subjects 缺失');
 
-  const stats = { total: 0, choice: 0, internalNote: 0, answerAnalysisConflict: 0, bySubject: {}, dupIds: 0 };
+  const stats = { total: 0, choice: 0, internalNote: 0, answerAnalysisConflict: 0, contentDup: 0, bySubject: {}, dupIds: 0 };
   let metaClaimed = null;
   const seenIds = new Set();
+  const seenFingerprints = new Map();
 
   // 兼容: exams 数组实为题目列表（现状），或 questions 字段
   for (const subject of SUBJECTS) {
@@ -320,6 +340,15 @@ function validateExamBank() {
             error(rel, `${subject}[${i}]: 题目 id 重复 ${q.id}`, q.id);
           } else {
             seenIds.add(q.id);
+          }
+        }
+        const fp = contentFingerprint(q);
+        if (fp) {
+          if (seenFingerprints.has(fp)) {
+            stats.contentDup += 1;
+            error(rel, `${subject}[${i}]: 内容重复（题干/选项集合/答案与 ${seenFingerprints.get(fp)} 一致）`, q.id);
+          } else {
+            seenFingerprints.set(fp, q.id);
           }
         }
         validateQuestion(q, subject, i, stats);
@@ -496,7 +525,7 @@ function main() {
 
   // 抽样摘要（质检实际已全量跑，这里展示 sample 规模说明）
   const sampleNote = examStats
-    ? `题库结构校验: 全量 ${examStats.total} 题 (选择题 ${examStats.choice}); 内部备注命中 ${examStats.internalNote}; 解析/答案冲突 ${examStats.answerAnalysisConflict}`
+    ? `题库结构校验: 全量 ${examStats.total} 题 (选择题 ${examStats.choice}); 内部备注命中 ${examStats.internalNote}; 解析/答案冲突 ${examStats.answerAnalysisConflict}; 内容重复 ${examStats.contentDup}`
     : '题库未加载';
 
   if (asJson) {

@@ -61,7 +61,7 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
     │   ├── study-dashboard.js          学习仪表盘
     │   └── ...                        其余工具模块
     └── data/                   六科知识点 + 扩展题库
-        ├── exam-bank.json              综合题库（1301 题）
+        ├── exam-bank.json              综合题库（1198 题）
         ├── cross-subject.json          跨学科专题（运行时加载）
         ├── variation-bank.json         变式题库
         ├── answer-templates.json       答题模板
@@ -125,7 +125,7 @@ npm run serve
 | 数学 | 函数、几何、代数、统计类知识点与工具 |
 | 语文 | 现代文阅读、文言文、古诗词鉴赏、作文、病句修改 |
 | 英语 | 词汇、语法、阅读、写作工具 |
-| 题库 | 1301 道题，按学科、章节、难度、年级筛选；错题可加入错题本 |
+| 题库 | 1198 道题，按学科、章节、难度、年级筛选；错题可加入错题本 |
 | 错题归因 | 错题按知识点归类，结合考点别名表生成复习路径 |
 | 提分工具 | 学习仪表盘、考试回顾、模拟考试、开放性答题训练 |
 | 游戏化 | 积分、成就、等级 |
@@ -156,7 +156,7 @@ node scripts/nocache-server.mjs 1.2 8902   # 禁用缓存的本地调试服务�
 - `scripts/validate-data.mjs`：校验六科 `knowledge.json`、`exam-bank.json`（schema v2 `questions` 字段、字母答案必须有 options 且不越界、解析声明的答案字母必须与 `answer` 一致、内部备注黑名单）、扩展题库、SW 资源清单、首页 `subject-cards` 嵌套。
 - `1.2/js/progress.js`：统一进度存储 `hspcb.v2.*`，启动时自动从 v1 裸 key 迁移，支持导出 / 导入备份。
 
-当前数据基线：六科 **1301** 道题（另有 417 条历史副本已归档至 `1.2/data/_archive/`，可追溯回滚）。四选项单选题共 1053 道，全局答案分布 A262 / B250 / C251 / D290，各学科单字母占比均在 22%–31% 之间。
+当前数据基线：六科 **1198** 道题（另有 520 条历史副本已归档至 `1.2/data/_archive/`，可追溯回滚）。四选项单选题共 950 道，全局答案分布 A236 / B224 / C225 / D265，各学科单字母占比均在 21.7%–31.5% 之间。
 
 ---
 
