@@ -1,6 +1,6 @@
 {
   "name": "hspcb-study-bundle",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "高中物化生语数英学习大礼包 — 六科知识点、题库与错题本（纯静态，可离线）",
   "type": "module",
