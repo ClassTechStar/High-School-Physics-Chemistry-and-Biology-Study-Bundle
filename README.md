@@ -13,7 +13,6 @@
 High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 ├── README.md
 ├── .gitignore
-├── docs/               开发文档（勘误报告、开发方案、优化任务清单）
 ├── scripts/            校验与修复工具（Node ≥ 18，无三方依赖）
 ├── .github/workflows/  CI：push/PR 自动跑 verify 门禁
 ├── 1.1/                版本 1.1 归档（物化生三科，只读）
@@ -75,6 +74,14 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 ```
 
 ---
+
+## 在线使用（推荐）
+
+无需下载任何东西，直接打开部署在 GitHub Pages 的在线版：
+
+> **🚀 [点此进入在线版](https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/)**
+
+支持手机浏览器；用 Chrome / Edge 打开后可「添加到主屏幕」作为 PWA 离线使用（首次访问需联网加载）。
 
 ## 快速开始
 

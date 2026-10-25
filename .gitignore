@@ -21,3 +21,8 @@ build/
 # Local env
 .env
 .env.local
+
+# 会话产物 / 大二进制不入库（v1.4 清污）
+.uploads/
+.trae-html-share-packages/
+*.zip
