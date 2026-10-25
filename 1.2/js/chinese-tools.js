@@ -43,19 +43,19 @@ window.chineseRecitation = (function() {
         if (!container) return;
         var items = state.mode === 'random' ? shuffleArray(texts.slice()) : texts;
         var current = items[state.currentIdx];
-        var html = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">' +
-            '<button class="rec-mode-btn" data-mode="sequential" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'sequential' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'sequential' ? '#fff' : '#333') + ';">顺序</button>' +
-            '<button class="rec-mode-btn" data-mode="random" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'random' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'random' ? '#fff' : '#333') + ';">随机</button>' +
-            (state.showResults ? '' : '<button id="rec-next" style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">' + (state.currentIdx >= texts.length - 1 ? '完成' : '下一题') + '</button>') +
-            '<span style="margin-left:auto;font-size:13px;color:#666;">' + (state.currentIdx + 1) + '/' + texts.length + ' | 得分: ' + state.score + '/' + state.total + '</span>' +
+        var html = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">' +
+            '<button class="rec-mode-btn" data-mode="sequential" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'sequential' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'sequential' ? '#fff' : '#333') + ';">顺序</button>' +
+            '<button class="rec-mode-btn" data-mode="random" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'random' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'random' ? '#fff' : '#333') + ';">随机</button>' +
+            (state.showResults ? '' : '<button id="rec-next" data-style="padding:7px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;cursor:pointer;">' + (state.currentIdx >= texts.length - 1 ? '完成' : '下一题') + '</button>') +
+            '<span data-style="margin-left:auto;font-size:13px;color:#666;">' + (state.currentIdx + 1) + '/' + texts.length + ' | 得分: ' + state.score + '/' + state.total + '</span>' +
             '</div>';
 
         if (state.showResults) {
-            html += '<div style="text-align:center;padding:40px;"><h3 style="color:#0ea5e9;">测试完成!</h3><p style="font-size:18px;margin:16px 0;">得分: ' + state.score + ' / ' + state.total + '</p><p style="font-size:14px;color:#666;">正确率: ' + (state.total > 0 ? Math.round(state.score / state.total * 100) : 0) + '%</p><button id="rec-restart" style="padding:10px 24px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;margin-top:16px;">重新开始</button></div>';
+            html += '<div data-style="text-align:center;padding:40px;"><h3 data-style="color:#0ea5e9;">测试完成!</h3><p data-style="font-size:18px;margin:16px 0;">得分: ' + state.score + ' / ' + state.total + '</p><p data-style="font-size:14px;color:#666;">正确率: ' + (state.total > 0 ? Math.round(state.score / state.total * 100) : 0) + '%</p><button id="rec-restart" data-style="padding:10px 24px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;margin-top:16px;">重新开始</button></div>';
         } else {
-            html += '<div style="margin-bottom:16px;padding:12px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">' +
-                '<div style="font-size:13px;color:#666;">' + current.title + ' · ' + current.author + ' · ' + current.dynasty + '</div>' +
+            html += '<div data-style="margin-bottom:16px;padding:12px 16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">' +
+                '<div data-style="font-size:13px;color:#666;">' + current.title + ' · ' + current.author + ' · ' + current.dynasty + '</div>' +
                 '</div>';
             var excerptHtml = current.excerpt;
             for (var i = 0; i < current.blanks.length; i++) {
@@ -65,14 +65,14 @@ window.chineseRecitation = (function() {
                 var feedback = '';
                 if (state.userAnswers.hasOwnProperty(key)) {
                     var correct = userAns === b.word;
-                    feedback = '<span style="color:' + (correct ? '#10b981' : '#ef4444') + ';font-size:12px;">' + (correct ? ' ✓' : ' ✗ 正确答案: ' + b.word) + '</span>';
+                    feedback = '<span data-style="color:' + (correct ? '#10b981' : '#ef4444') + ';font-size:12px;">' + (correct ? ' ✓' : ' ✗ 正确答案: ' + b.word) + '</span>';
                 }
-                excerptHtml = excerptHtml.replace(b.word, '<span style="background:#fef08a;padding:0 4px;border-radius:3px;">___</span>');
-                var inputHtml = '<div style="margin:8px 0;display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:#999;">提示: ' + b.hint + '</span><input class="rec-input" data-key="' + key + '" data-answer="' + b.word + '" style="width:120px;padding:4px 8px;border:1px solid #d1d5db;border-radius:4px;font-size:13px;" value="' + userAns + '"' + (state.userAnswers.hasOwnProperty(key) ? ' disabled' : '') + '>' + feedback + '</div>';
+                excerptHtml = excerptHtml.replace(b.word, '<span data-style="background:#fef08a;padding:0 4px;border-radius:3px;">___</span>');
+                var inputHtml = '<div data-style="margin:8px 0;display:flex;align-items:center;gap:8px;"><span data-style="font-size:12px;color:#999;">提示: ' + b.hint + '</span><input class="rec-input" data-key="' + key + '" data-answer="' + b.word + '" data-style="width:120px;padding:4px 8px;border:1px solid #d1d5db;border-radius:4px;font-size:13px;" value="' + userAns + '"' + (state.userAnswers.hasOwnProperty(key) ? ' disabled' : '') + '>' + feedback + '</div>';
                 html += inputHtml;
             }
-            html += '<div style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:6px;font-size:14px;line-height:1.8;color:#333;">' + excerptHtml + '</div>';
-            html += '<button id="rec-check" style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">检查答案</button>';
+            html += '<div data-style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:6px;font-size:14px;line-height:1.8;color:#333;">' + excerptHtml + '</div>';
+            html += '<button id="rec-check" data-style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">检查答案</button>';
         }
 
         container.innerHTML = html;
@@ -177,58 +177,58 @@ window.chineseVocabularyQuiz = (function() {
         var levelWords = words.slice(startIdx, endIdx);
 
         if (state.currentIdx >= levelWords.length) {
-            container.innerHTML = '<div class="tool-app-container" style="padding:16px;text-align:center;">' +
-                '<h3 style="color:#0ea5e9;">第' + state.level + '关完成!</h3>' +
-                '<p style="font-size:18px;">得分: ' + state.score + ' / ' + state.total + '</p>' +
-                '<p style="font-size:14px;color:#666;">正确率: ' + (state.total > 0 ? Math.round(state.score / state.total * 100) : 0) + '%</p>' +
-                (state.level < totalLevels ? '<button id="vocab-next-level" style="padding:10px 24px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:8px;">进入第' + (state.level + 1) + '关</button>' : '<p style="color:#10b981;">全部通关!</p>') +
-                '<button id="vocab-restart" style="padding:10px 24px;background:#6366f1;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:8px;">重新开始</button></div>';
+            container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;text-align:center;">' +
+                '<h3 data-style="color:#0ea5e9;">第' + state.level + '关完成!</h3>' +
+                '<p data-style="font-size:18px;">得分: ' + state.score + ' / ' + state.total + '</p>' +
+                '<p data-style="font-size:14px;color:#666;">正确率: ' + (state.total > 0 ? Math.round(state.score / state.total * 100) : 0) + '%</p>' +
+                (state.level < totalLevels ? '<button id="vocab-next-level" data-style="padding:10px 24px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:8px;">进入第' + (state.level + 1) + '关</button>' : '<p data-style="color:#10b981;">全部通关!</p>') +
+                '<button id="vocab-restart" data-style="padding:10px 24px;background:#6366f1;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:8px;">重新开始</button></div>';
             if (document.getElementById('vocab-next-level')) document.getElementById('vocab-next-level').onclick = function() { state.level++; state.currentIdx = 0; state.answered = []; renderQuizUI(); };
             if (document.getElementById('vocab-restart')) document.getElementById('vocab-restart').onclick = function() { state = { mode: 'choice', currentIdx: 0, score: 0, total: 0, answered: [], level: 1, wordsPerLevel: 10 }; renderQuizUI(); };
             return;
         }
 
         var current = levelWords[state.currentIdx];
-        var html = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">' +
-            '<button class="vocab-mode-btn" data-mode="choice" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'choice' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'choice' ? '#fff' : '#333') + ';">选择题</button>' +
-            '<button class="vocab-mode-btn" data-mode="match" style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'match' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'match' ? '#fff' : '#333') + ';">配对</button>' +
-            '<span style="margin-left:8px;font-size:13px;color:#666;">第' + state.level + '关</span>' +
-            '<span style="margin-left:auto;font-size:13px;color:#666;">' + (state.currentIdx + 1) + '/' + levelWords.length + ' | 得分: ' + state.score + '/' + state.total + '</span>' +
+        var html = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">' +
+            '<button class="vocab-mode-btn" data-mode="choice" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'choice' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'choice' ? '#fff' : '#333') + ';">选择题</button>' +
+            '<button class="vocab-mode-btn" data-mode="match" data-style="padding:7px 14px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:' + (state.mode === 'match' ? '#0ea5e9' : '#fff') + ';color:' + (state.mode === 'match' ? '#fff' : '#333') + ';">配对</button>' +
+            '<span data-style="margin-left:8px;font-size:13px;color:#666;">第' + state.level + '关</span>' +
+            '<span data-style="margin-left:auto;font-size:13px;color:#666;">' + (state.currentIdx + 1) + '/' + levelWords.length + ' | 得分: ' + state.score + '/' + state.total + '</span>' +
             '</div>';
 
         if (state.mode === 'choice') {
-            html += '<div style="padding:16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;margin-bottom:12px;">' +
-                '<div style="font-size:14px;color:#666;margin-bottom:6px;">' + current.source + '</div>' +
-                '<div style="font-size:16px;color:#333;margin-bottom:4px;">' + current.sentence.replace(current.word, '<strong style="color:#0ea5e9;">' + current.word + '</strong>') + '</div>' +
-                '<div style="font-size:14px;color:#666;">"' + current.word + '" 字的意思是?</div></div>';
+            html += '<div data-style="padding:16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;margin-bottom:12px;">' +
+                '<div data-style="font-size:14px;color:#666;margin-bottom:6px;">' + current.source + '</div>' +
+                '<div data-style="font-size:16px;color:#333;margin-bottom:4px;">' + current.sentence.replace(current.word, '<strong data-style="color:#0ea5e9;">' + current.word + '</strong>') + '</div>' +
+                '<div data-style="font-size:14px;color:#666;">"' + current.word + '" 字的意思是?</div></div>';
             var opts = shuffleArray(current.options.slice());
             for (var i = 0; i < opts.length; i++) {
                 var isAnswered = state.answered.indexOf(state.currentIdx) >= 0;
                 var isCorrect = opts[i] === current.meaning;
                 var bg = '#fff';
                 if (isAnswered) { bg = isCorrect ? '#d1fae5' : (opts[i] === state.lastChoice ? '#fee2e2' : '#fff'); }
-                html += '<div class="vocab-option" data-answer="' + opts[i] + '" style="padding:10px 14px;border:1px solid #d1d5db;border-radius:6px;margin-bottom:6px;cursor:pointer;background:' + bg + ';font-size:14px;' + (isAnswered ? 'pointer-events:none;' : '') + '">' + opts[i] + '</div>';
+                html += '<div class="vocab-option" data-answer="' + opts[i] + '" data-style="padding:10px 14px;border:1px solid #d1d5db;border-radius:6px;margin-bottom:6px;cursor:pointer;background:' + bg + ';font-size:14px;' + (isAnswered ? 'pointer-events:none;' : '') + '">' + opts[i] + '</div>';
             }
             if (isAnswered) {
-                html += '<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:6px;font-size:13px;color:#555;">讲解: "' + current.word + '" 在此处意为"' + current.meaning + '"，出自' + current.source + '</div>';
-                html += '<button id="vocab-next" style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下一题</button>';
+                html += '<div data-style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:6px;font-size:13px;color:#555;">讲解: "' + current.word + '" 在此处意为"' + current.meaning + '"，出自' + current.source + '</div>';
+                html += '<button id="vocab-next" data-style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下一题</button>';
             }
         } else {
             // Matching mode: show word, options for meanings
-            html += '<div style="padding:16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;margin-bottom:12px;">' +
-                '<div style="font-size:16px;color:#333;">请选择"<strong style="color:#0ea5e9;">' + current.word + '</strong>"的含义</div></div>';
+            html += '<div data-style="padding:16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;margin-bottom:12px;">' +
+                '<div data-style="font-size:16px;color:#333;">请选择"<strong data-style="color:#0ea5e9;">' + current.word + '</strong>"的含义</div></div>';
             var meanings = shuffleArray([current.meaning].concat(pickRandomOthers(current.meaning, 3)));
             for (var j = 0; j < meanings.length; j++) {
                 var isAnswered2 = state.answered.indexOf(state.currentIdx) >= 0;
                 var isCorrect2 = meanings[j] === current.meaning;
                 var bg2 = '#fff';
                 if (isAnswered2) { bg2 = isCorrect2 ? '#d1fae5' : (meanings[j] === state.lastChoice ? '#fee2e2' : '#fff'); }
-                html += '<div class="vocab-option" data-answer="' + meanings[j] + '" style="padding:10px 14px;border:1px solid #d1d5db;border-radius:6px;margin-bottom:6px;cursor:pointer;background:' + bg2 + ';font-size:14px;' + (isAnswered2 ? 'pointer-events:none;' : '') + '">' + meanings[j] + '</div>';
+                html += '<div class="vocab-option" data-answer="' + meanings[j] + '" data-style="padding:10px 14px;border:1px solid #d1d5db;border-radius:6px;margin-bottom:6px;cursor:pointer;background:' + bg2 + ';font-size:14px;' + (isAnswered2 ? 'pointer-events:none;' : '') + '">' + meanings[j] + '</div>';
             }
             if (isAnswered2) {
-                html += '<div style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:6px;font-size:13px;color:#555;">讲解: "' + current.word + '" 意为"' + current.meaning + '"，出自' + current.source + '</div>';
-                html += '<button id="vocab-next" style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下一题</button>';
+                html += '<div data-style="margin-top:12px;padding:10px;background:#f9fafb;border-radius:6px;font-size:13px;color:#555;">讲解: "' + current.word + '" 意为"' + current.meaning + '"，出自' + current.source + '</div>';
+                html += '<button id="vocab-next" data-style="margin-top:8px;padding:7px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:6px;cursor:pointer;">下一题</button>';
             }
         }
         container.innerHTML = html;
@@ -334,12 +334,12 @@ window.chineseCompositionMaterials = (function() {
         var topics = ['全部', '家国情怀', '青春奋斗', '科技创新', '文化传承'];
         var types = ['全部', '人物', '名言', '事例'];
 
-        var html = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="margin-bottom:8px;font-size:13px;color:#666;">主题筛选</div>' +
-            '<div id="mat-topic-filters" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
-            '<div style="margin-bottom:8px;font-size:13px;color:#666;">类型筛选</div>' +
-            '<div id="mat-type-filters" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
-            '<div style="margin-bottom:16px;"><input id="mat-search" placeholder="搜索素材..." style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;max-width:400px;" value="' + state.search + '"></div>' +
+        var html = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="margin-bottom:8px;font-size:13px;color:#666;">主题筛选</div>' +
+            '<div id="mat-topic-filters" data-style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
+            '<div data-style="margin-bottom:8px;font-size:13px;color:#666;">类型筛选</div>' +
+            '<div id="mat-type-filters" data-style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>' +
+            '<div data-style="margin-bottom:16px;"><input id="mat-search" placeholder="搜索素材..." data-style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;max-width:400px;" value="' + state.search + '"></div>' +
             '<div id="mat-list"></div></div>';
 
         container.innerHTML = html;
@@ -377,23 +377,23 @@ window.chineseCompositionMaterials = (function() {
         }
 
         if (filtered.length === 0) {
-            listDiv.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">没有找到匹配的素材</div>';
+            listDiv.innerHTML = '<div data-style="padding:20px;text-align:center;color:#999;">没有找到匹配的素材</div>';
         } else {
             var listHtml = '';
             for (var l = 0; l < filtered.length; l++) {
                 var m2 = filtered[l];
                 var typeColor = m2.type === '人物' ? '#8b5cf6' : (m2.type === '名言' ? '#f59e0b' : '#10b981');
                 var id = 'mat-' + l;
-                listHtml += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px;margin-bottom:10px;background:#fff;">' +
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
-                    '<span style="background:' + typeColor + ';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">' + m2.type + '</span>' +
-                    '<span style="font-weight:bold;font-size:15px;color:#333;">' + m2.title + '</span>' +
-                    '<span style="font-size:12px;color:#999;margin-left:auto;">' + m2.topic + '</span>' +
+                listHtml += '<div data-style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px;margin-bottom:10px;background:#fff;">' +
+                    '<div data-style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+                    '<span data-style="background:' + typeColor + ';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">' + m2.type + '</span>' +
+                    '<span data-style="font-weight:bold;font-size:15px;color:#333;">' + m2.title + '</span>' +
+                    '<span data-style="font-size:12px;color:#999;margin-left:auto;">' + m2.topic + '</span>' +
                     '</div>' +
-                    '<div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px;">' + m2.content + '</div>' +
-                    '<div style="font-size:12px;color:#888;">适用: ' + m2.application + '</div>' +
-                    '<div style="font-size:11px;color:#aaa;">来源: ' + m2.source + '</div>' +
-                    '<button class="mat-copy-btn" data-id="' + id + '" style="margin-top:6px;padding:4px 12px;font-size:11px;border:1px solid #d1d5db;border-radius:4px;background:#f9fafb;cursor:pointer;">复制内容</button>' +
+                    '<div data-style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px;">' + m2.content + '</div>' +
+                    '<div data-style="font-size:12px;color:#888;">适用: ' + m2.application + '</div>' +
+                    '<div data-style="font-size:11px;color:#aaa;">来源: ' + m2.source + '</div>' +
+                    '<button class="mat-copy-btn" data-id="' + id + '" data-style="margin-top:6px;padding:4px 12px;font-size:11px;border:1px solid #d1d5db;border-radius:4px;background:#f9fafb;cursor:pointer;">复制内容</button>' +
                     '</div>';
             }
             listDiv.innerHTML = listHtml;

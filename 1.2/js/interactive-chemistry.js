@@ -155,30 +155,30 @@
   };
 
   LabBuilder.prototype._renderToolbar = function() {
-    var html = '<div style="padding:10px;border-bottom:1px solid #ddd;background:#f0f4f8;">';
-    html += '<select id="lab-template-select" style="padding:5px 10px;margin-right:10px;font-size:13px;">';
+    var html = '<div data-style="padding:10px;border-bottom:1px solid #ddd;background:#f0f4f8;">';
+    html += '<select id="lab-template-select" data-style="padding:5px 10px;margin-right:10px;font-size:13px;">';
     html += '<option value="-1">自由搭建</option>';
     for (var i = 0; i < this._templates.length; i++) {
       html += '<option value="' + i + '">' + this._templates[i].name + '</option>';
     }
     html += '</select>';
-    html += '<button id="lab-check-btn" style="padding:5px 12px;margin-right:6px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;">检查装置</button>';
-    html += '<button id="lab-show-standard-btn" style="padding:5px 12px;margin-right:6px;background:#059669;color:#fff;border:none;border-radius:4px;cursor:pointer;">显示标准装置</button>';
-    html += '<button id="lab-clear-btn" style="padding:5px 12px;background:#dc2626;color:#fff;border:none;border-radius:4px;cursor:pointer;">清空</button>';
+    html += '<button id="lab-check-btn" data-style="padding:5px 12px;margin-right:6px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;">检查装置</button>';
+    html += '<button id="lab-show-standard-btn" data-style="padding:5px 12px;margin-right:6px;background:#059669;color:#fff;border:none;border-radius:4px;cursor:pointer;">显示标准装置</button>';
+    html += '<button id="lab-clear-btn" data-style="padding:5px 12px;background:#dc2626;color:#fff;border:none;border-radius:4px;cursor:pointer;">清空</button>';
     html += '</div>';
     return html;
   };
 
   LabBuilder.prototype._renderApparatusPanel = function() {
-    var html = '<div style="width:180px;background:#fafafa;border-right:1px solid #ddd;padding:8px;overflow-y:auto;max-height:400px;">';
-    html += '<h4 style="margin:4px 0 8px 0;font-size:13px;color:#666;">器材面板</h4>';
+    var html = '<div data-style="width:180px;background:#fafafa;border-right:1px solid #ddd;padding:8px;overflow-y:auto;max-height:400px;">';
+    html += '<h4 data-style="margin:4px 0 8px 0;font-size:13px;color:#666;">器材面板</h4>';
     for (var i = 0; i < this._apparatusList.length; i++) {
       var item = this._apparatusList[i];
       html += '<div class="lab-apparatus-item" data-type="' + item.id + '" ';
-      html += 'style="display:inline-block;margin:4px;padding:6px;border:1px solid #ccc;border-radius:6px;cursor:grab;text-align:center;background:#fff;width:75px;vertical-align:top;" ';
+      html += 'data-style="display:inline-block;margin:4px;padding:6px;border:1px solid #ccc;border-radius:6px;cursor:grab;text-align:center;background:#fff;width:75px;vertical-align:top;" ';
       html += 'title="' + item.name + '（双击旋转）">';
       html += '<svg width="' + Math.min(item.w, 50) + '" height="' + Math.min(item.h, 40) + '" viewBox="0 0 ' + item.w + ' ' + item.h + '">' + item.svg + '</svg>';
-      html += '<div style="font-size:9px;color:#555;margin-top:2px;">' + item.name + '</div>';
+      html += '<div data-style="font-size:9px;color:#555;margin-top:2px;">' + item.name + '</div>';
       html += '</div>';
     }
     html += '</div>';
@@ -223,7 +223,7 @@
       var def = self._getApparatusDef(it.type);
       if (def) {
         var rot = it.rotation || 0;
-        svgContent += '<g transform="translate(' + it.x + ',' + it.y + ') rotate(' + rot + ',' + def.w/2 + ',' + def.h/2 + ')" class="lab-canvas-item" data-index="' + ii + '" style="cursor:move;">';
+        svgContent += '<g transform="translate(' + it.x + ',' + it.y + ') rotate(' + rot + ',' + def.w/2 + ',' + def.h/2 + ')" class="lab-canvas-item" data-index="' + ii + '" data-style="cursor:move;">';
         svgContent += def.svg;
         if (def.category === 'container' || def.category === 'connector') {
           svgContent += '<circle cx="' + (def.w/2 - 5) + '" cy="0" r="4" fill="#3b82f6" opacity="0.5"/>';
@@ -238,24 +238,24 @@
   };
 
   LabBuilder.prototype._renderPropertyPanel = function() {
-    var html = '<div style="width:200px;background:#fafafa;border-left:1px solid #ddd;padding:10px;overflow-y:auto;max-height:400px;">';
-    html += '<h4 style="margin:0 0 8px 0;font-size:13px;color:#666;">属性 / 检测结果</h4>';
+    var html = '<div data-style="width:200px;background:#fafafa;border-left:1px solid #ddd;padding:10px;overflow-y:auto;max-height:400px;">';
+    html += '<h4 data-style="margin:0 0 8px 0;font-size:13px;color:#666;">属性 / 检测结果</h4>';
 
     if (this._state.errorMessages.length > 0) {
       for (var i = 0; i < this._state.errorMessages.length; i++) {
         var err = this._state.errorMessages[i];
-        html += '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:4px;padding:6px 8px;margin-bottom:6px;font-size:11px;color:#991b1b;">' + err + '</div>';
+        html += '<div data-style="background:#fef2f2;border:1px solid #fecaca;border-radius:4px;padding:6px 8px;margin-bottom:6px;font-size:11px;color:#991b1b;">' + err + '</div>';
       }
     } else {
-      html += '<div style="font-size:11px;color:#888;">暂无检测结果，点击"检查装置"开始。</div>';
+      html += '<div data-style="font-size:11px;color:#888;">暂无检测结果，点击"检查装置"开始。</div>';
     }
 
     if (this._state.placedItems.length > 0) {
-      html += '<div style="margin-top:10px;font-size:11px;color:#555;">已放置器材：' + this._state.placedItems.length + ' 个</div>';
-      html += '<div style="font-size:11px;color:#555;">已连接：' + this._state.connections.length + ' 组</div>';
+      html += '<div data-style="margin-top:10px;font-size:11px;color:#555;">已放置器材：' + this._state.placedItems.length + ' 个</div>';
+      html += '<div data-style="font-size:11px;color:#555;">已连接：' + this._state.connections.length + ' 组</div>';
     }
 
-    html += '<div style="margin-top:12px;font-size:10px;color:#999;">提示：双击器材旋转90°</div>';
+    html += '<div data-style="margin-top:12px;font-size:10px;color:#999;">提示：双击器材旋转90°</div>';
     html += '</div>';
     return html;
   };
@@ -461,22 +461,22 @@
     if (!container) return;
     try {
     var html = '';
-    html += '<div style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;">';
-    html += '<div style="background:#1e40af;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">化学实验装置拼装系统</div>';
+    html += '<div data-style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;">';
+    html += '<div data-style="background:#1e40af;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">化学实验装置拼装系统</div>';
     html += this._renderToolbar();
 
     if (this._state.showStandard && this._state.selectedTemplate >= 0) {
       var tpl = this._templates[this._state.selectedTemplate];
-      html += '<div style="background:#ecfdf5;border:1px solid #a7f3d0;padding:8px 12px;font-size:12px;color:#065f46;">';
+      html += '<div data-style="background:#ecfdf5;border:1px solid #a7f3d0;padding:8px 12px;font-size:12px;color:#065f46;">';
       html += '<strong>标准装置流程：</strong>' + tpl.description;
       html += '</div>';
     }
 
-    html += '<div style="display:flex;">';
+    html += '<div data-style="display:flex;">';
     html += this._renderApparatusPanel();
 
-    html += '<div style="flex:1;background:#fff;position:relative;" id="lab-canvas-area">';
-    html += '<svg id="lab-canvas-svg" width="600" height="400" viewBox="0 0 600 400" style="display:block;">';
+    html += '<div data-style="flex:1;background:#fff;position:relative;" id="lab-canvas-area">';
+    html += '<svg id="lab-canvas-svg" width="600" height="400" viewBox="0 0 600 400" data-style="display:block;">';
     html += this._renderCanvas();
     html += '</svg>';
     html += '</div>';
@@ -484,7 +484,7 @@
     html += this._renderPropertyPanel();
     html += '</div>';
 
-    html += '<div style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
+    html += '<div data-style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
     html += '操作：从左侧器材面板拖入画布 | 画布上拖拽移动 | 双击旋转 | 接近时自动吸附连接 | 高考重点：导管长进短出、尾气处理、加热顺序';
     html += '</div>';
 
@@ -582,13 +582,13 @@
   EquilibriumSim.prototype._renderControls = function() {
     var s = this._state;
     var rx = this._reactions[s.reactionIdx];
-    var html = '<div style="width:220px;background:#fafafa;border-right:1px solid #ddd;padding:10px;overflow-y:auto;max-height:550px;">';
-    html += '<h4 style="margin:0 0 8px 0;font-size:13px;">参数调节</h4>';
+    var html = '<div data-style="width:220px;background:#fafafa;border-right:1px solid #ddd;padding:10px;overflow-y:auto;max-height:550px;">';
+    html += '<h4 data-style="margin:0 0 8px 0;font-size:13px;">参数调节</h4>';
 
     // Reaction select
-    html += '<div style="margin-bottom:10px;">';
-    html += '<label style="font-size:11px;color:#555;">选择反应</label>';
-    html += '<select id="eq-reaction-select" style="width:100%;padding:4px;font-size:11px;">';
+    html += '<div data-style="margin-bottom:10px;">';
+    html += '<label data-style="font-size:11px;color:#555;">选择反应</label>';
+    html += '<select id="eq-reaction-select" data-style="width:100%;padding:4px;font-size:11px;">';
     for (var i = 0; i < this._reactions.length; i++) {
       html += '<option value="' + i + '"' + (i === s.reactionIdx ? ' selected' : '') + '>' + this._reactions[i].name.substring(0,12) + '...</option>';
     }
@@ -596,42 +596,42 @@
     html += '</div>';
 
     // Concentration sliders for reactants
-    html += '<div style="margin-bottom:8px;font-size:11px;font-weight:bold;color:#333;">反应物浓度</div>';
+    html += '<div data-style="margin-bottom:8px;font-size:11px;font-weight:bold;color:#333;">反应物浓度</div>';
     for (var ri = 0; ri < rx.reactants.length; ri++) {
-      html += '<div style="margin-bottom:6px;">';
-      html += '<span style="font-size:10px;color:' + rx.reactants[ri].color + ';">' + rx.reactants[ri].name + ': </span>';
-      html += '<span id="eq-react-val-' + ri + '" style="font-size:10px;">' + s.concentrations.reactants[ri].toFixed(2) + '</span> mol/L';
-      html += '<input type="range" min="0" max="5" step="0.1" value="' + s.concentrations.reactants[ri] + '" data-rx-idx="' + ri + '" class="eq-react-slider" style="width:100%;">';
+      html += '<div data-style="margin-bottom:6px;">';
+      html += '<span data-style="font-size:10px;color:' + rx.reactants[ri].color + ';">' + rx.reactants[ri].name + ': </span>';
+      html += '<span id="eq-react-val-' + ri + '" data-style="font-size:10px;">' + s.concentrations.reactants[ri].toFixed(2) + '</span> mol/L';
+      html += '<input type="range" min="0" max="5" step="0.1" value="' + s.concentrations.reactants[ri] + '" data-rx-idx="' + ri + '" class="eq-react-slider" data-style="width:100%;">';
       html += '</div>';
     }
 
-    html += '<div style="margin-bottom:8px;font-size:11px;font-weight:bold;color:#333;">生成物浓度</div>';
+    html += '<div data-style="margin-bottom:8px;font-size:11px;font-weight:bold;color:#333;">生成物浓度</div>';
     for (var pi = 0; pi < rx.products.length; pi++) {
-      html += '<div style="margin-bottom:6px;">';
-      html += '<span style="font-size:10px;color:' + rx.products[pi].color + ';">' + rx.products[pi].name + ': </span>';
-      html += '<span id="eq-prod-val-' + pi + '" style="font-size:10px;">' + s.concentrations.products[pi].toFixed(2) + '</span> mol/L';
-      html += '<input type="range" min="0" max="5" step="0.1" value="' + s.concentrations.products[pi] + '" data-prod-idx="' + pi + '" class="eq-prod-slider" style="width:100%;">';
+      html += '<div data-style="margin-bottom:6px;">';
+      html += '<span data-style="font-size:10px;color:' + rx.products[pi].color + ';">' + rx.products[pi].name + ': </span>';
+      html += '<span id="eq-prod-val-' + pi + '" data-style="font-size:10px;">' + s.concentrations.products[pi].toFixed(2) + '</span> mol/L';
+      html += '<input type="range" min="0" max="5" step="0.1" value="' + s.concentrations.products[pi] + '" data-prod-idx="' + pi + '" class="eq-prod-slider" data-style="width:100%;">';
       html += '</div>';
     }
 
-    html += '<div style="margin-bottom:6px;">';
-    html += '<span style="font-size:10px;">温度: </span><span id="eq-temp-val" style="font-size:10px;">' + s.temperature + '</span> °C';
-    html += '<input type="range" min="-50" max="200" step="1" value="' + s.temperature + '" id="eq-temp-slider" style="width:100%;">';
-    html += '<div style="font-size:9px;color:#888;">' + rx.deltaHStr + '</div>';
+    html += '<div data-style="margin-bottom:6px;">';
+    html += '<span data-style="font-size:10px;">温度: </span><span id="eq-temp-val" data-style="font-size:10px;">' + s.temperature + '</span> °C';
+    html += '<input type="range" min="-50" max="200" step="1" value="' + s.temperature + '" id="eq-temp-slider" data-style="width:100%;">';
+    html += '<div data-style="font-size:9px;color:#888;">' + rx.deltaHStr + '</div>';
     html += '</div>';
 
-    html += '<div style="margin-bottom:6px;">';
-    html += '<span style="font-size:10px;">压强: </span><span id="eq-press-val" style="font-size:10px;">' + s.pressure + '</span> atm';
-    html += '<input type="range" min="0.1" max="10" step="0.1" value="' + s.pressure + '" id="eq-press-slider" style="width:100%;">';
+    html += '<div data-style="margin-bottom:6px;">';
+    html += '<span data-style="font-size:10px;">压强: </span><span id="eq-press-val" data-style="font-size:10px;">' + s.pressure + '</span> atm';
+    html += '<input type="range" min="0.1" max="10" step="0.1" value="' + s.pressure + '" id="eq-press-slider" data-style="width:100%;">';
     html += '</div>';
 
-    html += '<div style="margin-bottom:10px;">';
-    html += '<label style="font-size:11px;">';
+    html += '<div data-style="margin-bottom:10px;">';
+    html += '<label data-style="font-size:11px;">';
     html += '<input type="checkbox" id="eq-catalyst-cb"' + (s.catalyst ? ' checked' : '') + '> 催化剂';
     html += '</label>';
     html += '</div>';
 
-    html += '<button id="eq-reset-btn" style="padding:4px 10px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">重置平衡</button>';
+    html += '<button id="eq-reset-btn" data-style="padding:4px 10px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;">重置平衡</button>';
 
     html += '</div>';
     return html;
@@ -640,10 +640,10 @@
   EquilibriumSim.prototype._renderVisualization = function() {
     var s = this._state;
     var rx = this._reactions[s.reactionIdx];
-    var html = '<div style="flex:1;background:#fff;padding:8px;position:relative;">';
+    var html = '<div data-style="flex:1;background:#fff;padding:8px;position:relative;">';
 
     // SVG visualization area
-    html += '<svg width="400" height="200" viewBox="0 0 400 200" style="display:block;margin:0 auto;border:1px solid #eee;">';
+    html += '<svg width="400" height="200" viewBox="0 0 400 200" data-style="display:block;margin:0 auto;border:1px solid #eee;">';
     html += '<rect width="400" height="200" fill="#f8fafc"/>';
 
     // Reaction arrow area
@@ -683,8 +683,8 @@
     html += '</svg>';
 
     // Bar chart for concentrations
-    html += '<div style="margin-top:8px;"><strong style="font-size:11px;">浓度柱状图</strong></div>';
-    html += '<svg width="400" height="120" viewBox="0 0 400 120" style="display:block;margin:0 auto;">';
+    html += '<div data-style="margin-top:8px;"><strong data-style="font-size:11px;">浓度柱状图</strong></div>';
+    html += '<svg width="400" height="120" viewBox="0 0 400 120" data-style="display:block;margin:0 auto;">';
     var allSpecies = [];
     for (var ai = 0; ai < rx.reactants.length; ai++) {
       allSpecies.push({ name: rx.reactants[ai].name, conc: s.concentrations.reactants[ai], color: rx.reactants[ai].color, isReactant: true });
@@ -709,8 +709,8 @@
     html += '</svg>';
 
     // Rate curves
-    html += '<div style="margin-top:8px;"><strong style="font-size:11px;">速率曲线 v正 / v逆</strong></div>';
-    html += '<svg width="400" height="80" viewBox="0 0 400 80" style="display:block;margin:0 auto;">';
+    html += '<div data-style="margin-top:8px;"><strong data-style="font-size:11px;">速率曲线 v正 / v逆</strong></div>';
+    html += '<svg width="400" height="80" viewBox="0 0 400 80" data-style="display:block;margin:0 auto;">';
     html += '<line x1="30" y1="10" x2="30" y2="70" stroke="#ccc" stroke-width="1"/>';
     html += '<line x1="30" y1="60" x2="380" y2="60" stroke="#ccc" stroke-width="1"/>';
     // v正 curve (approaching equilibrium)
@@ -729,35 +729,35 @@
   EquilibriumSim.prototype._renderDataPanel = function() {
     var s = this._state;
     var rx = this._reactions[s.reactionIdx];
-    var html = '<div style="width:200px;background:#fafafa;border-left:1px solid #ddd;padding:10px;overflow-y:auto;max-height:550px;">';
-    html += '<h4 style="margin:0 0 8px 0;font-size:13px;">数据面板</h4>';
+    var html = '<div data-style="width:200px;background:#fafafa;border-left:1px solid #ddd;padding:10px;overflow-y:auto;max-height:550px;">';
+    html += '<h4 data-style="margin:0 0 8px 0;font-size:13px;">数据面板</h4>';
 
-    html += '<div style="background:#eff6ff;border-radius:4px;padding:8px;margin-bottom:8px;">';
-    html += '<div style="font-size:11px;color:#1e40af;">平衡常数 K</div>';
-    html += '<div style="font-size:18px;font-weight:bold;color:#1e3a5f;">' + s.K.toFixed(2) + '</div>';
+    html += '<div data-style="background:#eff6ff;border-radius:4px;padding:8px;margin-bottom:8px;">';
+    html += '<div data-style="font-size:11px;color:#1e40af;">平衡常数 K</div>';
+    html += '<div data-style="font-size:18px;font-weight:bold;color:#1e3a5f;">' + s.K.toFixed(2) + '</div>';
     html += '</div>';
 
-    html += '<div style="background:#fefce8;border-radius:4px;padding:8px;margin-bottom:8px;">';
-    html += '<div style="font-size:11px;color:#854d0e;">反应商 Q</div>';
-    html += '<div style="font-size:18px;font-weight:bold;color:#713f12;">' + s.Q.toFixed(2) + '</div>';
+    html += '<div data-style="background:#fefce8;border-radius:4px;padding:8px;margin-bottom:8px;">';
+    html += '<div data-style="font-size:11px;color:#854d0e;">反应商 Q</div>';
+    html += '<div data-style="font-size:18px;font-weight:bold;color:#713f12;">' + s.Q.toFixed(2) + '</div>';
     html += '</div>';
 
-    html += '<div style="margin-bottom:8px;">';
-    html += '<div style="font-size:11px;color:#555;">Q vs K 判断</div>';
+    html += '<div data-style="margin-bottom:8px;">';
+    html += '<div data-style="font-size:11px;color:#555;">Q vs K 判断</div>';
     var cmpText = '';
     if (s.Q < s.K * 0.95) cmpText = 'Q < K，正向移动';
     else if (s.Q > s.K * 1.05) cmpText = 'Q > K，逆向移动';
     else cmpText = 'Q ≈ K，平衡状态';
-    html += '<div style="font-size:12px;font-weight:bold;color:#333;">' + cmpText + '</div>';
+    html += '<div data-style="font-size:12px;font-weight:bold;color:#333;">' + cmpText + '</div>';
     html += '</div>';
 
-    html += '<div style="background:#f0fdf4;border-radius:4px;padding:8px;margin-bottom:8px;">';
-    html += '<div style="font-size:11px;color:#166534;">平衡移动方向</div>';
-    html += '<div style="font-size:14px;font-weight:bold;color:#14532d;">' + s.shiftDirection + '</div>';
+    html += '<div data-style="background:#f0fdf4;border-radius:4px;padding:8px;margin-bottom:8px;">';
+    html += '<div data-style="font-size:11px;color:#166534;">平衡移动方向</div>';
+    html += '<div data-style="font-size:14px;font-weight:bold;color:#14532d;">' + s.shiftDirection + '</div>';
     html += '</div>';
 
     // Le Chatelier's explanation
-    html += '<div style="margin-top:10px;font-size:10px;color:#666;line-height:1.5;">';
+    html += '<div data-style="margin-top:10px;font-size:10px;color:#666;line-height:1.5;">';
     html += '<strong>勒夏特列原理：</strong><br>';
     if (s.temperature > 25 && rx.deltaH < 0) {
       html += '升温使平衡向吸热方向（逆向）移动。';
@@ -873,20 +873,20 @@
     var rx = this._reactions[this._state.reactionIdx];
 
     var html = '';
-    html += '<div style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;">';
-    html += '<div style="background:#7c3aed;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">化学平衡移动动态模拟器</div>';
+    html += '<div data-style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;">';
+    html += '<div data-style="background:#7c3aed;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">化学平衡移动动态模拟器</div>';
 
-    html += '<div style="background:#f5f3ff;border-bottom:1px solid #ddd;padding:8px 12px;font-size:13px;color:#5b21b6;">';
+    html += '<div data-style="background:#f5f3ff;border-bottom:1px solid #ddd;padding:8px 12px;font-size:13px;color:#5b21b6;">';
     html += '<strong>当前反应：</strong>' + rx.eq + '  ' + rx.deltaHStr;
     html += '</div>';
 
-    html += '<div style="display:flex;">';
+    html += '<div data-style="display:flex;">';
     html += this._renderControls();
     html += this._renderVisualization();
     html += this._renderDataPanel();
     html += '</div>';
 
-    html += '<div style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
+    html += '<div data-style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
     html += '操作：调节浓度/温度/压强滑块 → 实时观察平衡移动 | 勒夏特列原理：改变条件，平衡向减弱改变的方向移动';
     html += '</div>';
 
@@ -1128,12 +1128,12 @@
   };
 
   PeriodicTable.prototype._renderLegend = function() {
-    var html = '<div style="padding:8px 10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:10px;">';
-    html += '<span style="font-weight:bold;">图例：</span>';
-    html += '<span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:12px;height:12px;display:inline-block;background:#ef4444;border-radius:2px;"></span>超高频（≥8次/年）</span>';
-    html += '<span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:12px;height:12px;display:inline-block;background:#f59e0b;border-radius:2px;"></span>高频（4-7次/年）</span>';
-    html += '<span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:12px;height:12px;display:inline-block;background:#eab308;border-radius:2px;"></span>中频（2-3次/年）</span>';
-    html += '<span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:12px;height:12px;display:inline-block;background:#94a3b8;border-radius:2px;"></span>低频</span>';
+    var html = '<div data-style="padding:8px 10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:10px;">';
+    html += '<span data-style="font-weight:bold;">图例：</span>';
+    html += '<span data-style="display:inline-flex;align-items:center;gap:3px;"><span data-style="width:12px;height:12px;display:inline-block;background:#ef4444;border-radius:2px;"></span>超高频（≥8次/年）</span>';
+    html += '<span data-style="display:inline-flex;align-items:center;gap:3px;"><span data-style="width:12px;height:12px;display:inline-block;background:#f59e0b;border-radius:2px;"></span>高频（4-7次/年）</span>';
+    html += '<span data-style="display:inline-flex;align-items:center;gap:3px;"><span data-style="width:12px;height:12px;display:inline-block;background:#eab308;border-radius:2px;"></span>中频（2-3次/年）</span>';
+    html += '<span data-style="display:inline-flex;align-items:center;gap:3px;"><span data-style="width:12px;height:12px;display:inline-block;background:#94a3b8;border-radius:2px;"></span>低频</span>';
     html += '</div>';
     return html;
   };
@@ -1147,36 +1147,36 @@
     else if (el.freq === 'medium') freqCN = '中频（考查2-3次/年）';
     else freqCN = '低频';
 
-    var html = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:9999;display:flex;align-items:center;justify-content:center;" id="pt-detail-overlay">';
-    html += '<div style="background:#fff;border-radius:8px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.3);">';
-    html += '<div style="background:' + el.color + ';color:#fff;padding:12px 16px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:center;">';
-    html += '<div><span style="font-size:22px;font-weight:bold;">' + el.sym + '</span> <span style="font-size:14px;">' + el.cn + '</span></div>';
-    html += '<button id="pt-detail-close" style="background:rgba(255,255,255,0.3);border:none;color:#fff;font-size:18px;padding:4px 10px;border-radius:4px;cursor:pointer;">×</button>';
+    var html = '<div data-style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:9999;display:flex;align-items:center;justify-content:center;" id="pt-detail-overlay">';
+    html += '<div data-style="background:#fff;border-radius:8px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.3);">';
+    html += '<div data-style="background:' + el.color + ';color:#fff;padding:12px 16px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:center;">';
+    html += '<div><span data-style="font-size:22px;font-weight:bold;">' + el.sym + '</span> <span data-style="font-size:14px;">' + el.cn + '</span></div>';
+    html += '<button id="pt-detail-close" data-style="background:rgba(255,255,255,0.3);border:none;color:#fff;font-size:18px;padding:4px 10px;border-radius:4px;cursor:pointer;">×</button>';
     html += '</div>';
 
-    html += '<div style="padding:16px;">';
+    html += '<div data-style="padding:16px;">';
     // Basic info
-    html += '<table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:12px;">';
-    html += '<tr><td style="padding:4px 8px;color:#888;width:80px;">原子序数</td><td style="padding:4px 8px;">' + el.no + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">相对原子质量</td><td style="padding:4px 8px;">' + el.mass + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">电子排布</td><td style="padding:4px 8px;">' + el.config + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">电负性</td><td style="padding:4px 8px;">' + el.en + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">常见价态</td><td style="padding:4px 8px;">' + el.valence + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">所属族</td><td style="padding:4px 8px;">' + el.group + '</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">周期</td><td style="padding:4px 8px;">第' + el.period + '周期</td></tr>';
-    html += '<tr><td style="padding:4px 8px;color:#888;">考频</td><td style="padding:4px 8px;">' + freqCN + '</td></tr>';
+    html += '<table data-style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:12px;">';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;width:80px;">原子序数</td><td data-style="padding:4px 8px;">' + el.no + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">相对原子质量</td><td data-style="padding:4px 8px;">' + el.mass + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">电子排布</td><td data-style="padding:4px 8px;">' + el.config + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">电负性</td><td data-style="padding:4px 8px;">' + el.en + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">常见价态</td><td data-style="padding:4px 8px;">' + el.valence + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">所属族</td><td data-style="padding:4px 8px;">' + el.group + '</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">周期</td><td data-style="padding:4px 8px;">第' + el.period + '周期</td></tr>';
+    html += '<tr><td data-style="padding:4px 8px;color:#888;">考频</td><td data-style="padding:4px 8px;">' + freqCN + '</td></tr>';
     html += '</table>';
 
     // Important compounds
-    html += '<div style="margin-bottom:10px;">';
-    html += '<div style="font-size:13px;font-weight:bold;color:#333;margin-bottom:4px;">重要化合物</div>';
-    html += '<div style="font-size:11px;color:#555;background:#f8fafc;padding:8px;border-radius:4px;">' + el.compounds + '</div>';
+    html += '<div data-style="margin-bottom:10px;">';
+    html += '<div data-style="font-size:13px;font-weight:bold;color:#333;margin-bottom:4px;">重要化合物</div>';
+    html += '<div data-style="font-size:11px;color:#555;background:#f8fafc;padding:8px;border-radius:4px;">' + el.compounds + '</div>';
     html += '</div>';
 
     // Exam focus
-    html += '<div style="margin-bottom:10px;">';
-    html += '<div style="font-size:13px;font-weight:bold;color:#991b1b;margin-bottom:4px;">高考常见考法</div>';
-    html += '<div style="font-size:11px;color:#7f1d1d;background:#fef2f2;padding:8px;border-radius:4px;">' + el.exam + '</div>';
+    html += '<div data-style="margin-bottom:10px;">';
+    html += '<div data-style="font-size:13px;font-weight:bold;color:#991b1b;margin-bottom:4px;">高考常见考法</div>';
+    html += '<div data-style="font-size:11px;color:#7f1d1d;background:#fef2f2;padding:8px;border-radius:4px;">' + el.exam + '</div>';
     html += '</div>';
 
     html += '</div>';
@@ -1187,11 +1187,11 @@
 
   PeriodicTable.prototype._renderFilters = function() {
     var s = this._state;
-    var html = '<div style="padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f8fafc;border-bottom:1px solid #ddd;">';
-    html += '<span style="font-size:11px;font-weight:bold;color:#555;">筛选：</span>';
+    var html = '<div data-style="padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f8fafc;border-bottom:1px solid #ddd;">';
+    html += '<span data-style="font-size:11px;font-weight:bold;color:#555;">筛选：</span>';
 
     // Group filter
-    html += '<select id="pt-filter-group" style="padding:3px 6px;font-size:11px;">';
+    html += '<select id="pt-filter-group" data-style="padding:3px 6px;font-size:11px;">';
     html += '<option value="">按族</option>';
     var allGroups = ['IA','IIA','IIIB','IVB','VB','VIB','VIIB','VIII','IB','IIB','IIIA','IVA','VA','VIA','VIIA','VIIIA'];
     for (var gi = 0; gi < allGroups.length; gi++) {
@@ -1200,7 +1200,7 @@
     html += '</select>';
 
     // Period filter
-    html += '<select id="pt-filter-period" style="padding:3px 6px;font-size:11px;">';
+    html += '<select id="pt-filter-period" data-style="padding:3px 6px;font-size:11px;">';
     html += '<option value="0">按周期</option>';
     for (var p = 1; p <= 7; p++) {
       html += '<option value="' + p + '">第' + p + '周期</option>';
@@ -1208,13 +1208,13 @@
     html += '</select>';
 
     // Frequency filter
-    html += '<select id="pt-filter-freq" style="padding:3px 6px;font-size:11px;">';
+    html += '<select id="pt-filter-freq" data-style="padding:3px 6px;font-size:11px;">';
     html += '<option value="">按频率</option>';
     html += '<option value="high">仅超高频</option>';
     html += '<option value="high_medium">高频+中频</option>';
     html += '</select>';
 
-    html += '<button id="pt-filter-clear" style="padding:3px 8px;font-size:11px;background:#94a3b8;color:#fff;border:none;border-radius:4px;cursor:pointer;">清除筛选</button>';
+    html += '<button id="pt-filter-clear" data-style="padding:3px 8px;font-size:11px;background:#94a3b8;color:#fff;border:none;border-radius:4px;cursor:pointer;">清除筛选</button>';
 
     html += '</div>';
     return html;
@@ -1228,7 +1228,7 @@
     var totalW = 18 * (cellW + gapX) + 40;
     var totalH = 8 * (cellH + gapY) + 20;
 
-    var svgContent = '<svg width="' + totalW + '" height="' + totalH + '" viewBox="0 0 ' + totalW + ' ' + totalH + '" style="display:block;margin:0 auto;">';
+    var svgContent = '<svg width="' + totalW + '" height="' + totalH + '" viewBox="0 0 ' + totalW + ' ' + totalH + '" data-style="display:block;margin:0 auto;">';
 
     // Draw group headers
     for (var gi = 0; gi < this._groups.length; gi++) {
@@ -1248,7 +1248,7 @@
       var bgColor = self._getCellColor(el);
       var textColor = (el.freq === 'high') ? '#fff' : (el.freq === 'medium' ? '#333' : '#666');
 
-      svgContent += '<g class="pt-element-cell" data-sym="' + el.sym + '" style="cursor:pointer;">';
+      svgContent += '<g class="pt-element-cell" data-sym="' + el.sym + '" data-style="cursor:pointer;">';
       svgContent += '<rect x="' + cx + '" y="' + cy + '" width="' + cellW + '" height="' + cellH + '" rx="3" fill="' + bgColor + '" stroke="' + (dimmed ? '#ddd' : '#999') + '" stroke-width="1" opacity="' + (dimmed ? '0.4' : '1') + '"/>';
       svgContent += '<text x="' + (cx + 4) + '" y="' + (cy + 14) + '" font-size="9" fill="' + textColor + '" font-weight="bold">' + el.sym + '</text>';
       svgContent += '<text x="' + (cx + cellW - 4) + '" y="' + (cy + 14) + '" text-anchor="end" font-size="7" fill="' + textColor + '">' + el.no + '</text>';
@@ -1340,11 +1340,11 @@
     if (!container) return;
     try {
     var html = '';
-    html += '<div style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;position:relative;">';
-    html += '<div style="background:#dc2626;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">高考化学交互式元素周期表</div>';
+    html += '<div data-style="font-family:Arial,sans-serif;max-width:1000px;border:1px solid #ddd;border-radius:8px;overflow:hidden;position:relative;">';
+    html += '<div data-style="background:#dc2626;color:#fff;padding:10px 16px;font-size:16px;font-weight:bold;">高考化学交互式元素周期表</div>';
     html += this._renderLegend();
     html += this._renderFilters();
-    html += '<div style="padding:10px;overflow-x:auto;">';
+    html += '<div data-style="padding:10px;overflow-x:auto;">';
     html += this._renderPeriodicSVG();
     html += '</div>';
 
@@ -1352,7 +1352,7 @@
       html += this._renderDetailPanel();
     }
 
-    html += '<div style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
+    html += '<div data-style="background:#f8fafc;border-top:1px solid #ddd;padding:6px 12px;font-size:10px;color:#999;">';
     html += '点击元素查看详情 | 按颜色区分高考考查频率 | 筛选按钮可按族/周期/频率过滤 | 内嵌20+元素高考考法数据';
     html += '</div>';
     html += '</div>';

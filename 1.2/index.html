@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>高中物化生语数英学习大礼包</title>
 <link rel="stylesheet" href="css/tokens.css">
@@ -15,6 +15,11 @@
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="theme-color" content="#4f6ef6">
+
+<!-- D3：内联样式收敛桥。须早于任何 innerHTML，故置于 head 非 defer 且最前。
+     js/ 模板里写 data-style="..." 而非 style="..."，由本模块写入 CSSOM；
+     theme-dark.css 的暗色覆盖同步改写为 [data-style*="..."]（保留模板原文）。 -->
+<script src="js/cssom-style-bridge.js"></script>
 
 <script src="js/error-fallback.js"></script>
 

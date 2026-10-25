@@ -816,12 +816,12 @@ window.mockExam = (function() {
         html += '<div class="mock-exam-subject-grid">';
         for (var i = 0; i < subjects.length; i++) {
             var sub = subjects[i];
-            html += '<div class="mock-exam-subject-card" data-subject="' + sub.key + '" style="border-top: 4px solid ' + sub.color + ';">';
+            html += '<div class="mock-exam-subject-card" data-subject="' + sub.key + '" data-style="border-top: 4px solid ' + sub.color + ';">';
             html += '<div class="mock-exam-card-icon">' + sub.icon + '</div>';
             html += '<h3>' + sub.name + '</h3>';
-            html += '<span class="mock-exam-badge" style="background:' + sub.color + ';">' + sub.badge + '</span>';
+            html += '<span class="mock-exam-badge" data-style="background:' + sub.color + ';">' + sub.badge + '</span>';
             html += '<p class="mock-exam-card-desc">' + sub.desc + '</p>';
-            html += '<button class="mock-exam-start-btn" style="background:' + sub.color + ';">开始考试</button>';
+            html += '<button class="mock-exam-start-btn" data-style="background:' + sub.color + ';">开始考试</button>';
             html += '</div>';
         }
         html += '</div>';
@@ -982,7 +982,7 @@ window.mockExam = (function() {
         html += '</div>';
 
         html += '<div class="mock-exam-progress">';
-        html += '<div class="mock-exam-progress-bar" id="mock-exam-progress-bar" style="width:0%"></div>';
+        html += '<div class="mock-exam-progress-bar" id="mock-exam-progress-bar" data-style="width:0%"></div>';
         html += '</div>';
 
         html += '<div class="mock-exam-questions" id="mock-exam-questions">';
@@ -1347,7 +1347,7 @@ window.mockExam = (function() {
             html += '<td>' + c.data.count + '</td>';
             html += '<td>' + c.data.earned + '</td>';
             html += '<td>' + c.data.total + '</td>';
-            html += '<td><span style="color:' + color + ';font-weight:700;">' + catPct + '%</span></td>';
+            html += '<td><span data-style="color:' + color + ';font-weight:700;">' + catPct + '%</span></td>';
             html += '</tr>';
         }
         html += '</tbody></table>';

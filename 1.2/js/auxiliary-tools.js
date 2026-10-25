@@ -140,39 +140,39 @@ var examVariation = (function () {
     function render() {
         var app = document.getElementById('exam-variation-app');
         if (!app) return;
-        var html = '<div style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
-        html += '<h3 style="margin:0 0 12px;color:#0f172a;">🔄 真题变式生成器</h3>';
-        html += '<p style="color:#64748b;font-size:13px;margin:0 0 12px;">对历年真题进行改数据/改情境/改问法，生成同源变式题强化训练。</p>';
+        var html = '<div data-style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
+        html += '<h3 data-style="margin:0 0 12px;color:#0f172a;">🔄 真题变式生成器</h3>';
+        html += '<p data-style="color:#64748b;font-size:13px;margin:0 0 12px;">对历年真题进行改数据/改情境/改问法，生成同源变式题强化训练。</p>';
 
         // 步骤1：科目
         var subs = getSubjects();
-        html += '<div style="margin-bottom:10px;"><strong style="color:#1e40af;">① 选择科目：</strong> ';
+        html += '<div data-style="margin-bottom:10px;"><strong data-style="color:#1e40af;">① 选择科目：</strong> ';
         subs.forEach(function (s) {
             var sel = state.subject === s ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-            html += '<button data-ev="subj" data-v="' + s + '" style="margin:0 4px 4px 0;padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + s + '</button>';
+            html += '<button data-ev="subj" data-v="' + s + '" data-style="margin:0 4px 4px 0;padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + s + '</button>';
         });
         html += '</div>';
 
         if (state.subject) {
             var years = getYears(state.subject);
-            html += '<div style="margin-bottom:10px;"><strong style="color:#1e40af;">② 选择年份：</strong> ';
+            html += '<div data-style="margin-bottom:10px;"><strong data-style="color:#1e40af;">② 选择年份：</strong> ';
             years.forEach(function (y) {
                 var sel = state.year === y ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-                html += '<button data-ev="year" data-v="' + y + '" style="margin:0 4px 4px 0;padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + y + '</button>';
+                html += '<button data-ev="year" data-v="' + y + '" data-style="margin:0 4px 4px 0;padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + y + '</button>';
             });
             html += '</div>';
         }
 
         if (state.subject && state.year) {
             var qs = getQuestions(state.subject, state.year);
-            html += '<div style="margin-bottom:10px;"><strong style="color:#1e40af;">③ 选择真题：</strong></div>';
-            html += '<div style="display:flex;flex-direction:column;gap:8px;">';
+            html += '<div data-style="margin-bottom:10px;"><strong data-style="color:#1e40af;">③ 选择真题：</strong></div>';
+            html += '<div data-style="display:flex;flex-direction:column;gap:8px;">';
             qs.forEach(function (q) {
                 var sel = state.qid === q.id;
                 var bg = sel ? '#eff6ff;border:1px solid #3b82f6;' : '#fff;border:1px solid #e2e8f0;';
-                html += '<div data-ev="q" data-v="' + q.id + '" style="padding:10px;border-radius:8px;cursor:pointer;background:' + bg + '">';
-                html += '<div style="font-weight:600;color:#0f172a;">' + q.title + ' <span style="color:#94a3b8;font-weight:400;font-size:12px;">[' + q.kp + ']</span></div>';
-                html += '<div style="color:#475569;font-size:13px;margin-top:4px;">' + q.stem.substring(0, 60) + (q.stem.length > 60 ? '...' : '') + '</div>';
+                html += '<div data-ev="q" data-v="' + q.id + '" data-style="padding:10px;border-radius:8px;cursor:pointer;background:' + bg + '">';
+                html += '<div data-style="font-weight:600;color:#0f172a;">' + q.title + ' <span data-style="color:#94a3b8;font-weight:400;font-size:12px;">[' + q.kp + ']</span></div>';
+                html += '<div data-style="color:#475569;font-size:13px;margin-top:4px;">' + q.stem.substring(0, 60) + (q.stem.length > 60 ? '...' : '') + '</div>';
                 html += '</div>';
             });
             html += '</div>';
@@ -180,8 +180,8 @@ var examVariation = (function () {
 
         if (state.qid) {
             var q = bank.filter(function (x) { return x.id === state.qid; })[0];
-            html += '<div style="margin-top:14px;"><strong style="color:#1e40af;">④ 选择变式类型：</strong></div>';
-            html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+            html += '<div data-style="margin-top:14px;"><strong data-style="color:#1e40af;">④ 选择变式类型：</strong></div>';
+            html += '<div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
             var types = [
                 { k: 'data', t: '📊 改数据(±20%)' },
                 { k: 'context', t: '🌐 改情境(换背景)' },
@@ -189,26 +189,26 @@ var examVariation = (function () {
             ];
             types.forEach(function (t) {
                 var sel = state.variationType === t.k ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-                html += '<button data-ev="vtype" data-v="' + t.k + '" style="padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + t.t + '</button>';
+                html += '<button data-ev="vtype" data-v="' + t.k + '" data-style="padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:' + sel + '">' + t.t + '</button>';
             });
-            html += '<button data-ev="gen" style="padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;">✨ 生成变式</button>';
+            html += '<button data-ev="gen" data-style="padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;">✨ 生成变式</button>';
             html += '</div>';
         }
 
         if (state.variation) {
             var v = state.variation;
-            html += '<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;">';
+            html += '<div data-style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;">';
             // 原题
-            html += '<div style="flex:1;min-width:280px;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px;">';
-            html += '<div style="font-weight:700;color:#b45309;margin-bottom:6px;">📋 原题</div>';
-            html += '<div style="color:#475569;font-size:13px;line-height:1.6;">' + q.stem + '</div>';
-            html += '<div style="margin-top:8px;padding:8px;background:#fef3c7;border-radius:6px;font-size:13px;color:#92400e;"><strong>答案：</strong>' + q.answer + '</div>';
+            html += '<div data-style="flex:1;min-width:280px;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px;">';
+            html += '<div data-style="font-weight:700;color:#b45309;margin-bottom:6px;">📋 原题</div>';
+            html += '<div data-style="color:#475569;font-size:13px;line-height:1.6;">' + q.stem + '</div>';
+            html += '<div data-style="margin-top:8px;padding:8px;background:#fef3c7;border-radius:6px;font-size:13px;color:#92400e;"><strong>答案：</strong>' + q.answer + '</div>';
             html += '</div>';
             // 变式
-            html += '<div style="flex:1;min-width:280px;background:#eff6ff;border:1px solid #3b82f6;border-radius:8px;padding:12px;">';
-            html += '<div style="font-weight:700;color:#1e40af;margin-bottom:6px;">✨ 变式题 <span style="font-size:12px;font-weight:400;color:#64748b;">[' + v.type + ']</span></div>';
-            html += '<div style="color:#1e293b;font-size:13px;line-height:1.6;">' + v.stem + '</div>';
-            html += '<div style="margin-top:8px;padding:8px;background:#dbeafe;border-radius:6px;font-size:13px;color:#1e3a8a;"><strong>答案：</strong>' + v.answer + '</div>';
+            html += '<div data-style="flex:1;min-width:280px;background:#eff6ff;border:1px solid #3b82f6;border-radius:8px;padding:12px;">';
+            html += '<div data-style="font-weight:700;color:#1e40af;margin-bottom:6px;">✨ 变式题 <span data-style="font-size:12px;font-weight:400;color:#64748b;">[' + v.type + ']</span></div>';
+            html += '<div data-style="color:#1e293b;font-size:13px;line-height:1.6;">' + v.stem + '</div>';
+            html += '<div data-style="margin-top:8px;padding:8px;background:#dbeafe;border-radius:6px;font-size:13px;color:#1e3a8a;"><strong>答案：</strong>' + v.answer + '</div>';
             html += '</div>';
             html += '</div>';
         }
@@ -343,16 +343,16 @@ var wrongVariationGen = (function () {
         var app = document.getElementById('wrong-variation-app');
         if (!app) return;
         var records = readWrong();
-        var html = '<div style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
-        html += '<h3 style="margin:0 0 12px;color:#0f172a;">♻️ 错题变式生成</h3>';
-        html += '<p style="color:#64748b;font-size:13px;margin:0 0 12px;">从 localStorage 读取错题记录(key:<code>hspcb_wrong_records</code>)，按知识点分组，自动生成同类变式题。</p>';
+        var html = '<div data-style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
+        html += '<h3 data-style="margin:0 0 12px;color:#0f172a;">♻️ 错题变式生成</h3>';
+        html += '<p data-style="color:#64748b;font-size:13px;margin:0 0 12px;">从 localStorage 读取错题记录(key:<code>hspcb_wrong_records</code>)，按知识点分组，自动生成同类变式题。</p>';
 
         if (records.length === 0) {
-            html += '<div style="padding:30px;text-align:center;color:#94a3b8;background:#f8fafc;border-radius:8px;border:1px dashed #cbd5e1;">';
-            html += '<div style="font-size:36px;margin-bottom:8px;">📭</div>';
+            html += '<div data-style="padding:30px;text-align:center;color:#94a3b8;background:#f8fafc;border-radius:8px;border:1px dashed #cbd5e1;">';
+            html += '<div data-style="font-size:36px;margin-bottom:8px;">📭</div>';
             html += '<div>暂无错题记录</div>';
-            html += '<div style="font-size:12px;margin-top:6px;">请先在其他练习模块中产生错题，或手动写入 localStorage。</div>';
-            html += '<button data-ev="demo" style="margin-top:12px;padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">载入示例错题</button>';
+            html += '<div data-style="font-size:12px;margin-top:6px;">请先在其他练习模块中产生错题，或手动写入 localStorage。</div>';
+            html += '<button data-ev="demo" data-style="margin-top:12px;padding:6px 14px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">载入示例错题</button>';
             html += '</div>';
             html += '</div>';
             app.innerHTML = html;
@@ -361,26 +361,26 @@ var wrongVariationGen = (function () {
         }
 
         var groups = getGroups(records);
-        html += '<div style="margin-bottom:10px;"><strong style="color:#1e40af;">按知识点分组：</strong></div>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">';
+        html += '<div data-style="margin-bottom:10px;"><strong data-style="color:#1e40af;">按知识点分组：</strong></div>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">';
         for (var k in groups) {
             if (!groups.hasOwnProperty(k)) continue;
             var sel = state.group === k;
             var bg = sel ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-            html += '<button data-ev="group" data-v="' + k + '" style="padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + bg + '">' + k + ' (' + groups[k].length + ')</button>';
+            html += '<button data-ev="group" data-v="' + k + '" data-style="padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + bg + '">' + k + ' (' + groups[k].length + ')</button>';
         }
         html += '</div>';
 
         if (state.group && groups[state.group]) {
-            html += '<div style="display:flex;flex-direction:column;gap:8px;">';
+            html += '<div data-style="display:flex;flex-direction:column;gap:8px;">';
             groups[state.group].forEach(function (r, idx) {
                 var id = r.id || (state.group + '-' + idx);
                 var sel = state.wid === id;
                 var bg = sel ? '#eff6ff;border:1px solid #3b82f6;' : '#fff;border:1px solid #e2e8f0;';
-                html += '<div data-ev="wrong" data-v="' + id + '" data-idx="' + idx + '" style="padding:10px;border-radius:8px;cursor:pointer;background:' + bg + '">';
-                html += '<div style="font-weight:600;color:#0f172a;">' + (r.title || r.stem.substring(0, 30)) + '</div>';
-                if (r.stem) html += '<div style="color:#475569;font-size:13px;margin-top:4px;">' + r.stem.substring(0, 80) + (r.stem.length > 80 ? '...' : '') + '</div>';
-                if (r.answer) html += '<div style="color:#10b981;font-size:12px;margin-top:4px;">✓ 原答案：' + r.answer + '</div>';
+                html += '<div data-ev="wrong" data-v="' + id + '" data-idx="' + idx + '" data-style="padding:10px;border-radius:8px;cursor:pointer;background:' + bg + '">';
+                html += '<div data-style="font-weight:600;color:#0f172a;">' + (r.title || r.stem.substring(0, 30)) + '</div>';
+                if (r.stem) html += '<div data-style="color:#475569;font-size:13px;margin-top:4px;">' + r.stem.substring(0, 80) + (r.stem.length > 80 ? '...' : '') + '</div>';
+                if (r.answer) html += '<div data-style="color:#10b981;font-size:12px;margin-top:4px;">✓ 原答案：' + r.answer + '</div>';
                 html += '</div>';
             });
             html += '</div>';
@@ -397,36 +397,36 @@ var wrongVariationGen = (function () {
                 }
             }
             if (cur) {
-                html += '<div style="margin-top:12px;"><button data-ev="gen" style="padding:8px 18px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;font-weight:600;">✨ 生成变式</button></div>';
+                html += '<div data-style="margin-top:12px;"><button data-ev="gen" data-style="padding:8px 18px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;font-weight:600;">✨ 生成变式</button></div>';
             }
         }
 
         if (state.variation) {
             var v = state.variation;
-            html += '<div style="margin-top:16px;background:#f0fdf4;border:1px solid #10b981;border-radius:8px;padding:14px;">';
-            html += '<div style="font-weight:700;color:#047857;margin-bottom:8px;">✨ 变式题 <span style="font-size:12px;font-weight:400;color:#64748b;">[' + v.type + ']</span></div>';
-            html += '<div style="color:#1e293b;font-size:14px;line-height:1.7;margin-bottom:10px;">' + v.stem + '</div>';
+            html += '<div data-style="margin-top:16px;background:#f0fdf4;border:1px solid #10b981;border-radius:8px;padding:14px;">';
+            html += '<div data-style="font-weight:700;color:#047857;margin-bottom:8px;">✨ 变式题 <span data-style="font-size:12px;font-weight:400;color:#64748b;">[' + v.type + ']</span></div>';
+            html += '<div data-style="color:#1e293b;font-size:14px;line-height:1.7;margin-bottom:10px;">' + v.stem + '</div>';
             if (v.options && v.options.length) {
                 v.options.forEach(function (opt, i) {
                     var letter = String.fromCharCode(65 + i);
                     var ck = state.userAnswer === letter ? '#10b981;color:#fff;border-color:#10b981;' : '#fff;color:#475569;border-color:#e2e8f0;';
-                    html += '<label style="display:block;margin:4px 0;padding:8px 10px;border:1px solid;border-radius:6px;cursor:pointer;background:' + ck + '">';
-                    html += '<input type="radio" name="wv-opt" value="' + letter + '" ' + (state.userAnswer === letter ? 'checked' : '') + ' style="margin-right:6px;">';
+                    html += '<label data-style="display:block;margin:4px 0;padding:8px 10px;border:1px solid;border-radius:6px;cursor:pointer;background:' + ck + '">';
+                    html += '<input type="radio" name="wv-opt" value="' + letter + '" ' + (state.userAnswer === letter ? 'checked' : '') + ' data-style="margin-right:6px;">';
                     html += letter + '. ' + opt + '</label>';
                 });
             } else {
-                html += '<textarea data-ev="ans" placeholder="请输入你的答案..." style="width:100%;min-height:80px;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit;font-size:13px;">' + (state.userAnswer || '') + '</textarea>';
+                html += '<textarea data-ev="ans" placeholder="请输入你的答案..." data-style="width:100%;min-height:80px;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-family:inherit;font-size:13px;">' + (state.userAnswer || '') + '</textarea>';
             }
-            html += '<div style="margin-top:10px;"><button data-ev="check" style="padding:6px 16px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">✓ 检查答案</button></div>';
+            html += '<div data-style="margin-top:10px;"><button data-ev="check" data-style="padding:6px 16px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">✓ 检查答案</button></div>';
             if (state.checked) {
                 var correct = state.userAnswer && v.answer && v.answer.indexOf(state.userAnswer) >= 0;
                 if (!v.options) correct = !!state.userAnswer;
                 var bg = correct ? '#d1fae5' : '#fee2e2';
                 var col = correct ? '#065f46' : '#991b1b';
                 var icon = correct ? '✅' : '❌';
-                html += '<div style="margin-top:10px;padding:10px;background:' + bg + ';border-radius:6px;color:' + col + ';">';
+                html += '<div data-style="margin-top:10px;padding:10px;background:' + bg + ';border-radius:6px;color:' + col + ';">';
                 html += icon + ' ' + (correct ? '回答正确！' : '回答错误，请参考解析。');
-                html += '<div style="margin-top:6px;font-size:13px;"><strong>参考答案：</strong>' + v.answer + '</div>';
+                html += '<div data-style="margin-top:6px;font-size:13px;"><strong>参考答案：</strong>' + v.answer + '</div>';
                 html += '</div>';
             }
             html += '</div>';
@@ -590,19 +590,19 @@ var studyCalendar = (function () {
         var streak = calcStreak();
         var data = readTasks();
 
-        var html = '<div style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
-        html += '<h3 style="margin:0 0 12px;color:#0f172a;">📅 学习日历</h3>';
+        var html = '<div data-style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
+        html += '<h3 data-style="margin:0 0 12px;color:#0f172a;">📅 学习日历</h3>';
 
         // 倒计时卡片
-        html += '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;">';
-        html += '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:14px;border-radius:10px;text-align:center;">';
-        html += '<div style="font-size:13px;opacity:0.9;">距离高考还有</div>';
-        html += '<div style="font-size:32px;font-weight:700;margin:4px 0;">' + days + '</div>';
-        html += '<div style="font-size:12px;opacity:0.9;">天 (' + g.getFullYear() + '年6月7日)</div></div>';
-        html += '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px;border-radius:10px;text-align:center;">';
-        html += '<div style="font-size:13px;opacity:0.9;">连续学习</div>';
-        html += '<div style="font-size:32px;font-weight:700;margin:4px 0;">' + streak + '</div>';
-        html += '<div style="font-size:12px;opacity:0.9;">天 🔥</div></div>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;">';
+        html += '<div data-style="flex:1;min-width:160px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:14px;border-radius:10px;text-align:center;">';
+        html += '<div data-style="font-size:13px;opacity:0.9;">距离高考还有</div>';
+        html += '<div data-style="font-size:32px;font-weight:700;margin:4px 0;">' + days + '</div>';
+        html += '<div data-style="font-size:12px;opacity:0.9;">天 (' + g.getFullYear() + '年6月7日)</div></div>';
+        html += '<div data-style="flex:1;min-width:160px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px;border-radius:10px;text-align:center;">';
+        html += '<div data-style="font-size:13px;opacity:0.9;">连续学习</div>';
+        html += '<div data-style="font-size:32px;font-weight:700;margin:4px 0;">' + streak + '</div>';
+        html += '<div data-style="font-size:12px;opacity:0.9;">天 🔥</div></div>';
         html += '</div>';
 
         // 日历视图
@@ -612,16 +612,16 @@ var studyCalendar = (function () {
         var daysInMonth = new Date(y, m + 1, 0).getDate();
         var todayKey = dateKey(new Date());
 
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
-        html += '<button data-ev="prev" style="background:#f1f5f9;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;color:#475569;">‹</button>';
-        html += '<strong style="color:#0f172a;font-size:16px;">' + y + '年' + (m + 1) + '月</strong>';
-        html += '<button data-ev="next" style="background:#f1f5f9;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;color:#475569;">›</button>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
+        html += '<button data-ev="prev" data-style="background:#f1f5f9;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;color:#475569;">‹</button>';
+        html += '<strong data-style="color:#0f172a;font-size:16px;">' + y + '年' + (m + 1) + '月</strong>';
+        html += '<button data-ev="next" data-style="background:#f1f5f9;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;color:#475569;">›</button>';
         html += '</div>';
 
-        html += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px;color:#64748b;">';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px;color:#64748b;">';
         var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
-        weekDays.forEach(function (w) { html += '<div style="padding:4px;font-weight:600;">' + w + '</div>'; });
+        weekDays.forEach(function (w) { html += '<div data-style="padding:4px;font-weight:600;">' + w + '</div>'; });
 
         for (var i = 0; i < firstDay; i++) html += '<div></div>';
         for (var d = 1; d <= daysInMonth; d++) {
@@ -633,33 +633,33 @@ var studyCalendar = (function () {
             var isSel = dateStr === state.selectedDate;
             var bg = isSel ? '#3b82f6;color:#fff;' : (isToday ? '#eff6ff;border:1px solid #3b82f6;' : '#f8fafc;color:#475569;');
             var mark = doneCount === total ? '✅' : (doneCount > 0 ? '·' : '');
-            html += '<div data-ev="date" data-v="' + dateStr + '" style="padding:6px 2px;border-radius:6px;cursor:pointer;background:' + bg + ';position:relative;">';
+            html += '<div data-ev="date" data-v="' + dateStr + '" data-style="padding:6px 2px;border-radius:6px;cursor:pointer;background:' + bg + ';position:relative;">';
             html += '<div>' + d + '</div>';
-            html += '<div style="font-size:10px;height:10px;">' + mark + '</div>';
+            html += '<div data-style="font-size:10px;height:10px;">' + mark + '</div>';
             html += '</div>';
         }
         html += '</div>';
-        html += '<div style="margin-top:8px;font-size:12px;color:#64748b;">✅ 全部完成 · 半圆点表示部分完成</div>';
+        html += '<div data-style="margin-top:8px;font-size:12px;color:#64748b;">✅ 全部完成 · 半圆点表示部分完成</div>';
         html += '</div>';
 
         // 每日任务
         var selDate = state.selectedDate || todayKey;
         var tasks = getDailyTasks(selDate);
         var status = getTaskStatus(selDate);
-        html += '<div style="margin-top:14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
-        html += '<strong style="color:#0f172a;">📝 ' + selDate + ' 每日任务</strong>';
-        html += '<span style="font-size:12px;color:#64748b;">' + Object.keys(status).filter(function (k) { return status[k]; }).length + '/' + tasks.length + ' 已完成</span>';
+        html += '<div data-style="margin-top:14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
+        html += '<strong data-style="color:#0f172a;">📝 ' + selDate + ' 每日任务</strong>';
+        html += '<span data-style="font-size:12px;color:#64748b;">' + Object.keys(status).filter(function (k) { return status[k]; }).length + '/' + tasks.length + ' 已完成</span>';
         html += '</div>';
         tasks.forEach(function (t) {
             var done = !!status[t.id];
             var bg = done ? '#f0fdf4;' : '#f8fafc;';
             var col = done ? '#065f46;' : '#475569;';
-            html += '<div style="display:flex;align-items:center;padding:8px 10px;margin-bottom:6px;background:' + bg + 'border-radius:6px;border:1px solid #e2e8f0;">';
-            html += '<label style="display:flex;align-items:center;cursor:pointer;width:100%;color:' + col + '">';
-            html += '<input type="checkbox" data-ev="task" data-date="' + selDate + '" data-tid="' + t.id + '" ' + (done ? 'checked' : '') + ' style="margin-right:10px;transform:scale(1.2);">';
-            html += '<span style="flex:1;"><strong>[' + t.subject + '·' + t.type + ']</strong> ' + t.content + '</span>';
-            if (done) html += '<span style="color:#10b981;">✓</span>';
+            html += '<div data-style="display:flex;align-items:center;padding:8px 10px;margin-bottom:6px;background:' + bg + 'border-radius:6px;border:1px solid #e2e8f0;">';
+            html += '<label data-style="display:flex;align-items:center;cursor:pointer;width:100%;color:' + col + '">';
+            html += '<input type="checkbox" data-ev="task" data-date="' + selDate + '" data-tid="' + t.id + '" ' + (done ? 'checked' : '') + ' data-style="margin-right:10px;transform:scale(1.2);">';
+            html += '<span data-style="flex:1;"><strong>[' + t.subject + '·' + t.type + ']</strong> ' + t.content + '</span>';
+            if (done) html += '<span data-style="color:#10b981;">✓</span>';
             html += '</label></div>';
         });
         html += '</div>';
@@ -828,11 +828,11 @@ var examStrategy = (function () {
         });
         var legend = '';
         pie.forEach(function (p) {
-            legend += '<div style="display:flex;align-items:center;margin:3px 0;font-size:12px;color:#475569;">';
-            legend += '<span style="display:inline-block;width:12px;height:12px;background:' + p.color + ';margin-right:6px;border-radius:2px;"></span>';
+            legend += '<div data-style="display:flex;align-items:center;margin:3px 0;font-size:12px;color:#475569;">';
+            legend += '<span data-style="display:inline-block;width:12px;height:12px;background:' + p.color + ';margin-right:6px;border-radius:2px;"></span>';
             legend += p.label + ' (' + p.value + '分钟)</div>';
         });
-        return '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">' +
+        return '<div data-style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">' +
             '<svg width="140" height="140" viewBox="0 0 140 140">' + paths + '<text x="70" y="74" text-anchor="middle" font-size="13" fill="#0f172a" font-weight="600">' + total + '分钟</text></svg>' +
             '<div>' + legend + '</div></div>';
     }
@@ -842,22 +842,22 @@ var examStrategy = (function () {
         if (!app) return;
         var d = data[state.subject];
 
-        var html = '<div style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
-        html += '<h3 style="margin:0 0 12px;color:#0f172a;">🎯 考前策略</h3>';
-        html += '<p style="color:#64748b;font-size:13px;margin:0 0 12px;">考试时间分配、答题顺序、心态调整与考前 checklist。</p>';
+        var html = '<div data-style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
+        html += '<h3 data-style="margin:0 0 12px;color:#0f172a;">🎯 考前策略</h3>';
+        html += '<p data-style="color:#64748b;font-size:13px;margin:0 0 12px;">考试时间分配、答题顺序、心态调整与考前 checklist。</p>';
 
         // 科目tab
-        html += '<div style="display:flex;gap:6px;margin-bottom:14px;border-bottom:2px solid #e2e8f0;">';
+        html += '<div data-style="display:flex;gap:6px;margin-bottom:14px;border-bottom:2px solid #e2e8f0;">';
         Object.keys(data).forEach(function (s) {
             var sel = state.subject === s;
             var bg = sel ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
             var border = sel ? 'border-bottom:3px solid #3b82f6;margin-bottom:-2px;' : '';
-            html += '<button data-ev="subj" data-v="' + s + '" style="padding:8px 18px;border:0;border-radius:6px 6px 0 0;cursor:pointer;background:' + bg + border + '">' + s + '</button>';
+            html += '<button data-ev="subj" data-v="' + s + '" data-style="padding:8px 18px;border:0;border-radius:6px 6px 0 0;cursor:pointer;background:' + bg + border + '">' + s + '</button>';
         });
         html += '</div>';
 
         // 内容tab
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">';
         var tabs = [
             { k: 'time', t: '⏱ 时间分配' },
             { k: 'order', t: '📋 答题顺序' },
@@ -869,52 +869,52 @@ var examStrategy = (function () {
         tabs.forEach(function (t) {
             var sel = state.tab === t.k;
             var bg = sel ? '#1e40af;color:#fff;' : '#f1f5f9;color:#475569;';
-            html += '<button data-ev="tab" data-v="' + t.k + '" style="padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:13px;">' + t.t + '</button>';
+            html += '<button data-ev="tab" data-v="' + t.k + '" data-style="padding:5px 12px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:13px;">' + t.t + '</button>';
         });
         html += '</div>';
 
         // 内容区
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">';
         if (state.tab === 'time') {
-            html += '<h4 style="margin:0 0 10px;color:#1e40af;">' + state.subject + ' 科目时间分配建议（总 ' + d.totalTime + ' 分钟）</h4>';
+            html += '<h4 data-style="margin:0 0 10px;color:#1e40af;">' + state.subject + ' 科目时间分配建议（总 ' + d.totalTime + ' 分钟）</h4>';
             html += renderPie(d.pie);
         } else if (state.tab === 'order') {
-            html += '<h4 style="margin:0 0 10px;color:#1e40af;">答题顺序策略</h4>';
+            html += '<h4 data-style="margin:0 0 10px;color:#1e40af;">答题顺序策略</h4>';
             d.order.forEach(function (o) {
-                html += '<div style="padding:8px 10px;margin-bottom:6px;background:#f0f9ff;border-left:3px solid #3b82f6;border-radius:4px;color:#1e293b;font-size:13px;">' + o + '</div>';
+                html += '<div data-style="padding:8px 10px;margin-bottom:6px;background:#f0f9ff;border-left:3px solid #3b82f6;border-radius:4px;color:#1e293b;font-size:13px;">' + o + '</div>';
             });
         } else if (state.tab === 'control') {
-            html += '<h4 style="margin:0 0 10px;color:#1e40af;">各题型时间控制</h4>';
+            html += '<h4 data-style="margin:0 0 10px;color:#1e40af;">各题型时间控制</h4>';
             d.timeControl.forEach(function (t) {
-                html += '<div style="padding:10px;margin-bottom:8px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;">';
-                html += '<div style="display:flex;justify-content:space-between;font-weight:600;color:#0f172a;font-size:14px;"><span>' + t.type + '</span><span style="color:#3b82f6;">' + t.time + '</span></div>';
-                html += '<div style="color:#64748b;font-size:12px;margin-top:4px;">💡 ' + t.tip + '</div>';
+                html += '<div data-style="padding:10px;margin-bottom:8px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;">';
+                html += '<div data-style="display:flex;justify-content:space-between;font-weight:600;color:#0f172a;font-size:14px;"><span>' + t.type + '</span><span data-style="color:#3b82f6;">' + t.time + '</span></div>';
+                html += '<div data-style="color:#64748b;font-size:12px;margin-top:4px;">💡 ' + t.tip + '</div>';
                 html += '</div>';
             });
         } else if (state.tab === 'mistakes') {
-            html += '<h4 style="margin:0 0 10px;color:#dc2626;">常见失误规避</h4>';
+            html += '<h4 data-style="margin:0 0 10px;color:#dc2626;">常见失误规避</h4>';
             d.mistakes.forEach(function (m) {
-                html += '<div style="padding:8px 10px;margin-bottom:6px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;color:#991b1b;font-size:13px;">' + m + '</div>';
+                html += '<div data-style="padding:8px 10px;margin-bottom:6px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;color:#991b1b;font-size:13px;">' + m + '</div>';
             });
         } else if (state.tab === 'psych') {
-            html += '<h4 style="margin:0 0 10px;color:#7c3aed;">考前心理调节</h4>';
-            html += '<div style="padding:12px;margin-bottom:10px;background:#f5f3ff;border-radius:8px;border-left:4px solid #8b5cf6;">';
-            html += '<div style="font-weight:600;color:#6d28d9;margin-bottom:6px;">🌬️ 呼吸放松法</div>';
-            html += '<div style="color:#475569;font-size:13px;line-height:1.7;">' + psych.breath + '</div></div>';
-            html += '<div style="padding:12px;margin-bottom:10px;background:#ecfdf5;border-radius:8px;border-left:4px solid #10b981;">';
-            html += '<div style="font-weight:600;color:#047857;margin-bottom:6px;">💪 积极暗示</div>';
-            html += '<div style="color:#475569;font-size:13px;line-height:1.7;">' + psych.suggestion + '</div></div>';
-            html += '<div style="padding:12px;background:#fffbeb;border-radius:8px;border-left:4px solid #f59e0b;">';
-            html += '<div style="font-weight:600;color:#b45309;margin-bottom:6px;">😰 焦虑应对</div>';
-            html += '<div style="color:#475569;font-size:13px;line-height:1.7;">' + psych.anxiety + '</div></div>';
+            html += '<h4 data-style="margin:0 0 10px;color:#7c3aed;">考前心理调节</h4>';
+            html += '<div data-style="padding:12px;margin-bottom:10px;background:#f5f3ff;border-radius:8px;border-left:4px solid #8b5cf6;">';
+            html += '<div data-style="font-weight:600;color:#6d28d9;margin-bottom:6px;">🌬️ 呼吸放松法</div>';
+            html += '<div data-style="color:#475569;font-size:13px;line-height:1.7;">' + psych.breath + '</div></div>';
+            html += '<div data-style="padding:12px;margin-bottom:10px;background:#ecfdf5;border-radius:8px;border-left:4px solid #10b981;">';
+            html += '<div data-style="font-weight:600;color:#047857;margin-bottom:6px;">💪 积极暗示</div>';
+            html += '<div data-style="color:#475569;font-size:13px;line-height:1.7;">' + psych.suggestion + '</div></div>';
+            html += '<div data-style="padding:12px;background:#fffbeb;border-radius:8px;border-left:4px solid #f59e0b;">';
+            html += '<div data-style="font-weight:600;color:#b45309;margin-bottom:6px;">😰 焦虑应对</div>';
+            html += '<div data-style="color:#475569;font-size:13px;line-height:1.7;">' + psych.anxiety + '</div></div>';
         } else if (state.tab === 'checklist') {
-            html += '<h4 style="margin:0 0 10px;color:#1e40af;">考前 Checklist</h4>';
+            html += '<h4 data-style="margin:0 0 10px;color:#1e40af;">考前 Checklist</h4>';
             checklist.forEach(function (c) {
-                html += '<div style="margin-bottom:12px;background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0;">';
-                html += '<div style="font-weight:700;color:#0f172a;margin-bottom:6px;">📌 ' + c.stage + '</div>';
+                html += '<div data-style="margin-bottom:12px;background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0;">';
+                html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:6px;">📌 ' + c.stage + '</div>';
                 c.items.forEach(function (it) {
-                    html += '<div style="padding:4px 0 4px 18px;color:#475569;font-size:13px;position:relative;">';
-                    html += '<span style="position:absolute;left:0;color:#10b981;">☐</span>' + it + '</div>';
+                    html += '<div data-style="padding:4px 0 4px 18px;color:#475569;font-size:13px;position:relative;">';
+                    html += '<span data-style="position:absolute;left:0;color:#10b981;">☐</span>' + it + '</div>';
                 });
                 html += '</div>';
             });
@@ -1001,30 +1001,30 @@ var interactiveMistakes = (function () {
         var list = bank[state.subject];
         var cur = list[state.idx];
 
-        var html = '<div style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
-        html += '<h3 style="margin:0 0 12px;color:#0f172a;">⚠️ 交互式易错点</h3>';
-        html += '<p style="color:#64748b;font-size:13px;margin:0 0 12px;">判断易错表述对错，揭示陷阱，掌握正确做法。共 30 个易错点（三科各 10 个）。</p>';
+        var html = '<div data-style="padding:16px;font-family:Microsoft YaHei,Segoe UI,sans-serif;">';
+        html += '<h3 data-style="margin:0 0 12px;color:#0f172a;">⚠️ 交互式易错点</h3>';
+        html += '<p data-style="color:#64748b;font-size:13px;margin:0 0 12px;">判断易错表述对错，揭示陷阱，掌握正确做法。共 30 个易错点（三科各 10 个）。</p>';
 
         // 科目tab
-        html += '<div style="display:flex;gap:6px;margin-bottom:14px;">';
+        html += '<div data-style="display:flex;gap:6px;margin-bottom:14px;">';
         Object.keys(bank).forEach(function (s) {
             var sel = state.subject === s;
             var bg = sel ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-            html += '<button data-ev="subj" data-v="' + s + '" style="padding:6px 16px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';">' + s + '</button>';
+            html += '<button data-ev="subj" data-v="' + s + '" data-style="padding:6px 16px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';">' + s + '</button>';
         });
         html += '</div>';
 
         // 进度
-        html += '<div style="margin-bottom:10px;color:#64748b;font-size:13px;">第 ' + (state.idx + 1) + ' / ' + list.length + ' 题</div>';
-        html += '<div style="background:#e2e8f0;border-radius:6px;height:6px;margin-bottom:14px;overflow:hidden;">';
-        html += '<div style="width:' + ((state.idx + 1) / list.length * 100) + '%;background:#3b82f6;height:100%;"></div></div>';
+        html += '<div data-style="margin-bottom:10px;color:#64748b;font-size:13px;">第 ' + (state.idx + 1) + ' / ' + list.length + ' 题</div>';
+        html += '<div data-style="background:#e2e8f0;border-radius:6px;height:6px;margin-bottom:14px;overflow:hidden;">';
+        html += '<div data-style="width:' + ((state.idx + 1) / list.length * 100) + '%;background:#3b82f6;height:100%;"></div></div>';
 
         // 题目卡片
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">';
-        html += '<div style="color:#64748b;font-size:13px;margin-bottom:8px;">📌 判断下列说法是否正确：</div>';
-        html += '<div style="padding:14px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;color:#92400e;font-size:15px;line-height:1.6;margin-bottom:14px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">';
+        html += '<div data-style="color:#64748b;font-size:13px;margin-bottom:8px;">📌 判断下列说法是否正确：</div>';
+        html += '<div data-style="padding:14px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;color:#92400e;font-size:15px;line-height:1.6;margin-bottom:14px;">';
         html += '"' + cur.wrong + '"';
-        html += '<div style="margin-top:8px;font-size:13px;color:#b45309;font-weight:600;">这个说法对吗？</div>';
+        html += '<div data-style="margin-top:8px;font-size:13px;color:#b45309;font-weight:600;">这个说法对吗？</div>';
         html += '</div>';
 
         // 选项
@@ -1041,7 +1041,7 @@ var interactiveMistakes = (function () {
             } else if (sel) {
                 bg = '#eff6ff;color:#1e40af;border:1px solid #3b82f6;';
             }
-            html += '<button data-ev="opt" data-v="' + o.v + '" style="display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:8px;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:14px;">' + o.t + '</button>';
+            html += '<button data-ev="opt" data-v="' + o.v + '" data-style="display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:8px;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:14px;">' + o.t + '</button>';
         });
 
         // 揭示
@@ -1050,27 +1050,27 @@ var interactiveMistakes = (function () {
             var bg = userCorrect ? '#d1fae5' : '#fee2e2';
             var col = userCorrect ? '#065f46' : '#991b1b';
             var icon = userCorrect ? '✅' : '❌';
-            html += '<div style="margin-top:14px;padding:12px;background:' + bg + ';border-radius:8px;color:' + col + ';">';
-            html += '<div style="font-weight:700;margin-bottom:8px;">' + icon + ' ' + (userCorrect ? '判断正确！' : '判断错误') + '</div>';
-            html += '<div style="margin-bottom:8px;"><strong>⚠️ 陷阱分析：</strong>' + cur.trap + '</div>';
+            html += '<div data-style="margin-top:14px;padding:12px;background:' + bg + ';border-radius:8px;color:' + col + ';">';
+            html += '<div data-style="font-weight:700;margin-bottom:8px;">' + icon + ' ' + (userCorrect ? '判断正确！' : '判断错误') + '</div>';
+            html += '<div data-style="margin-bottom:8px;"><strong>⚠️ 陷阱分析：</strong>' + cur.trap + '</div>';
             html += '<div><strong>✓ 正确做法：</strong>' + cur.right + '</div>';
             html += '</div>';
 
-            html += '<div style="display:flex;gap:8px;margin-top:14px;">';
-            if (state.idx > 0) html += '<button data-ev="prev" style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;background:#f1f5f9;color:#475569;">‹ 上一题</button>';
-            if (state.idx < list.length - 1) html += '<button data-ev="next" style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">下一题 ›</button>';
+            html += '<div data-style="display:flex;gap:8px;margin-top:14px;">';
+            if (state.idx > 0) html += '<button data-ev="prev" data-style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;background:#f1f5f9;color:#475569;">‹ 上一题</button>';
+            if (state.idx < list.length - 1) html += '<button data-ev="next" data-style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;">下一题 ›</button>';
             html += '</div>';
         } else if (state.selected) {
-            html += '<button data-ev="reveal" style="margin-top:10px;padding:8px 18px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;font-weight:600;">🔍 揭示答案</button>';
+            html += '<button data-ev="reveal" data-style="margin-top:10px;padding:8px 18px;border:0;border-radius:6px;cursor:pointer;background:#10b981;color:#fff;font-weight:600;">🔍 揭示答案</button>';
         }
 
         html += '</div>';
 
         // 题目导航
-        html += '<div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;">';
+        html += '<div data-style="margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;">';
         list.forEach(function (_, i) {
             var bg = i === state.idx ? '#3b82f6;color:#fff;' : '#f1f5f9;color:#475569;';
-            html += '<button data-ev="goto" data-v="' + i + '" style="width:30px;height:30px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:12px;">' + (i + 1) + '</button>';
+            html += '<button data-ev="goto" data-v="' + i + '" data-style="width:30px;height:30px;border:0;border-radius:6px;cursor:pointer;background:' + bg + ';font-size:12px;">' + (i + 1) + '</button>';
         });
         html += '</div>';
 

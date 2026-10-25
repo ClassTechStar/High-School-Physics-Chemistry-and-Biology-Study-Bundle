@@ -537,20 +537,20 @@ window.biologyCellDivision = (function() {
         var container = document.getElementById('biology-cell-division-app');
         if (!container) return;
 
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:8px;">' +
-            '<button class="cd-tab" data-tab="mitosis" style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;font-size:14px;">\u6709\u4E1D\u5206\u88C2</button>' +
-            '<button class="cd-tab" data-tab="meiosis" style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;font-size:14px;">\u51CF\u6570\u5206\u88C2</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:8px;">' +
+            '<button class="cd-tab" data-tab="mitosis" data-style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;font-size:14px;">\u6709\u4E1D\u5206\u88C2</button>' +
+            '<button class="cd-tab" data-tab="meiosis" data-style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;font-size:14px;">\u51CF\u6570\u5206\u88C2</button>' +
             '</div>' +
-            '<div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;flex-wrap:wrap;">' +
-            '<button id="cell-prev" style="padding:6px 12px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;" disabled>\u25C0 \u4E0A\u4E00\u6B65</button>' +
-            '<button id="cell-play" style="padding:6px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u25B6 \u64AD\u653E</button>' +
-            '<button id="cell-next" style="padding:6px 12px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u4E0B\u4E00\u6B65 \u25B6</button>' +
-            '<span id="cell-step-indicator" style="font-size:14px;color:#666;margin-left:8px;">1/' + (currentTab === 'mitosis' ? 5 : 8) + '</span>' +
-            '<span id="cell-desc-detail" style="font-size:12px;color:#999;margin-left:8px;"></span>' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:10px;align-items:center;flex-wrap:wrap;">' +
+            '<button id="cell-prev" data-style="padding:6px 12px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;" disabled>\u25C0 \u4E0A\u4E00\u6B65</button>' +
+            '<button id="cell-play" data-style="padding:6px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u25B6 \u64AD\u653E</button>' +
+            '<button id="cell-next" data-style="padding:6px 12px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u4E0B\u4E00\u6B65 \u25B6</button>' +
+            '<span id="cell-step-indicator" data-style="font-size:14px;color:#666;margin-left:8px;">1/' + (currentTab === 'mitosis' ? 5 : 8) + '</span>' +
+            '<span id="cell-desc-detail" data-style="font-size:12px;color:#999;margin-left:8px;"></span>' +
             '</div>' +
-            '<canvas id="cell-division-canvas" width="650" height="420" style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:650px;margin-bottom:10px;"></canvas>' +
-            '<div id="cell-desc" style="padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;line-height:1.6;"></div>' +
+            '<canvas id="cell-division-canvas" width="650" height="420" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fafbfc;width:100%;max-width:650px;margin-bottom:10px;"></canvas>' +
+            '<div id="cell-desc" data-style="padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;line-height:1.6;"></div>' +
             '</div>';
 
         function switchTab(tab) {

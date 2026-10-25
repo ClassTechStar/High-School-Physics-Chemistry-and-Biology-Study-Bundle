@@ -608,7 +608,7 @@ const chemistryQuizGenerator = {
                         </div>
                     `).join('')}
                 </div>
-                <div class="answer-toggle" style="display:none;" id="answer-${idx}">
+                <div class="answer-toggle" data-style="display:none;" id="answer-${idx}">
                     <div class="info-box">
                         <h4>正确答案：${String.fromCharCode(65 + q.answer)}</h4>
                         <p><strong>解析：</strong>${q.explanation}</p>
@@ -683,7 +683,7 @@ function renderChemistryBalancer() {
                 <input type="text" class="balance-input" id="equation-input"
                     placeholder="例如: Fe + O2 -> Fe2O3"
                     value="Fe + O2 -> Fe2O3">
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div data-style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn btn-primary" data-call=\"balanceEquation\">配平方程</button>
                     <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:h2o\">2H2 + O2 → 2H2O</button>
                     <button class="btn btn-secondary" data-call=\"loadPreset\" data-arg1=\"@s:fe+o2\">Fe + O2 → Fe2O3</button>
@@ -692,7 +692,7 @@ function renderChemistryBalancer() {
                 </div>
             </div>
 
-            <div id="balance-result" class="balance-result" style="display:none;">
+            <div id="balance-result" class="balance-result" data-style="display:none;">
                 <h3>✅ 配平结果</h3>
                 <div class="balanced-equation" id="balanced-eq"></div>
 
@@ -719,7 +719,7 @@ function renderChemistryBalancer() {
                 </div>
                 <div class="warning-box">
                     <h4>⚠️ 常见错误</h4>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>忘记配平氢原子和氧原子（最后检查）</li>
                         <li>忘记检查产物与反应物的原子种类是否一致</li>
                         <li>有机物燃烧反应先配平C和H，最后配平O</li>
@@ -861,15 +861,15 @@ function renderChemistryQuiz() {
                         <div class="label">实验操作</div>
                     </div>
                 </div>
-                <div style="margin-top: 20px;">
+                <div data-style="margin-top: 20px;">
                     <label>题目数量：</label>
-                    <select id="question-count" style="padding: 8px; border-radius: 4px; margin-left: 10px;">
+                    <select id="question-count" data-style="padding: 8px; border-radius: 4px; margin-left: 10px;">
                         <option value="5">5题</option>
                         <option value="8" selected>8题</option>
                         <option value="10">10题</option>
                     </select>
                 </div>
-                <button class="btn btn-primary btn-block" style="margin-top: 20px;" data-call=\"generateNewQuiz\">
+                <button class="btn btn-primary btn-block" data-style="margin-top: 20px;" data-call=\"generateNewQuiz\">
                     🎲 生成新的小练习
                 </button>
             </div>
@@ -1448,7 +1448,7 @@ const chemistrySafetySystem = {
                                     '</div>';
                                 }).join('')
                             }
-                            ${this.state.studentLog.length > 0 ? '<div class="current-score">当前得分：<strong style="color:'+gradeColor+'">'+this.state.score+'</strong> 分</div>' : ''}
+                            ${this.state.studentLog.length > 0 ? '<div class="current-score">当前得分：<strong data-style="color:'+gradeColor+'">'+this.state.score+'</strong> 分</div>' : ''}
                         </div>
 
                         <div class="eval-panel">
@@ -1461,17 +1461,17 @@ const chemistrySafetySystem = {
                 ${this.state.violations.length > 0 ? `
                 <div class="safety-result">
                     <div class="safety-result-card">
-                        <div class="result-header" style="border-color: ${gradeColor}">
-                            <div class="grade-badge" style="background: ${gradeColor}">${grade}</div>
+                        <div class="result-header" data-style="border-color: ${gradeColor}">
+                            <div class="grade-badge" data-style="background: ${gradeColor}">${grade}</div>
                             <div class="score-display">
                                 <span class="score-label">实验安全评分</span>
-                                <span class="score-value" style="color:${gradeColor}">${this.state.score}</span>
+                                <span class="score-value" data-style="color:${gradeColor}">${this.state.score}</span>
                             </div>
                         </div>
                         <div class="result-summary">
                             <p>共记录 ${this.state.studentLog.length} 步操作</p>
-                            <p>发现 <strong style="color:#e74c3c">${this.state.violations.length}</strong> 处安全隐患</p>
-                            <p>安全等级：<strong style="color: ${gradeColor}">${this.getGradeDesc(grade)}</strong></p>
+                            <p>发现 <strong data-style="color:#e74c3c">${this.state.violations.length}</strong> 处安全隐患</p>
+                            <p>安全等级：<strong data-style="color: ${gradeColor}">${this.getGradeDesc(grade)}</strong></p>
                         </div>
                         <div class="violations-list">
                             <h4>⚠️ 安全隐患详情</h4>
@@ -1480,7 +1480,7 @@ const chemistrySafetySystem = {
                                     <div class="violation-header">
                                         <span class="violation-num">#${i + 1}</span>
                                         <span class="violation-title">${v.rule.title}</span>
-                                        <span class="violation-score" style="color: #ff4444">${v.rule.score}分</span>
+                                        <span class="violation-score" data-style="color: #ff4444">${v.rule.score}分</span>
                                     </div>
                                     <p class="violation-op">操作：${v.operation}</p>
                                     <p class="violation-desc">${v.rule.description}</p>
@@ -3107,7 +3107,7 @@ const chemicalProcessFlow = {
                     <span>${step.purpose}</span>
                     <span class="card-toggle">${this.state.showDetails === step.id ? '▲' : '▼'}</span>
                 </div>
-                <div class="card-details" id="details-${step.id}" style="display:${this.state.showDetails === step.id ? 'block' : 'none'}">
+                <div class="card-details" id="details-${step.id}" data-style="display:${this.state.showDetails === step.id ? 'block' : 'none'}">
                     <div class="detail-section">
                         <h6>⚙️ 反应原理</h6>
                         <p>${step.principle}</p>
@@ -3778,12 +3778,12 @@ const organicConverter = {
                 const labelX = ctrlX, labelY = ctrlY - 10;
                 // 背景圆角矩形
                 svgParts.push(`<rect x="${labelX - 40}" y="${labelY - 10}" width="80" height="20" rx="10" fill="${lineColor}" opacity="0.85"/>`);
-                svgParts.push(`<text x="${labelX}" y="${labelY + 3}" text-anchor="middle" fill="white" font-size="10" font-weight="600" style="pointer-events:none;">${edge.type}</text>`);
+                svgParts.push(`<text x="${labelX}" y="${labelY + 3}" text-anchor="middle" fill="white" font-size="10" font-weight="600" data-style="pointer-events:none;">${edge.type}</text>`);
                 // 反应条件（在标签下方）
                 if (edge.conditions && edge.conditions.length > 0) {
                     const condY = labelY + 22;
                     svgParts.push(`<rect x="${labelX - 35}" y="${condY - 8}" width="70" height="16" rx="8" fill="white" stroke="${lineColor}" stroke-width="0.8" opacity="0.9"/>`);
-                    svgParts.push(`<text x="${labelX}" y="${condY + 3}" text-anchor="middle" fill="#444" font-size="9" style="pointer-events:none;">${edge.conditions}</text>`);
+                    svgParts.push(`<text x="${labelX}" y="${condY + 3}" text-anchor="middle" fill="#444" font-size="9" data-style="pointer-events:none;">${edge.conditions}</text>`);
                 }
             }
         });
@@ -3796,9 +3796,9 @@ const organicConverter = {
             // 节点主体
             svgParts.push(`<circle cx="${node.x}" cy="${node.y}" r="${r}" fill="white" stroke="${node.color}" stroke-width="3" filter="url(#node-shadow)"/>`);
             // 物质名称（加大字号）
-            svgParts.push(`<text x="${node.x}" y="${node.y - 6}" text-anchor="middle" fill="${node.color}" font-size="13" font-weight="700" style="pointer-events:none;">${node.name}</text>`);
+            svgParts.push(`<text x="${node.x}" y="${node.y - 6}" text-anchor="middle" fill="${node.color}" font-size="13" font-weight="700" data-style="pointer-events:none;">${node.name}</text>`);
             // 分子式
-            svgParts.push(`<text x="${node.x}" y="${node.y + 14}" text-anchor="middle" fill="#555" font-size="11" style="pointer-events:none;">${node.formula}</text>`);
+            svgParts.push(`<text x="${node.x}" y="${node.y + 14}" text-anchor="middle" fill="#555" font-size="11" data-style="pointer-events:none;">${node.formula}</text>`);
         });
 
         svgParts.push(`</svg>`);
@@ -3901,10 +3901,10 @@ const organicConverter = {
                                 <div class="cat-items">
                                     ${subs.map(sub => `
                                         <button class="sub-item ${this.state.selectedSubstances.includes(sub.id) ? 'selected' : ''}"
-                                            style="--sub-color: ${sub.color}"
+                                            data-style="--sub-color: ${sub.color}"
                                             data-call="organicConverter.toggleSubstance" data-arg1="@s:${sub.id}"
                                             title="${sub.properties.join('\\n')}">
-                                            <span class="sub-dot" style="background:${sub.color}"></span>
+                                            <span class="sub-dot" data-style="background:${sub.color}"></span>
                                             <span class="sub-name">${sub.name}</span>
                                             <span class="sub-formula">${sub.formula}</span>
                                         </button>
@@ -3935,7 +3935,7 @@ const organicConverter = {
                         <span>筛选：</span>
                         ${activeTypes.slice(0, 6).map(t => `
                             <button class="type-chip ${this.state.highlightType===t?'active':''}"
-                                style="--chip-color: ${getTypeColor(t)}"
+                                data-style="--chip-color: ${getTypeColor(t)}"
                                 data-call="organicConverter.setHighlightType" data-arg1="@s:${t}">${t}</button>
                         `).join('')}
                         ${activeTypes.length > 6 ? `<span class="more-types">+${activeTypes.length - 6}种</span>` : ''}
@@ -3980,9 +3980,9 @@ const organicConverter = {
                         const toSub = this.substanceLibrary[r.to];
                         const isAvailable = this.state.selectedSubstances.includes(r.from) && this.state.selectedSubstances.includes(r.to);
                         return '<div class="reaction-card' + (isAvailable ? ' available' : '') + '">' +
-                            '<div class="rc-from" style="color:' + fromSub.color + '">' + fromSub.name + '</div>' +
+                            '<div class="rc-from" data-style="color:' + fromSub.color + '">' + fromSub.name + '</div>' +
                             '<div class="rc-arrow">' + r.type + '</div>' +
-                            '<div class="rc-to" style="color:' + toSub.color + '">' + toSub.name + '</div>' +
+                            '<div class="rc-to" data-style="color:' + toSub.color + '">' + toSub.name + '</div>' +
                             '<div class="rc-eq">' + r.reaction + '</div>' +
                             '<div class="rc-cond">条件：' + r.conditions + '</div>' +
                             (r.gdPoint ? '<div class="rc-gd">⭐ ' + r.gdPoint + '</div>' : '') +
@@ -3998,7 +3998,7 @@ const organicConverter = {
         if (!sub) return '<p class="placeholder-text">物质不存在</p>';
         const conversions = this.getConversionsFor(substanceId);
         return '<div class="detail-card">' +
-            '<div class="detail-header" style="background:' + sub.color + '">' +
+            '<div class="detail-header" data-style="background:' + sub.color + '">' +
                 '<h4>' + sub.name + '</h4>' +
                 '<div class="detail-formula">' + sub.formula + '</div>' +
             '</div>' +
@@ -4064,15 +4064,15 @@ const organicConverter = {
         const toSub = this.substanceLibrary[conn.to];
         return '<div class="connection-card">' +
             '<div class="cc-header">' +
-                '<span class="cc-type" style="background:' + getTypeColor(conn.type) + '">' + conn.type + '</span>' +
+                '<span class="cc-type" data-style="background:' + getTypeColor(conn.type) + '">' + conn.type + '</span>' +
                 (conn.gdPoint ? '<span class="cc-gd">⭐ 广东卷</span>' : '') +
             '</div>' +
             '<div class="cc-body">' +
                 '<div class="cc-equation">' + conn.reaction + '</div>' +
                 '<div class="cc-path">' +
-                    '<span style="color:' + fromSub.color + ';font-weight:600;">' + fromSub.name + '</span>' +
+                    '<span data-style="color:' + fromSub.color + ';font-weight:600;">' + fromSub.name + '</span>' +
                     ' <span class="cc-arrow">→</span> ' +
-                    '<span style="color:' + toSub.color + ';font-weight:600;">' + toSub.name + '</span>' +
+                    '<span data-style="color:' + toSub.color + ';font-weight:600;">' + toSub.name + '</span>' +
                 '</div>' +
                 '<div class="cc-condition">🔬 条件：' + conn.conditions + '</div>' +
             '</div>' +

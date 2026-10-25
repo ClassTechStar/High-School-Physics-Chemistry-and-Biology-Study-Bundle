@@ -19,47 +19,47 @@ var PlatformSystem={
         el.innerHTML='<div class="knowledge-section">'+
             '<h3>🏛️ 平台结构</h3>'+
 
-            '<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:2px solid rgba(239,68,68,0.2);">'+
-            '<h4 style="color:#e74c3c;">📐 三层结构</h4>'+
+            '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:2px solid rgba(239,68,68,0.2);">'+
+            '<h4 data-style="color:#e74c3c;">📐 三层结构</h4>'+
             '<div class="platform-arch-diagram">'+
             '<div class="arch-core">🎯 核心：六科的知识点、题库和练习都在一个页面里</div>'+
             '<span class="arch-arrow">⬇</span>'+
             '<div class="arch-brain">🧠 中枢：学习路径推荐与错题反馈</div>'+
             '<span class="arch-arrow">⬇ ⬇</span>'+
             '<div class="arch-wings">'+
-            '<div class="arch-wing-left"><div>📖 一轮</div><div style="font-size:0.85rem;margin-top:4px;">知识体系构建</div><div style="font-size:0.75rem;opacity:0.85;">一轮复习模块</div><div style="font-size:0.75rem;opacity:0.85;">学科知识图谱</div></div>'+
-            '<div class="arch-wing-right"><div>🚀 二轮</div><div style="font-size:0.85rem;margin-top:4px;">专题训练</div><div style="font-size:0.75rem;opacity:0.85;">二轮专题模块</div><div style="font-size:0.75rem;opacity:0.85;">情境题库 · 实验中心</div></div>'+
+            '<div class="arch-wing-left"><div>📖 一轮</div><div data-style="font-size:0.85rem;margin-top:4px;">知识体系构建</div><div data-style="font-size:0.75rem;opacity:0.85;">一轮复习模块</div><div data-style="font-size:0.75rem;opacity:0.85;">学科知识图谱</div></div>'+
+            '<div class="arch-wing-right"><div>🚀 二轮</div><div data-style="font-size:0.85rem;margin-top:4px;">专题训练</div><div data-style="font-size:0.75rem;opacity:0.85;">二轮专题模块</div><div data-style="font-size:0.75rem;opacity:0.85;">情境题库 · 实验中心</div></div>'+
             '</div></div>'+
 
-            '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">'+
-            '<div style="flex:1;min-width:140px;background:rgba(239,68,68,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(239,68,68,0.2);"><div style="font-weight:700;color:#e74c3c;">按考情组织</div><div style="font-size:0.75rem;color:#666;">题库覆盖 2018-2026</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(245,158,11,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,158,11,0.2);"><div style="font-weight:700;color:#f59e0b;">重情境</div><div style="font-size:0.75rem;color:#666;">按情境分类的练习题</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(59,130,246,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(59,130,246,0.2);"><div style="font-weight:700;color:#3b82f6;">重衔接</div><div style="font-size:0.75rem;color:#666;">知识点与题目互相打通</div></div>'+
-            '<div style="flex:1;min-width:140px;background:rgba(16,185,129,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div style="font-weight:700;color:#10b981;">重规范</div><div style="font-size:0.75rem;color:#666;">答题步骤与术语对照</div></div>'+
+            '<div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">'+
+            '<div data-style="flex:1;min-width:140px;background:rgba(239,68,68,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(239,68,68,0.2);"><div data-style="font-weight:700;color:#e74c3c;">按考情组织</div><div data-style="font-size:0.75rem;color:#666;">题库覆盖 2018-2026</div></div>'+
+            '<div data-style="flex:1;min-width:140px;background:rgba(245,158,11,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,158,11,0.2);"><div data-style="font-weight:700;color:#f59e0b;">重情境</div><div data-style="font-size:0.75rem;color:#666;">按情境分类的练习题</div></div>'+
+            '<div data-style="flex:1;min-width:140px;background:rgba(59,130,246,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(59,130,246,0.2);"><div data-style="font-weight:700;color:#3b82f6;">重衔接</div><div data-style="font-size:0.75rem;color:#666;">知识点与题目互相打通</div></div>'+
+            '<div data-style="flex:1;min-width:140px;background:rgba(16,185,129,0.08);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-weight:700;color:#10b981;">重规范</div><div data-style="font-size:0.75rem;color:#666;">答题步骤与术语对照</div></div>'+
             '</div></div>'+
 
             '<div class="knowledge-card"><h4>📊 三科模块权重与命题趋势</h4>'+
-            '<div style="margin:10px 0;"><div style="font-weight:700;color:#8b5cf6;margin-bottom:6px;">⚡ 物理：力学≈40% | 电磁学≈33%</div>'+
-            '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:80px;font-size:0.85rem;">力学</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">40%</div></div></div>'+
-            '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:80px;font-size:0.85rem;">电磁学</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#7c3aed,#8b5cf6);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">33%</div></div></div>'+
+            '<div data-style="margin:10px 0;"><div data-style="font-weight:700;color:#8b5cf6;margin-bottom:6px;">⚡ 物理：力学≈40% | 电磁学≈33%</div>'+
+            '<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:80px;font-size:0.85rem;">力学</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div data-style="width:40%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">40%</div></div></div>'+
+            '<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:80px;font-size:0.85rem;">电磁学</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div data-style="width:33%;height:100%;background:linear-gradient(90deg,#7c3aed,#8b5cf6);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">33%</div></div></div>'+
             '</div>'+
-            '<div style="margin:10px 0;"><div style="font-weight:700;color:#3b82f6;margin-bottom:6px;">🧪 化学：四大核心板块</div>'+
-            '<div style="display:flex;flex-wrap:wrap;gap:6px;">'+
-            '<span style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">化学反应原理</span>'+
-            '<span style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">化学实验</span>'+
-            '<span style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">有机化学</span>'+
-            '<span style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">工业流程</span></div></div>'+
-            '<div style="margin:10px 0;"><div style="font-weight:700;color:#10b981;margin-bottom:6px;">🧬 生物：三大支柱</div>'+
-            '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:100px;font-size:0.85rem;">遗传与进化</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:28%;height:100%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">22-28%</div></div></div>'+
-            '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:100px;font-size:0.85rem;">稳态与调节</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:24%;height:100%;background:linear-gradient(90deg,#059669,#10b981);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">20-24%</div></div></div>'+
-            '<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:100px;font-size:0.85rem;">分子与细胞</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div style="width:22%;height:100%;background:linear-gradient(90deg,#047857,#059669);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">18-22%</div></div></div>'+
+            '<div data-style="margin:10px 0;"><div data-style="font-weight:700;color:#3b82f6;margin-bottom:6px;">🧪 化学：四大核心板块</div>'+
+            '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">'+
+            '<span data-style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">化学反应原理</span>'+
+            '<span data-style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">化学实验</span>'+
+            '<span data-style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">有机化学</span>'+
+            '<span data-style="background:rgba(59,130,246,0.1);padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:600;">工业流程</span></div></div>'+
+            '<div data-style="margin:10px 0;"><div data-style="font-weight:700;color:#10b981;margin-bottom:6px;">🧬 生物：三大支柱</div>'+
+            '<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:100px;font-size:0.85rem;">遗传与进化</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div data-style="width:28%;height:100%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">22-28%</div></div></div>'+
+            '<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:100px;font-size:0.85rem;">稳态与调节</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div data-style="width:24%;height:100%;background:linear-gradient(90deg,#059669,#10b981);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">20-24%</div></div></div>'+
+            '<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:100px;font-size:0.85rem;">分子与细胞</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:18px;overflow:hidden;"><div data-style="width:22%;height:100%;background:linear-gradient(90deg,#047857,#059669);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:600;">18-22%</div></div></div>'+
             '</div></div>'+
 
             '<div class="knowledge-card"><h4>🏗️ 三层技术架构</h4>'+
-            '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(16,185,129,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#10b981;">💾 数据层</div><div style="font-size:0.85rem;color:#666;">题库 JSON + 六科知识点 JSON + 浏览器本地学习记录</div></div>'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(99,102,241,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(99,102,241,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#6366f1;">⚙️ 逻辑层</div><div style="font-size:0.85rem;color:#666;">知识点别名映射 + 错题归因 + 学习路径排序</div></div>'+
-            '<div style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(245,158,11,0.2);"><div style="font-size:1.4rem;font-weight:800;color:#f59e0b;">🖥️ 应用层</div><div style="font-size:0.85rem;color:#666;">六科学习页 + 122 个工具 + 模考与错题本</div></div>'+
+            '<div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">'+
+            '<div data-style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(16,185,129,0.2);"><div data-style="font-size:1.4rem;font-weight:800;color:#10b981;">💾 数据层</div><div data-style="font-size:0.85rem;color:#666;">题库 JSON + 六科知识点 JSON + 浏览器本地学习记录</div></div>'+
+            '<div data-style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(99,102,241,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(99,102,241,0.2);"><div data-style="font-size:1.4rem;font-weight:800;color:#6366f1;">⚙️ 逻辑层</div><div data-style="font-size:0.85rem;color:#666;">知识点别名映射 + 错题归因 + 学习路径排序</div></div>'+
+            '<div data-style="flex:1;min-width:160px;background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.12));padding:14px;text-align:center;border-radius:8px;border:1px solid rgba(245,158,11,0.2);"><div data-style="font-size:1.4rem;font-weight:800;color:#f59e0b;">🖥️ 应用层</div><div data-style="font-size:0.85rem;color:#666;">六科学习页 + 122 个工具 + 模考与错题本</div></div>'+
             '</div></div>'+
 
             '<div class="knowledge-card"><h4>📋 命题转型特征（2022-2026）</h4>'+
@@ -251,26 +251,26 @@ var PlatformSystem={
         var colors={physics:'#8b5cf6',chemistry:'#3b82f6',biology:'#10b981'};
         var c=colors[subject];
         var html='<div class="knowledge-section"><h3>📗 '+names[subject]+' 一轮系统复习模块</h3>';
-        html+='<div class="knowledge-card" style="background:linear-gradient(135deg,'+c+'10,'+c+'08);border:1px solid '+c+'30;">';
-        html+='<h4 style="color:'+c+';">🎯 阶段目标：基础题零失分（攻克约60%基础题）</h4>';
+        html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,'+c+'10,'+c+'08);border:1px solid '+c+'30;">';
+        html+='<h4 data-style="color:'+c+';">🎯 阶段目标：基础题零失分（攻克约60%基础题）</h4>';
         html+='<div class="key-point"><strong>核心策略：</strong>回归教材、覆盖主干、深刻理解概念本质。一轮并非追求难题怪题，而是确保基础分"颗粒归仓"</div>';
         html+='<div class="key-point"><strong>设计原则：</strong>'+data.designPrinciples.join(' ● ')+'</div>';
         html+='</div><div class="knowledge-card"><h4>📊 核心复习模块（按近五年分值权重排序）</h4>';
         if(subject==='physics'){
-            html+='<div style="margin:8px 0;"><div style="font-weight:700;margin-bottom:6px;">核心模块权重分布</div>';
+            html+='<div data-style="margin:8px 0;"><div data-style="font-weight:700;margin-bottom:6px;">核心模块权重分布</div>';
             data.modules.forEach(function(m,i){
                 var widths=[40,33,8,8];
-                html+='<div style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span style="min-width:170px;font-size:0.85rem;">'+m+'</span><div style="flex:1;background:#f1f5f9;border-radius:4px;height:16px;"><div style="width:'+widths[i]+'%;height:100%;background:'+c+';border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.65rem;font-weight:700;"></div></div></div>';
+                html+='<div data-style="display:flex;align-items:center;margin:4px 0;gap:8px;"><span data-style="min-width:170px;font-size:0.85rem;">'+m+'</span><div data-style="flex:1;background:#f1f5f9;border-radius:4px;height:16px;"><div data-style="width:'+widths[i]+'%;height:100%;background:'+c+';border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.65rem;font-weight:700;"></div></div></div>';
             });
         }else{
             data.modules.forEach(function(m){html+='<div class="key-point">📌 '+m+'</div>';});
         }
         html+='</div><div class="knowledge-card"><h4>🔥 高频考点（近五年必考/高频）</h4>';
         data.keyPoints.forEach(function(p){html+='<div class="key-point">✅ '+p+'</div>';});
-        html+='</div><div class="knowledge-card"><h4>📦 一轮资源形态配比</h4><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
+        html+='</div><div class="knowledge-card"><h4>📦 一轮资源形态配比</h4><div data-style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">';
         var labels={lecture:'微课精讲',practice:'基础题组',diagnostic:'单元诊断卷',concept:'概念辨析题组',experiment:'教材实验微课',expression:'长句表述训练',conceptMap:'概念图谱填空',scenario:'情境应用题'};
         Object.keys(data.resources).forEach(function(k){
-            html+='<div style="flex:1;min-width:100px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid '+c+'20;"><div style="font-size:1.2rem;font-weight:700;color:'+c+';">'+data.resources[k]+'</div><div style="font-size:0.8rem;color:#666;">'+(labels[k]||k)+'</div></div>';
+            html+='<div data-style="flex:1;min-width:100px;background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid '+c+'20;"><div data-style="font-size:1.2rem;font-weight:700;color:'+c+';">'+data.resources[k]+'</div><div data-style="font-size:0.8rem;color:#666;">'+(labels[k]||k)+'</div></div>';
         });
         html+='</div></div><div class="knowledge-card"><h4>📖 回归教材策略</h4>';
         var mt=this.round1Methodology;
@@ -286,14 +286,14 @@ var PlatformSystem={
         if(!subject) return '<p>二轮专题模块正在开发中...</p>';
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
         var html='<div class="knowledge-section"><h3>📕 '+names[subject]+' 二轮专题冲刺模块</h3>';
-        html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
-        html+='<h4 style="color:#ef4444;">🎯 阶段目标：攻克中高难题（约30-40%区分题）</h4>';
+        html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
+        html+='<h4 data-style="color:#ef4444;">🎯 阶段目标：攻克中高难题（约30-40%区分题）</h4>';
         html+='<div class="key-point"><strong>三大支柱：</strong>跨模块综合 | 情境迁移 | 规范表达</div>';
         html+='<div class="key-point"><strong>关键跃升：</strong>孤立知识点→跨模块网络 | 熟悉模型→陌生情境建模 | 结论性作答→过程性规范表达</div>';
         html+='</div>';
         if(Array.isArray(data)){
             data.forEach(function(t){
-                html+='<div class="knowledge-card" style="border-left:4px solid #ef4444;"><h4>🔶 '+t.name+'</h4>';
+                html+='<div class="knowledge-card" data-style="border-left:4px solid #ef4444;"><h4>🔶 '+t.name+'</h4>';
                 html+='<div class="key-point"><strong>内容：</strong>'+t.desc+'</div><div class="key-point"><strong>目标：</strong>'+t.target+'</div></div>';
             });
         }
@@ -324,8 +324,8 @@ var PlatformSystem={
         qb.tagDimensions.forEach(function(dim){html+='<div class="key-point"><strong>'+dim.name+'：</strong>'+dim.tags+'</div>';});
         html+='</div><div class="knowledge-card"><h4>⚙️ 组卷与练习</h4>';
         qb.propositionEngine.features.forEach(function(f){html+='<div class="key-point">✅ '+f+'</div>';});
-        html+='<div style="margin-top:10px;"><strong>🎨 广东特色情境：</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">';
-        qb.propositionEngine.guangdongFeatures.forEach(function(gf){html+='<span style="background:rgba(245,158,11,0.1);padding:3px 8px;border-radius:10px;font-size:0.8rem;border:1px solid rgba(245,158,11,0.3);">'+gf+'</span>';});
+        html+='<div data-style="margin-top:10px;"><strong>🎨 广东特色情境：</strong><div data-style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">';
+        qb.propositionEngine.guangdongFeatures.forEach(function(gf){html+='<span data-style="background:rgba(245,158,11,0.1);padding:3px 8px;border-radius:10px;font-size:0.8rem;border:1px solid rgba(245,158,11,0.3);">'+gf+'</span>';});
         html+='</div></div></div><div class="knowledge-card"><h4>🔄 练习与复盘</h4>';
         html+='<div class="key-point">'+qb.dataLoop+'</div></div></div>';
         return html;
@@ -335,14 +335,14 @@ var PlatformSystem={
         var ec=this.experimentCenter;
         var names={physics:'物理',chemistry:'化学',biology:'生物'};
         var html='<div class="knowledge-section"><h3>🔬 '+names[subject]+' 实验与探究资源中心</h3>';
-        html+='<div class="knowledge-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
-        html+='<h4 style="color:#ef4444;">📋 高考命题导向</h4>';
+        html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.06));border:1px solid rgba(239,68,68,0.2);">';
+        html+='<h4 data-style="color:#ef4444;">📋 高考命题导向</h4>';
         html+='<div class="key-point"><strong>生物：</strong>'+ec.examImperative.biology+'</div>';
         html+='<div class="key-point"><strong>化学：</strong>'+ec.examImperative.chemistry+'</div>';
         html+='<div class="key-point"><strong>物理：</strong>'+ec.examImperative.physics+'</div>';
         html+='</div>';
         ec.coreTiers.forEach(function(tier){
-            html+='<div class="knowledge-card" style="border-left:4px solid #10b981;"><h4>'+tier.name+' <span style="font-size:0.75rem;color:#10b981;">（'+tier.positioning+'）</span></h4>';
+            html+='<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>'+tier.name+' <span data-style="font-size:0.75rem;color:#10b981;">（'+tier.positioning+'）</span></h4>';
             tier.features.forEach(function(f){html+='<div class="key-point">✅ '+f+'</div>';});
             html+='</div>';
         });
@@ -398,21 +398,21 @@ var PlatformSystem={
         var data=this.checklistData[subject];
         if(!data) return '<p>考点清单正在生成中...</p>';
         var html='<div class="knowledge-section"><h3>'+data.title+'</h3>';
-        html+='<div class="knowledge-card" style="background:linear-gradient(135deg,'+data.color+'10,'+data.color+'08);border:1px solid '+data.color+'30;">';
-        html+='<h4 style="color:'+data.color+';">📋 考前15分钟速查清单</h4>';
+        html+='<div class="knowledge-card" data-style="background:linear-gradient(135deg,'+data.color+'10,'+data.color+'08);border:1px solid '+data.color+'30;">';
+        html+='<h4 data-style="color:'+data.color+';">📋 考前15分钟速查清单</h4>';
         html+='<div class="key-point"><strong>使用指南：</strong>考试前快速浏览，确认每个要点已掌握。点击复选框标记完成项，系统会自动保存进度。</div></div>';
         data.items.forEach(function(cat){
-            html+='<div class="knowledge-card" style="border-left:4px solid '+data.color+';"><h4>'+cat.category+'</h4>';
+            html+='<div class="knowledge-card" data-style="border-left:4px solid '+data.color+';"><h4>'+cat.category+'</h4>';
             cat.items.forEach(function(item,idx){
-                html+='<div style="display:flex;align-items:flex-start;gap:8px;margin:6px 0;padding:8px;background:rgba(255,255,255,0.5);border-radius:6px;">';
-                html+='<input type="checkbox" id="chk_'+subject+'_'+idx+'" style="margin-top:3px;cursor:pointer;" data-call="PlatformSystem.saveChecklist" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '">';
-                html+='<label for="chk_'+subject+'_'+idx+'" style="cursor:pointer;font-size:0.9rem;line-height:1.5;">'+item+'</label></div>';
+                html+='<div data-style="display:flex;align-items:flex-start;gap:8px;margin:6px 0;padding:8px;background:rgba(255,255,255,0.5);border-radius:6px;">';
+                html+='<input type="checkbox" id="chk_'+subject+'_'+idx+'" data-style="margin-top:3px;cursor:pointer;" data-call="PlatformSystem.saveChecklist" data-arg1="@el" data-arg2="@s:' + subject + '" data-arg3="' + idx + '">';
+                html+='<label for="chk_'+subject+'_'+idx+'" data-style="cursor:pointer;font-size:0.9rem;line-height:1.5;">'+item+'</label></div>';
             });
             html+='</div>';
         });
         html+='<div class="knowledge-card"><h4>📊 完成度统计</h4>';
-        html+='<div id="checklist-stats-'+subject+'" style="font-size:1.1rem;font-weight:600;color:'+data.color+';">已完成 0 / '+data.items.reduce(function(s,c){return s+c.items.length;},0)+' 项</div>';
-        html+='<div style="margin-top:8px;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;"><div id="checklist-bar-'+subject+'" style="width:0%;height:100%;background:'+data.color+';transition:width 0.3s;"></div></div></div>';
+        html+='<div id="checklist-stats-'+subject+'" data-style="font-size:1.1rem;font-weight:600;color:'+data.color+';">已完成 0 / '+data.items.reduce(function(s,c){return s+c.items.length;},0)+' 项</div>';
+        html+='<div data-style="margin-top:8px;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;"><div id="checklist-bar-'+subject+'" data-style="width:0%;height:100%;background:'+data.color+';transition:width 0.3s;"></div></div></div>';
         html+='</div>';
         return html;
     },

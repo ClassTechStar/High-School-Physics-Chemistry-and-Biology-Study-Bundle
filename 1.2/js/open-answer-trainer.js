@@ -607,10 +607,10 @@ var openAnswerTrainer = {
         var stats = self.getStats();
 
         var html = '';
-        html += '<div style="font-family:\'Microsoft YaHei\',\'PingFang SC\',sans-serif;max-width:1200px;margin:0 auto;padding:12px;">';
+        html += '<div data-style="font-family:\'Microsoft YaHei\',\'PingFang SC\',sans-serif;max-width:1200px;margin:0 auto;padding:12px;">';
 
         // ===== 顶部：框架Tab切换 =====
-        html += '<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">';
+        html += '<div data-style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">';
         var frameworks = ['原因分析', '实验设计', '曲线分析'];
         var fwColors = { '原因分析': '#e74c3c', '实验设计': '#2ecc71', '曲线分析': '#3498db' };
         var fwIcons = { '原因分析': '🔍', '实验设计': '🧪', '曲线分析': '📈' };
@@ -620,7 +620,7 @@ var openAnswerTrainer = {
             var isActive = self.currentFramework === fwName;
             var disabledCount = stats.byFramework[fwName] || 0;
             var disabledTotal = stats.byFrameworkTotal[fwName] || 0;
-            html += '<div style="' +
+            html += '<div data-style="' +
                 'padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;' +
                 'transition:all 0.2s;user-select:none;' +
                 'border:2px solid ' + (isActive ? fwColors[fwName] : '#e0e0e0') + ';' +
@@ -628,76 +628,76 @@ var openAnswerTrainer = {
                 'color:' + (isActive ? '#fff' : '#333') + ';' +
                 '" data-call="openAnswerTrainer.switchFramework" data-arg1="@s:' + fwName + '">' +
                 fwIcons[fwName] + ' ' + fwName + ' ' +
-                '<span style="font-size:11px;opacity:0.8;">(' + disabledCount + '/' + disabledTotal + ')</span>' +
+                '<span data-style="font-size:11px;opacity:0.8;">(' + disabledCount + '/' + disabledTotal + ')</span>' +
                 '</div>';
         }
         html += '</div>';
 
         // ===== 主体三栏布局 =====
-        html += '<div style="display:flex;gap:10px;flex-wrap:wrap;">';
+        html += '<div data-style="display:flex;gap:10px;flex-wrap:wrap;">';
 
         // ---- 左侧：题目列表 ----
-        html += '<div style="flex:0 0 240px;min-width:200px;background:#fff;border-radius:10px;padding:10px;border:1px solid #e8e8e8;max-height:500px;overflow-y:auto;">';
-        html += '<div style="font-weight:700;font-size:13px;color:#555;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee;">📋 题目列表</div>';
+        html += '<div data-style="flex:0 0 240px;min-width:200px;background:#fff;border-radius:10px;padding:10px;border:1px solid #e8e8e8;max-height:500px;overflow-y:auto;">';
+        html += '<div data-style="font-weight:700;font-size:13px;color:#555;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee;">📋 题目列表</div>';
         for (var qi = 0; qi < qs.length; qi++) {
             var questionItem = qs[qi];
             var isDone = self.isQuestionCompleted(questionItem.id);
             var isCurrent = qi === self.currentQuestionIndex;
             var qScore = self.getQuestionScore(questionItem.id);
 
-            html += '<div style="' +
+            html += '<div data-style="' +
                 'padding:8px 10px;margin-bottom:4px;border-radius:6px;cursor:pointer;font-size:12px;' +
                 'transition:all 0.15s;' +
                 'border:1px solid ' + (isCurrent ? fwColors[self.currentFramework] : 'transparent') + ';' +
                 'background:' + (isCurrent ? 'rgba(' + (self.currentFramework === '原因分析' ? '231,76,60' : self.currentFramework === '实验设计' ? '46,204,113' : '52,152,219') + ',0.08)' : '#fafafa') + ';' +
                 '" data-call=\"openAnswerTrainer.switchQuestion\" data-arg1=\"@n:' + qi + '">' +
-                '<div style="display:flex;align-items:center;justify-content:space-between;">' +
-                '<span style="font-weight:' + (isCurrent ? '700' : '400') + ';color:#333;">' +
+                '<div data-style="display:flex;align-items:center;justify-content:space-between;">' +
+                '<span data-style="font-weight:' + (isCurrent ? '700' : '400') + ';color:#333;">' +
                 (isDone ? '✓ ' : '') + '#' + (qi + 1) + ' ' +
-                '<span style="font-size:10px;background:#eee;padding:1px 5px;border-radius:3px;margin-left:2px;">' + questionItem.subject + '</span>' +
+                '<span data-style="font-size:10px;background:#eee;padding:1px 5px;border-radius:3px;margin-left:2px;">' + questionItem.subject + '</span>' +
                 '</span>' +
-                (qScore !== null ? '<span style="color:' + fwColors[self.currentFramework] + ';font-weight:700;">' + qScore + '分</span>' : '') +
+                (qScore !== null ? '<span data-style="color:' + fwColors[self.currentFramework] + ';font-weight:700;">' + qScore + '分</span>' : '') +
                 '</div>' +
-                '<div style="color:#888;font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + questionItem.question + '</div>' +
+                '<div data-style="color:#888;font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + questionItem.question + '</div>' +
                 '</div>';
         }
         html += '</div>';
 
         // ---- 中间：题目展示 + 作答区 ----
-        html += '<div style="flex:1;min-width:350px;background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;min-height:400px;">';
+        html += '<div data-style="flex:1;min-width:350px;background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;min-height:400px;">';
 
         if (!q) {
-            html += '<div style="text-align:center;color:#999;padding:60px 0;">暂无题目</div>';
+            html += '<div data-style="text-align:center;color:#999;padding:60px 0;">暂无题目</div>';
         } else {
             // 题目信息
-            html += '<div style="margin-bottom:10px;">';
-            html += '<span style="background:' + fwColors[self.currentFramework] + ';color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;margin-right:6px;">' + fwIcons[self.currentFramework] + ' ' + self.currentFramework + '</span>';
-            html += '<span style="background:#f0f0f0;padding:3px 10px;border-radius:12px;font-size:11px;margin-right:6px;">' + q.subject + '</span>';
-            html += '<span style="background:#f0f0f0;padding:3px 10px;border-radius:12px;font-size:11px;">满分' + q.score + '分</span>';
-            html += '<span style="float:right;font-size:11px;color:#999;">' + q.examYear + '</span>';
+            html += '<div data-style="margin-bottom:10px;">';
+            html += '<span data-style="background:' + fwColors[self.currentFramework] + ';color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;margin-right:6px;">' + fwIcons[self.currentFramework] + ' ' + self.currentFramework + '</span>';
+            html += '<span data-style="background:#f0f0f0;padding:3px 10px;border-radius:12px;font-size:11px;margin-right:6px;">' + q.subject + '</span>';
+            html += '<span data-style="background:#f0f0f0;padding:3px 10px;border-radius:12px;font-size:11px;">满分' + q.score + '分</span>';
+            html += '<span data-style="float:right;font-size:11px;color:#999;">' + q.examYear + '</span>';
             html += '</div>';
 
-            html += '<div style="font-size:15px;font-weight:700;color:#222;margin-bottom:6px;">' + q.question + '</div>';
+            html += '<div data-style="font-size:15px;font-weight:700;color:#222;margin-bottom:6px;">' + q.question + '</div>';
             if (q.context) {
-                html += '<div style="background:#f8f9fa;padding:10px;border-radius:6px;font-size:12px;color:#555;margin-bottom:12px;line-height:1.8;">' + q.context + '</div>';
+                html += '<div data-style="background:#f8f9fa;padding:10px;border-radius:6px;font-size:12px;color:#555;margin-bottom:12px;line-height:1.8;">' + q.context + '</div>';
             }
 
             // 训练步骤
-            html += '<div style="margin:12px 0;padding:8px;background:rgba(' + (self.currentFramework === '原因分析' ? '231,76,60' : self.currentFramework === '实验设计' ? '46,204,113' : '52,152,219') + ',0.05);border-radius:8px;">';
+            html += '<div data-style="margin:12px 0;padding:8px;background:rgba(' + (self.currentFramework === '原因分析' ? '231,76,60' : self.currentFramework === '实验设计' ? '46,204,113' : '52,152,219') + ',0.05);border-radius:8px;">';
 
             // 步骤1：选择框架
             if (self.currentStep === 1) {
-                html += '<div style="font-weight:700;font-size:13px;color:#333;margin-bottom:8px;">第1步：选择适用答题框架</div>';
-                html += '<div style="font-size:12px;color:#888;margin-bottom:10px;">阅读题目，判断该题最适合使用哪种答题框架</div>';
-                html += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
+                html += '<div data-style="font-weight:700;font-size:13px;color:#333;margin-bottom:8px;">第1步：选择适用答题框架</div>';
+                html += '<div data-style="font-size:12px;color:#888;margin-bottom:10px;">阅读题目，判断该题最适合使用哪种答题框架</div>';
+                html += '<div data-style="display:flex;gap:6px;flex-wrap:wrap;">';
                 for (var fi2 = 0; fi2 < frameworks.length; fi2++) {
                     var fn = frameworks[fi2];
                     var isSelected = self.userAnswers.frameworkChoice === fn;
-                    html += '<label style="' +
+                    html += '<label data-style="' +
                         'padding:8px 14px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ' + (isSelected ? fwColors[fn] : '#ddd') + ';' +
                         'background:' + (isSelected ? 'rgba(' + (fn === '原因分析' ? '231,76,60' : fn === '实验设计' ? '46,204,113' : '52,152,219') + ',0.1)' : '#fff') + ';' +
                         '">' +
-                        '<input type="radio" name="frameworkChoice" value="' + fn + '" ' + (isSelected ? 'checked' : '') + ' style="margin-right:4px;" data-hook="fw-choice">' +
+                        '<input type="radio" name="frameworkChoice" value="' + fn + '" ' + (isSelected ? 'checked' : '') + ' data-style="margin-right:4px;" data-hook="fw-choice">' +
                         fwIcons[fn] + ' ' + FRAMEWORKS[fn].name +
                         '</label>';
                 }
@@ -706,8 +706,8 @@ var openAnswerTrainer = {
 
             // 步骤2：按框架步骤填写
             if (self.currentStep >= 2) {
-                html += '<div style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;">第2步：按框架步骤作答</div>';
-                html += '<div style="font-size:11px;color:#888;margin-bottom:10px;">框架：' + fw.template + '</div>';
+                html += '<div data-style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;">第2步：按框架步骤作答</div>';
+                html += '<div data-style="font-size:11px;color:#888;margin-bottom:10px;">框架：' + fw.template + '</div>';
 
                 for (var si = 0; si < fw.steps.length; si++) {
                     var stepName = fw.steps[si];
@@ -716,17 +716,17 @@ var openAnswerTrainer = {
                     var userVal = self.userAnswers[stepKey] || '';
                     var readonly = self.currentStep >= 3;
 
-                    html += '<div style="margin-bottom:10px;border:1px solid #eee;border-radius:8px;padding:10px;background:#fafafa;">';
-                    html += '<div style="font-weight:600;font-size:12px;color:' + fwColors[self.currentFramework] + ';margin-bottom:4px;">' +
+                    html += '<div data-style="margin-bottom:10px;border:1px solid #eee;border-radius:8px;padding:10px;background:#fafafa;">';
+                    html += '<div data-style="font-weight:600;font-size:12px;color:' + fwColors[self.currentFramework] + ';margin-bottom:4px;">' +
                         '步骤' + (si + 1) + '：' + stepName + '</div>';
-                    html += '<div style="font-size:11px;color:#888;margin-bottom:6px;">' + stepDesc + '</div>';
+                    html += '<div data-style="font-size:11px;color:#888;margin-bottom:6px;">' + stepDesc + '</div>';
 
                     if (readonly) {
-                        html += '<div style="padding:8px;background:#fff;border-radius:4px;min-height:30px;font-size:12px;border:1px solid #e0e0e0;line-height:1.6;color:#333;">' +
-                            (userVal || '<span style="color:#ccc;">未作答</span>') + '</div>';
+                        html += '<div data-style="padding:8px;background:#fff;border-radius:4px;min-height:30px;font-size:12px;border:1px solid #e0e0e0;line-height:1.6;color:#333;">' +
+                            (userVal || '<span data-style="color:#ccc;">未作答</span>') + '</div>';
                     } else {
                         html += '<textarea id="answer-' + stepKey + '" ' +
-                            'style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:12px;resize:vertical;min-height:50px;box-sizing:border-box;font-family:inherit;" ' +
+                            'data-style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;font-size:12px;resize:vertical;min-height:50px;box-sizing:border-box;font-family:inherit;" ' +
                             'placeholder="请在此输入' + stepName + '的关键词或短语..." ' +
                             'oninput="openAnswerTrainer.userAnswers[\'' + stepKey + '\']=this.value;">' +
                             userVal +
@@ -738,23 +738,23 @@ var openAnswerTrainer = {
 
             // 步骤3：查看标准答案对比
             if (self.currentStep >= 3) {
-                html += '<div style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;margin-top:12px;border-top:1px solid #eee;padding-top:10px;">第3步：标准答案框架对比</div>';
-                html += '<div style="background:#fffbe6;border:1px solid #ffd666;border-radius:8px;padding:12px;font-size:12px;line-height:1.8;">';
+                html += '<div data-style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;margin-top:12px;border-top:1px solid #eee;padding-top:10px;">第3步：标准答案框架对比</div>';
+                html += '<div data-style="background:#fffbe6;border:1px solid #ffd666;border-radius:8px;padding:12px;font-size:12px;line-height:1.8;">';
 
                 var modelKeys = Object.keys(q.modelAnswer);
                 for (var mk = 0; mk < modelKeys.length; mk++) {
                     var mLabel = fw.steps[mk] || modelKeys[mk];
-                    html += '<div style="margin-bottom:6px;">';
-                    html += '<span style="font-weight:600;color:' + fwColors[self.currentFramework] + ';">步骤' + (mk + 1) + '-' + mLabel + '：</span>';
-                    html += '<span style="color:#333;">' + q.modelAnswer[modelKeys[mk]] + '</span>';
+                    html += '<div data-style="margin-bottom:6px;">';
+                    html += '<span data-style="font-weight:600;color:' + fwColors[self.currentFramework] + ';">步骤' + (mk + 1) + '-' + mLabel + '：</span>';
+                    html += '<span data-style="color:#333;">' + q.modelAnswer[modelKeys[mk]] + '</span>';
                     html += '</div>';
                 }
-                html += '<div style="margin-top:8px;padding-top:6px;border-top:1px dashed #ffd666;">';
-                html += '<span style="font-weight:600;color:#e67e22;">📌 采分关键词：</span>';
-                html += '<span style="color:#444;">' + q.keyPoints.join('、') + '</span>';
+                html += '<div data-style="margin-top:8px;padding-top:6px;border-top:1px dashed #ffd666;">';
+                html += '<span data-style="font-weight:600;color:#e67e22;">📌 采分关键词：</span>';
+                html += '<span data-style="color:#444;">' + q.keyPoints.join('、') + '</span>';
                 html += '</div>';
-                html += '<div style="margin-top:6px;padding-top:6px;border-top:1px dashed #ffd666;">';
-                html += '<span style="font-weight:600;color:#e74c3c;">⚠ ' + q.commonErrors + '</span>';
+                html += '<div data-style="margin-top:6px;padding-top:6px;border-top:1px dashed #ffd666;">';
+                html += '<span data-style="font-weight:600;color:#e74c3c;">⚠ ' + q.commonErrors + '</span>';
                 html += '</div>';
                 html += '</div>';
             }
@@ -762,21 +762,21 @@ var openAnswerTrainer = {
             // 步骤4：评分
             if (self.currentStep >= 4) {
                 var grading = self.gradeAnswer(q.id, self.userAnswers);
-                html += '<div style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;margin-top:12px;border-top:1px solid #eee;padding-top:10px;">第4步：系统评分</div>';
-                html += '<div style="background:#f0faf0;border:2px solid #2ecc71;border-radius:10px;padding:14px;text-align:center;">';
-                html += '<div style="font-size:36px;font-weight:700;color:#2ecc71;">' + grading.total + '<span style="font-size:18px;color:#999;"> / ' + grading.maxTotal + '</span></div>';
-                html += '<div style="font-size:12px;color:#888;margin-top:4px;">（关键词匹配加分：+' + grading.keywordBonus + '分）</div>';
+                html += '<div data-style="font-weight:700;font-size:13px;color:#333;margin-bottom:4px;margin-top:12px;border-top:1px solid #eee;padding-top:10px;">第4步：系统评分</div>';
+                html += '<div data-style="background:#f0faf0;border:2px solid #2ecc71;border-radius:10px;padding:14px;text-align:center;">';
+                html += '<div data-style="font-size:36px;font-weight:700;color:#2ecc71;">' + grading.total + '<span data-style="font-size:18px;color:#999;"> / ' + grading.maxTotal + '</span></div>';
+                html += '<div data-style="font-size:12px;color:#888;margin-top:4px;">（关键词匹配加分：+' + grading.keywordBonus + '分）</div>';
                 html += '</div>';
 
                 // 分步评分详情
-                html += '<div style="margin-top:10px;">';
+                html += '<div data-style="margin-top:10px;">';
                 for (var gi = 0; gi < grading.details.length; gi++) {
                     var detail = grading.details[gi];
-                    html += '<div style="display:flex;align-items:center;padding:6px 8px;border-bottom:1px solid #f0f0f0;font-size:12px;">';
-                    html += '<span style="flex:1;color:#555;">' + detail.step + '</span>';
-                    html += '<span style="font-weight:600;color:' + (detail.score >= detail.maxScore ? '#2ecc71' : detail.score > 0 ? '#f39c12' : '#e74c3c') + ';">' + detail.score + '/' + detail.maxScore + '分</span>';
+                    html += '<div data-style="display:flex;align-items:center;padding:6px 8px;border-bottom:1px solid #f0f0f0;font-size:12px;">';
+                    html += '<span data-style="flex:1;color:#555;">' + detail.step + '</span>';
+                    html += '<span data-style="font-weight:600;color:' + (detail.score >= detail.maxScore ? '#2ecc71' : detail.score > 0 ? '#f39c12' : '#e74c3c') + ';">' + detail.score + '/' + detail.maxScore + '分</span>';
                     if (detail.feedback) {
-                        html += '<span style="margin-left:6px;font-size:11px;color:#888;">' + detail.feedback + '</span>';
+                        html += '<span data-style="margin-left:6px;font-size:11px;color:#888;">' + detail.feedback + '</span>';
                     }
                     html += '</div>';
                 }
@@ -786,21 +786,21 @@ var openAnswerTrainer = {
             html += '</div>';
 
             // 操作按钮
-            html += '<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;">';
+            html += '<div data-style="margin-top:12px;display:flex;gap:8px;justify-content:center;">';
             if (self.currentStep === 1) {
-                html += '<button style="padding:10px 28px;background:' + fwColors[self.currentFramework] + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
+                html += '<button data-style="padding:10px 28px;background:' + fwColors[self.currentFramework] + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
                     'onclick="openAnswerTrainer.nextStep()"' +
-                    (self.userAnswers.frameworkChoice ? '' : ' disabled style="opacity:0.5;cursor:not-allowed;"') + '>确认框架 → 开始作答</button>';
+                    (self.userAnswers.frameworkChoice ? '' : ' disabled data-style="opacity:0.5;cursor:not-allowed;"') + '>确认框架 → 开始作答</button>';
             } else if (self.currentStep === 2) {
-                html += '<button style="padding:10px 28px;background:' + fwColors[self.currentFramework] + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
+                html += '<button data-style="padding:10px 28px;background:' + fwColors[self.currentFramework] + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
                     'onclick="openAnswerTrainer.nextStep()">提交作答 → 查看标准答案</button>';
             } else if (self.currentStep === 3) {
-                html += '<button style="padding:10px 28px;background:#e67e22;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
+                html += '<button data-style="padding:10px 28px;background:#e67e22;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
                     'onclick="openAnswerTrainer.nextStep()">查看系统评分</button>';
             } else if (self.currentStep === 4) {
-                html += '<button style="padding:10px 28px;background:#2ecc71;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
+                html += '<button data-style="padding:10px 28px;background:#2ecc71;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
                     'onclick="openAnswerTrainer.nextStep()">保存并进入下一题 →</button>';
-                html += '<button style="padding:10px 20px;background:#fff;color:#e67e22;border:2px solid #e67e22;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
+                html += '<button data-style="padding:10px 20px;background:#fff;color:#e67e22;border:2px solid #e67e22;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;" ' +
                     'onclick="openAnswerTrainer.currentStep=2;openAnswerTrainer.render();">重新作答</button>';
             }
             html += '</div>';
@@ -809,56 +809,56 @@ var openAnswerTrainer = {
         html += '</div>';
 
         // ---- 右侧：框架提示卡片 ----
-        html += '<div style="flex:0 0 260px;min-width:220px;">';
+        html += '<div data-style="flex:0 0 260px;min-width:220px;">';
 
         // 框架说明卡片
-        html += '<div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;margin-bottom:8px;">';
-        html += '<div style="font-weight:700;font-size:14px;color:' + fwColors[self.currentFramework] + ';margin-bottom:8px;">📖 当前框架：' + fw.name + '</div>';
-        html += '<div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:10px;">' +
-            '<span style="background:' + fwColors[self.currentFramework] + ';color:#fff;padding:2px 8px;border-radius:4px;">' + fw.template + '</span>' +
+        html += '<div data-style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;margin-bottom:8px;">';
+        html += '<div data-style="font-weight:700;font-size:14px;color:' + fwColors[self.currentFramework] + ';margin-bottom:8px;">📖 当前框架：' + fw.name + '</div>';
+        html += '<div data-style="font-size:12px;color:#666;line-height:1.6;margin-bottom:10px;">' +
+            '<span data-style="background:' + fwColors[self.currentFramework] + ';color:#fff;padding:2px 8px;border-radius:4px;">' + fw.template + '</span>' +
             '</div>';
 
         for (var si2 = 0; si2 < fw.steps.length; si2++) {
-            html += '<div style="padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:12px;">';
-            html += '<span style="font-weight:600;color:' + fwColors[self.currentFramework] + ';">' + (si2 + 1) + '. ' + fw.steps[si2] + '</span>';
-            html += '<div style="color:#888;font-size:11px;margin-top:2px;">' + fw.descriptions[si2] + '</div>';
+            html += '<div data-style="padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:12px;">';
+            html += '<span data-style="font-weight:600;color:' + fwColors[self.currentFramework] + ';">' + (si2 + 1) + '. ' + fw.steps[si2] + '</span>';
+            html += '<div data-style="color:#888;font-size:11px;margin-top:2px;">' + fw.descriptions[si2] + '</div>';
             html += '</div>';
         }
 
         // 满分vs失分对比
-        html += '<div style="margin-top:10px;padding:8px;background:#f0faf0;border-radius:6px;">';
-        html += '<div style="font-size:11px;font-weight:600;color:#2ecc71;">✅ ' + fw.perfectAnswer + '</div>';
+        html += '<div data-style="margin-top:10px;padding:8px;background:#f0faf0;border-radius:6px;">';
+        html += '<div data-style="font-size:11px;font-weight:600;color:#2ecc71;">✅ ' + fw.perfectAnswer + '</div>';
         html += '</div>';
-        html += '<div style="margin-top:6px;padding:8px;background:#fef5f5;border-radius:6px;">';
-        html += '<div style="font-size:11px;font-weight:600;color:#e74c3c;">❌ ' + fw.poorAnswer + '</div>';
+        html += '<div data-style="margin-top:6px;padding:8px;background:#fef5f5;border-radius:6px;">';
+        html += '<div data-style="font-size:11px;font-weight:600;color:#e74c3c;">❌ ' + fw.poorAnswer + '</div>';
         html += '</div>';
 
         html += '</div>';
 
         // 进度统计卡片
-        html += '<div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;">';
-        html += '<div style="font-weight:700;font-size:13px;color:#555;margin-bottom:10px;">📊 学习进度</div>';
-        html += '<div style="font-size:12px;color:#666;line-height:1.8;">';
-        html += '<div>总题量：<span style="font-weight:700;">' + stats.total + '</span> 道</div>';
-        html += '<div>已完成：<span style="font-weight:700;color:#2ecc71;">' + stats.completed + '</span> 道</div>';
-        html += '<div>完成率：<span style="font-weight:700;color:#3498db;">' + (stats.total > 0 ? Math.round(stats.completed / stats.total * 100) : 0) + '%</span></div>';
-        html += '<div>平均分：<span style="font-weight:700;color:' + (stats.avgScore >= 6 ? '#2ecc71' : stats.avgScore >= 4 ? '#f39c12' : '#e74c3c') + ';">' + stats.avgScore + '</span></div>';
+        html += '<div data-style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;">';
+        html += '<div data-style="font-weight:700;font-size:13px;color:#555;margin-bottom:10px;">📊 学习进度</div>';
+        html += '<div data-style="font-size:12px;color:#666;line-height:1.8;">';
+        html += '<div>总题量：<span data-style="font-weight:700;">' + stats.total + '</span> 道</div>';
+        html += '<div>已完成：<span data-style="font-weight:700;color:#2ecc71;">' + stats.completed + '</span> 道</div>';
+        html += '<div>完成率：<span data-style="font-weight:700;color:#3498db;">' + (stats.total > 0 ? Math.round(stats.completed / stats.total * 100) : 0) + '%</span></div>';
+        html += '<div>平均分：<span data-style="font-weight:700;color:' + (stats.avgScore >= 6 ? '#2ecc71' : stats.avgScore >= 4 ? '#f39c12' : '#e74c3c') + ';">' + stats.avgScore + '</span></div>';
         html += '</div>';
 
         // 进度条
         var progressPct = stats.total > 0 ? Math.round(stats.completed / stats.total * 100) : 0;
-        html += '<div style="margin-top:8px;background:#f0f0f0;border-radius:8px;height:12px;overflow:hidden;">';
-        html += '<div style="width:' + progressPct + '%;height:100%;background:linear-gradient(90deg,#2ecc71,#27ae60);border-radius:8px;transition:width 0.5s;"></div>';
+        html += '<div data-style="margin-top:8px;background:#f0f0f0;border-radius:8px;height:12px;overflow:hidden;">';
+        html += '<div data-style="width:' + progressPct + '%;height:100%;background:linear-gradient(90deg,#2ecc71,#27ae60);border-radius:8px;transition:width 0.5s;"></div>';
         html += '</div>';
 
         // 各框架进度
-        html += '<div style="margin-top:12px;font-size:11px;color:#888;">';
+        html += '<div data-style="margin-top:12px;font-size:11px;color:#888;">';
         for (var fk in stats.byFramework) {
             if (stats.byFramework.hasOwnProperty(fk)) {
                 var fCount = stats.byFramework[fk];
                 var fTotal = stats.byFrameworkTotal[fk];
                 var fPct = fTotal > 0 ? Math.round(fCount / fTotal * 100) : 0;
-                html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
+                html += '<div data-style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
                     '<span>' + fwIcons[fk] + ' ' + fk + '</span>' +
                     '<span>' + fCount + '/' + fTotal + ' (' + fPct + '%)</span>' +
                     '</div>';
@@ -867,7 +867,7 @@ var openAnswerTrainer = {
         html += '</div>';
 
         // 查看历史记录按钮
-        html += '<button style="margin-top:12px;width:100%;padding:8px;background:#f0f0f0;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#555;" ' +
+        html += '<button data-style="margin-top:12px;width:100%;padding:8px;background:#f0f0f0;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#555;" ' +
             'onclick="openAnswerTrainer.showHistory()">📋 查看历史记录</button>';
         html += '</div>';
 
@@ -888,19 +888,19 @@ var openAnswerTrainer = {
         var self = this;
         var html = '';
 
-        html += '<div style="font-family:\'Microsoft YaHei\',\'PingFang SC\',sans-serif;max-width:800px;margin:0 auto;padding:12px;">';
-        html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">';
-        html += '<div style="font-size:16px;font-weight:700;color:#333;">📋 答题历史记录</div>';
-        html += '<div style="display:flex;gap:8px;">';
-        html += '<button style="padding:8px 16px;background:#fff;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;" ' +
+        html += '<div data-style="font-family:\'Microsoft YaHei\',\'PingFang SC\',sans-serif;max-width:800px;margin:0 auto;padding:12px;">';
+        html += '<div data-style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">';
+        html += '<div data-style="font-size:16px;font-weight:700;color:#333;">📋 答题历史记录</div>';
+        html += '<div data-style="display:flex;gap:8px;">';
+        html += '<button data-style="padding:8px 16px;background:#fff;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;" ' +
             'onclick="openAnswerTrainer.render()">← 返回训练</button>';
-        html += '<button style="padding:8px 16px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;" ' +
+        html += '<button data-style="padding:8px 16px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;" ' +
             'onclick="if(confirm(\'确定要清空所有答题记录吗？此操作不可撤销。\')){openAnswerTrainer.records=[];openAnswerTrainer.saveRecords();openAnswerTrainer.showHistory();}">清空记录</button>';
         html += '</div>';
         html += '</div>';
 
         if (self.records.length === 0) {
-            html += '<div style="text-align:center;padding:40px;color:#999;background:#fff;border-radius:10px;border:1px solid #e8e8e8;">暂无答题记录，开始训练吧！</div>';
+            html += '<div data-style="text-align:center;padding:40px;color:#999;background:#fff;border-radius:10px;border:1px solid #e8e8e8;">暂无答题记录，开始训练吧！</div>';
         } else {
             // 按时间倒序
             var sortedRecords = self.records.slice().sort(function(a, b) {
@@ -916,28 +916,28 @@ var openAnswerTrainer = {
                 var fwColor = fwColors[rec.framework] || '#999';
                 var fwIcon = fwIcons[rec.framework] || '';
 
-                html += '<div style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;margin-bottom:8px;">';
-                html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">';
-                html += '<span style="font-weight:700;font-size:13px;color:#333;">' + rec.question + '</span>';
-                html += '<span style="font-size:18px;font-weight:700;color:' + fwColor + ';">' + rec.score + '/' + rec.maxScore + '</span>';
+                html += '<div data-style="background:#fff;border-radius:10px;padding:14px;border:1px solid #e8e8e8;margin-bottom:8px;">';
+                html += '<div data-style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">';
+                html += '<span data-style="font-weight:700;font-size:13px;color:#333;">' + rec.question + '</span>';
+                html += '<span data-style="font-size:18px;font-weight:700;color:' + fwColor + ';">' + rec.score + '/' + rec.maxScore + '</span>';
                 html += '</div>';
-                html += '<div style="font-size:11px;color:#888;margin-bottom:6px;">';
-                html += '<span style="background:' + fwColor + ';color:#fff;padding:2px 6px;border-radius:4px;margin-right:6px;">' + fwIcon + ' ' + rec.framework + '</span>';
-                html += '<span style="background:#f0f0f0;padding:2px 6px;border-radius:4px;margin-right:6px;">' + rec.subject + '</span>';
+                html += '<div data-style="font-size:11px;color:#888;margin-bottom:6px;">';
+                html += '<span data-style="background:' + fwColor + ';color:#fff;padding:2px 6px;border-radius:4px;margin-right:6px;">' + fwIcon + ' ' + rec.framework + '</span>';
+                html += '<span data-style="background:#f0f0f0;padding:2px 6px;border-radius:4px;margin-right:6px;">' + rec.subject + '</span>';
                 html += '<span>' + dateStr + '</span>';
                 html += '</div>';
 
                 // 展开详情
-                html += '<details style="font-size:11px;color:#666;margin-top:6px;">';
-                html += '<summary style="cursor:pointer;color:' + fwColor + ';font-weight:600;">查看作答详情</summary>';
+                html += '<details data-style="font-size:11px;color:#666;margin-top:6px;">';
+                html += '<summary data-style="cursor:pointer;color:' + fwColor + ';font-weight:600;">查看作答详情</summary>';
                 if (rec.gradingDetails) {
                     for (var gdi = 0; gdi < rec.gradingDetails.length; gdi++) {
                         var gd = rec.gradingDetails[gdi];
-                        html += '<div style="padding:4px 0;border-bottom:1px solid #f5f5f5;">';
-                        html += '<span style="font-weight:600;">' + gd.step + '(' + gd.score + '/' + gd.maxScore + '分)</span>: ';
-                        html += '<span>' + (gd.userAnswer || '<i style="color:#ccc;">未作答</i>') + '</span>';
+                        html += '<div data-style="padding:4px 0;border-bottom:1px solid #f5f5f5;">';
+                        html += '<span data-style="font-weight:600;">' + gd.step + '(' + gd.score + '/' + gd.maxScore + '分)</span>: ';
+                        html += '<span>' + (gd.userAnswer || '<i data-style="color:#ccc;">未作答</i>') + '</span>';
                         if (gd.feedback) {
-                            html += ' <span style="color:#e67e22;">[' + gd.feedback + ']</span>';
+                            html += ' <span data-style="color:#e67e22;">[' + gd.feedback + ']</span>';
                         }
                         html += '</div>';
                     }
@@ -946,7 +946,7 @@ var openAnswerTrainer = {
                 html += '</div>';
             }
 
-            html += '<div style="text-align:center;font-size:11px;color:#999;margin-top:8px;">共 ' + sortedRecords.length + ' 条记录</div>';
+            html += '<div data-style="text-align:center;font-size:11px;color:#999;margin-top:8px;">共 ' + sortedRecords.length + ' 条记录</div>';
         }
 
         html += '</div>';

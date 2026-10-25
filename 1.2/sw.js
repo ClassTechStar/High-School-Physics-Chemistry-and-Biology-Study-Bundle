@@ -1,10 +1,10 @@
 // ============================================================
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v16（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v17（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v16';
+var CACHE_NAME = 'hspcb-v17';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -29,8 +29,11 @@ var CORE_ASSETS = [
     'css/theme-dark.css',
     'css/responsive.css',
     'css/chinese-knowledge.css',
+    'css/print-report.css',
+    'css/study-plan-print.css',
     'presentation.css',
     'promo.css',
+    'js/cssom-style-bridge.js',
     'js/error-fallback.js',
     'js/theme-bootstrap.js',
     'js/common-utils.js',

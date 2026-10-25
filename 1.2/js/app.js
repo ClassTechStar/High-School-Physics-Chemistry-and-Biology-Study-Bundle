@@ -249,10 +249,10 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>例题3：电场强度与电势</h4>
                     <p>在点电荷Q的电场中，距离Q为r的A点场强为E，电势为φ。则以下说法正确的是：</p>
-                    <p style="color: var(--gray);">A. E与r²成反比，φ与r成正比</p>
-                    <p style="color: var(--gray);">B. E与r²成反比，φ与r成反比</p>
-                    <p style="color: var(--gray);">C. E与r成正比，φ与r成反比</p>
-                    <p style="color: var(--gray);">D. E与r成正比，φ与r成正比</p>
+                    <p data-style="color: var(--gray);">A. E与r²成反比，φ与r成正比</p>
+                    <p data-style="color: var(--gray);">B. E与r²成反比，φ与r成反比</p>
+                    <p data-style="color: var(--gray);">C. E与r成正比，φ与r成反比</p>
+                    <p data-style="color: var(--gray);">D. E与r成正比，φ与r成正比</p>
                     <div class="key-point">答案：B</div>
                     <div class="common-mistake">E=kQ/r²，φ=kQ/r</div>
                 </div>
@@ -304,7 +304,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>学会使用打点计时器测速度，区分平均速度和瞬时速度</p>
                     <p><strong>实验原理：</strong>利用打点计时器记录物体运动的时间间隔，通过纸带上的点间距计算速度</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>把打点计时器固定在实验台上</li>
                         <li>将纸带穿过打点计时器，另一端连接运动物体</li>
                         <li>先接通电源，后释放纸带</li>
@@ -313,7 +313,7 @@ const subjectContent = {
                         <li>计算各段平均速度和瞬时速度</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>打点计时器必须先通电后释放纸带</li>
                         <li>选取纸带时，应选点迹清晰且连续的</li>
                         <li>计数点间隔选取要合理</li>
@@ -325,7 +325,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>学会用伏安法测电阻，测定金属的电阻率</p>
                     <p><strong>实验原理：</strong>R=ρl/S，通过测量长度l、电压U、电流I，计算电阻ρ</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>用刻度尺测量金属丝长度</li>
                         <li>用螺旋测微器测量直径</li>
                         <li>按电路图连接电路</li>
@@ -334,7 +334,7 @@ const subjectContent = {
                         <li>计算电阻率</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>电流不宜过大</li>
                         <li>电压表内接法适合测大电阻</li>
                     </ul>
@@ -345,7 +345,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>用插针法测定玻璃的折射率</p>
                     <p><strong>实验原理：</strong>n=sin i/sin r</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>将玻璃砖放在白纸上，描出界面aa'和bb'</li>
                         <li>在aa'一侧插两枚大头针P₁、P₂</li>
                         <li>在bb'一侧观察P₁、P₂的像，插P₃、P₄使其与像共线</li>
@@ -353,7 +353,7 @@ const subjectContent = {
                         <li>计算折射率n</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>大头针要竖直插牢</li>
                         <li>入射角不能太大（避免全反射）</li>
                     </ul>
@@ -364,7 +364,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>测定单色光的波长</p>
                     <p><strong>实验原理：</strong>条纹间距Δx=λL/d</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>安装双缝干涉仪，调整光路</li>
                         <li>调节单缝使光源发出清晰干涉条纹</li>
                         <li>测量n条亮纹间的距离</li>
@@ -378,7 +378,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>验证碰撞中的动量守恒</p>
                     <p><strong>实验原理：</strong>m₁v₁+m₂v₂=m₁v₁'+m₂v₂'</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>用天平称量两球质量m₁、m₂</li>
                         <li>按图安装实验装置</li>
                         <li>让小球从斜槽某一高度滚下</li>
@@ -393,7 +393,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>验证单摆周期与摆长的关系</p>
                     <p><strong>实验原理：</strong>T=2π√(l/g)</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>安装单摆，摆长约1m</li>
                         <li>测出摆长l</li>
                         <li>让单摆做小角度摆动</li>
@@ -402,7 +402,7 @@ const subjectContent = {
                         <li>改变摆长，重复实验</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>摆角小于5°</li>
                         <li>摆线要细且不易伸长</li>
                     </ul>
@@ -416,81 +416,81 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>基础巩固</h4>
                     <p>1. 关于位移和路程的说法，正确的是（ ）</p>
-                    <p style="color: var(--gray);">A. 位移的大小一定大于路程</p>
-                    <p style="color: var(--gray);">B. 物体做直线运动时，位移的大小等于路程</p>
-                    <p style="color: var(--gray);">C. 位移是矢量，路程是标量</p>
-                    <p style="color: var(--gray);">D. 位移取决于初始位置和终止位置，与路径无关</p>
-                    <p style="color: var(--secondary);">答案：C、D</p>
+                    <p data-style="color: var(--gray);">A. 位移的大小一定大于路程</p>
+                    <p data-style="color: var(--gray);">B. 物体做直线运动时，位移的大小等于路程</p>
+                    <p data-style="color: var(--gray);">C. 位移是矢量，路程是标量</p>
+                    <p data-style="color: var(--gray);">D. 位移取决于初始位置和终止位置，与路径无关</p>
+                    <p data-style="color: var(--secondary);">答案：C、D</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>能力提升</h4>
                     <p>2. 一个物体从H高处自由下落，经时间t落地，则当它下落t/2时，离地面的高度为（ ）</p>
-                    <p style="color: var(--gray);">A. H/2</p>
-                    <p style="color: var(--gray);">B. H/4</p>
-                    <p style="color: var(--gray);">C. 3H/4</p>
-                    <p style="color: var(--gray);">D. H</p>
-                    <p style="color: var(--secondary);">答案：C</p>
+                    <p data-style="color: var(--gray);">A. H/2</p>
+                    <p data-style="color: var(--gray);">B. H/4</p>
+                    <p data-style="color: var(--gray);">C. 3H/4</p>
+                    <p data-style="color: var(--gray);">D. H</p>
+                    <p data-style="color: var(--secondary);">答案：C</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>3. 在光滑水平面上，一质量为m的小球以速度v撞击静止的相同质量的小球，碰撞后它们的速度可能为（ ）</p>
-                    <p style="color: var(--gray);">A. v和0</p>
-                    <p style="color: var(--gray);">B. 0和v</p>
-                    <p style="color: var(--gray);">C. v/2和v/2</p>
-                    <p style="color: var(--gray);">D. 0和0</p>
-                    <p style="color: var(--secondary);">答案：C</p>
+                    <p data-style="color: var(--gray);">A. v和0</p>
+                    <p data-style="color: var(--gray);">B. 0和v</p>
+                    <p data-style="color: var(--gray);">C. v/2和v/2</p>
+                    <p data-style="color: var(--gray);">D. 0和0</p>
+                    <p data-style="color: var(--secondary);">答案：C</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>4. 一束光从空气射入玻璃，已知入射角为60°，折射角为30°，则玻璃的折射率为（ ）</p>
-                    <p style="color: var(--gray);">A. √3</p>
-                    <p style="color: var(--gray);">B. √3/3</p>
-                    <p style="color: var(--gray);">C. 1/√3</p>
-                    <p style="color: var(--gray);">D. √2</p>
-                    <p style="color: var(--secondary);">答案：A（n=sin60°/sin30°=√3）</p>
+                    <p data-style="color: var(--gray);">A. √3</p>
+                    <p data-style="color: var(--gray);">B. √3/3</p>
+                    <p data-style="color: var(--gray);">C. 1/√3</p>
+                    <p data-style="color: var(--gray);">D. √2</p>
+                    <p data-style="color: var(--secondary);">答案：A（n=sin60°/sin30°=√3）</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>5. 氢原子的基态能量为-13.6eV，则氢原子从n=3跃迁到n=1时，辐射光子的能量为（ ）</p>
-                    <p style="color: var(--gray);">A. 12.09eV</p>
-                    <p style="color: var(--gray);">B. 10.2eV</p>
-                    <p style="color: var(--gray);">C. 1.89eV</p>
-                    <p style="color: var(--gray);">D. 3.4eV</p>
-                    <p style="color: var(--secondary);">答案：A（ΔE=-13.6/9-(-13.6)=12.09eV）</p>
+                    <p data-style="color: var(--gray);">A. 12.09eV</p>
+                    <p data-style="color: var(--gray);">B. 10.2eV</p>
+                    <p data-style="color: var(--gray);">C. 1.89eV</p>
+                    <p data-style="color: var(--gray);">D. 3.4eV</p>
+                    <p data-style="color: var(--secondary);">答案：A（ΔE=-13.6/9-(-13.6)=12.09eV）</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>6. 一定量的理想气体，体积膨胀时（ ）</p>
-                    <p style="color: var(--gray);">A. 分子平均动能一定增大</p>
-                    <p style="color: var(--gray);">B. 气体一定对外做功</p>
-                    <p style="color: var(--gray);">C. 气体一定吸热</p>
-                    <p style="color: var(--gray);">D. 内能一定增加</p>
-                    <p style="color: var(--secondary);">答案：B</p>
+                    <p data-style="color: var(--gray);">A. 分子平均动能一定增大</p>
+                    <p data-style="color: var(--gray);">B. 气体一定对外做功</p>
+                    <p data-style="color: var(--gray);">C. 气体一定吸热</p>
+                    <p data-style="color: var(--gray);">D. 内能一定增加</p>
+                    <p data-style="color: var(--secondary);">答案：B</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>7. 两列相干波在空间相遇，某点恰为振动加强点，则该点到两波源的距离差为（ ）</p>
-                    <p style="color: var(--gray);">A. λ/2的奇数倍</p>
-                    <p style="color: var(--gray);">B. λ的整数倍</p>
-                    <p style="color: var(--gray);">C. λ/2的整数倍</p>
-                    <p style="color: var(--gray);">D. 3λ/4</p>
-                    <p style="color: var(--secondary);">答案：B（加强：Δs=nλ）</p>
+                    <p data-style="color: var(--gray);">A. λ/2的奇数倍</p>
+                    <p data-style="color: var(--gray);">B. λ的整数倍</p>
+                    <p data-style="color: var(--gray);">C. λ/2的整数倍</p>
+                    <p data-style="color: var(--gray);">D. 3λ/4</p>
+                    <p data-style="color: var(--secondary);">答案：B（加强：Δs=nλ）</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>高考冲刺</h4>
                     <p>8. 光电效应中，光电子的最大初动能与入射光的关系是（ ）</p>
-                    <p style="color: var(--gray);">A. 与入射光强度成正比</p>
-                    <p style="color: var(--gray);">B. 与入射光频率成正比</p>
-                    <p style="color: var(--gray);">C. 与入射光频率成线性关系</p>
-                    <p style="color: var(--gray);">D. 与入射光波长成反比</p>
-                    <p style="color: var(--secondary);">答案：C</p>
+                    <p data-style="color: var(--gray);">A. 与入射光强度成正比</p>
+                    <p data-style="color: var(--gray);">B. 与入射光频率成正比</p>
+                    <p data-style="color: var(--gray);">C. 与入射光频率成线性关系</p>
+                    <p data-style="color: var(--gray);">D. 与入射光波长成反比</p>
+                    <p data-style="color: var(--secondary);">答案：C</p>
                 </div>
             </div>
         `
@@ -636,10 +636,10 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>例题2：离子共存</h4>
                     <p>下列离子能在溶液中大量共存的是：</p>
-                    <p style="color: var(--gray);">A. Na⁺、Cl⁻、Ag⁺、NO₃⁻</p>
-                    <p style="color: var(--gray);">B. K⁺、SO₄²⁻、Ba²⁺、NO₃⁻</p>
-                    <p style="color: var(--gray);">C. Na⁺、Cl⁻、K⁺、NO₃⁻</p>
-                    <p style="color: var(--gray);">D. Ca²⁺、CO₃²⁻、H⁺、Cl⁻</p>
+                    <p data-style="color: var(--gray);">A. Na⁺、Cl⁻、Ag⁺、NO₃⁻</p>
+                    <p data-style="color: var(--gray);">B. K⁺、SO₄²⁻、Ba²⁺、NO₃⁻</p>
+                    <p data-style="color: var(--gray);">C. Na⁺、Cl⁻、K⁺、NO₃⁻</p>
+                    <p data-style="color: var(--gray);">D. Ca²⁺、CO₃²⁻、H⁺、Cl⁻</p>
                     <div class="key-point">答案：C</div>
                     <div class="common-mistake">A中Ag⁺+Cl⁻→AgCl↓；B中Ba²⁺+SO₄²⁻→BaSO₄↓；D中CO₃²⁻+H⁺→CO₂↑+H₂O</div>
                 </div>
@@ -707,7 +707,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>学会用滴定法测定酸或碱的浓度</p>
                     <p><strong>实验原理：</strong>利用酸碱中和反应，按照化学计量数比完全反应，通过已知浓度的溶液测定未知浓度</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>滴定管检漏、洗涤、润洗</li>
                         <li>装入标准液，赶气泡，记录初读数</li>
                         <li>用待测液润洗移液管</li>
@@ -716,7 +716,7 @@ const subjectContent = {
                         <li>滴定：边滴边摇，至溶液恰好变色</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>滴定管读数精确到0.01mL</li>
                         <li>锥形瓶不能用待测液润洗</li>
                         <li>滴定终点：半滴标准液使溶液变色且30秒不褪色</li>
@@ -728,7 +728,7 @@ const subjectContent = {
                     <h4>实验二：配制一定物质的量浓度溶液</h4>
                     <p><strong>实验目的：</strong>掌握配制一定物质的量浓度溶液的方法</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>计算所需固体质量或液体体积</li>
                         <li>用天平称量（或量筒量取）</li>
                         <li>在烧杯中溶解（或稀释），用玻璃棒搅拌</li>
@@ -738,7 +738,7 @@ const subjectContent = {
                         <li>颠倒摇匀</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>容量瓶不能用于溶解或存放溶液</li>
                         <li>转移时玻璃棒下端靠在刻度线以下</li>
                         <li>定容时视线与凹液面最低点平齐</li>
@@ -753,7 +753,7 @@ const subjectContent = {
                     <p><strong>收集：</strong>向上排空气法或排饱和食盐水法</p>
                     <p><strong>尾气处理：</strong>NaOH溶液吸收</p>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>必须用浓盐酸，稀盐酸不反应</li>
                         <li>加热时温度不宜过高</li>
                         <li>氯气有毒，必须在通风橱中进行</li>
@@ -765,7 +765,7 @@ const subjectContent = {
                     <p><strong>反应原理：</strong>CH₃COOH+CH₃CH₂OH⇌CH₃COOCH₂CH₃+H₂O（可逆反应）</p>
                     <p><strong>条件：</strong>浓H₂SO₄催化、加热</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>在试管中加入乙醇2mL</li>
                         <li>边振荡边缓慢加入浓硫酸2mL</li>
                         <li>再加入冰醋酸2mL</li>
@@ -773,7 +773,7 @@ const subjectContent = {
                         <li>加热，将产生的蒸气导出至饱和Na₂CO₃溶液液面上</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>浓硫酸先加乙醇再加酸（密度大倒入密度小）</li>
                         <li>饱和Na₂CO₃溶液作用：中和乙酸、溶解乙醇、降低酯溶解度</li>
                         <li>导管不能插入液面以下（防倒吸）</li>
@@ -813,19 +813,19 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>基础巩固</h4>
                     <p>1. 下列物质中，含有分子数最多的是（原子质量：H=1，C=12，O=16）</p>
-                    <p style="color: var(--gray);">A. 18g H₂O</p>
-                    <p style="color: var(--gray);">B. 32g O₂</p>
-                    <p style="color: var(--gray);">C. 44g CO₂</p>
-                    <p style="color: var(--gray);">D. 64g SO₂</p>
+                    <p data-style="color: var(--gray);">A. 18g H₂O</p>
+                    <p data-style="color: var(--gray);">B. 32g O₂</p>
+                    <p data-style="color: var(--gray);">C. 44g CO₂</p>
+                    <p data-style="color: var(--gray);">D. 64g SO₂</p>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>能力提升</h4>
                     <p>2. 用石墨电极电解CuSO₄溶液，阳极产物是（ ）</p>
-                    <p style="color: var(--gray);">A. Cu</p>
-                    <p style="color: var(--gray);">B. O₂</p>
-                    <p style="color: var(--gray);">C. H₂</p>
-                    <p style="color: var(--gray);">D. SO₂</p>
+                    <p data-style="color: var(--gray);">A. Cu</p>
+                    <p data-style="color: var(--gray);">B. O₂</p>
+                    <p data-style="color: var(--gray);">C. H₂</p>
+                    <p data-style="color: var(--gray);">D. SO₂</p>
                 </div>
             </div>
         `
@@ -1029,7 +1029,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>验证酶具有催化作用和专一性</p>
                     <p><strong>实验原理：</strong>利用淀粉酶催化淀粉水解，碘液检测淀粉是否存在</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>制备淀粉溶液和蔗糖溶液</li>
                         <li>设置试管，编号</li>
                         <li>分别加入淀粉酶溶液</li>
@@ -1038,7 +1038,7 @@ const subjectContent = {
                         <li>观察颜色变化，记录结果</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>酶需要适宜的温度和pH</li>
                         <li>检测前应煮沸，破坏酶活性</li>
                         <li>斐林试剂需要现配现用</li>
@@ -1049,7 +1049,7 @@ const subjectContent = {
                     <h4>实验二：观察根尖分生组织细胞的有丝分裂</h4>
                     <p><strong>实验目的：</strong>观察细胞有丝分裂各个时期的特征</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>培养洋葱根尖（提前3-4天）</li>
                         <li>固定：上午10-14点取材，放入卡诺固定液</li>
                         <li>解离：放入15%盐酸和95%酒精混合液(1:1)，3-5min</li>
@@ -1059,7 +1059,7 @@ const subjectContent = {
                         <li>观察：先低倍镜找分生区，再高倍镜观察</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>解离后细胞已死亡，不能观察动态过程</li>
                         <li>分生区细胞特点：正方形、排列紧密</li>
                         <li>大多数细胞处于间期（间期时间最长）</li>
@@ -1071,7 +1071,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>验证植物细胞的渗透吸水和失水</p>
                     <p><strong>实验原理：</strong>成熟植物细胞是一个渗透系统（原生质层相当于半透膜）</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>制作洋葱鳞片叶外表皮临时装片</li>
                         <li>低倍镜观察正常细胞（液泡大、紫色深）</li>
                         <li>在盖玻片一侧滴加0.3g/mL蔗糖溶液，另一侧用吸水纸吸引</li>
@@ -1080,7 +1080,7 @@ const subjectContent = {
                         <li>用清水替换蔗糖溶液，观察质壁分离复原</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>选择紫色洋葱便于观察液泡变化</li>
                         <li>蔗糖溶液浓度不宜过高（细胞会死亡）</li>
                         <li>死细胞不能发生质壁分离复原</li>
@@ -1092,7 +1092,7 @@ const subjectContent = {
                     <p><strong>实验目的：</strong>提取和分离叶绿体中的色素</p>
                     <p><strong>实验原理：</strong>色素溶于有机溶剂；不同色素在层析液中溶解度不同，扩散速度不同</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>提取：研磨叶片（加SiO₂助研磨、CaCO₃防色素破坏、无水乙醇溶解色素）</li>
                         <li>过滤：用尼龙布过滤，收集滤液</li>
                         <li>制备滤纸条：剪去两角，画铅笔细线</li>
@@ -1101,7 +1101,7 @@ const subjectContent = {
                         <li>观察：从上到下依次为胡萝卜素(橙黄)、叶黄素(黄)、叶绿素a(蓝绿)、叶绿素b(黄绿)</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>研磨要迅速充分</li>
                         <li>滤液细线要细、直、浓</li>
                         <li>层析液不能没及滤液细线</li>
@@ -1113,7 +1113,7 @@ const subjectContent = {
                     <h4>实验五：DNA的粗提取与鉴定</h4>
                     <p><strong>实验原理：</strong>DNA在不同浓度NaCl溶液中溶解度不同；DNA遇二苯胺在沸水浴条件下变蓝</p>
                     <p><strong>实验步骤：</strong></p>
-                    <ol style="margin-left: 20px;">
+                    <ol data-style="margin-left: 20px;">
                         <li>破碎细胞：研磨鸡血细胞液，加入蒸馏水</li>
                         <li>过滤：用纱布过滤，收集含DNA的滤液</li>
                         <li>溶解DNA：加入2mol/L NaCl溶液，搅拌溶解</li>
@@ -1122,7 +1122,7 @@ const subjectContent = {
                         <li>鉴定：加入二苯胺试剂，沸水浴加热5min，呈蓝色</li>
                     </ol>
                     <p><strong>注意事项：</strong></p>
-                    <ul style="margin-left: 20px;">
+                    <ul data-style="margin-left: 20px;">
                         <li>DNA在0.14mol/L NaCl中溶解度最低</li>
                         <li>不能用哺乳动物成熟红细胞（无细胞核）</li>
                         <li>玻璃棒搅拌要轻柔，防止DNA断裂</li>
@@ -1137,20 +1137,20 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>基础巩固</h4>
                     <p>1. 下列细胞器中，不含有磷脂的是（ ）</p>
-                    <p style="color: var(--gray);">A. 线粒体</p>
-                    <p style="color: var(--gray);">B. 核糖体</p>
-                    <p style="color: var(--gray);">C. 内质网</p>
-                    <p style="color: var(--gray);">D. 高尔基体</p>
+                    <p data-style="color: var(--gray);">A. 线粒体</p>
+                    <p data-style="color: var(--gray);">B. 核糖体</p>
+                    <p data-style="color: var(--gray);">C. 内质网</p>
+                    <p data-style="color: var(--gray);">D. 高尔基体</p>
                     <div class="key-point">答案：B（核糖体无膜结构，不含磷脂）</div>
                 </div>
 
                 <div class="knowledge-card">
                     <h4>基础巩固</h4>
                     <p>2. 下列关于酶的叙述，正确的是（ ）</p>
-                    <p style="color: var(--gray);">A. 酶只能在细胞内起催化作用</p>
-                    <p style="color: var(--gray);">B. 酶的催化效率比无机催化剂高</p>
-                    <p style="color: var(--gray);">C. 酶的化学本质都是蛋白质</p>
-                    <p style="color: var(--gray);">D. 高温能使酶失活，低温也能使酶失活</p>
+                    <p data-style="color: var(--gray);">A. 酶只能在细胞内起催化作用</p>
+                    <p data-style="color: var(--gray);">B. 酶的催化效率比无机催化剂高</p>
+                    <p data-style="color: var(--gray);">C. 酶的化学本质都是蛋白质</p>
+                    <p data-style="color: var(--gray);">D. 高温能使酶失活，低温也能使酶失活</p>
                     <div class="key-point">答案：B（酶可在细胞外催化；少数酶是RNA；低温抑制酶活性但不失活）</div>
                 </div>
 
@@ -1164,10 +1164,10 @@ const subjectContent = {
                 <div class="knowledge-card">
                     <h4>能力提升</h4>
                     <p>4. 将植物置于密闭容器中，在不同光照强度下测定CO₂吸收量。下列叙述正确的是（ ）</p>
-                    <p style="color: var(--gray);">A. 黑暗条件下，植物既不进行光合作用也不进行呼吸作用</p>
-                    <p style="color: var(--gray);">B. 光补偿点时，光合速率等于呼吸速率</p>
-                    <p style="color: var(--gray);">C. 光照强度越大，光合速率越大</p>
-                    <p style="color: var(--gray);">D. 光饱和点后，限制光合速率的因素只有CO₂浓度</p>
+                    <p data-style="color: var(--gray);">A. 黑暗条件下，植物既不进行光合作用也不进行呼吸作用</p>
+                    <p data-style="color: var(--gray);">B. 光补偿点时，光合速率等于呼吸速率</p>
+                    <p data-style="color: var(--gray);">C. 光照强度越大，光合速率越大</p>
+                    <p data-style="color: var(--gray);">D. 光饱和点后，限制光合速率的因素只有CO₂浓度</p>
                     <div class="key-point">答案：B（黑暗时只进行呼吸作用；光照强度增大到一定程度光合速率不再增大；光饱和点后限制因素还有温度等）</div>
                 </div>
 

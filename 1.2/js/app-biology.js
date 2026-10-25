@@ -157,9 +157,9 @@ const biologyGeneticsSimulator = {
                         </div>
                     `).join('')}
                 </div>
-                <div style="display: flex; justify-content: center; gap: 30px; margin-top: 15px;">
-                    <div><span style="color: var(--primary);">━━</span> p (A基因频率)</div>
-                    <div><span style="color: var(--danger);">━━</span> q (a基因频率)</div>
+                <div data-style="display: flex; justify-content: center; gap: 30px; margin-top: 15px;">
+                    <div><span data-style="color: var(--primary);">━━</span> p (A基因频率)</div>
+                    <div><span data-style="color: var(--danger);">━━</span> q (a基因频率)</div>
                 </div>
             </div>
 
@@ -173,7 +173,7 @@ const biologyGeneticsSimulator = {
 
             <div class="warning-box">
                 <h4>💡 学习要点</h4>
-                <ul style="margin-left: 20px;">
+                <ul data-style="margin-left: 20px;">
                     <li><strong>Hardy-Weinberg平衡：</strong>当种群足够大、无突变、无选择、无迁移、随机交配时，基因频率和基因型频率保持恒定。</li>
                     <li><strong>选择压力：</strong>当某个基因型适合度降低时，该基因频率会随世代减少。</li>
                     <li><strong>突变率：</strong>突变是进化的原材料，为自然选择提供原材料。</li>
@@ -625,7 +625,7 @@ const biologyMindMap = {
         const app = document.getElementById('biology-mindmap-app');
         if (!app) return;
 
-        let svgContent = `<svg class="mindmap-svg" width="1000" height="600" style="background: #fafafa">`;
+        let svgContent = `<svg class="mindmap-svg" width="1000" height="600" data-style="background: #fafafa">`;
 
         this.state.connections.forEach(conn => {
             const from = this.state.nodes.find(n => n.id === conn.from);
@@ -634,7 +634,7 @@ const biologyMindMap = {
                 const isMain = from.isCenter;
                 svgContent += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}"
                     stroke="${isMain ? '#4CAF50' : '#666'}" stroke-width="${isMain ? 3 : 1.5}"
-                    style="pointer-events: none"/>`;
+                    data-style="pointer-events: none"/>`;
             }
         });
 
@@ -650,7 +650,7 @@ const biologyMindMap = {
 
             svgContent += `
                 <g class="node ${node.isCenter ? 'center-node' : ''}"
-                    style="cursor: move"
+                    data-style="cursor: move"
                     data-id="${node.id}"
                     data-call="biologyMindMap.startDrag" data-arg1="@s:${node.id}" data-arg2="@ev">
                     <rect x="${node.x - width/2}" y="${node.y - height/2}"
@@ -1474,7 +1474,7 @@ const geneticsPedigreeTrainer = {
             'parents': [{x:50,y:50,s:'□'},{x:100,y:50,s:'□'},{x:75,y:80,l:1}]
         };
 
-        let svg = '<svg width="200" height="320" style="border:1px solid #ccc;background:#fafafa">';
+        let svg = '<svg width="200" height="320" data-style="border:1px solid #ccc;background:#fafafa">';
 
         const ped = problem.pedigree;
         if (ped.includes('01-02/03-04-05')) {
@@ -2129,7 +2129,7 @@ const photosynthesisTrainer = {
 
                     <div class="curve-visual">
                         <div class="curve-placeholder-svg">
-                            <svg width="400" height="300" style="border:1px solid #ccc;background:#fafafa">
+                            <svg width="400" height="300" data-style="border:1px solid #ccc;background:#fafafa">
                                 <text x="200" y="150" text-anchor="middle" fill="#999">曲线示意图</text>
                                 <text x="200" y="170" text-anchor="middle" fill="#999">${curve.data.xLabel || ''} vs ${curve.data.yLabel || ''}</text>
                             </svg>

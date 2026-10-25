@@ -130,104 +130,104 @@ window.examTimerPro = (function () {
         else if (rem < 15 * 60 * 1000) barColor = '#f59e0b';
 
         var html = '';
-        html += '<div style="max-width:900px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
+        html += '<div data-style="max-width:900px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
 
         // 标题区
-        html += '<div style="text-align:center;margin-bottom:18px;">';
-        html += '<h2 style="margin:0 0 6px;font-size:22px;color:#1f2937;">⏱️ 考试计时器 Pro</h2>';
-        html += '<p style="margin:0;font-size:13px;color:#6b7280;">广东高考时长标准 · 阶段提醒 · 时间分配建议</p>';
+        html += '<div data-style="text-align:center;margin-bottom:18px;">';
+        html += '<h2 data-style="margin:0 0 6px;font-size:22px;color:#1f2937;">⏱️ 考试计时器 Pro</h2>';
+        html += '<p data-style="margin:0;font-size:13px;color:#6b7280;">广东高考时长标准 · 阶段提醒 · 时间分配建议</p>';
         html += '</div>';
 
         // 学科选择
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:13px;color:#6b7280;margin-bottom:8px;">选择考试科目</div>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:13px;color:#6b7280;margin-bottom:8px;">选择考试科目</div>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">';
         for (var subj in EXAM_CONFIG) {
             if (!EXAM_CONFIG.hasOwnProperty(subj)) continue;
             var active = subj === state.subject;
             html += '<button data-call="window.examTimerPro.selectSubject" data-arg1="@s:' + subj + '" ' +
-                'style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
+                'data-style="padding:7px 14px;border-radius:6px;border:1px solid ' + (active ? '#3b82f6' : '#d1d5db') + ';' +
                 'background:' + (active ? '#3b82f6' : '#fff') + ';color:' + (active ? '#fff' : '#374151') + ';' +
                 'cursor:pointer;font-size:13px;font-weight:' + (active ? '600' : '400') + ';">' + subj + ' ' + EXAM_CONFIG[subj].duration + 'min</button>';
         }
         html += '</div></div>';
 
         // 主计时显示
-        html += '<div style="background:linear-gradient(135deg,#1e3a8a,#3730a3);border-radius:14px;padding:28px 18px;color:#fff;text-align:center;margin-bottom:14px;">';
-        html += '<div style="font-size:13px;opacity:0.85;margin-bottom:6px;">' + state.subject + ' · 满分 ' + cfg.total + ' 分</div>';
-        html += '<div id="etp-clock" style="font-size:64px;font-weight:700;font-family:\'Consolas\',monospace;letter-spacing:2px;text-shadow:0 2px 10px rgba(0,0,0,0.3);">' + fmt(rem) + '</div>';
-        html += '<div style="font-size:12px;opacity:0.85;margin-top:6px;">' + (state.running ? (state.paused ? '已暂停' : '计时中…') : '未开始') + '</div>';
+        html += '<div data-style="background:linear-gradient(135deg,#1e3a8a,#3730a3);border-radius:14px;padding:28px 18px;color:#fff;text-align:center;margin-bottom:14px;">';
+        html += '<div data-style="font-size:13px;opacity:0.85;margin-bottom:6px;">' + state.subject + ' · 满分 ' + cfg.total + ' 分</div>';
+        html += '<div id="etp-clock" data-style="font-size:64px;font-weight:700;font-family:\'Consolas\',monospace;letter-spacing:2px;text-shadow:0 2px 10px rgba(0,0,0,0.3);">' + fmt(rem) + '</div>';
+        html += '<div data-style="font-size:12px;opacity:0.85;margin-top:6px;">' + (state.running ? (state.paused ? '已暂停' : '计时中…') : '未开始') + '</div>';
 
         // 进度条
-        html += '<div style="background:rgba(255,255,255,0.2);border-radius:6px;height:10px;margin:16px 0 6px;overflow:hidden;">';
-        html += '<div id="etp-bar" style="background:' + barColor + ';height:100%;width:' + usedPct + '%;transition:width 0.5s linear;border-radius:6px;"></div>';
+        html += '<div data-style="background:rgba(255,255,255,0.2);border-radius:6px;height:10px;margin:16px 0 6px;overflow:hidden;">';
+        html += '<div id="etp-bar" data-style="background:' + barColor + ';height:100%;width:' + usedPct + '%;transition:width 0.5s linear;border-radius:6px;"></div>';
         html += '</div>';
-        html += '<div style="font-size:11px;opacity:0.75;">已用 ' + usedPct.toFixed(1) + '% / 剩余 ' + ((rem / 60000)).toFixed(1) + ' 分钟</div>';
+        html += '<div data-style="font-size:11px;opacity:0.75;">已用 ' + usedPct.toFixed(1) + '% / 剩余 ' + ((rem / 60000)).toFixed(1) + ' 分钟</div>';
         html += '</div>';
 
         // 控制按钮
-        html += '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;">';
+        html += '<div data-style="display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;">';
         if (!state.running) {
-            html += '<button data-call=\"window.examTimerPro.start\" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 开始计时</button>';
+            html += '<button data-call=\"window.examTimerPro.start\" data-style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 开始计时</button>';
         } else if (state.paused) {
-            html += '<button data-call=\"window.examTimerPro.resume\" style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 继续</button>';
+            html += '<button data-call=\"window.examTimerPro.resume\" data-style="padding:10px 22px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">▶ 继续</button>';
         } else {
-            html += '<button data-call=\"window.examTimerPro.pause\" style="padding:10px 22px;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏸ 暂停</button>';
+            html += '<button data-call=\"window.examTimerPro.pause\" data-style="padding:10px 22px;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏸ 暂停</button>';
         }
-        html += '<button data-call=\"window.examTimerPro.stop\" data-arg1=\"true\" style="padding:10px 22px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏹ 结束</button>';
-        html += '<button data-call=\"window.examTimerPro.reset\" style="padding:10px 22px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">↻ 重置</button>';
+        html += '<button data-call=\"window.examTimerPro.stop\" data-arg1=\"true\" data-style="padding:10px 22px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">⏹ 结束</button>';
+        html += '<button data-call=\"window.examTimerPro.reset\" data-style="padding:10px 22px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">↻ 重置</button>';
         html += '</div>';
 
         // 时间分配建议
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">📋 ' + state.subject + ' 时间分配建议</div>';
-        html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
-        html += '<thead><tr style="background:#f9fafb;">';
-        html += '<th style="padding:8px;text-align:left;border-bottom:1px solid #e5e7eb;">题型</th>';
-        html += '<th style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">建议用时</th>';
-        html += '<th style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">分值</th>';
-        html += '<th style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">性价比</th>';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">📋 ' + state.subject + ' 时间分配建议</div>';
+        html += '<table data-style="width:100%;border-collapse:collapse;font-size:13px;">';
+        html += '<thead><tr data-style="background:#f9fafb;">';
+        html += '<th data-style="padding:8px;text-align:left;border-bottom:1px solid #e5e7eb;">题型</th>';
+        html += '<th data-style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">建议用时</th>';
+        html += '<th data-style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">分值</th>';
+        html += '<th data-style="padding:8px;text-align:center;border-bottom:1px solid #e5e7eb;">性价比</th>';
         html += '</tr></thead><tbody>';
         for (var i = 0; i < cfg.parts.length; i++) {
             var p = cfg.parts[i];
             var ratio = p.suggest > 0 ? (p.score / p.suggest).toFixed(2) : '-';
             html += '<tr>';
-            html += '<td style="padding:8px;border-bottom:1px solid #f3f4f6;">' + p.name + '</td>';
-            html += '<td style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;">' + p.suggest + ' min</td>';
-            html += '<td style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;">' + p.score + ' 分</td>';
-            html += '<td style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;color:' + (ratio !== '-' && parseFloat(ratio) >= 1 ? '#10b981' : '#6b7280') + ';">' + ratio + (ratio !== '-' ? ' 分/分' : '') + '</td>';
+            html += '<td data-style="padding:8px;border-bottom:1px solid #f3f4f6;">' + p.name + '</td>';
+            html += '<td data-style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;">' + p.suggest + ' min</td>';
+            html += '<td data-style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;">' + p.score + ' 分</td>';
+            html += '<td data-style="padding:8px;text-align:center;border-bottom:1px solid #f3f4f6;color:' + (ratio !== '-' && parseFloat(ratio) >= 1 ? '#10b981' : '#6b7280') + ';">' + ratio + (ratio !== '-' ? ' 分/分' : '') + '</td>';
             html += '</tr>';
         }
         html += '</tbody></table>';
-        html += '<div style="font-size:11px;color:#9ca3af;margin-top:8px;">💡 性价比 = 分值 / 用时（分钟），数值越高越值得优先攻克</div>';
+        html += '<div data-style="font-size:11px;color:#9ca3af;margin-top:8px;">💡 性价比 = 分值 / 用时（分钟），数值越高越值得优先攻克</div>';
         html += '</div>';
 
         // 历史记录
         var history = loadHistory();
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
-        html += '<div style="font-size:14px;font-weight:600;color:#1f2937;">📊 历史计时记录</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
+        html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;">📊 历史计时记录</div>';
         if (history.length > 0) {
-            html += '<button data-call=\"window.examTimerPro.clearHistory\" style="padding:4px 10px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:5px;font-size:12px;cursor:pointer;">清空</button>';
+            html += '<button data-call=\"window.examTimerPro.clearHistory\" data-style="padding:4px 10px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:5px;font-size:12px;cursor:pointer;">清空</button>';
         }
         html += '</div>';
         if (history.length === 0) {
-            html += '<div style="text-align:center;padding:18px;color:#9ca3af;font-size:13px;">暂无记录，开始一次完整计时后将自动保存</div>';
+            html += '<div data-style="text-align:center;padding:18px;color:#9ca3af;font-size:13px;">暂无记录，开始一次完整计时后将自动保存</div>';
         } else {
-            html += '<div style="max-height:220px;overflow-y:auto;">';
+            html += '<div data-style="max-height:220px;overflow-y:auto;">';
             for (var j = history.length - 1; j >= 0 && j >= history.length - 10; j--) {
                 var h = history[j];
-                html += '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:12px;">';
-                html += '<span style="color:#6b7280;">' + (h.subject || '未知') + '</span>';
-                html += '<span style="color:#1f2937;">用时 ' + fmt(h.elapsed) + '</span>';
-                html += '<span style="color:#6b7280;">' + (h.date || '') + '</span>';
+                html += '<div data-style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:12px;">';
+                html += '<span data-style="color:#6b7280;">' + (h.subject || '未知') + '</span>';
+                html += '<span data-style="color:#1f2937;">用时 ' + fmt(h.elapsed) + '</span>';
+                html += '<span data-style="color:#6b7280;">' + (h.date || '') + '</span>';
                 html += '</div>';
             }
             html += '</div>';
         }
         html += '</div>';
 
-        html += '<div style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">提示：开始计时后请勿关闭页面，可暂停但避免刷新</div>';
+        html += '<div data-style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">提示：开始计时后请勿关闭页面，可暂停但避免刷新</div>';
         html += '</div>';
 
         container.innerHTML = html;
@@ -539,92 +539,92 @@ window.knowledgeCardExporter = (function () {
         var selected = getSelected();
 
         var html = '';
-        html += '<div style="max-width:1000px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
+        html += '<div data-style="max-width:1000px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
 
         // 标题
-        html += '<div style="text-align:center;margin-bottom:18px;">';
-        html += '<h2 style="margin:0 0 6px;font-size:22px;color:#1f2937;">📇 知识点卡片导出</h2>';
-        html += '<p style="margin:0;font-size:13px;color:#6b7280;">速记卡 · 双面打印 · 一键导出图片 · 自定义卡片</p>';
+        html += '<div data-style="text-align:center;margin-bottom:18px;">';
+        html += '<h2 data-style="margin:0 0 6px;font-size:22px;color:#1f2937;">📇 知识点卡片导出</h2>';
+        html += '<p data-style="margin:0;font-size:13px;color:#6b7280;">速记卡 · 双面打印 · 一键导出图片 · 自定义卡片</p>';
         html += '</div>';
 
         // 筛选区
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:14px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:14px;">';
         // 学科
-        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">学科</div><select id="kce-subj" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:subject" data-arg2="@val" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
+        html += '<div><div data-style="font-size:12px;color:#6b7280;margin-bottom:4px;">学科</div><select id="kce-subj" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:subject" data-arg2="@val" data-style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
         for (var i = 0; i < subjects.length; i++) {
             html += '<option value="' + subjects[i] + '"' + (subjects[i] === state.subjectFilter ? ' selected' : '') + '>' + subjects[i] + '</option>';
         }
         html += '</select></div>';
         // 章节
-        html += '<div><div style="font-size:12px;color:#6b7280;margin-bottom:4px;">章节</div><select id="kce-chap" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:chapter" data-arg2="@val" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
+        html += '<div><div data-style="font-size:12px;color:#6b7280;margin-bottom:4px;">章节</div><select id="kce-chap" data-call="window.knowledgeCardExporter.changeFilter" data-arg1="@s:chapter" data-arg2="@val" data-style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;">';
         for (var j = 0; j < chapters.length; j++) {
             html += '<option value="' + chapters[j] + '"' + (chapters[j] === state.chapterFilter ? ' selected' : '') + '>' + chapters[j] + '</option>';
         }
         html += '</select></div>';
         // 全选/反选
-        html += '<div style="display:flex;align-items:flex-end;gap:6px;">';
-        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"true\" style="padding:6px 12px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">全选</button>';
-        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"false\" style="padding:6px 12px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-size:12px;cursor:pointer;">清空</button>';
+        html += '<div data-style="display:flex;align-items:flex-end;gap:6px;">';
+        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"true\" data-style="padding:6px 12px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">全选</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.selectAll\" data-arg1=\"false\" data-style="padding:6px 12px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-size:12px;cursor:pointer;">清空</button>';
         html += '</div>';
         // 已选统计 + 导出按钮
-        html += '<div style="margin-left:auto;display:flex;align-items:flex-end;gap:6px;">';
-        html += '<span style="font-size:12px;color:#6b7280;padding-bottom:8px;">已选 ' + selected.length + ' 张</span>';
-        html += '<button data-call=\"window.knowledgeCardExporter.exportImage\" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖼 导出图片</button>';
-        html += '<button data-call=\"window.knowledgeCardExporter.printCards\" style="padding:6px 12px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖨 打印</button>';
+        html += '<div data-style="margin-left:auto;display:flex;align-items:flex-end;gap:6px;">';
+        html += '<span data-style="font-size:12px;color:#6b7280;padding-bottom:8px;">已选 ' + selected.length + ' 张</span>';
+        html += '<button data-call=\"window.knowledgeCardExporter.exportImage\" data-style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖼 导出图片</button>';
+        html += '<button data-call=\"window.knowledgeCardExporter.printCards\" data-style="padding:6px 12px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">🖨 打印</button>';
         html += '</div>';
         html += '</div></div>';
 
         // 卡片网格
         if (filtered.length === 0) {
-            html += '<div style="text-align:center;padding:40px;color:#9ca3af;font-size:14px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;">该筛选条件下暂无卡片</div>';
+            html += '<div data-style="text-align:center;padding:40px;color:#9ca3af;font-size:14px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;">该筛选条件下暂无卡片</div>';
         } else {
-            html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:18px;">';
+            html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:18px;">';
             for (var k = 0; k < filtered.length; k++) {
                 var card = filtered[k];
                 var isSel = !!state.selected[card.title];
                 var borderC = isSel ? '#3b82f6' : '#e5e7eb';
                 var bgC = isSel ? '#eff6ff' : '#fff';
-                html += '<div data-hook="card-toggle" data-card="' + card.title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" style="background:' + bgC + ';border:2px solid ' + borderC + ';border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s;">';
-                html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
-                html += '<span style="font-size:11px;color:#6b7280;background:#f3f4f6;padding:2px 6px;border-radius:4px;">' + card.subject + ' · ' + card.chapter + '</span>';
-                html += '<span style="font-size:14px;color:' + (isSel ? '#3b82f6' : '#d1d5db') + ';">' + (isSel ? '✓' : '○') + '</span>';
+                html += '<div data-hook="card-toggle" data-card="' + card.title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" data-style="background:' + bgC + ';border:2px solid ' + borderC + ';border-radius:10px;padding:12px;cursor:pointer;transition:all 0.2s;">';
+                html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+                html += '<span data-style="font-size:11px;color:#6b7280;background:#f3f4f6;padding:2px 6px;border-radius:4px;">' + card.subject + ' · ' + card.chapter + '</span>';
+                html += '<span data-style="font-size:14px;color:' + (isSel ? '#3b82f6' : '#d1d5db') + ';">' + (isSel ? '✓' : '○') + '</span>';
                 html += '</div>';
-                html += '<div style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:6px;">' + card.title + '</div>';
-                html += '<div style="font-size:11px;color:#6b7280;white-space:pre-line;line-height:1.5;max-height:80px;overflow:hidden;">' + (card.front || '').substring(0, 80) + '</div>';
+                html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:6px;">' + card.title + '</div>';
+                html += '<div data-style="font-size:11px;color:#6b7280;white-space:pre-line;line-height:1.5;max-height:80px;overflow:hidden;">' + (card.front || '').substring(0, 80) + '</div>';
                 html += '</div>';
             }
             html += '</div>';
         }
 
         // 自定义卡片添加
-        html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
-        html += '<div style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">➕ 添加自定义卡片</div>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:8px;">';
-        html += '<input id="kce-c-subj" placeholder="学科（如 物理）" style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
-        html += '<input id="kce-c-chap" placeholder="章节（如 力学）" style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
-        html += '<input id="kce-c-title" placeholder="卡片标题" style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
+        html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:14px;">';
+        html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">➕ 添加自定义卡片</div>';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:8px;">';
+        html += '<input id="kce-c-subj" placeholder="学科（如 物理）" data-style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
+        html += '<input id="kce-c-chap" placeholder="章节（如 力学）" data-style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
+        html += '<input id="kce-c-title" placeholder="卡片标题" data-style="padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;">';
         html += '</div>';
-        html += '<textarea id="kce-c-front" placeholder="正面内容（速记要点，支持换行）" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
-        html += '<textarea id="kce-c-back" placeholder="背面内容（详解/口诀/注意点）" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
-        html += '<button data-call=\"window.knowledgeCardExporter.addCustom\" style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;">添加卡片</button>';
+        html += '<textarea id="kce-c-front" placeholder="正面内容（速记要点，支持换行）" data-style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
+        html += '<textarea id="kce-c-back" placeholder="背面内容（详解/口诀/注意点）" data-style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;min-height:60px;margin-bottom:8px;font-family:inherit;"></textarea>';
+        html += '<button data-call=\"window.knowledgeCardExporter.addCustom\" data-style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;">添加卡片</button>';
         html += '</div>';
 
         // 自定义卡片列表
         var custom = loadCustom();
         if (custom.length > 0) {
-            html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">';
-            html += '<div style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">🗂 我的自定义卡片（' + custom.length + '）</div>';
+            html += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">';
+            html += '<div data-style="font-size:14px;font-weight:600;color:#1f2937;margin-bottom:10px;">🗂 我的自定义卡片（' + custom.length + '）</div>';
             for (var m = 0; m < custom.length; m++) {
-                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">';
-                html += '<div><span style="font-size:12px;color:#6b7280;">' + custom[m].subject + ' · ' + custom[m].chapter + '</span> <span style="font-size:13px;color:#1f2937;margin-left:6px;">' + custom[m].title + '</span></div>';
-                html += '<button data-call=\"window.knowledgeCardExporter.removeCustom\" data-arg1=\"@n:' + m + '" style="padding:3px 8px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:4px;font-size:11px;cursor:pointer;">删除</button>';
+                html += '<div data-style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">';
+                html += '<div><span data-style="font-size:12px;color:#6b7280;">' + custom[m].subject + ' · ' + custom[m].chapter + '</span> <span data-style="font-size:13px;color:#1f2937;margin-left:6px;">' + custom[m].title + '</span></div>';
+                html += '<button data-call=\"window.knowledgeCardExporter.removeCustom\" data-arg1=\"@n:' + m + '" data-style="padding:3px 8px;background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:4px;font-size:11px;cursor:pointer;">删除</button>';
                 html += '</div>';
             }
             html += '</div>';
         }
 
-        html += '<div style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">点击卡片选/取消 · 导出图片为 Canvas 长图 · 打印支持双面手动翻转</div>';
+        html += '<div data-style="text-align:center;font-size:11px;color:#9ca3af;margin-top:12px;">点击卡片选/取消 · 导出图片为 Canvas 长图 · 打印支持双面手动翻转</div>';
         html += '</div>';
 
         container.innerHTML = html;
@@ -821,20 +821,12 @@ window.knowledgeCardExporter = (function () {
             return;
         }
         var html = '';
+        // D3：弹窗文档不继承本页 CSS，且 CSP style-src 'self' 禁止内联 <style> 块。
+        // 样式外置为 css/knowledge-card-print.css。
+        var PRINT_BASE = location.href.replace(/[^/]*$/, '');
         html += '<!DOCTYPE html><html><head><meta charset="utf-8"><title>知识点卡片打印</title>';
-        html += '<style>';
-        html += '@page { size: A4; margin: 12mm; }';
-        html += 'body { font-family: "Microsoft YaHei", sans-serif; margin: 0; padding: 0; color: #1f2937; }';
-        html += '.page { page-break-after: always; padding: 0; }';
-        html += '.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }';
-        html += '.card { border: 1.5px solid #3b82f6; border-radius: 6px; padding: 8mm; min-height: 70mm; box-sizing: border-box; }';
-        html += '.tag { font-size: 10pt; color: #1e40af; background: #dbeafe; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-bottom: 4mm; }';
-        html += '.title { font-size: 14pt; font-weight: bold; margin: 0 0 3mm; }';
-        html += '.content { font-size: 11pt; line-height: 1.6; white-space: pre-line; }';
-        html += '.back-label { font-size: 9pt; color: #6b7280; font-style: italic; margin-top: 4mm; padding-top: 3mm; border-top: 1px dashed #d1d5db; }';
-        html += 'h2 { text-align: center; font-size: 16pt; margin: 0 0 6mm; }';
-        html += '.info { text-align: center; font-size: 10pt; color: #6b7280; margin-bottom: 6mm; }';
-        html += '</style></head><body>';
+        html += '<link rel="stylesheet" href="' + PRINT_BASE + 'css/knowledge-card-print.css">';
+        html += '</head><body>';
 
         // 第一部分：正面
         html += '<div class="page"><h2>知识点速记卡片 · 正面</h2><div class="info">共 ' + selected.length + ' 张 · 打印后将纸张翻转再打印背面</div><div class="grid">';
@@ -862,7 +854,7 @@ window.knowledgeCardExporter = (function () {
                 var rc = selected[rightIdx];
                 html += '<div class="card"><div class="back-label">[' + rc.title + ']</div><div class="content">' + (rc.back || rc.front || '') + '</div></div>';
             } else {
-                html += '<div class="card" style="border:none;"></div>';
+                html += '<div class="card" data-style="border:none;"></div>';
             }
             // 再放左边的背面
             if (leftIdx < selected.length) {

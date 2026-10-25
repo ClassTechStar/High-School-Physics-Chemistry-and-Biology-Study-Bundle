@@ -99,12 +99,12 @@
       }
       var y0 = s.plotH - s.padB - (0 - s.yMin) / (s.yMax - s.yMin) * (s.plotH - s.padT - s.padB);
 
-      var html = "<div style='font-family:sans-serif;color:#222;'>" +
-        "<h3 style='margin:0 0 8px;color:#2b6ce2;'>📐 三角函数单位圆交互</h3>" +
-        "<p style='font-size:12px;color:#666;margin:0 0 10px;'>拖动圆上点P（或点击圆面）观察 sin / cos / tan 的实时变化</p>" +
-        "<div style='display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;'>" +
-          "<div style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:6px;'>" +
-            "<svg id='tuc-svg' width='" + W + "' height='" + H + "' style='touch-action:none;display:block;'>" +
+      var html = "<div data-style='font-family:sans-serif;color:#222;'>" +
+        "<h3 data-style='margin:0 0 8px;color:#2b6ce2;'>📐 三角函数单位圆交互</h3>" +
+        "<p data-style='font-size:12px;color:#666;margin:0 0 10px;'>拖动圆上点P（或点击圆面）观察 sin / cos / tan 的实时变化</p>" +
+        "<div data-style='display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;'>" +
+          "<div data-style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:6px;'>" +
+            "<svg id='tuc-svg' width='" + W + "' height='" + H + "' data-style='touch-action:none;display:block;'>" +
               "<line x1='0' y1='" + cy + "' x2='" + W + "' y2='" + cy + "' stroke='#ddd' stroke-width='1'/>" +
               "<line x1='" + cx + "' y1='0' x2='" + cx + "' y2='" + H + "' stroke='#ddd' stroke-width='1'/>" +
               "<line x1='" + (cx + R) + "' y1='0' x2='" + (cx + R) + "' y2='" + H + "' stroke='#9bc' stroke-width='1' stroke-dasharray='4 4'/>" +
@@ -123,13 +123,13 @@
               "<text id='tuc-sinLabel' font-size='12' fill='#2b6ce2' font-weight='bold'></text>" +
               "<text id='tuc-tanLabel' font-size='12' fill='#1aa84a' font-weight='bold'></text>" +
               "<text id='tuc-pLabel' font-size='13' fill='#222' font-weight='bold'>P</text>" +
-              "<circle id='tuc-point' r='7' fill='#fff' stroke='#222' stroke-width='2' style='cursor:grab;'/>" +
+              "<circle id='tuc-point' r='7' fill='#fff' stroke='#222' stroke-width='2' data-style='cursor:grab;'/>" +
             "</svg>" +
           "</div>" +
-          "<div style='display:flex;flex-direction:column;gap:10px;'>" +
-            "<div style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:6px;'>" +
-              "<div style='font-size:12px;color:#666;margin-bottom:4px;'>函数图像（当前角度竖线标注）</div>" +
-              "<svg width='" + s.plotW + "' height='" + s.plotH + "' style='display:block;'>" +
+          "<div data-style='display:flex;flex-direction:column;gap:10px;'>" +
+            "<div data-style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:6px;'>" +
+              "<div data-style='font-size:12px;color:#666;margin-bottom:4px;'>函数图像（当前角度竖线标注）</div>" +
+              "<svg width='" + s.plotW + "' height='" + s.plotH + "' data-style='display:block;'>" +
                 "<line x1='" + s.padL + "' y1='" + y0.toFixed(1) + "' x2='" + (s.plotW - s.padR) + "' y2='" + y0.toFixed(1) + "' stroke='#ccc'/>" +
                 "<line x1='" + s.padL + "' y1='" + s.padT + "' x2='" + s.padL + "' y2='" + (s.plotH - s.padB) + "' stroke='#ccc'/>" +
                 xticks +
@@ -145,32 +145,32 @@
                 "<text x='" + (s.plotW - s.padR - 4) + "' y='" + (s.padT + 34) + "' font-size='10' fill='#1aa84a' text-anchor='end'>tan</text>" +
               "</svg>" +
             "</div>" +
-            "<div style='background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;padding:10px;font-size:13px;'>" +
-              "<div style='font-weight:bold;margin-bottom:6px;color:#2b6ce2;'>实时数值</div>" +
+            "<div data-style='background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;padding:10px;font-size:13px;'>" +
+              "<div data-style='font-weight:bold;margin-bottom:6px;color:#2b6ce2;'>实时数值</div>" +
               "<div>角度 θ = <b id='tuc-valDeg'>—</b> （弧度 <b id='tuc-valRad'>—</b>）</div>" +
-              "<div style='color:#2b6ce2;'>sinθ = <b id='tuc-valSin'>—</b></div>" +
-              "<div style='color:#e23b3b;'>cosθ = <b id='tuc-valCos'>—</b></div>" +
-              "<div style='color:#1aa84a;'>tanθ = <b id='tuc-valTan'>—</b></div>" +
-              "<div style='color:#888;'>位置：<span id='tuc-valQuad'>—</span></div>" +
+              "<div data-style='color:#2b6ce2;'>sinθ = <b id='tuc-valSin'>—</b></div>" +
+              "<div data-style='color:#e23b3b;'>cosθ = <b id='tuc-valCos'>—</b></div>" +
+              "<div data-style='color:#1aa84a;'>tanθ = <b id='tuc-valTan'>—</b></div>" +
+              "<div data-style='color:#888;'>位置：<span id='tuc-valQuad'>—</span></div>" +
             "</div>" +
           "</div>" +
         "</div>" +
-        "<div style='margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;'>" +
-          "<button id='tuc-play' style='padding:6px 14px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>▶ 播放动画</button>" +
-          "<button id='tuc-reset' style='padding:6px 14px;background:#888;color:#fff;border:none;border-radius:6px;cursor:pointer;'>↺ 重置0°</button>" +
-          "<span style='font-size:12px;color:#666;'>跳转特殊角：</span>" +
+        "<div data-style='margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;'>" +
+          "<button id='tuc-play' data-style='padding:6px 14px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>▶ 播放动画</button>" +
+          "<button id='tuc-reset' data-style='padding:6px 14px;background:#888;color:#fff;border:none;border-radius:6px;cursor:pointer;'>↺ 重置0°</button>" +
+          "<span data-style='font-size:12px;color:#666;'>跳转特殊角：</span>" +
           s.jumpButtons() +
         "</div>" +
-        "<div style='display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;'>" +
-          "<div style='flex:1;min-width:260px;background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:10px;font-size:13px;'>" +
-            "<div style='font-weight:bold;margin-bottom:6px;color:#b8860b;'>📋 公式参考</div>" +
+        "<div data-style='display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;'>" +
+          "<div data-style='flex:1;min-width:260px;background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:10px;font-size:13px;'>" +
+            "<div data-style='font-weight:bold;margin-bottom:6px;color:#b8860b;'>📋 公式参考</div>" +
             "<div>同角关系：<b>sin²θ + cos²θ = 1</b>；tanθ = sinθ / cosθ</div>" +
             "<div>诱导公式：sin(π−θ)=sinθ；cos(π−θ)=−cosθ；sin(−θ)=−sinθ；cos(−θ)=cosθ</div>" +
             "<div>二倍角：sin2θ=2sinθcosθ；cos2θ=cos²θ−sin²θ</div>" +
             "<div>特殊值：sin30°=1/2，cos30°=√3/2，sin45°=cos45°=√2/2，tan45°=1</div>" +
           "</div>" +
-          "<div style='flex:1;min-width:260px;background:#f5fff5;border:1px solid #c0e8c0;border-radius:8px;padding:10px;font-size:13px;'>" +
-            "<div style='font-weight:bold;margin-bottom:6px;color:#1aa84a;'>🎯 广东卷考点提示</div>" +
+          "<div data-style='flex:1;min-width:260px;background:#f5fff5;border:1px solid #c0e8c0;border-radius:8px;padding:10px;font-size:13px;'>" +
+            "<div data-style='font-weight:bold;margin-bottom:6px;color:#1aa84a;'>🎯 广东卷考点提示</div>" +
             "<div>· 三角函数的图象与性质（周期、单调、最值）是高频考点</div>" +
             "<div>· 诱导公式与同角关系常在化简求值中考查</div>" +
             "<div>· 结合单位圆理解象限符号与定义域限制</div>" +
@@ -185,7 +185,7 @@
       var arr = [0, 30, 45, 60, 90, 120, 135, 150, 180, 270, 360];
       var h = '';
       for (var i = 0; i < arr.length; i++) {
-        h += "<button class='tuc-jump' data-a='" + arr[i] + "' style='padding:4px 10px;background:#eef3ff;border:1px solid #cdd9f5;border-radius:5px;cursor:pointer;font-size:12px;'>" + arr[i] + "°</button>";
+        h += "<button class='tuc-jump' data-a='" + arr[i] + "' data-style='padding:4px 10px;background:#eef3ff;border:1px solid #cdd9f5;border-radius:5px;cursor:pointer;font-size:12px;'>" + arr[i] + "°</button>";
       }
       return h;
     },
@@ -516,33 +516,33 @@
       for (var i = 0; i < d.length; i++) {
         opts += "<option value='" + i + "'>" + (i + 1) + ". " + d[i].title + " [" + d[i].level + "]</option>";
       }
-      return "<div style='font-family:sans-serif;color:#222;'>" +
-        "<h3 style='margin:0 0 8px;color:#1aa84a;'>🎧 英语听力训练（Web Speech API 朗读）</h3>" +
-        (s.state.supported ? '' : "<div style='color:#c00;background:#fff0f0;border:1px solid #f0c0c0;padding:6px;border-radius:6px;margin-bottom:8px;'>⚠ 当前浏览器不支持 speechSynthesis，朗读功能不可用。</div>") +
-        "<div style='display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;'>" +
-          "<label>材料：<select id='el-mat' style='padding:4px;border-radius:5px;'>" + opts + "</select></label>" +
-          "<label>语速：<select id='el-spd' style='padding:4px;border-radius:5px;'>" +
+      return "<div data-style='font-family:sans-serif;color:#222;'>" +
+        "<h3 data-style='margin:0 0 8px;color:#1aa84a;'>🎧 英语听力训练（Web Speech API 朗读）</h3>" +
+        (s.state.supported ? '' : "<div data-style='color:#c00;background:#fff0f0;border:1px solid #f0c0c0;padding:6px;border-radius:6px;margin-bottom:8px;'>⚠ 当前浏览器不支持 speechSynthesis，朗读功能不可用。</div>") +
+        "<div data-style='display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;'>" +
+          "<label>材料：<select id='el-mat' data-style='padding:4px;border-radius:5px;'>" + opts + "</select></label>" +
+          "<label>语速：<select id='el-spd' data-style='padding:4px;border-radius:5px;'>" +
             "<option value='slow'>慢速 0.7x</option><option value='normal' selected>正常 1.0x</option><option value='fast'>快速 1.3x</option>" +
           "</select></label>" +
         "</div>" +
-        "<div style='background:#f6fbf6;border:1px solid #d6ead6;border-radius:8px;padding:10px;margin-bottom:10px;'>" +
-          "<div id='el-title' style='font-weight:bold;font-size:15px;color:#1aa84a;margin-bottom:6px;'></div>" +
-          "<div style='display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;'>" +
-            "<button id='el-play' style='padding:6px 14px;background:#1aa84a;color:#fff;border:none;border-radius:6px;cursor:pointer;'>▶ 播放全文</button>" +
-            "<button id='el-pause' style='padding:6px 14px;background:#e8a900;color:#fff;border:none;border-radius:6px;cursor:pointer;'>⏸ 暂停/继续</button>" +
-            "<button id='el-replay' style='padding:6px 14px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>↺ 重播</button>" +
-            "<button id='el-one' style='padding:6px 14px;background:#7c5cff;color:#fff;border:none;border-radius:6px;cursor:pointer;'>🔊 逐句播放</button>" +
-            "<button id='el-prev' style='padding:6px 12px;background:#eee;border:1px solid #ccc;border-radius:6px;cursor:pointer;'>◀ 上一句</button>" +
-            "<button id='el-next' style='padding:6px 12px;background:#eee;border:1px solid #ccc;border-radius:6px;cursor:pointer;'>下一句 ▶</button>" +
+        "<div data-style='background:#f6fbf6;border:1px solid #d6ead6;border-radius:8px;padding:10px;margin-bottom:10px;'>" +
+          "<div id='el-title' data-style='font-weight:bold;font-size:15px;color:#1aa84a;margin-bottom:6px;'></div>" +
+          "<div data-style='display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;'>" +
+            "<button id='el-play' data-style='padding:6px 14px;background:#1aa84a;color:#fff;border:none;border-radius:6px;cursor:pointer;'>▶ 播放全文</button>" +
+            "<button id='el-pause' data-style='padding:6px 14px;background:#e8a900;color:#fff;border:none;border-radius:6px;cursor:pointer;'>⏸ 暂停/继续</button>" +
+            "<button id='el-replay' data-style='padding:6px 14px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>↺ 重播</button>" +
+            "<button id='el-one' data-style='padding:6px 14px;background:#7c5cff;color:#fff;border:none;border-radius:6px;cursor:pointer;'>🔊 逐句播放</button>" +
+            "<button id='el-prev' data-style='padding:6px 12px;background:#eee;border:1px solid #ccc;border-radius:6px;cursor:pointer;'>◀ 上一句</button>" +
+            "<button id='el-next' data-style='padding:6px 12px;background:#eee;border:1px solid #ccc;border-radius:6px;cursor:pointer;'>下一句 ▶</button>" +
           "</div>" +
-          "<div style='background:#fff;border:1px solid #e0e0e0;border-radius:5px;height:14px;overflow:hidden;'><div id='el-prog' style='width:0%;height:100%;background:linear-gradient(90deg,#1aa84a,#7c5cff);transition:width .2s;'></div></div>" +
-          "<div id='el-cur' style='margin-top:6px;font-size:13px;color:#555;min-height:20px;'></div>" +
+          "<div data-style='background:#fff;border:1px solid #e0e0e0;border-radius:5px;height:14px;overflow:hidden;'><div id='el-prog' data-style='width:0%;height:100%;background:linear-gradient(90deg,#1aa84a,#7c5cff);transition:width .2s;'></div></div>" +
+          "<div id='el-cur' data-style='margin-top:6px;font-size:13px;color:#555;min-height:20px;'></div>" +
         "</div>" +
         "<div id='el-questions'></div>" +
-        "<div style='margin:10px 0;'><button id='el-showorig' style='padding:6px 14px;background:#888;color:#fff;border:none;border-radius:6px;cursor:pointer;'>📜 显示原文</button></div>" +
-        "<div id='el-orig' style='display:none;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:12px;font-size:14px;line-height:1.9;'></div>" +
+        "<div data-style='margin:10px 0;'><button id='el-showorig' data-style='padding:6px 14px;background:#888;color:#fff;border:none;border-radius:6px;cursor:pointer;'>📜 显示原文</button></div>" +
+        "<div id='el-orig' data-style='display:none;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:12px;font-size:14px;line-height:1.9;'></div>" +
         "<div id='el-vocab'></div>" +
-        "<div id='el-result' style='margin-top:10px;'></div>" +
+        "<div id='el-result' data-style='margin-top:10px;'></div>" +
       "</div>";
     },
 
@@ -591,33 +591,33 @@
       s.refs.prog.style.width = '0%';
       var oh = '';
       for (var i = 0; i < s.sentences.length; i++) {
-        oh += "<span id='el-s-" + i + "' style='display:inline;'>" + escapeHtml(s.sentences[i]) + " </span>";
+        oh += "<span id='el-s-" + i + "' data-style='display:inline;'>" + escapeHtml(s.sentences[i]) + " </span>";
       }
       s.refs.orig.innerHTML = oh;
       s.refs.orig.style.display = 'none';
       s.refs.showorig.textContent = '📜 显示原文';
-      var qh = "<div style='background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;padding:12px;'>";
-      qh += "<div style='font-weight:bold;margin-bottom:8px;color:#2b6ce2;'>📝 听力理解题</div>";
+      var qh = "<div data-style='background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;padding:12px;'>";
+      qh += "<div data-style='font-weight:bold;margin-bottom:8px;color:#2b6ce2;'>📝 听力理解题</div>";
       for (var j = 0; j < m.questions.length; j++) {
         var q = m.questions[j];
-        qh += "<div style='margin-bottom:10px;'><div style='font-size:13px;margin-bottom:4px;'>" + (j + 1) + ". " + escapeHtml(q.q) + "</div>";
+        qh += "<div data-style='margin-bottom:10px;'><div data-style='font-size:13px;margin-bottom:4px;'>" + (j + 1) + ". " + escapeHtml(q.q) + "</div>";
         for (var k = 0; k < q.options.length; k++) {
-          qh += "<label style='display:block;font-size:13px;margin-left:14px;cursor:pointer;'><input type='radio' name='elq-" + j + "' value='" + k + "' style='margin-right:4px;'>" + escapeHtml(q.options[k]) + "</label>";
+          qh += "<label data-style='display:block;font-size:13px;margin-left:14px;cursor:pointer;'><input type='radio' name='elq-" + j + "' value='" + k + "' data-style='margin-right:4px;'>" + escapeHtml(q.options[k]) + "</label>";
         }
         qh += "</div>";
       }
-      qh += "<button id='el-submit' style='padding:6px 16px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>提交答案</button>";
-      qh += "<span id='el-feedback' style='margin-left:10px;font-size:13px;'></span>";
+      qh += "<button id='el-submit' data-style='padding:6px 16px;background:#2b6ce2;color:#fff;border:none;border-radius:6px;cursor:pointer;'>提交答案</button>";
+      qh += "<span id='el-feedback' data-style='margin-left:10px;font-size:13px;'></span>";
       qh += "</div>";
       s.refs.questions.innerHTML = qh;
       s.refs.questions.querySelector('#el-submit').onclick = function () { s.submit(); };
       s.refs.result.innerHTML = '';
-      var vh = "<div style='background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:12px;margin-top:10px;'>";
-      vh += "<div style='font-weight:bold;margin-bottom:6px;color:#b8860b;'>📖 生词表（点击单词朗读）</div>";
+      var vh = "<div data-style='background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:12px;margin-top:10px;'>";
+      vh += "<div data-style='font-weight:bold;margin-bottom:6px;color:#b8860b;'>📖 生词表（点击单词朗读）</div>";
       for (var v = 0; v < m.vocab.length; v++) {
         var w = m.vocab[v];
-        vh += "<div class='el-word' data-w='" + escapeHtml(w.word) + "' style='display:inline-block;margin:3px 8px 3px 0;padding:4px 10px;background:#fff;border:1px solid #e6d8b8;border-radius:14px;cursor:pointer;font-size:13px;'>" +
-          "<b style='color:#b8860b;'>" + escapeHtml(w.word) + "</b> <span style='color:#999;'>" + w.phonetic + "</span> <span style='color:#555;'>" + escapeHtml(w.meaning) + "</span></div>";
+        vh += "<div class='el-word' data-w='" + escapeHtml(w.word) + "' data-style='display:inline-block;margin:3px 8px 3px 0;padding:4px 10px;background:#fff;border:1px solid #e6d8b8;border-radius:14px;cursor:pointer;font-size:13px;'>" +
+          "<b data-style='color:#b8860b;'>" + escapeHtml(w.word) + "</b> <span data-style='color:#999;'>" + w.phonetic + "</span> <span data-style='color:#555;'>" + escapeHtml(w.meaning) + "</span></div>";
       }
       vh += "</div>";
       s.refs.vocab.innerHTML = vh;
@@ -713,7 +713,7 @@
         var sp = s.el.querySelector('#el-s-' + k);
         if (sp && sp.style.background !== '#fff3a0') { sp.style.background = ''; }
       }
-      var html = "<div style='margin-top:8px;'>";
+      var html = "<div data-style='margin-top:8px;'>";
       for (var j = 0; j < m.questions.length; j++) {
         var q = m.questions[j];
         var chosen = null;
@@ -721,9 +721,9 @@
         for (var r = 0; r < radios.length; r++) if (radios[r].checked) chosen = parseInt(radios[r].value, 10);
         if (chosen === q.answer) {
           correct++;
-          html += "<div style='color:#1aa84a;'>第" + (j + 1) + "题 ✓ 正确</div>";
+          html += "<div data-style='color:#1aa84a;'>第" + (j + 1) + "题 ✓ 正确</div>";
         } else {
-          html += "<div style='color:#e23b3b;'>第" + (j + 1) + "题 ✗ 正确答案：" + q.options[q.answer] + " ｜你选：" + (chosen === null ? '未答' : q.options[chosen]) + "</div>";
+          html += "<div data-style='color:#e23b3b;'>第" + (j + 1) + "题 ✗ 正确答案：" + q.options[q.answer] + " ｜你选：" + (chosen === null ? '未答' : q.options[chosen]) + "</div>";
           var si = s.findSentence(q.script);
           if (si >= 0) {
             var span = s.el.querySelector('#el-s-' + si);
@@ -732,7 +732,7 @@
         }
       }
       var rate = Math.round(correct / m.questions.length * 100);
-      html = "<div style='font-weight:bold;color:" + (rate >= 80 ? '#1aa84a' : (rate >= 60 ? '#e8a900' : '#e23b3b')) + ";'>正确率：" + correct + "/" + m.questions.length + "（" + rate + "%）</div>" + html;
+      html = "<div data-style='font-weight:bold;color:" + (rate >= 80 ? '#1aa84a' : (rate >= 60 ? '#e8a900' : '#e23b3b')) + ";'>正确率：" + correct + "/" + m.questions.length + "（" + rate + "%）</div>" + html;
       html += "</div>";
       s.refs.result.innerHTML = html;
       s.refs.orig.style.display = 'block';
@@ -875,29 +875,29 @@
       var s = this, d = s.data;
       var list = '';
       for (var i = 0; i < d.length; i++) {
-        list += "<div class='clz-item' data-i='" + i + "' style='padding:8px 10px;margin-bottom:6px;background:#f7f9fc;border:1px solid #e3e8f0;border-radius:6px;cursor:pointer;font-size:13px;'>" +
-          "<div style='font-weight:bold;color:#333;'>" + (i + 1) + ". " + escapeHtml(d[i].title) + "</div>" +
-          "<div style='color:#e8a900;font-size:12px;'>" + stars(d[i].difficulty) + "</div>" +
-          "<div style='color:#888;font-size:12px;'>" + escapeHtml(d[i].topic) + " · " + escapeHtml(d[i].focus) + "</div>" +
+        list += "<div class='clz-item' data-i='" + i + "' data-style='padding:8px 10px;margin-bottom:6px;background:#f7f9fc;border:1px solid #e3e8f0;border-radius:6px;cursor:pointer;font-size:13px;'>" +
+          "<div data-style='font-weight:bold;color:#333;'>" + (i + 1) + ". " + escapeHtml(d[i].title) + "</div>" +
+          "<div data-style='color:#e8a900;font-size:12px;'>" + stars(d[i].difficulty) + "</div>" +
+          "<div data-style='color:#888;font-size:12px;'>" + escapeHtml(d[i].topic) + " · " + escapeHtml(d[i].focus) + "</div>" +
         "</div>";
       }
-      return "<div style='font-family:sans-serif;color:#222;'>" +
-        "<h3 style='margin:0 0 8px;color:#7c5cff;'>✏️ 英语完形填空训练</h3>" +
-        "<div style='display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;'>" +
-          "<div style='width:230px;flex-shrink:0;'>" +
-            "<div style='font-weight:bold;margin-bottom:8px;color:#555;'>篇目列表</div>" + list +
+      return "<div data-style='font-family:sans-serif;color:#222;'>" +
+        "<h3 data-style='margin:0 0 8px;color:#7c5cff;'>✏️ 英语完形填空训练</h3>" +
+        "<div data-style='display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;'>" +
+          "<div data-style='width:230px;flex-shrink:0;'>" +
+            "<div data-style='font-weight:bold;margin-bottom:8px;color:#555;'>篇目列表</div>" + list +
           "</div>" +
-          "<div style='flex:1;min-width:320px;'>" +
-            "<div id='clz-title' style='font-weight:bold;font-size:15px;color:#7c5cff;margin-bottom:6px;'></div>" +
-            "<div id='clz-text' style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:14px;font-size:14px;line-height:2;'></div>" +
-            "<div id='clz-score' style='margin-top:8px;font-size:13px;'></div>" +
+          "<div data-style='flex:1;min-width:320px;'>" +
+            "<div id='clz-title' data-style='font-weight:bold;font-size:15px;color:#7c5cff;margin-bottom:6px;'></div>" +
+            "<div id='clz-text' data-style='background:#fafafa;border:1px solid #eee;border-radius:8px;padding:14px;font-size:14px;line-height:2;'></div>" +
+            "<div id='clz-score' data-style='margin-top:8px;font-size:13px;'></div>" +
           "</div>" +
-          "<div style='width:280px;flex-shrink:0;'>" +
-            "<div style='font-weight:bold;margin-bottom:8px;color:#555;'>解析面板</div>" +
-            "<div id='clz-analysis' style='background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:12px;font-size:13px;line-height:1.7;min-height:120px;'>选择选项后查看当前空格的解析。</div>" +
+          "<div data-style='width:280px;flex-shrink:0;'>" +
+            "<div data-style='font-weight:bold;margin-bottom:8px;color:#555;'>解析面板</div>" +
+            "<div id='clz-analysis' data-style='background:#fffaf0;border:1px solid #f0e0c0;border-radius:8px;padding:12px;font-size:13px;line-height:1.7;min-height:120px;'>选择选项后查看当前空格的解析。</div>" +
           "</div>" +
         "</div>" +
-        "<div id='clz-stats' style='margin-top:12px;padding:10px;background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;font-size:13px;'></div>" +
+        "<div id='clz-stats' data-style='margin-top:12px;padding:10px;background:#f4f7ff;border:1px solid #dde6ff;border-radius:8px;font-size:13px;'></div>" +
       "</div>";
     },
 
@@ -954,8 +954,8 @@
             if (saved.correct) { style += "border-color:#1aa84a;background:#eafbea;color:#1aa84a;font-weight:bold;"; mark = " ✓"; }
             else { style += "border-color:#e23b3b;background:#fdeaea;color:#e23b3b;font-weight:bold;"; mark = " ✗"; }
           }
-          html += "<select class='clz-sel' data-blank='" + part.i + "' style='" + style + "'>" + opts + "</select>" +
-            "<span class='clz-mark' data-blank='" + part.i + "' style='font-weight:bold;'>" + mark + "</span>";
+          html += "<select class='clz-sel' data-blank='" + part.i + "' data-style='" + style + "'>" + opts + "</select>" +
+            "<span class='clz-mark' data-blank='" + part.i + "' data-style='font-weight:bold;'>" + mark + "</span>";
         }
       }
       s.refs.text.innerHTML = html;
@@ -987,14 +987,14 @@
         sel.style.color = correct ? '#1aa84a' : '#e23b3b';
         sel.style.fontWeight = 'bold';
       }
-      if (mark) mark.innerHTML = correct ? "<span style='color:#1aa84a;'> ✓</span>" : "<span style='color:#e23b3b;'> ✗</span>";
+      if (mark) mark.innerHTML = correct ? "<span data-style='color:#1aa84a;'> ✓</span>" : "<span data-style='color:#e23b3b;'> ✗</span>";
       var chosenText = bl.options[val];
       var ansText = bl.options[bl.answer];
       s.refs.analysis.innerHTML =
-        "<div style='margin-bottom:6px;'><b>第" + blankIdx + "空</b></div>" +
-        "<div style='margin-bottom:6px;'>" + (correct ? "<span style='color:#1aa84a;'>✓ 回答正确</span>" : "<span style='color:#e23b3b;'>✗ 回答错误</span>") + "</div>" +
-        "<div style='margin-bottom:6px;'>正确答案：<b style='color:#1aa84a;'>" + escapeHtml(ansText) + "</b>" + (correct ? "" : "（你选：" + escapeHtml(chosenText) + "）") + "</div>" +
-        "<div style='margin-bottom:6px;'><b>选择理由：</b>" + escapeHtml(bl.analysis) + "</div>" +
+        "<div data-style='margin-bottom:6px;'><b>第" + blankIdx + "空</b></div>" +
+        "<div data-style='margin-bottom:6px;'>" + (correct ? "<span data-style='color:#1aa84a;'>✓ 回答正确</span>" : "<span data-style='color:#e23b3b;'>✗ 回答错误</span>") + "</div>" +
+        "<div data-style='margin-bottom:6px;'>正确答案：<b data-style='color:#1aa84a;'>" + escapeHtml(ansText) + "</b>" + (correct ? "" : "（你选：" + escapeHtml(chosenText) + "）") + "</div>" +
+        "<div data-style='margin-bottom:6px;'><b>选择理由：</b>" + escapeHtml(bl.analysis) + "</div>" +
         "<div><b>错误选项分析：</b>" + escapeHtml(bl.wrongAnalysis) + "</div>";
       s.updateScore();
       s.updateStats();
@@ -1009,7 +1009,7 @@
       }
       if (done === p.blanks.length) {
         var rate = Math.round(correct / p.blanks.length * 100);
-        s.refs.score.innerHTML = "<span style='color:" + (rate >= 80 ? '#1aa84a' : (rate >= 60 ? '#e8a900' : '#e23b3b')) + ";font-weight:bold;'>本篇完成！得分：" + correct + "/" + p.blanks.length + "（" + rate + "%）</span>";
+        s.refs.score.innerHTML = "<span data-style='color:" + (rate >= 80 ? '#1aa84a' : (rate >= 60 ? '#e8a900' : '#e23b3b')) + ";font-weight:bold;'>本篇完成！得分：" + correct + "/" + p.blanks.length + "（" + rate + "%）</span>";
       } else {
         s.refs.score.innerHTML = "进度：" + done + "/" + p.blanks.length + " 已作答";
       }
@@ -1032,7 +1032,7 @@
         }
       }
       var avg = totalBlanks ? Math.round(totalCorrect / totalBlanks * 100) : 0;
-      s.refs.stats.innerHTML = "📊 进度统计：已完成篇目 <b>" + completed + "/" + d.length + "</b>　|　平均正确率 <b style='color:" + (avg >= 80 ? '#1aa84a' : (avg >= 60 ? '#e8a900' : '#e23b3b')) + ";'>" + avg + "%</b>" +
+      s.refs.stats.innerHTML = "📊 进度统计：已完成篇目 <b>" + completed + "/" + d.length + "</b>　|　平均正确率 <b data-style='color:" + (avg >= 80 ? '#1aa84a' : (avg >= 60 ? '#e8a900' : '#e23b3b')) + ";'>" + avg + "%</b>" +
         (completed === d.length ? "　🎉 全部完成！" : "");
     }
   };

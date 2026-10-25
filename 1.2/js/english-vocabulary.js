@@ -412,10 +412,10 @@ window.englishVocabulary = (function() {
     function renderCardMode(filter) {
         var filtered = getFilteredWords(filter);
         if (filtered.length === 0) {
-            containerEl.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#999;">' +
-                '<p style="font-size:48px;margin-bottom:16px;">&#127881;</p>' +
-                '<p style="font-size:18px;">全部单词已掌握！</p>' +
-                '<p style="font-size:14px;">太棒了，你已经掌握了所有词汇。</p>' +
+            containerEl.innerHTML = '<div data-style="text-align:center;padding:60px 20px;color:#999;">' +
+                '<p data-style="font-size:48px;margin-bottom:16px;">&#127881;</p>' +
+                '<p data-style="font-size:18px;">全部单词已掌握！</p>' +
+                '<p data-style="font-size:14px;">太棒了，你已经掌握了所有词汇。</p>' +
                 '</div>';
             return;
         }
@@ -433,11 +433,11 @@ window.englishVocabulary = (function() {
         if (statusLabel) {
             html += '<div class="evocab-hint">' + statusLabel + '</div>';
         }
-        html += '<div class="evocab-hint" style="top:auto;bottom:16px;right:24px;font-size:12px;color:#ccc;">点击翻转</div>';
+        html += '<div class="evocab-hint" data-style="top:auto;bottom:16px;right:24px;font-size:12px;color:#ccc;">点击翻转</div>';
         html += '<div class="evocab-word">' + wordObj.word + '</div>';
         html += '<span class="evocab-pos-tag">' + wordObj.pos + '</span>';
-        html += '<div class="evocab-chinese" style="visibility:hidden;">' + wordObj.chinese + '</div>';
-        html += '<div style="visibility:hidden;">' +
+        html += '<div class="evocab-chinese" data-style="visibility:hidden;">' + wordObj.chinese + '</div>';
+        html += '<div data-style="visibility:hidden;">' +
             '<span class="evocab-example-label">例句</span>' +
             '<div class="evocab-example">' + wordObj.example + '</div>' +
             '</div>';
@@ -567,7 +567,7 @@ window.englishVocabulary = (function() {
         html += '<div class="evocab-quiz" id="evocab-quiz-el">';
         html += '<div class="evocab-quiz-word">' + wordObj.word + '</div>';
         html += '<span class="evocab-quiz-pos">' + wordObj.pos + '</span>';
-        html += '<div style="font-size:13px;color:#aaa;margin-bottom:12px;">选择正确的中文意思</div>';
+        html += '<div data-style="font-size:13px;color:#aaa;margin-bottom:12px;">选择正确的中文意思</div>';
         for (var i = 0; i < quizOptions.length; i++) {
             html += '<button class="evocab-option" id="evocab-opt-' + i + '" data-action="select-option" data-index="' + i + '">';
             html += String.fromCharCode(65 + i) + '. ' + quizOptions[i];
@@ -576,7 +576,7 @@ window.englishVocabulary = (function() {
         html += '<div class="evocab-feedback" id="evocab-feedback-el"></div>';
         html += '</div>';
 
-        html += '<div style="text-align:center;margin-top:20px;">';
+        html += '<div data-style="text-align:center;margin-top:20px;">';
         html += '<button class="evocab-btn evocab-btn-next" data-action="next-quiz">下一题 &raquo;</button>';
         html += '</div>';
 

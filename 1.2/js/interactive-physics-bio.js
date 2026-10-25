@@ -61,10 +61,10 @@ window.physicsGraphLab = (function () {
     }
 
     function buildHTML() {
-        return '<div style="font-family:Arial,Helvetica,sans-serif;max-width:820px;margin:0 auto;">' +
+        return '<div data-style="font-family:Arial,Helvetica,sans-serif;max-width:820px;margin:0 auto;">' +
             // 顶部：图像类型选择按钮
             buildGraphTypeBar() +
-            '<div style="display:flex;gap:12px;margin-top:10px;">' +
+            '<div data-style="display:flex;gap:12px;margin-top:10px;">' +
                 // 左侧：场景选择 + 参数面板
                 buildLeftPanel() +
                 // 中间：SVG 画布
@@ -75,7 +75,7 @@ window.physicsGraphLab = (function () {
             // 底部：关键特征列表
             buildBottomPanel() +
             // 隐藏的tooltip
-            '<div id="phys-tooltip" style="position:absolute;display:none;background:rgba(0,0,0,0.8);color:#fff;padding:4px 8px;border-radius:4px;font-size:12px;pointer-events:none;z-index:10;"></div>' +
+            '<div id="phys-tooltip" data-style="position:absolute;display:none;background:rgba(0,0,0,0.8);color:#fff;padding:4px 8px;border-radius:4px;font-size:12px;pointer-events:none;z-index:10;"></div>' +
         '</div>';
     }
 
@@ -89,24 +89,24 @@ window.physicsGraphLab = (function () {
             { id: 'pt', label: 'P-t 功率-时间' }
         ];
         var active = state.graphType;
-        var html = '<div style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;">';
+        var html = '<div data-style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;">';
         for (var i = 0; i < types.length; i++) {
             var t = types[i];
             var bg = (t.id === active) ? '#1a73e8' : '#e0e0e0';
             var color = (t.id === active) ? '#fff' : '#333';
-            html += '<button class="phys-graph-btn" data-gtype="' + t.id + '" style="padding:6px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;background:' + bg + ';color:' + color + ';transition:all 0.2s;">' + t.label + '</button>';
+            html += '<button class="phys-graph-btn" data-gtype="' + t.id + '" data-style="padding:6px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;background:' + bg + ';color:' + color + ';transition:all 0.2s;">' + t.label + '</button>';
         }
         html += '</div>';
         return html;
     }
 
     function buildLeftPanel() {
-        var html = '<div style="width:200px;flex-shrink:0;background:#f8f9fa;border-radius:8px;padding:10px;">';
+        var html = '<div data-style="width:200px;flex-shrink:0;background:#f8f9fa;border-radius:8px;padding:10px;">';
 
         // 场景选择
-        html += '<div style="margin-bottom:10px;">';
-        html += '<label style="font-size:12px;font-weight:bold;color:#555;">场景选择</label>';
-        html += '<select id="phys-scenario-select" style="width:100%;margin-top:4px;padding:4px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
+        html += '<div data-style="margin-bottom:10px;">';
+        html += '<label data-style="font-size:12px;font-weight:bold;color:#555;">场景选择</label>';
+        html += '<select id="phys-scenario-select" data-style="width:100%;margin-top:4px;padding:4px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
 
         var graphType = state.graphType;
         var modeKey;
@@ -125,7 +125,7 @@ window.physicsGraphLab = (function () {
         html += '</select></div>';
 
         // 参数滑块
-        html += '<div style="font-size:11px;font-weight:bold;color:#555;margin-bottom:4px;">参数调节</div>';
+        html += '<div data-style="font-size:11px;font-weight:bold;color:#555;margin-bottom:4px;">参数调节</div>';
         html += buildSliders();
 
         html += '</div>';
@@ -162,16 +162,16 @@ window.physicsGraphLab = (function () {
     }
 
     function sliderHTML(id, label, value, min, max, step) {
-        return '<div style="margin-bottom:6px;">' +
-            '<label style="font-size:10px;color:#666;">' + label + ': <span id="phys-val-' + id + '">' + value + '</span></label>' +
-            '<input type="range" class="phys-slider" data-param="' + id + '" value="' + value + '" min="' + min + '" max="' + max + '" step="' + step + '" style="width:100%;">' +
+        return '<div data-style="margin-bottom:6px;">' +
+            '<label data-style="font-size:10px;color:#666;">' + label + ': <span id="phys-val-' + id + '">' + value + '</span></label>' +
+            '<input type="range" class="phys-slider" data-param="' + id + '" value="' + value + '" min="' + min + '" max="' + max + '" step="' + step + '" data-style="width:100%;">' +
         '</div>';
     }
 
     function buildSvgPanel() {
-        return '<div style="flex:1;position:relative;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;">' +
-            '<div style="position:relative;">' +
-                '<svg id="phys-svg" width="500" height="350" style="display:block;cursor:crosshair;"></svg>' +
+        return '<div data-style="flex:1;position:relative;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;">' +
+            '<div data-style="position:relative;">' +
+                '<svg id="phys-svg" width="500" height="350" data-style="display:block;cursor:crosshair;"></svg>' +
             '</div>' +
         '</div>';
     }
@@ -179,11 +179,11 @@ window.physicsGraphLab = (function () {
     function buildRightPanel() {
         var graphType = state.graphType;
         var info = getPhysicalMeaning(graphType);
-        var html = '<div style="width:160px;flex-shrink:0;background:#f8f9fa;border-radius:8px;padding:10px;font-size:11px;">';
-        html += '<div style="font-weight:bold;color:#1a73e8;margin-bottom:6px;">物理意义</div>';
-        html += '<div style="line-height:1.8;">';
+        var html = '<div data-style="width:160px;flex-shrink:0;background:#f8f9fa;border-radius:8px;padding:10px;font-size:11px;">';
+        html += '<div data-style="font-weight:bold;color:#1a73e8;margin-bottom:6px;">物理意义</div>';
+        html += '<div data-style="line-height:1.8;">';
         for (var i = 0; i < info.length; i++) {
-            html += '<div style="padding:3px 0;border-bottom:1px dotted #ddd;">' + info[i] + '</div>';
+            html += '<div data-style="padding:3px 0;border-bottom:1px dotted #ddd;">' + info[i] + '</div>';
         }
         html += '</div></div>';
         return html;
@@ -204,10 +204,10 @@ window.physicsGraphLab = (function () {
     function buildBottomPanel() {
         var graphType = state.graphType;
         var features = calcFeatures(graphType);
-        var html = '<div id="phys-bottom" style="margin-top:8px;padding:8px 12px;background:#f0f7ff;border-radius:8px;font-size:12px;">';
-        html += '<strong style="color:#1a73e8;">关键特征：</strong> ';
+        var html = '<div id="phys-bottom" data-style="margin-top:8px;padding:8px 12px;background:#f0f7ff;border-radius:8px;font-size:12px;">';
+        html += '<strong data-style="color:#1a73e8;">关键特征：</strong> ';
         for (var i = 0; i < features.length; i++) {
-            html += '<span style="display:inline-block;margin-right:16px;padding:2px 8px;background:#fff;border-radius:4px;border:1px solid #d0e4ff;">' + features[i] + '</span>';
+            html += '<span data-style="display:inline-block;margin-right:16px;padding:2px 8px;background:#fff;border-radius:4px;border:1px solid #d0e4ff;">' + features[i] + '</span>';
         }
         html += '</div>';
         return html;
@@ -922,9 +922,9 @@ window.physicsGraphLab = (function () {
         var bottom = root.querySelector('#phys-bottom');
         if (!bottom) return;
         var features = calcFeatures(state.graphType);
-        var html = '<strong style="color:#1a73e8;">关键特征：</strong> ';
+        var html = '<strong data-style="color:#1a73e8;">关键特征：</strong> ';
         for (var i = 0; i < features.length; i++) {
-            html += '<span style="display:inline-block;margin-right:12px;padding:2px 8px;background:#fff;border-radius:4px;border:1px solid #d0e4ff;">' + features[i] + '</span>';
+            html += '<span data-style="display:inline-block;margin-right:12px;padding:2px 8px;background:#fff;border-radius:4px;border:1px solid #d0e4ff;">' + features[i] + '</span>';
         }
         bottom.innerHTML = html;
     }
@@ -1297,30 +1297,30 @@ window.punnettSquareCalc = (function () {
     }
 
     function buildHTML() {
-        var html = '<div style="font-family:Arial,Helvetica,sans-serif;max-width:860px;margin:0 auto;">';
+        var html = '<div data-style="font-family:Arial,Helvetica,sans-serif;max-width:860px;margin:0 auto;">';
         // 标题
-        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">';
-        html += '<span style="font-size:18px;font-weight:bold;color:#2c3e50;">Punnett Square 遗传棋盘计算器</span>';
-        html += '<button id="ps-reset-btn" style="padding:6px 14px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">重置</button>';
+        html += '<div data-style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">';
+        html += '<span data-style="font-size:18px;font-weight:bold;color:#2c3e50;">Punnett Square 遗传棋盘计算器</span>';
+        html += '<button id="ps-reset-btn" data-style="padding:6px 14px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">重置</button>';
         html += '</div>';
 
         // 输入面板
-        html += '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">';
         html += buildInputPanel();
         html += '</div>';
 
         // 棋盘格
-        html += '<div id="ps-grid-container" style="overflow-x:auto;margin-bottom:10px;"></div>';
+        html += '<div id="ps-grid-container" data-style="overflow-x:auto;margin-bottom:10px;"></div>';
 
         // 汇总区
         html += '<div id="ps-summary-container"></div>';
 
         // 图例
-        html += '<div style="display:flex;flex-wrap:wrap;gap:16px;padding:8px 12px;background:#f8f9fa;border-radius:8px;font-size:11px;margin-top:8px;">';
-        html += '<span><span style="display:inline-block;width:16px;height:16px;background:#dbe9ff;border:1px solid #90b4e0;vertical-align:middle;margin-right:4px;"></span>亲本型（蓝色）</span>';
-        html += '<span><span style="display:inline-block;width:16px;height:16px;background:#ffe8d6;border:1px solid #e0b090;vertical-align:middle;margin-right:4px;"></span>重组型（橙色）</span>';
-        html += '<span><span style="display:inline-block;width:16px;height:16px;background:#e0e0e0;border:1px solid #999;vertical-align:middle;margin-right:4px;"></span>胚胎致死（灰色）</span>';
-        html += '<span><span style="display:inline-block;width:16px;height:16px;background:#fff;border:2px solid #333;vertical-align:middle;margin-right:4px;"></span>纯合子（粗边框）</span>';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:16px;padding:8px 12px;background:#f8f9fa;border-radius:8px;font-size:11px;margin-top:8px;">';
+        html += '<span><span data-style="display:inline-block;width:16px;height:16px;background:#dbe9ff;border:1px solid #90b4e0;vertical-align:middle;margin-right:4px;"></span>亲本型（蓝色）</span>';
+        html += '<span><span data-style="display:inline-block;width:16px;height:16px;background:#ffe8d6;border:1px solid #e0b090;vertical-align:middle;margin-right:4px;"></span>重组型（橙色）</span>';
+        html += '<span><span data-style="display:inline-block;width:16px;height:16px;background:#e0e0e0;border:1px solid #999;vertical-align:middle;margin-right:4px;"></span>胚胎致死（灰色）</span>';
+        html += '<span><span data-style="display:inline-block;width:16px;height:16px;background:#fff;border:2px solid #333;vertical-align:middle;margin-right:4px;"></span>纯合子（粗边框）</span>';
         html += '</div>';
 
         html += '</div>';
@@ -1331,9 +1331,9 @@ window.punnettSquareCalc = (function () {
         var html = '';
 
         // 预置经典题
-        html += '<div style="width:100%;">';
-        html += '<label style="font-size:12px;font-weight:bold;color:#555;">预置经典题：</label>';
-        html += '<select id="ps-preset-select" style="margin-left:8px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
+        html += '<div data-style="width:100%;">';
+        html += '<label data-style="font-size:12px;font-weight:bold;color:#555;">预置经典题：</label>';
+        html += '<select id="ps-preset-select" data-style="margin-left:8px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
         html += '<option value="">-- 选择预置 --</option>';
         for (var i = 0; i < PRESETS.length; i++) {
             html += '<option value="' + i + '">' + PRESETS[i].name + '</option>';
@@ -1341,24 +1341,24 @@ window.punnettSquareCalc = (function () {
         html += '</select></div>';
 
         // 亲本输入行
-        html += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;">';
+        html += '<div data-style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;">';
 
         html += '<div>';
-        html += '<label style="font-size:11px;color:#666;">亲本1基因型</label><br>';
-        html += '<input id="ps-p1-input" type="text" value="' + state.parent1 + '" style="width:140px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">';
+        html += '<label data-style="font-size:11px;color:#666;">亲本1基因型</label><br>';
+        html += '<input id="ps-p1-input" type="text" value="' + state.parent1 + '" data-style="width:140px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">';
         html += '</div>';
 
-        html += '<span style="font-size:18px;font-weight:bold;color:#e74c3c;">×</span>';
+        html += '<span data-style="font-size:18px;font-weight:bold;color:#e74c3c;">×</span>';
 
         html += '<div>';
-        html += '<label style="font-size:11px;color:#666;">亲本2基因型</label><br>';
-        html += '<input id="ps-p2-input" type="text" value="' + state.parent2 + '" style="width:140px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">';
+        html += '<label data-style="font-size:11px;color:#666;">亲本2基因型</label><br>';
+        html += '<input id="ps-p2-input" type="text" value="' + state.parent2 + '" data-style="width:140px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">';
         html += '</div>';
 
         // 遗传类型
         html += '<div>';
-        html += '<label style="font-size:11px;color:#666;">遗传类型</label><br>';
-        html += '<select id="ps-type-select" style="padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
+        html += '<label data-style="font-size:11px;color:#666;">遗传类型</label><br>';
+        html += '<select id="ps-type-select" data-style="padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;">';
         html += '<option value="autosomal"' + (state.geneticType === 'autosomal' ? ' selected' : '') + '>常染色体遗传</option>';
         html += '<option value="x-linked"' + (state.geneticType === 'x-linked' ? ' selected' : '') + '>伴X遗传</option>';
         html += '<option value="y-linked"' + (state.geneticType === 'y-linked' ? ' selected' : '') + '>伴Y遗传</option>';
@@ -1366,12 +1366,12 @@ window.punnettSquareCalc = (function () {
 
         // 致死基因
         html += '<div>';
-        html += '<label style="font-size:11px;color:#666;">胚胎致死基因型</label><br>';
-        html += '<input id="ps-lethal-input" type="text" value="' + state.lethalGenotypes.join(', ') + '" placeholder="如: AA" style="width:120px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:12px;">';
+        html += '<label data-style="font-size:11px;color:#666;">胚胎致死基因型</label><br>';
+        html += '<input id="ps-lethal-input" type="text" value="' + state.lethalGenotypes.join(', ') + '" placeholder="如: AA" data-style="width:120px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:12px;">';
         html += '</div>';
 
         // 计算按钮
-        html += '<button id="ps-calc-btn" style="padding:6px 16px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;align-self:flex-end;">计算</button>';
+        html += '<button id="ps-calc-btn" data-style="padding:6px 16px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;align-self:flex-end;">计算</button>';
 
         html += '</div>';
 
@@ -1397,27 +1397,27 @@ window.punnettSquareCalc = (function () {
     function buildGridHTML(grid, gametes1, gametes2, analysis) {
         var rows = gametes2.length;
         var cols = gametes1.length;
-        if (rows === 0 || cols === 0) return '<div style="padding:20px;color:#999;">请输入有效的基因型</div>';
+        if (rows === 0 || cols === 0) return '<div data-style="padding:20px;color:#999;">请输入有效的基因型</div>';
 
-        var html = '<table style="border-collapse:collapse;margin:0 auto;font-size:12px;">';
+        var html = '<table data-style="border-collapse:collapse;margin:0 auto;font-size:12px;">';
 
         // 表头行
         html += '<tr>';
-        html += '<td style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;min-width:50px;"></td>';
-        html += '<td style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;" colspan="' + cols + '">亲本1配子 →</td>';
+        html += '<td data-style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;min-width:50px;"></td>';
+        html += '<td data-style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;" colspan="' + cols + '">亲本1配子 →</td>';
         html += '</tr>';
 
         html += '<tr>';
-        html += '<td style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;">亲本2配子 ↓</td>';
+        html += '<td data-style="background:#ecf0f1;border:1px solid #bdc3c7;padding:4px 8px;text-align:center;font-weight:bold;color:#7f8c8d;">亲本2配子 ↓</td>';
         for (var c = 0; c < cols; c++) {
-            html += '<td style="background:#f0f3f5;border:1px solid #bdc3c7;padding:4px 10px;text-align:center;font-weight:bold;color:#2c3e50;">' + gametes1[c] + '</td>';
+            html += '<td data-style="background:#f0f3f5;border:1px solid #bdc3c7;padding:4px 10px;text-align:center;font-weight:bold;color:#2c3e50;">' + gametes1[c] + '</td>';
         }
         html += '</tr>';
 
         // 数据行
         for (var r = 0; r < rows; r++) {
             html += '<tr>';
-            html += '<td style="background:#f0f3f5;border:1px solid #bdc3c7;padding:4px 10px;text-align:center;font-weight:bold;color:#2c3e50;">' + gametes2[r] + '</td>';
+            html += '<td data-style="background:#f0f3f5;border:1px solid #bdc3c7;padding:4px 10px;text-align:center;font-weight:bold;color:#2c3e50;">' + gametes2[r] + '</td>';
             for (var c2 = 0; c2 < cols; c2++) {
                 var geno = grid[r][c2];
                 var isL = isLethal(geno, state.lethalGenotypes);
@@ -1426,7 +1426,7 @@ window.punnettSquareCalc = (function () {
                 if (isL) {
                     prob = '致死';
                 }
-                html += '<td style="' + cellStyle + '">' + (isL ? '<s>' + geno + '</s>' : '<b>' + geno + '</b>') + '<br><span style="font-size:10px;color:#888;">' + prob + '</span></td>';
+                html += '<td data-style="' + cellStyle + '">' + (isL ? '<s>' + geno + '</s>' : '<b>' + geno + '</b>') + '<br><span data-style="font-size:10px;color:#888;">' + prob + '</span></td>';
             }
             html += '</tr>';
         }
@@ -1434,7 +1434,7 @@ window.punnettSquareCalc = (function () {
         html += '</table>';
 
         // 汇总概率
-        html += '<div style="text-align:center;margin-top:8px;font-size:12px;color:#555;">';
+        html += '<div data-style="text-align:center;margin-top:8px;font-size:12px;color:#555;">';
         html += '总组合数：' + (rows * cols) + ' | ';
         html += '存活：' + analysis.viable + ' | ';
         html += '致死：' + analysis.lethalCount;
@@ -1447,21 +1447,21 @@ window.punnettSquareCalc = (function () {
         var html = '';
 
         // 表现型比例
-        html += '<div style="display:flex;flex-wrap:wrap;gap:12px;">';
+        html += '<div data-style="display:flex;flex-wrap:wrap;gap:12px;">';
 
-        html += '<div style="flex:1;min-width:280px;background:#f8f9fa;border-radius:8px;padding:12px;">';
-        html += '<div style="font-weight:bold;color:#2c3e50;margin-bottom:8px;font-size:14px;">表现型及比例</div>';
+        html += '<div data-style="flex:1;min-width:280px;background:#f8f9fa;border-radius:8px;padding:12px;">';
+        html += '<div data-style="font-weight:bold;color:#2c3e50;margin-bottom:8px;font-size:14px;">表现型及比例</div>';
         if (analysis.phenotypeList.length === 0) {
-            html += '<span style="color:#999;">无存活后代</span>';
+            html += '<span data-style="color:#999;">无存活后代</span>';
         } else {
-            html += '<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+            html += '<div data-style="display:flex;flex-wrap:wrap;gap:8px;">';
             for (var i = 0; i < analysis.phenotypeList.length; i++) {
                 var p = analysis.phenotypeList[i];
                 var pct = (p.ratio * 100).toFixed(1);
                 var ratioStr = simplifyRatio(p.count, analysis.viable);
-                html += '<div style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px 10px;text-align:center;">';
-                html += '<div style="font-weight:bold;color:#1a73e8;">' + p.phenotype + '</div>';
-                html += '<div style="font-size:11px;color:#555;">' + ratioStr + ' (' + pct + '%)</div>';
+                html += '<div data-style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px 10px;text-align:center;">';
+                html += '<div data-style="font-weight:bold;color:#1a73e8;">' + p.phenotype + '</div>';
+                html += '<div data-style="font-size:11px;color:#555;">' + ratioStr + ' (' + pct + '%)</div>';
                 html += '</div>';
             }
             html += '</div>';
@@ -1469,21 +1469,21 @@ window.punnettSquareCalc = (function () {
         html += '</div>';
 
         // 基因型比例
-        html += '<div style="flex:1;min-width:280px;background:#f8f9fa;border-radius:8px;padding:12px;">';
-        html += '<div style="font-weight:bold;color:#2c3e50;margin-bottom:8px;font-size:14px;">基因型及比例</div>';
+        html += '<div data-style="flex:1;min-width:280px;background:#f8f9fa;border-radius:8px;padding:12px;">';
+        html += '<div data-style="font-weight:bold;color:#2c3e50;margin-bottom:8px;font-size:14px;">基因型及比例</div>';
         if (analysis.genotypeList.length === 0) {
-            html += '<span style="color:#999;">无存活后代</span>';
+            html += '<span data-style="color:#999;">无存活后代</span>';
         } else {
-            html += '<div style="max-height:200px;overflow-y:auto;">';
-            html += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+            html += '<div data-style="max-height:200px;overflow-y:auto;">';
+            html += '<table data-style="width:100%;border-collapse:collapse;font-size:12px;">';
             for (var j = 0; j < analysis.genotypeList.length; j++) {
                 var g = analysis.genotypeList[j];
                 var gpct = (g.ratio * 100).toFixed(1);
                 var isH = isHomozygous(g.genotype, state.geneticType);
-                html += '<tr style="border-bottom:1px solid #eee;">';
-                html += '<td style="padding:3px 0;' + (isH ? 'font-weight:bold;' : '') + '">' + (isH ? '⊕ ' : '') + g.genotype + '</td>';
-                html += '<td style="text-align:right;color:#888;">' + simplifyRatio(g.count, analysis.viable) + '</td>';
-                html += '<td style="text-align:right;color:#888;">' + gpct + '%</td>';
+                html += '<tr data-style="border-bottom:1px solid #eee;">';
+                html += '<td data-style="padding:3px 0;' + (isH ? 'font-weight:bold;' : '') + '">' + (isH ? '⊕ ' : '') + g.genotype + '</td>';
+                html += '<td data-style="text-align:right;color:#888;">' + simplifyRatio(g.count, analysis.viable) + '</td>';
+                html += '<td data-style="text-align:right;color:#888;">' + gpct + '%</td>';
                 html += '</tr>';
             }
             html += '</table></div>';
@@ -1506,7 +1506,7 @@ window.punnettSquareCalc = (function () {
         }
         if (analysis.viable > 0) {
             var recomRate = (recomCount / analysis.viable * 100).toFixed(1);
-            html += '<div style="margin-top:8px;padding:6px 12px;background:#fef9e7;border-radius:6px;font-size:12px;color:#7d6608;">';
+            html += '<div data-style="margin-top:8px;padding:6px 12px;background:#fef9e7;border-radius:6px;font-size:12px;color:#7d6608;">';
             html += '重组率：' + recomRate + '% （重组型 ' + recomCount + '/' + analysis.viable + '）';
             html += '</div>';
         }

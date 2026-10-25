@@ -139,11 +139,18 @@ let jsTemplateFiles = 0;
 let jsCssomWrites = 0;
 let jsCssomCssText = 0;
 let jsCssomFiles = 0;
+let jsStyleBlocks = 0;
+const jsStyleBlockFiles = [];
 for (const f of jsFiles) {
   const src = readFileSync(resolve(APP, 'js', f), 'utf8');
-  const t = (src.match(/\sstyle\s*=\s*["'`]/gi) || []).length;
-  jsTemplateStyleAttrs += t;
-  if (t) jsTemplateFiles++;
+  // 排除 JS 变量声明 `var/let/const style = "..."`（非 HTML 属性）
+  const varDecls = (src.match(/\b(?:var|let|const)\s+style\s*=\s*["'`]/gi) || []).length;
+  const t = (src.match(/\sstyle\s*=\s*["'`]/gi) || []).length - varDecls;
+  jsTemplateStyleAttrs += Math.max(0, t);
+  if (t > 0) jsTemplateFiles++;
+  // D4：字符串字面量里的内联 <style> 块（注入当前文档或 window.open 弹窗文档）
+  const sb = (src.match(/["'`]<style\b/gi) || []).length;
+  if (sb) { jsStyleBlocks += sb; jsStyleBlockFiles.push(f + '×' + sb); }
   const w = (src.match(/\.style\.[a-zA-Z]+\s*=/g) || []).length;
   const x = (src.match(/\.style\.cssText\s*=/g) || []).length;
   jsCssomWrites += w;
@@ -194,7 +201,15 @@ const checks = [
     got: /script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
     want: 0,
     pass: !/script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
-    detail: "script-src 已收紧为 'self'；style-src 的 'unsafe-inline' 暂保留——D1/D2 虽已清零静态侧，但 js/ 侧仍有 3624 处模板 style 属性（D3）依赖它，移除须待 D3 立项完成",
+    detail: "script-src 已收紧为 'self'（A/B 清零后移除）",
+  },
+  {
+    id: 'B3',
+    name: "meta CSP style-src 移除 'unsafe-inline'（D1–D4 全部清零后的 CSP 闭环）",
+    got: /style-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
+    want: 0,
+    pass: !/style-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
+    detail: "style-src 已收紧为 'self'：D1（内联 <style> 块）→ 0、D2（静态 style 属性）→ 0、D3（js 模板 style 属性）→ 0、D4（js 内联 <style> 块）→ 0；运行时样式全部走 CSSOM（不受 style-src 管辖）。若回退任一条，本断言与对应 D 类断言会同时失败",
   },
   {
     id: 'C1',
@@ -223,7 +238,7 @@ const checks = [
     want: 0,
     pass: styleBlocks.length === 0,
     detail: styleBlocks.length === 0
-      ? '原 2 个内联块（响应式补充 / 语文知识面板）已外置为 css/responsive.css（1159 B）与 css/chinese-knowledge.css（8894 B），逐字节保真；两者原位于三条 link 之后，外移后层叠地位不变；sw.js CORE_ASSETS 已同步（hspcb-v16）'
+      ? '原 2 个内联块（响应式补充 / 语文知识面板）已外置为 css/responsive.css（1159 B）与 css/chinese-knowledge.css（8894 B），逐字节保真；两者原位于三条 link 之后，外移后层叠地位不变；sw.js CORE_ASSETS 已同步（hspcb-v17）'
       : `残留：${styleBlocks.length} 块（${styleBlocks.join(' + ')} 行），须外置为 css/ 外部样式表并在 sw.js 登记`,
   },
   {
@@ -235,6 +250,26 @@ const checks = [
     detail: staticStyleAttrs === 0
       ? '37 处静态 style 属性已类化：工具徽标 ×16 → .tool-tag.math/.chinese/.english（tokens.css --tag-* 令牌）、区块间距 ×11 → .tools-section.mt-16/20/24（--space-4/5/6）、知识面板 ×4 → .knowledge-panel--math/--english（--panel-* 令牌）、tab-pane ×6 → .tab-pane/.is-hidden；theme-dark.css 第 6 节属性匹配型暗色专则随之失配，已按类选择器重建（无 !important，靠特异性 (0,2,0)/(0,3,0) 胜出），computed-style 回归 18/18 组合零差异'
       : `残留：${staticStyleAttrs} 处，须类化到 css/ 并同步暗色对等覆盖`,
+  },
+  {
+    id: 'D3',
+    name: 'js/ 模板内联 style 属性清零（v1.4 收敛为 data-style + CSSOM 桥接）',
+    got: jsTemplateStyleAttrs,
+    want: 0,
+    pass: jsTemplateStyleAttrs === 0,
+    detail: jsTemplateStyleAttrs === 0
+      ? 'js/ 侧 3620 处模板 style 属性已改写为 data-style，由 js/cssom-style-bridge.js 在插入 DOM 后写入 CSSOM（style-src 不管辖 CSSOM）；theme-dark.css 第 6 节 344 条覆盖选择器同步改写为 [data-style*="..."]，保留模板原文以维持暗色匹配语义；computed-style 回归 18/18 组合零差异（style-src 已收紧为 \'self\'）'
+      : `残留：${jsTemplateStyleAttrs} 处 / ${jsTemplateFiles} 个文件，须改写为 data-style 并由桥接写入`,
+  },
+  {
+    id: 'D4',
+    name: 'js/ 字符串模板内联 <style> 块清零（弹窗样式外置）',
+    got: jsStyleBlocks,
+    want: 0,
+    pass: jsStyleBlocks === 0,
+    detail: jsStyleBlocks === 0
+      ? '原 3 处：数据分析报告弹窗 → css/print-report.css、复习计划表弹窗 → css/study-plan-print.css、知识点卡片打印弹窗 → css/knowledge-card-print.css，均改为弹窗文档内 <link> 引入；加载指示器 @keyframes ll-spin 迁入 css/style.css'
+      : `残留：${jsStyleBlockFiles.join(', ')}，须外置为 css/ 并在弹窗内 <link> 引入`,
   },
 ];
 
@@ -251,6 +286,7 @@ const report = {
     styleBlocks: { count: styleBlocks.length, lines: styleBlocks },
     jsTemplateStyleAttrs: { count: jsTemplateStyleAttrs, files: jsTemplateFiles, governedByStyleSrc: true },
     jsCssomWrites: { count: jsCssomWrites, files: jsCssomFiles, ofWhichCssText: jsCssomCssText, governedByStyleSrc: false },
+    jsStyleBlocks: { count: jsStyleBlocks, files: jsStyleBlockFiles },
   },
   checks,
 };

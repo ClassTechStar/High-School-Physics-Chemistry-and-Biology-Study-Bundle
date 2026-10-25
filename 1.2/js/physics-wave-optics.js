@@ -105,14 +105,14 @@ window.physicsWaveOptics = (function() {
     }
 
     function renderWaveTab(container) {
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">\u6CE2\u957F \u03BB (px)</label><br><input id="wave-wl" type="range" min="10" max="80" value="' + waveParams.wavelength + '" style="width:150px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">\u6E90\u95F4\u8DDD d (px)</label><br><input id="wave-dist" type="range" min="40" max="250" value="' + waveParams.distance + '" style="width:150px;"></div>' +
-            '<button id="wave-toggle" style="padding:7px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u6682\u505C\u52A8\u753B</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">\u6CE2\u957F \u03BB (px)</label><br><input id="wave-wl" type="range" min="10" max="80" value="' + waveParams.wavelength + '" data-style="width:150px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">\u6E90\u95F4\u8DDD d (px)</label><br><input id="wave-dist" type="range" min="40" max="250" value="' + waveParams.distance + '" data-style="width:150px;"></div>' +
+            '<button id="wave-toggle" data-style="padding:7px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u6682\u505C\u52A8\u753B</button>' +
             '</div>' +
-            '<canvas id="wave-canvas" width="600" height="450" style="border:1px solid #e5e7eb;border-radius:8px;background:#0a0a2e;width:100%;max-width:600px;"></canvas>' +
-            '<div style="margin-top:8px;font-size:12px;color:#666;line-height:1.6;">' +
+            '<canvas id="wave-canvas" width="600" height="450" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#0a0a2e;width:100%;max-width:600px;"></canvas>' +
+            '<div data-style="margin-top:8px;font-size:12px;color:#666;line-height:1.6;">' +
             '<strong>\u6768\u6C0F\u53CC\u7F1D\u5E72\u6D89\u539F\u7406\uFF1A</strong>\u4E24\u4E2A\u76F8\u5E72\u70B9\u6E90\u53D1\u51FA\u7684\u6CE2\u5728\u7A7A\u95F4\u4E2D\u53E0\u52A0\u3002\u4EAE\u7EB9\u6761\u4EF6\uFF1Ad\u00B7sin\u03B8 = k\u03BB (k=0,\u00B11,\u00B12,...)\uFF0C\u6697\u7EB9\u6761\u4EF6\uFF1Ad\u00B7sin\u03B8 = (2k+1)\u03BB/2\u3002<br>' +
             '\u6761\u7EB9\u95F4\u8DDD\uFF1A\u0394x = \u03BBL / d\uFF0C\u5176\u4E2DL\u4E3A\u89C2\u5BDF\u5C4F\u5230\u53CC\u7F1D\u7684\u8DDD\u79BB\u3002</div>' +
             '</div>';
@@ -256,16 +256,16 @@ window.physicsWaveOptics = (function() {
     }
 
     function renderOpticsTab(container) {
-        container.innerHTML = '<div class="tool-app-container" style="padding:16px;">' +
-            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
-            '<div><label style="font-size:13px;color:#666;">\u5165\u5C04\u89D2 (\u00B0)</label><br><input id="optics-angle" type="range" min="1" max="85" value="' + opticsParams.angle + '" style="width:180px;"><span id="optics-angle-val" style="margin-left:8px;font-weight:bold;">' + opticsParams.angle + '\u00B0</span></div>' +
-            '<div><label style="font-size:13px;color:#666;">\u4ECB\u8D281\u6298\u5C04\u7387</label><br><input id="optics-n1" type="number" value="' + opticsParams.n1 + '" step="0.1" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">\u4ECB\u8D282\u6298\u5C04\u7387</label><br><input id="optics-n2" type="number" value="' + opticsParams.n2 + '" step="0.01" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<div><label style="font-size:13px;color:#666;">\u4ECB\u8D283\u6298\u5C04\u7387</label><br><input id="optics-n3" type="number" value="' + opticsParams.n3 + '" step="0.01" style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
-            '<button id="optics-update" style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u66F4\u65B0</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:16px;">' +
+            '<div data-style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:end;">' +
+            '<div><label data-style="font-size:13px;color:#666;">\u5165\u5C04\u89D2 (\u00B0)</label><br><input id="optics-angle" type="range" min="1" max="85" value="' + opticsParams.angle + '" data-style="width:180px;"><span id="optics-angle-val" data-style="margin-left:8px;font-weight:bold;">' + opticsParams.angle + '\u00B0</span></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">\u4ECB\u8D281\u6298\u5C04\u7387</label><br><input id="optics-n1" type="number" value="' + opticsParams.n1 + '" step="0.1" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">\u4ECB\u8D282\u6298\u5C04\u7387</label><br><input id="optics-n2" type="number" value="' + opticsParams.n2 + '" step="0.01" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<div><label data-style="font-size:13px;color:#666;">\u4ECB\u8D283\u6298\u5C04\u7387</label><br><input id="optics-n3" type="number" value="' + opticsParams.n3 + '" step="0.01" data-style="width:70px;padding:5px;border:1px solid #d1d5db;border-radius:6px;"></div>' +
+            '<button id="optics-update" data-style="padding:7px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;">\u66F4\u65B0</button>' +
             '</div>' +
-            '<canvas id="optics-canvas" width="650" height="420" style="border:1px solid #e5e7eb;border-radius:8px;background:#fff;width:100%;max-width:650px;margin-bottom:12px;"></canvas>' +
-            '<div id="optics-info" style="padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;"></div>' +
+            '<canvas id="optics-canvas" width="650" height="420" data-style="border:1px solid #e5e7eb;border-radius:8px;background:#fff;width:100%;max-width:650px;margin-bottom:12px;"></canvas>' +
+            '<div id="optics-info" data-style="padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;font-size:13px;color:#1e40af;"></div>' +
             '</div>';
 
         function updateOpticsInfo() {
@@ -278,7 +278,7 @@ window.physicsWaveOptics = (function() {
             html += 'n\u2081\u00B7sin\u03B8\u2081 = ' + opticsParams.n1.toFixed(2) + ' \u00D7 sin(' + angleDeg + '\u00B0) = ' + (opticsParams.n1 * Math.sin(theta1)).toFixed(4) + '<br>';
             html += 'n\u2082\u00B7sin\u03B8\u2082 = ' + opticsParams.n2.toFixed(2) + ' \u00D7 sin(\u03B8\u2082) <br>';
             if (Math.abs(sinTheta2) > 1) {
-                html += '<span style="color:#ef4444;font-weight:bold;">\u53D1\u751F\u5168\u53CD\u5C04\uFF01\u4E34\u754C\u89D2 = ' + (Math.asin(opticsParams.n2 / opticsParams.n1) * 180 / Math.PI).toFixed(1) + '\u00B0</span>';
+                html += '<span data-style="color:#ef4444;font-weight:bold;">\u53D1\u751F\u5168\u53CD\u5C04\uFF01\u4E34\u754C\u89D2 = ' + (Math.asin(opticsParams.n2 / opticsParams.n1) * 180 / Math.PI).toFixed(1) + '\u00B0</span>';
             } else {
                 html += '\u6298\u5C04\u89D2 \u03B8\u2082 = arcsin(' + sinTheta2.toFixed(4) + ') = ' + (Math.asin(sinTheta2) * 180 / Math.PI).toFixed(2) + '\u00B0';
                 var sinTheta3 = opticsParams.n2 * Math.sin(Math.asin(Math.min(1, Math.abs(sinTheta2)))) / opticsParams.n3;
@@ -310,10 +310,10 @@ window.physicsWaveOptics = (function() {
     function render() {
         var container = document.getElementById('physics-wave-optics-app');
         if (!container) return;
-        container.innerHTML = '<div class="tool-app-container" style="padding:8px;">' +
-            '<div style="display:flex;gap:8px;margin-bottom:12px;">' +
-            '<button class="pw-tab" data-tab="wave" style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;font-size:14px;">\u6CE2\u7684\u5E72\u6D89</button>' +
-            '<button class="pw-tab" data-tab="optics" style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;font-size:14px;">\u5149\u7684\u6298\u5C04</button>' +
+        container.innerHTML = '<div class="tool-app-container" data-style="padding:8px;">' +
+            '<div data-style="display:flex;gap:8px;margin-bottom:12px;">' +
+            '<button class="pw-tab" data-tab="wave" data-style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#3b82f6;color:#fff;font-size:14px;">\u6CE2\u7684\u5E72\u6D89</button>' +
+            '<button class="pw-tab" data-tab="optics" data-style="padding:8px 18px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;background:#fff;color:#333;font-size:14px;">\u5149\u7684\u6298\u5C04</button>' +
             '</div>' +
             '<div id="pw-tab-content"></div>' +
             '</div>';

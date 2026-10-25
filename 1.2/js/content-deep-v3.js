@@ -588,17 +588,17 @@ function getQuestion(id){
 function renderSidebar(){
     var years = getYears();
     var html = '';
-    html += '<div style="padding:10px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;margin-bottom:8px;">学科筛选</div>';
-    html += '<select id="ees-subjectFilter" style="width:100%;padding:6px;margin-bottom:8px;">';
+    html += '<div data-style="padding:10px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;margin-bottom:8px;">学科筛选</div>';
+    html += '<select id="ees-subjectFilter" data-style="width:100%;padding:6px;margin-bottom:8px;">';
     html += '<option value="all"' + (state.subjectFilter==='all'?' selected':'') + '>全部</option>';
     var subs = ['物理','化学','生物'];
     for(var s=0;s<subs.length;s++){
         html += '<option value="'+subs[s]+'"' + (state.subjectFilter===subs[s]?' selected':'') + '>'+subs[s]+'</option>';
     }
     html += '</select>';
-    html += '<div style="font-weight:bold;margin-bottom:8px;">年份筛选</div>';
-    html += '<select id="ees-yearFilter" style="width:100%;padding:6px;">';
+    html += '<div data-style="font-weight:bold;margin-bottom:8px;">年份筛选</div>';
+    html += '<select id="ees-yearFilter" data-style="width:100%;padding:6px;">';
     html += '<option value="all"' + (state.yearFilter==='all'?' selected':'') + '>全部</option>';
     for(var yi=0;yi<years.length;yi++){
         html += '<option value="'+years[yi]+'"' + (state.yearFilter===years[yi]?' selected':'') + '>'+years[yi]+'年</option>';
@@ -606,22 +606,22 @@ function renderSidebar(){
     html += '</select>';
     html += '</div>';
     var list = getFilteredQuestions();
-    html += '<div style="overflow-y:auto;max-height:560px;">';
+    html += '<div data-style="overflow-y:auto;max-height:560px;">';
     if(list.length===0){
-        html += '<div style="padding:20px;color:#999;text-align:center;">暂无符合条件题目</div>';
+        html += '<div data-style="padding:20px;color:#999;text-align:center;">暂无符合条件题目</div>';
     } else {
         for(var i=0;i<list.length;i++){
             var q = list[i];
             var subjectColor = q.subject==='物理' ? '#3b82f6' : (q.subject==='化学' ? '#10b981' : '#f59e0b');
             var isActive = state.selectedId===q.id;
-            html += '<div class="ees-qitem" data-id="'+q.id+'" style="padding:10px;border-bottom:1px solid #f0f0f0;cursor:pointer;'+(isActive?'background:#e0f2fe;':'')+'">';
-            html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
-            html += '<span style="background:'+subjectColor+';color:#fff;padding:2px 6px;border-radius:3px;font-size:11px;">'+q.subject+'</span>';
-            html += '<span style="color:#888;font-size:11px;">'+q.year+'年</span>';
-            html += '<span style="color:#888;font-size:11px;">|'+escapeHtml(q.chapter)+'</span>';
+            html += '<div class="ees-qitem" data-id="'+q.id+'" data-style="padding:10px;border-bottom:1px solid #f0f0f0;cursor:pointer;'+(isActive?'background:#e0f2fe;':'')+'">';
+            html += '<div data-style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
+            html += '<span data-style="background:'+subjectColor+';color:#fff;padding:2px 6px;border-radius:3px;font-size:11px;">'+q.subject+'</span>';
+            html += '<span data-style="color:#888;font-size:11px;">'+q.year+'年</span>';
+            html += '<span data-style="color:#888;font-size:11px;">|'+escapeHtml(q.chapter)+'</span>';
             html += '</div>';
-            html += '<div style="font-size:13px;line-height:1.4;">'+escapeHtml(q.title)+'</div>';
-            html += '<div style="margin-top:4px;font-size:11px;color:#aaa;">满分'+q.fullScore+'分</div>';
+            html += '<div data-style="font-size:13px;line-height:1.4;">'+escapeHtml(q.title)+'</div>';
+            html += '<div data-style="margin-top:4px;font-size:11px;color:#aaa;">满分'+q.fullScore+'分</div>';
             html += '</div>';
         }
     }
@@ -631,66 +631,66 @@ function renderSidebar(){
 
 function renderQuestion(){
     if(!state.selectedId){
-        return '<div style="padding:40px;text-align:center;color:#999;">请从左侧选择一道实验题开始练习</div>';
+        return '<div data-style="padding:40px;text-align:center;color:#999;">请从左侧选择一道实验题开始练习</div>';
     }
     var q = getQuestion(state.selectedId);
     if(!q) return '';
     var html = '';
-    html += '<div style="padding:12px;border-bottom:2px solid #3b82f6;">';
-    html += '<div style="font-size:16px;font-weight:bold;color:#1e3a8a;">'+nl2br(q.title)+'</div>';
-    html += '<div style="margin-top:6px;font-size:12px;color:#666;">'+q.subject+' · '+q.year+'年 · 章节：'+escapeHtml(q.chapter)+'</div>';
+    html += '<div data-style="padding:12px;border-bottom:2px solid #3b82f6;">';
+    html += '<div data-style="font-size:16px;font-weight:bold;color:#1e3a8a;">'+nl2br(q.title)+'</div>';
+    html += '<div data-style="margin-top:6px;font-size:12px;color:#666;">'+q.subject+' · '+q.year+'年 · 章节：'+escapeHtml(q.chapter)+'</div>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:8px;">【题目】</div>';
-    html += '<div style="white-space:pre-wrap;line-height:1.7;color:#374151;font-size:13px;">'+nl2br(q.question)+'</div>';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:8px;">【题目】</div>';
+    html += '<div data-style="white-space:pre-wrap;line-height:1.7;color:#374151;font-size:13px;">'+nl2br(q.question)+'</div>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;background:#f9fafb;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:8px;">【实验器材】</div>';
-    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;background:#f9fafb;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:8px;">【实验器材】</div>';
+    html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">';
     for(var ai=0;ai<q.apparatus.length;ai++){
-        html += '<span style="background:#fff;border:1px solid #d1d5db;padding:3px 8px;border-radius:12px;font-size:12px;color:#4b5563;">'+escapeHtml(q.apparatus[ai])+'</span>';
+        html += '<span data-style="background:#fff;border:1px solid #d1d5db;padding:3px 8px;border-radius:12px;font-size:12px;color:#4b5563;">'+escapeHtml(q.apparatus[ai])+'</span>';
     }
     html += '</div>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:8px;">【实验步骤】</div>';
-    html += '<ol style="padding-left:20px;margin:0;line-height:1.8;color:#374151;font-size:13px;">';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:8px;">【实验步骤】</div>';
+    html += '<ol data-style="padding-left:20px;margin:0;line-height:1.8;color:#374151;font-size:13px;">';
     for(var si=0;si<q.steps.length;si++){
         html += '<li>'+nl2br(q.steps[si])+'</li>';
     }
     html += '</ol>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;background:#fef3c7;">';
-    html += '<div style="font-weight:bold;color:#92400e;margin-bottom:8px;">【我的作答】</div>';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;background:#fef3c7;">';
+    html += '<div data-style="font-weight:bold;color:#92400e;margin-bottom:8px;">【我的作答】</div>';
     var taAttr = state.submitted ? ' disabled ' : '';
-    html += '<textarea id="ees-answer" style="width:100%;min-height:120px;padding:8px;border:1px solid #d1d5db;border-radius:4px;font-family:inherit;font-size:13px;line-height:1.6;box-sizing:border-box;" placeholder="请在此作答，可参考实验步骤和评分标准..."'+taAttr+'>'+escapeHtml(state.userAnswer)+'</textarea>';
+    html += '<textarea id="ees-answer" data-style="width:100%;min-height:120px;padding:8px;border:1px solid #d1d5db;border-radius:4px;font-family:inherit;font-size:13px;line-height:1.6;box-sizing:border-box;" placeholder="请在此作答，可参考实验步骤和评分标准..."'+taAttr+'>'+escapeHtml(state.userAnswer)+'</textarea>';
     if(!state.submitted){
-        html += '<button id="ees-submitBtn" style="margin-top:8px;background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">提交答案并模拟阅卷</button>';
+        html += '<button id="ees-submitBtn" data-style="margin-top:8px;background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">提交答案并模拟阅卷</button>';
     } else {
-        html += '<button id="ees-resetBtn" style="margin-top:8px;background:#6b7280;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">重新作答</button>';
+        html += '<button id="ees-resetBtn" data-style="margin-top:8px;background:#6b7280;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">重新作答</button>';
     }
     html += '</div>';
     if(state.submitted){
-        html += '<div style="padding:12px;background:#dbeafe;border-bottom:1px solid #eee;">';
-        html += '<div style="font-weight:bold;color:#1e40af;margin-bottom:8px;">【模拟阅卷结果】</div>';
-        html += '<div style="font-size:14px;color:#1e3a8a;margin-bottom:8px;">总分：<b style="font-size:18px;color:#dc2626;">'+state.totalScore+'</b> / '+q.fullScore+' 分</div>';
-        html += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
-        html += '<tr style="background:#bfdbfe;"><th style="border:1px solid #93c5fd;padding:5px;text-align:left;">评分项</th><th style="border:1px solid #93c5fd;padding:5px;width:50px;">满分</th><th style="border:1px solid #93c5fd;padding:5px;width:60px;">自评</th></tr>';
+        html += '<div data-style="padding:12px;background:#dbeafe;border-bottom:1px solid #eee;">';
+        html += '<div data-style="font-weight:bold;color:#1e40af;margin-bottom:8px;">【模拟阅卷结果】</div>';
+        html += '<div data-style="font-size:14px;color:#1e3a8a;margin-bottom:8px;">总分：<b data-style="font-size:18px;color:#dc2626;">'+state.totalScore+'</b> / '+q.fullScore+' 分</div>';
+        html += '<table data-style="width:100%;border-collapse:collapse;font-size:12px;">';
+        html += '<tr data-style="background:#bfdbfe;"><th data-style="border:1px solid #93c5fd;padding:5px;text-align:left;">评分项</th><th data-style="border:1px solid #93c5fd;padding:5px;width:50px;">满分</th><th data-style="border:1px solid #93c5fd;padding:5px;width:60px;">自评</th></tr>';
         for(var ci=0;ci<q.scoringCriteria.length;ci++){
             var c = q.scoringCriteria[ci];
             var got = state.scores[c.item] || 0;
             html += '<tr>';
-            html += '<td style="border:1px solid #bfdbfe;padding:5px;"><b>'+escapeHtml(c.item)+'</b><br><span style="color:#6b7280;font-size:11px;">'+nl2br(c.standard)+'</span></td>';
-            html += '<td style="border:1px solid #bfdbfe;padding:5px;text-align:center;">'+c.score+'</td>';
-            html += '<td style="border:1px solid #bfdbfe;padding:5px;text-align:center;"><input type="number" class="ees-score" data-item="'+escapeHtml(c.item)+'" min="0" max="'+c.score+'" value="'+got+'" style="width:50px;padding:2px;"></td>';
+            html += '<td data-style="border:1px solid #bfdbfe;padding:5px;"><b>'+escapeHtml(c.item)+'</b><br><span data-style="color:#6b7280;font-size:11px;">'+nl2br(c.standard)+'</span></td>';
+            html += '<td data-style="border:1px solid #bfdbfe;padding:5px;text-align:center;">'+c.score+'</td>';
+            html += '<td data-style="border:1px solid #bfdbfe;padding:5px;text-align:center;"><input type="number" class="ees-score" data-item="'+escapeHtml(c.item)+'" min="0" max="'+c.score+'" value="'+got+'" data-style="width:50px;padding:2px;"></td>';
             html += '</tr>';
         }
         html += '</table>';
-        html += '<div style="margin-top:8px;color:#6b7280;font-size:12px;">提示：请根据自己作答情况对照评分标准逐项自评分数，自评后总分自动更新。</div>';
+        html += '<div data-style="margin-top:8px;color:#6b7280;font-size:12px;">提示：请根据自己作答情况对照评分标准逐项自评分数，自评后总分自动更新。</div>';
         html += '</div>';
-        html += '<div style="padding:12px;background:#f0fdf4;border-bottom:1px solid #eee;">';
-        html += '<div style="font-weight:bold;color:#166534;margin-bottom:8px;">【参考答案】</div>';
-        html += '<div style="white-space:pre-wrap;line-height:1.7;color:#166534;font-size:13px;background:#fff;padding:10px;border-radius:4px;border:1px solid #bbf7d0;">'+nl2br(q.answer)+'</div>';
+        html += '<div data-style="padding:12px;background:#f0fdf4;border-bottom:1px solid #eee;">';
+        html += '<div data-style="font-weight:bold;color:#166534;margin-bottom:8px;">【参考答案】</div>';
+        html += '<div data-style="white-space:pre-wrap;line-height:1.7;color:#166534;font-size:13px;background:#fff;padding:10px;border-radius:4px;border:1px solid #bbf7d0;">'+nl2br(q.answer)+'</div>';
         html += '</div>';
     }
     return html;
@@ -698,29 +698,29 @@ function renderQuestion(){
 
 function renderScoringPanel(){
     if(!state.selectedId){
-        return '<div style="padding:20px;color:#999;text-align:center;">选择题目后显示评分标准</div>';
+        return '<div data-style="padding:20px;color:#999;text-align:center;">选择题目后显示评分标准</div>';
     }
     var q = getQuestion(state.selectedId);
     if(!q) return '';
     var html = '';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:10px;">评分标准（满分'+q.fullScore+'分）</div>';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:10px;">评分标准（满分'+q.fullScore+'分）</div>';
     for(var i=0;i<q.scoringCriteria.length;i++){
         var c = q.scoringCriteria[i];
-        html += '<div style="padding:8px;background:'+(i%2?'#f9fafb':'#fff')+';border-radius:4px;margin-bottom:6px;">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
-        html += '<span style="font-weight:bold;color:#1e3a8a;font-size:13px;">'+(i+1)+'. '+escapeHtml(c.item)+'</span>';
-        html += '<span style="background:#fee2e2;color:#b91c1c;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;">'+c.score+'分</span>';
+        html += '<div data-style="padding:8px;background:'+(i%2?'#f9fafb':'#fff')+';border-radius:4px;margin-bottom:6px;">';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
+        html += '<span data-style="font-weight:bold;color:#1e3a8a;font-size:13px;">'+(i+1)+'. '+escapeHtml(c.item)+'</span>';
+        html += '<span data-style="background:#fee2e2;color:#b91c1c;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;">'+c.score+'分</span>';
         html += '</div>';
-        html += '<div style="color:#4b5563;font-size:12px;line-height:1.5;">'+nl2br(c.standard)+'</div>';
+        html += '<div data-style="color:#4b5563;font-size:12px;line-height:1.5;">'+nl2br(c.standard)+'</div>';
         html += '</div>';
     }
     html += '</div>';
-    html += '<div style="padding:12px;background:#fff7ed;">';
-    html += '<div style="font-weight:bold;color:#9a3412;margin-bottom:10px;">常见扣分点</div>';
+    html += '<div data-style="padding:12px;background:#fff7ed;">';
+    html += '<div data-style="font-weight:bold;color:#9a3412;margin-bottom:10px;">常见扣分点</div>';
     for(var di=0;di<q.commonDeductions.length;di++){
-        html += '<div style="color:#9a3412;font-size:12px;line-height:1.7;padding:3px 0;padding-left:16px;position:relative;">';
-        html += '<span style="position:absolute;left:0;">•</span>'+nl2br(q.commonDeductions[di])+'</div>';
+        html += '<div data-style="color:#9a3412;font-size:12px;line-height:1.7;padding:3px 0;padding-left:16px;position:relative;">';
+        html += '<span data-style="position:absolute;left:0;">•</span>'+nl2br(q.commonDeductions[di])+'</div>';
     }
     html += '</div>';
     return html;
@@ -731,15 +731,15 @@ function render(){
     if(!root) return;
     try {
     var html = '';
-    html += '<div style="font-family:Microsoft YaHei,sans-serif;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">';
-    html += '<div style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;padding:14px 20px;">';
-    html += '<div style="font-size:18px;font-weight:bold;">物化生历年实验题专项</div>';
-    html += '<div style="font-size:12px;opacity:0.9;margin-top:4px;">从真题库提取实验题 → 按考点分类 → 配评分标准 → 模拟阅卷</div>';
+    html += '<div data-style="font-family:Microsoft YaHei,sans-serif;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">';
+    html += '<div data-style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;padding:14px 20px;">';
+    html += '<div data-style="font-size:18px;font-weight:bold;">物化生历年实验题专项</div>';
+    html += '<div data-style="font-size:12px;opacity:0.9;margin-top:4px;">从真题库提取实验题 → 按考点分类 → 配评分标准 → 模拟阅卷</div>';
     html += '</div>';
-    html += '<div style="display:flex;min-height:600px;">';
-    html += '<div id="ees-sidebar" style="width:240px;border-right:1px solid #e5e7eb;background:#fff;flex-shrink:0;">'+renderSidebar()+'</div>';
-    html += '<div id="ees-main" style="flex:1;overflow-y:auto;max-height:600px;">'+renderQuestion()+'</div>';
-    html += '<div id="ees-panel" style="width:280px;border-left:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderScoringPanel()+'</div>';
+    html += '<div data-style="display:flex;min-height:600px;">';
+    html += '<div id="ees-sidebar" data-style="width:240px;border-right:1px solid #e5e7eb;background:#fff;flex-shrink:0;">'+renderSidebar()+'</div>';
+    html += '<div id="ees-main" data-style="flex:1;overflow-y:auto;max-height:600px;">'+renderQuestion()+'</div>';
+    html += '<div id="ees-panel" data-style="width:280px;border-left:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderScoringPanel()+'</div>';
     html += '</div>';
     html += '</div>';
     root.innerHTML = html;
@@ -987,20 +987,20 @@ function getTrick(id){
 
 function renderTrickList(){
     var html = '';
-    html += '<div style="padding:10px;border-bottom:1px solid #eee;background:#f9fafb;">';
-    html += '<div style="font-weight:bold;color:#1e3a8a;">选择秒杀技巧</div>';
+    html += '<div data-style="padding:10px;border-bottom:1px solid #eee;background:#f9fafb;">';
+    html += '<div data-style="font-weight:bold;color:#1e3a8a;">选择秒杀技巧</div>';
     html += '</div>';
     for(var i=0;i<TRICKS.length;i++){
         var t = TRICKS[i];
         var isActive = state.selectedTrickId===t.id;
         var stat = state.trickStats[t.id] || {practiced:0, correct:0};
         var rate = stat.practiced>0 ? Math.round(stat.correct/stat.practiced*100) : 0;
-        html += '<div class="ct-trick" data-id="'+t.id+'" style="padding:12px;border-bottom:1px solid #f0f0f0;cursor:pointer;'+(isActive?'background:#dbeafe;border-left:3px solid #3b82f6;':'')+'">';
-        html += '<div style="display:flex;align-items:center;gap:8px;">';
-        html += '<span style="background:'+(isActive?'#3b82f6':'#9ca3af')+';color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">'+t.id+'</span>';
-        html += '<span style="font-size:14px;font-weight:bold;color:'+(isActive?'#1e3a8a':'#374151')+';">'+escapeHtml(t.name)+'</span>';
+        html += '<div class="ct-trick" data-id="'+t.id+'" data-style="padding:12px;border-bottom:1px solid #f0f0f0;cursor:pointer;'+(isActive?'background:#dbeafe;border-left:3px solid #3b82f6;':'')+'">';
+        html += '<div data-style="display:flex;align-items:center;gap:8px;">';
+        html += '<span data-style="background:'+(isActive?'#3b82f6':'#9ca3af')+';color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">'+t.id+'</span>';
+        html += '<span data-style="font-size:14px;font-weight:bold;color:'+(isActive?'#1e3a8a':'#374151')+';">'+escapeHtml(t.name)+'</span>';
         html += '</div>';
-        html += '<div style="margin-top:6px;font-size:11px;color:#6b7280;">练习'+stat.practiced+'题 · 正确率'+rate+'%</div>';
+        html += '<div data-style="margin-top:6px;font-size:11px;color:#6b7280;">练习'+stat.practiced+'题 · 正确率'+rate+'%</div>';
         html += '</div>';
     }
     return html;
@@ -1010,28 +1010,28 @@ function renderTrickDetail(){
     var t = getTrick(state.selectedTrickId);
     if(!t) return '';
     var html = '';
-    html += '<div style="padding:14px;border-bottom:2px solid #8b5cf6;">';
-    html += '<div style="font-size:16px;font-weight:bold;color:#5b21b6;">'+escapeHtml(t.name)+'</div>';
+    html += '<div data-style="padding:14px;border-bottom:2px solid #8b5cf6;">';
+    html += '<div data-style="font-size:16px;font-weight:bold;color:#5b21b6;">'+escapeHtml(t.name)+'</div>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:6px;">原理说明</div>';
-    html += '<div style="color:#4b5563;font-size:13px;line-height:1.7;">'+nl2br(t.principle)+'</div>';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:6px;">原理说明</div>';
+    html += '<div data-style="color:#4b5563;font-size:13px;line-height:1.7;">'+nl2br(t.principle)+'</div>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;background:#faf5ff;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:6px;">使用步骤</div>';
-    html += '<ol style="padding-left:20px;margin:0;line-height:1.8;color:#4b5563;font-size:13px;">';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;background:#faf5ff;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:6px;">使用步骤</div>';
+    html += '<ol data-style="padding-left:20px;margin:0;line-height:1.8;color:#4b5563;font-size:13px;">';
     for(var si=0;si<t.steps.length;si++){
         html += '<li>'+nl2br(t.steps[si])+'</li>';
     }
     html += '</ol>';
     html += '</div>';
-    html += '<div style="padding:12px;border-bottom:1px solid #eee;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:6px;">适用场景</div>';
-    html += '<div style="color:#4b5563;font-size:13px;line-height:1.7;">'+nl2br(t.scenarios)+'</div>';
+    html += '<div data-style="padding:12px;border-bottom:1px solid #eee;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:6px;">适用场景</div>';
+    html += '<div data-style="color:#4b5563;font-size:13px;line-height:1.7;">'+nl2br(t.scenarios)+'</div>';
     html += '</div>';
-    html += '<div style="padding:12px;background:#fff7ed;">';
-    html += '<div style="font-weight:bold;color:#9a3412;margin-bottom:6px;">注意事项</div>';
-    html += '<div style="color:#9a3412;font-size:13px;line-height:1.7;">'+nl2br(t.cautions)+'</div>';
+    html += '<div data-style="padding:12px;background:#fff7ed;">';
+    html += '<div data-style="font-weight:bold;color:#9a3412;margin-bottom:6px;">注意事项</div>';
+    html += '<div data-style="color:#9a3412;font-size:13px;line-height:1.7;">'+nl2br(t.cautions)+'</div>';
     html += '</div>';
     return html;
 }
@@ -1040,61 +1040,61 @@ function renderExampleArea(){
     var t = getTrick(state.selectedTrickId);
     if(!t) return '';
     var html = '';
-    html += '<div style="padding:14px;border-bottom:2px solid #10b981;background:#f0fdf4;">';
-    html += '<div style="font-size:14px;font-weight:bold;color:#166534;">例题练习</div>';
-    html += '<div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;">';
+    html += '<div data-style="padding:14px;border-bottom:2px solid #10b981;background:#f0fdf4;">';
+    html += '<div data-style="font-size:14px;font-weight:bold;color:#166534;">例题练习</div>';
+    html += '<div data-style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;">';
     for(var i=0;i<t.examples.length;i++){
         var bg = state.currentExampleIdx===i ? '#10b981' : '#d1fae5';
         var color = state.currentExampleIdx===i ? '#fff' : '#166534';
-        html += '<span class="ct-exIdx" data-idx="'+i+'" style="background:'+bg+';color:'+color+';padding:4px 10px;border-radius:12px;cursor:pointer;font-size:12px;">第'+(i+1)+'题</span>';
+        html += '<span class="ct-exIdx" data-idx="'+i+'" data-style="background:'+bg+';color:'+color+';padding:4px 10px;border-radius:12px;cursor:pointer;font-size:12px;">第'+(i+1)+'题</span>';
     }
     html += '</div>';
     html += '</div>';
     var ex = t.examples[state.currentExampleIdx];
     if(!ex) return html;
-    html += '<div style="padding:12px;">';
-    html += '<div style="background:#f9fafb;padding:10px;border-radius:4px;margin-bottom:10px;">';
-    html += '<div style="font-weight:bold;color:#374151;margin-bottom:6px;">题目：</div>';
-    html += '<div style="color:#1f2937;font-size:13px;line-height:1.7;margin-bottom:8px;">'+nl2br(ex.question)+'</div>';
+    html += '<div data-style="padding:12px;">';
+    html += '<div data-style="background:#f9fafb;padding:10px;border-radius:4px;margin-bottom:10px;">';
+    html += '<div data-style="font-weight:bold;color:#374151;margin-bottom:6px;">题目：</div>';
+    html += '<div data-style="color:#1f2937;font-size:13px;line-height:1.7;margin-bottom:8px;">'+nl2br(ex.question)+'</div>';
     for(var oi=0;oi<ex.options.length;oi++){
-        html += '<div style="padding:4px 0;color:#374151;font-size:13px;">'+escapeHtml(ex.options[oi])+'</div>';
+        html += '<div data-style="padding:4px 0;color:#374151;font-size:13px;">'+escapeHtml(ex.options[oi])+'</div>';
     }
     html += '</div>';
     if(!state.revealed){
-        html += '<div style="background:#fef3c7;padding:10px;border-radius:4px;margin-bottom:10px;">';
-        html += '<div style="font-weight:bold;color:#92400e;margin-bottom:6px;">请选择答案：</div>';
-        html += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
+        html += '<div data-style="background:#fef3c7;padding:10px;border-radius:4px;margin-bottom:10px;">';
+        html += '<div data-style="font-weight:bold;color:#92400e;margin-bottom:6px;">请选择答案：</div>';
+        html += '<div data-style="display:flex;gap:6px;flex-wrap:wrap;">';
         var opts = ['A','B','C','D'];
         for(var ci=0;ci<opts.length;ci++){
             var bg = state.userChoice===opts[ci] ? '#fbbf24' : '#fff';
-            html += '<button class="ct-choice" data-opt="'+opts[ci]+'" style="background:'+bg+';border:1px solid #d97706;color:#92400e;padding:6px 14px;border-radius:4px;cursor:pointer;font-weight:bold;">'+opts[ci]+'</button>';
+            html += '<button class="ct-choice" data-opt="'+opts[ci]+'" data-style="background:'+bg+';border:1px solid #d97706;color:#92400e;padding:6px 14px;border-radius:4px;cursor:pointer;font-weight:bold;">'+opts[ci]+'</button>';
         }
         html += '</div>';
         var dis = state.userChoice ? '' : ' disabled';
-        html += '<button id="ct-submit" style="margin-top:10px;background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;"'+dis+'>提交答案</button>';
-        html += '<div id="ct-timer" style="margin-top:6px;color:#6b7280;font-size:12px;">已用时: '+state.elapsed+'秒</div>';
+        html += '<button id="ct-submit" data-style="margin-top:10px;background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;"'+dis+'>提交答案</button>';
+        html += '<div id="ct-timer" data-style="margin-top:6px;color:#6b7280;font-size:12px;">已用时: '+state.elapsed+'秒</div>';
         html += '</div>';
     } else {
         var isCorrect = state.userChoice===ex.answer;
         var bgColor = isCorrect ? '#d1fae5' : '#fee2e2';
         var bdColor = isCorrect ? '#10b981' : '#ef4444';
         var txColor = isCorrect ? '#166534' : '#991b1b';
-        html += '<div style="background:'+bgColor+';border:1px solid '+bdColor+';padding:10px;border-radius:4px;margin-bottom:10px;">';
-        html += '<div style="font-weight:bold;color:'+txColor+';margin-bottom:6px;">';
+        html += '<div data-style="background:'+bgColor+';border:1px solid '+bdColor+';padding:10px;border-radius:4px;margin-bottom:10px;">';
+        html += '<div data-style="font-weight:bold;color:'+txColor+';margin-bottom:6px;">';
         html += isCorrect ? '回答正确！' : '回答错误';
         html += ' (用时'+state.elapsed+'秒)</div>';
-        html += '<div style="color:#374151;font-size:13px;">你的答案：<b>'+escapeHtml(state.userChoice||'(未选)')+'</b> | 正确答案：<b>'+escapeHtml(ex.answer)+'</b></div>';
+        html += '<div data-style="color:#374151;font-size:13px;">你的答案：<b>'+escapeHtml(state.userChoice||'(未选)')+'</b> | 正确答案：<b>'+escapeHtml(ex.answer)+'</b></div>';
         html += '</div>';
-        html += '<div style="background:#dbeafe;padding:10px;border-radius:4px;margin-bottom:8px;border-left:3px solid #3b82f6;">';
-        html += '<div style="font-weight:bold;color:#1e40af;margin-bottom:6px;">秒杀思路</div>';
-        html += '<div style="color:#1e3a8a;font-size:13px;line-height:1.7;">'+nl2br(ex.analysis)+'</div>';
+        html += '<div data-style="background:#dbeafe;padding:10px;border-radius:4px;margin-bottom:8px;border-left:3px solid #3b82f6;">';
+        html += '<div data-style="font-weight:bold;color:#1e40af;margin-bottom:6px;">秒杀思路</div>';
+        html += '<div data-style="color:#1e3a8a;font-size:13px;line-height:1.7;">'+nl2br(ex.analysis)+'</div>';
         html += '</div>';
-        html += '<div style="background:#f3f4f6;padding:10px;border-radius:4px;margin-bottom:8px;border-left:3px solid #9ca3af;">';
-        html += '<div style="font-weight:bold;color:#4b5563;margin-bottom:6px;">常规解法对比</div>';
-        html += '<div style="color:#374151;font-size:13px;line-height:1.7;">'+nl2br(ex.normalSolution)+'</div>';
+        html += '<div data-style="background:#f3f4f6;padding:10px;border-radius:4px;margin-bottom:8px;border-left:3px solid #9ca3af;">';
+        html += '<div data-style="font-weight:bold;color:#4b5563;margin-bottom:6px;">常规解法对比</div>';
+        html += '<div data-style="color:#374151;font-size:13px;line-height:1.7;">'+nl2br(ex.normalSolution)+'</div>';
         html += '</div>';
         var nextDis = state.currentExampleIdx >= t.examples.length-1 ? ' disabled' : '';
-        html += '<button id="ct-next" style="background:#10b981;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;"'+nextDis+'>下一题</button>';
+        html += '<button id="ct-next" data-style="background:#10b981;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;"'+nextDis+'>下一题</button>';
     }
     html += '</div>';
     return html;
@@ -1102,8 +1102,8 @@ function renderExampleArea(){
 
 function renderStats(){
     var html = '';
-    html += '<div style="padding:12px;background:#1f2937;color:#fff;">';
-    html += '<div style="font-weight:bold;margin-bottom:8px;">技巧使用统计</div>';
+    html += '<div data-style="padding:12px;background:#1f2937;color:#fff;">';
+    html += '<div data-style="font-weight:bold;margin-bottom:8px;">技巧使用统计</div>';
     var totalPracticed = 0, totalCorrect = 0;
     for(var i=0;i<TRICKS.length;i++){
         var s = state.trickStats[TRICKS[i].id] || {practiced:0, correct:0};
@@ -1111,15 +1111,15 @@ function renderStats(){
         totalCorrect += s.correct;
     }
     var totalRate = totalPracticed>0 ? Math.round(totalCorrect/totalPracticed*100) : 0;
-    html += '<div style="font-size:13px;line-height:1.8;">';
-    html += '<div>总练习题数：<b style="color:#fbbf24;">'+totalPracticed+'</b> 题</div>';
-    html += '<div>总正确率：<b style="color:#10b981;">'+totalRate+'%</b></div>';
+    html += '<div data-style="font-size:13px;line-height:1.8;">';
+    html += '<div>总练习题数：<b data-style="color:#fbbf24;">'+totalPracticed+'</b> 题</div>';
+    html += '<div>总正确率：<b data-style="color:#10b981;">'+totalRate+'%</b></div>';
     var mastered = 0;
     for(var j=0;j<TRICKS.length;j++){
         var st = state.trickStats[TRICKS[j].id];
         if(st && st.practiced>=3) mastered++;
     }
-    html += '<div style="margin-top:6px;font-size:11px;color:#9ca3af;">已练习技巧：'+mastered+' / '+TRICKS.length+'</div>';
+    html += '<div data-style="margin-top:6px;font-size:11px;color:#9ca3af;">已练习技巧：'+mastered+' / '+TRICKS.length+'</div>';
     html += '</div>';
     html += '</div>';
     return html;
@@ -1157,15 +1157,15 @@ function render(){
     var root = document.getElementById('choice-tricks-app');
     if(!root) return;
     var html = '';
-    html += '<div style="font-family:Microsoft YaHei,sans-serif;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">';
-    html += '<div style="background:linear-gradient(135deg,#5b21b6,#8b5cf6);color:#fff;padding:14px 20px;">';
-    html += '<div style="font-size:18px;font-weight:bold;">选择题秒杀技巧库</div>';
-    html += '<div style="font-size:12px;opacity:0.9;margin-top:4px;">8种解题技巧 · 每种5道例题 · 秒杀思路vs常规解法对比</div>';
+    html += '<div data-style="font-family:Microsoft YaHei,sans-serif;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">';
+    html += '<div data-style="background:linear-gradient(135deg,#5b21b6,#8b5cf6);color:#fff;padding:14px 20px;">';
+    html += '<div data-style="font-size:18px;font-weight:bold;">选择题秒杀技巧库</div>';
+    html += '<div data-style="font-size:12px;opacity:0.9;margin-top:4px;">8种解题技巧 · 每种5道例题 · 秒杀思路vs常规解法对比</div>';
     html += '</div>';
-    html += '<div style="display:flex;min-height:600px;">';
-    html += '<div style="width:220px;border-right:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderTrickList()+'</div>';
-    html += '<div style="flex:1;overflow-y:auto;max-height:600px;">'+renderTrickDetail()+'</div>';
-    html += '<div style="width:320px;border-left:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderExampleArea()+'</div>';
+    html += '<div data-style="display:flex;min-height:600px;">';
+    html += '<div data-style="width:220px;border-right:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderTrickList()+'</div>';
+    html += '<div data-style="flex:1;overflow-y:auto;max-height:600px;">'+renderTrickDetail()+'</div>';
+    html += '<div data-style="width:320px;border-left:1px solid #e5e7eb;background:#fff;flex-shrink:0;overflow-y:auto;max-height:600px;">'+renderExampleArea()+'</div>';
     html += '</div>';
     html += renderStats();
     html += '</div>';
@@ -1577,13 +1577,13 @@ function analyzeSentence(text){
 
 // ==================== 渲染函数 ====================
 function renderInputArea(){
-    var html = '<div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
-    html += '<h3 style="margin:0 0 12px 0;color:#333;font-size:16px;">📝 句子输入区</h3>';
+    var html = '<div data-style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
+    html += '<h3 data-style="margin:0 0 12px 0;color:#333;font-size:16px;">📝 句子输入区</h3>';
 
     // 预置例句选择下拉
-    html += '<div style="margin-bottom:12px;">';
-    html += '<label style="display:block;font-size:13px;color:#666;margin-bottom:6px;">从预置例句选择：</label>';
-    html += '<select id="sentence-select" data-call=\"window.englishSentenceAnalyzer._onSelectPreset\" data-arg1=\"@val\" style="'+
+    html += '<div data-style="margin-bottom:12px;">';
+    html += '<label data-style="display:block;font-size:13px;color:#666;margin-bottom:6px;">从预置例句选择：</label>';
+    html += '<select id="sentence-select" data-call=\"window.englishSentenceAnalyzer._onSelectPreset\" data-arg1=\"@val\" data-style="'+
         'width:100%;padding:8px 10px;border:2px solid #ddd;border-radius:6px;font-size:14px;box-sizing:border-box;background:#fff;">';
     for(var i=0;i<PRESET_SENTENCES.length;i++){
         var s = PRESET_SENTENCES[i];
@@ -1594,27 +1594,27 @@ function renderInputArea(){
     html += '</div>';
 
     // 自定义输入
-    html += '<div style="margin-bottom:12px;">';
-    html += '<label style="display:block;font-size:13px;color:#666;margin-bottom:6px;">或手动输入长难句：</label>';
-    html += '<textarea id="custom-sentence-input" placeholder="请输入英文长难句..." style="'+
+    html += '<div data-style="margin-bottom:12px;">';
+    html += '<label data-style="display:block;font-size:13px;color:#666;margin-bottom:6px;">或手动输入长难句：</label>';
+    html += '<textarea id="custom-sentence-input" placeholder="请输入英文长难句..." data-style="'+
         'width:100%;min-height:60px;padding:10px 12px;border:2px solid #ddd;border-radius:6px;font-size:14px;resize:vertical;box-sizing:border-box;line-height:1.5;font-family:inherit;" '+
         'oninput="window.englishSentenceAnalyzer._onCustomInput(this.value)">'+escapeHtml(state.customInput)+'</textarea>';
     html += '</div>';
 
     // 分析按钮
-    html += '<div style="display:flex;gap:8px;">';
-    html += '<button data-call=\"window.englishSentenceAnalyzer._analyzeCustom\" style="'+
+    html += '<div data-style="display:flex;gap:8px;">';
+    html += '<button data-call=\"window.englishSentenceAnalyzer._analyzeCustom\" data-style="'+
         'padding:8px 20px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;">🔍 分析自定义句子</button>';
-    html += '<button data-call=\"window.englishSentenceAnalyzer._clearCustom\" style="'+
+    html += '<button data-call=\"window.englishSentenceAnalyzer._clearCustom\" data-style="'+
         'padding:8px 20px;background:#fff;color:#666;border:2px solid #ddd;border-radius:6px;font-size:14px;cursor:pointer;">清空</button>';
     html += '</div>';
 
     // 当前模式提示
     if(state.customAnalysis){
-        html += '<div style="margin-top:10px;padding:8px 12px;background:#fff3e0;border-radius:6px;font-size:12px;color:#e65100;">'+
+        html += '<div data-style="margin-top:10px;padding:8px 12px;background:#fff3e0;border-radius:6px;font-size:12px;color:#e65100;">'+
             '⚠ 当前显示的是自定义句子分析结果，仅供参考（自动识别可能不准确）</div>';
     } else {
-        html += '<div style="margin-top:10px;padding:8px 12px;background:#e8f5e9;border-radius:6px;font-size:12px;color:#2e7d32;">'+
+        html += '<div data-style="margin-top:10px;padding:8px 12px;background:#e8f5e9;border-radius:6px;font-size:12px;color:#2e7d32;">'+
             '✓ 当前显示预置例句 #'+(state.currentIndex+1)+'（含完整人工标注）</div>';
     }
 
@@ -1624,36 +1624,36 @@ function renderInputArea(){
 
 function renderSentenceVisualization(){
     var data = state.customAnalysis || PRESET_SENTENCES[state.currentIndex];
-    var html = '<div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
-    html += '<h3 style="margin:0 0 12px 0;color:#333;font-size:16px;">🎨 成分标注</h3>';
+    var html = '<div data-style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
+    html += '<h3 data-style="margin:0 0 12px 0;color:#333;font-size:16px;">🎨 成分标注</h3>';
 
     // 原句
-    html += '<div style="background:#f5f5f5;padding:10px 12px;border-radius:6px;margin-bottom:14px;font-size:15px;color:#333;line-height:1.6;font-style:italic;">'+
+    html += '<div data-style="background:#f5f5f5;padding:10px 12px;border-radius:6px;margin-bottom:14px;font-size:15px;color:#333;line-height:1.6;font-style:italic;">'+
         '"'+escapeHtml(data.sentence)+'"</div>';
 
     // 成分标注（彩色标签）
-    html += '<div style="line-height:2.4;margin-bottom:14px;">';
+    html += '<div data-style="line-height:2.4;margin-bottom:14px;">';
     for(var i=0;i<data.components.length;i++){
         var c = data.components[i];
         var color = getRoleColor(c.role);
         var bg = getRoleBgColor(c.role);
-        html += '<span style="'+
+        html += '<span data-style="'+
             'display:inline-block;padding:4px 10px;margin:2px 4px 2px 0;'+
             'background:'+bg+';color:'+color+';border:1.5px solid '+color+';'+
             'border-radius:6px;font-size:14px;'+
             '" title="'+escapeHtml(c.role)+(c.clauseType?(' ('+c.clauseType+')'):'')+'">'+
-            escapeHtml(c.word)+'<sub style="font-size:10px;color:'+color+';">'+escapeHtml(c.role)+'</sub></span>';
+            escapeHtml(c.word)+'<sub data-style="font-size:10px;color:'+color+';">'+escapeHtml(c.role)+'</sub></span>';
     }
     html += '</div>';
 
     // 图例
-    html += '<div style="border-top:1px dashed #e0e0e0;padding-top:10px;margin-top:10px;">';
-    html += '<div style="font-size:12px;color:#888;margin-bottom:6px;">图例：</div>';
-    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    html += '<div data-style="border-top:1px dashed #e0e0e0;padding-top:10px;margin-top:10px;">';
+    html += '<div data-style="font-size:12px;color:#888;margin-bottom:6px;">图例：</div>';
+    html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">';
     var legendRoles = ['主语','谓语','宾语','表语','定语','状语','补语'];
     for(var k=0;k<legendRoles.length;k++){
         var lr = legendRoles[k];
-        html += '<span style="display:inline-block;padding:2px 8px;font-size:11px;color:'+getRoleColor(lr)+';background:'+getRoleBgColor(lr)+';border:1px solid '+getRoleColor(lr)+';border-radius:4px;">'+lr+'</span>';
+        html += '<span data-style="display:inline-block;padding:2px 8px;font-size:11px;color:'+getRoleColor(lr)+';background:'+getRoleBgColor(lr)+';border:1px solid '+getRoleColor(lr)+';border-radius:4px;">'+lr+'</span>';
     }
     html += '</div>';
     html += '</div>';
@@ -1664,9 +1664,9 @@ function renderSentenceVisualization(){
 
 function renderTranslation(){
     var data = state.customAnalysis || PRESET_SENTENCES[state.currentIndex];
-    var html = '<div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
-    html += '<h3 style="margin:0 0 12px 0;color:#333;font-size:16px;">🌐 参考翻译</h3>';
-    html += '<div style="background:#f0f4ff;padding:12px 14px;border-radius:6px;font-size:15px;color:#333;line-height:1.7;">'+
+    var html = '<div data-style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
+    html += '<h3 data-style="margin:0 0 12px 0;color:#333;font-size:16px;">🌐 参考翻译</h3>';
+    html += '<div data-style="background:#f0f4ff;padding:12px 14px;border-radius:6px;font-size:15px;color:#333;line-height:1.7;">'+
         escapeHtml(data.translation)+'</div>';
     html += '</div>';
     return html;
@@ -1674,29 +1674,29 @@ function renderTranslation(){
 
 function renderGrammarAnalysis(){
     var data = state.customAnalysis || PRESET_SENTENCES[state.currentIndex];
-    var html = '<div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
-    html += '<h3 style="margin:0 0 12px 0;color:#333;font-size:16px;">📖 语法分析</h3>';
+    var html = '<div data-style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
+    html += '<h3 data-style="margin:0 0 12px 0;color:#333;font-size:16px;">📖 语法分析</h3>';
 
     // 语法点
-    html += '<div style="margin-bottom:14px;">';
-    html += '<div style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">语法要点：</div>';
-    html += '<ul style="margin:0;padding-left:20px;">';
+    html += '<div data-style="margin-bottom:14px;">';
+    html += '<div data-style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">语法要点：</div>';
+    html += '<ul data-style="margin:0;padding-left:20px;">';
     for(var i=0;i<data.grammarPoints.length;i++){
-        html += '<li style="font-size:14px;color:#333;line-height:1.8;margin-bottom:4px;">'+escapeHtml(data.grammarPoints[i])+'</li>';
+        html += '<li data-style="font-size:14px;color:#333;line-height:1.8;margin-bottom:4px;">'+escapeHtml(data.grammarPoints[i])+'</li>';
     }
     html += '</ul>';
     html += '</div>';
 
     // 关键短语
-    html += '<div style="border-top:1px dashed #e0e0e0;padding-top:12px;">';
-    html += '<div style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">关键短语：</div>';
-    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    html += '<div data-style="border-top:1px dashed #e0e0e0;padding-top:12px;">';
+    html += '<div data-style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">关键短语：</div>';
+    html += '<div data-style="display:flex;flex-wrap:wrap;gap:6px;">';
     if(data.keyPhrases && data.keyPhrases.length>0){
         for(var j=0;j<data.keyPhrases.length;j++){
-            html += '<span style="display:inline-block;padding:4px 10px;background:#fff3e0;color:#e65100;border:1px solid #ffb74d;border-radius:4px;font-size:13px;">'+escapeHtml(data.keyPhrases[j])+'</span>';
+            html += '<span data-style="display:inline-block;padding:4px 10px;background:#fff3e0;color:#e65100;border:1px solid #ffb74d;border-radius:4px;font-size:13px;">'+escapeHtml(data.keyPhrases[j])+'</span>';
         }
     } else {
-        html += '<span style="font-size:13px;color:#999;">（未识别到关键短语）</span>';
+        html += '<span data-style="font-size:13px;color:#999;">（未识别到关键短语）</span>';
     }
     html += '</div>';
     html += '</div>';
@@ -1707,13 +1707,13 @@ function renderGrammarAnalysis(){
         if(data.components[k].clauseType){ hasClause = true; break; }
     }
     if(hasClause){
-        html += '<div style="border-top:1px dashed #e0e0e0;padding-top:12px;margin-top:12px;">';
-        html += '<div style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">从句结构：</div>';
-        html += '<ul style="margin:0;padding-left:20px;">';
+        html += '<div data-style="border-top:1px dashed #e0e0e0;padding-top:12px;margin-top:12px;">';
+        html += '<div data-style="font-size:13px;color:#666;margin-bottom:6px;font-weight:600;">从句结构：</div>';
+        html += '<ul data-style="margin:0;padding-left:20px;">';
         for(var m=0;m<data.components.length;m++){
             var comp = data.components[m];
             if(comp.clauseType){
-                html += '<li style="font-size:14px;color:#7b1fa2;line-height:1.8;margin-bottom:4px;">'+
+                html += '<li data-style="font-size:14px;color:#7b1fa2;line-height:1.8;margin-bottom:4px;">'+
                     '<strong>'+escapeHtml(comp.word)+'</strong> → '+escapeHtml(comp.clauseType)+'（作'+escapeHtml(comp.role)+'）</li>';
             }
         }
@@ -1728,16 +1728,16 @@ function renderGrammarAnalysis(){
 function render(){
     var container = document.getElementById('sentence-analyzer-app');
     if(!container) return;
-    var html = '<div style="max-width:900px;margin:0 auto;padding:16px;">';
-    html += '<div style="text-align:center;margin-bottom:18px;">';
-    html += '<h2 style="margin:0 0 6px 0;color:#333;font-size:22px;">📖 英语长难句分析器</h2>';
-    html += '<p style="margin:0;color:#888;font-size:13px;">15句经典长难句 · 成分标注 · 语法分析 · 支持自定义输入</p>';
+    var html = '<div data-style="max-width:900px;margin:0 auto;padding:16px;">';
+    html += '<div data-style="text-align:center;margin-bottom:18px;">';
+    html += '<h2 data-style="margin:0 0 6px 0;color:#333;font-size:22px;">📖 英语长难句分析器</h2>';
+    html += '<p data-style="margin:0;color:#888;font-size:13px;">15句经典长难句 · 成分标注 · 语法分析 · 支持自定义输入</p>';
     html += '</div>';
     html += renderInputArea();
     html += renderSentenceVisualization();
     html += renderTranslation();
     html += renderGrammarAnalysis();
-    html += '<div style="text-align:center;color:#aaa;font-size:12px;padding:12px 0;">共 '+PRESET_SENTENCES.length+' 句预置例句 | 自定义输入仅供参考</div>';
+    html += '<div data-style="text-align:center;color:#aaa;font-size:12px;padding:12px 0;">共 '+PRESET_SENTENCES.length+' 句预置例句 | 自定义输入仅供参考</div>';
     html += '</div>';
     container.innerHTML = html;
 }

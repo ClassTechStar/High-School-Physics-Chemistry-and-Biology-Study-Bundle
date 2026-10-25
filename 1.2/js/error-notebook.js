@@ -833,7 +833,7 @@ window.errorNotebook = (function() {
         if (errors.length === 0) {
             var empty = document.createElement('div');
             empty.className = 'enb-empty';
-            empty.innerHTML = '<div class="enb-empty-icon">&#x1F4DA;</div><p>暂无匹配的错题记录</p><p style="font-size:0.85rem;">在练习中答错的题目会自动收录到错题本</p>';
+            empty.innerHTML = '<div class="enb-empty-icon">&#x1F4DA;</div><p>暂无匹配的错题记录</p><p data-style="font-size:0.85rem;">在练习中答错的题目会自动收录到错题本</p>';
             listDiv.appendChild(empty);
             return;
         }
@@ -1019,12 +1019,12 @@ window.errorNotebook = (function() {
             '<h4>' + name + '</h4>' +
             '<div class="enb-subject-stats">' +
             '<div>错题总数: <strong>' + total + '</strong></div>' +
-            '<div>已掌握: <strong style="color:#2e7d32;">' + mastered + '</strong> | 待攻克: <strong style="color:#c62828;">' + pending + '</strong></div>' +
+            '<div>已掌握: <strong data-style="color:#2e7d32;">' + mastered + '</strong> | 待攻克: <strong data-style="color:#c62828;">' + pending + '</strong></div>' +
             '<div>掌握率: <strong>' + rate + '%</strong></div>' +
-            '<div style="margin-top:6px;">' +
-            '<span style="color:#2e7d32;">基础: ' + st.easy + '</span> | ' +
-            '<span style="color:#f57f17;">中等: ' + st.medium + '</span> | ' +
-            '<span style="color:#c62828;">较难: ' + st.hard + '</span>' +
+            '<div data-style="margin-top:6px;">' +
+            '<span data-style="color:#2e7d32;">基础: ' + st.easy + '</span> | ' +
+            '<span data-style="color:#f57f17;">中等: ' + st.medium + '</span> | ' +
+            '<span data-style="color:#c62828;">较难: ' + st.hard + '</span>' +
             '</div>' +
             '</div>';
 
@@ -1084,7 +1084,7 @@ window.errorNotebook = (function() {
         if (errors.length === 0) {
             var empty = document.createElement('div');
             empty.className = 'enb-empty';
-            empty.innerHTML = '<p style="padding:20px;">该学科暂无错题记录，继续保持！</p>';
+            empty.innerHTML = '<p data-style="padding:20px;">该学科暂无错题记录，继续保持！</p>';
             detailDiv.appendChild(empty);
             return;
         }
@@ -1147,7 +1147,7 @@ window.errorNotebook = (function() {
             redoContainer.innerHTML =
                 '<div class="enb-empty"><div class="enb-empty-icon">&#x1F389;</div>' +
                 '<p>所有错题已掌握，没有需要重做的题目！</p>' +
-                '<p style="font-size:0.85rem;">你可以切换到「全部错题」查看已掌握的错题，或继续练习积累新的错题。</p></div>';
+                '<p data-style="font-size:0.85rem;">你可以切换到「全部错题」查看已掌握的错题，或继续练习积累新的错题。</p></div>';
             return;
         }
 
@@ -1388,9 +1388,9 @@ window.errorNotebook = (function() {
             '<div class="enb-redo-summary">' +
             '<h3>' + emoji + ' 重做完成！</h3>' +
             '<div class="enb-score">' + rate + '%</div>' +
-            '<p style="font-size:1.1rem;">正确: <strong style="color:#2e7d32;">' + correct + '</strong> | 错误: <strong style="color:#c62828;">' + incorrect + '</strong> | 总计: ' + total + '</p>' +
-            '<p style="color:#666;">其中 ' + correct + ' 道题的掌握度已提升。</p>' +
-            '<div style="margin-top:16px;display:flex;gap:8px;justify-content:center;">' +
+            '<p data-style="font-size:1.1rem;">正确: <strong data-style="color:#2e7d32;">' + correct + '</strong> | 错误: <strong data-style="color:#c62828;">' + incorrect + '</strong> | 总计: ' + total + '</p>' +
+            '<p data-style="color:#666;">其中 ' + correct + ' 道题的掌握度已提升。</p>' +
+            '<div data-style="margin-top:16px;display:flex;gap:8px;justify-content:center;">' +
             '<button class="enb-btn enb-btn-primary" data-call="window.errorNotebook.switchTab" data-arg1="@s:redo">再次重做</button>' +
             '<button class="enb-btn" data-call="window.errorNotebook.switchTab" data-arg1="@s:all">返回全部错题</button>' +
             '</div></div>';
@@ -1416,7 +1416,7 @@ window.errorNotebook = (function() {
         modal.innerHTML =
             '<h3>确认清空</h3>' +
             '<p>确定要删除全部 <strong>' + data.errors.length + '</strong> 条错题记录吗？</p>' +
-            '<p style="color:#c62828;font-size:0.85rem;">此操作不可撤销，所有错题、掌握状态、重做统计都将被清除。</p>' +
+            '<p data-style="color:#c62828;font-size:0.85rem;">此操作不可撤销，所有错题、掌握状态、重做统计都将被清除。</p>' +
             '<div class="enb-modal-actions">' +
             '<button class="enb-btn" id="enb-modal-cancel">取消</button>' +
             '<button class="enb-btn enb-btn-danger" id="enb-modal-confirm">确认清空</button>' +

@@ -213,14 +213,14 @@ window.celestialMotionSim = (function () {
         var el = document.getElementById('cm-planet-data');
         if (el) {
             el.innerHTML =
-                '<div style="color:#4a90d9;font-weight:bold;margin-bottom:6px;">' + p.name + ' 数据</div>' +
+                '<div data-style="color:#4a90d9;font-weight:bold;margin-bottom:6px;">' + p.name + ' 数据</div>' +
                 '<div>轨道半长轴 a = <b>' + p.a + ' AU</b></div>' +
                 '<div>偏心率 e = <b>' + p.e + '</b></div>' +
                 '<div>公转周期 T = <b>' + p.T + ' 天</b></div>' +
                 '<div>半短轴 b = <b>' + (p.a * Math.sqrt(1 - p.e * p.e)).toFixed(3) + ' AU</b></div>' +
                 '<div>当前日心距 r = <b>' + r.toFixed(3) + ' AU</b></div>' +
                 '<div>当前速度 v = <b>' + spd.toFixed(2) + ' km/s</b></div>' +
-                '<div style="color:#888;margin-top:4px;font-size:11px;">点击Canvas中其它行星可切换</div>';
+                '<div data-style="color:#888;margin-top:4px;font-size:11px;">点击Canvas中其它行星可切换</div>';
         }
     }
 
@@ -228,24 +228,24 @@ window.celestialMotionSim = (function () {
         var el = document.getElementById('cm-law-panel');
         if (!el) return;
         var lawText = {
-            1: '<b style="color:#ffeb3b">第一定律(椭圆定律)</b>：行星绕太阳运动轨道为椭圆，太阳处于椭圆的一个<b>焦点</b>上(非椭圆中心)。图中标注近日点与远日点。',
-            2: '<b style="color:#80deea">第二定律(面积定律)</b>：行星与太阳连线在<b>相等时间内扫过相等面积</b>。黄色扇形A(近日点)与青色扇形B(远日点)时间相等面积相等，故近日点速度大、远日点速度小。',
-            3: '<b style="color:#a5d6a7">第三定律(周期定律)</b>：所有行星 <b>T²/a³ = 常量</b>。下表各行星该比值近似相等。'
+            1: '<b data-style="color:#ffeb3b">第一定律(椭圆定律)</b>：行星绕太阳运动轨道为椭圆，太阳处于椭圆的一个<b>焦点</b>上(非椭圆中心)。图中标注近日点与远日点。',
+            2: '<b data-style="color:#80deea">第二定律(面积定律)</b>：行星与太阳连线在<b>相等时间内扫过相等面积</b>。黄色扇形A(近日点)与青色扇形B(远日点)时间相等面积相等，故近日点速度大、远日点速度小。',
+            3: '<b data-style="color:#a5d6a7">第三定律(周期定律)</b>：所有行星 <b>T²/a³ = 常量</b>。下表各行星该比值近似相等。'
         };
-        var table = '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:11px;">' +
-            '<tr style="background:#1e293b;color:#fff;"><th style="padding:3px;border:1px solid #334">行星</th><th style="padding:3px;border:1px solid #334">a(AU)</th><th style="padding:3px;border:1px solid #334">T(天)</th><th style="padding:3px;border:1px solid #334">T²/a³</th></tr>';
+        var table = '<table data-style="width:100%;border-collapse:collapse;margin-top:6px;font-size:11px;">' +
+            '<tr data-style="background:#1e293b;color:#fff;"><th data-style="padding:3px;border:1px solid #334">行星</th><th data-style="padding:3px;border:1px solid #334">a(AU)</th><th data-style="padding:3px;border:1px solid #334">T(天)</th><th data-style="padding:3px;border:1px solid #334">T²/a³</th></tr>';
         for (var i = 0; i < planets.length; i++) {
             var pp = planets[i];
             var ratio = (pp.T * pp.T) / Math.pow(pp.a, 3);
-            table += '<tr style="text-align:center;' + (i === state.selected ? 'background:#374151;' : '') + '">' +
-                '<td style="padding:2px;border:1px solid #334">' + pp.name + '</td>' +
-                '<td style="padding:2px;border:1px solid #334">' + pp.a + '</td>' +
-                '<td style="padding:2px;border:1px solid #334">' + pp.T + '</td>' +
-                '<td style="padding:2px;border:1px solid #334">' + ratio.toFixed(0) + '</td></tr>';
+            table += '<tr data-style="text-align:center;' + (i === state.selected ? 'background:#374151;' : '') + '">' +
+                '<td data-style="padding:2px;border:1px solid #334">' + pp.name + '</td>' +
+                '<td data-style="padding:2px;border:1px solid #334">' + pp.a + '</td>' +
+                '<td data-style="padding:2px;border:1px solid #334">' + pp.T + '</td>' +
+                '<td data-style="padding:2px;border:1px solid #334">' + ratio.toFixed(0) + '</td></tr>';
         }
         table += '</table>';
-        el.innerHTML = '<div style="background:#0f172a;padding:8px;border-radius:6px;color:#cbd5e1;">' + lawText[state.law] + '</div>' +
-            '<div style="margin-top:8px;color:#94a3b8;font-size:12px;">T²/a³ 比值表(第三定律验证)：</div>' + table;
+        el.innerHTML = '<div data-style="background:#0f172a;padding:8px;border-radius:6px;color:#cbd5e1;">' + lawText[state.law] + '</div>' +
+            '<div data-style="margin-top:8px;color:#94a3b8;font-size:12px;">T²/a³ 比值表(第三定律验证)：</div>' + table;
     }
 
     function animate() {
@@ -259,26 +259,26 @@ window.celestialMotionSim = (function () {
         var box = document.getElementById('celestial-motion-app');
         if (!box) return;
         box.innerHTML =
-            '<div style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">' +
-            '<div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#ffd54f;">行星椭圆轨道运动 + 开普勒三定律可视化</div>' +
-            '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#1e293b;padding:8px;border-radius:6px;margin-bottom:8px;">' +
-                '<button id="cm-play" style="padding:5px 12px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;">暂停</button>' +
-                '<label style="font-size:12px;">时间倍率 <span id="cm-speed-val">20</span>x' +
-                    '<input id="cm-speed" type="range" min="1" max="100" value="20" style="vertical-align:middle;width:160px;"></label>' +
-                '<label style="font-size:12px;">视角 <select id="cm-view" style="padding:3px;background:#334155;color:#fff;border:1px solid #475569;border-radius:3px;">' +
+            '<div data-style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">' +
+            '<div data-style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#ffd54f;">行星椭圆轨道运动 + 开普勒三定律可视化</div>' +
+            '<div data-style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#1e293b;padding:8px;border-radius:6px;margin-bottom:8px;">' +
+                '<button id="cm-play" data-style="padding:5px 12px;background:#2563eb;color:#fff;border:none;border-radius:4px;cursor:pointer;">暂停</button>' +
+                '<label data-style="font-size:12px;">时间倍率 <span id="cm-speed-val">20</span>x' +
+                    '<input id="cm-speed" type="range" min="1" max="100" value="20" data-style="vertical-align:middle;width:160px;"></label>' +
+                '<label data-style="font-size:12px;">视角 <select id="cm-view" data-style="padding:3px;background:#334155;color:#fff;border:1px solid #475569;border-radius:3px;">' +
                     '<option value="top">俯视</option><option value="side">侧视</option></select></label>' +
-                '<label style="font-size:12px;">演示定律 <select id="cm-law" style="padding:3px;background:#334155;color:#fff;border:1px solid #475569;border-radius:3px;">' +
+                '<label data-style="font-size:12px;">演示定律 <select id="cm-law" data-style="padding:3px;background:#334155;color:#fff;border:1px solid #475569;border-radius:3px;">' +
                     '<option value="1">第一定律 椭圆</option><option value="2">第二定律 面积</option><option value="3">第三定律 周期</option></select></label>' +
             '</div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-                '<canvas id="cm-canvas" width="640" height="460" style="background:#0b1026;border:1px solid #334155;border-radius:6px;cursor:pointer;"></canvas>' +
-                '<div style="flex:1;min-width:230px;display:flex;flex-direction:column;gap:8px;">' +
-                    '<div id="cm-planet-data" style="background:#1e293b;padding:8px;border-radius:6px;font-size:12px;min-height:120px;"></div>' +
-                    '<div id="cm-law-panel" style="background:#1e293b;padding:8px;border-radius:6px;font-size:12px;"></div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;">' +
+                '<canvas id="cm-canvas" width="640" height="460" data-style="background:#0b1026;border:1px solid #334155;border-radius:6px;cursor:pointer;"></canvas>' +
+                '<div data-style="flex:1;min-width:230px;display:flex;flex-direction:column;gap:8px;">' +
+                    '<div id="cm-planet-data" data-style="background:#1e293b;padding:8px;border-radius:6px;font-size:12px;min-height:120px;"></div>' +
+                    '<div id="cm-law-panel" data-style="background:#1e293b;padding:8px;border-radius:6px;font-size:12px;"></div>' +
                 '</div>' +
             '</div>' +
-            '<div style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">' +
-                '<b style="color:#f59e0b;">高考考点：</b>万有引力提供向心力(GMm/r²=mv²/r=mω²r)；' +
+            '<div data-style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">' +
+                '<b data-style="color:#f59e0b;">高考考点：</b>万有引力提供向心力(GMm/r²=mv²/r=mω²r)；' +
                 '三个宇宙速度——第一7.9km/s(环绕)、第二11.2km/s(脱离)、第三16.7km/s(逃逸太阳系)；' +
                 '同步卫星(赤道上空、周期=自转周期24h、高度约36000km)；卫星变轨、双星问题(角速度相同、r与质量成反比)。' +
             '</div></div>';
@@ -531,14 +531,14 @@ window.crystalStructure3D = (function () {
         if (!el || !cr) return;
         var p = cr.props;
         el.innerHTML =
-            '<div style="color:#f59e0b;font-weight:bold;margin-bottom:6px;">' + view.current + ' 性质</div>' +
+            '<div data-style="color:#f59e0b;font-weight:bold;margin-bottom:6px;">' + view.current + ' 性质</div>' +
             '<div><b>晶体类型：</b>' + p.type + '</div>' +
             '<div><b>构成微粒：</b>' + p.particle + '</div>' +
             '<div><b>微粒间作用力：</b>' + p.force + '</div>' +
             '<div><b>熔沸点特征：</b>' + p.melt + '</div>' +
             '<div><b>配位数：</b>' + p.coord + '</div>' +
             '<div><b>空间构型：</b>' + p.struct + '</div>' +
-            '<div style="margin-top:6px;color:#888;font-size:11px;">原子色标：Na⁺紫 Cl⁻绿 C灰 O红 Cu橙 Cs⁺金</div>';
+            '<div data-style="margin-top:6px;color:#888;font-size:11px;">原子色标：Na⁺紫 Cl⁻绿 C灰 O红 Cu橙 Cs⁺金</div>';
     }
 
     function render() {
@@ -546,19 +546,19 @@ window.crystalStructure3D = (function () {
         if (!box) return;
         var listHtml = '';
         for (var i = 0; i < ORDER.length; i++) {
-            listHtml += '<div class="cs-item" data-name="' + ORDER[i] + '" style="padding:8px 10px;margin:4px 0;background:' +
+            listHtml += '<div class="cs-item" data-name="' + ORDER[i] + '" data-style="padding:8px 10px;margin:4px 0;background:' +
                 (ORDER[i] === view.current ? '#2563eb' : '#334155') + ';color:#fff;border-radius:5px;cursor:pointer;font-size:13px;">' + ORDER[i] + '</div>';
         }
         box.innerHTML =
-            '<div style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">' +
-            '<div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#f59e0b;">化学晶体结构 3D 查看器</div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-                '<div id="cs-list" style="width:130px;">' + listHtml + '</div>' +
-                '<canvas id="cs-canvas" width="460" height="420" style="background:#0b1026;border:1px solid #334155;border-radius:6px;cursor:grab;"></canvas>' +
-                '<div id="cs-props" style="flex:1;min-width:220px;background:#1e293b;padding:10px;border-radius:6px;font-size:12px;"></div>' +
+            '<div data-style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">' +
+            '<div data-style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#f59e0b;">化学晶体结构 3D 查看器</div>' +
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;">' +
+                '<div id="cs-list" data-style="width:130px;">' + listHtml + '</div>' +
+                '<canvas id="cs-canvas" width="460" height="420" data-style="background:#0b1026;border:1px solid #334155;border-radius:6px;cursor:grab;"></canvas>' +
+                '<div id="cs-props" data-style="flex:1;min-width:220px;background:#1e293b;padding:10px;border-radius:6px;font-size:12px;"></div>' +
             '</div>' +
-            '<div style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">' +
-                '<b style="color:#f59e0b;">高考考点：</b>晶体类型判断(看构成微粒与作用力)；' +
+            '<div data-style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">' +
+                '<b data-style="color:#f59e0b;">高考考点：</b>晶体类型判断(看构成微粒与作用力)；' +
                 '熔沸点比较：原子晶体>离子晶体>分子晶体(金属晶体差异大，看价电子数与半径)；' +
                 '晶胞计算(均摊法：顶点1/8、棱1/4、面1/2、体心1)；配位数与空间构型判断；常见晶体：NaCl/金刚石/石墨/干冰/SiO₂。' +
             '</div></div>';
@@ -774,19 +774,19 @@ window.dnaCentralDogma = (function () {
     function renderSVG(){
         var st=currentStep();
         var el=document.getElementById('dc-svg');
-        if(el)el.innerHTML='<svg width="600" height="320" viewBox="0 0 600 320" style="background:#0b1026;border-radius:6px;">'+st.render(state.progress)+'</svg>';
+        if(el)el.innerHTML='<svg width="600" height="320" viewBox="0 0 600 320" data-style="background:#0b1026;border-radius:6px;">'+st.render(state.progress)+'</svg>';
         var ti=document.getElementById('dc-title');if(ti)ti.textContent=(state.proc+1)+'.'+(state.step+1)+' '+st.title;
         var tx=document.getElementById('dc-text');if(tx)tx.textContent=st.text;
     }
     function renderKnow(){
         var k=KNOW[state.proc],el=document.getElementById('dc-know');if(!el)return;
         var keys=['AUG','UUU','UUC','GCA','UAA','UAG','UGA','GAA','CCC','CGU','GGC'];
-        var tbl='<div style="margin-top:6px;font-size:11px;color:#94a3b8;">密码子简表(节选)：</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">';
-        for(var i=0;i<keys.length;i++)tbl+='<span style="background:#334155;padding:2px 5px;border-radius:3px;font-size:10px;">'+keys[i]+'→'+CODON[keys[i]]+'</span>';
-        tbl+='<span style="background:#334155;padding:2px 5px;border-radius:3px;font-size:10px;">共64密码子→20氨基酸</span></div>';
-        el.innerHTML='<div style="color:#a5d6a7;font-weight:bold;margin-bottom:4px;">'+k.title+' 知识点</div>'+
-            '<div style="color:#fbbf24;font-size:12px;">配对规则：'+k.rule+'</div>'+
-            '<div style="margin-top:6px;font-size:12px;color:#cbd5e1;">'+k.points+'</div>'+tbl;
+        var tbl='<div data-style="margin-top:6px;font-size:11px;color:#94a3b8;">密码子简表(节选)：</div><div data-style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">';
+        for(var i=0;i<keys.length;i++)tbl+='<span data-style="background:#334155;padding:2px 5px;border-radius:3px;font-size:10px;">'+keys[i]+'→'+CODON[keys[i]]+'</span>';
+        tbl+='<span data-style="background:#334155;padding:2px 5px;border-radius:3px;font-size:10px;">共64密码子→20氨基酸</span></div>';
+        el.innerHTML='<div data-style="color:#a5d6a7;font-weight:bold;margin-bottom:4px;">'+k.title+' 知识点</div>'+
+            '<div data-style="color:#fbbf24;font-size:12px;">配对规则：'+k.rule+'</div>'+
+            '<div data-style="margin-top:6px;font-size:12px;color:#cbd5e1;">'+k.points+'</div>'+tbl;
     }
     function loop(){
         if(state.playing){
@@ -812,29 +812,29 @@ window.dnaCentralDogma = (function () {
         var box=document.getElementById('dna-central-dogma-app');
         if(!box)return;
         box.innerHTML=
-            '<div style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">'+
-            '<div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#a5d6a7;">中心法则：DNA复制 → 转录 → 翻译</div>'+
-            '<div style="display:flex;gap:6px;margin-bottom:8px;">'+
-                '<button class="dc-tab" data-p="0" style="flex:1;padding:8px;background:#2563eb;color:#fff;border:none;border-radius:5px;cursor:pointer;">① DNA复制</button>'+
-                '<button class="dc-tab" data-p="1" style="flex:1;padding:8px;background:#334155;color:#fff;border:none;border-radius:5px;cursor:pointer;">② 转录</button>'+
-                '<button class="dc-tab" data-p="2" style="flex:1;padding:8px;background:#334155;color:#fff;border:none;border-radius:5px;cursor:pointer;">③ 翻译</button>'+
+            '<div data-style="font-family:sans-serif;background:#0b1026;color:#e2e8f0;padding:10px;border-radius:8px;">'+
+            '<div data-style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#a5d6a7;">中心法则：DNA复制 → 转录 → 翻译</div>'+
+            '<div data-style="display:flex;gap:6px;margin-bottom:8px;">'+
+                '<button class="dc-tab" data-p="0" data-style="flex:1;padding:8px;background:#2563eb;color:#fff;border:none;border-radius:5px;cursor:pointer;">① DNA复制</button>'+
+                '<button class="dc-tab" data-p="1" data-style="flex:1;padding:8px;background:#334155;color:#fff;border:none;border-radius:5px;cursor:pointer;">② 转录</button>'+
+                '<button class="dc-tab" data-p="2" data-style="flex:1;padding:8px;background:#334155;color:#fff;border:none;border-radius:5px;cursor:pointer;">③ 翻译</button>'+
             '</div>'+
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
-                '<div style="flex:1;min-width:620px;">'+
-                    '<div id="dc-svg" style="text-align:center;"></div>'+
-                    '<div style="display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap;">'+
-                        '<button id="dc-play" style="padding:6px 14px;background:#16a34a;color:#fff;border:none;border-radius:4px;cursor:pointer;">播放动画</button>'+
-                        '<button id="dc-prev" style="padding:6px 12px;background:#475569;color:#fff;border:none;border-radius:4px;cursor:pointer;">上一步</button>'+
-                        '<button id="dc-next" style="padding:6px 12px;background:#475569;color:#fff;border:none;border-radius:4px;cursor:pointer;">下一步</button>'+
-                        '<label style="font-size:12px;">速度 <span id="dc-speed-val">1.0</span>x<input id="dc-speed" type="range" min="0.3" max="3" step="0.1" value="1" style="vertical-align:middle;width:120px;"></label>'+
-                        '<span id="dc-title" style="font-weight:bold;color:#fbbf24;margin-left:8px;"></span>'+
+            '<div data-style="display:flex;gap:8px;flex-wrap:wrap;">'+
+                '<div data-style="flex:1;min-width:620px;">'+
+                    '<div id="dc-svg" data-style="text-align:center;"></div>'+
+                    '<div data-style="display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap;">'+
+                        '<button id="dc-play" data-style="padding:6px 14px;background:#16a34a;color:#fff;border:none;border-radius:4px;cursor:pointer;">播放动画</button>'+
+                        '<button id="dc-prev" data-style="padding:6px 12px;background:#475569;color:#fff;border:none;border-radius:4px;cursor:pointer;">上一步</button>'+
+                        '<button id="dc-next" data-style="padding:6px 12px;background:#475569;color:#fff;border:none;border-radius:4px;cursor:pointer;">下一步</button>'+
+                        '<label data-style="font-size:12px;">速度 <span id="dc-speed-val">1.0</span>x<input id="dc-speed" type="range" min="0.3" max="3" step="0.1" value="1" data-style="vertical-align:middle;width:120px;"></label>'+
+                        '<span id="dc-title" data-style="font-weight:bold;color:#fbbf24;margin-left:8px;"></span>'+
                     '</div>'+
-                    '<div id="dc-text" style="background:#1e293b;padding:8px;border-radius:6px;margin-top:6px;font-size:12px;color:#cbd5e1;min-height:40px;"></div>'+
+                    '<div id="dc-text" data-style="background:#1e293b;padding:8px;border-radius:6px;margin-top:6px;font-size:12px;color:#cbd5e1;min-height:40px;"></div>'+
                 '</div>'+
-                '<div id="dc-know" style="width:260px;background:#1e293b;padding:10px;border-radius:6px;font-size:12px;"></div>'+
+                '<div id="dc-know" data-style="width:260px;background:#1e293b;padding:10px;border-radius:6px;font-size:12px;"></div>'+
             '</div>'+
-            '<div style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">'+
-                '<b style="color:#a5d6a7;">相关高考真题/考点：</b>半保留复制实验(Meselson-Stahl,¹⁵N标记)；复制/转录/翻译场所区别(复制转录主要在细胞核，翻译在核糖体)；'+
+            '<div data-style="background:#1e293b;padding:8px;border-radius:6px;margin-top:8px;font-size:12px;color:#cbd5e1;">'+
+                '<b data-style="color:#a5d6a7;">相关高考真题/考点：</b>半保留复制实验(Meselson-Stahl,¹⁵N标记)；复制/转录/翻译场所区别(复制转录主要在细胞核，翻译在核糖体)；'+
                 '碱基配对规则三种场景；密码子简并性(多种密码子→1种氨基酸)与通用性；基因表达选择性(导致细胞分化)；tRNA种类(61种带氨基酸)。'+
             '</div></div>';
 

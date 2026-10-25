@@ -65,20 +65,20 @@ var examHeatmap = {
         for (var i = 0; i < tabs.length; i++) {
             var t = tabs[i];
             var active = t.key === self.activeTab ? 'background:#3b82f6;color:#fff;' : 'background:#f1f5f9;color:#475569;';
-            tabHTML += '<button data-tab="' + t.key + '" style="padding:8px 18px;border:0;border-radius:6px;cursor:pointer;margin-right:8px;font-size:14px;font-weight:600;' + active + '">' + t.label + '</button>';
+            tabHTML += '<button data-tab="' + t.key + '" data-style="padding:8px 18px;border:0;border-radius:6px;cursor:pointer;margin-right:8px;font-size:14px;font-weight:600;' + active + '">' + t.label + '</button>';
         }
 
         var svgHTML = this._buildHeatmapSVG();
 
         app.innerHTML =
-            '<div style="max-width:900px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
-            '<h3 style="margin:0 0 4px;color:#0f172a;">📊 高考考点频次热力图</h3>' +
-            '<p style="margin:0 0 16px;color:#64748b;font-size:13px;">横轴：年份 &nbsp;|&nbsp; 纵轴：考点 &nbsp;|&nbsp; 颜色越深分值越高 &nbsp;|&nbsp; 点击行高亮查看趋势</p>' +
-            '<div style="margin-bottom:16px;">' + tabHTML + '</div>' +
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;overflow-x:auto;">' +
+            '<div data-style="max-width:900px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
+            '<h3 data-style="margin:0 0 4px;color:#0f172a;">📊 高考考点频次热力图</h3>' +
+            '<p data-style="margin:0 0 16px;color:#64748b;font-size:13px;">横轴：年份 &nbsp;|&nbsp; 纵轴：考点 &nbsp;|&nbsp; 颜色越深分值越高 &nbsp;|&nbsp; 点击行高亮查看趋势</p>' +
+            '<div data-style="margin-bottom:16px;">' + tabHTML + '</div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;overflow-x:auto;">' +
             svgHTML + '</div>' +
             this._buildLegend() +
-            '<div style="margin-top:14px;padding:12px 16px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;font-size:13px;color:#334155;line-height:1.8;">' +
+            '<div data-style="margin-top:14px;padding:12px 16px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;font-size:13px;color:#334155;line-height:1.8;">' +
             '<strong>📈 趋势分析：</strong><br>' + this._generateTrendText() + '</div>' +
             '</div>';
 
@@ -95,7 +95,7 @@ var examHeatmap = {
         var svgW = leftPad + cellW * 5 + rightPad;
         var svgH = topPad + cellH * 10 + bottomPad;
 
-        var svg = '<svg width="' + svgW + '" height="' + svgH + '" viewBox="0 0 ' + svgW + ' ' + svgH + '" style="font-family:Arial,sans-serif;">';
+        var svg = '<svg width="' + svgW + '" height="' + svgH + '" viewBox="0 0 ' + svgW + ' ' + svgH + '" data-style="font-family:Arial,sans-serif;">';
 
         // 年份标签
         for (var y = 0; y < 5; y++) {
@@ -107,7 +107,7 @@ var examHeatmap = {
             var row = data[r];
             // 考点名（左侧）
             var rowHL = self.highlightedRow === r;
-            svg += '<text x="' + (leftPad - 10) + '" y="' + (topPad + r * cellH + cellH/2 + 4) + '" text-anchor="end" font-size="12" fill="' + (rowHL ? '#1e40af' : '#334155') + '" font-weight="' + (rowHL ? '700' : '500') + '" style="cursor:pointer;" data-row="' + r + '">' + row.name + '</text>';
+            svg += '<text x="' + (leftPad - 10) + '" y="' + (topPad + r * cellH + cellH/2 + 4) + '" text-anchor="end" font-size="12" fill="' + (rowHL ? '#1e40af' : '#334155') + '" font-weight="' + (rowHL ? '700' : '500') + '" data-style="cursor:pointer;" data-row="' + r + '">' + row.name + '</text>';
 
             for (var c = 0; c < 5; c++) {
                 var score = row.scores[c];
@@ -116,8 +116,8 @@ var examHeatmap = {
                 var y = topPad + r * cellH;
                 var rx = 4;
                 var cellHL = self.highlightedRow === r;
-                svg += '<rect x="' + x + '" y="' + y + '" width="' + (cellW - 4) + '" height="' + (cellH - 4) + '" rx="' + rx + '" fill="' + color + '" stroke="' + (cellHL ? '#1e40af' : '#e2e8f0') + '" stroke-width="' + (cellHL ? '2' : '1') + '" style="cursor:pointer;" data-row="' + r + '" data-col="' + c + '" data-name="' + row.name + '" data-year="' + years[c] + '" data-score="' + score + '"/>';
-                svg += '<text x="' + (x + (cellW - 4)/2) + '" y="' + (y + (cellH - 4)/2 + 4) + '" text-anchor="middle" font-size="13" font-weight="700" fill="' + (score >= 12 ? '#fff' : '#1e293b') + '" style="pointer-events:none;">' + score + '</text>';
+                svg += '<rect x="' + x + '" y="' + y + '" width="' + (cellW - 4) + '" height="' + (cellH - 4) + '" rx="' + rx + '" fill="' + color + '" stroke="' + (cellHL ? '#1e40af' : '#e2e8f0') + '" stroke-width="' + (cellHL ? '2' : '1') + '" data-style="cursor:pointer;" data-row="' + r + '" data-col="' + c + '" data-name="' + row.name + '" data-year="' + years[c] + '" data-score="' + score + '"/>';
+                svg += '<text x="' + (x + (cellW - 4)/2) + '" y="' + (y + (cellH - 4)/2 + 4) + '" text-anchor="middle" font-size="13" font-weight="700" fill="' + (score >= 12 ? '#fff' : '#1e293b') + '" data-style="pointer-events:none;">' + score + '</text>';
             }
         }
         svg += '</svg>';
@@ -133,13 +133,13 @@ var examHeatmap = {
     },
 
     _buildLegend: function() {
-        return '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:12px;color:#475569;align-items:center;">' +
-            '<span style="font-weight:600;">图例：</span>' +
-            '<span style="display:inline-block;width:18px;height:18px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 0-3分' +
-            '<span style="display:inline-block;width:18px;height:18px;background:#93c5fd;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 4-7分' +
-            '<span style="display:inline-block;width:18px;height:18px;background:#3b82f6;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 8-11分' +
-            '<span style="display:inline-block;width:18px;height:18px;background:#1e40af;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 12-14分' +
-            '<span style="display:inline-block;width:18px;height:18px;background:#ef4444;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 15+分' +
+        return '<div data-style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:12px;color:#475569;align-items:center;">' +
+            '<span data-style="font-weight:600;">图例：</span>' +
+            '<span data-style="display:inline-block;width:18px;height:18px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 0-3分' +
+            '<span data-style="display:inline-block;width:18px;height:18px;background:#93c5fd;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 4-7分' +
+            '<span data-style="display:inline-block;width:18px;height:18px;background:#3b82f6;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 8-11分' +
+            '<span data-style="display:inline-block;width:18px;height:18px;background:#1e40af;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 12-14分' +
+            '<span data-style="display:inline-block;width:18px;height:18px;background:#ef4444;border:1px solid #cbd5e1;border-radius:3px;vertical-align:middle;"></span> 15+分' +
             '</div>';
     },
 
@@ -227,7 +227,7 @@ var examHeatmap = {
                         tooltip.style.cssText = 'position:fixed;background:#1e293b;color:#fff;padding:8px 14px;border-radius:6px;font-size:13px;pointer-events:none;z-index:9999;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
                         document.body.appendChild(tooltip);
                     }
-                    tooltip.innerHTML = '<strong>' + name + '</strong><br>' + year + '年考分：<strong style="color:#60a5fa;">' + score + '分</strong>';
+                    tooltip.innerHTML = '<strong>' + name + '</strong><br>' + year + '年考分：<strong data-style="color:#60a5fa;">' + score + '分</strong>';
                     tooltip.style.display = 'block';
                 });
                 rect.addEventListener('mousemove', function(e) {
@@ -373,7 +373,7 @@ var terminologyChecker = {
         for (var i = 0; i < modeBtns.length; i++) {
             var m = modeBtns[i];
             var active = m.key === self.mode ? 'background:#3b82f6;color:#fff;' : 'background:#f1f5f9;color:#475569;';
-            mbHTML += '<button data-mode="' + m.key + '" style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;margin-right:8px;font-size:13px;font-weight:600;' + active + '">' + m.label + '</button>';
+            mbHTML += '<button data-mode="' + m.key + '" data-style="padding:8px 16px;border:0;border-radius:6px;cursor:pointer;margin-right:8px;font-size:13px;font-weight:600;' + active + '">' + m.label + '</button>';
         }
 
         var contentHTML = '';
@@ -385,10 +385,10 @@ var terminologyChecker = {
             contentHTML = self._renderQuiz();
         }
 
-        app.innerHTML = '<div style="max-width:850px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
-            '<h3 style="margin:0 0 4px;color:#0f172a;">📝 高考专业术语/易错字速查</h3>' +
-            '<p style="margin:0 0 14px;color:#64748b;font-size:13px;">收录三科高频易错术语，避免因字写错而丢分</p>' +
-            '<div style="margin-bottom:16px;">' + mbHTML + '</div>' +
+        app.innerHTML = '<div data-style="max-width:850px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
+            '<h3 data-style="margin:0 0 4px;color:#0f172a;">📝 高考专业术语/易错字速查</h3>' +
+            '<p data-style="margin:0 0 14px;color:#64748b;font-size:13px;">收录三科高频易错术语，避免因字写错而丢分</p>' +
+            '<div data-style="margin-bottom:16px;">' + mbHTML + '</div>' +
             contentHTML + '</div>';
 
         var btns = app.querySelectorAll('[data-mode]');
@@ -415,8 +415,8 @@ var terminologyChecker = {
 
     _renderSearch: function() {
         var allTerms = this.bioTerms.concat(this.chemTerms).concat(this.physTerms);
-        var html = '<input type="text" id="term-search-input" placeholder="🔍 搜索术语（如：类囊体、坩埚、向心力...）" style="width:100%;max-width:400px;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;outline:none;">' +
-            '<div id="term-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">';
+        var html = '<input type="text" id="term-search-input" placeholder="🔍 搜索术语（如：类囊体、坩埚、向心力...）" data-style="width:100%;max-width:400px;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;outline:none;">' +
+            '<div id="term-cards" data-style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">';
 
         for (var i = 0; i < allTerms.length; i++) {
             var t = allTerms[i];
@@ -426,12 +426,12 @@ var terminologyChecker = {
             else if (i < 24) { subjectLabel = '化学'; subjectColor = '#2563eb'; }
             else { subjectLabel = '物理'; subjectColor = '#7c3aed'; }
 
-            html += '<div class="term-card" data-term="' + t.correct + '" data-wrong="' + (t.wrong || '') + '" data-explain="' + t.explain.replace(/"/g, '&quot;') + '" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;transition:all 0.2s;">' +
-                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
-                '<span style="font-weight:700;font-size:15px;color:#0f172a;">' + t.correct + '</span>' +
-                '<span style="background:' + subjectColor + ';color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;">' + subjectLabel + '</span></div>' +
-                (t.wrong ? '<div style="font-size:12px;color:#ef4444;">⚠ 常见错误：<strong>' + t.wrong + '</strong></div>' : '') +
-                '<div style="font-size:12px;color:#64748b;margin-top:4px;">' + t.explain + '</div></div>';
+            html += '<div class="term-card" data-term="' + t.correct + '" data-wrong="' + (t.wrong || '') + '" data-explain="' + t.explain.replace(/"/g, '&quot;') + '" data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;transition:all 0.2s;">' +
+                '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
+                '<span data-style="font-weight:700;font-size:15px;color:#0f172a;">' + t.correct + '</span>' +
+                '<span data-style="background:' + subjectColor + ';color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;">' + subjectLabel + '</span></div>' +
+                (t.wrong ? '<div data-style="font-size:12px;color:#ef4444;">⚠ 常见错误：<strong>' + t.wrong + '</strong></div>' : '') +
+                '<div data-style="font-size:12px;color:#64748b;margin-top:4px;">' + t.explain + '</div></div>';
         }
         html += '</div>';
         return html;
@@ -471,7 +471,7 @@ var terminologyChecker = {
             }
         }
 
-        var html = '<div style="margin-bottom:12px;font-size:13px;color:#475569;">📋 以下句子中可能含有错别字，请找出并说出正确写法（点击查看答案）</div>';
+        var html = '<div data-style="margin-bottom:12px;font-size:13px;color:#475569;">📋 以下句子中可能含有错别字，请找出并说出正确写法（点击查看答案）</div>';
         for (var i = 0; i < shuffled.length; i++) {
             var t = shuffled[i];
             var practiceSentence = '';
@@ -480,12 +480,12 @@ var terminologyChecker = {
             } else {
                 practiceSentence = '请写出\"' + t.correct + '\"在实验中的正确使用场景...';
             }
-            html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:10px;">' +
-                '<div style="font-size:14px;color:#1e293b;margin-bottom:8px;">' + (i+1) + '. ' + practiceSentence + '</div>' +
-                '<button class="show-answer-btn" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;">💡 点我看答案</button>' +
-                '<div class="practice-answer" style="display:none;margin-top:8px;padding:8px 12px;background:#f0fdf4;border-left:3px solid #22c55e;border-radius:4px;font-size:13px;">' +
-                '<span style="color:#ef4444;text-decoration:line-through;">' + (t.wrong || '—') + '</span> → <strong style="color:#16a34a;">' + t.correct + '</strong><br>' +
-                '<span style="color:#64748b;">' + t.explain + '</span></div></div>';
+            html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:10px;">' +
+                '<div data-style="font-size:14px;color:#1e293b;margin-bottom:8px;">' + (i+1) + '. ' + practiceSentence + '</div>' +
+                '<button class="show-answer-btn" data-style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;">💡 点我看答案</button>' +
+                '<div class="practice-answer" data-style="display:none;margin-top:8px;padding:8px 12px;background:#f0fdf4;border-left:3px solid #22c55e;border-radius:4px;font-size:13px;">' +
+                '<span data-style="color:#ef4444;text-decoration:line-through;">' + (t.wrong || '—') + '</span> → <strong data-style="color:#16a34a;">' + t.correct + '</strong><br>' +
+                '<span data-style="color:#64748b;">' + t.explain + '</span></div></div>';
         }
         return html;
     },
@@ -512,17 +512,17 @@ var terminologyChecker = {
         var q = self.quizQuestions[qs.current];
         var progress = '第 ' + (qs.current + 1) + '/' + self.quizQuestions.length + ' 题';
 
-        var html = '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">' +
-            '<span style="font-weight:600;color:#3b82f6;">' + progress + '</span>' +
-            '<span style="font-size:12px;color:#64748b;">已答对：' + qs.score + ' 题</span></div>' +
-            '<div style="background:#f8fafc;padding:20px;border-radius:8px;margin-bottom:20px;font-size:16px;line-height:2;">' +
-            q.sentence.replace('__', '<span style="background:#fef3c7;padding:2px 8px;border-radius:4px;font-weight:700;">____</span>') + '</div>' +
-            '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">' +
-            '<button class="quiz-opt" data-choice="correct" style="background:#f0fdf4;color:#16a34a;border:2px solid #86efac;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">' + q.correctOption + '</button>' +
-            '<button class="quiz-opt" data-choice="wrong" style="background:#fef2f2;color:#dc2626;border:2px solid #fca5a5;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">' + q.wrongOption + '</button></div>' +
-            '<div id="quiz-feedback" style="margin-top:16px;text-align:center;"></div>' +
-            '<div style="margin-top:16px;text-align:center;"><button id="quiz-next" style="display:none;background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;">' +
+        var html = '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;">' +
+            '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">' +
+            '<span data-style="font-weight:600;color:#3b82f6;">' + progress + '</span>' +
+            '<span data-style="font-size:12px;color:#64748b;">已答对：' + qs.score + ' 题</span></div>' +
+            '<div data-style="background:#f8fafc;padding:20px;border-radius:8px;margin-bottom:20px;font-size:16px;line-height:2;">' +
+            q.sentence.replace('__', '<span data-style="background:#fef3c7;padding:2px 8px;border-radius:4px;font-weight:700;">____</span>') + '</div>' +
+            '<div data-style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">' +
+            '<button class="quiz-opt" data-choice="correct" data-style="background:#f0fdf4;color:#16a34a;border:2px solid #86efac;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">' + q.correctOption + '</button>' +
+            '<button class="quiz-opt" data-choice="wrong" data-style="background:#fef2f2;color:#dc2626;border:2px solid #fca5a5;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">' + q.wrongOption + '</button></div>' +
+            '<div id="quiz-feedback" data-style="margin-top:16px;text-align:center;"></div>' +
+            '<div data-style="margin-top:16px;text-align:center;"><button id="quiz-next" data-style="display:none;background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;">' +
             (qs.current < self.quizQuestions.length - 1 ? '下一题 →' : '查看结果 🎉') + '</button></div></div>';
 
         return html;
@@ -544,9 +544,9 @@ var terminologyChecker = {
 
                     if (isCorrect) {
                         self.quizState.score++;
-                        fb.innerHTML = '<div style="color:#16a34a;font-size:32px;">✓</div><div style="color:#16a34a;font-weight:600;">回答正确！</div>';
+                        fb.innerHTML = '<div data-style="color:#16a34a;font-size:32px;">✓</div><div data-style="color:#16a34a;font-weight:600;">回答正确！</div>';
                     } else {
-                        fb.innerHTML = '<div style="color:#dc2626;font-size:32px;">✗</div><div style="color:#dc2626;">正确答案是：<strong>' + q.correctOption + '</strong></div><div style="color:#64748b;font-size:13px;margin-top:4px;">💡 ' + q.tip + '</div>';
+                        fb.innerHTML = '<div data-style="color:#dc2626;font-size:32px;">✗</div><div data-style="color:#dc2626;">正确答案是：<strong>' + q.correctOption + '</strong></div><div data-style="color:#64748b;font-size:13px;margin-top:4px;">💡 ' + q.tip + '</div>';
                     }
                     self.quizState.results.push({ question: self.quizState.current, correct: isCorrect });
                     nextBtn.style.display = 'inline-block';
@@ -582,18 +582,18 @@ var terminologyChecker = {
         var pct = Math.round(qs.score / total * 100);
         var emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪';
 
-        var html = '<div style="text-align:center;padding:30px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;">' +
-            '<div style="font-size:60px;margin-bottom:10px;">' + emoji + '</div>' +
-            '<div style="font-size:24px;font-weight:700;color:#0f172a;">测试完成！</div>' +
-            '<div style="font-size:48px;font-weight:700;color:#3b82f6;margin:12px 0;">' + qs.score + ' / ' + total + '</div>' +
-            '<div style="font-size:16px;color:#64748b;">正确率 ' + pct + '%</div>' +
-            '<div style="margin-top:16px;">' +
-            (pct === 100 ? '<span style="color:#16a34a;">全部正确！你是术语大师！🏆</span>' :
-             pct >= 80 ? '<span style="color:#16a34a;">非常棒！只有少量需要复习</span>' :
-             pct >= 60 ? '<span style="color:#d97706;">不错！建议回顾上面的错误术语</span>' :
-             '<span style="color:#dc2626;">需要多多练习哦！对照术语速查表学习吧</span>') +
+        var html = '<div data-style="text-align:center;padding:30px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;">' +
+            '<div data-style="font-size:60px;margin-bottom:10px;">' + emoji + '</div>' +
+            '<div data-style="font-size:24px;font-weight:700;color:#0f172a;">测试完成！</div>' +
+            '<div data-style="font-size:48px;font-weight:700;color:#3b82f6;margin:12px 0;">' + qs.score + ' / ' + total + '</div>' +
+            '<div data-style="font-size:16px;color:#64748b;">正确率 ' + pct + '%</div>' +
+            '<div data-style="margin-top:16px;">' +
+            (pct === 100 ? '<span data-style="color:#16a34a;">全部正确！你是术语大师！🏆</span>' :
+             pct >= 80 ? '<span data-style="color:#16a34a;">非常棒！只有少量需要复习</span>' :
+             pct >= 60 ? '<span data-style="color:#d97706;">不错！建议回顾上面的错误术语</span>' :
+             '<span data-style="color:#dc2626;">需要多多练习哦！对照术语速查表学习吧</span>') +
             '</div>' +
-            '<button id="quiz-retry" style="margin-top:20px;background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;">🔄 重新测试</button></div>';
+            '<button id="quiz-retry" data-style="margin-top:20px;background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;">🔄 重新测试</button></div>';
 
         // Bind retry after render
         setTimeout(function() {
@@ -648,35 +648,35 @@ var countdownTaskSystem = {
 
         var reviewPhase = self._getReviewPhase(now);
 
-        var html = '<div style="max-width:700px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
+        var html = '<div data-style="max-width:700px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
             // 倒计时
-            '<div style="text-align:center;padding:30px 20px;background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:16px;color:#fff;margin-bottom:20px;">' +
-            '<div style="font-size:14px;opacity:0.8;margin-bottom:8px;">距离2027年高考还有</div>' +
-            '<div id="countdown-days" style="font-size:72px;font-weight:800;line-height:1;">' + diffDays + '</div>' +
-            '<div style="font-size:20px;margin-top:4px;">天</div>' +
-            '<div id="countdown-time" style="font-size:14px;opacity:0.8;margin-top:8px;"></div>' +
-            '<div style="margin-top:12px;font-size:12px;opacity:0.7;">目标：2027年6月7日</div></div>' +
+            '<div data-style="text-align:center;padding:30px 20px;background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:16px;color:#fff;margin-bottom:20px;">' +
+            '<div data-style="font-size:14px;opacity:0.8;margin-bottom:8px;">距离2027年高考还有</div>' +
+            '<div id="countdown-days" data-style="font-size:72px;font-weight:800;line-height:1;">' + diffDays + '</div>' +
+            '<div data-style="font-size:20px;margin-top:4px;">天</div>' +
+            '<div id="countdown-time" data-style="font-size:14px;opacity:0.8;margin-top:8px;"></div>' +
+            '<div data-style="margin-top:12px;font-size:12px;opacity:0.7;">目标：2027年6月7日</div></div>' +
 
             // 复习阶段
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
-            '<div style="font-weight:700;color:#0f172a;margin-bottom:4px;">📅 当前复习阶段：<span style="color:#3b82f6;">' + reviewPhase.name + '</span></div>' +
-            '<div style="font-size:13px;color:#64748b;">' + reviewPhase.desc + '</div></div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
+            '<div data-style="font-weight:700;color:#0f172a;margin-bottom:4px;">📅 当前复习阶段：<span data-style="color:#3b82f6;">' + reviewPhase.name + '</span></div>' +
+            '<div data-style="font-size:13px;color:#64748b;">' + reviewPhase.desc + '</div></div>' +
 
             // 今日任务
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
-            '<div style="font-weight:700;color:#0f172a;margin-bottom:12px;">📋 今日任务推荐</div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
+            '<div data-style="font-weight:700;color:#0f172a;margin-bottom:12px;">📋 今日任务推荐</div>' +
             self._renderTodayTasks(now) + '</div>' +
 
             // 打卡
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">' +
-            '<div style="font-weight:700;color:#0f172a;">✅ 今日打卡</div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px;">' +
+            '<div data-style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">' +
+            '<div data-style="font-weight:700;color:#0f172a;">✅ 今日打卡</div>' +
             self._renderCheckinButton() + '</div>' +
             self._renderCheckinStats() + '</div>' +
 
             // 打卡日历
-            '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;">' +
-            '<div style="font-weight:700;color:#0f172a;margin-bottom:12px;">📆 本月打卡日历</div>' +
+            '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;">' +
+            '<div data-style="font-weight:700;color:#0f172a;margin-bottom:12px;">📆 本月打卡日历</div>' +
             self._renderMonthCalendar() + '</div></div>';
 
         app.innerHTML = html;
@@ -714,7 +714,7 @@ var countdownTaskSystem = {
 
         var html = '';
         for (var i = 0; i < tasks.length; i++) {
-            html += '<div style="padding:8px 12px;background:#f8fafc;border-radius:6px;margin-bottom:6px;font-size:14px;border-left:3px solid #3b82f6;">' + tasks[i] + '</div>';
+            html += '<div data-style="padding:8px 12px;background:#f8fafc;border-radius:6px;margin-bottom:6px;font-size:14px;border-left:3px solid #3b82f6;">' + tasks[i] + '</div>';
         }
         return html;
     },
@@ -723,9 +723,9 @@ var countdownTaskSystem = {
         var today = this._getDateKey(new Date());
         var checked = this.checkinData[today] === true;
         if (checked) {
-            return '<button style="background:#86efac;color:#166534;border:0;padding:10px 24px;border-radius:8px;font-size:15px;font-weight:700;cursor:default;">✓ 今日已打卡</button>';
+            return '<button data-style="background:#86efac;color:#166534;border:0;padding:10px 24px;border-radius:8px;font-size:15px;font-weight:700;cursor:default;">✓ 今日已打卡</button>';
         }
-        return '<button id="checkin-btn" style="background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">📌 今日打卡</button>';
+        return '<button id="checkin-btn" data-style="background:#3b82f6;color:#fff;border:0;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">📌 今日打卡</button>';
     },
 
     _renderCheckinStats: function() {
@@ -734,28 +734,28 @@ var countdownTaskSystem = {
         var streak = self._calcStreak();
 
         // 最近7天
-        var recentHTML = '<div style="display:flex;gap:6px;margin-top:4px;">';
+        var recentHTML = '<div data-style="display:flex;gap:6px;margin-top:4px;">';
         for (var i = 6; i >= 0; i--) {
             var d = new Date();
             d.setDate(d.getDate() - i);
             var key = self._getDateKey(d);
             var checked = self.checkinData[key] === true;
-            recentHTML += '<span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;' +
+            recentHTML += '<span data-style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;' +
                 (checked ? 'background:#16a34a;color:#fff;' : 'background:#f1f5f9;color:#cbd5e1;') + '">' +
                 (checked ? '✓' : '·') + '</span>';
         }
         recentHTML += '</div>';
 
-        return '<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">' +
-            '<div style="text-align:center;padding:10px 16px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa;">' +
-            '<div style="font-size:24px;">🔥</div>' +
-            '<div style="font-size:22px;font-weight:700;color:#ea580c;">' + streak + '</div>' +
-            '<div style="font-size:11px;color:#9a3412;">连续打卡(天)</div></div>' +
-            '<div style="text-align:center;padding:10px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;">' +
-            '<div style="font-size:22px;font-weight:700;color:#16a34a;">' + totalDays + '</div>' +
-            '<div style="font-size:11px;color:#166534;">总打卡天数</div></div>' +
-            '<div style="flex:1;min-width:180px;">' +
-            '<div style="font-size:12px;color:#64748b;margin-bottom:4px;">最近7天</div>' + recentHTML + '</div></div>';
+        return '<div data-style="margin-top:12px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">' +
+            '<div data-style="text-align:center;padding:10px 16px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa;">' +
+            '<div data-style="font-size:24px;">🔥</div>' +
+            '<div data-style="font-size:22px;font-weight:700;color:#ea580c;">' + streak + '</div>' +
+            '<div data-style="font-size:11px;color:#9a3412;">连续打卡(天)</div></div>' +
+            '<div data-style="text-align:center;padding:10px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;">' +
+            '<div data-style="font-size:22px;font-weight:700;color:#16a34a;">' + totalDays + '</div>' +
+            '<div data-style="font-size:11px;color:#166534;">总打卡天数</div></div>' +
+            '<div data-style="flex:1;min-width:180px;">' +
+            '<div data-style="font-size:12px;color:#64748b;margin-bottom:4px;">最近7天</div>' + recentHTML + '</div></div>';
     },
 
     _renderMonthCalendar: function() {
@@ -768,13 +768,13 @@ var countdownTaskSystem = {
 
         var weekDayNames = ['日', '一', '二', '三', '四', '五', '六'];
 
-        var html = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;">';
+        var html = '<div data-style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;">';
         for (var w = 0; w < 7; w++) {
-            html += '<div style="font-size:12px;color:#94a3b8;font-weight:600;padding:4px;">' + weekDayNames[w] + '</div>';
+            html += '<div data-style="font-size:12px;color:#94a3b8;font-weight:600;padding:4px;">' + weekDayNames[w] + '</div>';
         }
         // 空白格子
         for (var e = 0; e < firstDay; e++) {
-            html += '<div style="padding:6px;"></div>';
+            html += '<div data-style="padding:6px;"></div>';
         }
         // 日期格子
         for (var d = 1; d <= daysInMonth; d++) {
@@ -784,7 +784,7 @@ var countdownTaskSystem = {
             var bg = isToday ? '#3b82f6' : (checked ? '#16a34a' : '#f8fafc');
             var color = isToday ? '#fff' : (checked ? '#fff' : '#64748b');
             var weight = isToday ? '700' : '500';
-            html += '<div style="padding:6px;font-size:12px;background:' + bg + ';color:' + color + ';font-weight:' + weight + ';border-radius:4px;">' +
+            html += '<div data-style="padding:6px;font-size:12px;background:' + bg + ';color:' + color + ';font-weight:' + weight + ';border-radius:4px;">' +
                 (checked ? '✓ ' + d : '' + d) + '</div>';
         }
         html += '</div>';
@@ -872,13 +872,13 @@ var studyReport = {
         if (!app) return;
         var self = this;
 
-        var html = '<div style="max-width:800px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
-            '<h3 style="margin:0 0 4px;color:#0f172a;">📊 学习报告生成器</h3>' +
-            '<p style="margin:0 0 16px;color:#64748b;font-size:13px;">综合分析你的学习数据，生成个性化诊断报告</p>' +
-            '<div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">' +
-            '<button id="gen-report-btn" style="background:#3b82f6;color:#fff;border:0;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">📋 生成本周报告</button>' +
-            '<button id="print-report-btn" style="background:#f1f5f9;color:#475569;border:1px solid #cbd5e1;padding:12px 24px;border-radius:8px;cursor:pointer;display:none;font-size:14px;">🖨 打印报告</button>' +
-            '<button id="clear-data-btn" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:14px;">🗑 清除数据</button></div>' +
+        var html = '<div data-style="max-width:800px;margin:0 auto;padding:20px;font-family:Arial,sans-serif;">' +
+            '<h3 data-style="margin:0 0 4px;color:#0f172a;">📊 学习报告生成器</h3>' +
+            '<p data-style="margin:0 0 16px;color:#64748b;font-size:13px;">综合分析你的学习数据，生成个性化诊断报告</p>' +
+            '<div data-style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">' +
+            '<button id="gen-report-btn" data-style="background:#3b82f6;color:#fff;border:0;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;">📋 生成本周报告</button>' +
+            '<button id="print-report-btn" data-style="background:#f1f5f9;color:#475569;border:1px solid #cbd5e1;padding:12px 24px;border-radius:8px;cursor:pointer;display:none;font-size:14px;">🖨 打印报告</button>' +
+            '<button id="clear-data-btn" data-style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:14px;">🗑 清除数据</button></div>' +
             '<div id="report-content"></div></div>';
 
         app.innerHTML = html;
@@ -928,10 +928,10 @@ var studyReport = {
         // 如果没有任何数据
         if (wrongRecords.length === 0 && quizRecords.length === 0 && Object.keys(masteryData).length === 0) {
             document.getElementById('report-content').innerHTML =
-                '<div style="text-align:center;padding:40px;background:#fffbeb;border:2px dashed #fcd34d;border-radius:12px;">' +
-                '<div style="font-size:48px;margin-bottom:12px;">📭</div>' +
-                '<div style="font-size:18px;color:#92400e;font-weight:600;">继续做题来生成报告吧</div>' +
-                '<div style="font-size:14px;color:#a16207;margin-top:8px;">还没有足够的学习数据，先去刷题吧！💪</div></div>';
+                '<div data-style="text-align:center;padding:40px;background:#fffbeb;border:2px dashed #fcd34d;border-radius:12px;">' +
+                '<div data-style="font-size:48px;margin-bottom:12px;">📭</div>' +
+                '<div data-style="font-size:18px;color:#92400e;font-weight:600;">继续做题来生成报告吧</div>' +
+                '<div data-style="font-size:14px;color:#a16207;margin-top:8px;">还没有足够的学习数据，先去刷题吧！💪</div></div>';
             document.getElementById('print-report-btn').style.display = 'none';
             return;
         }
@@ -1000,44 +1000,44 @@ var studyReport = {
         var html = '';
 
         // 1. 概览卡片
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px;">';
-        html += '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;color:#64748b;">本周做题总数</div>' +
-            '<div style="font-size:32px;font-weight:700;color:#1e40af;">' + d.thisWeekTotal + '</div></div>';
-        html += '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;color:#64748b;">正确率</div>' +
-            '<div style="font-size:32px;font-weight:700;color:#16a34a;">' + d.thisWeekAccuracy + '%</div></div>';
-        html += '<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;color:#64748b;">累计打卡</div>' +
-            '<div style="font-size:32px;font-weight:700;color:#ea580c;">' + d.totalCheckins + '天</div></div>';
+        html += '<div data-style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px;">';
+        html += '<div data-style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;color:#64748b;">本周做题总数</div>' +
+            '<div data-style="font-size:32px;font-weight:700;color:#1e40af;">' + d.thisWeekTotal + '</div></div>';
+        html += '<div data-style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;color:#64748b;">正确率</div>' +
+            '<div data-style="font-size:32px;font-weight:700;color:#16a34a;">' + d.thisWeekAccuracy + '%</div></div>';
+        html += '<div data-style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;color:#64748b;">累计打卡</div>' +
+            '<div data-style="font-size:32px;font-weight:700;color:#ea580c;">' + d.totalCheckins + '天</div></div>';
         var changeColor = d.accuracyChange >= 0 ? '#16a34a' : '#dc2626';
         var changeSign = d.accuracyChange >= 0 ? '+' : '';
-        html += '<div style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:16px;text-align:center;">' +
-            '<div style="font-size:12px;color:#64748b;">vs 上周</div>' +
-            '<div style="font-size:32px;font-weight:700;color:' + changeColor + ';">' + changeSign + d.accuracyChange + '%</div></div>';
+        html += '<div data-style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:16px;text-align:center;">' +
+            '<div data-style="font-size:12px;color:#64748b;">vs 上周</div>' +
+            '<div data-style="font-size:32px;font-weight:700;color:' + changeColor + ';">' + changeSign + d.accuracyChange + '%</div></div>';
         html += '</div>';
 
         // 各科分布
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
-        html += '<div style="font-weight:700;color:#0f172a;margin-bottom:10px;">📊 各科得分率预估</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
+        html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:10px;">📊 各科得分率预估</div>';
         var subjects = ['物理', '化学', '生物'];
         var colors = ['#3b82f6', '#16a34a', '#f59e0b'];
         for (var s = 0; s < subjects.length; s++) {
             var subj = subjects[s];
             var stat = d.subjectStats[subj] || { total: 0, correct: 0 };
             var pct = stat.total > 0 ? Math.round(stat.correct / stat.total * 100) : 0;
-            html += '<div style="display:flex;align-items:center;margin-bottom:8px;">' +
-                '<span style="width:50px;font-weight:600;font-size:14px;">' + subj + '</span>' +
-                '<div style="flex:1;height:20px;background:#f1f5f9;border-radius:10px;overflow:hidden;margin:0 10px;">' +
-                '<div style="height:100%;width:' + pct + '%;background:' + colors[s] + ';border-radius:10px;"></div></div>' +
-                '<span style="font-weight:700;font-size:14px;color:' + colors[s] + ';">' + pct + '%</span>' +
-                '<span style="font-size:11px;color:#94a3b8;margin-left:6px;">(' + stat.correct + '/' + stat.total + ')</span></div>';
+            html += '<div data-style="display:flex;align-items:center;margin-bottom:8px;">' +
+                '<span data-style="width:50px;font-weight:600;font-size:14px;">' + subj + '</span>' +
+                '<div data-style="flex:1;height:20px;background:#f1f5f9;border-radius:10px;overflow:hidden;margin:0 10px;">' +
+                '<div data-style="height:100%;width:' + pct + '%;background:' + colors[s] + ';border-radius:10px;"></div></div>' +
+                '<span data-style="font-weight:700;font-size:14px;color:' + colors[s] + ';">' + pct + '%</span>' +
+                '<span data-style="font-size:11px;color:#94a3b8;margin-left:6px;">(' + stat.correct + '/' + stat.total + ')</span></div>';
         }
         html += '</div>';
 
         // 2. 知识点掌握度
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
-        html += '<div style="font-weight:700;color:#0f172a;margin-bottom:10px;">🎯 知识点掌握度 TOP5</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
+        html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:10px;">🎯 知识点掌握度 TOP5</div>';
         var sortedKnowledge = [];
         for (var kn in d.knowledgeMap) {
             if (d.knowledgeMap.hasOwnProperty(kn)) {
@@ -1047,57 +1047,57 @@ var studyReport = {
         sortedKnowledge.sort(function(a, b) { return b.score - a.score; });
         var top5 = sortedKnowledge.slice(0, 5);
         if (top5.length === 0) {
-            html += '<div style="color:#94a3b8;font-size:13px;">暂无知识点数据</div>';
+            html += '<div data-style="color:#94a3b8;font-size:13px;">暂无知识点数据</div>';
         } else {
             for (var t = 0; t < top5.length; t++) {
                 var score = top5[t].score;
                 var barColor = score >= 80 ? '#16a34a' : score >= 60 ? '#3b82f6' : score >= 40 ? '#f59e0b' : '#dc2626';
-                html += '<div style="display:flex;align-items:center;margin-bottom:8px;">' +
-                    '<span style="width:120px;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + top5[t].name + '">' + top5[t].name + '</span>' +
-                    '<div style="flex:1;height:14px;background:#f1f5f9;border-radius:7px;overflow:hidden;margin:0 8px;">' +
-                    '<div style="height:100%;width:' + score + '%;background:' + barColor + ';border-radius:7px;"></div></div>' +
-                    '<span style="font-weight:700;font-size:13px;color:' + barColor + ';">' + score + '%</span></div>';
+                html += '<div data-style="display:flex;align-items:center;margin-bottom:8px;">' +
+                    '<span data-style="width:120px;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + top5[t].name + '">' + top5[t].name + '</span>' +
+                    '<div data-style="flex:1;height:14px;background:#f1f5f9;border-radius:7px;overflow:hidden;margin:0 8px;">' +
+                    '<div data-style="height:100%;width:' + score + '%;background:' + barColor + ';border-radius:7px;"></div></div>' +
+                    '<span data-style="font-weight:700;font-size:13px;color:' + barColor + ';">' + score + '%</span></div>';
             }
         }
         html += '</div>';
 
         // 3. 最薄弱知识点TOP5
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
-        html += '<div style="font-weight:700;color:#0f172a;margin-bottom:10px;">⚠️ 最薄弱知识点 TOP5</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
+        html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:10px;">⚠️ 最薄弱知识点 TOP5</div>';
         var weakList = d.weakPoints;
         if (weakList.length === 0) {
-            html += '<div style="color:#94a3b8;font-size:13px;">数据不足，多做些题来看看薄弱环节吧</div>';
+            html += '<div data-style="color:#94a3b8;font-size:13px;">数据不足，多做些题来看看薄弱环节吧</div>';
         } else {
             for (var w = 0; w < weakList.length; w++) {
                 var wp = weakList[w];
                 var suggestTip = wp.score < 30 ? '急需重点突破，建议回归课本基础知识' :
                                  wp.score < 50 ? '需要加强练习，多刷对应章节的题目' :
                                  '还需巩固提升，重点理解错题思路';
-                html += '<div style="padding:10px 14px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;margin-bottom:8px;">' +
-                    '<span style="font-weight:600;color:#dc2626;">' + (w+1) + '. ' + wp.name + '</span>' +
-                    '<span style="margin-left:8px;font-size:12px;color:#64748b;">掌握度 ' + wp.score + '%</span>' +
-                    '<span style="margin-left:8px;font-size:12px;color:#b45309;">→ ' + suggestTip + '</span></div>';
+                html += '<div data-style="padding:10px 14px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;margin-bottom:8px;">' +
+                    '<span data-style="font-weight:600;color:#dc2626;">' + (w+1) + '. ' + wp.name + '</span>' +
+                    '<span data-style="margin-left:8px;font-size:12px;color:#64748b;">掌握度 ' + wp.score + '%</span>' +
+                    '<span data-style="margin-left:8px;font-size:12px;color:#b45309;">→ ' + suggestTip + '</span></div>';
             }
         }
         html += '</div>';
 
         // 4. 进步追踪
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
-        html += '<div style="font-weight:700;color:#0f172a;margin-bottom:10px;">📈 进步追踪</div>';
-        html += '<div style="font-size:14px;margin-bottom:8px;">本周正确率 ' + d.thisWeekAccuracy + '%' +
-            (d.accuracyChange >= 0 ? ' <span style="color:#16a34a;">↑' + d.accuracyChange + '%</span>' : ' <span style="color:#dc2626;">↓' + Math.abs(d.accuracyChange) + '%</span>') +
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
+        html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:10px;">📈 进步追踪</div>';
+        html += '<div data-style="font-size:14px;margin-bottom:8px;">本周正确率 ' + d.thisWeekAccuracy + '%' +
+            (d.accuracyChange >= 0 ? ' <span data-style="color:#16a34a;">↑' + d.accuracyChange + '%</span>' : ' <span data-style="color:#dc2626;">↓' + Math.abs(d.accuracyChange) + '%</span>') +
             '（上周 ' + d.lastWeekAccuracy + '%）</div>';
         var imp = d.improved;
         if (imp && imp.length > 0) {
-            html += '<div style="font-size:13px;color:#16a34a;margin-top:4px;">🌟 进步最大考点：<strong>' + imp.join('、') + '</strong></div>';
+            html += '<div data-style="font-size:13px;color:#16a34a;margin-top:4px;">🌟 进步最大考点：<strong>' + imp.join('、') + '</strong></div>';
         } else {
-            html += '<div style="font-size:13px;color:#94a3b8;">继续积累数据以追踪进步趋势</div>';
+            html += '<div data-style="font-size:13px;color:#94a3b8;">继续积累数据以追踪进步趋势</div>';
         }
         html += '</div>';
 
         // 5. 下周建议
-        html += '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
-        html += '<div style="font-weight:700;color:#0f172a;margin-bottom:10px;">💡 下周学习建议</div>';
+        html += '<div data-style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:20px;">';
+        html += '<div data-style="font-weight:700;color:#0f172a;margin-bottom:10px;">💡 下周学习建议</div>';
         var suggestions = [];
         if (weakList.length > 0) {
             suggestions.push('重点攻克「' + weakList[0].name + '」，每天安排30分钟专项练习');
@@ -1121,13 +1121,13 @@ var studyReport = {
         suggestions.push('每周日做一次错题回顾，整理错题本中的高频错误');
         suggestions.push('保持每天打卡习惯，连续打卡能有效提升自律性');
         for (var sg = 0; sg < suggestions.length; sg++) {
-            html += '<div style="padding:8px 12px;background:#f0fdf4;border-radius:6px;margin-bottom:6px;font-size:13px;border-left:3px solid #22c55e;">' +
+            html += '<div data-style="padding:8px 12px;background:#f0fdf4;border-radius:6px;margin-bottom:6px;font-size:13px;border-left:3px solid #22c55e;">' +
                 (sg+1) + '. ' + suggestions[sg] + '</div>';
         }
         html += '</div>';
 
         // 生成时间
-        html += '<div style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px;">报告生成时间：' + new Date().toLocaleString() + '</div>';
+        html += '<div data-style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px;">报告生成时间：' + new Date().toLocaleString() + '</div>';
 
         return html;
     },

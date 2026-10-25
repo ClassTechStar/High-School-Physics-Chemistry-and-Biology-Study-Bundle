@@ -69,7 +69,7 @@ function paras(t) {
   var ps = t.split('\n\n');
   var h = '';
   for (var i = 0; i < ps.length; i++) {
-    h += '<p style="margin:0 0 12px 0;line-height:1.9;font-size:15px;">' + esc(ps[i]).replace(/\n/g, '<br>') + '</p>';
+    h += '<p data-style="margin:0 0 12px 0;line-height:1.9;font-size:15px;">' + esc(ps[i]).replace(/\n/g, '<br>') + '</p>';
   }
   return h;
 }
@@ -154,17 +154,17 @@ window.englishGrammarQuiz = (function () {
   }
 
   function buildHTML() {
-    var h = '<div style="' + ST.wrap + '">';
-    h += '<h2 style="' + ST.h2 + '">英语语法专练</h2>';
-    h += '<div style="' + ST.desc + '">涵盖时态、非谓语动词、从句、虚拟语气、倒装、情态动词等高考核心语法点。每级10题，即时反馈附语法规则解析。</div>';
+    var h = '<div data-style="' + ST.wrap + '">';
+    h += '<h2 data-style="' + ST.h2 + '">英语语法专练</h2>';
+    h += '<div data-style="' + ST.desc + '">涵盖时态、非谓语动词、从句、虚拟语气、倒装、情态动词等高考核心语法点。每级10题，即时反馈附语法规则解析。</div>';
 
     /* level buttons */
-    h += '<div style="' + ST.row + '">';
+    h += '<div data-style="' + ST.row + '">';
     for (var i = 0; i < LEVELS.length; i++) {
       var on = state.lv === LEVELS[i];
       var sc = lvlScore(LEVELS[i]);
       var an = lvlAnswered(LEVELS[i]);
-      h += '<button data-action="sel-level" data-lv="' + LEVELS[i] + '" style="' + (on ? ST.btnOn : ST.btn) + '">' + LEVELS[i] + ' (' + sc + '/' + lvlQs(LEVELS[i]).length + ')</button>';
+      h += '<button data-action="sel-level" data-lv="' + LEVELS[i] + '" data-style="' + (on ? ST.btnOn : ST.btn) + '">' + LEVELS[i] + ' (' + sc + '/' + lvlQs(LEVELS[i]).length + ')</button>';
     }
     h += '</div>';
 
@@ -172,18 +172,18 @@ window.englishGrammarQuiz = (function () {
     var ids = lvlQs(state.lv);
     var an = lvlAnswered(state.lv);
     var pct = Math.round((an / ids.length) * 100);
-    h += '<div style="' + ST.bar + '">';
+    h += '<div data-style="' + ST.bar + '">';
     h += '<span>进度: ' + an + '/' + ids.length + ' &nbsp; 得分: ' + lvlScore(state.lv) + '/' + ids.length + '</span>';
-    h += '<span style="' + ST.badge + '">当前: ' + state.lv + '</span>';
+    h += '<span data-style="' + ST.badge + '">当前: ' + state.lv + '</span>';
     h += '</div>';
-    h += '<div style="' + ST.progBar + '"><div style="' + ST.progFill + ';width:' + pct + '%;"></div></div>';
+    h += '<div data-style="' + ST.progBar + '"><div data-style="' + ST.progFill + ';width:' + pct + '%;"></div></div>';
 
     /* question */
     var qi = ids[state.idx];
     var item = Q[qi];
-    h += '<div style="' + ST.card + '">';
-    h += '<div style="margin-bottom:8px;"><span style="' + ST.badge + '">' + item.tp + '</span><span style="' + ST.badgeGn + '">' + (state.idx + 1) + '/' + ids.length + '</span></div>';
-    h += '<div style="' + ST.qtext + '">' + esc(item.q) + '</div>';
+    h += '<div data-style="' + ST.card + '">';
+    h += '<div data-style="margin-bottom:8px;"><span data-style="' + ST.badge + '">' + item.tp + '</span><span data-style="' + ST.badgeGn + '">' + (state.idx + 1) + '/' + ids.length + '</span></div>';
+    h += '<div data-style="' + ST.qtext + '">' + esc(item.q) + '</div>';
 
     var answered = state.ans[qi] !== undefined;
     for (var j = 0; j < 4; j++) {
@@ -195,12 +195,12 @@ window.englishGrammarQuiz = (function () {
         else if (j === state.ans[qi]) sty = ST.optNo;
         else sty = ST.optDis;
       }
-      h += '<button data-action="sel-opt" data-qi="' + qi + '" data-opt="' + j + '" style="' + sty + '"' + dis + '>' + esc(item.o[j]) + '</button>';
+      h += '<button data-action="sel-opt" data-qi="' + qi + '" data-opt="' + j + '" data-style="' + sty + '"' + dis + '>' + esc(item.o[j]) + '</button>';
     }
 
     if (answered) {
       var correct = state.ans[qi] === item.a;
-      h += '<div style="' + (correct ? ST.fbOk : ST.fbNo) + '">';
+      h += '<div data-style="' + (correct ? ST.fbOk : ST.fbNo) + '">';
       h += '<strong>' + (correct ? '回答正确!' : '回答错误') + '</strong><br>';
       h += '正确答案: ' + item.o[item.a] + '<br>';
       h += '<strong>语法解析:</strong> ' + esc(item.e);
@@ -209,23 +209,23 @@ window.englishGrammarQuiz = (function () {
     h += '</div>';
 
     /* nav */
-    h += '<div style="text-align:center;margin-bottom:16px;">';
-    if (state.idx > 0) h += '<button data-action="prev" style="' + ST.btnGy + '">上一题</button>';
-    if (state.idx < ids.length - 1) h += '<button data-action="next" style="' + ST.btn + '">下一题</button>';
-    if (an === ids.length) h += '<button data-action="results" style="' + ST.btnGn + '">查看结果</button>';
+    h += '<div data-style="text-align:center;margin-bottom:16px;">';
+    if (state.idx > 0) h += '<button data-action="prev" data-style="' + ST.btnGy + '">上一题</button>';
+    if (state.idx < ids.length - 1) h += '<button data-action="next" data-style="' + ST.btn + '">下一题</button>';
+    if (an === ids.length) h += '<button data-action="results" data-style="' + ST.btnGn + '">查看结果</button>';
     h += '</div>';
 
     /* all-level summary */
-    h += '<div style="' + ST.card + '">';
-    h += '<h3 style="' + ST.h3 + '">各级别总览</h3>';
+    h += '<div data-style="' + ST.card + '">';
+    h += '<h3 data-style="' + ST.h3 + '">各级别总览</h3>';
     for (var k = 0; k < LEVELS.length; k++) {
       var lsc = lvlScore(LEVELS[k]);
       var lan = lvlAnswered(LEVELS[k]);
       var ltotal = lvlQs(LEVELS[k]).length;
       var lpct = Math.round((lsc / ltotal) * 100);
-      h += '<div style="margin-bottom:8px;"><span style="display:inline-block;width:60px;font-weight:600;">' + LEVELS[k] + '</span>';
-      h += '<span style="display:inline-block;width:280px;height:10px;background:#e0e0e0;border-radius:5px;vertical-align:middle;margin:0 8px;">';
-      h += '<span style="display:inline-block;height:100%;width:' + lpct + '%;background:#4a90d9;border-radius:5px;"></span></span>';
+      h += '<div data-style="margin-bottom:8px;"><span data-style="display:inline-block;width:60px;font-weight:600;">' + LEVELS[k] + '</span>';
+      h += '<span data-style="display:inline-block;width:280px;height:10px;background:#e0e0e0;border-radius:5px;vertical-align:middle;margin:0 8px;">';
+      h += '<span data-style="display:inline-block;height:100%;width:' + lpct + '%;background:#4a90d9;border-radius:5px;"></span></span>';
       h += '<span>' + lsc + '/' + ltotal + (lan === ltotal ? ' (已完成)' : '') + '</span></div>';
     }
     h += '</div>';
@@ -240,32 +240,32 @@ window.englishGrammarQuiz = (function () {
     var pct = Math.round((sc / total) * 100);
     var msg = pct >= 90 ? '优秀! 语法掌握扎实,继续保持!' : pct >= 70 ? '良好! 还有提升空间,复习错题解析。' : pct >= 50 ? '及格。建议重新学习本级别语法点。' : '需要加强。请仔细阅读每题解析后重做。';
 
-    var h = '<div style="' + ST.wrap + '">';
-    h += '<h2 style="' + ST.h2 + '">测试结果 - ' + state.lv + '级</h2>';
-    h += '<div style="' + ST.card + '">';
-    h += '<div style="' + ST.scoreBig + '">' + sc + '/' + total + '</div>';
-    h += '<div style="' + ST.scoreLbl + '">正确率: ' + pct + '%</div>';
-    h += '<div style="' + ST.fbInfo + '">' + msg + '</div>';
+    var h = '<div data-style="' + ST.wrap + '">';
+    h += '<h2 data-style="' + ST.h2 + '">测试结果 - ' + state.lv + '级</h2>';
+    h += '<div data-style="' + ST.card + '">';
+    h += '<div data-style="' + ST.scoreBig + '">' + sc + '/' + total + '</div>';
+    h += '<div data-style="' + ST.scoreLbl + '">正确率: ' + pct + '%</div>';
+    h += '<div data-style="' + ST.fbInfo + '">' + msg + '</div>';
 
-    h += '<h3 style="' + ST.h3 + ';margin-top:20px;">错题回顾</h3>';
+    h += '<h3 data-style="' + ST.h3 + ';margin-top:20px;">错题回顾</h3>';
     var hasWrong = false;
     for (var i = 0; i < ids.length; i++) {
       var qi = ids[i];
       if (state.ans[qi] !== undefined && state.ans[qi] !== Q[qi].a) {
         hasWrong = true;
-        h += '<div style="' + ST.box + '">';
-        h += '<div style="' + ST.qtext + '">' + esc(Q[qi].q) + '</div>';
-        h += '<div style="color:#e74c3c;margin-bottom:4px;">你的答案: ' + esc(Q[qi].o[state.ans[qi]]) + '</div>';
-        h += '<div style="color:#27ae60;margin-bottom:8px;">正确答案: ' + esc(Q[qi].o[Q[qi].a]) + '</div>';
-        h += '<div style="font-size:13px;color:#666;">' + esc(Q[qi].e) + '</div>';
+        h += '<div data-style="' + ST.box + '">';
+        h += '<div data-style="' + ST.qtext + '">' + esc(Q[qi].q) + '</div>';
+        h += '<div data-style="color:#e74c3c;margin-bottom:4px;">你的答案: ' + esc(Q[qi].o[state.ans[qi]]) + '</div>';
+        h += '<div data-style="color:#27ae60;margin-bottom:8px;">正确答案: ' + esc(Q[qi].o[Q[qi].a]) + '</div>';
+        h += '<div data-style="font-size:13px;color:#666;">' + esc(Q[qi].e) + '</div>';
         h += '</div>';
       }
     }
-    if (!hasWrong) h += '<div style="' + ST.empty + '">全部正确,无错题!</div>';
+    if (!hasWrong) h += '<div data-style="' + ST.empty + '">全部正确,无错题!</div>';
     h += '</div>';
-    h += '<div style="text-align:center;">';
-    h += '<button data-action="back" style="' + ST.btnGy + '">返回答题</button>';
-    h += '<button data-action="retry" style="' + ST.btn + '">重做本级</button>';
+    h += '<div data-style="text-align:center;">';
+    h += '<button data-action="back" data-style="' + ST.btnGy + '">返回答题</button>';
+    h += '<button data-action="retry" data-style="' + ST.btn + '">重做本级</button>';
     h += '</div>';
     h += '</div>';
 
@@ -469,29 +469,29 @@ window.englishReadingTrainer = (function () {
   }
 
   function buildListHTML() {
-    var h = '<div style="' + ST.wrap + '">';
-    h += '<h2 style="' + ST.h2 + '">英语阅读训练</h2>';
-    h += '<div style="' + ST.desc + '">8篇高考难度阅读理解，涵盖科学、文化、社会、环境、科技、教育、健康、旅行主题。每篇4题（细节、主旨、推理、词义），建议8分钟完成。</div>';
+    var h = '<div data-style="' + ST.wrap + '">';
+    h += '<h2 data-style="' + ST.h2 + '">英语阅读训练</h2>';
+    h += '<div data-style="' + ST.desc + '">8篇高考难度阅读理解，涵盖科学、文化、社会、环境、科技、教育、健康、旅行主题。每篇4题（细节、主旨、推理、词义），建议8分钟完成。</div>';
 
     var totalDone = 0, totalScore = 0, totalQ = 0;
     for (var i = 0; i < P.length; i++) {
       totalQ += P[i].qs.length;
       if (state.sub[i]) { totalDone++; totalScore += passageScore(i); }
     }
-    h += '<div style="' + ST.bar + '">';
+    h += '<div data-style="' + ST.bar + '">';
     h += '<span>已完成: ' + totalDone + '/' + P.length + ' 篇 &nbsp; 总得分: ' + totalScore + '/' + totalQ + '</span>';
     h += '</div>';
-    h += '<div style="' + ST.progBar + '"><div style="' + ST.progFill + ';width:' + Math.round((totalDone / P.length) * 100) + '%;"></div></div>';
+    h += '<div data-style="' + ST.progBar + '"><div data-style="' + ST.progFill + ';width:' + Math.round((totalDone / P.length) * 100) + '%;"></div></div>';
 
     for (var j = 0; j < P.length; j++) {
       var done = state.sub[j];
       var sc = passageScore(j);
-      h += '<div style="' + ST.card + ';cursor:pointer;" data-action="sel-passage" data-idx="' + j + '">';
-      h += '<div style="display:flex;justify-content:space-between;align-items:center;">';
-      h += '<div><span style="' + ST.badge + '">' + P[j].topic + '</span>';
-      h += '<span style="font-size:16px;font-weight:600;margin-left:8px;">Passage ' + (j + 1) + ': ' + esc(P[j].title) + '</span></div>';
-      if (done) h += '<span style="' + ST.badgeGn + '">' + sc + '/' + P[j].qs.length + '</span>';
-      else h += '<span style="' + ST.badge + '">未做</span>';
+      h += '<div data-style="' + ST.card + ';cursor:pointer;" data-action="sel-passage" data-idx="' + j + '">';
+      h += '<div data-style="display:flex;justify-content:space-between;align-items:center;">';
+      h += '<div><span data-style="' + ST.badge + '">' + P[j].topic + '</span>';
+      h += '<span data-style="font-size:16px;font-weight:600;margin-left:8px;">Passage ' + (j + 1) + ': ' + esc(P[j].title) + '</span></div>';
+      if (done) h += '<span data-style="' + ST.badgeGn + '">' + sc + '/' + P[j].qs.length + '</span>';
+      else h += '<span data-style="' + ST.badge + '">未做</span>';
       h += '</div></div>';
     }
     h += '</div>';
@@ -501,25 +501,25 @@ window.englishReadingTrainer = (function () {
   function buildPassageHTML(pi) {
     var p = P[pi];
     var submitted = state.sub[pi];
-    var h = '<div style="' + ST.wrap + '">';
-    h += '<button data-action="back" style="' + ST.btnGy + ';margin-bottom:12px;">返回列表</button>';
-    h += '<h2 style="' + ST.h2 + '">Passage ' + (pi + 1) + ': ' + esc(p.title) + '</h2>';
-    h += '<div style="' + ST.bar + '"><span style="' + ST.badge + '">' + p.topic + '</span>';
+    var h = '<div data-style="' + ST.wrap + '">';
+    h += '<button data-action="back" data-style="' + ST.btnGy + ';margin-bottom:12px;">返回列表</button>';
+    h += '<h2 data-style="' + ST.h2 + '">Passage ' + (pi + 1) + ': ' + esc(p.title) + '</h2>';
+    h += '<div data-style="' + ST.bar + '"><span data-style="' + ST.badge + '">' + p.topic + '</span>';
     h += '<span>共 ' + p.qs.length + ' 题 | 建议时间: 8分钟</span></div>';
 
     if (!submitted) {
-      h += '<div id="reading-timer" style="' + ST.timer + '">08:00</div>';
+      h += '<div id="reading-timer" data-style="' + ST.timer + '">08:00</div>';
     }
 
-    h += '<div style="' + ST.passage + '">' + paras(p.text) + '</div>';
+    h += '<div data-style="' + ST.passage + '">' + paras(p.text) + '</div>';
 
     for (var i = 0; i < p.qs.length; i++) {
       var q = p.qs[i];
       var k = pi + '_' + i;
       var answered = state.ans[k] !== undefined;
-      h += '<div style="' + ST.card + '">';
-      h += '<div style="margin-bottom:8px;"><span style="' + ST.badge + '">' + q.tp + '</span><span style="' + ST.badgeGn + '">第' + (i + 1) + '题</span></div>';
-      h += '<div style="' + ST.qtext + '">' + (i + 1) + '. ' + esc(q.q) + '</div>';
+      h += '<div data-style="' + ST.card + '">';
+      h += '<div data-style="margin-bottom:8px;"><span data-style="' + ST.badge + '">' + q.tp + '</span><span data-style="' + ST.badgeGn + '">第' + (i + 1) + '题</span></div>';
+      h += '<div data-style="' + ST.qtext + '">' + (i + 1) + '. ' + esc(q.q) + '</div>';
       for (var j = 0; j < 4; j++) {
         var sty = ST.opt;
         var dis = '';
@@ -529,11 +529,11 @@ window.englishReadingTrainer = (function () {
           else if (answered && j === state.ans[k]) sty = ST.optNo;
           else sty = ST.optDis;
         }
-        h += '<button data-action="sel-ans" data-k="' + k + '" data-opt="' + j + '" style="' + sty + '"' + dis + '>' + esc(q.o[j]) + '</button>';
+        h += '<button data-action="sel-ans" data-k="' + k + '" data-opt="' + j + '" data-style="' + sty + '"' + dis + '>' + esc(q.o[j]) + '</button>';
       }
       if (submitted) {
         var correct = answered && state.ans[k] === q.a;
-        h += '<div style="' + (correct ? ST.fbOk : ST.fbNo) + '">';
+        h += '<div data-style="' + (correct ? ST.fbOk : ST.fbNo) + '">';
         h += '<strong>' + (correct ? '正确!' : (answered ? '错误' : '未作答')) + '</strong><br>';
         h += '正确答案: ' + esc(q.o[q.a]) + '<br>';
         h += '<strong>解析:</strong> ' + esc(q.e);
@@ -543,16 +543,16 @@ window.englishReadingTrainer = (function () {
     }
 
     if (!submitted) {
-      h += '<div style="text-align:center;margin-bottom:16px;">';
-      h += '<button data-action="submit" style="' + ST.btnGn + '">提交答案</button>';
+      h += '<div data-style="text-align:center;margin-bottom:16px;">';
+      h += '<button data-action="submit" data-style="' + ST.btnGn + '">提交答案</button>';
       h += '</div>';
     } else {
       var sc = passageScore(pi);
-      h += '<div style="' + ST.fbInfo + ';text-align:center;">';
+      h += '<div data-style="' + ST.fbInfo + ';text-align:center;">';
       h += '<strong>本篇得分: ' + sc + '/' + p.qs.length + '</strong>';
       h += '</div>';
-      h += '<div style="text-align:center;margin-bottom:16px;">';
-      h += '<button data-action="retry" data-idx="' + pi + '" style="' + ST.btn + '">重做本篇</button>';
+      h += '<div data-style="text-align:center;margin-bottom:16px;">';
+      h += '<button data-action="retry" data-idx="' + pi + '" data-style="' + ST.btn + '">重做本篇</button>';
       h += '</div>';
     }
     h += '</div>';
@@ -826,14 +826,14 @@ window.englishCompositionTemplates = (function () {
   }
 
   function buildTemplatesHTML() {
-    var h = '<div style="' + ST.row + '">';
-    h += '<button data-action="filter" data-cat="all" style="' + (state.cat === 'all' ? ST.pillOn : ST.pill) + '">全部</button>';
+    var h = '<div data-style="' + ST.row + '">';
+    h += '<button data-action="filter" data-cat="all" data-style="' + (state.cat === 'all' ? ST.pillOn : ST.pill) + '">全部</button>';
     for (var i = 0; i < CATS.length; i++) {
-      h += '<button data-action="filter" data-cat="' + i + '" style="' + (state.cat === '' + i ? ST.pillOn : ST.pill) + '">' + CATS[i].name + '</button>';
+      h += '<button data-action="filter" data-cat="' + i + '" data-style="' + (state.cat === '' + i ? ST.pillOn : ST.pill) + '">' + CATS[i].name + '</button>';
     }
     h += '</div>';
 
-    h += '<input type="text" data-action="search" placeholder="搜索模板标题或关键词..." value="' + esc(state.search) + '" style="' + ST.input + '">';
+    h += '<input type="text" data-action="search" placeholder="搜索模板标题或关键词..." value="' + esc(state.search) + '" data-style="' + ST.input + '">';
 
     var q = state.search.toLowerCase();
     var count = 0;
@@ -844,45 +844,45 @@ window.englishCompositionTemplates = (function () {
         var searchText = (tpl.title + ' ' + tpl.content + ' ' + tpl.phrases.join(' ')).toLowerCase();
         if (q && searchText.indexOf(q) < 0) continue;
         count++;
-        h += '<div style="' + ST.boxHi + '">';
-        h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;">';
-        h += '<div><span style="' + ST.badge + '">' + CATS[ci].name + '</span>';
-        h += '<span style="font-size:17px;font-weight:700;margin-left:8px;color:#2c3e50;">' + esc(tpl.title) + '</span></div>';
-        h += '<button data-action="copy" data-ci="' + ci + '" data-ti="' + ti + '" style="' + ST.copyBtn + '">复制全文</button>';
+        h += '<div data-style="' + ST.boxHi + '">';
+        h += '<div data-style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;">';
+        h += '<div><span data-style="' + ST.badge + '">' + CATS[ci].name + '</span>';
+        h += '<span data-style="font-size:17px;font-weight:700;margin-left:8px;color:#2c3e50;">' + esc(tpl.title) + '</span></div>';
+        h += '<button data-action="copy" data-ci="' + ci + '" data-ti="' + ti + '" data-style="' + ST.copyBtn + '">复制全文</button>';
         h += '</div>';
 
-        h += '<div style="margin-top:12px;padding:14px;background:#fff;border-radius:8px;border:1px solid #e8e8e8;font-size:14px;line-height:1.9;white-space:pre-wrap;color:#444;">' + br(tpl.content) + '</div>';
+        h += '<div data-style="margin-top:12px;padding:14px;background:#fff;border-radius:8px;border:1px solid #e8e8e8;font-size:14px;line-height:1.9;white-space:pre-wrap;color:#444;">' + br(tpl.content) + '</div>';
 
-        h += '<div style="margin-top:10px;"><strong style="font-size:13px;color:#2c3e50;">核心句型:</strong> ';
+        h += '<div data-style="margin-top:10px;"><strong data-style="font-size:13px;color:#2c3e50;">核心句型:</strong> ';
         for (var pi = 0; pi < tpl.phrases.length; pi++) {
-          h += '<span style="' + ST.tag + '">' + esc(tpl.phrases[pi]) + '</span>';
+          h += '<span data-style="' + ST.tag + '">' + esc(tpl.phrases[pi]) + '</span>';
         }
         h += '</div>';
 
-        h += '<div style="margin-top:6px;"><strong style="font-size:13px;color:#2c3e50;">过渡词:</strong> ';
+        h += '<div data-style="margin-top:6px;"><strong data-style="font-size:13px;color:#2c3e50;">过渡词:</strong> ';
         for (var tr = 0; tr < tpl.transitions.length; tr++) {
-          h += '<span style="' + ST.tag + '">' + esc(tpl.transitions[tr]) + '</span>';
+          h += '<span data-style="' + ST.tag + '">' + esc(tpl.transitions[tr]) + '</span>';
         }
         h += '</div>';
 
         h += '</div>';
       }
     }
-    if (count === 0) h += '<div style="' + ST.empty + '">未找到匹配的模板</div>';
+    if (count === 0) h += '<div data-style="' + ST.empty + '">未找到匹配的模板</div>';
     return h;
   }
 
   function buildPatternsHTML() {
-    var h = '<div style="' + ST.desc + '">高考英语高分句型库，共 ' + SP.length + ' 个句型。点击可复制完整句型。掌握这些句型可显著提升作文档次。</div>';
+    var h = '<div data-style="' + ST.desc + '">高考英语高分句型库，共 ' + SP.length + ' 个句型。点击可复制完整句型。掌握这些句型可显著提升作文档次。</div>';
     for (var i = 0; i < SP.length; i++) {
-      h += '<div style="' + ST.patBox + '">';
-      h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;">';
-      h += '<div style="flex:1;">';
-      h += '<div style="font-size:15px;font-weight:600;color:#2c3e50;margin-bottom:4px;">' + (i + 1) + '. ' + esc(SP[i].p) + '</div>';
-      h += '<div style="font-size:13px;color:#27ae60;margin-bottom:4px;">' + esc(SP[i].t) + '</div>';
-      h += '<div style="font-size:12px;color:#999;">用途: ' + esc(SP[i].u) + '</div>';
+      h += '<div data-style="' + ST.patBox + '">';
+      h += '<div data-style="display:flex;justify-content:space-between;align-items:flex-start;">';
+      h += '<div data-style="flex:1;">';
+      h += '<div data-style="font-size:15px;font-weight:600;color:#2c3e50;margin-bottom:4px;">' + (i + 1) + '. ' + esc(SP[i].p) + '</div>';
+      h += '<div data-style="font-size:13px;color:#27ae60;margin-bottom:4px;">' + esc(SP[i].t) + '</div>';
+      h += '<div data-style="font-size:12px;color:#999;">用途: ' + esc(SP[i].u) + '</div>';
       h += '</div>';
-      h += '<button data-action="copy-sp" data-idx="' + i + '" style="' + ST.copyBtn + ';flex-shrink:0;">复制</button>';
+      h += '<button data-action="copy-sp" data-idx="' + i + '" data-style="' + ST.copyBtn + ';flex-shrink:0;">复制</button>';
       h += '</div>';
       h += '</div>';
     }
@@ -890,12 +890,12 @@ window.englishCompositionTemplates = (function () {
   }
 
   function buildTransitionsHTML() {
-    var h = '<div style="' + ST.desc + '">过渡词库，按功能分类。合理使用过渡词可使文章逻辑清晰、连贯自然。点击单词可复制。</div>';
+    var h = '<div data-style="' + ST.desc + '">过渡词库，按功能分类。合理使用过渡词可使文章逻辑清晰、连贯自然。点击单词可复制。</div>';
     for (var i = 0; i < TW.length; i++) {
-      h += '<div style="' + ST.trBox + '">';
-      h += '<div style="font-size:15px;font-weight:700;color:#2c3e50;margin-bottom:8px;">' + TW[i].name + '</div>';
+      h += '<div data-style="' + ST.trBox + '">';
+      h += '<div data-style="font-size:15px;font-weight:700;color:#2c3e50;margin-bottom:8px;">' + TW[i].name + '</div>';
       for (var j = 0; j < TW[i].words.length; j++) {
-        h += '<span data-action="copy-word" data-word="' + esc(TW[i].words[j]) + '" style="' + ST.trWord + ';cursor:pointer;" title="点击复制">' + esc(TW[i].words[j]) + '</span>';
+        h += '<span data-action="copy-word" data-word="' + esc(TW[i].words[j]) + '" data-style="' + ST.trWord + ';cursor:pointer;" title="点击复制">' + esc(TW[i].words[j]) + '</span>';
       }
       h += '</div>';
     }
@@ -903,14 +903,14 @@ window.englishCompositionTemplates = (function () {
   }
 
   function buildHTML() {
-    var h = '<div style="' + ST.wrap + '">';
-    h += '<h2 style="' + ST.h2 + '">英语作文模板</h2>';
+    var h = '<div data-style="' + ST.wrap + '">';
+    h += '<h2 data-style="' + ST.h2 + '">英语作文模板</h2>';
 
     /* tabs */
-    h += '<div style="' + ST.row + '">';
-    h += '<button data-action="tab" data-tab="templates" style="' + (state.tab === 'templates' ? ST.btnOn : ST.btn) + '">作文模板</button>';
-    h += '<button data-action="tab" data-tab="patterns" style="' + (state.tab === 'patterns' ? ST.btnOn : ST.btn) + '">高分句型</button>';
-    h += '<button data-action="tab" data-tab="transitions" style="' + (state.tab === 'transitions' ? ST.btnOn : ST.btn) + '">过渡词库</button>';
+    h += '<div data-style="' + ST.row + '">';
+    h += '<button data-action="tab" data-tab="templates" data-style="' + (state.tab === 'templates' ? ST.btnOn : ST.btn) + '">作文模板</button>';
+    h += '<button data-action="tab" data-tab="patterns" data-style="' + (state.tab === 'patterns' ? ST.btnOn : ST.btn) + '">高分句型</button>';
+    h += '<button data-action="tab" data-tab="transitions" data-style="' + (state.tab === 'transitions' ? ST.btnOn : ST.btn) + '">过渡词库</button>';
     h += '</div>';
 
     if (state.tab === 'templates') h += buildTemplatesHTML();

@@ -492,7 +492,7 @@ window.chineseSentenceCorrection = (function() {
         html += '<p class="csc-subtitle">高考语言文字运用 &middot; 病句辨析（9分）&middot; 六大类型全覆盖</p>';
 
         // 模式选择
-        html += '<p style="font-weight:600;margin-bottom:10px;text-align:center;font-size:15px;">请选择训练模式</p>';
+        html += '<p data-style="font-weight:600;margin-bottom:10px;text-align:center;font-size:15px;">请选择训练模式</p>';
         html += '<div class="csc-mode-select">';
         html += '<div class="csc-mode-card" id="csc-mode-choice">';
         html += '<div class="csc-mode-icon">A</div>';
@@ -509,15 +509,15 @@ window.chineseSentenceCorrection = (function() {
         html += '<hr class="csc-divider">';
 
         // 级别选择
-        html += '<p style="font-weight:600;margin-bottom:10px;text-align:center;font-size:15px;">选择难度级别</p>';
-        html += '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
+        html += '<p data-style="font-weight:600;margin-bottom:10px;text-align:center;font-size:15px;">选择难度级别</p>';
+        html += '<div data-style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
         var levelNames = { '基础': '基础 (入门)', '进阶': '进阶 (提升)', '冲刺': '冲刺 (突破)' };
         var levelBadges = { '基础': 'csc-level-basic', '进阶': 'csc-level-adv', '冲刺': 'csc-level-sprint' };
         for (var i = 0; i < LEVELS.length; i++) {
             var lvl = LEVELS[i];
-            html += '<button class="csc-btn csc-btn-outline csc-level-select" data-level="' + lvl + '" style="min-width:140px;">';
+            html += '<button class="csc-btn csc-btn-outline csc-level-select" data-level="' + lvl + '" data-style="min-width:140px;">';
             html += '<span class="csc-level-badge ' + levelBadges[lvl] + '">' + levelNames[lvl] + '</span>';
-            html += '<br><span style="font-size:12px;color:#6b7280;">' + QUESTIONS_PER_LEVEL + ' 道题</span>';
+            html += '<br><span data-style="font-size:12px;color:#6b7280;">' + QUESTIONS_PER_LEVEL + ' 道题</span>';
             html += '</button>';
         }
         html += '</div>';
@@ -525,8 +525,8 @@ window.chineseSentenceCorrection = (function() {
         // 历史简要
         if (state.history.totalQuestions > 0) {
             html += '<hr class="csc-divider">';
-            html += '<div style="text-align:center;">';
-            html += '<p style="font-size:13px;color:#6b7280;margin-bottom:6px;">历史记录：共练习 ' + state.history.totalQuestions + ' 题，正确 ' + state.history.totalCorrect + ' 题</p>';
+            html += '<div data-style="text-align:center;">';
+            html += '<p data-style="font-size:13px;color:#6b7280;margin-bottom:6px;">历史记录：共练习 ' + state.history.totalQuestions + ' 题，正确 ' + state.history.totalCorrect + ' 题</p>';
             html += '<button class="csc-btn csc-btn-sm csc-btn-outline" id="csc-view-stats">查看详细统计</button>';
             html += '</div>';
         }
@@ -612,22 +612,22 @@ window.chineseSentenceCorrection = (function() {
 
         // 进度条
         html += '<div class="csc-progress-text">第 ' + (state.currentIndex + 1) + ' / ' + state.questions.length + ' 题</div>';
-        html += '<div class="csc-progress-bar"><div class="csc-progress-fill" style="width:' + progressPct + '%;"></div></div>';
+        html += '<div class="csc-progress-bar"><div class="csc-progress-fill" data-style="width:' + progressPct + '%;"></div></div>';
 
         // 题目卡片
         html += '<div class="csc-card">';
-        html += '<div style="font-size:12px;color:#9ca3af;margin-bottom:8px;">请仔细阅读以下句子，找出其中的语病：</div>';
+        html += '<div data-style="font-size:12px;color:#9ca3af;margin-bottom:8px;">请仔细阅读以下句子，找出其中的语病：</div>';
         html += '<div class="csc-sentence-box">' + escapeHTML(q.sentence) + '</div>';
 
         if (state.mode === 'choice') {
             // 选择题模式
-            html += '<p style="font-weight:600;margin-bottom:10px;font-size:14px;color:#374151;">这个句子的病句类型是：</p>';
+            html += '<p data-style="font-weight:600;margin-bottom:10px;font-size:14px;color:#374151;">这个句子的病句类型是：</p>';
             html += '<div id="csc-options-container"></div>';
         } else {
             // 修改题模式
-            html += '<p style="font-weight:600;margin-bottom:10px;font-size:14px;color:#374151;">请在下方输入修改后的正确句子：</p>';
+            html += '<p data-style="font-weight:600;margin-bottom:10px;font-size:14px;color:#374151;">请在下方输入修改后的正确句子：</p>';
             html += '<textarea class="csc-text-input" id="csc-correction-input" placeholder="在此输入你的修改..."></textarea>';
-            html += '<button class="csc-btn csc-btn-primary" id="csc-submit-correction" style="margin-top:10px;width:100%;">提交修改</button>';
+            html += '<button class="csc-btn csc-btn-primary" id="csc-submit-correction" data-style="margin-top:10px;width:100%;">提交修改</button>';
         }
 
         html += '<div id="csc-feedback-area"></div>';
@@ -716,15 +716,15 @@ window.chineseSentenceCorrection = (function() {
             var fbTitle = isCorrect ? '✓ 回答正确！' : '✗ 回答错误';
             var fbDetail = '';
             if (!isCorrect) {
-                fbDetail = '<p style="margin-top:6px;">你选择了：<span class="csc-error-tag">' + escapeHTML(userAnswer) + '</span> ' +
+                fbDetail = '<p data-style="margin-top:6px;">你选择了：<span class="csc-error-tag">' + escapeHTML(userAnswer) + '</span> ' +
                     '正确答案：<span class="csc-correct-tag">' + escapeHTML(correctCat) + '</span></p>';
             }
-            fbDetail += '<p style="margin-top:8px;font-weight:600;">修改建议：</p>';
+            fbDetail += '<p data-style="margin-top:8px;font-weight:600;">修改建议：</p>';
             fbDetail += '<p>' + escapeHTML(q.correction) + '</p>';
-            fbDetail += '<p style="margin-top:6px;color:#6b7280;">' + escapeHTML(q.explanation) + '</p>';
+            fbDetail += '<p data-style="margin-top:6px;color:#6b7280;">' + escapeHTML(q.explanation) + '</p>';
 
             feedbackArea.innerHTML = '<div class="csc-feedback ' + fbClass + '">' +
-                '<p style="font-weight:700;">' + fbTitle + '</p>' + fbDetail +
+                '<p data-style="font-weight:700;">' + fbTitle + '</p>' + fbDetail +
                 '</div>';
         }
 
@@ -780,18 +780,18 @@ window.chineseSentenceCorrection = (function() {
             fbDetail += '<div class="csc-answer-col csc-answer-col-user"><strong>你的修改：</strong><br>' + escapeHTML(userCorrection) + '</div>';
             fbDetail += '<div class="csc-answer-col csc-answer-col-ref"><strong>参考答案：</strong><br>' + escapeHTML(q.correction) + '</div>';
             fbDetail += '</div>';
-            fbDetail += '<p style="margin-top:10px;color:#6b7280;">' + escapeHTML(q.explanation) + '</p>';
+            fbDetail += '<p data-style="margin-top:10px;color:#6b7280;">' + escapeHTML(q.explanation) + '</p>';
 
             // 如果自动判断为错误，提供手动确认
             if (!isCorrect) {
-                fbDetail += '<div style="margin-top:12px;display:flex;gap:8px;">' +
+                fbDetail += '<div data-style="margin-top:12px;display:flex;gap:8px;">' +
                     '<button class="csc-btn csc-btn-sm csc-btn-success" id="csc-self-correct">✓ 我的修改也正确</button>' +
                     '<button class="csc-btn csc-btn-sm csc-btn-danger" id="csc-self-wrong">✗ 我确实答错了</button>' +
                     '</div>';
             }
 
             feedbackArea.innerHTML = '<div class="csc-feedback ' + fbClass + '">' +
-                '<p style="font-weight:700;">' + fbTitle + '</p>' + fbDetail +
+                '<p data-style="font-weight:700;">' + fbTitle + '</p>' + fbDetail +
                 '</div>';
 
             // 手动确认按钮
@@ -893,8 +893,8 @@ window.chineseSentenceCorrection = (function() {
 
         var isLast = (state.currentIndex >= state.questions.length - 1);
         var btnText = isLast ? '查看结果' : '下一题 →';
-        var nextHtml = '<div id="csc-next-btn-area" style="text-align:center;margin-top:14px;">' +
-            '<button class="csc-btn csc-btn-primary" id="csc-next-btn" style="' + (state.mode === 'correction' && !isLast ? '' : '') + '">' + btnText + '</button>' +
+        var nextHtml = '<div id="csc-next-btn-area" data-style="text-align:center;margin-top:14px;">' +
+            '<button class="csc-btn csc-btn-primary" id="csc-next-btn" data-style="' + (state.mode === 'correction' && !isLast ? '' : '') + '">' + btnText + '</button>' +
             '</div>';
         card.insertAdjacentHTML('beforeend', nextHtml);
 
@@ -955,13 +955,13 @@ window.chineseSentenceCorrection = (function() {
         var modeLabel = state.mode === 'choice' ? '选择题模式' : '修改题模式';
 
         var html = '<div class="csc-container">';
-        html += '<div class="csc-card" style="text-align:center;">';
+        html += '<div class="csc-card" data-style="text-align:center;">';
 
         // 成绩
         var gradeEmoji = accuracy >= 90 ? '🏆' : accuracy >= 70 ? '👍' : accuracy >= 50 ? '📚' : '💪';
-        html += '<div style="font-size:48px;margin-bottom:8px;">' + gradeEmoji + '</div>';
-        html += '<h2 style="font-size:22px;margin-bottom:4px;">训练完成！</h2>';
-        html += '<p style="color:#6b7280;margin-bottom:16px;">' +
+        html += '<div data-style="font-size:48px;margin-bottom:8px;">' + gradeEmoji + '</div>';
+        html += '<h2 data-style="font-size:22px;margin-bottom:4px;">训练完成！</h2>';
+        html += '<p data-style="color:#6b7280;margin-bottom:16px;">' +
             '<span class="csc-level-badge ' + (levelBadges[state.level] || '') + '">' + state.level + '</span> ' +
             modeLabel +
             '</p>';
@@ -974,18 +974,18 @@ window.chineseSentenceCorrection = (function() {
 
         // 按错误类型统计
         html += '<hr class="csc-divider">';
-        html += '<p style="font-weight:600;margin-bottom:8px;text-align:left;">各类型正确率：</p>';
-        html += '<div style="text-align:left;">';
+        html += '<p data-style="font-weight:600;margin-bottom:8px;text-align:left;">各类型正确率：</p>';
+        html += '<div data-style="text-align:left;">';
         for (var k = 0; k < ERROR_CATEGORIES.length; k++) {
             var cat = ERROR_CATEGORIES[k];
             var acc = getTypeAccuracy(cat);
             if (acc !== null) {
                 var barColor = acc >= 80 ? '#10b981' : acc >= 60 ? '#f59e0b' : '#ef4444';
-                html += '<div style="margin-bottom:8px;">';
-                html += '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">';
-                html += '<span>' + cat + '</span><span style="font-weight:600;">' + acc + '%</span>';
+                html += '<div data-style="margin-bottom:8px;">';
+                html += '<div data-style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">';
+                html += '<span>' + cat + '</span><span data-style="font-weight:600;">' + acc + '%</span>';
                 html += '</div>';
-                html += '<div style="height:6px;background:#e5e7eb;border-radius:3px;"><div style="height:100%;width:' + acc + '%;background:' + barColor + ';border-radius:3px;"></div></div>';
+                html += '<div data-style="height:6px;background:#e5e7eb;border-radius:3px;"><div data-style="height:100%;width:' + acc + '%;background:' + barColor + ';border-radius:3px;"></div></div>';
                 html += '</div>';
             }
         }
@@ -993,7 +993,7 @@ window.chineseSentenceCorrection = (function() {
 
         // 操作按钮
         html += '<hr class="csc-divider">';
-        html += '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
+        html += '<div data-style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
         html += '<button class="csc-btn csc-btn-primary" id="csc-retry">重新练习（' + state.level + '）</button>';
         html += '<button class="csc-btn csc-btn-outline" id="csc-home">返回首页</button>';
         html += '</div>';
@@ -1007,7 +1007,7 @@ window.chineseSentenceCorrection = (function() {
         }
         if (wrongAnswers.length > 0) {
             html += '<hr class="csc-divider">';
-            html += '<p style="font-weight:600;text-align:left;margin-bottom:8px;">错题回顾 (' + wrongAnswers.length + '题)：</p>';
+            html += '<p data-style="font-weight:600;text-align:left;margin-bottom:8px;">错题回顾 (' + wrongAnswers.length + '题)：</p>';
             for (var w = 0; w < wrongAnswers.length; w++) {
                 var wa = wrongAnswers[w];
                 var wq = null;
@@ -1018,11 +1018,11 @@ window.chineseSentenceCorrection = (function() {
                     }
                 }
                 if (wq) {
-                    html += '<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 14px;margin-bottom:8px;text-align:left;">';
-                    html += '<p style="font-weight:600;margin-bottom:4px;">' + (w + 1) + '. ' + escapeHTML(wq.sentence) + '</p>';
-                    html += '<p style="font-size:13px;color:#dc2626;">错误类型：' + escapeHTML(wq.errorType) + '</p>';
-                    html += '<p style="font-size:13px;color:#059669;">修改：' + escapeHTML(wq.correction) + '</p>';
-                    html += '<p style="font-size:12px;color:#6b7280;">' + escapeHTML(wq.explanation) + '</p>';
+                    html += '<div data-style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 14px;margin-bottom:8px;text-align:left;">';
+                    html += '<p data-style="font-weight:600;margin-bottom:4px;">' + (w + 1) + '. ' + escapeHTML(wq.sentence) + '</p>';
+                    html += '<p data-style="font-size:13px;color:#dc2626;">错误类型：' + escapeHTML(wq.errorType) + '</p>';
+                    html += '<p data-style="font-size:13px;color:#059669;">修改：' + escapeHTML(wq.correction) + '</p>';
+                    html += '<p data-style="font-size:12px;color:#6b7280;">' + escapeHTML(wq.explanation) + '</p>';
                     html += '</div>';
                 }
             }
@@ -1055,12 +1055,12 @@ window.chineseSentenceCorrection = (function() {
 
         var html = '<div class="csc-container">';
         html += '<div class="csc-card">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
-        html += '<h2 style="font-size:20px;">学习统计</h2>';
+        html += '<div data-style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
+        html += '<h2 data-style="font-size:20px;">学习统计</h2>';
         html += '<button class="csc-btn csc-btn-sm csc-btn-outline" id="csc-stats-back">← 返回</button>';
         html += '</div>';
 
-        html += '<div class="csc-stat-grid" style="margin-bottom:12px;">';
+        html += '<div class="csc-stat-grid" data-style="margin-bottom:12px;">';
         html += '<div class="csc-stat-item"><div class="csc-stat-val">' + h.totalSessions + '</div><div class="csc-stat-label">训练次数</div></div>';
         html += '<div class="csc-stat-item"><div class="csc-stat-val">' + h.totalQuestions + '</div><div class="csc-stat-label">累计答题</div></div>';
         html += '<div class="csc-stat-item"><div class="csc-stat-val">' + h.totalCorrect + '</div><div class="csc-stat-label">累计正确</div></div>';
@@ -1068,7 +1068,7 @@ window.chineseSentenceCorrection = (function() {
         html += '</div>';
 
         html += '<hr class="csc-divider">';
-        html += '<p style="font-weight:600;margin-bottom:8px;">各类型正确率（历史累计）：</p>';
+        html += '<p data-style="font-weight:600;margin-bottom:8px;">各类型正确率（历史累计）：</p>';
         var hasStats = false;
         for (var k = 0; k < ERROR_CATEGORIES.length; k++) {
             var cat = ERROR_CATEGORIES[k];
@@ -1077,20 +1077,20 @@ window.chineseSentenceCorrection = (function() {
                 hasStats = true;
                 var acc = Math.round(hs.correct / hs.total * 100);
                 var barColor = acc >= 80 ? '#10b981' : acc >= 60 ? '#f59e0b' : '#ef4444';
-                html += '<div style="margin-bottom:8px;">';
-                html += '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">';
-                html += '<span>' + cat + ' (' + hs.correct + '/' + hs.total + ')</span><span style="font-weight:600;">' + acc + '%</span>';
+                html += '<div data-style="margin-bottom:8px;">';
+                html += '<div data-style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">';
+                html += '<span>' + cat + ' (' + hs.correct + '/' + hs.total + ')</span><span data-style="font-weight:600;">' + acc + '%</span>';
                 html += '</div>';
-                html += '<div style="height:6px;background:#e5e7eb;border-radius:3px;"><div style="height:100%;width:' + acc + '%;background:' + barColor + ';border-radius:3px;"></div></div>';
+                html += '<div data-style="height:6px;background:#e5e7eb;border-radius:3px;"><div data-style="height:100%;width:' + acc + '%;background:' + barColor + ';border-radius:3px;"></div></div>';
                 html += '</div>';
             }
         }
         if (!hasStats) {
-            html += '<p style="color:#9ca3af;font-size:13px;">暂无统计数据，开始练习吧！</p>';
+            html += '<p data-style="color:#9ca3af;font-size:13px;">暂无统计数据，开始练习吧！</p>';
         }
 
         html += '<hr class="csc-divider">';
-        html += '<button class="csc-btn csc-btn-danger csc-btn-sm" id="csc-clear-history" style="width:100%;">清除历史记录</button>';
+        html += '<button class="csc-btn csc-btn-danger csc-btn-sm" id="csc-clear-history" data-style="width:100%;">清除历史记录</button>';
 
         html += '</div>'; // csc-card
         html += '</div>'; // csc-container
