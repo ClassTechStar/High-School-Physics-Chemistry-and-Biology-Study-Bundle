@@ -358,6 +358,87 @@ window.HSPCBProgress = (function () {
         return JSON.stringify(exportData(), null, pretty === false ? 0 : 2);
     }
 
+    /* ── 导入净化（v1.4 安全加固）：schema 白名单 + 形状/上限校验 ──
+       备份文件是不可信输入——恶意 JSON 可借 __proto__ / 未知键 / 超长字符串
+       注入存储，再经 innerHTML 渲染面变成 XSS 载荷。导入前先过白名单。 */
+    var IMPORT_DANGEROUS_KEYS = { __proto__: 1, constructor: 1, prototype: 1 };
+    var IMPORT_ARRAY_KEYS = ['wrongQuestions', 'notes', 'examHistory', 'quizRecords', 'dailyCheckin',
+        'studyTime', 'toolsUsed', 'openAnswerRecords', 'coverageSnapshots', 'variationChains', 'selfScoreSessions'];
+    var IMPORT_OBJECT_KEYS = ['gameScores', 'moduleStats'];
+    var IMPORT_MAX_ARRAY = 5000;
+    var IMPORT_MAX_ITEM_CHARS = 4000;
+    var IMPORT_MAX_OBJECT_KEYS = 500;
+
+    function importSafePrimitive(v) {
+        var t = typeof v;
+        if (t === 'string') return v.length <= IMPORT_MAX_ITEM_CHARS ? v : v.slice(0, IMPORT_MAX_ITEM_CHARS);
+        if (t === 'number') return isFinite(v) ? v : 0;
+        if (t === 'boolean' || v === null) return v;
+        return undefined; // function / symbol / 其他一律拒绝
+    }
+
+    /** 深度净化一个「纯数据」值：只保留白名单形状，剥危险键，施加上限。 */
+    function importSanitizeValue(v, depth) {
+        if (depth > 3) return undefined;
+        if (Array.isArray(v)) {
+            if (v.length > IMPORT_MAX_ARRAY) v = v.slice(0, IMPORT_MAX_ARRAY);
+            var out = [];
+            for (var i = 0; i < v.length; i++) {
+                var item = importSanitizeValue(v[i], depth + 1);
+                if (item !== undefined) out.push(item);
+            }
+            return out;
+        }
+        if (v && typeof v === 'object') {
+            var keys = Object.keys(v);
+            if (keys.length > IMPORT_MAX_OBJECT_KEYS) keys = keys.slice(0, IMPORT_MAX_OBJECT_KEYS);
+            var obj = {};
+            for (var j = 0; j < keys.length; j++) {
+                var k = keys[j];
+                if (Object.prototype.hasOwnProperty.call(IMPORT_DANGEROUS_KEYS, k)) continue;
+                if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+                var sub = importSanitizeValue(v[k], depth + 1);
+                if (sub !== undefined) obj[k] = sub;
+            }
+            return obj;
+        }
+        return importSafePrimitive(v);
+    }
+
+    /** 按进度存储的 schema 净化导入载荷，返回安全副本。 */
+    function importSanitize(incoming) {
+        var clean = {};
+        for (var key in incoming) {
+            if (Object.prototype.hasOwnProperty.call(IMPORT_DANGEROUS_KEYS, key)) continue;
+            if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+            if (key === 'meta') continue; // 元数据不接受外部值
+            if (!(key in DEFAULTS)) continue; // 未知键直接丢弃
+            if (key === 'theme') {
+                if (incoming[key] === 'light' || incoming[key] === 'dark') clean.theme = incoming[key];
+                continue;
+            }
+            if (key === 'sprintMode') {
+                if (incoming[key] === null || (incoming[key] && typeof incoming[key] === 'object')) {
+                    clean.sprintMode = importSanitizeValue(incoming[key], 0);
+                }
+                continue;
+            }
+            var wantArray = IMPORT_ARRAY_KEYS.indexOf(key) >= 0;
+            var val = incoming[key];
+            if (wantArray) {
+                if (Array.isArray(val)) clean[key] = importSanitizeValue(val, 0);
+                continue; // 该键应为数组而非数组 → 丢弃
+            }
+            if (IMPORT_OBJECT_KEYS.indexOf(key) >= 0) {
+                if (val && typeof val === 'object' && !Array.isArray(val)) clean[key] = importSanitizeValue(val, 0);
+                continue;
+            }
+            var prim = importSafePrimitive(val);
+            if (prim !== undefined) clean[key] = prim;
+        }
+        return clean;
+    }
+
     /**
      * 导入备份。mode: 'merge' | 'replace'
      */
@@ -372,6 +453,11 @@ window.HSPCBProgress = (function () {
         if (incoming.__export) {
             incoming = clone(incoming);
             delete incoming.__export;
+        }
+        // v1.4：导入载荷视为不可信输入，先过 schema 白名单净化（防注入/防超限）
+        incoming = importSanitize(incoming);
+        if (!Object.keys(incoming).length) {
+            return { ok: false, error: 'empty-after-sanitize' };
         }
 
         var data = loadAll();

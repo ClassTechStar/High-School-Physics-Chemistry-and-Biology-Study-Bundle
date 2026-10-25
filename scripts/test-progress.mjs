@@ -212,5 +212,37 @@ console.log('progress.js tests');
   assert(Store.get('hspcb_wrong_records') === null, '默认配置下 remove 依然双清');
 }
 
+// 10. 导入净化：危险键 / 未知键 / 类型不符全部拦截（v1.4 安全加固）
+{
+  const { Progress, localStorage } = boot({});
+  const evil = JSON.parse('{"__proto__":{"polluted":true},"evilKey":"x","theme":"red","wrongQuestions":"not-array","notes":[{"k":"' + 'A'.repeat(9000) + '"}],"gameScores":{"math":123}}');
+  Progress.importData(evil, 'merge');
+  const snap = JSON.parse(localStorage.getItem('hspcb.v2.progress') || '{}');
+  assert(snap.theme !== 'red', '非法 theme 被拒');
+  assert(!('evilKey' in snap), '未知键被丢弃');
+  assert(!Array.isArray(snap.wrongQuestions) || snap.wrongQuestions.length === 0, 'wrongQuestions 类型不符被丢弃');
+  assert(!({}).polluted, '__proto__ 未污染对象原型');
+  if (Array.isArray(snap.notes)) {
+    assert(snap.notes.length === 0 || String(snap.notes[0].k).length <= 4000, '超长字符串被截断');
+  }
+  assert(snap.gameScores && snap.gameScores.math === 123, '合法对象数据正常导入');
+}
+
+// 11. 导入净化：合法数据不受影响
+{
+  const { Progress } = boot({});
+  const ok = Progress.importData({ wrongQuestions: [{ id: 'q1', subject: 'physics' }], theme: 'dark' }, 'merge');
+  assert(ok.ok, '合法导入返回 ok');
+  assert(Progress.get('wrongQuestions').some((w) => w.id === 'q1'), '合法错题入库');
+  assert(Progress.get('theme') === 'dark', '合法 theme 入库');
+}
+
+// 12. 全恶载荷：净化后为空则拒绝
+{
+  const { Progress } = boot({});
+  const r = Progress.importData({ hack: 1 }, 'merge');
+  assert(r.ok === false, '净化后为空的载荷被拒绝');
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
