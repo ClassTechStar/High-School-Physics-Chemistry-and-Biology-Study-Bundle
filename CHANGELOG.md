@@ -9,6 +9,21 @@
 - **文案计数同步**：README / `index.html` / `promo.html` / `presentation.html` 的 1301 → 1198；README 答案分布更新为 A236 / B224 / C225 / D265（950 道四选项单选题）。
 - 新增 [P1-6 数据层去重量化 + 懒加载评估](P1-6-DATA-DEDUP-AND-LAZY-LOADING-AUDIT.md)：剩余重复 0；首访 54 脚本 / 3.47 MiB JS、约 1.29 MB 数据请求、SW 预缓存 5.68 MiB（141 次请求 / 9.12 MB）；建议先做隐藏容器数据按需 + 题库预热分级，JS 逐模块懒加载暂缓。
 
+### 性能（P1-6 A+B 懒加载）
+- **A-1 框架题/变式题按需加载**：删除 `content-enhanced-v2.js` 首屏两个自动 init 轮询；`render()` / `renderVariationRecommender()` 在首次导航进入工具时才请求 `framework-questions.json` / `variation-bank.json`（1 次/工具），加载中与失败重试 UI 保留。首屏三个隐藏容器不再提前渲染。
+- **A-2 学习路径首次进入再初始化**：`learning-path-recommender.js` 取消 `DOMContentLoaded` 初始化；`render()` 首次进入时 `ensureInit()`，才加载 `answer-templates.json`、词表、`knowledge.json` 并分析错题本。
+- **B 题库预热分级**：`app-exam.js` 在 `saveData`、`effectiveType` 为 slow-2g/2g/3g、`deviceMemory < 2` 时跳过空闲预热；其余网络保持 `requestIdleCallback` 预热 + 6 s 超时，进入题库仍由 `ensureLoaded()` 按需加载。
+- **实测（Edge headless，本地 no-cache）**：首屏数据请求 6 个 / 1.29 MB → **1 个题库 / 977 KB**（3G 模拟下 **0 个 / 0**）；DCL 495→337 ms、FCP 444→312 ms（同机单次，绝对值乐观）。按需打开：框架题 30 张题卡、变式题 6 个分组、学习路径 3,043 字符，均只发对应数据请求。
+- `npm run verify` 九阶段全绿（exit 0）；smoke 46 → 50（新增 4 条懒加载静态断言）。
+- `sw.js` CACHE_NAME `hspcb-v17` → `hspcb-v18`（3 个模块脚本行为变更，已装 SW 需更新缓存）。
+
+### 性能（P1-6 E+F 预缓存分层 / DOM 瘦身）
+- **E-1 SW 预缓存分层**：安装阶段 `CORE_ASSETS` 只保留应用壳 **22 个 / 0.83 MiB**（原 83 个 / 5.68 MiB）；新增 `DEFERRED_ASSETS` **50 个 / 3.30 MiB**（工具脚本、演示页、打印样式）；`DATA_ASSETS` **12 个 / 1.54 MiB 不再预缓存**，继续由运行时网络优先缓存。
+- **E-2 空闲后台补齐**：`sw-register.js` 在 SW ready 后、网络允许（非 saveData / 非 2G·3G / deviceMemory ≥ 2）时经 `requestIdleCallback` 发 `{action:'warm'}`；SW 每批 6 个补齐 `DEFERRED_ASSETS`，已缓存则跳过。3G/省流设备跳过，未使用工具首次打开需联网。
+- **F 语文知识库惰性实例化**：`index.html` 中 `#chinese-section` 的 20 张大表包进 `<template data-lazy-content="chinese-table">`，首次进入语文时由 `materializeSection()` 展开；`showSection()` 与 `app.js navigateTo()` 双路径接线。标题与 `.key-point` 保留，不影响全局搜索。
+- **实测（Edge headless，本地 no-cache）**：首屏 DOM 3,864 → **2,824（-26.9%）**，进入语文后 20 张表展开、节点回到 3,864；SW 12 s 缓存默认网络 72 条（无题库）/ 3G 22 条；请求 137（默认）/ 86（3G），重复请求 63 / 20。
+- `npm run verify` 全绿（exit 0）；smoke 50 → 53（新增 3 条 E/F 静态断言）。
+
 ## v1.4 (2026-10-25)
 
 「开前门」版本：分发可访问、安全边界闭环、工程债务继续清偿。

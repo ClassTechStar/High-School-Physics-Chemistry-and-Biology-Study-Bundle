@@ -1,10 +1,10 @@
 // ============================================================
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v17（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v18（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 // ============================================================
 
-var CACHE_NAME = 'hspcb-v17';
+var CACHE_NAME = 'hspcb-v18';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -15,10 +15,11 @@ var CACHE_NAME = 'hspcb-v17';
 // 另补入 v14 遗漏的 js/csp-delegation.js（T3-4d 新增的委托中枢）。
 // T3-4f: index.html 原 2 个内联 <style> 块外置为 css/responsive.css 与
 // css/chinese-knowledge.css，纳入预缓存。
+// P1-6(E)：预缓存分层。安装阶段只缓存「应用壳」（HTML/CSS/核心 JS/图标），
+// 其余工具脚本与演示页由页面空闲时 postMessage('warm') 后台补齐；
+// 数据文件不预缓存，按 A 方案在首次使用时由运行时缓存接管。
 var CORE_ASSETS = [
     'index.html',
-    'presentation.html',
-    'promo.html',
     'manifest.json',
     'icons/icon.svg',
     'icons/icon-192.png',
@@ -29,10 +30,6 @@ var CORE_ASSETS = [
     'css/theme-dark.css',
     'css/responsive.css',
     'css/chinese-knowledge.css',
-    'css/print-report.css',
-    'css/study-plan-print.css',
-    'presentation.css',
-    'promo.css',
     'js/cssom-style-bridge.js',
     'js/error-fallback.js',
     'js/theme-bootstrap.js',
@@ -40,29 +37,57 @@ var CORE_ASSETS = [
     'js/progress.js',
     'js/csp-delegation.js',
     'js/main-inline.js',
-    'js/app.js',
+    'js/home-collapse.js',
+    'js/theme-toggle.js',
+    'js/sw-register.js',
+    'js/app.js'
+];
+
+// 后台补齐（idle 时由 sw-register.js 发 warm 消息）：工具脚本、演示页与打印样式。
+// 不包含 DATA_ASSETS —— 数据按需加载，避免「没打开工具也下载全部题库」。
+var DEFERRED_ASSETS = [
+    'presentation.html',
+    'promo.html',
+    'presentation.css',
+    'promo.css',
+    'css/print-report.css',
+    'css/study-plan-print.css',
+    'css/knowledge-card-print.css',
     'js/app-chemistry.js',
     'js/app-physics.js',
     'js/app-biology.js',
     'js/app-exam.js',
-    'js/onboarding.js',
-    'js/guangdong-features.js',
-    'js/platform-system.js',
-    'js/study-dashboard.js',
-    'js/visual-enhanced.js',
     'js/enhanced-tools.js',
+    'js/content-enhancement.js',
+    'js/comprehensive-data.js',
+    'js/exam-review-system.js',
+    'js/platform-system.js',
     'js/missing-tools-part2.js',
+    'js/guangdong-features.js',
+    'js/study-enhanced.js',
+    'js/visual-enhanced.js',
+    'js/auxiliary-tools.js',
+    'js/math-tools.js',
+    'js/chinese-tools.js',
+    'js/error-notebook.js',
+    'js/mock-exam.js',
+    'js/global-search.js',
+    'js/chinese-sentence-correction.js',
+    'js/physics-wave-optics.js',
+    'js/chemistry-3d-molecules.js',
+    'js/biology-cell-division.js',
+    'js/study-dashboard.js',
+    'js/onboarding.js',
+    'js/english-vocabulary.js',
+    'js/game-scratchpad.js',
+    'js/learning-tools.js',
+    'js/open-answer-trainer.js',
+    'js/english-tools.js',
     'js/study-tools-v2.js',
     'js/study-tools-enhanced.js',
-    'js/study-enhanced.js',
-    'js/auxiliary-tools.js',
-    'js/content-enhancement.js',
-    'js/learning-tools.js',
-    'js/game-scratchpad.js',
-    'js/content-enhanced-v2.js',
-    'js/interactive-chemistry.js',
     'js/interactive-physics-bio.js',
-    'js/open-answer-trainer.js',
+    'js/interactive-chemistry.js',
+    'js/content-enhanced-v2.js',
     'js/subject-gap-1.js',
     'js/subject-gap-2.js',
     'js/subject-gap-3.js',
@@ -70,23 +95,7 @@ var CORE_ASSETS = [
     'js/data-analysis-enhanced.js',
     'js/content-deep-v3.js',
     'js/utility-tools-v2.js',
-    'js/learning-path-recommender.js',
-    'js/math-tools.js',
-    'js/chinese-tools.js',
-    'js/chinese-sentence-correction.js',
-    'js/english-tools.js',
-    'js/english-vocabulary.js',
-    'js/physics-wave-optics.js',
-    'js/chemistry-3d-molecules.js',
-    'js/biology-cell-division.js',
-    'js/mock-exam.js',
-    'js/exam-review-system.js',
-    'js/error-notebook.js',
-    'js/global-search.js',
-    'js/comprehensive-data.js',
-    'js/home-collapse.js',
-    'js/theme-toggle.js',
-    'js/sw-register.js'
+    'js/learning-path-recommender.js'
 ];
 
 // 数据文件（运行时按需缓存）
@@ -225,8 +234,33 @@ self.addEventListener('fetch', function (event) {
     );
 });
 
-// 消息监听：支持手动更新
+// P1-6(E)：后台补齐 DEFERRED_ASSETS。页面 idle 时发 warm 消息触发；
+// 分批缓存（每批 6 个）避免一次性打满网络/长任务；已缓存则跳过（幂等）。
+function warmDeferred() {
+    return caches.open(CACHE_NAME).then(function (cache) {
+        var queue = DEFERRED_ASSETS.slice();
+        function next() {
+            if (!queue.length) return Promise.resolve();
+            var batch = queue.splice(0, 6);
+            return Promise.all(batch.map(function (url) {
+                return cache.match(url).then(function (hit) {
+                    if (hit) return null;
+                    return cache.add(url).catch(function (err) {
+                        console.warn('SW: 后台补齐失败 ' + url, err);
+                    });
+                });
+            })).then(next);
+        }
+        return next();
+    });
+}
+
+// 消息监听：支持手动更新 + 后台补齐
 self.addEventListener('message', function (event) {
+    if (event.data && event.data.action === 'warm') {
+        event.waitUntil(warmDeferred());
+        return;
+    }
     if (event.data && event.data.action === 'skipWaiting') {
         self.skipWaiting();
     }

@@ -882,7 +882,17 @@ const examPracticeSystem = {
 };
 
 // 初始化真题系统：首屏不阻塞加载，浏览器空闲时预热题库
+// P1-6(B)：预热按网络/设备分级。弱网、省流模式、低内存设备不预热，
+// 避免首访白下 978 KB；这类设备进入题库时由 ensureLoaded() 按需加载。
 document.addEventListener('DOMContentLoaded', () => {
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (conn) {
+        if (conn.saveData) return;
+        const et = String(conn.effectiveType || '');
+        if (et === 'slow-2g' || et === '2g' || et === '3g') return;
+    }
+    if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 2) return;
+
     const warm = () => examPracticeSystem.ensureLoaded();
     if (typeof requestIdleCallback === 'function') requestIdleCallback(warm, { timeout: 6000 });
     else setTimeout(warm, 3000);

@@ -513,6 +513,15 @@ window.learningPathRecommender = (function () {
         var container = document.getElementById('learning-path-recommender-app');
         if (!container) return;
 
+        // P1-6(A)：首屏不初始化；首次渲染（= 用户打开工具）时才拉数据并分析。
+        if (!initialized) {
+            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
+                '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+                '<div>正在分析错题本…</div></div>';
+            ensureInit();
+            return;
+        }
+
         var html = '';
         html += '<div data-style="max-width:1100px;margin:0 auto;padding:16px;font-family:system-ui,\'Microsoft YaHei\',sans-serif;">';
 
@@ -847,10 +856,18 @@ window.learningPathRecommender = (function () {
         }
     }
 
-    // 初始化
-    function init() {
+    // P1-6(A)：首次打开工具时才初始化。此前在 DOMContentLoaded 就拉取
+    // answer-templates.json / 词表 / knowledge.json（约 203 KB）并触发题库预热，
+    // 而该模块只渲染隐藏的 #learning-path-recommender-app，首屏完全用不到。
+    var initialized = false;
+    var initializing = false;
+
+    function ensureInit() {
+        if (initialized) { render(); return; }
+        if (initializing) return;
+        initializing = true;
         state.loading = true;
-        // 预加载答题模板数据（如果存在）
+        // 首次打开时才拉取答题模板数据（如果存在）
         fetch('data/answer-templates.json').then(function (res) {
             return res.json();
         }).then(function (data) {
@@ -861,15 +878,11 @@ window.learningPathRecommender = (function () {
         loadThesaurus(function () {
             analyzeWeakTopics(state.currentSubject, function () {
                 state.loading = false;
+                initialized = true;
+                initializing = false;
                 render();
             });
         });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
     }
 
     return {

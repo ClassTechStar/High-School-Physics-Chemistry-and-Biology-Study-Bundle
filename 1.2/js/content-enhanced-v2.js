@@ -316,12 +316,35 @@ function step4Analysis(){
 function render(){
     var container = document.getElementById('framework-trainer-app');
     if(!container) return;
+    // P1-6(A)：首次打开工具时才拉取题库。首屏不再自动 init，也不请求 framework-questions.json。
+    if(!QuestionDataLoader.getCached().length){
+        if(QuestionDataLoader._loadingPromise){ container.innerHTML = frameworkLoadingHtml(); return; }
+        container.innerHTML = frameworkLoadingHtml();
+        QuestionDataLoader.load()
+            .then(function(){ render(); })
+            .catch(function(){ container.innerHTML = frameworkErrorHtml(); });
+        return;
+    }
     var html = '';
     if(state.currentStep===1) html = step1SelectQuestion();
     else if(state.currentStep===2) html = step2FillFramework();
     else if(state.currentStep===3) html = step3Compare();
     else if(state.currentStep===4) html = step4Analysis();
     container.innerHTML = html;
+}
+
+function frameworkLoadingHtml(){
+    return '<div data-style="padding:40px;text-align:center;color:#666;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+        '<div>题库加载中...</div></div>';
+}
+
+function frameworkErrorHtml(){
+    return '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
+        '<div>题库加载失败，请检查网络后重试</div>' +
+        '<button data-call="window.frameworkAnswerTrainer._retry" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+        '</div>';
 }
 
 var trainer = {
@@ -385,38 +408,13 @@ var trainer = {
         }
         QuestionDataLoader.load()
             .then(function(){ if(container){ container.innerHTML=''; render(); } })
-            .catch(function(){ /* 错误已由 init 处理 */ });
+            .catch(function(){ if(container){ container.innerHTML = frameworkErrorHtml(); } });
     }
 };
 
 window.frameworkAnswerTrainer = trainer;
 
-// 初始化：加载题库后渲染
-(function init(){
-    var container = document.getElementById('framework-trainer-app');
-    if(!container){
-        // 容器未挂载，稍后重试
-        setTimeout(init, 50);
-        return;
-    }
-    container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
-        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
-        '<div>题库加载中...</div></div>';
-
-    QuestionDataLoader.load()
-        .then(function(){
-            container.innerHTML = '';
-            render();
-        })
-        .catch(function(){
-            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
-                '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
-                '<div>题库加载失败，请检查网络后重试</div>' +
-                '<button data-call=\"window.frameworkAnswerTrainer._retry\" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
-                '</div>';
-        });
-})();
-
+// P1-6(A)：不再在首屏自动 init。数据由 render() 在首次打开工具时按需加载。
 })();
 
 // ============================================================
@@ -1193,9 +1191,33 @@ function getSubjectColor2(subject){
     return '#444';
 }
 
+function variationLoadingHtml(){
+    return '<div data-style="padding:40px;text-align:center;color:#666;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
+        '<div>变式题库加载中...</div></div>';
+}
+
+function variationErrorHtml(){
+    return '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
+        '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
+        '<div>变式题库加载失败，请检查网络后重试</div>' +
+        '<button data-call="window.variationRecommender._retry" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
+        '</div>';
+}
+
 function renderVariationRecommender(){
     var container = document.getElementById('variation-rec-app');
     if(!container) return;
+
+    // P1-6(A)：首次打开工具时才拉取题库。首屏不再自动 init，也不请求 variation-bank.json。
+    if(!VariationDataLoader.getCached().length){
+        if(VariationDataLoader._loadingPromise){ container.innerHTML = variationLoadingHtml(); return; }
+        container.innerHTML = variationLoadingHtml();
+        VariationDataLoader.load()
+            .then(function(){ renderVariationRecommender(); })
+            .catch(function(){ container.innerHTML = variationErrorHtml(); });
+        return;
+    }
 
     var html = '<div data-style="display:flex;font-family:sans-serif;min-height:500px;">';
 
@@ -1362,35 +1384,11 @@ var vrModule = {
         }
         VariationDataLoader.load()
             .then(function(){ if(container){ container.innerHTML=''; renderVariationRecommender(); } })
-            .catch(function(){ /* 错误已由 init 处理 */ });
+            .catch(function(){ if(container){ container.innerHTML = variationErrorHtml(); } });
     }
 };
 
 window.variationRecommender = vrModule;
 
-// 初始化：加载题库后渲染
-(function init(){
-    var container = document.getElementById('variation-rec-app');
-    if(!container){
-        setTimeout(init, 50);
-        return;
-    }
-    container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
-        '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
-        '<div>变式题库加载中...</div></div>';
-
-    VariationDataLoader.load()
-        .then(function(){
-            container.innerHTML = '';
-            renderVariationRecommender();
-        })
-        .catch(function(){
-            container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#d32f2f;">' +
-                '<div data-style="font-size:24px;margin-bottom:12px;">⚠️</div>' +
-                '<div>变式题库加载失败，请检查网络后重试</div>' +
-                '<button data-call=\"window.variationRecommender._retry\" data-style="margin-top:16px;padding:8px 16px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;">重试</button>' +
-                '</div>';
-        });
-})();
-
+// P1-6(A)：不再在首屏自动 init。数据由 render 在首次打开工具时按需加载。
 })();

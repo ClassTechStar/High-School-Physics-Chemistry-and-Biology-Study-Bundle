@@ -47,7 +47,20 @@
         return walkUp(el, attr);
     }
 
+    // P1-6(F)：隐藏区块惰性实例化。<template data-lazy-content> 内的节点不在文档树中，
+    // 首次导航到该 section 时才展开（当前用于语文知识库 20 张大表）。
+    function materializeSection(id) {
+        var sec = document.getElementById(id);
+        if (!sec) return;
+        var templates = sec.querySelectorAll('template[data-lazy-content]');
+        for (var i = 0; i < templates.length; i++) {
+            var tpl = templates[i];
+            if (tpl.parentNode) tpl.parentNode.replaceChild(tpl.content, tpl);
+        }
+    }
+
     function showSection(id) {
+        materializeSection(id);
         document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
         var sec = document.getElementById(id);
         if (sec) { sec.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
@@ -2234,6 +2247,7 @@
 
     // v1.3: 暴露到全局 —— 修复内联事件属性无法引用 IIFE 内部函数的问题
     window.showSection = showSection;
+    window.materializeSection = materializeSection;
     window.setActiveNav = setActiveNav;
     // T0-18: handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
     window.handlePlatformTab = handlePlatformTab;

@@ -9,7 +9,7 @@
 
 1. **数据层去重已完成，且已到收益边界。** 题库 1301 → 1198（-103），按内容指纹统计当前 **0 条重复**、0 重复 id。本轮净减 **89,532 B**（gzip -22,189 B），累计 1718 → 1198，归档 520 条（30.3%）。
 2. **剩余只有 1 组「近重复」**（`BIO_2026_03` / `BIO_2025_33`：同题干、同正确项、干扰项不同）。这属于内容取舍而非零风险删除，保留待人工判断。
-3. **懒加载：数据层已部分完成，真正能立刻回收的是 3 个隐藏容器的启动预取（约 224 KB raw / 75 KB gzip）**；JS 逐模块懒加载 ROI 低（桌面 ScriptDuration 46 ms，4× CPU 254 ms），首屏主成本在 **布局（297 ms / 4× 1,331 ms）与 4,327 个 DOM 节点**，以及 **SW 首次安装的 5.68 MiB 预缓存**。详见第三节。
+3. **懒加载：A+B+E+F 已实施（2026-10-26）。** 首屏数据请求由 6 个（约 1.29 MB）降为 **1 个题库（977 KB）**；模拟 3G/省流时首屏数据请求为 **0**。SW 安装预缓存由 **5.68 MiB / 83 文件降为 0.83 MiB / 22 文件**，工具脚本改为空闲后台补齐、数据不再预缓存。首屏 DOM 由 **3,864 降为 2,824 节点（-26.9%）**，语文知识库 20 张大表改为进入时实例化。JS 逐模块懒加载 ROI 仍低（桌面 ScriptDuration 46 ms，4× CPU 254 ms），首屏剩余主成本在布局与 SW 后台补齐。
 
 ---
 
@@ -161,12 +161,12 @@ Service Worker：
 
 | 方案 | 首访可省（raw / gzip） | 风险 | 需要同步的门禁 | 建议 |
 |---|---|---|---|---|
-| **A. 隐藏容器数据改为按需加载**（框架题/变式题/答题模板） | 224 KB / 75 KB | 低：把自动 init 改为「首次导航到该工具时」触发，保留失败重试 | smoke、content 渲染断言 | **先做** |
-| **B. 题库空闲预热加网络条件** | 978 KB / 229 KB | 低–中：弱网首次进题库多等一次 fetch | app-exam 单测、learning-path 复用逻辑 | **先做**（按连接类型/省流模式分级） |
+| **A. 隐藏容器数据改为按需加载**（框架题/变式题/答题模板） | 224 KB / 75 KB | 低：把自动 init 改为「首次导航到该工具时」触发，保留失败重试 | smoke、content 渲染断言 | **已实施（2026-10-26）** |
+| **B. 题库空闲预热加网络条件** | 978 KB / 229 KB | 低–中：弱网首次进题库多等一次 fetch | app-exam 单测、learning-path 复用逻辑 | **已实施（2026-10-26）** |
 | **C. 学科包懒加载**（`app-chemistry` 272 KB + `app-biology` 127 KB + `app-physics` 65 KB） | 464 KB / 约 104 KB | 中：需加载器 + 进入学科时按序注入，保持全局导出 | `check:runtime`、`check:collisions`、smoke | 等 A/B 复测后再定 |
 | **D. 全模块懒加载**（40+ 工具脚本） | 约 2.9 MiB / 0.79 MiB | 高：54 文件依赖图谱、162 导出、defer 保序 | 全套 verify + 逐工具回归 | **暂不做** |
-| **E. SW 预缓存分层**（核心优先，其余运行时缓存） | 首访最多约 4.5 MiB | 中：离线完整性要逐项验证 | SW 单测、离线冒烟 | 收益最高，建议单独立项 |
-| **F. DOM/布局瘦身**（隐藏工具页按需渲染） | 布局耗时（非字节） | 中：涉及 P1-4 主屏重构 | 视觉回归 18 组合 | 与 P1-4 合并 |
+| **E. SW 预缓存分层**（核心优先，其余运行时缓存） | 首访最多约 4.5 MiB | 中：离线完整性要逐项验证 | SW 单测、离线冒烟 | **已实施（2026-10-26）** |
+| **F. DOM/布局瘦身**（隐藏工具页按需渲染） | 布局耗时（非字节） | 中：涉及 P1-4 主屏重构 | 视觉回归 18 组合 | **已实施首刀（语文知识库 20 表）** |
 | **G. 发布时 minify**（`1.2/dist/`，源码保留） | JS gzip 再降约 20–30% | 低（构建产物） | Pages 工作流 | 最后手段，与「无构建」定位需明确边界 |
 
 ### 3.5 建议顺序
@@ -176,12 +176,70 @@ Service Worker：
 3. **C** 仅在复测显示学科包仍是首屏负担时再做；**D 不做**。
 4. 不把「懒加载」与「首屏变快」画等号：当前数据表明，最大的两块是 SW 预缓存与 DOM 布局，而不是 JS 体积。
 
+### 3.6 实施记录（A+B，2026-10-26）
+
+| 项 | 改动 | 文件 |
+|---|---|---|
+| A-1 框架题 | 删除首屏自动 init；`render()`（导航进入时调用）首次发现无缓存才 fetch，加载中/失败重试 UI 保留 | [content-enhanced-v2.js](1.2/js/content-enhanced-v2.js) |
+| A-1 变式题 | 同上，`renderVariationRecommender()` 负责按需加载 | 同上 |
+| A-2 学习路径 | 删除 `DOMContentLoaded` 初始化；`render()` 首次进入时 `ensureInit()`，此时才取答题模板、词表、knowledge.json 并分析错题本 | [learning-path-recommender.js](1.2/js/learning-path-recommender.js) |
+| B 题库预热 | `saveData` / `effectiveType` 为 slow-2g·2g·3g / `deviceMemory < 2` 时跳过空闲预热；其余保持 `requestIdleCallback` + 6 s 超时 | [app-exam.js](1.2/js/app-exam.js) |
+
+同机复测（Edge headless，本地 no-cache，1× CPU，6 s 窗口；本地无网络延迟，绝对值为乐观估计）：
+
+| 场景 | 首屏数据请求 | 首屏 JSON 字节 | DCL | FCP |
+|---|---|---:|---:|---:|
+| 实施前（默认网络） | 6 个（题库/答题模板/框架题/词表/knowledge/变式题） | 1.29 MB | 495 ms | 444 ms |
+| 实施后（默认网络） | **1 个（题库）** | **977 KB** | 337 ms | 312 ms |
+| 实施后（模拟 3G） | **0 个** | **0** | 360 ms | 340 ms |
+
+按需行为（浏览器实测）：
+
+- 首屏三个隐藏容器 `textContent` 长度均为 **0**（不再提前渲染隐藏区）；
+- 打开框架题：渲染 **30 张题卡**，仅 1 次 `framework-questions.json` 请求；
+- 打开变式题：渲染 **6 个知识点分组**，仅 1 次 `variation-bank.json` 请求；
+- 打开学习路径：渲染 3,043 字符，按需请求 `answer-templates.json` / 词表 / `physics/knowledge.json`，题库复用 `ensureLoaded()`。
+
+收益口径：A 让首屏少取 283.8 KB raw / 92.8 KB gzip；B 在弱网/省流设备上再少取 977 KB raw / 229 KB gzip（此时页面发起的数据请求为 0）。
+
+> 说明：A+B 实施时 SW 仍在安装阶段全量预缓存（5.68 MiB），所以上面的节省是**首屏关键路径**口径；随后 E 已把安装预缓存降到 0.83 MiB，详见 3.7。`CACHE_NAME` 已递增到 `hspcb-v18`，确保已装 SW 的用户能拿到新脚本。
+
+### 3.7 实施记录（E+F，2026-10-26）
+
+| 项 | 改动 | 文件 |
+|---|---|---|
+| E-1 预缓存分层 | `CORE_ASSETS` 只保留应用壳 **22 个 / 0.83 MiB**；新增 `DEFERRED_ASSETS` **50 个 / 3.30 MiB**（工具脚本、演示页、打印样式）；`DATA_ASSETS` 12 个 / 1.54 MiB 不再预缓存，继续由运行时网络优先缓存 | [sw.js](1.2/sw.js) |
+| E-2 空闲补齐 | `sw-register.js` 在 SW ready 后、网络允许（非 saveData / 非 2G·3G / deviceMemory ≥ 2）时 `requestIdleCallback` 发 `{action:'warm'}`；SW 分批（6 个/批）补齐 `DEFERRED_ASSETS`，已缓存则跳过 | [sw-register.js](1.2/js/sw-register.js) |
+| F-1 语文知识库惰性实例化 | `index.html` 中 `#chinese-section` 的 **20 张大表**包进 `<template data-lazy-content="chinese-table">`；首次进入语文时由 `materializeSection()` 展开。标题与 `.key-point` 保留在文档中，不影响全局搜索索引 | [index.html](1.2/index.html) · [main-inline.js](1.2/js/main-inline.js) |
+| F-2 双导航路径接线 | `showSection()` 与 `app.js navigateTo()` 均先调用 `window.materializeSection()`，覆盖工具入口与学科导航 | [app.js](1.2/js/app.js) |
+
+实测（Edge headless，本地 no-cache）：
+
+| 指标 | 实施前 | 实施后 |
+|---|---:|---:|
+| SW 安装预缓存 | 83 文件 / **5.68 MiB** | **22 文件 / 0.83 MiB** |
+| 后台补齐清单 | — | 50 文件 / 3.30 MiB（数据不含） |
+| 首屏 DOM 节点 | 3,864 | **2,824（-1,040，-26.9%）** |
+| 语文知识库表格 | 20 张在文档树 | 首屏 0 张（20 个 template）；进入语文后 20 张、节点回到 3,864 |
+| 首访请求（默认网络） | 141 / 9.12 MB | 137 / 63 次重复（含后台补齐） |
+| 首访请求（3G 模拟） | 141 / 9.12 MB | **86 / 20 次重复**（跳过 warm） |
+| SW 缓存条目（12 s） | 83 | 默认网络 72（22 核心 + 50 补齐，无题库）；3G 22（仅核心） |
+
+布局耗时没有明显下降（1× 280 ms / 4× 1,403 ms；实施前 297/1,331 ms，属运行噪声）：`display:none` 的隐藏节点本来就不参与布局。F 省下的是 DOM 内存、解析与样式匹配；真正的布局成本仍要等 P1-4 主屏收敛。语文表的表头/正文未进入全局搜索索引（原索引只取 `h2/h3/h4` 与 `.key-point`，这些仍保留），因此 F 不影响搜索结果。
+
+离线口径：默认网络下后台补齐完成后，全部 JS 与核心壳离线可用；**数据文件不再预缓存**，只有实际打开过的工具数据才在缓存里（与 A 一致）。3G/省流设备跳过补齐，未使用的工具首次打开需要联网 —— 这是 E 的明确取舍。
+
+诚实边界：页面本身仍会首次加载 54 个 JS（约 3.47 MiB），E 降低的是 **SW 安装阻塞与重复下载**，不是页面脚本字节；生产环境有 HTTP 缓存时，后台补齐的重复请求会进一步减少。
+
 ---
 
 ## 四、验证记录
 
 - `npm run check:data`：PASS，1,198 题，内容重复 0，解析/答案冲突 0。
 - `npm run check:content`：C1–C12 全绿（13 passed / 6 项基线内技术债 / 0 failed），C3 六科均衡 6/6。
-- `npm run verify`：**exit 0**（data / collisions / theme 6 / csp 12 / lint / content / runtime 121 / test 49+14 / smoke 46）。
+- `npm run verify`：**exit 0**（data / collisions / theme 6 / csp 12 / lint / content / runtime 121 / test 49+14 / smoke 50）。
+- 懒加载实测：默认网络首屏仅 `exam-bank.json`（977 KB）；注入 `navigator.connection = { effectiveType: '3g' }` 后首屏数据 0 请求；三个工具打开后分别渲染 30 张题卡 / 6 个分组 / 3,043 字符。
+- E/F 实测：SW 安装缓存 22 个（0.83 MiB）；默认网络 12 s 内补齐到 72 个且不含题库，3G 模拟下保持 22 个；首屏 DOM 3,864 → 2,824，进入语文后 20 张表展开、`#m1` 与 `#chineseSearchInput` 均存在。
+- `npm run verify`：E/F 后再次 **exit 0**（smoke 50 → 53）。
 - 反注入自检：重复题注入 → 门禁失败；还原 → 文件 SHA-256 与注入前一致。
 - 首屏测量：Edge headless + CDP，1× / 4× CPU 两组，见 3.2 表。

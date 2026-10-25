@@ -84,7 +84,7 @@ High-School-Physics-Chemistry-and-Biology-Study-Bundle/
 
 > **🚀 [点此进入在线版](https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/)**
 
-支持手机浏览器；用 Chrome / Edge 打开后可「添加到主屏幕」作为 PWA 离线使用（首次访问需联网加载）。
+支持手机浏览器；用 Chrome / Edge 打开后可「添加到主屏幕」作为 PWA 使用。首次访问需联网：安装只缓存应用壳，工具脚本在页面空闲时后台补齐；题库与知识点数据在首次打开对应工具后才进入离线缓存。弱网 / 省流模式会跳过后台补齐，未使用的工具首次打开仍需联网。
 
 ## 快速开始
 

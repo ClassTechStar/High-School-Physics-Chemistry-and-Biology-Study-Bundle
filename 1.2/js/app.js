@@ -1236,6 +1236,11 @@ function navigateTo(section) {
         console.info(`[navigateTo] id 别名: "${section}" → "${resolved}"`);
     }
 
+    // P1-6(F)：该 section 若含 <template data-lazy-content>，进入前先实例化
+    if (typeof window.materializeSection === 'function') {
+        window.materializeSection(resolved + '-section');
+    }
+
     document.querySelectorAll('.section').forEach(s => {
         s.classList.remove('active');
     });
