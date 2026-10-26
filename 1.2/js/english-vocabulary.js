@@ -5,7 +5,7 @@ window.englishVocabulary = (function() {
     var MODE_CARD = 'card';
     var MODE_QUIZ = 'quiz';
 
- /* ========== EMBEDDED VOCABULARY (60+ high-frequency gaokao words) ========== */
+ // EMBEDDED VOCABULARY (60+ high-frequency gaokao words)
 
     var WORDS = [
         { word: 'abandon',      chinese: '放弃；遗弃',           pos: 'v.',     example: 'They had to abandon the plan due to bad weather.' },
@@ -138,7 +138,7 @@ window.englishVocabulary = (function() {
         { word: 'worthwhile',   chinese: '值得的',               pos: 'adj.',   example: 'Teaching is a worthwhile career.' }
     ];
 
- /* ========== STATE ========== */
+ // STATE
 
     var currentMode = MODE_CARD;
     var currentCardIndex = 0;
@@ -149,7 +149,7 @@ window.englishVocabulary = (function() {
     var progressData = null;
     var containerEl = null;
 
- /* ========== DATA LAYER ========== */
+ // DATA LAYER
 
     function loadProgress() {
         if (progressData) return progressData;
@@ -217,7 +217,7 @@ window.englishVocabulary = (function() {
         return Object.keys(pd.known).length;
     }
 
- /* ========== CSS INJECTION ========== */
+ // CSS INJECTION
 
     function injectStyles() {
         if (document.getElementById('hspcb-evocab-styles')) return;
@@ -386,7 +386,7 @@ window.englishVocabulary = (function() {
         document.head.appendChild(style);
     }
 
- /* ========== HELPERS ========== */
+ // HELPERS
 
     function shuffleArray(arr) {
         var a = arr.slice();
@@ -407,7 +407,7 @@ window.englishVocabulary = (function() {
         return WORDS.slice();
     }
 
- /* ========== CARD MODE ========== */
+ // CARD MODE
 
     function renderCardMode(filter) {
         var filtered = getFilteredWords(filter);
@@ -530,7 +530,7 @@ window.englishVocabulary = (function() {
         renderCardMode(containerEl._filterMode || 'all');
     }
 
- /* ========== QUIZ MODE ========== */
+ // QUIZ MODE
 
     function generateQuizOptions(correctWordObj) {
         var others = WORDS.filter(function(w) { return w.word !== correctWordObj.word; });
@@ -617,7 +617,7 @@ window.englishVocabulary = (function() {
         renderQuizMode();
     }
 
- /* ========== MODE SWITCHING ========== */
+ // MODE SWITCHING
 
     function switchMode(mode) {
         currentMode = mode;
@@ -639,7 +639,7 @@ window.englishVocabulary = (function() {
         }
     }
 
- /* ========== FILTER SWITCHING ========== */
+ // FILTER SWITCHING
 
     function setFilter(filter) {
         containerEl._filterMode = filter;
@@ -657,7 +657,7 @@ window.englishVocabulary = (function() {
         renderCardMode(filter);
     }
 
- /* ========== EVENT DELEGATION ========== */
+ // EVENT DELEGATION
 
     function handleClick(e) {
         var target = e.target.closest('[data-action]');
@@ -697,7 +697,7 @@ window.englishVocabulary = (function() {
         }
     }
 
- /* ========== MAIN RENDER ========== */
+ // MAIN RENDER
 
     function render() {
         loadProgress();
@@ -769,7 +769,7 @@ window.englishVocabulary = (function() {
         containerEl = savedContainer;
     }
 
- /* ========== PUBLIC API ========== */
+ // PUBLIC API
 
     return {
         render: render

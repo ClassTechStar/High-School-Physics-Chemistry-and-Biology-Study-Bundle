@@ -1802,7 +1802,7 @@ const electrochemistryViewer = {
         ctx.fill(); ctx.stroke();
 
         if (ex.id === 'daniel') {
-            // === Salt Bridge - Professional U-tube rendering ===
+            // Salt Bridge - Professional U-tube rendering
             var gapL = leftVessel.x + leftVessel.w;  // 220
             var gapR = rightVessel.x;                  // 380
             var cx = (gapL + gapR) / 2;               // 300 center
@@ -4930,10 +4930,8 @@ window.organicConverter = organicConverter;
 window.chemistryProcessAnalyzer = chemistryProcessAnalyzer;
 window.equationBalancerPro = equationBalancerPro;
 
-/* ============================================================
- * d：内联事件属性的事件委托注册（CSP 改造）
- * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
- * ============================================================ */
+// d：内联事件属性的事件委托注册（CSP 改造）
+// 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
 (function () {
     if (!window.HSPCBEV) return;
 

@@ -1,7 +1,7 @@
 // 数据分析增强 - 错题报告+时间管理+分数线可视化
 (function (global) {
 
-  // ============ 通用工具 ============
+  // 通用工具
   function esc(s) {
     if (s === null || s === undefined) return '';
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -126,7 +126,7 @@
     return '粗心失误';
   }
 
-  // ============ 模块1: errorAnalysisReport ============
+  // 模块1: errorAnalysisReport
   var errorAnalysisReport = {
     containerId: 'error-analysis-report-app',
     timeRange: '30',
@@ -430,7 +430,7 @@
     }
   };
 
-  // ============ 模块2: timeManagementAnalyzer ============
+  // 模块2: timeManagementAnalyzer
   var timeManagementAnalyzer = {
     containerId: 'time-management-app',
     timeRange: '30',
@@ -709,7 +709,7 @@
     }
   };
 
-  // ============ 模块3: scoreLineVisualization ============
+  // 模块3: scoreLineVisualization
   var scoreLineVisualization = {
     containerId: 'score-line-app',
     category: 'physics',
@@ -892,7 +892,7 @@
     }
   };
 
-  // ============ 暴露到 window ============
+  // 暴露到 window
   global.errorAnalysisReport = errorAnalysisReport;
   global.timeManagementAnalyzer = timeManagementAnalyzer;
   global.scoreLineVisualization = scoreLineVisualization;

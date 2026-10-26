@@ -1464,14 +1464,14 @@ var PRESET_SENTENCES = [
     }
 ];
 
-// ==================== 状态 ====================
+// 状态
 var state = {
     currentIndex: 0,
     customInput: '',
     customAnalysis: null
 };
 
-// ==================== 辅助函数 ====================
+// 辅助函数
 
 function nl2br(str){
     if(!str) return '';
@@ -1502,7 +1502,7 @@ function getRoleBgColor(role){
     return '#f5f5f5';
 }
 
-// ==================== 自定义输入规则分析 ====================
+// 自定义输入规则分析
 function analyzeSentence(text){
     if(!text || text.trim()==='') return null;
     text = text.trim();
@@ -1569,7 +1569,7 @@ function analyzeSentence(text){
     };
 }
 
-// ==================== 渲染函数 ====================
+// 渲染函数
 function renderInputArea(){
     var html = '<div data-style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:16px;">';
     html += '<h3 data-style="margin:0 0 12px 0;color:#333;font-size:16px;">📝 句子输入区</h3>';
@@ -1736,12 +1736,12 @@ function render(){
     container.innerHTML = html;
 }
 
-// ==================== 事件处理 ====================
+// 事件处理
 function bindEvents(){
     // 事件通过 onclick/oninput 内联绑定，无需额外监听
 }
 
-// ==================== 对外接口 ====================
+// 对外接口
 window.englishSentenceAnalyzer = {
     render: render,
     getPresetSentences: function(){ return PRESET_SENTENCES; },

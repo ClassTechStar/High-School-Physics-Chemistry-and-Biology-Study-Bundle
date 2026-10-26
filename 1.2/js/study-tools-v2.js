@@ -1,7 +1,7 @@
 // js/study-tools-v2.js — Study Enhancement Tools (5 Modules)
 // ES5 Compatible | IIFE Pattern | Canvas Charts | Inline Styles
 
-/* ========== SHARED UTILITIES ========== */
+// SHARED UTILITIES
 
 var _ST = {
     card: 'background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-bottom:16px;',
@@ -80,9 +80,7 @@ var _util = {
     }
 };
 
-/* ============================================================
-   MODULE 1: pomodoroTimer
-   ============================================================ */
+   // MODULE 1: pomodoroTimer
 window.pomodoroTimer = (function() {
     'use strict';
 
@@ -191,7 +189,7 @@ window.pomodoroTimer = (function() {
         return result;
     }
 
- /* ===== Canvas Progress Ring ===== */
+ // Canvas Progress Ring
 
     function drawRing() {
         var canvas = document.getElementById('pomodoro-canvas');
@@ -433,9 +431,7 @@ window.pomodoroTimer = (function() {
     };
 })();
 
-/* ============================================================
-   MODULE 2: studyPlanGenerator
-   ============================================================ */
+   // MODULE 2: studyPlanGenerator
 window.studyPlanGenerator = (function() {
     'use strict';
 
@@ -738,9 +734,7 @@ window.studyPlanGenerator = (function() {
     };
 })();
 
-/* ============================================================
-   MODULE 3: masteryRadar
-   ============================================================ */
+   // MODULE 3: masteryRadar
 window.masteryRadar = (function() {
     'use strict';
 
@@ -1123,9 +1117,7 @@ window.masteryRadar = (function() {
     };
 })();
 
-/* ============================================================
-   MODULE 4: errorVariation
-   ============================================================ */
+   // MODULE 4: errorVariation
 window.errorVariation = (function() {
     'use strict';
 
@@ -1169,7 +1161,7 @@ window.errorVariation = (function() {
         saveStats(stats);
     }
 
- /* ===== Variation Generation ===== */
+ // Variation Generation
 
     function generateVariation(error) {
         var q = error.question || '';
@@ -1634,9 +1626,7 @@ window.errorVariation = (function() {
     };
 })();
 
-/* ============================================================
-   MODULE 5: noteSystem
-   ============================================================ */
+   // MODULE 5: noteSystem
 window.noteSystem = (function() {
     'use strict';
 
@@ -1694,7 +1684,7 @@ window.noteSystem = (function() {
         saveData(filtered);
     }
 
- /* ===== Simple Markdown Renderer ===== */
+ // Simple Markdown Renderer
 
     function inlineFormat(text) {
         var t = _util.escapeHtml(text);

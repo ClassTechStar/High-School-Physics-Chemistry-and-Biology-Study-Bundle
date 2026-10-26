@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 
-// ==================== 题库 ====================
+// 题库
 var QUESTION_BANK = [
     // ---------- 原因分析题（7道） ----------
     {
@@ -264,7 +264,7 @@ var QUESTION_BANK = [
     }
 ];
 
-// ==================== 框架定义 ====================
+// 框架定义
 var FRAMEWORKS = {
     '原因分析': {
         name: '原因分析题 - 三段式',
@@ -334,7 +334,7 @@ var FRAMEWORKS = {
     }
 };
 
-// ==================== 主模块 ====================
+// 主模块
 var openAnswerTrainer = {
     // 状态
     currentFramework: '原因分析',
@@ -592,7 +592,7 @@ var openAnswerTrainer = {
         };
     },
 
-    // ==================== 渲染 ====================
+    // 渲染
     render: function() {
         var container = document.getElementById('open-answer-trainer-app');
         if (!container) {
@@ -609,7 +609,7 @@ var openAnswerTrainer = {
         var html = '';
         html += '<div data-style="font-family:\'Microsoft YaHei\',\'PingFang SC\',sans-serif;max-width:1200px;margin:0 auto;padding:12px;">';
 
-        // ===== 顶部：框架Tab切换 =====
+        // 顶部：框架Tab切换
         html += '<div data-style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">';
         var frameworks = ['原因分析', '实验设计', '曲线分析'];
         var fwColors = { '原因分析': '#e74c3c', '实验设计': '#2ecc71', '曲线分析': '#3498db' };
@@ -633,7 +633,7 @@ var openAnswerTrainer = {
         }
         html += '</div>';
 
-        // ===== 主体三栏布局 =====
+        // 主体三栏布局
         html += '<div data-style="display:flex;gap:10px;flex-wrap:wrap;">';
 
         // ---- 左侧：题目列表 ----

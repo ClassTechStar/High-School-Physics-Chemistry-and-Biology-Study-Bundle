@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  // ===================== 公共工具 =====================
+  // 公共工具
   function escapeHtml(s) {
     var fn = (typeof CommonUtils !== 'undefined' && CommonUtils) ? CommonUtils.escapeHtml : null;
     if (typeof fn === 'function') return fn(s);
@@ -1031,7 +1031,7 @@
     }
   };
 
-  // ===================== 暴露到 window =====================
+  // 暴露到 window
   window.trigUnitCircle = trigUnitCircle;
   window.englishListening = englishListening;
   window.englishCloze = englishCloze;

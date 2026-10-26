@@ -6,7 +6,7 @@ window.physicsWaveOptics = (function() {
     var waveParams = { wavelength: 40, distance: 120, animId: null, time: 0 };
     var opticsParams = { angle: 45, n1: 1.0, n2: 1.33, n3: 1.5 };
 
-    // ===================== Wave Interference Tab =====================
+    // Wave Interference Tab
     function drawWaveCanvas() {
         var canvas = document.getElementById('wave-canvas');
         if (!canvas) return;
@@ -139,7 +139,7 @@ window.physicsWaveOptics = (function() {
         startWaveAnimation();
     }
 
-    // ===================== Optics Tab =====================
+    // Optics Tab
     function drawOpticsCanvas() {
         var canvas = document.getElementById('optics-canvas');
         if (!canvas) return;
@@ -304,7 +304,7 @@ window.physicsWaveOptics = (function() {
         updateOpticsInfo();
     }
 
-    // ===================== Main Render =====================
+    // Main Render
     function render() {
         var container = document.getElementById('physics-wave-optics-app');
         if (!container) return;

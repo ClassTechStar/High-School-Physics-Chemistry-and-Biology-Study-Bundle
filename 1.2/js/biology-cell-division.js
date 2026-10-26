@@ -140,7 +140,7 @@ window.biologyCellDivision = (function() {
         }
     ];
 
-    // ===================== Drawing Helpers =====================
+    // Drawing Helpers
     function drawCellBase(ctx, w, h, hasNucleus, hasNucleolus) {
         // Cell membrane
         ctx.strokeStyle = '#22c55e'; ctx.lineWidth = 3;
@@ -335,7 +335,7 @@ window.biologyCellDivision = (function() {
         ctx.fillText('\u7EC6\u80DE\u8D28\u5206\u88C2\u2192\u4E24\u4E2A\u5B50\u7EC6\u80DE', w / 2, h - 15);
     }
 
-    // ===================== Meiosis Drawing Helpers =====================
+    // Meiosis Drawing Helpers
     function drawTetrad(ctx, w, h, t) {
         var cy = h / 2;
         for (var i = -1; i <= 1; i += 2) {
@@ -462,7 +462,7 @@ window.biologyCellDivision = (function() {
         ctx.fillText('\u56DB\u4E2A\u5355\u500D\u4F53\u914D\u5B50\u7EC6\u80DE', w / 2, h - 10);
     }
 
-    // ===================== Main Render =====================
+    // Main Render
     function getSteps() {
         return currentTab === 'mitosis' ? mitosisSteps : meiosisSteps;
     }

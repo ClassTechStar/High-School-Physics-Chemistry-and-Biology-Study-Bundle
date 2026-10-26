@@ -1,6 +1,6 @@
 // 缺失工具实现 - Part 2: 新增6大工具模块
 
-// ==================== 5. 公式手册与速查卡 ====================
+// 5. 公式手册与速查卡
 const formulaHandbook = {
     state: { subject: 'chemistry', category: 'all', search: '' },
 
@@ -199,7 +199,7 @@ const formulaHandbook = {
 window.formulaHandbook = formulaHandbook;
 
 
-// ==================== 6. 计时刷题模式 ====================
+// 6. 计时刷题模式
 const timedQuiz = {
     state: {
         questions: [],
@@ -552,13 +552,13 @@ timedQuiz.__probe = function () {
 };
 
 
-// ==================== 7. 知识点视频讲解链接 ====================
+// 7. 知识点视频讲解链接
 
 
-// ==================== 8. 实验视频/动画库 ====================
+// 8. 实验视频/动画库
 
 
-// ==================== 9. 每日一题/学习计划 ====================
+// 9. 每日一题/学习计划
 const dailyLearning = {
     state: {
         plan: [], // 30天计划
@@ -756,7 +756,7 @@ const dailyLearning = {
 window.dailyLearning = dailyLearning;
 
 
-// ==================== 10. 学科交叉专题 ====================
+// 10. 学科交叉专题
 const interdisciplinaryTopics = {
     state: { current: 0 },
 

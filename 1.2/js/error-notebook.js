@@ -7,7 +7,7 @@ window.errorNotebook = (function() {
     var DIFFICULTY_LABELS = { easy: '基础', medium: '中等', hard: '较难' };
     var DIFFICULTY_STARS = { easy: '⭐', medium: '⭐⭐', hard: '⭐⭐⭐' };
 
- /* ========== DATA LAYER ========== */
+ // DATA LAYER
 
     function loadData() {
         try {
@@ -120,7 +120,7 @@ window.errorNotebook = (function() {
         saveData(data);
     }
 
- /* ========== STATS ========== */
+ // STATS
 
     function getStats() {
         var data = loadData();
@@ -166,7 +166,7 @@ window.errorNotebook = (function() {
         return result;
     }
 
- /* ========== FILTERING ========== */
+ // FILTERING
 
     function getFilteredErrors(filters) {
         var data = loadData();
@@ -198,7 +198,7 @@ window.errorNotebook = (function() {
         return result;
     }
 
- /* ========== EXPORT ========== */
+ // EXPORT
 
     function exportAsText(filters) {
         var errors = filters ? getFilteredErrors(filters) : loadData().errors;
@@ -244,7 +244,7 @@ window.errorNotebook = (function() {
         URL.revokeObjectURL(url);
     }
 
- /* ========== CSS STYLES ========== */
+ // CSS STYLES
 
     function injectStyles() {
         if (document.getElementById('error-notebook-styles')) return;
@@ -520,7 +520,7 @@ window.errorNotebook = (function() {
         document.head.appendChild(style);
     }
 
- /* ========== RENDER FUNCTIONS ========== */
+ // RENDER FUNCTIONS
 
     var currentTab = 'all';
     var currentFilters = { subject: 'all', difficulty: 'all', mastered: 'all', dateFrom: '', dateTo: '', keyword: '' };
@@ -681,7 +681,7 @@ window.errorNotebook = (function() {
         return card;
     }
 
- /* ========== TAB: ALL ERRORS ========== */
+ // TAB: ALL ERRORS
 
     function renderAllTab(container) {
  /* Filters */
@@ -966,7 +966,7 @@ window.errorNotebook = (function() {
         return card;
     }
 
- /* ========== TAB: BY SUBJECT ========== */
+ // TAB: BY SUBJECT
 
     function renderSubjectTab(container) {
         var stats = getStats();
@@ -1124,7 +1124,7 @@ window.errorNotebook = (function() {
         detailDiv.appendChild(listDiv);
     }
 
- /* ========== TAB: REDO MODE ========== */
+ // TAB: REDO MODE
 
     function renderRedoTab(container) {
  /* Get errors for redo (filtered by current subject filter or all unmastered) */
@@ -1399,7 +1399,7 @@ window.errorNotebook = (function() {
         refreshStats();
     }
 
- /* ========== MODAL ========== */
+ // MODAL
 
     function showClearConfirm() {
         var data = loadData();
@@ -1441,7 +1441,7 @@ window.errorNotebook = (function() {
         };
     }
 
- /* ========== PUBLIC API ========== */
+ // PUBLIC API
 
     function getErrorsBySubject(subject) {
         var data = loadData();

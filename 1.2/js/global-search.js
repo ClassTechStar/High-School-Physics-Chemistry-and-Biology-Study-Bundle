@@ -14,7 +14,7 @@ window.globalSearch = (function() {
 
     // FALLBACK TOOL INDEX (84 tools across all subjects)
     var TOOL_INDEX = [
-        // === 物理 Physics (16 tools) ===
+        // 物理 Physics (16 tools)
         { name: '物理公式计算器', desc: '力学·电磁学·热学公式速算', tool: 'physics-formula', subject: '物理', icon: '📐' },
         { name: '抛体运动模拟', desc: '初速度·角度·落点可视化·最高点分析', tool: 'physics-projectile', subject: '物理', icon: '🎯' },
         { name: '受力分析工具', desc: '斜面·滑轮·传送带模型·摩擦力判断', tool: 'physics-mechanics', subject: '物理', icon: '🔧' },
@@ -32,7 +32,7 @@ window.globalSearch = (function() {
         { name: '振动与波模拟', desc: '简谐运动·机械波·干涉衍射', tool: 'physics-wave', subject: '物理', icon: '〰️' },
         { name: '原子物理工具', desc: '波尔模型·能级跃迁·核反应方程', tool: 'physics-atomic', subject: '物理', icon: '🔬' },
 
-        // === 化学 Chemistry (17 tools) ===
+        // 化学 Chemistry (17 tools)
         { name: '化学方程式配平', desc: '智能配平+原子守恒检验+反应类型识别', tool: 'chemistry-balancer', subject: '化学', icon: '⚖️' },
         { name: '化学知识闯关', desc: '选择题·填空题·判断题·限时挑战', tool: 'chemistry-quiz', subject: '化学', icon: '📝' },
         { name: '实验室安全', desc: '操作规范·应急处理·危化品管理', tool: 'chemistry-safety', subject: '化学', icon: '⚠️' },
@@ -51,7 +51,7 @@ window.globalSearch = (function() {
         { name: '化学反应速率工具', desc: '浓度·温度·催化剂影响·活化能', tool: 'chemistry-rate', subject: '化学', icon: '⏱️' },
         { name: '化学实验设计器', desc: '实验目的·原理·步骤·现象分析', tool: 'chemistry-experiment', subject: '化学', icon: '🧫' },
 
-        // === 生物 Biology (14 tools) ===
+        // 生物 Biology (14 tools)
         { name: '遗传规律模拟器', desc: '孟德尔定律·伴性遗传·基因频率计算', tool: 'biology-genetics', subject: '生物', icon: '🧬' },
         { name: '生态系统模拟', desc: '食物链·能量流动·物质循环·碳循环', tool: 'biology-ecosystem', subject: '生物', icon: '🌍' },
         { name: '知识思维导图', desc: '13大热点专题·6维关联·考点清单', tool: 'biology-mindmap', subject: '生物', icon: '🗺️' },
@@ -67,7 +67,7 @@ window.globalSearch = (function() {
         { name: '神经体液调节工具', desc: '反射弧·动作电位·激素调节通路', tool: 'biology-regulation', subject: '生物', icon: '🧠' },
         { name: '免疫系统模拟', desc: '体液免疫·细胞免疫·特异性免疫', tool: 'biology-immunity', subject: '生物', icon: '🛡️' },
 
-        // === 数学 Math (11 tools) ===
+        // 数学 Math (11 tools)
         { name: '数学复习资料', desc: '选必一·选必二 全章节知识点梳理', tool: 'math-review', subject: '数学', icon: '📐' },
         { name: '函数图像绘制器', desc: '多函数叠加·平滑绘图·坐标网格', tool: 'math-grapher', subject: '数学', icon: '📈' },
         { name: '导数计算器', desc: '符号求导·数值计算·图像对比', tool: 'math-derivative', subject: '数学', icon: '📐' },
@@ -80,7 +80,7 @@ window.globalSearch = (function() {
         { name: '立体几何工具', desc: '三视图·体积计算·截面分析', tool: 'math-solid-geometry', subject: '数学', icon: '📦' },
         { name: '统计工具', desc: '均值·方差·回归分析·相关系数', tool: 'math-statistics', subject: '数学', icon: '📉' },
 
-        // === 语文 Chinese (6 tools) ===
+        // 语文 Chinese (6 tools)
         { name: '语文知识点合集', desc: '现代文·文言文·诗词·作文全解', tool: 'chinese-knowledge', subject: '语文', icon: '📚' },
         { name: '默写自测系统', desc: '19篇必背·情境填空·即时批改', tool: 'chinese-recitation', subject: '语文', icon: '📝' },
         { name: '文言实词闯关', desc: '25个实词·选择题·配对练习', tool: 'chinese-vocabulary-quiz', subject: '语文', icon: '🎯' },
@@ -88,28 +88,28 @@ window.globalSearch = (function() {
         { name: '诗词鉴赏工具', desc: '意象分析·手法鉴赏·情感主旨', tool: 'chinese-poetry', subject: '语文', icon: '🎋' },
         { name: '现代文阅读工具', desc: '论述类·实用类·文学类文本分析', tool: 'chinese-reading', subject: '语文', icon: '📖' },
 
-        // === 英语 English (4 tools) ===
+        // 英语 English (4 tools)
         { name: '英语词汇速查', desc: '3500课标词·同义词辨析·词根词缀', tool: 'english-vocabulary', subject: '英语', icon: '📖' },
         { name: '语法知识图谱', desc: '时态·从句·非谓语动词·虚拟语气', tool: 'english-grammar', subject: '英语', icon: '📝' },
         { name: '阅读理解训练', desc: '细节题·推理题·主旨题·猜词题', tool: 'english-reading', subject: '英语', icon: '📄' },
         { name: '写作模板库', desc: '书信·议论文·读后续写·概要写作', tool: 'english-writing', subject: '英语', icon: '✍️' },
 
-        // === 历史 History (3 tools) ===
+        // 历史 History (3 tools)
         { name: '历史年表工具', desc: '中国史·世界史大事记·时序梳理', tool: 'history-timeline', subject: '历史', icon: '📅' },
         { name: '历史材料题分析', desc: '史料解读·答题模板·史论结合', tool: 'history-materials', subject: '历史', icon: '📜' },
         { name: '历史概念辨析', desc: '易混概念·制度对比·阶段特征', tool: 'history-concepts', subject: '历史', icon: '🔍' },
 
-        // === 地理 Geography (3 tools) ===
+        // 地理 Geography (3 tools)
         { name: '地理地图工具', desc: '中国地形·世界气候·洋流分布', tool: 'geography-map', subject: '地理', icon: '🗺️' },
         { name: '地理计算器', desc: '地方时·区时·太阳高度角·昼夜长短', tool: 'geography-calculator', subject: '地理', icon: '🧮' },
         { name: '地理综合题分析', desc: '自然地理·人文地理·区域可持续发展', tool: 'geography-analysis', subject: '地理', icon: '🌏' },
 
-        // === 政治 Politics (3 tools) ===
+        // 政治 Politics (3 tools)
         { name: '政治概念图谱', desc: '必修1-4知识网络·核心概念关联', tool: 'politics-concepts', subject: '政治', icon: '📋' },
         { name: '时政热点分析', desc: '年度热点·考点链接·答题术语', tool: 'politics-current', subject: '政治', icon: '📰' },
         { name: '政治主观题模板', desc: '是什么·为什么·怎么办答题框架', tool: 'politics-template', subject: '政治', icon: '📝' },
 
-        // === 跨学科 / 平台工具 Platform (7 tools) ===
+        // 跨学科 / 平台工具 Platform (7 tools)
         { name: '备考数据中心', desc: '分数线·知识图谱·个性化推荐·进度追踪', tool: 'exam-dashboard', subject: '备考', icon: '🎯' },
         { name: '平台结构总览', desc: '三层结构·模块权重·题库构成', tool: 'platform-overview', subject: '平台', icon: '🏛️' },
         { name: '物化二级结论', desc: '物理快捷公式·化学核心结论速查', tool: 'secondary-conclusions', subject: '跨学科', icon: '📋' },

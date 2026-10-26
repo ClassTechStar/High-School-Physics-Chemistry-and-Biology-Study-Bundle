@@ -6,7 +6,7 @@ window.chineseSentenceCorrection = (function() {
 
     // 题库：30道高考风格病句（6大类型 × 3个难度级别）
     var QUESTIONS = [
-        // ========== 基础 (10题) ==========
+        // 基础 (10题)
         {
             id: 1,
             sentence: '通过这次学习，使我明白了许多道理。',
@@ -88,7 +88,7 @@ window.chineseSentenceCorrection = (function() {
             level: '基础'
         },
 
-        // ========== 进阶 (10题) ==========
+        // 进阶 (10题)
         {
             id: 11,
             sentence: '我国棉花的生产，长期不能自给。',
@@ -170,7 +170,7 @@ window.chineseSentenceCorrection = (function() {
             level: '进阶'
         },
 
-        // ========== 冲刺 (10题) ==========
+        // 冲刺 (10题)
         {
             id: 21,
             sentence: '本栏目将各地电视台选送的歌舞曲艺、风情民俗和体育活动等方面的节目，加以重新编排和润色，进行的再创作。',

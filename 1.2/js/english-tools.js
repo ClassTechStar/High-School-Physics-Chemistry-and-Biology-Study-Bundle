@@ -9,9 +9,7 @@
 (function () {
 'use strict';
 
-/* ================================================================
- * SHARED STYLES & HELPERS
- * ================================================================ */
+// SHARED STYLES & HELPERS
 var ST = {
   wrap: 'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;max-width:900px;margin:0 auto;padding:20px;color:#333;line-height:1.6;',
   card: 'background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);',
@@ -78,9 +76,7 @@ function safeParse(s, def) { try { return JSON.parse(s); } catch (e) { return de
 function safeGet(k) { try { return (window.HSPCBStore ? HSPCBStore.get(k) : localStorage.getItem(k)); } catch (e) { return null; } }
 function safeSet(k, v) { try { (window.HSPCBStore ? HSPCBStore.set(k, v) : localStorage.setItem(k, v)); } catch (e) {} }
 
-/* ================================================================
- * MODULE 1: englishGrammarQuiz
- * ================================================================ */
+// MODULE 1: englishGrammarQuiz
 window.englishGrammarQuiz = (function () {
   var SK = 'hspcb_eng_grammar_v1';
   var LEVELS = ['基础', '进阶', '冲刺'];
@@ -337,9 +333,7 @@ window.englishGrammarQuiz = (function () {
   return { render: render };
 })();
 
-/* ================================================================
- * MODULE 2: englishReadingTrainer
- * ================================================================ */
+// MODULE 2: englishReadingTrainer
 window.englishReadingTrainer = (function () {
   var SK = 'hspcb_eng_reading_v1';
 
@@ -634,9 +628,7 @@ window.englishReadingTrainer = (function () {
   return { render: render };
 })();
 
-/* ================================================================
- * MODULE 3: englishCompositionTemplates
- * ================================================================ */
+// MODULE 3: englishCompositionTemplates
 window.englishCompositionTemplates = (function () {
   var CATS = [
     {

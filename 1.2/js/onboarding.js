@@ -42,7 +42,7 @@ window.onboarding = (function() {
     var dotsEl = null;
     var helpBtn = null;
 
- /* ========== CSS INJECTION ========== */
+ // CSS INJECTION
 
     function injectStyles() {
         if (document.getElementById('hspcb-onboarding-styles')) return;
@@ -128,7 +128,7 @@ window.onboarding = (function() {
         document.head.appendChild(style);
     }
 
- /* ========== DOM BUILDERS ========== */
+ // DOM BUILDERS
 
     function createOverlay() {
         var el = document.createElement('div');
@@ -164,7 +164,7 @@ window.onboarding = (function() {
         return btn;
     }
 
- /* ========== POSITIONING ========== */
+ // POSITIONING
 
     function getSpotlightRect(selector) {
         if (!selector) return null;
@@ -224,7 +224,7 @@ window.onboarding = (function() {
         tooltipEl.style.left = left + 'px';
     }
 
- /* ========== STEP RENDERING ========== */
+ // STEP RENDERING
 
     function renderStep(stepIndex) {
         var step = STEPS[stepIndex];
@@ -270,7 +270,7 @@ window.onboarding = (function() {
         });
     }
 
- /* ========== LIFECYCLE ========== */
+ // LIFECYCLE
 
     function startGuide() {
         currentStep = 0;
@@ -312,7 +312,7 @@ window.onboarding = (function() {
         }
     }
 
- /* ========== PUBLIC API ========== */
+ // PUBLIC API
 
     function render() {
         injectStyles();
@@ -326,7 +326,7 @@ window.onboarding = (function() {
         }
     }
 
- /* ========== KEYBOARD SUPPORT ========== */
+ // KEYBOARD SUPPORT
 
     function handleKeydown(e) {
         if (!overlayEl || overlayEl.style.display === 'none') return;

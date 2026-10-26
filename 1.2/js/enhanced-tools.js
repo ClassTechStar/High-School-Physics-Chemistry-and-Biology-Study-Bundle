@@ -2,7 +2,7 @@
 // 包含：chemistryProcessAnalyzer(增强), biologyMindMap(增强), 
 // geneticsPedigreeTrainer(增强), photosynthesisTrainer(增强), experimentDesigner(增强)
 
-// ==================== 1. 化学工业流程核心反应提取工具（增强版）====================
+// 1. 化学工业流程核心反应提取工具（增强版）
 const chemistryProcessAnalyzerEnhanced = {
     state: { inputText: '', extractedReactions: [], analysis: null, examPoints: [], mode: 'core', batchHistory: [] },
     
@@ -202,7 +202,7 @@ const chemistryProcessAnalyzerEnhanced = {
     _loadBi(id){const it=this.state.batchHistory.find(i=>i.id===id);if(it){document.getElementById('process-input').value=it.content;this.analyzeText(it.content);}}
 };
 
-// ==================== 2. 生物概念图/思维导图生成器（增强版）====================
+// 2. 生物概念图/思维导图生成器（增强版）
 const biologyMindMapEnhanced = {
     concepts: {
         '光合作用':{ branches:['光反应阶段','暗反应阶段','影响因素','实际应用'], sub:{'光反应':['水的光解','ATP合成','NADPH生成'],'暗反应':['CO₂固定','C₃化合物还原','糖类生成']}},
@@ -435,7 +435,7 @@ const biologyMindMapEnhanced = {
     }
 };
 
-// ==================== 3. 遗传系谱图练习器（20+类型）====================
+// 3. 遗传系谱图练习器（20+类型）
 const geneticsPedigreeTrainerEnhanced = {
     types: [
         {id:'ar_dom', name:'常染色体显性遗传', pattern:'AA×aa→全显/Aa×aa→1:1', example:'并指多指', key:'父母正常子女患病→显性；男女患病概率相等', difficulty:2},
@@ -806,7 +806,7 @@ const geneticsPedigreeTrainerEnhanced = {
     }
 };
 
-// ==================== 5. 实验设计模板生成器（增强版）====================
+// 5. 实验设计模板生成器（增强版）
 const experimentDesignerEnhanced = {
     experimentTypes: [
         {id:'explore', name:'探究性实验', icon:'🔬', desc:'探究X对Y的影响（如：光照强度对光合速率的影响）',
@@ -1555,7 +1555,7 @@ const experimentDesignerEnhanced = {
     }
 };
 
-// ==================== 4. 光合/呼吸曲线解读训练（增强版）====================
+// 4. 光合/呼吸曲线解读训练（增强版）
 const photosynthesisTrainerEnhanced = {
     curves: [
         {id:1, name:'光照强度-光合速率曲线', type:'光照', category:'基础', difficulty:2,
@@ -2126,10 +2126,8 @@ window.geneticsPedigreeTrainerEnhanced = geneticsPedigreeTrainerEnhanced;
 window.experimentDesignerEnhanced = experimentDesignerEnhanced;
 window.photosynthesisTrainerEnhanced = photosynthesisTrainerEnhanced;
 
-/* ============================================================
- * d：内联事件属性的事件委托注册（CSP 改造）
- * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
- * ============================================================ */
+// d：内联事件属性的事件委托注册（CSP 改造）
+// 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
 (function () {
     if (!window.HSPCBEV) return;
 

@@ -1072,7 +1072,7 @@
                         interdisciplinaryTopics.render();
                     else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>学科交叉专题加载中...</p></div>';
                     break;
-                // ===== 高级备考工具 =====
+                // 高级备考工具
                 case 'guangdong-analysis':
                     if(typeof guangdongAnalysis!=='undefined'&&typeof guangdongAnalysis.render==='function')guangdongAnalysis.render();
                     else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>命题规律白皮书加载中...</p></div>';
@@ -1851,7 +1851,7 @@
             var sectionId = parentSection.id;
             var subject = sectionId.replace('-section', '');
             // 原白名单只有 physics/chemistry/biology/platform，把 数学/语文/英语 排除在外，
-            // 导致这 3 科的「📊 考情分析 / 📖 一轮复习 / 🎯 二轮专题 / ✍️ 互动练习」4 个 tab 全是死按钮。
+            // 导致这 3 科的「考情分析 / 一轮复习 / 二轮专题 / 互动练习」4 个 tab 全是死按钮。
             // 这些 tab 由 exam-review-system.js 在 DOMContentLoaded 中**追加**（晚于 app.js 的扫描），
             // 所以必须靠这里的 document 级事件委托兜住，不能只依赖 app.js 的一次性绑定。
             if (!['physics', 'chemistry', 'biology', 'platform', 'math', 'chinese', 'english'].includes(subject)) return;
@@ -1902,7 +1902,7 @@
     // 不再用解析期捕获值覆写全局（那是定时炸弹：任一 defer 脚本被移除即把真实模块置 undefined）
     window.navigateToolPage = navigateToolPage;
 
-    // ===== 二级结论数据与渲染 =====
+    // 二级结论数据与渲染
     var secondaryConclusions = {
         physics: [
             { category: "静力学", items: [
@@ -2006,7 +2006,7 @@
         render();
     }
 
-    // ===== 元素价态图谱数据与渲染 =====
+    // 元素价态图谱数据与渲染
     var valenceAtlasData = {
         title: "\u5143\u7d20\u4ef7\u6001\u4e8c\u7ef4\u56fe\u8c31\u4e0e\u5316\u5b66\u53cd\u5e94\u7f51\u7edc",
         elements: [
@@ -2179,7 +2179,7 @@
     }
 
 
-    // === Chinese (语文) section support ===
+    // Chinese (语文) section support
     function chineseSearch() {
         var input = document.getElementById("chineseSearchInput").value.toLowerCase();
         if (input.length < 2) return;
@@ -2254,7 +2254,7 @@
     // chineseSearch 原定义于本 IIFE 内部，未挂window → 原 onkeyup 必然 ReferenceError
     window.chineseSearch = chineseSearch;
 
-    // ===== c / T12：内联事件属性改事件委托 =====
+    // c / T12：内联事件属性改事件委托
     // CSP 的 script-src 一旦去掉 'unsafe-inline'，HTML 内联事件属性（onclick/onkeyup）
     // 会被浏览器直接拦截。原静态 HTML 中真实存在 2 处：主题切换按钮 + 语文搜索框，
     // 现改为 data-action 约定 + 文档级委托（与 english-tools 等既有 data-action 机制一致）。
@@ -2267,7 +2267,7 @@
         chineseSearch();
     });
 
-    // ===== d：字符串模板内的内联 onclick 改委托 =====
+    // d：字符串模板内的内联 onclick 改委托
     // CSP script-src 去掉 'unsafe-inline' 后，innerHTML/字符串拼出的 on* 属性同样被
     // 浏览器拦截。原 3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮分别改为：
     // 具名函数 + data-call、data-hook + HSPCBEV 委托、quickTool 包装函数。

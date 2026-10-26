@@ -6,7 +6,7 @@
 // 注：crossSubjectTopics 自 v1.4（）起改为运行时加载 data/cross-subject.json
 // （22 条），内置 8 条仅作加载失败时的回退。
 
-// ==================== 1. crossSubjectTopics 跨学科融合专题 ====================
+// 1. crossSubjectTopics 跨学科融合专题
 var crossSubjectTopics = {
     state: { currentView: 'list', currentId: null },
 
@@ -462,7 +462,7 @@ var crossSubjectTopics = {
 window.crossSubjectTopics = crossSubjectTopics;
 
 
-// ==================== 2. techFrontiers 科技前沿关联 ====================
+// 2. techFrontiers 科技前沿关联
 var techFrontiers = {
     state: { filter: 'all' },
 
@@ -609,7 +609,7 @@ var techFrontiers = {
 window.techFrontiers = techFrontiers;
 
 
-// ==================== 3. formulaDerivation 公式推导动画 ====================
+// 3. formulaDerivation 公式推导动画
 var formulaDerivation = {
     state: { formulaId: 'kinetic', step: 0, playing: false, timer: null },
 
@@ -816,7 +816,7 @@ var formulaDerivation = {
 window.formulaDerivation = formulaDerivation;
 
 
-// ==================== 4. physicsModelSim 物理模型可视化 ====================
+// 4. physicsModelSim 物理模型可视化
 var physicsModelSim = {
     state: {
         modelId: 'block',
@@ -1187,7 +1187,7 @@ var physicsModelSim = {
 window.physicsModelSim = physicsModelSim;
 
 
-// ==================== 5. chemTransformNet 化学物质转化网络 ====================
+// 5. chemTransformNet 化学物质转化网络
 var chemTransformNet = {
     state: { familyId: 'sodium', selectedNode: null, selectedEdge: null },
 
@@ -1482,7 +1482,7 @@ var chemTransformNet = {
 window.chemTransformNet = chemTransformNet;
 
 
-// ==================== 6. bioChartTrainer 生物图表题专项 ====================
+// 6. bioChartTrainer 生物图表题专项
 var bioChartTrainer = {
     state: { filter: 'all', currentId: null, answered: {} },
 

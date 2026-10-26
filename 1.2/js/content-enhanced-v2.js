@@ -6,7 +6,7 @@
 
 var LS_KEY = 'hspcb_framework_records';
 
-// ==================== 答题框架定义 ====================
+// 答题框架定义
 var FRAMEWORKS = {
     '原因分析': {
         name: '原因分析题（三段式）',
@@ -25,7 +25,7 @@ var FRAMEWORKS = {
     }
 };
 
-// ==================== 题库数据加载器（动态加载 data/framework-questions.json） ====================
+// 题库数据加载器（动态加载 data/framework-questions.json）
 var QuestionDataLoader = {
     _cache: null,
     _loadingPromise: null,
@@ -58,7 +58,7 @@ var QuestionDataLoader = {
     }
 };
 
-// ==================== 训练系统主体 ====================
+// 训练系统主体
 var state = {
     currentStep: 1,
     selectedQuestion: null,
@@ -422,7 +422,7 @@ window.frameworkAnswerTrainer = trainer;
 var SUBJECT_COLORS = { '物理': '#1a73e8', '化学': '#7b1fa2', '生物': '#0d7a3e' };
 var COLUMNS = ['实验目的', '实验原理', '实验器材', '实验步骤', '现象与结论', '误差分析/注意事项'];
 
-// ==================== 实验数据（18个实验，三科各6个） ====================
+// 实验数据（18个实验，三科各6个）
 var EXPERIMENTS = {
     '物理': [
         {
@@ -594,7 +594,7 @@ var EXPERIMENTS = {
     ]
 };
 
-// ==================== 状态管理 ====================
+// 状态管理
 var etState = {
     currentSubject: '物理',
     selectedExperiment: null,
@@ -745,7 +745,7 @@ window.experimentTable = expTable;
 (function(){
 'use strict';
 
-// ==================== 思维链题库（10道广东高考大题） ====================
+// 思维链题库（10道广东高考大题）
 var THINKING_QUESTIONS = [
     // ---- 物理3道 ----
     {
@@ -873,7 +873,7 @@ var THINKING_QUESTIONS = [
     }
 ];
 
-// ==================== 状态管理 ====================
+// 状态管理
 var tcState = {
     currentQuestion: null,
     currentStepIndex: 0,
@@ -1069,7 +1069,7 @@ window.thinkingChain = tcModule;
 
 var LS_KEY_VR = 'hspcb_variation_history';
 
-// ==================== 变式题库数据加载器（动态加载 data/variation-bank.json） ====================
+// 变式题库数据加载器（动态加载 data/variation-bank.json）
 var VariationDataLoader = {
     _cache: null,
     _loadingPromise: null,
@@ -1102,7 +1102,7 @@ var VariationDataLoader = {
     }
 };
 
-// ==================== 推荐引擎 ====================
+// 推荐引擎
 function getRecommendations(knowledgeGroup, excludeId){
     var bank = VariationDataLoader.getCached();
     var candidates = [];
@@ -1139,7 +1139,7 @@ function getTagRelatedQuestions(currentQuestion){
     return related;
 }
 
-// ==================== 状态管理 ====================
+// 状态管理
 var vrState = {
     selectedGroup: null,
     selectedQuestion: null,

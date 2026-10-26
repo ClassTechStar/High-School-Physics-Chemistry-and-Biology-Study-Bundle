@@ -34,7 +34,7 @@
     window.setTheme = apply;
     window.getTheme = current;
 
-    // ===== c / T12：主题切换按钮的内联事件属性改事件委托 =====
+    // c / T12：主题切换按钮的内联事件属性改事件委托
     // 原：<button ...>（内联事件属性，CSP script-src 去掉
     // 'unsafe-inline' 后会被浏览器拦截）。现改为 data-action="toggle-theme" + 文档级委托。
     // window.toggleTheme 保留：外部调用方可能还在用它。

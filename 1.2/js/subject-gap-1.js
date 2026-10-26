@@ -1080,10 +1080,8 @@ window.solidGeometry3D = (function () {
     return { render: render };
 })();
 
-/* ============================================================
- * d：内联悬停属性的事件委托注册（CSP 改造）
- * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
- * ============================================================ */
+// d：内联悬停属性的事件委托注册（CSP 改造）
+// 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
 (function () {
     if (!window.HSPCBEV) return;
 

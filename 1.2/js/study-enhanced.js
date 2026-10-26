@@ -3,7 +3,7 @@
 // adaptiveDiagnosis(自适应诊断), knowledgeHeatmap(知识盲区热力图)
 // 代码风格：ES5兼容，innerHTML渲染，内联样式，window暴露对象
 
-// ==================== 1. 间隔重复记忆系统（spacedRepetition）====================
+// 1. 间隔重复记忆系统（spacedRepetition）
 var spacedRepetition = {
     STORAGE_KEY: 'hspcb_spaced_repetition',
     INTERVALS: [1, 3, 7, 15, 30], // 间隔天数：初次1天→3天→7天→15天→30天
@@ -17,27 +17,27 @@ var spacedRepetition = {
 
     // 内嵌35张卡片数据
     cards: [
-        // ===== 化学-氧化还原 =====
+        // 化学-氧化还原
         { id: 'sr-c01', type: 'chemistry', subtype: '氧化还原', front: '黄铁矿焙烧（硫酸工业第一步）的化学方程式？', back: '4FeS₂ + 11O₂ →(高温) 2Fe₂O₃ + 8SO₂\n【要点】Fe: +2→+3，S: -1→+4，O: 0→-2' },
         { id: 'sr-c02', type: 'chemistry', subtype: '氧化还原', front: '铜与浓硫酸反应的化学方程式？', back: 'Cu + 2H₂SO₄(浓) →(Δ) CuSO₄ + SO₂↑ + 2H₂O\n【要点】浓硫酸既显氧化性又显酸性' },
         { id: 'sr-c03', type: 'chemistry', subtype: '氧化还原', front: '铜与稀硝酸反应的化学方程式？', back: '3Cu + 8HNO₃(稀) → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O\n【要点】稀硝酸被还原为NO' },
         { id: 'sr-c04', type: 'chemistry', subtype: '氧化还原', front: '实验室制氯气的化学方程式（二氧化锰与浓盐酸）？', back: 'MnO₂ + 4HCl(浓) →(Δ) MnCl₂ + Cl₂↑ + 2H₂O\n【要点】Mn: +4→+2，Cl: -1→0' },
         { id: 'sr-c05', type: 'chemistry', subtype: '氧化还原', front: '氨的催化氧化（工业制硝酸关键步骤）？', back: '4NH₃ + 5O₂ →(催化剂,Δ) 4NO + 6H₂O\n【要点】Pt-Rh催化，N: -3→+2' },
         { id: 'sr-c06', type: 'chemistry', subtype: '氧化还原', front: '高炉炼铁中一氧化碳还原氧化铁的方程式？', back: 'Fe₂O₃ + 3CO →(高温) 2Fe + 3CO₂\n【要点】Fe: +3→0，C: +2→+4' },
-        // ===== 化学-复分解 =====
+        // 化学-复分解
         { id: 'sr-c07', type: 'chemistry', subtype: '复分解', front: '盐酸与氢氧化钠中和反应方程式？', back: 'HCl + NaOH → NaCl + H₂O\n【要点】强酸强碱中和，ΔH<0' },
         { id: 'sr-c08', type: 'chemistry', subtype: '复分解', front: '硝酸银溶液检验氯离子的离子方程式？', back: 'Ag⁺ + Cl⁻ → AgCl↓\n【要点】白色沉淀，不溶于稀硝酸' },
         { id: 'sr-c09', type: 'chemistry', subtype: '复分解', front: '钡离子与硫酸根反应的离子方程式？', back: 'Ba²⁺ + SO₄²⁻ → BaSO₄↓\n【要点】白色沉淀，不溶于稀盐酸' },
         { id: 'sr-c10', type: 'chemistry', subtype: '复分解', front: '碳酸钙与稀盐酸反应制CO₂的方程式？', back: 'CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O\n【要点】不能用硫酸（生成微溶CaSO₄阻碍反应）' },
         { id: 'sr-c11', type: 'chemistry', subtype: '复分解', front: '碳酸氢钠受热分解方程式？', back: '2NaHCO₃ →(Δ) Na₂CO₃ + CO₂↑ + H₂O\n【要点】可用于鉴别Na₂CO₃与NaHCO₃' },
         { id: 'sr-c12', type: 'chemistry', subtype: '复分解', front: '明矾净水的原理（铝离子水解）？', back: 'Al³⁺ + 3H₂O ⇌ Al(OH)₃(胶体) + 3H⁺\n【要点】Al(OH)₃胶体吸附水中悬浮杂质' },
-        // ===== 化学-有机 =====
+        // 化学-有机
         { id: 'sr-c13', type: 'chemistry', subtype: '有机', front: '甲烷燃烧的化学方程式？', back: 'CH₄ + 2O₂ →(点燃) CO₂ + 2H₂O\n【要点】火焰呈淡蓝色，产物可用无水CuSO₄和澄清石灰水检验' },
         { id: 'sr-c14', type: 'chemistry', subtype: '有机', front: '乙烯与水加成制乙醇的方程式？', back: 'CH₂=CH₂ + H₂O →(催化剂,加压加热) CH₃CH₂OH\n【要点】工业制乙醇方法之一' },
         { id: 'sr-c15', type: 'chemistry', subtype: '有机', front: '乙酸与乙醇酯化反应方程式？', back: 'CH₃COOH + C₂H₅OH ⇌(浓硫酸,Δ) CH₃COOC₂H₅ + H₂O\n【要点】酯化反应机理：酸脱羟基醇脱氢' },
         { id: 'sr-c16', type: 'chemistry', subtype: '有机', front: '葡萄糖在体内氧化的方程式？', back: 'C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O (酶催化)\n【要点】放能反应，为生命活动供能' },
         { id: 'sr-c17', type: 'chemistry', subtype: '有机', front: '乙醛催化加氢还原为乙醇？', back: 'CH₃CHO + H₂ →(催化剂,Δ) CH₃CH₂OH\n【要点】C=O双键加氢，官能团由醛基变羟基' },
-        // ===== 生物-教材填空 =====
+        // 生物-教材填空
         { id: 'sr-b01', type: 'biology', subtype: '光合作用', front: '光反应阶段产生的ATP和NADPH用于？', back: '用于暗反应中C₃的还原。\n【要点】光反应为暗反应提供[H]（NADPH）和ATP' },
         { id: 'sr-b02', type: 'biology', subtype: '光合作用', front: '暗反应中CO₂的固定是指？', back: 'CO₂与C₅（五碳化合物）结合形成C₃（三碳化合物）的过程。\n【要点】该反应不需要酶的催化消耗ATP' },
         { id: 'sr-b03', type: 'biology', subtype: '呼吸作用', front: '有氧呼吸第三阶段发生什么？', back: '前两个阶段产生的[H]与O₂结合生成水，释放大量能量。\n【要点】在线粒体内膜上进行，产生大量ATP' },
@@ -48,7 +48,7 @@ var spacedRepetition = {
         { id: 'sr-b08', type: 'biology', subtype: '细胞', front: '线粒体的功能？', back: '细胞进行有氧呼吸的主要场所，被称为细胞的"动力车间"。细胞生命活动所需的能量约95%来自线粒体。' },
         { id: 'sr-b09', type: 'biology', subtype: '激素', front: '胰岛素的生理作用？', back: '胰岛素是唯一降低血糖浓度的激素。促进组织细胞对葡萄糖的摄取、利用和储存；促进糖原合成；抑制非糖物质转化为葡萄糖。' },
         { id: 'sr-b10', type: 'biology', subtype: '生态', front: '生态系统能量流动的特点？', back: '①单向流动：能量只能沿食物链由低营养级流向高营养级；②逐级递减：传递效率为10%~20%。' },
-        // ===== 物理-二级结论 =====
+        // 物理-二级结论
         { id: 'sr-p01', type: 'physics', subtype: '力学', front: '平抛运动中速度偏角α与位移偏角β的关系？', back: 'tanα = 2·tanβ\n【推导】速度偏角tanα=vy/vx=gt/v₀；位移偏角tanβ=y/x=gt²/(2v₀t)=gt/(2v₀)' },
         { id: 'sr-p02', type: 'physics', subtype: '力学', front: '圆周运动中"绳模型"过最高点的临界条件？', back: 'v_min = √(gr)\n【要点】绳只能拉不能推，最高点重力恰好提供向心力时速度最小' },
         { id: 'sr-p03', type: 'physics', subtype: '力学', front: '圆周运动中"杆模型"过最高点的临界条件？', back: 'v_min = 0\n【要点】杆既能拉也能推，最高点速度可以为零' },
@@ -305,7 +305,7 @@ var spacedRepetition = {
     }
 };
 
-// ==================== 2. 教材原文挖空（textbookFillBlank）====================
+// 2. 教材原文挖空（textbookFillBlank）
 var textbookFillBlank = {
     state: {
         subject: 'biology',
@@ -316,7 +316,7 @@ var textbookFillBlank = {
 
     // 内嵌22道填空题
     questions: [
-        // ===== 生物（重点，12题）=====
+        // 生物（重点，12题）
         { id: 'tb-b01', subject: 'biology', chapter: '光合作用', passage: '光合作用的光反应阶段，叶绿素吸收光能，将水分解为______和______，同时合成______。', answer: '氧气（O₂）', answer2: '[H]（NADPH）', answer3: 'ATP', hint: '光反应的三个产物' },
         { id: 'tb-b02', subject: 'biology', chapter: '光合作用', passage: '暗反应阶段，CO₂被______固定形成C₃，随后C₃在______和多种酶的催化下被还原。', answer: 'C₅（五碳化合物）', answer2: 'ATP和NADPH提供的[H]', answer3: '', hint: 'CO₂固定与C₃还原' },
         { id: 'tb-b03', subject: 'biology', chapter: '光合作用', passage: '影响光合作用速率的环境因素主要包括______、______和______。', answer: '光照强度', answer2: 'CO₂浓度', answer3: '温度', hint: '三大主要外部因素' },
@@ -329,13 +329,13 @@ var textbookFillBlank = {
         { id: 'tb-b10', subject: 'biology', chapter: '细胞', passage: '细胞膜的结构特点是具有______，功能特性是具有______。', answer: '一定的流动性', answer2: '选择透过性', answer3: '', hint: '结构特点与功能特性' },
         { id: 'tb-b11', subject: 'biology', chapter: '细胞', passage: '主动运输需要______和______，其运输方向为______。', answer: '载体蛋白', answer2: '能量（ATP）', answer3: '从低浓度到高浓度', hint: '主动运输的三个条件' },
         { id: 'tb-b12', subject: 'biology', chapter: '激素', passage: '血糖调节中，降低血糖的激素是______，由______分泌；升高血糖的激素主要是______。', answer: '胰岛素', answer2: '胰岛B细胞', answer3: '胰高血糖素', hint: '血糖调节的激素' },
-        // ===== 物理（5题）=====
+        // 物理（5题）
         { id: 'tb-p01', subject: 'physics', chapter: '牛顿运动定律', passage: '牛顿第一定律指出：一切物体总保持______状态或______状态，除非作用在它上面的力迫使它改变这种状态。', answer: '匀速直线运动', answer2: '静止', answer3: '', hint: '惯性定律' },
         { id: 'tb-p02', subject: 'physics', chapter: '万有引力', passage: '万有引力定律公式为F=______，其中G=______N·m²/kg²，由______通过扭秤实验测得。', answer: 'Gm₁m₂/r²', answer2: '6.67×10⁻¹¹', answer3: '卡文迪许', hint: '引力常量与测量者' },
         { id: 'tb-p03', subject: 'physics', chapter: '动能定理', passage: '动能定理表述为：合外力对物体所做的功等于物体______的变化量，公式为W=______。', answer: '动能', answer2: 'ΔEk=Ek₂-Ek₁', answer3: '', hint: '功与动能的关系' },
         { id: 'tb-p04', subject: 'physics', chapter: '电磁感应', passage: '法拉第电磁感应定律：电路中感应电动势的大小，跟穿过这一电路的______成正比，公式E=______。', answer: '磁通量的变化率', answer2: 'n·ΔΦ/Δt', answer3: '', hint: '感应电动势的决定因素' },
         { id: 'tb-p05', subject: 'physics', chapter: '动量', passage: '动量守恒定律的条件是系统______或______，公式为______。', answer: '不受外力', answer2: '所受外力之和为零', answer3: 'm₁v₁+m₂v₂=m₁v₁\'+m₂v₂\'', hint: '守恒条件与公式' },
-        // ===== 化学（5题）=====
+        // 化学（5题）
         { id: 'tb-c01', subject: 'chemistry', chapter: '氧化还原', passage: '氧化还原反应的本质是______的转移，特征是______的变化。失去电子的物质是______剂。', answer: '电子', answer2: '元素化合价', answer3: '还原', hint: '本质与特征' },
         { id: 'tb-c02', subject: 'chemistry', chapter: '化学键', passage: '共价键分为______键和______键，其中σ键的特点是______，π键的特点是______。', answer: 'σ', answer2: 'π', answer3: '电子云沿键轴方向呈轴对称', hint: '共价键分类' },
         { id: 'tb-c03', subject: 'chemistry', chapter: '化学平衡', passage: '化学平衡状态是指在一定条件下的______反应中，正反应速率与逆反应速率______，反应混合物中各组分的浓度______。', answer: '可逆', answer2: '相等', answer3: '保持不变', hint: '平衡的三个特征' },
@@ -488,7 +488,7 @@ var textbookFillBlank = {
     }
 };
 
-// ==================== 3. 自适应诊断测试（adaptiveDiagnosis）====================
+// 3. 自适应诊断测试（adaptiveDiagnosis）
 var adaptiveDiagnosis = {
     state: {
         phase: 'select', // select(选科) / testing(测试中) / result(结果)
@@ -500,7 +500,7 @@ var adaptiveDiagnosis = {
 
     // 内嵌20道诊断题：物理7题、化学7题、生物6题
     questions: [
-        // ===== 物理 7题 =====
+        // 物理 7题
         { id: 'dg-p01', subject: 'physics', chapter: '运动学', kp: '匀变速直线运动公式', q: '一物体从静止开始做匀加速直线运动，加速度为2m/s²，求第3秒内的位移？', options: ['5m', '7m', '9m', '11m'], answer: 0, explain: '第3秒内位移=s₃-s₂=½×2×9-½×2×4=9-4=5m' },
         { id: 'dg-p02', subject: 'physics', chapter: '牛顿运动定律', kp: '牛顿第二定律应用', q: '质量为2kg的物体受到水平向右10N的拉力和水平向左4N的摩擦力，其加速度大小为？', options: ['2m/s²', '3m/s²', '5m/s²', '7m/s²'], answer: 1, explain: 'F合=10-4=6N，a=F/m=6/2=3m/s²' },
         { id: 'dg-p03', subject: 'physics', chapter: '抛体运动', kp: '平抛运动规律', q: '从高20m处水平抛出一物体，初速度为10m/s，g=10m/s²，求落地时间？', options: ['1s', '2s', '3s', '4s'], answer: 1, explain: 't=√(2h/g)=√(40/10)=2s' },
@@ -508,7 +508,7 @@ var adaptiveDiagnosis = {
         { id: 'dg-p05', subject: 'physics', chapter: '功和能', kp: '动能定理', q: '质量为1kg的物体速度从4m/s增大到6m/s，合外力做的功为？', options: ['8J', '10J', '18J', '26J'], answer: 1, explain: 'W=ΔEk=½×1×36-½×1×16=18-8=10J' },
         { id: 'dg-p06', subject: 'physics', chapter: '电磁感应', kp: '法拉第电磁感应定律', q: '穿过单匝线圈的磁通量在0.1s内从0.2Wb均匀变化到0.4Wb，感应电动势为？', options: ['1V', '2V', '4V', '6V'], answer: 1, explain: 'E=ΔΦ/Δt=(0.4-0.2)/0.1=2V' },
         { id: 'dg-p07', subject: 'physics', chapter: '动量', kp: '动量守恒定律', q: '质量为2kg的小球以3m/s速度与静止的质量为1kg小球发生正碰后粘合，碰后共同速度为？', options: ['1m/s', '2m/s', '3m/s', '6m/s'], answer: 1, explain: 'm₁v₁=(m₁+m₂)v，v=2×3/3=2m/s' },
-        // ===== 化学 7题 =====
+        // 化学 7题
         { id: 'dg-c01', subject: 'chemistry', chapter: '氧化还原', kp: '氧化还原方程式配平', q: '反应MnO₂+4HCl(浓)→MnCl₂+Cl₂↑+2H₂O中，被氧化的元素是？', options: ['Mn', 'Cl', 'O', 'H'], answer: 1, explain: 'Cl从-1价升到0价，被氧化；Mn从+4降到+2被还原' },
         { id: 'dg-c02', subject: 'chemistry', chapter: '物质结构', kp: '化学键类型判断', q: '下列物质中只含离子键的是？', options: ['NaOH', 'NaCl', 'NH₄Cl', 'HCl'], answer: 1, explain: 'NaCl只含离子键；NaOH含离子键和共价键；NH₄Cl含离子键和共价键' },
         { id: 'dg-c03', subject: 'chemistry', chapter: '化学平衡', kp: '平衡移动方向判断', q: '对于N₂+3H₂⇌2NH₃（放热反应），下列能提高NH₃产率的是？', options: ['升高温度', '减小压强', '降低温度', '加催化剂'], answer: 2, explain: '放热反应降温正向移动，且正反应气体体积减小，加压也利于正向' },
@@ -516,7 +516,7 @@ var adaptiveDiagnosis = {
         { id: 'dg-c05', subject: 'chemistry', chapter: '电化学', kp: '原电池工作原理', q: '锌铜原电池中，铜片上发生的反应是？', options: ['Zn→Zn²⁺+2e⁻', 'Zn²⁺+2e⁻→Zn', '2H⁺+2e⁻→H₂↑', 'Cu→Cu²⁺+2e⁻'], answer: 2, explain: '铜为正极，得电子，溶液中H⁺在铜片上放电生成H₂' },
         { id: 'dg-c06', subject: 'chemistry', chapter: '有机化学', kp: '官能团性质', q: '能发生银镜反应的有机物一定含有？', options: ['羟基', '羧基', '醛基', '酯基'], answer: 2, explain: '银镜反应是醛基的特征反应，-CHO被氧化为-COOH' },
         { id: 'dg-c07', subject: 'chemistry', chapter: '元素周期律', kp: '元素周期表与周期律', q: '下列元素中，非金属性最强的是？', options: ['F', 'Cl', 'O', 'S'], answer: 0, explain: '同主族从上到下非金属性减弱，同周期从左到右增强，F是非金属性最强的元素' },
-        // ===== 生物 6题 =====
+        // 生物 6题
         { id: 'dg-b01', subject: 'biology', chapter: '细胞', kp: '细胞器功能', q: '被称为"蛋白质合成工厂"的细胞器是？', options: ['线粒体', '核糖体', '高尔基体', '内质网'], answer: 1, explain: '核糖体是蛋白质合成的场所，线粒体是"动力车间"' },
         { id: 'dg-b02', subject: 'biology', chapter: '光合作用', kp: '光反应与暗反应', q: '光反应为暗反应提供的物质是？', options: ['O₂和CO₂', 'ATP和NADPH', '葡萄糖和O₂', 'CO₂和H₂O'], answer: 1, explain: '光反应产生ATP和[H](NADPH)，用于暗反应C₃的还原' },
         { id: 'dg-b03', subject: 'biology', chapter: '呼吸作用', kp: '有氧呼吸过程', q: '有氧呼吸产生CO₂的阶段是？', options: ['第一阶段', '第二阶段', '第三阶段', '三个阶段都产生'], answer: 1, explain: '第二阶段丙酮酸与水反应生成CO₂和[H]，释放少量能量' },
@@ -733,7 +733,7 @@ var adaptiveDiagnosis = {
     }
 };
 
-// ==================== 4. 知识盲区热力图（knowledgeHeatmap）====================
+// 4. 知识盲区热力图（knowledgeHeatmap）
 var knowledgeHeatmap = {
     WRONG_KEY: 'hspcb_wrong_records',
     MANUAL_KEY: 'hspcb_manual_mastery',
@@ -1184,13 +1184,13 @@ var knowledgeHeatmap = {
     }
 };
 
-// ==================== 暴露到window ====================
+// 暴露到window
 window.spacedRepetition = spacedRepetition;
 window.textbookFillBlank = textbookFillBlank;
 window.adaptiveDiagnosis = adaptiveDiagnosis;
 window.knowledgeHeatmap = knowledgeHeatmap;
 
-// ==================== 自动初始化（DOM加载完成后）====================
+// 自动初始化（DOM加载完成后）
 (function() {
     function initAll() {
         if (window.spacedRepetition) spacedRepetition.init();
