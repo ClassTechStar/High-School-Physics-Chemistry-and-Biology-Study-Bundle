@@ -1,8 +1,6 @@
 // 内容深化模块V2 - 框架训练+实验全表+思维链+变式推荐
 
-// ============================================================
 // 模块1: frameworkAnswerTrainer（框架式答题训练系统）
-// ============================================================
 (function(){
 'use strict';
 
@@ -316,7 +314,7 @@ function step4Analysis(){
 function render(){
     var container = document.getElementById('framework-trainer-app');
     if(!container) return;
-    // P1-6(A)：首次打开工具时才拉取题库。首屏不再自动 init，也不请求 framework-questions.json。
+    // 首次打开工具时才拉取题库。首屏不再自动 init，也不请求 framework-questions.json。
     if(!QuestionDataLoader.getCached().length){
         if(QuestionDataLoader._loadingPromise){ container.innerHTML = frameworkLoadingHtml(); return; }
         container.innerHTML = frameworkLoadingHtml();
@@ -414,12 +412,10 @@ var trainer = {
 
 window.frameworkAnswerTrainer = trainer;
 
-// P1-6(A)：不再在首屏自动 init。数据由 render() 在首次打开工具时按需加载。
+// 不再在首屏自动 init。数据由 render() 在首次打开工具时按需加载。
 })();
 
-// ============================================================
 // 模块2: experimentTable（教材实验六栏全表）
-// ============================================================
 (function(){
 'use strict';
 
@@ -745,9 +741,7 @@ window.experimentTable = expTable;
 
 })();
 
-// ============================================================
 // 模块3: thinkingChain（大题解题思维链）
-// ============================================================
 (function(){
 'use strict';
 
@@ -1069,9 +1063,7 @@ window.thinkingChain = tcModule;
 
 })();
 
-// ============================================================
 // 模块4: variationRecommender（变式题推荐系统）
-// ============================================================
 (function(){
 'use strict';
 
@@ -1209,7 +1201,7 @@ function renderVariationRecommender(){
     var container = document.getElementById('variation-rec-app');
     if(!container) return;
 
-    // P1-6(A)：首次打开工具时才拉取题库。首屏不再自动 init，也不请求 variation-bank.json。
+    // 首次打开工具时才拉取题库。首屏不再自动 init，也不请求 variation-bank.json。
     if(!VariationDataLoader.getCached().length){
         if(VariationDataLoader._loadingPromise){ container.innerHTML = variationLoadingHtml(); return; }
         container.innerHTML = variationLoadingHtml();
@@ -1390,5 +1382,5 @@ var vrModule = {
 
 window.variationRecommender = vrModule;
 
-// P1-6(A)：不再在首屏自动 init。数据由 render 在首次打开工具时按需加载。
+// 不再在首屏自动 init。数据由 render 在首次打开工具时按需加载。
 })();

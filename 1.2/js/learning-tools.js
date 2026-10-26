@@ -1,8 +1,6 @@
 // 学习工具模块 - 热力图+术语速查+倒计时+学习报告
 
-// ============================================================
 // 模块1: examHeatmap（考点热力图可视化）
-// ============================================================
 var examHeatmap = {
     // 物理数据：10个考点 × 5年分值
     physicsData: [
@@ -246,9 +244,7 @@ var examHeatmap = {
     }
 };
 
-// ============================================================
 // 模块2: terminologyChecker（高考专业术语/易错字速查系统）
-// ============================================================
 var terminologyChecker = {
     mode: 'search', // 'search' | 'practice' | 'quiz'
 
@@ -610,9 +606,7 @@ var terminologyChecker = {
     }
 };
 
-// ============================================================
 // 模块3: countdownTaskSystem（高考倒计时+今日任务）
-// ============================================================
 var countdownTaskSystem = {
     targetDate: null,
     timerInterval: null,
@@ -629,7 +623,7 @@ var countdownTaskSystem = {
         }
 
         // Load checkin data
-        // T0-17: 打卡数据统一走 HSPCBStore 归一化 API（兼容历史数组/对象两种结构）
+        // 打卡数据统一走 HSPCBStore 归一化 API（兼容历史数组/对象两种结构）
         self.checkinData = (window.HSPCBStore && HSPCBStore.getCheckin)
             ? HSPCBStore.getCheckin()
             : (function () {
@@ -861,9 +855,7 @@ var countdownTaskSystem = {
     }
 };
 
-// ============================================================
 // 模块4: studyReport（学习报告生成器）
-// ============================================================
 var studyReport = {
     reportData: null,
 
@@ -891,7 +883,7 @@ var studyReport = {
         });
         document.getElementById('clear-data-btn').addEventListener('click', function() {
             if (confirm('确定要清除所有学习数据吗？此操作不可恢复！')) {
-                // T2-2 / P0-8: 必须两轨全清 + 权威进度轨全清。
+                // 三处存储都得清干净。
                 // 原实现只 remove 4 个散装 key，且依赖 HSPCBStore.remove 的清旧 key 能力，
                 // 覆盖面不足：examHistory / gameScores / checkin / notes 等仍在权威轨复活。
                 var cleared = [];
@@ -1252,9 +1244,7 @@ var studyReport = {
     }
 };
 
-// ============================================================
 // 暴露到全局
-// ============================================================
 window.examHeatmap = examHeatmap;
 window.terminologyChecker = terminologyChecker;
 window.countdownTaskSystem = countdownTaskSystem;

@@ -86,7 +86,7 @@ window.englishGrammarQuiz = (function () {
   var LEVELS = ['基础', '进阶', '冲刺'];
 
   var Q = [
-    /* ---- 基础 1-10 ---- */
+ /* ---- 基础 1-10 ---- */
     { lv:'基础', tp:'时态', q:'By the time he arrived at the station, the train ______.', o:['has left','had left','left','was leaving'], a:1, e:'过去完成时表示在过去某个时间或动作之前已经完成的动作。"到达"是过去时，"离开"在其之前发生，用had left。' },
     { lv:'基础', tp:'时态', q:'I ______ in Beijing for five years, but I have never visited the Great Wall.', o:['have lived','lived','had lived','was living'], a:0, e:'现在完成时表示从过去持续到现在的动作或状态。"for five years"表示持续到现在的时段，用have lived。' },
     { lv:'基础', tp:'时态', q:'When I got home, my mother ______ dinner in the kitchen.', o:['cooks','is cooking','was cooking','has cooked'], a:2, e:'过去进行时表示过去某时刻正在进行的动作。"当我到家时"是过去的具体时间点，"做饭"正在进行，用was cooking。' },
@@ -98,7 +98,7 @@ window.englishGrammarQuiz = (function () {
     { lv:'基础', tp:'状语从句', q:'______ I was reading a book, the phone suddenly rang.', o:['When','While','As','Since'], a:1, e:'"while"引导的时间状语从句通常表示主句动作发生在从句动作进行期间。"正在阅读"是延续性动作，用while。' },
     { lv:'基础', tp:'时态', q:'She ______ English since she was ten years old.', o:['studies','studied','has been studying','is studying'], a:2, e:'现在完成进行时强调从过去某时开始一直持续到现在的动作。"since she was ten"表示持续到现在，用has been studying。' },
 
-    /* ---- 进阶 11-20 ---- */
+ /* ---- 进阶 11-20 ---- */
     { lv:'进阶', tp:'非谓语动词', q:'I remember ______ the door before I left the office yesterday.', o:['to lock','locking','lock','locked'], a:1, e:'"remember doing sth"表示记得做过某事；"remember to do sth"表示记得要做某事。此处"锁门"已做，用locking。' },
     { lv:'进阶', tp:'非谓语动词', q:'______ from the top of the hill, the city looks extremely beautiful.', o:['Seeing','Seen','To see','See'], a:1, e:'过去分词作状语表被动。"城市"与"看"是被动关系（被看），用Seen。' },
     { lv:'进阶', tp:'虚拟语气', q:'If I ______ you, I would accept the offer without hesitation.', o:['am','was','were','had been'], a:2, e:'与现在事实相反的虚拟语气，if从句用一般过去时，be动词一律用were。' },
@@ -110,7 +110,7 @@ window.englishGrammarQuiz = (function () {
     { lv:'进阶', tp:'时态', q:'He said he ______ finish the project the next day.', o:['will','would','has','had'], a:1, e:'过去将来时表示从过去某时看将要发生的事。主句谓语"said"是过去时，从句用would表示"将要"。' },
     { lv:'进阶', tp:'状语从句', q:'______ he is very old, he still works hard every day.', o:['Because','Although','Since','As'], a:1, e:'"although"引导让步状语从句，表示"虽然"。句意：虽然他很老了，但仍然每天努力工作。' },
 
-    /* ---- 冲刺 21-30 ---- */
+ /* ---- 冲刺 21-30 ---- */
     { lv:'冲刺', tp:'倒装', q:'Not only ______ English well, but also he speaks French fluently.', o:['he speaks','does he speak','he does speak','speaks he'], a:1, e:'"Not only...but also"置于句首时，前半句部分倒装。助动词does提前，用"does he speak"。' },
     { lv:'冲刺', tp:'倒装', q:'Only when you have tried hard ______ the importance of perseverance.', o:['you will understand','will you understand','you understand','do you understand'], a:1, e:'"Only + 状语从句"置于句首时，主句部分倒装。用"will you understand"。' },
     { lv:'冲刺', tp:'虚拟语气', q:'______ he known the truth, he would have told us immediately.', o:['If','Had','Were','Should'], a:1, e:'虚拟语气的倒装形式：省略if，将had提前。与过去事实相反，从句用had + 过去分词。' },
@@ -158,7 +158,7 @@ window.englishGrammarQuiz = (function () {
     h += '<h2 data-style="' + ST.h2 + '">英语语法专练</h2>';
     h += '<div data-style="' + ST.desc + '">涵盖时态、非谓语动词、从句、虚拟语气、倒装、情态动词等高考核心语法点。每级10题，即时反馈附语法规则解析。</div>';
 
-    /* level buttons */
+ /* level buttons */
     h += '<div data-style="' + ST.row + '">';
     for (var i = 0; i < LEVELS.length; i++) {
       var on = state.lv === LEVELS[i];
@@ -168,7 +168,7 @@ window.englishGrammarQuiz = (function () {
     }
     h += '</div>';
 
-    /* progress bar */
+ /* progress bar */
     var ids = lvlQs(state.lv);
     var an = lvlAnswered(state.lv);
     var pct = Math.round((an / ids.length) * 100);
@@ -178,7 +178,7 @@ window.englishGrammarQuiz = (function () {
     h += '</div>';
     h += '<div data-style="' + ST.progBar + '"><div data-style="' + ST.progFill + ';width:' + pct + '%;"></div></div>';
 
-    /* question */
+ /* question */
     var qi = ids[state.idx];
     var item = Q[qi];
     h += '<div data-style="' + ST.card + '">';
@@ -208,14 +208,14 @@ window.englishGrammarQuiz = (function () {
     }
     h += '</div>';
 
-    /* nav */
+ /* nav */
     h += '<div data-style="text-align:center;margin-bottom:16px;">';
     if (state.idx > 0) h += '<button data-action="prev" data-style="' + ST.btnGy + '">上一题</button>';
     if (state.idx < ids.length - 1) h += '<button data-action="next" data-style="' + ST.btn + '">下一题</button>';
     if (an === ids.length) h += '<button data-action="results" data-style="' + ST.btnGn + '">查看结果</button>';
     h += '</div>';
 
-    /* all-level summary */
+ /* all-level summary */
     h += '<div data-style="' + ST.card + '">';
     h += '<h3 data-style="' + ST.h3 + '">各级别总览</h3>';
     for (var k = 0; k < LEVELS.length; k++) {
@@ -906,7 +906,7 @@ window.englishCompositionTemplates = (function () {
     var h = '<div data-style="' + ST.wrap + '">';
     h += '<h2 data-style="' + ST.h2 + '">英语作文模板</h2>';
 
-    /* tabs */
+ /* tabs */
     h += '<div data-style="' + ST.row + '">';
     h += '<button data-action="tab" data-tab="templates" data-style="' + (state.tab === 'templates' ? ST.btnOn : ST.btn) + '">作文模板</button>';
     h += '<button data-action="tab" data-tab="patterns" data-style="' + (state.tab === 'patterns' ? ST.btnOn : ST.btn) + '">高分句型</button>';

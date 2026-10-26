@@ -1,14 +1,12 @@
-// ============================================================
 // js/learning-path-recommender.js — 知识图谱与题库联动 + 学习路径推荐
 // 容器 ID: learning-path-recommender-app
 // 功能：
-//   1. 加载六科 knowledge.json，构建知识点索引
-//   2. 加载 exam-bank.json，建立知识点→题目映射
-//   3. 读取错题本，分析薄弱知识点
-//   4. 基于薄弱点推荐题目、模板、学习路径
-//   5. 可视化学习路径（Canvas 知识图谱）
+// 1. 加载六科 knowledge.json，构建知识点索引
+// 2. 加载 exam-bank.json，建立知识点→题目映射
+// 3. 读取错题本，分析薄弱知识点
+// 4. 基于薄弱点推荐题目、模板、学习路径
+// 5. 可视化学习路径（Canvas 知识图谱）
 // ES5 兼容，零依赖，innerHTML + Canvas
-// ============================================================
 
 window.learningPathRecommender = (function () {
     'use strict';
@@ -137,7 +135,7 @@ window.learningPathRecommender = (function () {
         catch (e) { return fb; }
     }
 
-    // 【T1-4 / P0-3】别名表外部化：knowledgePoints-thesaurus.json 早已有 aliases，
+    // 别名表外部化：knowledgePoints-thesaurus.json 早已有 aliases，
     // 但代码从未读取（只在 promo.html 里被宣传、在 sw.js 里被预缓存）——典型"死数据"。
     // 现改为运行时加载并与内置表合并；加载失败时静默回退到内置表，保证离线可用。
     var THESAURUS_URL = 'data/knowledgePoints-thesaurus.json';
@@ -192,7 +190,7 @@ window.learningPathRecommender = (function () {
         }
 
         // 3. 派生兜底：考点名包含某个标准词 → 归入该标准词。
-        //    例："机械能守恒定律" 含 "机械能"；"弱电解质电离平衡" 含 "电解质溶液"
+        // 例："机械能守恒定律" 含 "机械能"；"弱电解质电离平衡" 含 "电解质溶液"
         var canons = [];
         for (var c in aliasMap) {
             if (Object.prototype.hasOwnProperty.call(aliasMap, c)) canons.push(aliasMap[c]);
@@ -513,7 +511,7 @@ window.learningPathRecommender = (function () {
         var container = document.getElementById('learning-path-recommender-app');
         if (!container) return;
 
-        // P1-6(A)：首屏不初始化；首次渲染（= 用户打开工具）时才拉数据并分析。
+        // 首屏不初始化；首次渲染（= 用户打开工具）时才拉数据并分析。
         if (!initialized) {
             container.innerHTML = '<div data-style="padding:40px;text-align:center;color:#666;">' +
                 '<div data-style="font-size:24px;margin-bottom:12px;">⏳</div>' +
@@ -856,7 +854,7 @@ window.learningPathRecommender = (function () {
         }
     }
 
-    // P1-6(A)：首次打开工具时才初始化。此前在 DOMContentLoaded 就拉取
+    // 首次打开工具时才初始化。此前在 DOMContentLoaded 就拉取
     // answer-templates.json / 词表 / knowledge.json（约 203 KB）并触发题库预热，
     // 而该模块只渲染隐藏的 #learning-path-recommender-app，首屏完全用不到。
     var initialized = false;

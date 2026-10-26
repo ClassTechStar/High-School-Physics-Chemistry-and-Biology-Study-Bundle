@@ -1,13 +1,9 @@
-// ============================================================
 // study-tools-enhanced.js - HSPCB Enhanced Study Tools
 // Modules: keyboardShortcuts, accessibilityEnhancer,
-//          dataExporter, lazyLoader
+// dataExporter, lazyLoader
 // ES5 Compatible | IIFE Pattern
-// ============================================================
 
-// ============================================================
 // 1. KEYBOARD SHORTCUTS MODULE
-// ============================================================
 window.keyboardShortcuts = (function () {
     'use strict';
 
@@ -300,9 +296,7 @@ window.keyboardShortcuts = (function () {
     };
 })();
 
-// ============================================================
 // 2. ACCESSIBILITY ENHANCER MODULE
-// ============================================================
 window.accessibilityEnhancer = (function () {
     'use strict';
 
@@ -471,9 +465,7 @@ window.accessibilityEnhancer = (function () {
     };
 })();
 
-// ============================================================
 // 3. DATA EXPORTER MODULE
-// ============================================================
 window.dataExporter = (function () {
     'use strict';
 
@@ -659,7 +651,7 @@ window.dataExporter = (function () {
             // Ignore
         }
 
-        // T2-2 / P0-8: 上述两条路径都只覆盖 v1 裸 key。
+        // 上述两条路径都只覆盖 v1 裸 key。
         // 权威进度轨 hspcb.v2.* 与散装轨 hspcb.st.* 必须显式清除，
         // 否则刷新后 HSPCBProgress/HSPCBStore 会把"已清除"的数据原样读回。
         try {
@@ -828,9 +820,7 @@ window.dataExporter = (function () {
     };
 })();
 
-// ============================================================
 // 4. LAZY LOADER MODULE
-// ============================================================
 window.lazyLoader = (function () {
     'use strict';
 
@@ -1024,9 +1014,7 @@ window.lazyLoader = (function () {
     };
 })();
 
-// ============================================================
 // AUTO-INITIALIZATION (on DOMContentLoaded)
-// ============================================================
 (function () {
     function autoInit() {
         try {

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * verify-gate-tamper.mjs — T3-3 门禁反向验证（一次性执行，留档审计）
+ * verify-gate-tamper.mjs — 门禁反向验证（一次性执行，留档审计）
  *
  * 对 check-theme-tokens.mjs 的六项断言逐一构造「应被抓住」的篡改副本，
  * 确认门禁不是永远通过的摆设。全部用例必须 FAIL（退出码非 0）才算有效。
- * v1.4 T3-3 结项时执行结果：6/6 全部抓住（见 DEV-PLAN T3-3 执行记录）。
+ * v1.4 结项时执行结果：6/6 全部抓住（见 DEV-PLAN 执行记录）。
  */
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';

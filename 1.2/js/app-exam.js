@@ -1,8 +1,6 @@
-﻿// ============================================================
 // app-exam.js — 高考真题与实验室模拟（从 app.js 拆分）
 // 包含: 真题练习系统/PCR模拟器/凝胶电泳模拟器
 // 依赖: 无外部依赖，examPracticeSystem 被 navigateTo 引用
-// ============================================================
 
 const examPracticeSystem = {
     examData: null,
@@ -224,7 +222,7 @@ const examPracticeSystem = {
         const exam = allExams.find(e => e.id === examId);
         if (!exam) return null;
 
-        // 【T0-8】主观题：文本无法可靠等价比较，pending 阶段一律不计入 correct，
+        // 主观题：文本无法可靠等价比较，pending 阶段一律不计入 correct，
         // 待用户自评后由 settleSubjectiveResult 补记。
         const isChoice = this._isChoice(exam);
         const isCorrect = isChoice ? selectedOption === exam.answer : false;
@@ -372,7 +370,7 @@ const examPracticeSystem = {
         this.saveStats();
     },
 
-    /** T3-4d：重置统计并重绘看板（原内联 onclick 的 resetStats + renderExamDashboard 双语句，CSP 改造为具名方法） */
+ /** d：重置统计并重绘看板（原内联 onclick 的 resetStats + renderExamDashboard 双语句，CSP 改造为具名方法） */
     resetStatsAndRender() {
         this.resetStats();
         this.renderExamDashboard(document.getElementById('exam-content'));
@@ -503,7 +501,7 @@ const examPracticeSystem = {
         return this.SUBJECT_CN[subject] || '生物';
     },
 
-    // 【T0-8 / P0-12】题型分流：是否有选项决定走"选择判分"还是"主观题自评"
+    // 题型分流：是否有选项决定走"选择判分"还是"主观题自评"
     // 判据以 options 实际内容为准（而非 type 文案），因为题库中 245 道非选择题
     // 的 type 是"语法填空/简答题/作文题"等，而部分选择题 type 也叫"解答题"。
     _choices(exam) {
@@ -580,7 +578,7 @@ const examPracticeSystem = {
             fill: '在此输入答案…'
         };
 
-        // 【T0-8】材料（passage）必须先于题干渲染：144 道英语阅读/完形/语法填空/短文改错题依赖它
+        // 材料（passage）必须先于题干渲染：144 道英语阅读/完形/语法填空/短文改错题依赖它
         const passageHtml = exam.passage ? `
                 <div class="question-passage-box">
                     <h4>📄 阅读材料</h4>
@@ -709,7 +707,7 @@ const examPracticeSystem = {
         });
     },
 
-    // 【T0-8】主观题：文本对照 + 自评。不自动判对错（答案文本无法可靠等价比较），
+    // 主观题：文本对照 + 自评。不自动判对错（答案文本无法可靠等价比较），
     // 但仍计入 totalAnswered 以便进度统计不失真。
     _submitSubjectiveAnswer(exam, resultBox, analysisBox) {
         const input = document.getElementById('exam-subjective-input');
@@ -882,7 +880,7 @@ const examPracticeSystem = {
 };
 
 // 初始化真题系统：首屏不阻塞加载，浏览器空闲时预热题库
-// P1-6(B)：预热按网络/设备分级。弱网、省流模式、低内存设备不预热，
+// 预热按网络/设备分级。弱网、省流模式、低内存设备不预热，
 // 避免首访白下 978 KB；这类设备进入题库时由 ensureLoaded() 按需加载。
 document.addEventListener('DOMContentLoaded', () => {
     const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;

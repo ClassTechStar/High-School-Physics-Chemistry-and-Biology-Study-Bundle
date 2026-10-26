@@ -1,9 +1,7 @@
 // 内容补深V3 - 实验题专项+选择题技巧+长难句分析
 
-// ============================================================
 // 模块1: experimentExamSpecial（物化生历年实验题专项）
 // 容器ID: experiment-exam-special-app
-// ============================================================
 (function(){
 'use strict';
 
@@ -545,7 +543,7 @@ var state = {
     totalScore: 0
 };
 
-// 【T1-5 / P0-5】统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
+// 统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
 // 本文件原有 3 份顶层 escapeHtml 声明（548/968/1474），其中两份漏转义单引号，
 // 且函数声明互相覆盖、行为取决于定义顺序，难以推理。现统一委托给唯一实现，
 // 并在 CommonUtils 缺席时提供等价兜底（含 null/undefined → ''）。
@@ -836,10 +834,8 @@ window.experimentExamSpecial = {
 })();
 
 
-// ============================================================
 // 模块2: choiceQuestionTricks（选择题秒杀技巧库）
 // 容器ID: choice-tricks-app
-// ============================================================
 (function(){
 'use strict';
 
@@ -1137,7 +1133,7 @@ function startTimer(){
             el.textContent = '已用时: '+state.elapsed+'秒';
             return;
         }
-        // T0-13 / P0-16 兜底：只在叶子节点上改 textContent。
+        // 兜底：只在叶子节点上改 textContent。
         // 原实现用 innerHTML 覆写匹配到的 div，若因故匹配到祖先容器会把整个
         // 「秒杀技巧库」UI（含题目与选项）替换成一行计时文字 → 选完选项 UI 消失。
         var spans = document.querySelectorAll('#choice-tricks-app span');
@@ -1242,10 +1238,8 @@ window.choiceQuestionTricks = {
 })();
 
 
-// ============================================================
 // 模块3: englishSentenceAnalyzer（英语长难句分析器）
 // 容器ID: sentence-analyzer-app
-// ============================================================
 (function(){
 'use strict';
 

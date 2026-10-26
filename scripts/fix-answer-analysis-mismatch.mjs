@@ -3,23 +3,23 @@
  * fix-answer-analysis-mismatch.mjs — 修复「解析中声明的答案字母」与 q.answer 不一致
  *
  * 背景（v1.3 回归）：
- *   提交 ee3b550 (T8 答案分布均衡化) 把正确选项「内容」在 A/B/C/D 之间整体互换，
- *   并同步修改了 q.answer，但**没有同步修改 analysis 里以自然语言写死的字母**
- *   （如 "故 a = 3 m/s²，t = 6 s，选 A。" / "正确答案为A"）。
- *   结果：1718 题中有 161 题的学生端呈现自相矛盾 —— 判卷按 q.answer，
- *   解析却指向另一个字母。
+ * 提交 ee3b550 (T8 答案分布均衡化) 把正确选项「内容」在 A/B/C/D 之间整体互换，
+ * 并同步修改了 q.answer，但**没有同步修改 analysis 里以自然语言写死的字母**
+ * （如 "故 a = 3 m/s²，t = 6 s，选 A。" / "正确答案为A"）。
+ * 结果：1718 题中有 161 题的学生端呈现自相矛盾 —— 判卷按 q.answer，
+ * 解析却指向另一个字母。
  *
  * 修复原理：
- *   用 git 取回「换位前」的 exam-bank.json（默认 816bf4c，即 T8 之前），
- *   对每道题建立 旧字母 → 旧选项内容 → 新字母 的映射，
- *   把 analysis 里的旧字母引用替换为新字母；
- *   若映射结果与 q.answer 不一致（说明数据被多次改动过），则跳过并列入人工复核清单。
+ * 用 git 取回「换位前」的 exam-bank.json（默认 816bf4c，即 T8 之前），
+ * 对每道题建立 旧字母 → 旧选项内容 → 新字母 的映射，
+ * 把 analysis 里的旧字母引用替换为新字母；
+ * 若映射结果与 q.answer 不一致（说明数据被多次改动过），则跳过并列入人工复核清单。
  *
  * 用法：
- *   node scripts/fix-answer-analysis-mismatch.mjs            # dry-run，只报告
- *   node scripts/fix-answer-analysis-mismatch.mjs --apply     # 写回 exam-bank.json
- *   node scripts/fix-answer-analysis-mismatch.mjs --base 816bf4c
- *   node scripts/fix-answer-analysis-mismatch.mjs --report out.json
+ * node scripts/fix-answer-analysis-mismatch.mjs # dry-run，只报告
+ * node scripts/fix-answer-analysis-mismatch.mjs --apply # 写回 exam-bank.json
+ * node scripts/fix-answer-analysis-mismatch.mjs --base 816bf4c
+ * node scripts/fix-answer-analysis-mismatch.mjs --report out.json
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';

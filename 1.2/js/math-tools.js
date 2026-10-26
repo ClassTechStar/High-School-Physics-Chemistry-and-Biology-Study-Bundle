@@ -1,6 +1,4 @@
-// ============================================================
 // js/math-tools.js — 数学交互式工具模块(6个工具)
-// ============================================================
 
 // 安全的数学表达式求值器（替代 eval，防止 XSS 代码注入）
 // 仅允许数字、小数点、运算符(+ - * / ^)、括号、字母变量与 Math.* 调用
@@ -137,9 +135,7 @@ window.mathGrapher = (function() {
     return { renderGrapher: renderGrapher };
 })();
 
-// ============================================================
 // 模块2：mathDerivative - 导数计算器
-// ============================================================
 window.mathDerivative = (function() {
     'use strict';
     var derivativeRules = [
@@ -268,9 +264,7 @@ window.mathDerivative = (function() {
     return { renderDerivative: renderDerivative };
 })();
 
-// ============================================================
 // 模块3：mathGeometry - 几何画板
-// ============================================================
 window.mathGeometry = (function() {
     'use strict';
     var currentTab = 'line';
@@ -406,9 +400,7 @@ window.mathGeometry = (function() {
     return { renderGeometry: renderGeometry };
 })();
 
-// ============================================================
 // 模块4：mathSequence - 数列可视化
-// ============================================================
 window.mathSequence = (function() {
     'use strict';
     var currentSeqTab = 'arithmetic';
@@ -504,9 +496,7 @@ window.mathSequence = (function() {
     return { renderSequence: renderSequence };
 })();
 
-// ============================================================
 // 模块5：mathProbability - 概率模拟器
-// ============================================================
 window.mathProbability = (function() {
     'use strict';
     var currentProbTab = 'classical';
@@ -621,9 +611,7 @@ window.mathProbability = (function() {
     return { renderProbability: renderProbability };
 })();
 
-// ============================================================
 // 模块6：mathHandbook - 数学公式手册
-// ============================================================
 window.mathHandbook = (function() {
     'use strict';
     var formulas = [
@@ -726,9 +714,7 @@ window.mathHandbook = (function() {
     return { renderHandbook: renderHandbook };
 })();
 
-// ============================================================
 // 模块7：mathIntegral - 积分计算器
-// ============================================================
 window.mathIntegral = (function() {
     'use strict';
 
@@ -953,13 +939,13 @@ window.mathIntegral = (function() {
 })();
 
 /* ============================================================
- * T3-4d：内联 onclick 的事件委托注册（CSP 改造）
+ * d：内联 onclick 的事件委托注册（CSP 改造）
  * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
  * ============================================================ */
 (function () {
     if (!window.HSPCBEV) return;
 
-    /* 公式库分类标题：点击折叠/展开下一邻块（原 onclick 三目切换 display） */
+ /* 公式库分类标题：点击折叠/展开下一邻块（原 onclick 三目切换 display） */
     HSPCBEV.on('click', '[data-hook="cat-toggle"]', function (el) {
         var n = el.nextElementSibling;
         n.style.display = n.style.display === 'none' ? 'block' : 'none';

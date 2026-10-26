@@ -1,14 +1,10 @@
-// ============================================================
 // js/chinese-sentence-correction.js — 病句修改训练器
 // 高考语言文字运用 · 病句辨析 (9分)
-// ============================================================
 
 window.chineseSentenceCorrection = (function() {
     'use strict';
 
-    // ============================================================
     // 题库：30道高考风格病句（6大类型 × 3个难度级别）
-    // ============================================================
     var QUESTIONS = [
         // ========== 基础 (10题) ==========
         {
@@ -282,9 +278,7 @@ window.chineseSentenceCorrection = (function() {
     var LEVELS = ['基础', '进阶', '冲刺'];
     var QUESTIONS_PER_LEVEL = 10;
 
-    // ============================================================
     // 状态管理
-    // ============================================================
     var state = {
         page: 'home',          // 'home' | 'quiz' | 'result' | 'stats'
         mode: 'choice',        // 'choice' | 'correction'
@@ -332,9 +326,7 @@ window.chineseSentenceCorrection = (function() {
         }
     }
 
-    // ============================================================
     // 工具函数
-    // ============================================================
     function shuffle(arr) {
         var result = arr.slice();
         var i = result.length;
@@ -389,9 +381,7 @@ window.chineseSentenceCorrection = (function() {
             .trim();
     }
 
-    // ============================================================
     // 生成错误类型的4个选项（1个正确 + 3个干扰项）
-    // ============================================================
     function generateOptions(correctErrorType) {
         var correctCat = getCategory(correctErrorType);
         var distractors = [];
@@ -405,9 +395,7 @@ window.chineseSentenceCorrection = (function() {
         return shuffle(options);
     }
 
-    // ============================================================
     // CSS 样式注入
-    // ============================================================
     var STYLE_INJECTED = false;
 
     function injectStyles() {
@@ -479,9 +467,7 @@ window.chineseSentenceCorrection = (function() {
         document.head.appendChild(style);
     }
 
-    // ============================================================
     // 渲染：首页
-    // ============================================================
     function renderHome() {
         var app = document.getElementById('chinese-sentence-correction-app');
         if (!app) return;
@@ -570,9 +556,7 @@ window.chineseSentenceCorrection = (function() {
         }
     }
 
-    // ============================================================
     // 开始答题
-    // ============================================================
     function startQuiz() {
         state.questions = getQuestionsByLevel(state.level);
         state.currentIndex = 0;
@@ -584,9 +568,7 @@ window.chineseSentenceCorrection = (function() {
         render();
     }
 
-    // ============================================================
     // 渲染：答题页面
-    // ============================================================
     function renderQuiz() {
         var app = document.getElementById('chinese-sentence-correction-app');
         if (!app) return;
@@ -680,9 +662,7 @@ window.chineseSentenceCorrection = (function() {
         }
     }
 
-    // ============================================================
     // 处理选择题答案
-    // ============================================================
     function handleChoiceAnswer(q, clickedBtn) {
         // 禁用所有选项
         var allBtns = document.querySelectorAll('#csc-options-container .csc-option');
@@ -732,9 +712,7 @@ window.chineseSentenceCorrection = (function() {
         showNextButton();
     }
 
-    // ============================================================
     // 处理修改题提交
-    // ============================================================
     function handleCorrectionSubmit(q) {
         var input = document.getElementById('csc-correction-input');
         if (!input) return;
@@ -821,9 +799,7 @@ window.chineseSentenceCorrection = (function() {
         showNextButton();
     }
 
-    // ============================================================
     // 记录答案与统计
-    // ============================================================
     function recordAnswer(q, userAnswer, isCorrect) {
         state.totalAnswered++;
         if (isCorrect) {
@@ -880,9 +856,7 @@ window.chineseSentenceCorrection = (function() {
         }
     }
 
-    // ============================================================
     // 下一题按钮
-    // ============================================================
     function showNextButton() {
         var card = document.querySelector('#chinese-sentence-correction-app .csc-card');
         if (!card) return;
@@ -918,9 +892,7 @@ window.chineseSentenceCorrection = (function() {
         });
     }
 
-    // ============================================================
     // 完成答题
-    // ============================================================
     function finishQuiz() {
         state.page = 'result';
 
@@ -942,9 +914,7 @@ window.chineseSentenceCorrection = (function() {
         render();
     }
 
-    // ============================================================
     // 渲染：结果页面
-    // ============================================================
     function renderResult() {
         var app = document.getElementById('chinese-sentence-correction-app');
         if (!app) return;
@@ -1042,9 +1012,7 @@ window.chineseSentenceCorrection = (function() {
         });
     }
 
-    // ============================================================
     // 渲染：统计页面
-    // ============================================================
     function renderStats() {
         var app = document.getElementById('chinese-sentence-correction-app');
         if (!app) return;
@@ -1110,9 +1078,7 @@ window.chineseSentenceCorrection = (function() {
         });
     }
 
-    // ============================================================
     // HTML 转义
-    // ============================================================
     function escapeHTML(str) {
         if (!str) return '';
         return str
@@ -1123,9 +1089,7 @@ window.chineseSentenceCorrection = (function() {
             .replace(/'/g, '&#039;');
     }
 
-    // ============================================================
     // 主渲染入口
-    // ============================================================
     function render() {
         var app = document.getElementById('chinese-sentence-correction-app');
         if (!app) return;
@@ -1152,9 +1116,7 @@ window.chineseSentenceCorrection = (function() {
         }
     }
 
-    // ============================================================
     // 公开 API
-    // ============================================================
     return {
         render: render,
         // 方便外部重置

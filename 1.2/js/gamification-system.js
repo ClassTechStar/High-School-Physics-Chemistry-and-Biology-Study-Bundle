@@ -1,14 +1,10 @@
 // 学习激励与体验 - 成就系统+分享图+暗黑模式+分数计算器
-// ============================================================
 // js/gamification-system.js — 学习激励与体验模块集合
 // 包含：成就徽章系统 / 学习打卡分享图 / 暗黑模式切换 / 分数计算器
 // ES5 兼容，零依赖，innerHTML + 内联 style + Canvas 渲染
-// ============================================================
 
-// ============================================================
 // 模块 1: achievementSystem — 成就徽章系统
 // 容器 ID: achievement-system-app
-// ============================================================
 window.achievementSystem = (function () {
     'use strict';
 
@@ -121,7 +117,7 @@ window.achievementSystem = (function () {
             stats.totalQuestions += (e.totalQuestions || e.total || 0);
         }
 
-        // T0-17: 打卡数据统一走 HSPCBStore 归一化 API，
+        // 打卡数据统一走 HSPCBStore 归一化 API，
         // 历史数组结构（['2027-06-07', {date:...}]）会被归一为对象 map，
         // 打卡后 streakDays 不再恒为 0
         var days = (window.HSPCBStore && HSPCBStore.checkinDays)
@@ -370,10 +366,8 @@ window.achievementSystem = (function () {
 })();
 
 
-// ============================================================
 // 模块 2: studyShareCard — 学习打卡分享图
 // 容器 ID: study-share-card-app
-// ============================================================
 window.studyShareCard = (function () {
     'use strict';
 
@@ -465,7 +459,7 @@ window.studyShareCard = (function () {
         if (data.total > 0) data.accuracy = Math.round(data.correct / data.total * 100);
         data.minutes = Math.floor(data.count * 1.5);
 
-        // T0-17: 打卡数据归一化后统计，历史数组结构同样有效
+        // 打卡数据归一化后统计，历史数组结构同样有效
         data.checkinDays = (window.HSPCBStore && HSPCBStore.checkinDays)
             ? HSPCBStore.checkinDays().length
             : 0;
@@ -759,11 +753,9 @@ window.studyShareCard = (function () {
 })();
 
 
-// ============================================================
 // 模块 3: darkModeToggle — 暗黑模式切换
 // 已废弃独立实现，改为委托给全站统一主题入口（index.html 的 window.setTheme）
 // 保留 render/toggle/isOn 接口，避免既有调用点报错。
-// ============================================================
 window.darkModeToggle = (function () {
     'use strict';
 
@@ -802,10 +794,8 @@ window.darkModeToggle = (function () {
 })();
 
 
-// ============================================================
 // 模块 4: scoreCalculator — 分数计算器 / 志愿参考
 // 容器 ID: score-calculator-app
-// ============================================================
 window.scoreCalculator = (function () {
     'use strict';
 

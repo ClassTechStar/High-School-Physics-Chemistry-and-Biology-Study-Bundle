@@ -1,10 +1,6 @@
-// ============================================================
 // js/chinese-tools.js — 语文交互式工具模块(3个工具)
-// ============================================================
 
-// ============================================================
 // 模块1：chineseRecitation - 默写自测系统
-// ============================================================
 window.chineseRecitation = (function() {
     'use strict';
     var texts = [
@@ -126,9 +122,7 @@ window.chineseRecitation = (function() {
     return { renderRecitation: renderRecitation };
 })();
 
-// ============================================================
 // 模块2：chineseVocabularyQuiz - 文言实词闯关
-// ============================================================
 window.chineseVocabularyQuiz = (function() {
     'use strict';
     var words = [
@@ -284,9 +278,7 @@ window.chineseVocabularyQuiz = (function() {
     return { renderVocabularyQuiz: renderVocabularyQuiz };
 })();
 
-// ============================================================
 // 模块3：chineseCompositionMaterials - 作文素材库
-// ============================================================
 window.chineseCompositionMaterials = (function() {
     'use strict';
     var materials = [

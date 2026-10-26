@@ -1,9 +1,7 @@
-﻿// ============================================================
 // app-chemistry.js — 化学模块（从 app.js 拆分）
 // 包含: 方程式配平/测验生成/安全系统/电化学/化工流程/
-//       方程式笔记本/有机转换/过程分析/方程式Pro
+// 方程式笔记本/有机转换/过程分析/方程式Pro
 // 依赖: app.js (currentTool 全局变量)
-// ============================================================
 
 /**
  * 化学方程式配平器 - 支持氧化还原/非氧化还原方程式自动配平与原子守恒检验
@@ -19,18 +17,18 @@ const chemistryBalancer = {
     },
 
     /**
-     * 化学式解析 —— P0-15 修复
+ * 化学式解析 —— 修复
      *
-     * 旧实现用 `/([A-Z][a-z]?)(\d*)/g` 平铺扫描，**完全不处理括号**，
-     * 导致括号内的原子被少算：
-     *   Ca(OH)2     旧: {Ca:1, O:1, H:1}     应为 {Ca:1, O:2, H:2}
-     *   (NH4)2SO4   旧: {N:1, H:4, S:1, O:4} 应为 {N:2, H:8, S:1, O:4}
-     *   Al2(SO4)3   旧: {Al:2, S:1, O:4}     应为 {Al:2, S:3, O:12}
-     * 于是 tryBalance('Ca(OH)2 + HCl') 输出「配平结果」系数 [1,1,1,1]，
-     * 左右原子数不等 —— 核心化学工具给出错误答案。
+ * 旧实现用 `/([A-Z][a-z]?)(\d*)/g` 平铺扫描，**完全不处理括号**，
+ * 导致括号内的原子被少算：
+ * Ca(OH)2 旧: {Ca:1, O:1, H:1} 应为 {Ca:1, O:2, H:2}
+ * (NH4)2SO4 旧: {N:1, H:4, S:1, O:4} 应为 {N:2, H:8, S:1, O:4}
+ * Al2(SO4)3 旧: {Al:2, S:1, O:4} 应为 {Al:2, S:3, O:12}
+ * 于是 tryBalance('Ca(OH)2 + HCl') 输出「配平结果」系数 [1,1,1,1]，
+ * 左右原子数不等 —— 核心化学工具给出错误答案。
      *
-     * 现在改为递归下降解析，支持：圆括号 ()、方括号 []、花括号 {}、
-     * 嵌套、角括号化学式 Ca(OH)2、以及结晶水点号 · 与其后的系数。
+ * 现在改为递归下降解析，支持：圆括号 ()、方括号 []、花括号 {}、
+ * 嵌套、角括号化学式 Ca(OH)2、以及结晶水点号 · 与其后的系数。
      */
     parseFormula(formula) {
         const atoms = {};
@@ -51,7 +49,7 @@ const chemistryBalancer = {
             return num ? parseInt(num, 10) : null;
         };
 
-        /** 把一个 group 结构合并进目标计数表，mult 为该 group 的外部倍数 */
+ /** 把一个 group 结构合并进目标计数表，mult 为该 group 的外部倍数 */
         const merge = (target, part, mult) => {
             if (part.element) {
                 target[part.element] = (target[part.element] || 0) + part.count * mult;
@@ -1721,7 +1719,7 @@ const electrochemistryViewer = {
         }
     },
 
-    /** T3-4d：暂停并重绘（原内联 onclick 的 stopAnimation + renderViewer 双语句，CSP 改造为具名方法） */
+ /** d：暂停并重绘（原内联 onclick 的 stopAnimation + renderViewer 双语句，CSP 改造为具名方法） */
     pauseAnimation() {
         this.stopAnimation();
         this.renderViewer();
@@ -4933,18 +4931,18 @@ window.chemistryProcessAnalyzer = chemistryProcessAnalyzer;
 window.equationBalancerPro = equationBalancerPro;
 
 /* ============================================================
- * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * d：内联事件属性的事件委托注册（CSP 改造）
  * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
  * ============================================================ */
 (function () {
     if (!window.HSPCBEV) return;
 
-    /* 自由操作记录：回车提交（原内联 onkeypress 条件调用 logOperation） */
+ /* 自由操作记录：回车提交（原内联 onkeypress 条件调用 logOperation） */
     HSPCBEV.on('keypress', '[data-hook="op-log-enter"]', function (el, ev) {
         if (ev.key === 'Enter') chemistrySafetySystem.logOperation(el.value);
     });
 
-    /* 工业流程题智能分析：输入超过 50 字自动触发（原内联 oninput 条件调用） */
+ /* 工业流程题智能分析：输入超过 50 字自动触发（原内联 oninput 条件调用） */
     HSPCBEV.on('input', '[data-hook="process-analyze"]', function (el) {
         if (el.value.length > 50) chemistryProcessAnalyzer.analyzeText(el.value);
     });

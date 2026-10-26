@@ -1,8 +1,6 @@
-﻿// ============================================================
 // app-physics.js — 物理模块（从 app.js 拆分）
 // 包含: 公式计算器/抛体模拟/生态系统模拟
 // 依赖: app.js (currentTool 全局变量)
-// ============================================================
 
 /**
  * 物理工具加载器 - 按 tool 名分发到对应渲染器（公式计算器/抛体模拟）
@@ -1436,24 +1434,24 @@ window.ecosystemSimulator = ecosystemSimulator;
 
 
 /* ============================================================
- * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * d：内联事件属性的事件委托注册（CSP 改造）
  * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
  * ============================================================ */
 (function () {
     if (!window.HSPCBEV) return;
 
-    /* 物理公式计算器：回车解析（原 onkeypress 条件调用） */
+ /* 物理公式计算器：回车解析（原 onkeypress 条件调用） */
     HSPCBEV.on('keypress', '[data-hook="formula-enter"]', function (el, ev) {
         if (ev.key === 'Enter') physicsFormulaCalculator.parseAndCalculate(el.value);
     });
 
-    /* 生态系统模拟器：温度滑杆（赋值 + 重绘，保留 parseInt 无 radix 的原语义） */
+ /* 生态系统模拟器：温度滑杆（赋值 + 重绘，保留 parseInt 无 radix 的原语义） */
     HSPCBEV.on('input', '[data-hook="eco-temp"]', function (el) {
         ecosystemSimulator.state.temperature = parseInt(el.value);
         ecosystemSimulator.renderSimulation();
     });
 
-    /* 生态系统模拟器：湿度滑杆（百分值除以 100 归一） */
+ /* 生态系统模拟器：湿度滑杆（百分值除以 100 归一） */
     HSPCBEV.on('input', '[data-hook="eco-moisture"]', function (el) {
         ecosystemSimulator.state.moisture = parseInt(el.value) / 100;
         ecosystemSimulator.renderSimulation();

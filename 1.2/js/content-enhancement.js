@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-// T2-4 / P1-1 + P1-3: 原先此处猴补丁 window.loadModuleContent（保存 orig 再整体覆写），
+// + 原先此处猴补丁 window.loadModuleContent（保存 orig 再整体覆写），
 // 与 app.js 的权威定义、exam-review-system.js 的补丁形成 3 处赋值链，
 // 谁后加载谁说话，且 concepts→knowledge 别名等修正只对链上某一段生效。
 // 现改为走 app.js 的 MODULE_REGISTRY 正式注册通道（registerModule），
@@ -411,7 +411,7 @@ var CE={
     },
 
     addNewSections:function(){
-        // T0-14 / P1-36: 原实现取 #main-content，该 id 在 index.html 中不存在，
+        // 原实现取 #main-content，该 id 在 index.html 中不存在，
         // 于是 periodic-table-section / chemistry-structure-section 永远不会被创建
         // → 搜索「物质结构工具」点过去必然落空。真实容器是 <main>。
         var mainContent=document.getElementById('main-content')

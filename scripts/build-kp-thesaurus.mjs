@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 /**
- * build-kp-thesaurus.mjs — T1-4 把 TOPIC_ALIAS_MAP 从代码抽到数据文件
+ * build-kp-thesaurus.mjs — 把 TOPIC_ALIAS_MAP 从代码抽到数据文件
  *
- * 背景（P1-2）：
- *   `1.2/data/knowledgePoints-thesaurus.json` 早已存在，但**没有任何代码读取它**
- *   ——只在 `promo.html` 里被宣传、在 `sw.js` 里被预缓存。别名仍硬编码在
- *   `learning-path-recommender.js` 的 `TOPIC_ALIAS_MAP` 里。
+ * 背景（）：
+ * `1.2/data/knowledgePoints-thesaurus.json` 早已存在，但**没有任何代码读取它**
+ * ——只在 `promo.html` 里被宣传、在 `sw.js` 里被预缓存。别名仍硬编码在
+ * `learning-path-recommender.js` 的 `TOPIC_ALIAS_MAP` 里。
  *
  * 本脚本做的事：
- *   1. 从 `learning-path-recommender.js` 抽出硬编码的 TOPIC_ALIAS_MAP（保持权威来源）
- *   2. 合并「人工整理的高频考点映射」（针对实测未命中的真实知识点）
- *   3. 校验：每个别名的目标必须真实存在于对应 subject 的 knowledge.json topic 名里
- *      ——防止别名越修越错
- *   4. 写回 knowledgePoints-thesaurus.json 的 subjects.<subject>.aliases
+ * 1. 从 `learning-path-recommender.js` 抽出硬编码的 TOPIC_ALIAS_MAP（保持权威来源）
+ * 2. 合并「人工整理的高频考点映射」（针对实测未命中的真实知识点）
+ * 3. 校验：每个别名的目标必须真实存在于对应 subject 的 knowledge.json topic 名里
+ * ——防止别名越修越错
+ * 4. 写回 knowledgePoints-thesaurus.json 的 subjects.<subject>.aliases
  *
- * 用法：node scripts/build-kp-thesaurus.mjs [--apply]   （默认 dry-run）
+ * 用法：node scripts/build-kp-thesaurus.mjs [--apply] （默认 dry-run）
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';

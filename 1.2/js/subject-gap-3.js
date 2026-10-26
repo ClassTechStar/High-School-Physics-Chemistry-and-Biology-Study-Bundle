@@ -1,12 +1,8 @@
-// ============================================================
 // js/subject-gap-3.js — 学科内容缺口补全 - 物理天体+化学晶体+生物DNA
 // 包含三个模块：celestialMotionSim / crystalStructure3D / dnaCentralDogma
 // 纯前端、零依赖、ES5兼容、innerHTML+内联style+Canvas/SVG
-// ============================================================
 
-// ============================================================
 // 模块1: celestialMotionSim —— 物理天体运动模拟器（开普勒三定律）
-// ============================================================
 window.celestialMotionSim = (function () {
     'use strict';
 
@@ -313,9 +309,7 @@ window.celestialMotionSim = (function () {
 
     return { render: render };
 })();
-// ============================================================
 // 模块2: crystalStructure3D —— 化学晶体结构3D查看器
-// ============================================================
 window.crystalStructure3D = (function () {
     'use strict';
 
@@ -602,9 +596,7 @@ window.crystalStructure3D = (function () {
 
     return { render: render };
 })();
-// ============================================================
 // 模块3: dnaCentralDogma —— 生物DNA复制转录翻译动画
-// ============================================================
 window.dnaCentralDogma = (function () {
     'use strict';
 

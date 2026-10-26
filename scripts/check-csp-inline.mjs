@@ -1,46 +1,46 @@
 #!/usr/bin/env node
 /**
- * check-csp-inline.mjs —— T3-4c / T3-4f / T12：内联清点与 CSP 门禁
+ * check-csp-inline.mjs —— c / f / T12：内联清点与 CSP 门禁
  *
- * 背景：DEV-PLAN T3-4 记载「先把 index.html 的 32 处内联 onclick 改为事件委托，
+ * 背景：DEV-PLAN 记载「先把 index.html 的 32 处内联 onclick 改为事件委托，
  * 才能移除 unsafe-inline」。v1.4 勘察实测该数字与现状不符，本脚本以实测口径为准，
  * 并把「静态 HTML 不得出现内联事件属性」固化为可回归的门禁断言。
  *
  * 进度：
- *   T3-4c  A 类静态属性清零 + data-action 委托
- *   T3-4d  C 类 js/ 侧与 index.html 内联脚本清零（委托中枢 js/csp-delegation.js）
- *   T3-4e  B 类 6 个内联脚本块全部外置 + meta CSP script-src 移除 'unsafe-inline'
- *   T3-4f  D1/D2：index.html 2 个 <style> 块外置（css/responsive.css 1159 B、
- *          css/chinese-knowledge.css 8894 B，逐字节保真）、37 处静态 style 属性
- *          类化（tokens.css 的 --tag-* 与 --panel-* 令牌 + style.css 类规则 +
- *          theme-dark.css 按类选择器重建暗色对等覆盖），computed-style 回归
- *          harness 18/18 组合（light/dark × 9 学科）零差异；
- *          D3（js/ 侧模板 style 属性，实测 3624 处 / 42 个文件 = 20 动态 +
- *          3604 静态）尚待立项决策，未开工。
- *   现行门禁断言共九条：A1/A2/A3/B1/B2/C1/C2/D1/D2。
+ * c A 类静态属性清零 + data-action 委托
+ * d C 类 js/ 侧与 index.html 内联脚本清零（委托中枢 js/csp-delegation.js）
+ * e B 类 6 个内联脚本块全部外置 + meta CSP script-src 移除 'unsafe-inline'
+ * f D1/D2：index.html 2 个 <style> 块外置（css/responsive.css 1159 B、
+ * css/chinese-knowledge.css 8894 B，逐字节保真）、37 处静态 style 属性
+ * 类化（tokens.css 的 --tag-* 与 --panel-* 令牌 + style.css 类规则 +
+ * theme-dark.css 按类选择器重建暗色对等覆盖），computed-style 回归
+ * harness 18/18 组合（light/dark × 9 学科）零差异；
+ * D3（js/ 侧模板 style 属性，实测 3624 处 / 42 个文件 = 20 动态 +
+ * 3604 静态）尚待立项决策，未开工。
+ * 现行门禁断言共九条：A1/A2/A3/B1/B2/C1/C2/D1/D2。
  *
  * 口径（script-src 侧三分类 + style-src 侧精确口径，务必区分，否则会得出
  * 错误的工作量结论）：
- *   A. 静态 HTML 内联事件属性  —— index.html 中真实写在标签上的 on* 属性，
- *      由浏览器在解析时编译，受 script-src 'unsafe-inline' 管辖。
- *      ★ 必须先清零，这是移除 script-src 'unsafe-inline' 的必要条件。
- *   B. 内联 <script> 块         —— index.html 内的 <script>（无 src），
- *      受 script-src 'unsafe-inline' 管辖，与 A 独立。
- *   C. JS 生成的内联事件属性     —— js/*.js 里的字符串模板 `onclick="..."`
- *      以及 HTML 内联脚本里的字符串模板，运行时拼成真实 DOM 属性，
- *      同样受 script-src 'unsafe-inline' 管辖，但工作量在 js/ 侧而非 index.html。
- *   D. 内联样式（style-src 'unsafe-inline' 的精确管辖范围，T3-4f 起分级设门禁）：
- *      D1. 静态 <style> 块    —— index.html 内的 <style>，受管辖，已清零（D1 门禁）。
- *      D2. 静态 style 属性    —— 标签上的 style="..."，受管辖，已清零（D2 门禁）。
- *      D3. JS 模板 style 属性 —— js/*.js 字符串模板拼出的 style="..."，运行时
- *          成为真实 DOM 属性，受管辖（实测 3624 处 / 42 文件，只清点待立项）。
- *      ✗ 不受管辖（旧口径误计，特此纠正）：el.style.prop= / el.style.cssText=
- *        属 CSSOM 写入，不产生 style 属性字符串，style-src 'unsafe-inline'
- *        管不到（实测 328 处 / 34 文件，其中 cssText 整体写 43 处）。旧脚本把
- *        3624 + 328 = 3952 混计为「JS 样式写入」，据此推算的 D 类工作量含
- *        328 处无效项。另：ctx.fillStyle / ctx.strokeStyle 属 Canvas API，
- *        连「样式写入」都不算；模板正则的前导空白要求已将其排除（曾以无前导
- *        空白口径误得 3929，差额 305 即此类）。
+ * A. 静态 HTML 内联事件属性 —— index.html 中真实写在标签上的 on* 属性，
+ * 由浏览器在解析时编译，受 script-src 'unsafe-inline' 管辖。
+ * ★ 必须先清零，这是移除 script-src 'unsafe-inline' 的必要条件。
+ * B. 内联 <script> 块 —— index.html 内的 <script>（无 src），
+ * 受 script-src 'unsafe-inline' 管辖，与 A 独立。
+ * C. JS 生成的内联事件属性 —— js/*.js 里的字符串模板 `onclick="..."`
+ * 以及 HTML 内联脚本里的字符串模板，运行时拼成真实 DOM 属性，
+ * 同样受 script-src 'unsafe-inline' 管辖，但工作量在 js/ 侧而非 index.html。
+ * D. 内联样式（style-src 'unsafe-inline' 的精确管辖范围，f 起分级设门禁）：
+ * D1. 静态 <style> 块 —— index.html 内的 <style>，受管辖，已清零（D1 门禁）。
+ * D2. 静态 style 属性 —— 标签上的 style="..."，受管辖，已清零（D2 门禁）。
+ * D3. JS 模板 style 属性 —— js/*.js 字符串模板拼出的 style="..."，运行时
+ * 成为真实 DOM 属性，受管辖（实测 3624 处 / 42 文件，只清点待立项）。
+ * ✗ 不受管辖（旧口径误计，特此纠正）：el.style.prop= / el.style.cssText=
+ * 属 CSSOM 写入，不产生 style 属性字符串，style-src 'unsafe-inline'
+ * 管不到（实测 328 处 / 34 文件，其中 cssText 整体写 43 处）。旧脚本把
+ * 3624 + 328 = 3952 混计为「JS 样式写入」，据此推算的 D 类工作量含
+ * 328 处无效项。另：ctx.fillStyle / ctx.strokeStyle 属 Canvas API，
+ * 连「样式写入」都不算；模板正则的前导空白要求已将其排除（曾以无前导
+ * 空白口径误得 3929，差额 305 即此类）。
  *
  * 用法：node scripts/check-csp-inline.mjs [--json]
  * 退出码：0 = 全部门禁通过；1 = 有断言失败。
@@ -75,7 +75,7 @@ function inlineScriptCodes(html) {
     .map((m) => m[2]);
 }
 
-/** index.html 的 <script src="js/..."> 引用的外部脚本源码拼接（T3-4e 起 A3 等断言的作用域）。 */
+/** index.html 的 <script src="js/..."> 引用的外部脚本源码拼接（e 起 A3 等断言的作用域）。 */
 function referencedJsSources(html) {
   const files = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)].map((m) => m[1]);
   const parts = [];
@@ -84,7 +84,7 @@ function referencedJsSources(html) {
     try {
       parts.push(readFileSync(resolve(APP, rel), 'utf8'));
     } catch {
-      /* 引用不存在的文件由 runtime-defer-check / smoke 门禁负责，此处不重复报 */
+ /* 引用不存在的文件由 runtime-defer-check / smoke 门禁负责，此处不重复报 */
     }
   }
   return parts.join('\n');
@@ -93,7 +93,7 @@ function referencedJsSources(html) {
 const html = readFileSync(INDEX, 'utf8');
 const staticHtml = stripScripts(html);
 const codes = inlineScriptCodes(html);
-const extJs = referencedJsSources(html); // T3-4e：原内联脚本的继任作用域
+const extJs = referencedJsSources(html); // 原内联脚本搬出去之后的检查范围
 
 /* ---------------- A. 静态 HTML 内联事件属性 ---------------- */
 const EVENT_ATTR = /\son([a-z]+)\s*=\s*["']/gi;
@@ -135,7 +135,7 @@ const styleBlocks = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].ma
 let jsTemplateStyleAttrs = 0;
 let jsTemplateFiles = 0;
 // 不受管辖：CSSOM 写入（.style.prop= / .style.cssText=），不产生 style 属性字符串。
-// 旧口径将其与模板属性混计为「JS 样式写入 3952」，据此推算的 D 类工作量含 328 处无效项。
+// 以前把它跟模板属性混在一起算成「JS 样式写入 3952」，里面 328 项是不算数的。
 let jsCssomWrites = 0;
 let jsCssomCssText = 0;
 let jsCssomFiles = 0;
@@ -162,7 +162,7 @@ for (const f of jsFiles) {
 const checks = [
   {
     id: 'A1',
-    name: '静态 HTML 内联事件属性清零',
+    name: '静态 HTML 里不再有内联事件属性',
     got: staticEventHits.length,
     want: 0,
     pass: staticEventHits.length === 0,
@@ -179,33 +179,33 @@ const checks = [
   },
   {
     id: 'A3',
-    name: 'window.toggleTheme 仍导出（data-action 委托与外部调用方仍引用）',
+    name: 'window.toggleTheme 仍导出（data-action 委托和外部调用方都在用）',
     got: (html + extJs).match(/window\.toggleTheme\s*=/g)?.length || 0,
     want: 1,
     pass: ((html + extJs).match(/window\.toggleTheme\s*=/g) || []).length === 1,
-    detail: '清零内联属性不等于删除全局 API；data-action="toggle-theme" 委托处理器与外部调用方仍引用它（T3-4e 起作用域 = index.html + 其引用的 js/ 外部脚本）',
+    detail: '去掉内联属性不代表可以删掉全局 API。data-action="toggle-theme" 的委托和外部调用方都还在引用它，检查范围是 index.html 和它引用的 js 文件。',
   },
   {
     id: 'B1',
-    name: '内联 <script> 块清零（T3-4e 全部外置）',
+    name: '页面里不再有内联 <script> 块',
     got: scriptBlocks.length,
     want: 0,
     pass: scriptBlocks.length === 0,
     detail: scriptBlocks.length === 0
-      ? '原 6 个内联块（错误兜底 / 主题引导 / 主逻辑 / 首页折叠 / 主题切换 / SW 注册）已全部外置为 js/ 外部脚本，执行序经 runtime-defer-check 保序验证'
+      ? '原来的 6 个内联块（错误兜底 / 主题引导 / 主逻辑 / 首页折叠 / 主题切换 / SW 注册）都已经挪到 js/ 外部脚本，执行顺序由 runtime-defer-check 保证'
       : `残留：${scriptBlocks.map((b) => b.head).join(' | ')}`,
   },
   {
     id: 'B2',
-    name: "meta CSP script-src 移除 'unsafe-inline'（A/B 清零后的收紧）",
+    name: "meta CSP 的 script-src 里没有 'unsafe-inline'",
     got: /script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
     want: 0,
     pass: !/script-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
-    detail: "script-src 已收紧为 'self'（A/B 清零后移除）",
+    detail: "script-src 只允许 'self'。前面几项都过了才能收这一步。",
   },
   {
     id: 'B3',
-    name: "meta CSP style-src 移除 'unsafe-inline'（D1–D4 全部清零后的 CSP 闭环）",
+    name: "meta CSP 的 style-src 里没有 'unsafe-inline'",
     got: /style-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || '') ? 1 : 0,
     want: 0,
     pass: !/style-src[^;]*'unsafe-inline'/.test((html.match(/<meta[^>]*Content-Security-Policy[^>]*\bcontent\s*=\s*"([^"]*)"/i) || [])[1] || ''),
@@ -213,7 +213,7 @@ const checks = [
   },
   {
     id: 'C1',
-    name: 'js/*.js 生成的内联事件属性清零（T3-4d）',
+    name: 'js/*.js 里不再生成内联事件属性',
     got: genTotal,
     want: 0,
     pass: genTotal === 0,
@@ -223,7 +223,7 @@ const checks = [
   },
   {
     id: 'C2',
-    name: 'index.html 内联脚本生成的内联事件属性清零（T3-4d）',
+    name: 'index.html 的内联脚本里不再生成内联事件属性',
     got: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0),
     want: 0,
     pass: [...inlineGenByEvent.values()].reduce((a, b) => a + b, 0) === 0,
@@ -233,7 +233,7 @@ const checks = [
   },
   {
     id: 'D1',
-    name: 'index.html 内联 <style> 块清零（T3-4f 外置为 css/ 外部样式表）',
+    name: 'index.html 里不再有内联 <style> 块',
     got: styleBlocks.length,
     want: 0,
     pass: styleBlocks.length === 0,
@@ -243,7 +243,7 @@ const checks = [
   },
   {
     id: 'D2',
-    name: 'index.html 静态 style 属性清零（T3-4f 类化）',
+    name: 'index.html 里不再有静态 style 属性',
     got: staticStyleAttrs,
     want: 0,
     pass: staticStyleAttrs === 0,
@@ -253,7 +253,7 @@ const checks = [
   },
   {
     id: 'D3',
-    name: 'js/ 模板内联 style 属性清零（v1.4 收敛为 data-style + CSSOM 桥接）',
+    name: 'js 模板不再生成 style 属性',
     got: jsTemplateStyleAttrs,
     want: 0,
     pass: jsTemplateStyleAttrs === 0,
@@ -263,7 +263,7 @@ const checks = [
   },
   {
     id: 'D4',
-    name: 'js/ 字符串模板内联 <style> 块清零（弹窗样式外置）',
+    name: 'js 里的字符串模板不再含内联 <style> 块',
     got: jsStyleBlocks,
     want: 0,
     pass: jsStyleBlocks === 0,

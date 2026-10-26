@@ -1,11 +1,9 @@
 // 辅助学习工具模块
 // 包含：examVariation(真题变式生成器)、wrongVariationGen(错题变式生成)、
-//       studyCalendar(学习日历)、examStrategy(考前策略)、interactiveMistakes(交互式易错点)
+// studyCalendar(学习日历)、examStrategy(考前策略)、interactiveMistakes(交互式易错点)
 // 兼容 ES5，零依赖，数据内嵌
 
-// ============================================================
 // 1. 真题变式生成器 examVariation
-// ============================================================
 var examVariation = (function () {
     var state = {
         subject: '',
@@ -253,9 +251,7 @@ var examVariation = (function () {
     };
 })();
 
-// ============================================================
 // 2. 错题变式生成 wrongVariationGen
-// ============================================================
 var wrongVariationGen = (function () {
     var state = {
         group: '',
@@ -500,9 +496,7 @@ var wrongVariationGen = (function () {
     };
 })();
 
-// ============================================================
 // 3. 学习日历 studyCalendar
-// ============================================================
 var studyCalendar = (function () {
     var state = {
         viewDate: new Date(),
@@ -708,9 +702,7 @@ var studyCalendar = (function () {
     };
 })();
 
-// ============================================================
 // 4. 考前策略 examStrategy
-// ============================================================
 var examStrategy = (function () {
     var state = { subject: '物理', tab: 'time' };
 
@@ -949,9 +941,7 @@ var examStrategy = (function () {
     };
 })();
 
-// ============================================================
 // 5. 交互式易错点 interactiveMistakes
-// ============================================================
 var interactiveMistakes = (function () {
     var state = { subject: '物理', idx: 0, selected: '', revealed: false };
 
@@ -1113,9 +1103,7 @@ var interactiveMistakes = (function () {
     };
 })();
 
-// ============================================================
 // 暴露到 window
-// ============================================================
 window.examVariation = examVariation;
 window.wrongVariationGen = wrongVariationGen;
 window.studyCalendar = studyCalendar;

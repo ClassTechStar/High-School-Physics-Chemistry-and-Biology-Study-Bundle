@@ -1,22 +1,22 @@
 /**
- * check-theme-tokens.mjs — T3-3 暗色主题令牌化门禁
+ * check-theme-tokens.mjs — 暗色主题令牌化门禁
  *
- * 背景（DEV-PLAN T3-3）：theme-dark.css 原为「补丁式覆写层」，声明值里 199 处
+ * 背景（DEV-PLAN ）：theme-dark.css 原为「补丁式覆写层」，声明值里 199 处
  * 硬编码 hex（81 个唯一色值），另有 158 个补丁层 !important 与 99 个重映射层
- * !important。T3-3a 已把声明 hex 全部收拢为 91 个语义令牌（外观经
- * computed-style 回归 harness 逐元素验证零变化）；T3-3b 已把补丁层 !important
+ * !important。a 已把声明 hex 全部收拢为 91 个语义令牌（外观经
+ * computed-style 回归 harness 逐元素验证零变化）；b 已把补丁层 !important
  * 从 158 削减到 6。
  *
- * 本门禁的指标口径（度量修正后，见 DEV-PLAN T3-3「与验收标准的偏差」）：
- *   T1 声明体 hex 数 = 0        —— 排除令牌定义行与 [style*=] 选择器字符串
- *                                 （属性选择器匹配的是字面文本，不可令牌化，
- *                                 330 处选择器 hex 是匹配条件不是颜色）
- *   T2 补丁层 !important < 30   —— 排除重映射层；重映射层的 99 个 !important 是
- *                                 压过 JS 生成内联样式的承重墙，不可削减
- *   T3 重映射层 !important = 99 —— 承重墙防侵蚀（数量变化须有人工评审）
- *   T4 令牌定义 ≥ 91、var(--dm-*) 引用 ≥ 266 —— 防回退到硬编码
- *   T5 无令牌自引用定义（--X: var(--X)）
- *   T6 无悬空 var() 引用（theme-dark.css 内引用必须在同文件有定义）
+ * 本门禁的指标口径（度量修正后，见 DEV-PLAN 「与验收标准的偏差」）：
+ * T1 声明体 hex 数 = 0 —— 排除令牌定义行与 [style*=] 选择器字符串
+ * （属性选择器匹配的是字面文本，不可令牌化，
+ * 330 处选择器 hex 是匹配条件不是颜色）
+ * T2 补丁层 !important < 30 —— 排除重映射层；重映射层的 99 个 !important 是
+ * 压过 JS 生成内联样式的承重墙，不可削减
+ * T3 重映射层 !important = 99 —— 承重墙防侵蚀（数量变化须有人工评审）
+ * T4 令牌定义 ≥ 91、var(--dm-*) 引用 ≥ 266 —— 防回退到硬编码
+ * T5 无令牌自引用定义（--X: var(--X)）
+ * T6 无悬空 var() 引用（theme-dark.css 内引用必须在同文件有定义）
  */
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';

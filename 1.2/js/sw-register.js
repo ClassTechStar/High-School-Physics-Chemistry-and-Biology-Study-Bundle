@@ -1,5 +1,5 @@
-/* ServiceWorker 注册 · 外置自 index.html 内联脚本（T3-4e）；defer */
-/* P1-6(E)：安装只预缓存应用壳；页面空闲且网络允许时通知 SW 后台补齐工具脚本。 */
+/* ServiceWorker 注册 · 外置自 index.html 内联脚本（e）；defer */
+/* 安装只预缓存应用壳；页面空闲且网络允许时通知 SW 后台补齐工具脚本。 */
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js").then(function (reg) {
         console.log("SW registered:", reg.scope);

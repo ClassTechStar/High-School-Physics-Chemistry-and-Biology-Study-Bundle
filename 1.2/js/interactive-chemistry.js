@@ -5,9 +5,7 @@
 (function() {
   'use strict';
 
-  // ============================================================================
   // 模块1: chemistryLabBuilder - 化学实验装置拖拽拼装系统
-  // ============================================================================
   var LabBuilder = function() {};
 
   LabBuilder.prototype._apparatusList = [
@@ -502,9 +500,7 @@
 
   window.chemistryLabBuilder = new LabBuilder();
 
-  // ============================================================================
   // 模块2: chemEquilibriumSim - 化学平衡移动动态模拟器
-  // ============================================================================
   var EquilibriumSim = function() {};
 
   EquilibriumSim.prototype._reactions = [
@@ -901,9 +897,7 @@
 
   window.chemEquilibriumSim = new EquilibriumSim();
 
-  // ============================================================================
   // 模块3: periodicTableInteractive - 高考化学交互式元素周期表
-  // ============================================================================
   var PeriodicTable = function() {};
 
   // Complete element data (1-7周期, focus on Gaokao elements)

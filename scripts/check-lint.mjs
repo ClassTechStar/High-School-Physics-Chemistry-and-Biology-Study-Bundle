@@ -1,16 +1,16 @@
 /**
- * check-lint.mjs — 代码卫生门禁（P1-4 / P1-11 / P2-1 / P0-5 的自动化检测）
+ * check-lint.mjs — 代码卫生门禁（的自动化检测）
  *
  * 设计原则（对齐 DEV-PLAN 的 R4）：
- *   门禁对「基线内的存量技术债」只提示不失败，对「新增违规」立即失败。
- *   这样门禁既有真实失败能力（不会像修复前的 check-global-collisions 那样永远 exit 0），
- *   又不会因为 552 条历史副本这类存量问题而永久变红。基线每条必须带 issue 号。
+ * 门禁对「基线内的存量技术债」只提示不失败，对「新增违规」立即失败。
+ * 这样门禁既有真实失败能力（不会像修复前的 check-global-collisions 那样永远 exit 0），
+ * 又不会因为 552 条历史副本这类存量问题而永久变红。基线每条必须带 issue 号。
  *
  * 覆盖：
- *   L1 裸 localStorage 调用（应走 HSPCBStore / HSPCBProgress）—— P1-4
- *   L2 escapeHtml 的重复实现应收敛为 1 份 —— P2-1
- *   L3 index.html 内联硬编码色值 / 缺失设计令牌 —— P1-11 P1-12
- *   L4 innerHTML 赋值处的转义覆盖率统计 —— P0-5
+ * L1 裸 localStorage 调用（应走 HSPCBStore / HSPCBProgress）—— 
+ * L2 escapeHtml 的重复实现应收敛为 1 份 —— 
+ * L3 index.html 内联硬编码色值 / 缺失设计令牌 —— 
+ * L4 innerHTML 赋值处的转义覆盖率统计 —— 
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -76,9 +76,9 @@ console.log('=== L2. escapeHtml 实现收敛（P2-1） ===');
   ok(defs.filter((d) => d.file === 'common-utils.js').length === 1,
     'common-utils.js 有且仅有 1 份权威 escapeHtml 实现');
 
-  // 【T1-5】区分「真·重复实现」与「已委托到权威实现」。
+  // 区分「真·重复实现」与「已委托到权威实现」。
   // 判定依据：抓取定义处之后 12 行函数体，只要出现 CommonUtils.escapeHtml 调用
-  // 即认定为委托（历史遗留实现已收敛为转发），不再计入重复。
+  // 即认定为委托（旧实现都改成了转发），不再计入重复。
   const bodyOf = (d) => {
     const arr = read(d.file).split(/\r?\n/);
     return arr.slice(d.line - 1, d.line + 11).join('\n');

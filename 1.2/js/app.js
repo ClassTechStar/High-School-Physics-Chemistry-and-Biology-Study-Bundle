@@ -1,9 +1,7 @@
-﻿// ============================================================
 // app.js — HSPCB 平台核心（已拆分）
 // 包含: 全局变量/学科内容数据/导航/模块加载器
 // 拆分文件: app-chemistry.js / app-physics.js / app-biology.js / app-exam.js
 // 加载顺序: app.js -> app-chemistry.js -> app-physics.js -> app-biology.js -> app-exam.js
-// ============================================================
 
 let currentSubject = 'home';
 let currentTool = null;
@@ -1188,7 +1186,7 @@ const subjectContent = {
 /**
  * 工具 id → section id 的别名表
  *
- * P0-14: index.html 在重构中重命名过一批 section（如 `electrochem-section`
+ * index.html 在重构中重命名过一批 section（如 `electrochem-section`
  * → `chemistry-electrochem-section`），但各 app 的 navigateTo() 调用点没有同步。
  * navigateTo 会先移除**所有** .section.active 再找不到目标 →
  * 结果是整页空白，且无任何报错。
@@ -1226,7 +1224,7 @@ function navigateTo(section) {
     const resolved = SECTION_ID_ALIAS[section] || section;
     const targetSection = document.getElementById(resolved + '-section');
 
-    // P0-14 修复：先校验目标存在，再摘掉所有 active。
+    // 修复：先校验目标存在，再摘掉所有 active。
     // 旧实现先清空所有 active 再判断目标是否存在，找不到时整页变空白且无任何日志。
     if (!targetSection) {
         console.warn(`[navigateTo] 找不到 section "#${resolved}-section"（原始 id: "${section}"），已中止导航以避免整页空白`);
@@ -1236,7 +1234,7 @@ function navigateTo(section) {
         console.info(`[navigateTo] id 别名: "${section}" → "${resolved}"`);
     }
 
-    // P1-6(F)：该 section 若含 <template data-lazy-content>，进入前先实例化
+    // 该 section 若含 <template data-lazy-content>，进入前先实例化
     if (typeof window.materializeSection === 'function') {
         window.materializeSection(resolved + '-section');
     }
@@ -1275,7 +1273,7 @@ window.registerModule = function(type, handler) {
 
 /**
  * UI 的 data-module 取值 → subjectContent 的键名映射
- * P0-11: `concepts`（index.html tab 列表的取值）在 subjectContent 里叫 `knowledge`。
+ * `concepts`（index.html tab 列表的取值）在 subjectContent 里叫 `knowledge`。
  * 该映射原先只存在于 index.html 一个解析期永假的死块中，导致三科默认 tab
  * 「📖 核心概念」全部显示「该模块内容正在开发中...」，app.js 里 500+ 行真实内容取不到。
  */
@@ -1294,7 +1292,7 @@ function loadModuleContent(subject, module) {
     const contentEl = document.getElementById(contentId);
     if (!contentEl) return;
 
-    // P0-11: 别名归一必须在任何分支之前，否则 concepts 永远匹配不到 knowledge
+    // 别名归一必须在任何分支之前，否则 concepts 永远匹配不到 knowledge
     const key = MODULE_KEY_ALIAS[module] || module;
 
     // 注册表检查 - 优先于默认内容查找，消除猴子补丁顺序依赖
@@ -1315,7 +1313,7 @@ function loadModuleContent(subject, module) {
     }
 }
 
-// P0-11: 把 index.html 中原先不可达的精细实验渲染器（约 360 行）与
+// 把 index.html 中原先不可达的精细实验渲染器（约 360 行）与
 // 平台 tab 分流正式接入 MODULE_REGISTRY —— 这正是 registerModule 架构的设计用途，
 // 同时解决了「架构定义后零调用」的空壳问题。
 (function registerBuiltinModules() {
@@ -1376,7 +1374,7 @@ document.addEventListener('DOMContentLoaded', function() {
         firstPhysicsTab.click();
     }
 
-    // T3-2 / PWA shortcuts 深链：消费 index.html?subject=<key>
+    // PWA shortcuts 深链：消费 index.html?subject=<key>
     // 背景：manifest.json 的 shortcuts 早已声明 index.html?subject=physics 等 URL，
     // 但此前全仓没有 URL 参数消费方，点击 shortcut 只会打开首页、不会跳到对应学科。
     // 这里补最小实现：白名单从导航按钮实时推导（避免写死集合与页面漂移）+ 复用 navigateTo。

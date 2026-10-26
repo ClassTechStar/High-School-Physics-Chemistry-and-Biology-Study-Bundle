@@ -2,21 +2,21 @@
  * runtime-defer-check.mjs — 在 Node 里按浏览器真实语义复现 index.html 的脚本执行顺序，
  * 并验证「defer 时序类」缺陷是否已修复。
  *
- * 背景（P0-10 / P0-11 / P0-13）：
- *   内联 <script>（无 defer）与非 defer 外链 <script> 在**解析期**按文档序执行，
- *   <script defer> 在**解析完成后**按 DOM 顺序执行。
- *   因此解析期读 window.SomeDeferredModule 必然得到 undefined。
- *   本脚本用 jsdom 之外的极简实现（避免新增依赖）复现该顺序，并断言：
- *     1. 解析期脚本（T3-4e 起全部为外部 js，含 js/main-inline.js）中不再有
- *        解析期捕获 defer 模块的写法
- *     2. 所有 defer 模块在最后一个解析期脚本之后都能被读到
- *     3. chineseSearch / loadModuleContent / render*Experiments 等确实挂到了 window
+ * 背景（）：
+ * 内联 <script>（无 defer）与非 defer 外链 <script> 在**解析期**按文档序执行，
+ * <script defer> 在**解析完成后**按 DOM 顺序执行。
+ * 因此解析期读 window.SomeDeferredModule 必然得到 undefined。
+ * 本脚本用 jsdom 之外的极简实现（避免新增依赖）复现该顺序，并断言：
+ * 1. 解析期脚本（e 起全部为外部 js，含 js/main-inline.js）中不再有
+ * 解析期捕获 defer 模块的写法
+ * 2. 所有 defer 模块在最后一个解析期脚本之后都能被读到
+ * 3. chineseSearch / loadModuleContent / render*Experiments 等确实挂到了 window
  *
- * T3-4e 结构变化：index.html 原 6 个内联脚本块全部外置为 js/ 外部脚本——
- *   error-fallback.js / theme-bootstrap.js（head，非 defer）、main-inline.js
- *   （body 原位，非 defer，2290 行主逻辑）、home-collapse.js / theme-toggle.js /
- *   sw-register.js（defer，置于 app.js 之前）。解析期执行序与 defer 执行序
- *   与外置前完全一致，本节静态检查面随之覆盖全部解析期脚本。
+ * e 结构变化：index.html 原 6 个内联脚本块全部外置为 js/ 外部脚本——
+ * error-fallback.js / theme-bootstrap.js（head，非 defer）、main-inline.js
+ * （body 原位，非 defer，2290 行主逻辑）、home-collapse.js / theme-toggle.js /
+ * sw-register.js（defer，置于 app.js 之前）。解析期执行序与 defer 执行序
+ * 与外置前完全一致，本节静态检查面随之覆盖全部解析期脚本。
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -59,10 +59,10 @@ ok(scripts.length > 0, `解析出 ${scripts.length} 个 <script>`);
 // ------------------------------------------- 2. 静态检查：解析期不得捕获 defer 模块
 console.log('=== 2. 解析期捕获检查（静态） ===');
 {
-  // 解析期执行集合 = 内联脚本 + 非 defer 外链脚本（T3-4e 起原 6 个内联块已全部外置为
+  // 解析期执行集合 = 内联脚本 + 非 defer 外链脚本（e 起原 6 个内联块已全部外置为
   // js/ 外部脚本，其中 #3 主逻辑 2290 行为 js/main-inline.js，仍以非 defer 方式在解析期执行，
   // 因此本节的静态检查面必须覆盖全部解析期脚本，而非仅 index.html 内联块）
-  /** @type {{label:string, code:string}[]} */
+ /** @type {{label:string, code:string}[]} */
   const parseTimeSegs = [
     ...inlineScripts.map((s, i) => ({ label: `inline#${i + 1}`, code: s.code || '' })),
     ...plainScripts.map((s) => ({
@@ -72,7 +72,7 @@ console.log('=== 2. 解析期捕获检查（静态） ===');
   ];
 
   // 收集每个 defer 脚本会挂到 window 的符号
-  /** @type {Map<string, string>} symbol -> src */
+ /** @type {Map<string, string>} symbol -> src */
   const deferredSymbols = new Map();
   for (const s of deferScripts) {
     if (!s.src.endsWith('.js')) continue;
@@ -208,7 +208,7 @@ document.addEventListener = function (type, fn) {
   listeners.get(type).push(fn);
 };
 
-// T3-2: 深链行为断言需要认出导航按钮集合 —— 从 index.html 静态 HTML 抽取
+// 深链行为断言需要认出导航按钮集合 —— 从 index.html 静态 HTML 抽取
 // .nav-btn[data-subject]（假 DOM 的 querySelectorAll 默认恒返回 []，
 // 这里只对这一个是给真实集合，其余选择器行为不变）。
 const navBtnSubjects = [...html.matchAll(/<button[^>]*class="nav-btn[^"]*"[^>]*\bdata-subject="([^"]+)"/g)].map((m) => m[1]);
@@ -314,7 +314,7 @@ ok(dclErrors.length === 0,
     : `DOMContentLoaded 有 ${dclErrors.length} 个监听器抛错: ${dclErrors.join(' | ')}`);
 
 // ------------------------------------------------- 4. 断言具体修复点
-// 沙箱无 fetch，init() 拿不到题库；手动注入真实数据供 T0-8 渲染断言使用
+// 沙箱无 fetch，init() 拿不到题库；手动注入真实数据供 渲染断言使用
 {
   const sys = sandbox.examPracticeSystem;
   if (sys) {
@@ -341,7 +341,7 @@ ok(typeof sandbox.renderChemistryExperiments === 'function', 'P0-11 renderChemis
 ok(typeof sandbox.renderBiologyExperiments === 'function', 'P0-11 renderBiologyExperiments 已导出');
 ok(typeof sandbox.handleModuleTabClick === 'function', 'P0-11 handleModuleTabClick 已导出');
 ok(typeof sandbox.chineseSearch === 'function', 'P0-13 chineseSearch 已挂到 window');
-// T3-4e：原内联脚本外置后，字符串断言的扫描面 = index.html + 全部解析期外链脚本
+// e：原内联脚本外置后，字符串断言的扫描面 = index.html + 全部解析期外链脚本
 const parseTimeCorpus = [html, ...plainScripts.map((s) => {
   try { return readFileSync(join(APP, s.src.replace(/^\//, '')), 'utf8'); } catch { return ''; }
 })].join('\n');
@@ -360,7 +360,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
   ok(false, 'P0-11 无法验证：loadModuleContent/subjectContent 未就绪');
 }
 
-// T2-4 / P1-1 + P1-3: 模块渲染统一走 MODULE_REGISTRY 正式注册通道，
+// + 模块渲染统一走 MODULE_REGISTRY 正式注册通道，
 // 不再有 loadModuleContent 猴补丁链（app.js 权威定义 + 两个后加载补丁互相覆写）
 {
   const reg = sandbox.MODULE_REGISTRY;
@@ -380,7 +380,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
 
   // 静态：window.loadModuleContent 只允许 app.js 一处赋值
   // 注意 (?!=)：`typeof window.loadModuleContent === 'function'` 是合法读取，
-  // 朴素正则会把它误判为赋值（T3-4e 外置 main-inline.js 后暴露过该误报）
+  // 朴素正则会把它误判为赋值（e 外置 main-inline.js 后暴露过该误报）
   const assignSites = [];
   for (const f of readdirSync(join(APP, 'js'))) {
     if (!f.endsWith('.js')) continue;
@@ -413,7 +413,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
   }
 }
 
-// P0-19: 计分必须读用户实际选择（container.dataset.picked），不能读 style.background
+// 计分必须读用户实际选择（container.dataset.picked），不能读 style.background
 {
   const src = readFileSync(join(APP, 'js/exam-review-system.js'), 'utf8');
   const recordsPick = /checkAnswer[\s\S]{0,1200}?dataset\.picked\s*=/.test(src);
@@ -428,10 +428,10 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
         ? 'P0-19 updateScore 仍在读 style.background 反推用户选择 → 成绩会恒为 100%'
         : 'P0-19 updateScore 未使用 dataset.picked 判分');
 
-  // 内置题库的答案键必须与解析自洽（P1-45）
+  // 内置题库的答案键必须与解析自洽（）
   const start = src.indexOf('this.quizEngine={');
   if (start >= 0) {
-    // 找到与之配对的 "        };"（buildQuizEngine 内层对象的闭合）
+    // 找到与之配对的 " };"（buildQuizEngine 内层对象的闭合）
     const endMark = src.indexOf('\n        };', start);
     const block = src.slice(start, endMark > start ? endMark : start + 20000);
     const bad = [];
@@ -470,7 +470,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
   }
 }
 
-// P0-15: 化学式解析必须支持括号（否则方程式配平给出错误答案）
+// 化学式解析必须支持括号（否则方程式配平给出错误答案）
 {
   const chem = sandbox.chemistryBalancer;
   const parseFormula = chem && typeof chem.parseFormula === 'function' ? chem.parseFormula.bind(chem) : null;
@@ -480,7 +480,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
     const norm = (o) => JSON.stringify(Object.fromEntries(Object.entries(o).sort((a, b) => (a[0] < b[0] ? -1 : 1))));
     const CASES = [
       ['H2O', { H: 2, O: 1 }],
-      ['Ca(OH)2', { Ca: 1, O: 2, H: 2 }],       // 报告 P0-15 的核心用例
+      ['Ca(OH)2', { Ca: 1, O: 2, H: 2 }],       // 化学式解析的典型用例
       ['(NH4)2SO4', { N: 2, H: 8, S: 1, O: 4 }],
       ['Al2(SO4)3', { Al: 2, S: 3, O: 12 }],
       ['Cu(NO3)2', { Cu: 1, N: 2, O: 6 }],
@@ -501,7 +501,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
   }
 }
 
-// P0-14: 所有 navigateTo('xxx') 调用的目标必须真实存在（或已在别名表中登记）
+// 所有 navigateTo('xxx') 调用的目标必须真实存在（或已在别名表中登记）
 {
   const aliasSrc = readFileSync(join(APP, 'js/app.js'), 'utf8');
   const aliasBlock = /SECTION_ID_ALIAS\s*=\s*\{([\s\S]*?)\n\};/.exec(aliasSrc);
@@ -552,7 +552,7 @@ if (typeof sandbox.loadModuleContent === 'function' && sandbox.subjectContent) {
 console.log(`\n  [info] getElementById 未命中 ${missingIds.size} 个（假 DOM 仅有静态 id，属正常）`);
 if (missingIds.size && missingIds.size < 25) console.log('         ', [...missingIds].slice(0, 25).join(', '));
 
-// T0-8 / P0-12: 无选项题（245 道）不得崩溃；材料与主观题作答区必须渲染
+// 无选项题（245 道）不得崩溃；材料与主观题作答区必须渲染
 {
   const sys = sandbox.examPracticeSystem;
   ok(!!sys, 'examPracticeSystem 已挂到 window');
@@ -626,7 +626,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   }
 }
 
-// T0-17 / P0-8: 打卡 key schema 冲突 + "清除数据复活"
+// 打卡 key schema 冲突 + "清除数据复活"
 {
   const store = sandbox.HSPCBStore;
   ok(!!store, 'HSPCBStore 门面已挂到 window');
@@ -659,7 +659,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     ok(migrated.length === 2 && migrated.includes('2027-05-01'),
       `T0-17 旧裸 key 中的数组结构被自动搬迁并归一（${migrated.join(',')}）`);
 
-    // E) P0-8 清除数据复活：remove 后再读不得拿回旧值
+    // E) 清除数据复活：remove 后再读不得拿回旧值
     store.remove(KEY);
     const afterClear = store.checkinDays();
     const bareStillThere = ls.getItem(KEY);
@@ -684,7 +684,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   }
 }
 
-// T0-18: 模考题型映射 + 主观题判分 + 搜索路由
+// 模考题型映射 + 主观题判分 + 搜索路由
 {
   const me = sandbox.mockExam;
   ok(!!me, 'mockExam 模块已挂到 window');
@@ -770,7 +770,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         : `T0-18 路由未指向函数: ${unmappedRoute.join(', ')}`);
 
     // 路由目标必须真的存在于 window
-    // T3-4e：原内联主逻辑外置为 js/main-inline.js（仍为非 defer 解析期执行），
+    // e：原内联主逻辑外置为 js/main-inline.js（仍为非 defer 解析期执行），
     // 导出语句随之外移，静态断言改读该文件
     const mainSrc = readFileSync(join(APP, 'js', 'main-inline.js'), 'utf8');
     ok(/window\.handlePlatformTab\s*=\s*handlePlatformTab/.test(mainSrc),
@@ -782,11 +782,11 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   }
 }
 
-// T0-13 / T0-14: 工具模块 P0 与静默失败
+// 工具模块 P0 与静默失败
 {
   const R = (f) => readFileSync(join(APP, 'js', f), 'utf8');
 
-  // --- P0-16 计时器摧毁 UI ---
+  // --- 计时器摧毁 UI ---
   {
     const src = R('content-deep-v3.js');
     ok(/id="ct-timer"/.test(src), 'T0-13 计时器节点带 id="ct-timer"（可精确定位）');
@@ -800,7 +800,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
       'T0-13 计时器只改叶子节点 textContent');
   }
 
-  // --- P0-17 / P0-18 计时训练 ---
+  // --- 计时训练 ---
   {
     const src = R('missing-tools-part2.js');
     // .bind(this) 用在 map 回调里会让返回值变成函数
@@ -825,7 +825,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     }
   }
 
-  // --- T0-14 静默失败 ---
+  // --- 静默失败 ---
   {
     // 数据路径必须相对 index.html，不能用 ../data/
     const ce2 = R('content-enhanced-v2.js');
@@ -858,12 +858,12 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         ? 'T0-14 动态创建的 section（含 periodic-table-section）代码在位'
         : 'T0-14 contentEnhancement 挂载情况需人工确认');
 
-    // 打卡契约冲突已由 T0-17 解决，这里做交叉确认
+    // 打卡契约冲突已由 解决，这里做交叉确认
     ok(/getCheckin|checkinDays/.test(R('gamification-system.js')),
       'T0-14 打卡契约冲突已消解（gamification 走归一化 API）');
   }
 
-// T2-1 / T2-3: 仪表盘数据源必须是**真实写入方**，不得读无写入方的裸 key
+// 仪表盘数据源必须是**真实写入方**，不得读无写入方的裸 key
 {
   const dash = sandbox.studyDashboard;
   ok(!!dash, 'studyDashboard 已挂到 window');
@@ -891,7 +891,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 }
 }
 
-// T2-6 / P1-28: 归档宣传页（promo/presentation）的工具数量必须与 index.html 的
+// 归档宣传页（promo/presentation）的工具数量必须与 index.html 的
 // data-tool 注册表一致，且页面内部自洽（分科之和 = 总数，无重复计数）。
 // 期望值从 1.1/index.html 实时推导，避免门禁与事实漂移。
 {
@@ -913,7 +913,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 
   const promo = readFileSync(join(ARCH, 'promo.html'), 'utf8');
   const pres = readFileSync(join(ARCH, 'presentation.html'), 'utf8');
-  // 旧口径 18/27 只允许以「首期18款」里程碑形态存在于路线图 slide
+  // 早期只允许以「首期18款」里程碑形态存在于路线图 slide
   const withoutMilestone = (s) => s.replace(/首期18款核心工具开发完成/g, '');
   ok(!/18款|27款/.test(withoutMilestone(promo)),
     'promo.html 不再出现旧口径「18款/27款」');
@@ -949,7 +949,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     `presentation.html 分科角标与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
 }
 
-// T3-1 / P1-11+P1-12: 设计令牌闭环 —— 六科卡片必须走令牌类，明暗两套色板各自互异，
+// 设计令牌一致性 —— 六科卡片必须走令牌类，明暗两套色板各自互异，
 // 且暗色下学科色条不被通用补丁拍平。
 {
   const SUBJECT_TOKENS = ['physics', 'chemistry', 'biology', 'chinese', 'math', 'english'];
@@ -981,7 +981,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         : `T3-1 ${name}色板存在重复色相: ${[...new Set(dup)].join(', ')}`);
   }
 
-  // 静态 HTML 中的 subject-card 不得带内联样式（JS 生成的知识卡颜色属内容级，归 T3-3）
+  // 静态 HTML 中的 subject-card 不得带内联样式（JS 生成的知识卡颜色属内容级，归 ）
   const idxHtml2 = readFileSync(join(APP, 'index.html'), 'utf8');
   const staticHtml = idxHtml2.replace(/<script[\s\S]*?<\/script>/g, '');
   const inlineCards = [...staticHtml.matchAll(/<div class="subject-card[^"]*"[^>]*style="([^"]*)"/g)];
@@ -1007,8 +1007,8 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
       : `T3-1 暗色下学科色条被拍平: ${SUBJECT_TOKENS.filter((s) => !darkBorderKept.includes(s)).join(', ')}`);
 }
 
-// T3-2 / PWA manifest 修正：真实图标文件 + 名称口径 + 六科 shortcuts + 深链闭环。
-// 背景（DEV-PLAN T3-2）：原 manifest 用 4 个 data: URI 图标（Chrome 安装不支持）、
+// PWA manifest 修正：真实图标文件 + 名称统一 + 六科 shortcuts + 深链完整。
+// 背景（DEV-PLAN ）：原 manifest 用 4 个 data: URI 图标（Chrome 安装不支持）、
 // name 缺「英」、short_name 是内部代号 HSPCB、shortcuts 缺语文/英语；
 // 且 shortcuts 声明的 index.html?subject=X 此前全仓无消费方（深链是坏的，点击只打开首页）。
 {
@@ -1059,7 +1059,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   ok(/<link rel="apple-touch-icon" href="icons\/icon-192\.png"/.test(idxHtml3),
     'T3-2 index.html 声明 apple-touch-icon → icons/icon-192.png');
 
-  // 深链闭环：shortcuts 的 ?subject= 必须有消费方，且白名单从页面导航实时推导
+  // 深链完整性：shortcuts 的 ?subject= 必须有消费方，且白名单从页面导航实时推导
   const appJs = readFileSync(join(APP, 'js', 'app.js'), 'utf8');
   ok(/URLSearchParams\(window\.location\.search\)/.test(appJs) && /\.get\('subject'\)/.test(appJs),
     'T3-2 app.js 消费 ?subject= URL 参数（shortcuts 深链可用）');
@@ -1070,7 +1070,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 
   // 行为级验证：给沙箱 location 带上 ?subject= 后重放 DOMContentLoaded，
   // 断言对应 section 被激活；非法参数不得导航到任何 section。
-  // （T3-2 块位于本脚本末尾，重放副作用不影响后续断言。）
+  // （块位于本脚本末尾，重放副作用不影响后续断言。）
   const dclFns = listeners.get('DOMContentLoaded') || [];
   const replayDcl = (search) => {
     sandbox.location.search = search;

@@ -1,21 +1,19 @@
-// ============================================================
 // sw.js — HSPCB Service Worker
 // 版本: hspcb-v18（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
-// ============================================================
 
 var CACHE_NAME = 'hspcb-v18';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
-// T3-2: icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
+// icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
 // 且 manifest.json 的图标已从 data: URI 改为真实文件）。
-// T3-4e: index.html 原 6 个内联脚本外置为 js/ 外部脚本（error-fallback /
+// e: index.html 原 6 个内联脚本外置为 js/ 外部脚本（error-fallback /
 // theme-bootstrap / csp-delegation / main-inline 为解析期非 defer，
 // home-collapse / theme-toggle / sw-register 为 defer），全部纳入预缓存；
-// 另补入 v14 遗漏的 js/csp-delegation.js（T3-4d 新增的委托中枢）。
-// T3-4f: index.html 原 2 个内联 <style> 块外置为 css/responsive.css 与
+// 另补入 v14 遗漏的 js/csp-delegation.js（d 新增的委托中枢）。
+// f: index.html 原 2 个内联 <style> 块外置为 css/responsive.css 与
 // css/chinese-knowledge.css，纳入预缓存。
-// P1-6(E)：预缓存分层。安装阶段只缓存「应用壳」（HTML/CSS/核心 JS/图标），
+// 预缓存分层。安装阶段只缓存「应用壳」（HTML/CSS/核心 JS/图标），
 // 其余工具脚本与演示页由页面空闲时 postMessage('warm') 后台补齐；
 // 数据文件不预缓存，按 A 方案在首次使用时由运行时缓存接管。
 var CORE_ASSETS = [
@@ -99,9 +97,9 @@ var DEFERRED_ASSETS = [
 ];
 
 // 数据文件（运行时按需缓存）
-// T2-5 / P1-2: situational.json 与 tech-frontiers.json 经全仓核查无任何运行时
+// situational.json 与 tech-frontiers.json 经全仓核查无任何运行时
 // 消费方（对应功能跑的是 js/ 内硬编码数据），已归档至 data/_archive/ 并从本清单移除；
-// knowledgePoints-thesaurus.json 已由 learning-path-recommender.js 接线（T1-4），保留。
+// knowledgePoints-thesaurus.json 已由 learning-path-recommender.js 接线（），保留。
 var DATA_ASSETS = [
     'data/exam-bank.json',
     'data/framework-questions.json',
@@ -234,7 +232,7 @@ self.addEventListener('fetch', function (event) {
     );
 });
 
-// P1-6(E)：后台补齐 DEFERRED_ASSETS。页面 idle 时发 warm 消息触发；
+// 后台补齐 DEFERRED_ASSETS。页面 idle 时发 warm 消息触发；
 // 分批缓存（每批 6 个）避免一次性打满网络/长任务；已缓存则跳过（幂等）。
 function warmDeferred() {
     return caches.open(CACHE_NAME).then(function (cache) {

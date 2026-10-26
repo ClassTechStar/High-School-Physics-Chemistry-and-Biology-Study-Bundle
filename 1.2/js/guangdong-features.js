@@ -2,9 +2,7 @@
 // 包含：命题规律白皮书、情境化试题训练、答题模板库、计算题分步训练器
 // 数据全部内嵌，零依赖，ES5兼容写法
 
-// ============================================================
 // 1. 广东卷命题规律白皮书 guangdongAnalysis
-// ============================================================
 window.guangdongAnalysis = {
     state: { subject: 'physics' },
 
@@ -161,9 +159,7 @@ window.guangdongAnalysis = {
 };
 
 
-// ============================================================
 // 2. 情境化试题训练 situationalQuiz
-// ============================================================
 window.situationalQuiz = {
     state: { subject: 'all', scene: 'all', current: 0, answered: false, userAns: -1 },
 
@@ -548,9 +544,7 @@ window.situationalQuiz = {
 };
 
 
-// ============================================================
 // 3. 大题答题模板库 answerTemplateLib
-// ============================================================
 window.answerTemplateLib = {
     state: { subject: 'biology', tplIdx: 0 },
 
@@ -764,9 +758,7 @@ window.answerTemplateLib = {
 };
 
 
-// ============================================================
 // 4. 计算题分步训练器 calcStepTrainer
-// ============================================================
 window.calcStepTrainer = {
     state: { subject: 'physics', qIdx: 0, stepIdx: 0, results: {}, finished: false, checked: false },
 
@@ -1044,9 +1036,7 @@ window.calcStepTrainer = {
     }
 };
 
-// ============================================================
 // 自动渲染：页面加载后检测容器并渲染
-// ============================================================
 (function () {
     function autoRender() {
         if (typeof window.guangdongAnalysis !== 'undefined' && document.getElementById('guangdong-analysis-app')) {

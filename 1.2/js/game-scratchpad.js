@@ -1,8 +1,6 @@
 // 游戏化学习工具 - 概念连连看+内置草稿画板
 
-// ============================================================
 // 模块1：conceptMatchGame - 概念辨析对对碰
-// ============================================================
 var conceptMatchGame = (function() {
   'use strict';
 
@@ -645,9 +643,7 @@ var conceptMatchGame = (function() {
 window.conceptMatchGame = conceptMatchGame;
 
 
-// ============================================================
 // 模块2：scratchpad - 内置草稿纸/画板
-// ============================================================
 var scratchpad = (function() {
   'use strict';
 
@@ -1282,9 +1278,7 @@ var scratchpad = (function() {
 window.scratchpad = scratchpad;
 
 
-// ============================================================
 // 模块3：cardMatchGame - 诗词配对+公式配对翻牌游戏
-// ============================================================
 var cardMatchGame = (function() {
   'use strict';
 

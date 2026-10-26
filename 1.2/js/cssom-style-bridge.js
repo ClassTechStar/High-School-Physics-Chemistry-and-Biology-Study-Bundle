@@ -1,46 +1,24 @@
 /**
- * cssom-style-bridge.js —— D 类内联样式收敛桥（T3-4f / D3，v1.4）
+ * 把模板里的 data-style 写成元素的行内样式。
  *
- * 原理
- * ----
- * CSP 的 style-src 'unsafe-inline' 只管辖「由 HTML 解析产生的 style 属性」及
- * 内联 <style> 块；**不**管辖通过 CSSOM 写入的样式（el.style.setProperty）。
- * 据此约定：js/ 字符串模板里不再写 style 属性，改写为 data-style 属性，
- * 插入 DOM 后由本模块统一写入 CSSOM。
+ * 为什么模板里不直接写 style 属性：CSP 的 style-src 'unsafe-inline' 会拦掉
+ * 解析期生成的 style 属性，但拦不住 el.style.setProperty 这类 CSSOM 写法。
+ * 所以模板统一改成 data-style，DOM 插进来之后在这里写进去。
  *
- * 为什么用 data-style 而不是「生成类名 + 属性选择器」
- * ------------------------------------------------
- * 内联样式的层叠优先级击败**一切**非 !important 选择器，任何 `[data-st][data-st]`
- * 形式的属性选择器（哪怕堆到 (0,3,0)）都可能输给更具体的选择器，造成外观回归
- * （实测：属性选择器方案光态每科 186 处差异）。只有 CSSOM 写入能**等价复现**
- * 内联样式优先级，故本模块采用 CSSOM。
+ * 有个坑：theme-dark.css 的暗色覆盖写的是 [data-style*="..."]，不是 [style*=]。
+ * 因为 CSSOM 写入会把颜色值规范化（#fff 变成 rgb(255,255,255)），用 [style*=]
+ * 会匹配不上，暗色就失效了。data-style 保留模板里的原文，不受规范化影响，
+ * 所以暗色覆盖得跟着一起改。
  *
- * 为什么保留原始声明文本
- * --------------------
- * theme-dark.css 第 6 节用 `[style*="background:#fff" i]` 这类**字面文本**属性
- * 选择器 + !important 来压制内联样式（257 条）。CSSOM 写入会把值重新序列化
- * （#fff → rgb(255, 255, 255)），若继续用 [style*=] 便失配、暗色覆盖失效
- * （实测：暗态每科 242 处差异）。因此本节约定同步把第 6 节选择器改写为
- * `[data-style*="..."]`——data-* 属性保留模板原文，不参与序列化归一，匹配语义
- * 与改造前完全一致。
- *
- * 实证依据（Edge headless，CSP `style-src 'self'` 且无 'unsafe-inline'）
- *   - innerHTML 里的内联 style 属性              → 被阻止（computed 仍为默认值）
- *   - el.style.color = 'rgb(0,128,0)'            → 生效
- *   - 由 data-style 桥接写入                       → 生效
- *
- * 用法
- * ----
- * 模板：`<div class="card" data-style="color:#666;font-size:13px">...</div>`
- * 自动：MutationObserver 监听新增节点，无需调用方显式触发。
- * 手动：window.HSPCBStyles.apply(rootEl) 可对指定子树补扫。
+ * 用法：模板写 data-style="color:#666;font-size:13px"，插入 DOM 后自动生效；
+ * 也可以手动补扫：window.HSPCBStyles.apply(el)。
  */
 (function () {
     'use strict';
 
     var OBSERVING = false;
 
-    /** 把 "color:#666;font-size:13px" 逐条写入 CSSOM。 */
+ /** 把 "color:#666;font-size:13px" 逐条写入 CSSOM。 */
     function applyDecls(el, raw) {
         if (!raw) return;
         var list = String(raw).split(';');
@@ -58,7 +36,7 @@
                     el.style.setProperty(prop, val);
                 }
             } catch (e) {
-                /* 非法声明（不支持的属性 / 非法值）跳过，不影响其余声明 */
+ /* 非法声明（不支持的属性 / 非法值）跳过，不影响其余声明 */
             }
         }
     }
@@ -70,7 +48,7 @@
         el.__hspcbStyleApplied = true;
     }
 
-    /** 对 root（含其自身）子树里所有 [data-style] 应用声明。 */
+ /** 对 root（含其自身）子树里所有 [data-style] 应用声明。 */
     function applyTree(root) {
         if (!root) return;
         if (root.nodeType === 1) {

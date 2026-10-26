@@ -1,31 +1,31 @@
 /**
- * reduce-important-dark-css.mjs — T3-3b: theme-dark.css 普通补丁层 !important 削减
+ * reduce-important-dark-css.mjs — b: theme-dark.css 普通补丁层 !important 削减
  *
  * 背景：补丁层 114 条规则带 158 个 !important，其中大量是无差别防御性写法——
- *   `[data-theme="dark"] .foo` 的特异性（属性+类 = 0,2,0）本就压过 style.css 的
- *   同类单类规则（0,1,0），!important 属冗余。
+ * `[data-theme="dark"] .foo` 的特异性（属性+类 = 0,2,0）本就压过 style.css 的
+ * 同类单类规则（0,1,0），!important 属冗余。
  *
  * 保留（KEEP 列表）两类规则不动：
- *   1. 与 style.css 自带 !important 的规则正面竞争的——.quiz-option.correct/wrong
- *      （style.css:2184-2185 三条声明均带 !important，补丁层去掉 important 会被反胜）
- *   2. computed-style 回归 harness 实证发现「去掉就变样」的规则（迭代追加，
- *      每条附 harness 证据）
+ * 1. 与 style.css 自带 !important 的规则正面竞争的——.quiz-option.correct/wrong
+ * （style.css:2184-2185 三条声明均带 !important，补丁层去掉 important 会被反胜）
+ * 2. computed-style 回归 harness 实证发现「去掉就变样」的规则（迭代追加，
+ * 每条附 harness 证据）
  *
- * 结构性拆分（T3-3b 手工执行，先于本脚本）：
- *   原 27 选器通用规则（.exp-card/.knowledge-card/.info-box/…）整条 !important，
- *   其中只有 .knowledge-card 与 JS 生成的内联样式正面竞争（拆分后保留专则
- *   !important）；其余 26 个选择器的 !important 属冗余——.chinese-knowledge
- *   .info-box.red 等专属规则特异性更高，通用规则去掉 important 后由特异性裁决，
- *   外观不变（harness before/after 逐元素比对实证）。
+ * 结构性拆分（b 手工执行，先于本脚本）：
+ * 原 27 选器通用规则（.exp-card/.knowledge-card/.info-box/…）整条 !important，
+ * 其中只有 .knowledge-card 与 JS 生成的内联样式正面竞争（拆分后保留专则
+ * !important）；其余 26 个选择器的 !important 属冗余——.chinese-knowledge
+ * .info-box.red 等专属规则特异性更高，通用规则去掉 important 后由特异性裁决，
+ * 外观不变（harness before/after 逐元素比对实证）。
  *
  * 重映射层（99 条 [style*=] 规则，99 个 !important）整体不动——那是压过 JS 生成的
- * 内联样式的承重墙，属架构性必要，见 DEV-PLAN T3-3 度量修正。
+ * 内联样式的承重墙，属架构性必要，见 DEV-PLAN 度量修正。
  *
  * 验证：harness before/after 逐元素 computed-style 比对（明暗双态 × 九科 ×
- *       force-states 状态强制模式），零差异方可提交。
+ * force-states 状态强制模式），零差异方可提交。
  *
- * 运行：node scripts/reduce-important-dark-css.mjs          （dry-run）
- *       node scripts/reduce-important-dark-css.mjs --apply  （写入）
+ * 运行：node scripts/reduce-important-dark-css.mjs （dry-run）
+ * node scripts/reduce-important-dark-css.mjs --apply （写入）
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -39,10 +39,10 @@ const FILE = resolve(ROOT, '1.2/css/theme-dark.css');
  * 保留 !important 的规则。match 为规则选择器列表中的某一个完整选择器
  * （按逗号切分后精确相等，避免 `.nav-item` 误伤 `.nav-item-title`）。
  * 两类来源：
- *   1. 与 style.css 自带 !important 的规则正面竞争的——.quiz-option.correct/wrong
- *      （style.css:2184-2185 三条声明均带 !important，补丁层去掉 important 会被反胜）
- *   2. computed-style 回归 harness 实证发现「去掉就变样」的规则，
- *      每条附 harness 证据（明暗双态 × 九科 × force-states 逐元素比对）
+ * 1. 与 style.css 自带 !important 的规则正面竞争的——.quiz-option.correct/wrong
+ * （style.css:2184-2185 三条声明均带 !important，补丁层去掉 important 会被反胜）
+ * 2. computed-style 回归 harness 实证发现「去掉就变样」的规则，
+ * 每条附 harness 证据（明暗双态 × 九科 × force-states 逐元素比对）
  */
 const KEEP = [
   {
@@ -130,7 +130,7 @@ const declHexLeft = [];
     }
   }
 }
-// 令牌定义与 var() 引用数应与 T3-3a 令牌化后一致（本脚本不应触碰它们）
+// 令牌定义与 var() 引用数应与 a 令牌化后一致（本脚本不应触碰它们）
 const defCount = (out.match(/^\s*--dm-[a-z0-9-]+\s*:/gm) || []).length
   + (out.match(/^\s*--(?:physics|chemistry|biology|exam|platform|chinese|math|english|primary|secondary|accent|danger)\s*:/gm) || []).length;
 const varRefs = (out.match(/var\(--dm-/g) || []).length;

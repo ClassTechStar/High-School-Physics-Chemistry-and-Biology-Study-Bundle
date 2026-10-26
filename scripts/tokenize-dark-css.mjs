@@ -1,23 +1,23 @@
 /**
- * tokenize-dark-css.mjs — T3-3: theme-dark.css 色值令牌化（外观零变化）
+ * tokenize-dark-css.mjs — theme-dark.css 色值令牌化（外观零变化）
  *
  * 背景：theme-dark.css 原是「补丁式覆写层」——声明值里 199 处硬编码 hex
  * （81 个唯一色值），另有约 330 处 hex 位于 [style*="..."] 属性选择器字符串中
  * （用于把 JS 生成的内联浅色重映射为深色，属匹配条件而非颜色，不可令牌化）。
  *
  * 本脚本把**声明值**中的 hex 全部替换为 var(--token) 引用：
- *   - 只替换规则体（{...} 内）的 hex；选择器部分、注释、令牌定义行一律不动
- *     （属性选择器匹配的是字面文本，写 var() 会直接失效）
- *   - body 的五段线性渐变整体收拢为 --dm-body-bg 一个令牌
- *   - 新令牌按语义族分组追加到 [data-theme="dark"] 令牌块末尾
+ * - 只替换规则体（{...} 内）的 hex；选择器部分、注释、令牌定义行一律不动
+ * （属性选择器匹配的是字面文本，写 var() 会直接失效）
+ * - body 的五段线性渐变整体收拢为 --dm-body-bg 一个令牌
+ * - 新令牌按语义族分组追加到 [data-theme="dark"] 令牌块末尾
  *
- * 运行：node scripts/tokenize-dark-css.mjs          （dry-run，只报告）
- *       node scripts/tokenize-dark-css.mjs --apply  （写入文件）
+ * 运行：node scripts/tokenize-dark-css.mjs （dry-run，只报告）
+ * node scripts/tokenize-dark-css.mjs --apply （写入文件）
  *
  * 验证方式（外观零变化）：
- *   1. 机械等价——每个 var() 都解析回原 hex（令牌定义即原值），由
- *      computed-style 回归 harness 在真实浏览器中逐元素比对证实；
- *   2. 脚本自检——替换后声明体 hex 必须为 0、大括号配平、令牌/引用数符合预期。
+ * 1. 机械等价——每个 var() 都解析回原 hex（令牌定义即原值），由
+ * computed-style 回归 harness 在真实浏览器中逐元素比对证实；
+ * 2. 脚本自检——替换后声明体 hex 必须为 0、大括号配平、令牌/引用数符合预期。
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -43,7 +43,7 @@ const EXISTING = {
   '--dm-text': '#e2e8f0', '--dm-text-2': '#cbd5e1', '--dm-text-3': '#94a3b8',
 };
 
-// T3-3 新增令牌（值为原声明 hex，按语义族分组）
+// 新增令牌（值为原声明 hex，按语义族分组）
 const NEW_TOKENS = [
   ['中性阶梯', [
     ['--dm-bg-deep', '#0b1120'],
@@ -202,7 +202,7 @@ while (i < work.length) {
     const m = hexRe.exec(work);
     if (m && m.index === i) {
       // 回看本行：令牌定义行（行首即 --name:）不动
-      // 注意：曾误写为 lineHead + '#'，导致 '    --danger: #' 永远匹配不上定义行正则，
+      // 注意：曾误写为 lineHead + '#'，导致 ' --danger: #' 永远匹配不上定义行正则，
       // 令牌定义被替换成 var(--danger) 自引用（由下方锚点检查拦截，未写入）。
       // 也不能要求「冒号后必须行止」——多值定义（--dm-body-bg: linear-gradient(...)）
       // 会被误判成声明行。行首为 --name: 即定义行，其中的 hex 是令牌自身的值。

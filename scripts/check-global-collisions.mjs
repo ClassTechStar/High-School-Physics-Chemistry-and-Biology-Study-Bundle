@@ -2,15 +2,15 @@
  * check-global-collisions.mjs — 扫描 1.2 前端脚本的跨文件顶层声明重名 + window.* 覆写
  *
  * 为什么需要严格规则：
- *   1. `const/let/class/var/function` 同名 → 浏览器全局作用域 SyntaxError，整个文件静默失效（硬错误）
- *   2. `window.X = ...` 覆写            → 不抛错，但后执行者静默夺权（软告警，需显式登记）
+ * 1. `const/let/class/var/function` 同名 → 浏览器全局作用域 SyntaxError，整个文件静默失效（硬错误）
+ * 2. `window.X = ...` 覆写 → 不抛错，但后执行者静默夺权（软告警，需显式登记）
  *
  * 顶层判定采用「列 0 缩进」为主信号：
- *   这些都是 classic script（非 ES module），浏览器全局作用域下的顶层声明一律顶格书写；
- *   函数体/块内的声明必然带缩进。因此「行首无空白」等价于「顶层」，且不会像
- *   花括号深度追踪那样被字符串/模板字面量/正则里的括号带偏（实测 47 个文件中有
- *   多个文件的裸括号计数无法收敛，深度追踪会永久漂移）。
- *   若某文件括号收支平衡可用，则额外用 depth===0 做交叉校验。
+ * 这些都是 classic script（非 ES module），浏览器全局作用域下的顶层声明一律顶格书写；
+ * 函数体/块内的声明必然带缩进。因此「行首无空白」等价于「顶层」，且不会像
+ * 花括号深度追踪那样被字符串/模板字面量/正则里的括号带偏（实测 47 个文件中有
+ * 多个文件的裸括号计数无法收敛，深度追踪会永久漂移）。
+ * 若某文件括号收支平衡可用，则额外用 depth===0 做交叉校验。
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -21,7 +21,7 @@ const APP = join(ROOT, '1.2');
 
 // 已显式登记的合法 window 覆写（同一文件内自赋值、或刻意的聚合导出）
 const ALLOWED_WINDOW_WRITES = new Set([
-  'window.loadModuleContent', // 历史猴补丁残留（T2-4 处置）
+  'window.loadModuleContent', // 历史上有人打过猴子补丁
 ]);
 
 const decls = new Map();     // name -> [{file, kind, line}]

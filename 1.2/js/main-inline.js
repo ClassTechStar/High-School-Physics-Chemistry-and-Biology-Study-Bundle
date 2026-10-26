@@ -1,8 +1,8 @@
-/* 主逻辑 · 外置自 index.html body 内联脚本（T3-4e）；非 defer 解析期同步执行，内部按 document.readyState 分支引导 defer 模块就绪 */
+/* 主逻辑 · 外置自 index.html body 内联脚本（e）；非 defer 解析期同步执行，内部按 document.readyState 分支引导 defer 模块就绪 */
 (function() {
     'use strict';
 
-    // P0-10 修复：comprehensive-data.js / platform-system.js / content-enhancement.js
+    // 修复：comprehensive-data.js / platform-system.js / content-enhancement.js
     // 均为 <script defer>，在本内联脚本（解析期）执行时尚未就绪。此处若直接
     // `var CD = window.ComprehensiveData` 捕获到的将永久是 undefined 且不会自更新，
     // 导致平台区 8 个 tab、三科 checklist、2 个器材工具与 2 处错误页全部失效。
@@ -47,7 +47,7 @@
         return walkUp(el, attr);
     }
 
-    // P1-6(F)：隐藏区块惰性实例化。<template data-lazy-content> 内的节点不在文档树中，
+    // 隐藏区块惰性实例化。<template data-lazy-content> 内的节点不在文档树中，
     // 首次导航到该 section 时才展开（当前用于语文知识库 20 张大表）。
     function materializeSection(id) {
         var sec = document.getElementById(id);
@@ -1816,7 +1816,7 @@
         contentEl.innerHTML = '<div class="knowledge-section"><p>该模块内容正在丰富中...</p></div>';
     }
 
-    // P0-11: 原先此处有一段 `if (typeof loadModuleContent !== 'undefined')` 的猴补丁死块——
+    // 原先此处有一段 `if (typeof loadModuleContent !== 'undefined')` 的猴补丁死块——
     // 解析期 loadModuleContent 尚未定义（它在 defer 的 app.js 里），条件恒为 false，
     // 导致 concepts→knowledge 映射与下面三个精细实验渲染器（约 360 行）全部不可达。
     // 现改为：函数导出到 window，由 app.js 的 loadModuleContent 经 MODULE_REGISTRY 正式接管。
@@ -1850,7 +1850,7 @@
             if (!parentSection) return;
             var sectionId = parentSection.id;
             var subject = sectionId.replace('-section', '');
-            // P1-42: 原白名单只有 physics/chemistry/biology/platform，把 数学/语文/英语 排除在外，
+            // 原白名单只有 physics/chemistry/biology/platform，把 数学/语文/英语 排除在外，
             // 导致这 3 科的「📊 考情分析 / 📖 一轮复习 / 🎯 二轮专题 / ✍️ 互动练习」4 个 tab 全是死按钮。
             // 这些 tab 由 exam-review-system.js 在 DOMContentLoaded 中**追加**（晚于 app.js 的扫描），
             // 所以必须靠这里的 document 级事件委托兜住，不能只依赖 app.js 的一次性绑定。
@@ -1899,7 +1899,7 @@
         try { if (typeof loadModuleContent === 'function') loadModuleContent('physics', 'concepts'); } catch(e) {}
     }
 
-    // P0-10: 不再用解析期捕获值覆写全局（那是定时炸弹：任一 defer 脚本被移除即把真实模块置 undefined）
+    // 不再用解析期捕获值覆写全局（那是定时炸弹：任一 defer 脚本被移除即把真实模块置 undefined）
     window.navigateToolPage = navigateToolPage;
 
     // ===== 二级结论数据与渲染 =====
@@ -2249,12 +2249,12 @@
     window.showSection = showSection;
     window.materializeSection = materializeSection;
     window.setActiveNav = setActiveNav;
-    // T0-18: handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
+    // handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
     window.handlePlatformTab = handlePlatformTab;
-    // P0-13: chineseSearch 原定义于本 IIFE 内部，未挂window → 原 onkeyup 必然 ReferenceError
+    // chineseSearch 原定义于本 IIFE 内部，未挂window → 原 onkeyup 必然 ReferenceError
     window.chineseSearch = chineseSearch;
 
-    // ===== T3-4c / T12：内联事件属性改事件委托 =====
+    // ===== c / T12：内联事件属性改事件委托 =====
     // CSP 的 script-src 一旦去掉 'unsafe-inline'，HTML 内联事件属性（onclick/onkeyup）
     // 会被浏览器直接拦截。原静态 HTML 中真实存在 2 处：主题切换按钮 + 语文搜索框，
     // 现改为 data-action 约定 + 文档级委托（与 english-tools 等既有 data-action 机制一致）。
@@ -2267,21 +2267,21 @@
         chineseSearch();
     });
 
-    // ===== T3-4d：字符串模板内的内联 onclick 改委托 =====
+    // ===== d：字符串模板内的内联 onclick 改委托 =====
     // CSP script-src 去掉 'unsafe-inline' 后，innerHTML/字符串拼出的 on* 属性同样被
     // 浏览器拦截。原 3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮分别改为：
     // 具名函数 + data-call、data-hook + HSPCBEV 委托、quickTool 包装函数。
     // 委托中枢 js/csp-delegation.js 以非 defer 方式先于本脚本加载，window.HSPCBEV 必就绪。
 
-    /* 斜面力学计算器（原 index.html:2688 内联 onclick IIFE，逻辑原样搬移） */
+ /* 斜面力学计算器（原 index.html:2688 内联 onclick IIFE，逻辑原样搬移） */
     function calcMechIncline() {
         var m=parseFloat(document.getElementById('mech-mass').value)||0;var ang=parseFloat(document.getElementById('mech-angle').value)||0;var mu=parseFloat(document.getElementById('mech-mu').value)||0;var F=parseFloat(document.getElementById('mech-force').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById('mech-result');if(res){var cls=a>0.01?'#10b981':(a<-0.01?'#ef4444':'#f59e0b');var desc=a>0.01?'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a':(a<-0.01?'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b':'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = '+Fgs.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = '+Fgn.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = '+f.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>'+(F-Fgs-f).toFixed(2)+' N</div><div class=\'key-point\'>\u00b7 \u52a0\u901f\u5ea6 a = <b data-style=\'color:'+cls+'\'>'+a.toFixed(2)+' m/s\u00b2</b> '+desc+'</div></div>';}
     }
-    /* 串/并联电路计算器（原 index.html:2710 内联 onclick IIFE，逻辑原样搬移） */
+ /* 串/并联电路计算器（原 index.html:2710 内联 onclick IIFE，逻辑原样搬移） */
     function calcElecCircuit() {
         var U=parseFloat(document.getElementById('elec-volt').value)||0;var R1=parseFloat(document.getElementById('elec-r1').value)||0;var R2=parseFloat(document.getElementById('elec-r2').value)||0;var conn=document.getElementById('elec-conn').value;var res=document.getElementById('elec-result');if(!res)return;var Req,I1,I2,U1,U2,P;if(conn==='series'){Req=R1+R2;I1=I2=U/Req;U1=I1*R1;U2=I2*R2;P=U*I1;res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u4e32\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081 + R\u2082 = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u7535\u6d41\uff1a</strong>I = I\u2081 = I\u2082 = U/R<sub>\u603b</sub> = '+I1.toFixed(3)+' A</div><div class=\'key-point\'><strong>\u5206\u538b\uff1a</strong>U\u2081 = '+U1.toFixed(2)+' V, U\u2082 = '+U2.toFixed(2)+' V (\u5206\u538b\u6bd4 R\u2081:R\u2082 = '+(R1/Req*100).toFixed(1)+'%:'+(R2/Req*100).toFixed(1)+'%)</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = UI = '+P.toFixed(2)+' W</div></div>';}else{Req=(R1*R2)/(R1+R2);I1=U/R1;I2=U/R2;U1=U2=U;P=U*(I1+I2);res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u5e76\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081R\u2082/(R\u2081+R\u2082) = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u5206\u6d41\uff1a</strong>I\u2081 = U/R\u2081 = '+I1.toFixed(3)+' A, I\u2082 = U/R\u2082 = '+I2.toFixed(3)+' A (I\u2081:I\u2082 = R\u2082:R\u2081 = '+I1.toFixed(3)+':'+I2.toFixed(3)+')</div><div class=\'key-point\'><strong>\u603b\u7535\u6d41\uff1a</strong>I<sub>\u603b</sub> = I\u2081 + I\u2082 = '+(I1+I2).toFixed(3)+' A</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = '+P.toFixed(2)+' W</div></div>';}
     }
-    /* 透镜成像计算器（原 index.html:2734 内联 onclick IIFE，逻辑原样搬移） */
+ /* 透镜成像计算器（原 index.html:2734 内联 onclick IIFE，逻辑原样搬移） */
     function calcOpticsMirror() {
         var f=parseFloat(document.getElementById('opt-f').value)||0;var u=parseFloat(document.getElementById('opt-u').value)||0;var res=document.getElementById('opt-result');if(!res||f<=0||u<=0)return;var v=1/(1/f-1/u);var m=-v/u;var vAbs=Math.abs(v);var mAbs=Math.abs(m);var imgType=v>0?'\u5b9e\u50cf':'\u865a\u50cf';var orientation=m>0?'\u6b63\u7acb':'\u5012\u7acb';var size=mAbs>1?'\u653e\u5927':(mAbs<1?'\u7f29\u5c0f':'\u7b49\u5927');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u900f\u955c\u6210\u50cf\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u50cf\u8ddd v =</strong> '+v.toFixed(2)+' cm \uff08'+imgType+' \uff09</div><div class=\'key-point\'><strong>\u653e\u5927\u7387 m =</strong> '+Math.abs(m).toFixed(2)+' \u00d7 \uff08'+orientation+' \uff09</div><div class=\'key-point\'><strong>\u6210\u50cf\u6027\u8d28\uff1a</strong>'+size+' \u00b7 '+orientation+' \u00b7 '+imgType+'</div></div>';
     }
@@ -2289,14 +2289,14 @@
     window.calcElecCircuit = calcElecCircuit;
     window.calcOpticsMirror = calcOpticsMirror;
 
-    /* 首页快捷工具跳转（原 3 处内联 onclick 的三语句包装） */
+ /* 首页快捷工具跳转（原 3 处内联 onclick 的三语句包装） */
     window.quickTool = function (section, nav, tool) {
         showSection(section);
         setActiveNav(nav);
         setTimeout(function () { try { navigateToolPage(tool); } catch (e) {} }, 200);
     };
 
-    /* 实验卡片折叠（原 17 处内联 onclick 的 classList.toggle） */
+ /* 实验卡片折叠（原 17 处内联 onclick 的 classList.toggle） */
     if (window.HSPCBEV) {
         HSPCBEV.on('click', '[data-hook="exp-card-toggle"]', function (el) {
             el.parentElement.classList.toggle('exp-open');

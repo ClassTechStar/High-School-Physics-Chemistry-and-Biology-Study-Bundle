@@ -1,4 +1,4 @@
-/* 首页工具区块折叠 · 外置自 index.html 内联脚本（T3-4e）；defer，置于 app.js 之前保持执行序 */
+/* 首页工具区块折叠 · 外置自 index.html 内联脚本（e）；defer，置于 app.js 之前保持执行序 */
 /* ---- 首页工具区块折叠功能 ---- */
 (function(){
     'use strict';

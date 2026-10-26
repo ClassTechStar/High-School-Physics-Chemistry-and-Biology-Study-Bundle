@@ -113,9 +113,9 @@ console.log('progress.js tests');
   assert(P2.get('wrongQuestions').some((w) => w.id === 'x1'), 'import merge works');
 }
 
-// ── T2-2 / P0-8: 「清除学习数据」必须真正清除，刷新后不得复活 ──
+// ── 「清除学习数据」必须真正清除，刷新后不得复活 ──
 
-// 4. remove 同时清两轨；清除后 get 不再把旧数据搬回来
+// 4. remove 同时清两处存储；清除后 get 不再把旧数据搬回来
 {
   const { Progress, Store, localStorage } = boot({
     hspcb_wrong_records: JSON.stringify([{ id: 'w1' }]),

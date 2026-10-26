@@ -967,7 +967,7 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
     openAnswerTrainer.init();
 }
 
-/* T3-4d：内联 onchange 的事件委托注册（CSP 改造，radio 的 value 即框架键） */
+/* d：内联 onchange 的事件委托注册（CSP 改造，radio 的 value 即框架键） */
 if (window.HSPCBEV) {
     HSPCBEV.on('change', '[data-hook="fw-choice"]', function (el) {
         openAnswerTrainer.userAnswers.frameworkChoice = el.value;

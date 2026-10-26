@@ -1,27 +1,27 @@
 #!/usr/bin/env node
 /**
- * dedupe-by-content.mjs — P0-4 题库内容去重
+ * dedupe-by-content.mjs — 题库内容去重
  *
  * 背景：
- *   exam-bank.json 名义 1718 题，但存在大量**同一道题的副本**。经实测：
- *     - 按「学科+题干」分组        → 1163 唯一 / 555 冗余
- *     - 按「学科+题干+选项集」分组 → 1292 唯一 / 426 冗余
- *   两者相差 129 道题，是「同题干、不同选项编排」的**独立题目**，
- *   说明**不能只按题干去重**，否则会误删合法题目。
+ * exam-bank.json 名义 1718 题，但存在大量**同一道题的副本**。经实测：
+ * - 按「学科+题干」分组 → 1163 唯一 / 555 冗余
+ * - 按「学科+题干+选项集」分组 → 1292 唯一 / 426 冗余
+ * 两者相差 129 道题，是「同题干、不同选项编排」的**独立题目**，
+ * 说明**不能只按题干去重**，否则会误删合法题目。
  *
- *   更重要的一处：英语语法填空/短文改错题的 `question` 字段是**完全相同的模板句**
- *   （"Fill in the blank with the correct form of the verb in brackets."），
- *   真正的题目内容在 `passage` 字段里。若 key 不含 passage，这 5 道不同的题
- *   会被误判为重复，进而误删 4 道。
+ * 更重要的一处：英语语法填空/短文改错题的 `question` 字段是**完全相同的模板句**
+ * （"Fill in the blank with the correct form of the verb in brackets."），
+ * 真正的题目内容在 `passage` 字段里。若 key 不含 passage，这 5 道不同的题
+ * 会被误判为重复，进而误删 4 道。
  *
  * 去重口径（key）：学科 + 规范化题干 + 规范化选项集 + 规范化材料（passage）
  * 保留策略：组内按「解析质量分」降序取第一；同分取出现更早的。
  * 副本去向：归档到 1.2/data/_archive/duplicates-<date>.json（归档而非删除，可追溯回滚）
  *
  * 用法：
- *   node scripts/dedupe-by-content.mjs            # dry-run，只报告不改文件
- *   node scripts/dedupe-by-content.mjs --apply    # 实际写入
- *   node scripts/dedupe-by-content.mjs --apply --keep-newest   # 保留策略反转
+ * node scripts/dedupe-by-content.mjs # dry-run，只报告不改文件
+ * node scripts/dedupe-by-content.mjs --apply # 实际写入
+ * node scripts/dedupe-by-content.mjs --apply --keep-newest # 保留策略反转
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';

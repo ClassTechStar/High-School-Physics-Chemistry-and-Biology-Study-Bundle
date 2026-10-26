@@ -1,8 +1,6 @@
-// ============================================================
 // 增强工具模块 - 化学工业流程/生物四大工具深度增强版
 // 包含：chemistryProcessAnalyzer(增强), biologyMindMap(增强), 
-//       geneticsPedigreeTrainer(增强), photosynthesisTrainer(增强), experimentDesigner(增强)
-// ============================================================
+// geneticsPedigreeTrainer(增强), photosynthesisTrainer(增强), experimentDesigner(增强)
 
 // ==================== 1. 化学工业流程核心反应提取工具（增强版）====================
 const chemistryProcessAnalyzerEnhanced = {
@@ -1025,9 +1023,9 @@ const experimentDesignerEnhanced = {
 【材料与试剂】
 - 材料：洋葱根尖（或大蒜根尖）
 - 试剂：
-  * 解离液：95%酒精 : 浓盐酸 = 1:1（体积比）
-  * 染色液：0.01g/mL龙胆紫溶液（或醋酸洋红染液）
-  * 清水（用于漂洗）
+ * 解离液：95%酒精 : 浓盐酸 = 1:1（体积比）
+ * 染色液：0.01g/mL龙胆紫溶液（或醋酸洋红染液）
+ * 清水（用于漂洗）
 - 器材：显微镜、载玻片、盖玻片、玻璃皿、镊子、滴管、剪刀
 
 【实验步骤（关键步骤详解）】
@@ -2121,9 +2119,7 @@ const photosynthesisTrainerEnhanced = {
     }
 };
 
-// ============================================================
 // 暴露到 window 对象（修复死代码问题）
-// ============================================================
 window.chemistryProcessAnalyzerEnhanced = chemistryProcessAnalyzerEnhanced;
 window.biologyMindMapEnhanced = biologyMindMapEnhanced;
 window.geneticsPedigreeTrainerEnhanced = geneticsPedigreeTrainerEnhanced;
@@ -2131,18 +2127,18 @@ window.experimentDesignerEnhanced = experimentDesignerEnhanced;
 window.photosynthesisTrainerEnhanced = photosynthesisTrainerEnhanced;
 
 /* ============================================================
- * T3-4d：内联事件属性的事件委托注册（CSP 改造）
+ * d：内联事件属性的事件委托注册（CSP 改造）
  * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
  * ============================================================ */
 (function () {
     if (!window.HSPCBEV) return;
 
-    /* 工业流程题批量分析：输入超过 30 字自动触发（原 oninput 条件调用） */
+ /* 工业流程题批量分析：输入超过 30 字自动触发（原 oninput 条件调用） */
     HSPCBEV.on('input', '[data-hook="batch-analyze"]', function (el) {
         if (el.value.length > 30) chemistryProcessAnalyzerEnhanced.analyzeText(el.value);
     });
 
-    /* 光合作用填空训练：回车提交（原 onkeypress 条件调用，this 即输入框本身） */
+ /* 光合作用填空训练：回车提交（原 onkeypress 条件调用，this 即输入框本身） */
     HSPCBEV.on('keypress', '[data-hook="fill-check-enter"]', function (el, ev) {
         if (ev.key === 'Enter') photosynthesisTrainerEnhanced.checkAnswer(el.value);
     });

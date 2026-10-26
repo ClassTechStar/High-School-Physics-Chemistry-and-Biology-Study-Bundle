@@ -8,15 +8,11 @@
 window.globalSearch = (function() {
     'use strict';
 
-    // ============================================================
     // CONSTANTS
-    // ============================================================
     var MAX_RECENT = 10;
     var STORAGE_KEY = 'hspcb_global_search_recent';
 
-    // ============================================================
     // FALLBACK TOOL INDEX (84 tools across all subjects)
-    // ============================================================
     var TOOL_INDEX = [
         // === 物理 Physics (16 tools) ===
         { name: '物理公式计算器', desc: '力学·电磁学·热学公式速算', tool: 'physics-formula', subject: '物理', icon: '📐' },
@@ -123,9 +119,7 @@ window.globalSearch = (function() {
         { name: '科技前沿关联', desc: '诺贝尔奖·最新科研成果·学科前沿', tool: 'tech-frontiers', subject: '跨学科', icon: '🏆' }
     ];
 
-    // ============================================================
     // STATE
-    // ============================================================
     var state = {
         query: '',
         results: [],
@@ -137,9 +131,7 @@ window.globalSearch = (function() {
         searchIndex: null
     };
 
-    // ============================================================
     // RECENT SEARCHES (localStorage)
-    // ============================================================
     function loadRecentSearches() {
         try {
             var raw = HSPCBStore.get(STORAGE_KEY);
@@ -180,9 +172,7 @@ window.globalSearch = (function() {
         saveRecentSearches();
     }
 
-    // ============================================================
     // SEARCH INDEX BUILDER
-    // ============================================================
 
     function extractPageTools() {
         var tools = [];
@@ -438,9 +428,7 @@ window.globalSearch = (function() {
         return index;
     }
 
-    // ============================================================
     // SEARCH ENGINE
-    // ============================================================
 
     function matchesQuery(text, queryTerms) {
         if (!text) return false;
@@ -575,9 +563,7 @@ window.globalSearch = (function() {
         return map[subject] || '📄';
     }
 
-    // ============================================================
     // RESULT GROUPING
-    // ============================================================
 
     var CATEGORY_CONFIG = {
         tools:       { label: '🔧 工具',       order: 1 },
@@ -615,9 +601,7 @@ window.globalSearch = (function() {
         return sortedGroups;
     }
 
-    // ============================================================
     // NAVIGATION HANDLERS
-    // ============================================================
 
     function navigateToolResult(item) {
         if (!item.tool) return;
@@ -704,7 +688,7 @@ window.globalSearch = (function() {
             // loader not available, fall through
         }
 
-        // T0-18: 非 section 型工具路由。
+        // 非 section 型工具路由。
         // 122 个 data-tool 中有 4 个并非独立 section，而是平台/模考/懒加载 tab，
         // 直接 navigateTo(toolId) 会因找不到 <toolId>-section 而落空（搜索点了没反应）。
         var TAB_ROUTES = {
@@ -783,9 +767,7 @@ window.globalSearch = (function() {
         closeSearch();
     }
 
-    // ============================================================
     // RENDER
-    // ============================================================
 
     function renderSearchInput() {
         var query = state.query;
@@ -919,9 +901,7 @@ window.globalSearch = (function() {
         bindEvents();
     }
 
-    // ============================================================
     // EVENT BINDING
-    // ============================================================
 
     function bindEvents() {
         var input = document.getElementById('gs-search-input');
@@ -1118,9 +1098,7 @@ window.globalSearch = (function() {
         render();
     }
 
-    // ============================================================
     // GLOBAL KEYBOARD SHORTCUT
-    // ============================================================
 
     function handleGlobalKeydown(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -1137,9 +1115,7 @@ window.globalSearch = (function() {
         }
     }
 
-    // ============================================================
     // OPEN / CLOSE
-    // ============================================================
 
     function openSearch() {
         if (state.isOpen) return;
@@ -1190,11 +1166,9 @@ window.globalSearch = (function() {
         }
     }
 
-    // ============================================================
     // UTILITY
-    // ============================================================
 
-    // 【T1-5 / P0-5】统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
+    // 统一转义：全仓唯一权威实现为 CommonUtils.escapeHtml。
 // 原实现不完整（漏转义单引号）且与其它模块重复，现统一委托；
 // 并在 CommonUtils 缺席时提供等价兜底（含 null/undefined → ''）。
     function escapeHtml(str) {
@@ -1209,9 +1183,7 @@ window.globalSearch = (function() {
             .replace(/'/g, '&#39;');
     }
 
-    // ============================================================
     // INITIALIZATION
-    // ============================================================
 
     function init() {
         loadRecentSearches();
@@ -1224,9 +1196,7 @@ window.globalSearch = (function() {
         init();
     }
 
-    // ============================================================
     // INJECT STYLES
-    // ============================================================
 
     function injectStyles() {
         if (document.getElementById('gs-styles')) return;
@@ -1371,9 +1341,7 @@ window.globalSearch = (function() {
         injectStyles();
     }
 
-    // ============================================================
     // PUBLIC API
-    // ============================================================
 
     return {
         open: openSearch,

@@ -1,9 +1,7 @@
-// ============================================================
 // common-utils.js — HSPCB 公共工具函数库
 // 统一各模块重复实现的 escapeHtml/genId/todayStr/loadJson/saveJson 等工具函数
 // 使用方法: window.CommonUtils.escapeHtml(str) 或解构使用
 // ES5 兼容, 零依赖
-// ============================================================
 
 window.CommonUtils = (function () {
     'use strict';

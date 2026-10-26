@@ -1,4 +1,4 @@
-/* 主题引导 · 外置自 index.html head 内联脚本（T3-4e）；非 defer 同步加载，须在 body 渲染前执行以避免首屏闪白 */
+/* 主题引导 · 外置自 index.html head 内联脚本（e）；非 defer 同步加载，须在 body 渲染前执行以避免首屏闪白 */
 /* ---- 主题引导脚本：必须在 <body> 渲染前同步执行，避免首屏闪白 ---- */
 (function () {
     var KEY = 'hspcb_theme', LEGACY = 'hspcb_dark_mode', theme;

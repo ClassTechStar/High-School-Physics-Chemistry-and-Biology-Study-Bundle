@@ -3,9 +3,9 @@
  * validate-data.mjs — HSPCB 数据层校验与题库质检
  *
  * 用法:
- *   node scripts/validate-data.mjs
- *   node scripts/validate-data.mjs --json          # 机器可读输出
- *   node scripts/validate-data.mjs --sample 50     # 题库抽样质检条数
+ * node scripts/validate-data.mjs
+ * node scripts/validate-data.mjs --json # 机器可读输出
+ * node scripts/validate-data.mjs --sample 50 # 题库抽样质检条数
  *
  * 退出码: 0=通过(可有 warning); 1=存在 error
  */
@@ -193,7 +193,7 @@ const ANALYSIS_ANSWER_LETTER =
   /(?:故?选(?:正确(?:选项|答案))?|答案(?:是|为)?|正确选项(?:是|为)?|应选)\s*[:：]?\s*([A-D])\b/gi;
 
 /**
- * 内容去重指纹（P1-6）：题干 + 选项集合 + 正确选项内容。
+ * 内容去重指纹（）：题干 + 选项集合 + 正确选项内容。
  * 选项按内容排序，因此「同一道题仅选项顺序不同」也会被识别为重复；
  * 只对 ≥2 个选项的选择题启用，避免无选项的英语填空题（题干为通用指令、
  * 正文在 passage 字段）被误判。
@@ -260,7 +260,7 @@ function validateQuestion(q, subject, index, stats) {
     // 关键：必须要求**每一个**被引用的字母都等于 answer。
     // 旧实现用 `cited.includes(ansLetter)`，只要解析里出现过正确字母就放过 ——
     // 于是一段解析里同时写着「故应选A」和「故选D」（answer=D）会被判为无冲突，
-    // 门禁形同虚设。实测：注入「故应选A。」到 PHY_2018_01（answer=D）时
+    // 否则这道检查就是摆设。比如往 PHY_2018_01（answer=D）里塞进「故应选A。」时
     // 旧规则 exit 0，新规则正确报错。
     const ansLetter = isNonEmptyString(q.answer) ? q.answer.trim().toUpperCase() : '';
     if (/^[A-D]$/.test(ansLetter)) {
@@ -392,7 +392,7 @@ function validateExamBank() {
 /* ───────────────────────── extended banks ───────────────────────── */
 
 const EXTENDED = [
-  // T2-5 / P1-2: situational.json 与 tech-frontiers.json 已归档至 data/_archive/
+  // situational.json 与 tech-frontiers.json 已归档至 data/_archive/
   // （无运行时消费方），不再作为活跃数据校验；cross-subject.json 已接线（v1.4），保留校验。
   { file: 'framework-questions.json', listKeys: ['questions'] },
   { file: 'variation-bank.json', listKeys: ['questions', 'items'] },

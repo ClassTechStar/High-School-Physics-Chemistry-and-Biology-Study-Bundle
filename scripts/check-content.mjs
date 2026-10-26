@@ -1,21 +1,21 @@
 /**
- * check-content.mjs — 内容语义门禁（T0-3）
+ * check-content.mjs — 内容语义门禁（）
  *
  * 与 validate-data.mjs 的分工：
- *   validate-data.mjs = 结构校验（字段存在性、类型、可选项完整性）
- *   check-content.mjs = **语义校验**（内容对不对、能不能被学生使用）
+ * validate-data.mjs = 结构校验（字段存在性、类型、可选项完整性）
+ * check-content.mjs = **语义校验**（内容对不对、能不能被学生使用）
  *
  * 规则集（每条对应 ERRATA-REPORT 的具体缺陷）：
- *   C1 同题干重复（P0-4）—— validate-data.mjs 只查 id 唯一性，查不出内容重复
- *   C2 考点可解析率（P0-3）—— 错题归因链路是否走得通
- *   C3 分科答案分布偏斜（P0-2）—— 全局均衡 ≠ 学生实际体验的均衡
- *   C4 options 缺失/为空（P0-12）—— 74 题崩溃 + 171 题作答区为空
- *   C5 knowledgePoints 字段名不一致（P1-5）
- *   C6 非常规字段残留（P1-6）—— 内部备注 / 调试字段随生产数据发布
- *   C7 模板化解析（P1-7）—— 复述题干 + 报答案字母，无实质讲解
- *   C8 尖括号内容的渲染安全（P0-5）
- *   C9 meta.totalQuestions 与实际一致（文档漂移）
- *  C10 解析声明的答案字母与 answer 一致（P0-1，与 validate-data 互为交叉验证）
+ * C1 同题干重复（）—— validate-data.mjs 只查 id 唯一性，查不出内容重复
+ * C2 考点可解析率（）—— 错题归因链路是否走得通
+ * C3 分科答案分布偏斜（）—— 全局均衡 ≠ 学生实际体验的均衡
+ * C4 options 缺失/为空（）—— 74 题崩溃 + 171 题作答区为空
+ * C5 knowledgePoints 字段名不一致（）
+ * C6 非常规字段残留（）—— 内部备注 / 调试字段随生产数据发布
+ * C7 模板化解析（）—— 复述题干 + 报答案字母，无实质讲解
+ * C8 尖括号内容的渲染安全（）
+ * C9 meta.totalQuestions 与实际一致（文档漂移）
+ * C10 解析声明的答案字母与 answer 一致（，与 validate-data 互为交叉验证）
  *
  * 与 check-lint 同样采用「基线内只提示、基线外立即失败」策略。
  */
@@ -51,7 +51,7 @@ console.log(`题库载入：${SUBJECTS.length} 学科 / ${allQs.length} 题\n`);
 // ------------------------------------------------- 去重视图（全脚本共用）
 // C1 的核心发现是「按学科+题干」存在 552 条冗余。副本与正本内容完全相同，
 // 若后续规则（考点解析率、答案分布）仍用全量 1718 题统计，指标会被副本放大而失真。
-// 因此 C2/C3 统一在去重视图上计算，口径为「学生实际会遇到的题目」。
+// 所以 C2/C3 都在去重后的视图上算，统计范围是学生实际会遇到的题目。
 const C1_DEDUPED = [];
 {
   const seen = new Set();
@@ -59,7 +59,7 @@ const C1_DEDUPED = [];
     const stem = String(item.q.question || '').trim().replace(/\s+/g, ' ').slice(0, 200);
     const opts = Array.isArray(item.q.options) ? item.q.options.join('|') : '';
     const passage = String(item.q.passage || '').trim().replace(/\s+/g, ' ').slice(0, 200);
-    // 必须与 dedupe-by-content.mjs 同口径：题干 + 选项集 + 材料。
+    // 必须与 dedupe-by-content.mjs 用同一套比对标准：题干 + 选项集 + 材料。
     // 少了 passage 会把英语语法填空/短文改错的 5 道不同题误判为副本。
     const key = item.subject + '||' + stem + '||' + opts + '||' + passage;
     if (seen.has(key)) continue;
@@ -154,7 +154,7 @@ console.log('=== C2. 考点 → 知识点可解析率（P0-3 错题归因链路�
   const THRESHOLD = { physics: 85, chemistry: 70, biology: 70, math: 70, chinese: 70, english: 70 };
   const report = [];
   const unresolvedBySubject = {};
-  // 复用脚本顶部的共享去重视图（学科+题干+选项集+材料），避免两处口径漂移。
+  // 复用脚本顶部的共享去重视图（学科+题干+选项集+材料），避免两处标准不一致。
   // 早期版本在此处按「学科+题干」单独去重，会把 135 道「同题干不同 passage」
   // 的合法独立题误判为副本，指标被压低。
   const deduped = C1_DEDUPED;
@@ -350,7 +350,7 @@ console.log('=== C8. 含尖括号内容的题目（P0-5） ===');
     console.log(`    选项尖括号分布: ${Object.entries(bySub).map(([k, v]) => `${k}×${v}`).join(', ')}`);
     for (const r of optRisky.slice(0, 6)) console.log(`      ${r.id}: ${r.question.slice(0, 46)}`);
   }
-  // 这不是门禁失败项，而是 T1-5 的输入清单；此处只统计
+  // 这不是门禁失败项，而是 的输入清单；此处只统计
   pass++;
   if (risky.length) baseline(`含尖括号题目 ${risky.length} 道（选项含尖括号 ${optRisky.length} 道）→ T1-5：13 条渲染路径统一 escapeHtml`);
 }
@@ -414,7 +414,7 @@ console.log('=== C11. 标签式解析（【】机器壳） ===');
   const LABEL_SHELL = /【(考点|题干|概念|判断|结论|审题|答题思路|参考表述|评分关注|易错|技巧|排除)】/;
   const FILLER = /不符合上述概念或题干限定|与题意不符|按「手法\/词义|依据物理概念、规律或公式|依据化学概念、物质性质|依据生物学结构、生理过程|依据定义、公式或运算规则|依据语境、语法与文学常识|依据上下文语义与语法规则/;
   // 第二类变体：前半句带正确选项内容，后半句是批量填充的空话
-  //   「…，正确答案为C（动能）。本题考查力学相关知识，需准确理解其基本概念与规律，由力学的基本原理可判断…」
+  // 「…，正确答案为C（动能）。本题考查力学相关知识，需准确理解其基本概念与规律，由力学的基本原理可判断…」
   const BOILER_TAIL = /本题考查[^。]{0,40}需?要?准确(理解|掌握)/;
   const TAIL_FORMULA = /的(基本)?原理可判断/;
   const hits = [];

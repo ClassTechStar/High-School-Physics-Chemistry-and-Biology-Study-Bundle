@@ -1,6 +1,4 @@
-// ============================================================
 // 缺失工具实现 - Part 2: 新增6大工具模块
-// ============================================================
 
 // ==================== 5. 公式手册与速查卡 ====================
 const formulaHandbook = {
@@ -388,7 +386,7 @@ const timedQuiz = {
     },
 
     _start(opts) {
-        // T0-13 / P0-18: 结果页「再来一组」会无参调用 _retry() → _start()，
+        // 结果页「再来一组」会无参调用 _retry() → _start()，
         // 此时设置页 DOM 已不在，tq-subject 等 getElementById 返回 null → 必崩。
         // 允许通过 opts 复用上一轮的 subject/time/count。
         const settings = opts || {};
@@ -418,7 +416,7 @@ const timedQuiz = {
             const j = Math.floor(Math.random() * (i + 1));
             [pool[i], pool[j]] = [pool[j], pool[i]];
         }
-        // T0-13 / P0-18: 记忆本轮配置，供 _retry() 重建
+        // 记忆本轮配置，供 _retry() 重建
         this.state.subject = sub;
         this.state.timeLimitCfg = time;
         this.state.countCfg = count;
@@ -484,7 +482,7 @@ const timedQuiz = {
     },
 
     _retry() {
-        // T0-13 / P0-18: 用 state 中记忆的 subject/time/count 重建题池，
+        // 用 state 中记忆的 subject/time/count 重建题池，
         // 不依赖已被卸载的设置页 DOM
         if (this.state.timerId) clearInterval(this.state.timerId);
         this._start({
@@ -514,7 +512,7 @@ const timedQuiz = {
     }
 };
 window.timedQuiz = timedQuiz;
-// T0-13: 供 runtime-defer-check 在无 DOM 的沙箱中验证
+// 供 runtime-defer-check 在无 DOM 的沙箱中验证
 // 「全科综合」题池可用、无参 _start 可跑通、_retry 能重建题组
 timedQuiz.__probe = function () {
     const self = this;

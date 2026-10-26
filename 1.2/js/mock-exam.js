@@ -1,10 +1,8 @@
 window.mockExam = (function() {
     'use strict';
 
-    // ============================================================================
     // EMBEDDED QUESTION BANK — Fallback when window.examBank is not available
     // Each subject has exam-style questions with full text, options, and answers.
-    // ============================================================================
     var EMBEDDED_QUESTIONS = {
 
         // ---- PHYSICS (物理) ----
@@ -476,9 +474,7 @@ window.mockExam = (function() {
         ]
     };
 
-    // ============================================================================
     // EXAM CONFIGURATION — Structure, timing, and point allocations per subject
-    // ============================================================================
     var EXAM_CONFIG = {
         physics: {
             name: '物理',
@@ -536,9 +532,7 @@ window.mockExam = (function() {
         }
     };
 
-    // ============================================================================
     // MODULE STATE
-    // ============================================================================
     var state = {
         subject: null,
         questions: [],
@@ -550,9 +544,7 @@ window.mockExam = (function() {
         submitted: false
     };
 
-    // ============================================================================
     // UTILITY FUNCTIONS
-    // ============================================================================
 
     function shuffle(arr) {
         var a = arr.slice();
@@ -590,9 +582,7 @@ window.mockExam = (function() {
         return escHtml(str).replace(/\n/g, '<br>');
     }
 
-    // ============================================================================
     // DATA SOURCE: merge window.examBank with embedded questions
-    // ============================================================================
 
     function getQuestionPool(subject) {
         var pool = [];
@@ -635,15 +625,13 @@ window.mockExam = (function() {
         return pool;
     }
 
-    // ============================================================
-    // T0-18 题型映射层
+    // 题型映射层
     // 缺陷：groupByType 按题库原始 type 分组（24 种：选择题/简答题/语法填空/…），
     // 而 EXAM_CONFIG.structure 用的是卷面题型（12 种：单选/多选/实验/计算/综合/
     // 非选/现代文/文言文/诗词/语言运用/作文/…）。两套命名**零交集**，
     // 导致 groups[lookupType] 恒为 undefined，100% 落进 fallback 随机取题，
     // 卷面题型标注与实际抽到的题完全对不上。
     // 修复：建立 卷面题型 → 题库 type 白名单 的双向映射。
-    // ============================================================
     var TYPE_MAP = {
         '单选': { choices: ['选择题'], pick: 'single' },
         '多选': { choices: ['选择题'], pick: 'multi' },
@@ -668,14 +656,14 @@ window.mockExam = (function() {
         '短文改错': { choices: ['短文改错'], pick: 'subjective' }
     };
 
-    /** 题目是否含可用选项（决定能否客观判分） */
+ /** 题目是否含可用选项（决定能否客观判分） */
     function hasOptions(q) {
         return !!(q && Array.isArray(q.options) && q.options.filter(function (o) {
             return String(o == null ? '' : o).trim() !== '';
         }).length >= 2);
     }
 
-    /** 卷面题型 → 该题型的判分模式 */
+ /** 卷面题型 → 该题型的判分模式 */
     function pickModeFor(examType, q) {
         var slot = TYPE_MAP[examType];
         if (!slot) return hasOptions(q) ? 'single' : 'subjective';
@@ -724,7 +712,7 @@ window.mockExam = (function() {
             var count = slot.count;
             var pointsEach = slot.pointsEach;
 
-            // T0-18: 按卷面题型取候选（映射表在 groupByType 内部生效）
+            // 按卷面题型取候选（映射表在 groupByType 内部生效）
             var groups = groupByType(pool, type);
             var lookupType = type;
             var candidates = groups[lookupType] || [];
@@ -758,7 +746,7 @@ window.mockExam = (function() {
                     answer: (q.answer || '').trim().toUpperCase(),
                     analysis: q.analysis || '',
                     isEssay: (mode === 'essay'),
-                    // T0-18: 记录判分模式，calculateScore 据此分流，避免拿主观题当字母比
+                    // 记录判分模式，calculateScore 据此分流，避免拿主观题当字母比
                     answerMode: mode
                 });
 
@@ -783,9 +771,7 @@ window.mockExam = (function() {
         return { questions: selected, slotSummary: slotSummary };
     }
 
-    // ============================================================================
     // RENDER: Subject Selection Screen
-    // ============================================================================
 
     function renderSubjectSelect() {
         var app = document.getElementById('mock-exam-app');
@@ -842,9 +828,7 @@ window.mockExam = (function() {
         }
     }
 
-    // ============================================================================
     // HISTORY MANAGEMENT
-    // ============================================================================
 
     function getHistory() {
         try {
@@ -895,16 +879,14 @@ window.mockExam = (function() {
         return html;
     }
 
-    // ============================================================================
     // EXAM START / TIMER / SUBMIT
-    // ============================================================================
 
     function startExam(subject) {
         var config = EXAM_CONFIG[subject];
         if (!config) return;
 
         state.subject = subject;
-        // T0-18: buildExam 现返回 { questions, slotSummary }
+        // buildExam 现返回 { questions, slotSummary }
         var built = buildExam(subject);
         state.questions = built.questions;
         state.slotSummary = built.slotSummary;
@@ -963,9 +945,7 @@ window.mockExam = (function() {
         renderResults();
     }
 
-    // ============================================================================
     // RENDER: Exam Screen
-    // ============================================================================
 
     function renderExam() {
         var app = document.getElementById('mock-exam-app');
@@ -1157,9 +1137,7 @@ window.mockExam = (function() {
         }
     }
 
-    // ============================================================================
     // SCORING & RESULT RENDERING
-    // ============================================================================
 
     function calculateScore() {
         var correct = 0;
@@ -1175,7 +1153,7 @@ window.mockExam = (function() {
             totalPoints += q.points;
 
             var isCorrect = false;
-            // T0-18: 按 answerMode 分流（原代码只认 q.type==='多选'/'解答'，
+            // 按 answerMode 分流（原代码只认 q.type==='多选'/'解答'，
             // 组卷标注的卷面题型与 q.type 不同，导致主观题被当字母比对、作文漏判）
             var mode = q.answerMode || (q.isEssay ? 'essay' : 'single');
             if (mode === 'essay') {
@@ -1380,9 +1358,7 @@ window.mockExam = (function() {
         return html;
     }
 
-    // ============================================================================
     // GLOBAL EVENT DELEGATION
-    // ============================================================================
 
     function bindGlobalDelegates() {
         var app = document.getElementById('mock-exam-app');
@@ -1422,9 +1398,7 @@ window.mockExam = (function() {
               '\n日期：' + entry.date);
     }
 
-    // ============================================================================
     // MAIN RENDER ENTRY POINT
-    // ============================================================================
 
     function render() {
         var app = document.getElementById('mock-exam-app');
@@ -1442,16 +1416,14 @@ window.mockExam = (function() {
         setTimeout(bindGlobalDelegates, 50);
     }
 
-    // ============================================================================
     // PUBLIC API
-    // ============================================================================
 
     return {
         render: render,
         startExam: startExam,
         getHistory: getHistory,
         clearHistory: clearHistory,
-        // T0-18: 暴露给 runtime-defer-check 断言组卷映射命中率（不影响线上行为）
+        // 暴露给 runtime-defer-check 断言组卷映射命中率（不影响线上行为）
         __test: {
             TYPE_MAP: TYPE_MAP,
             groupByType: groupByType,

@@ -1,8 +1,6 @@
-﻿// ============================================================
 // app-biology.js — 生物模块（从 app.js 拆分）
 // 包含: 遗传模拟/思维导图/系谱训练/光合作用/实验设计
 // 依赖: app.js (currentTool 全局变量)
-// ============================================================
 
 const biologyGeneticsSimulator = {
     state: {
@@ -247,7 +245,7 @@ function renderBiologyGenetics() {
 
 function attachGeneticsListeners() {
     // D3-A3：条形高度由运行时数据算出，改用 CSSOM 写入，避免生成 style 属性字符串
-    // （style-src 'unsafe-inline' 管辖「style="..." 属性」，不管辖 CSSOM 写入）
+    // （style-src 'unsafe-inline' 管辖 style 属性，不管辖 CSSOM 写入）
     document.querySelectorAll('#biology-genetics-app .bar[data-bar-h]').forEach(function(el) {
         el.style.height = el.dataset.barH + 'px';
     });
@@ -2197,7 +2195,7 @@ const experimentDesigner = {
         userInputs: {}
     },
 
-    /** T3-4d：返回类型选择（原内联 onclick 的 state 赋值 + renderDesigner 双语句，CSP 改造为具名方法） */
+ /** d：返回类型选择（原内联 onclick 的 state 赋值 + renderDesigner 双语句，CSP 改造为具名方法） */
     backToTypeSelector() {
         this.state.currentType = null;
         this.renderDesigner();

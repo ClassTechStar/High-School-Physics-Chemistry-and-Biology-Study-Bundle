@@ -1,9 +1,7 @@
 // 学科内容缺口补全 - 语文鉴赏+文言翻译+数学3D几何
 // js/subject-gap-1.js
-// ============================================================
 // 模块1: poemAppreciation — 古诗文鉴赏交互器
 // 容器: #poem-appreciation-app
-// ============================================================
 window.poemAppreciation = (function () {
     'use strict';
     var POEMS = [
@@ -337,10 +335,8 @@ window.poemAppreciation = (function () {
     }
     return { render: render };
 })();
-// ============================================================
 // 模块2: classicalTranslation — 文言文翻译对照器
 // 容器: #classical-translation-app
-// ============================================================
 window.classicalTranslation = (function () {
     'use strict';
     var PASSAGES = [
@@ -610,10 +606,8 @@ window.classicalTranslation = (function () {
     }
     return { render: render };
 })();
-// ============================================================
 // 模块3: solidGeometry3D — 数学立体几何3D查看器
 // 容器: #solid-geometry-3d-app
-// ============================================================
 window.solidGeometry3D = (function () {
     'use strict';
     var SHAPES = {
@@ -1087,7 +1081,7 @@ window.solidGeometry3D = (function () {
 })();
 
 /* ============================================================
- * T3-4d：内联悬停属性的事件委托注册（CSP 改造）
+ * d：内联悬停属性的事件委托注册（CSP 改造）
  * 依赖 js/csp-delegation.js（非 defer 先于本文件加载）
  * ============================================================ */
 (function () {
@@ -1102,7 +1096,7 @@ window.solidGeometry3D = (function () {
         if (!el.dataset.sel) el.style.background = el.dataset.restBg || '';
     });
 
-    /* 3D 几何体列表项悬停：当前激活项（dataset.act === '1'）离开时不恢复透明 */
+ /* 3D 几何体列表项悬停：当前激活项（dataset.act === '1'）离开时不恢复透明 */
     HSPCBEV.on('mouseover', '[data-hook="shape-item"]', function (el) {
         el.style.background = '#eff6ff';
     });

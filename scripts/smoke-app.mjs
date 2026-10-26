@@ -47,11 +47,11 @@ console.log('=== 3. index 关键接线 ===');
   const readJs = (f) => readFileSync(join(APP, 'js', f), 'utf8');
   ok(html.includes('css/theme-dark.css'), '引入 theme-dark.css');
   ok(html.includes('js/progress.js'), '引入 progress.js');
-  // T3-4e：原内联脚本外置为外部 js 后，接线断言 = html 引用外链 + 外链文件含该符号
+  // e：原内联脚本外置为外部 js 后，接线断言 = html 引用外链 + 外链文件含该符号
   ok(html.includes('js/theme-toggle.js') && readJs('theme-toggle.js').includes('window.toggleTheme'), '统一 toggleTheme');
   ok(html.includes('js/theme-bootstrap.js') && readJs('theme-bootstrap.js').includes('data-theme'), 'data-theme 主题属性');
   ok(html.includes('js/sw-register.js') && readJs('sw-register.js').includes('serviceWorker'), '注册 SW');
-  // P1-6 A+B：懒加载接线（静态断言，防止回退到首屏自动 init / 无条件预热）
+  // A+B：懒加载接线（静态断言，防止回退到首屏自动 init / 无条件预热）
   {
     const ce = readJs('content-enhanced-v2.js');
     ok(!/setTimeout\(init, 50\)/.test(ce), '框架题/变式题首屏不自动 init（P1-6 A）');
@@ -60,7 +60,7 @@ console.log('=== 3. index 关键接线 ===');
     ok(lp.includes('ensureInit') && !/addEventListener\('DOMContentLoaded', init\)/.test(lp), '学习路径首次进入再初始化（P1-6 A）');
     const exam = readJs('app-exam.js');
     ok(exam.includes('saveData') && exam.includes('effectiveType') && exam.includes('deviceMemory'), '题库预热按网络/设备分级（P1-6 B）');
-    // P1-6 E/F：SW 预缓存分层 + 隐藏表格惰性实例化
+    // E/F：SW 预缓存分层 + 隐藏表格惰性实例化
     const sw = readFileSync(join(APP, 'sw.js'), 'utf8');
     ok(sw.includes('DEFERRED_ASSETS') && sw.includes("action === 'warm'"), 'SW 预缓存分层 + warm 消息（P1-6 E）');
     ok(readJs('sw-register.js').includes('postMessage({ action: "warm" })'), '页面空闲触发 SW 后台补齐（P1-6 E）');
@@ -218,7 +218,7 @@ console.log('=== 5. 数据与题库抽样 ===');
       allIds.add(q.id);
     }
   }
-  // T1-2: 题量必须与 meta.totalQuestions 及各科 total 三处一致。
+  // 题量必须与 meta.totalQuestions 及各科 total 三处一致。
   // 此前硬编码 1718，去重后必然失效 —— 改为动态交叉校验，任何一处漂移都会立刻报红。
   const declaredTotal = eb.meta ? eb.meta.totalQuestions : -1;
   const sumSubjectTotal = Object.keys(eb)

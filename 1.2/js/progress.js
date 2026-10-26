@@ -1,15 +1,13 @@
-// ============================================================
 // progress.js — HSPCB 统一学习进度存储 (Phase A / A5)
 // 目标:
-//   1. 唯一权威 key 前缀 hspcb.v2.*
-//   2. 启动时从 v1 裸 key 迁移
-//   3. 提供 export/import，便于换机与备份
+// 1. 唯一权威 key 前缀 hspcb.v2.*
+// 2. 启动时从 v1 裸 key 迁移
+// 3. 提供 export/import，便于换机与备份
 // 用法:
-//   <script src="js/progress.js"></script>
-//   HSPCBProgress.get('wrongQuestions')
-//   HSPCBProgress.append('wrongQuestions', item)
+// <script src="js/progress.js"></script>
+// HSPCBProgress.get('wrongQuestions')
+// HSPCBProgress.append('wrongQuestions', item)
 // ES5 兼容, 零依赖
-// ============================================================
 
 window.HSPCBProgress = (function () {
     'use strict';
@@ -18,7 +16,7 @@ window.HSPCBProgress = (function () {
     var SCHEMA_VERSION = 2;
     var MIGRATED_FLAG = NS + 'migratedFromV1';
 
-    /** 默认结构 */
+ /** 默认结构 */
     var DEFAULTS = {
         theme: 'light',
         wrongQuestions: [],
@@ -38,7 +36,7 @@ window.HSPCBProgress = (function () {
         meta: { schemaVersion: SCHEMA_VERSION, updatedAt: null }
     };
 
-    /** v1 key → v2 path 映射（仅列表/对象，字符串主题单独处理） */
+ /** v1 key → v2 path 映射（仅列表/对象，字符串主题单独处理） */
     var V1_MAP = [
         // 错题: 多源合并
         { v1: 'hspcb_wrong_records', v2: 'wrongQuestions', merge: true },
@@ -146,7 +144,7 @@ window.HSPCBProgress = (function () {
         cur[parts[parts.length - 1]] = value;
     }
 
-    /** 读取整个进度对象（内存缓存 + localStorage） */
+ /** 读取整个进度对象（内存缓存 + localStorage） */
     var _cache = null;
 
     function loadAll() {
@@ -247,7 +245,7 @@ window.HSPCBProgress = (function () {
         return out;
     }
 
-    /* ── v1 → v2 迁移 ── */
+ /* ── v1 → v2 迁移 ── */
 
     function readV1(key) {
         try {
@@ -325,7 +323,7 @@ window.HSPCBProgress = (function () {
             localStorage.setItem(MIGRATED_FLAG, '1');
         } catch (e) { /* ignore */ }
 
-        // T2-2 / P0-8: 搬迁后可选删除旧裸 key。
+        // 搬迁后可选删除旧裸 key。
         // 默认保留（便于回滚），但保留旧 key 会与"清除学习数据"语义冲突——
         // 清除后旧 key 仍在，任何直读裸 key 的代码都会看到"已清除"的数据。
         // 传入 { removeLegacy: true } 时，搬迁成功即删除本次搬迁涉及的裸 key。
@@ -342,7 +340,7 @@ window.HSPCBProgress = (function () {
         return { migrated: true, merged: merged, removedLegacy: removedLegacy };
     }
 
-    /* ── 导出 / 导入 ── */
+ /* ── 导出 / 导入 ── */
 
     function exportData() {
         var data = clone(loadAll());
@@ -377,7 +375,7 @@ window.HSPCBProgress = (function () {
         return undefined; // function / symbol / 其他一律拒绝
     }
 
-    /** 深度净化一个「纯数据」值：只保留白名单形状，剥危险键，施加上限。 */
+ /** 深度净化一个「纯数据」值：只保留白名单形状，剥危险键，施加上限。 */
     function importSanitizeValue(v, depth) {
         if (depth > 3) return undefined;
         if (Array.isArray(v)) {
@@ -405,7 +403,7 @@ window.HSPCBProgress = (function () {
         return importSafePrimitive(v);
     }
 
-    /** 按进度存储的 schema 净化导入载荷，返回安全副本。 */
+ /** 按进度存储的 schema 净化导入载荷，返回安全副本。 */
     function importSanitize(incoming) {
         var clean = {};
         for (var key in incoming) {
@@ -440,7 +438,7 @@ window.HSPCBProgress = (function () {
     }
 
     /**
-     * 导入备份。mode: 'merge' | 'replace'
+ * 导入备份。mode: 'merge' | 'replace'
      */
     function importData(payload, mode) {
         if (!payload || typeof payload !== 'object') {
@@ -499,7 +497,7 @@ window.HSPCBProgress = (function () {
         return { ok: true, mode: 'merge' };
     }
 
-    /** 触发浏览器下载备份文件 */
+ /** 触发浏览器下载备份文件 */
     function downloadBackup() {
         var json = exportJSON(true);
         var blob = new Blob([json], { type: 'application/json' });
@@ -521,10 +519,10 @@ window.HSPCBProgress = (function () {
     }
 
     /**
-     * T2-2 / P0-8: 清除全部学习进度（权威轨）。
-     * 删除 hspcb.v2.progress 与迁移标记，并重置内存缓存。
-     * 注意：不删除主题偏好（theme 随进度对象一起重置为默认 light，
-     * 调用方如需保留主题应在清除后重新 set）。
+ * 清除全部学习进度（权威轨）。
+ * 删除 hspcb.v2.progress 与迁移标记，并重置内存缓存。
+ * 注意：不删除主题偏好（theme 随进度对象一起重置为默认 light，
+ * 调用方如需保留主题应在清除后重新 set）。
      */
     function resetAll() {
         _cache = null;
@@ -535,12 +533,12 @@ window.HSPCBProgress = (function () {
         return true;
     }
 
-    /** 仅调试/测试用 */
+ /** 仅调试/测试用 */
     function _resetForTest() {
         resetAll();
     }
 
-    /** 初始化：自动迁移一次（幂等） */
+ /** 初始化：自动迁移一次（幂等） */
     function init(options) {
         var result = migrateFromV1(options);
         if (result.migrated) {
@@ -585,24 +583,22 @@ if (typeof document !== 'undefined') {
     }
 }
 
-// ============================================================
 // HSPCBStore — 散装工具数据的统一命名空间门面 (v1.3 / T4)
 // 目标: 各工具模块不再直接使用裸 localStorage。
-//   - 读写统一走 hspcb.st.<key> 命名空间
-//   - 首次访问旧裸 key 时自动搬迁（旧数据保留，不删除，便于回滚）
-//   - 统一 try/catch，隐私模式/配额超限不再抛错
+// - 读写统一走 hspcb.st.<key> 命名空间
+// - 首次访问旧裸 key 时自动搬迁（旧数据保留，不删除，便于回滚）
+// - 统一 try/catch，隐私模式/配额超限不再抛错
 // 例外（白名单，仍为裸 localStorage）:
-//   - index.html 主题引导脚本（早于本文件执行）
-//   - study-tools-enhanced.js 数据导出/清理工具（需枚举原始 key）
-// ============================================================
+// - index.html 主题引导脚本（早于本文件执行）
+// - study-tools-enhanced.js 数据导出/清理工具（需枚举原始 key）
 window.HSPCBStore = (function () {
     'use strict';
     var NS = 'hspcb.st.';
     var migratedKeys = {};
 
-    // T2-2 / P0-8: 透明搬迁成功后是否删除旧裸 key。
+    // 透明搬迁成功后是否删除旧裸 key。
     // 默认 false（保留便于回滚）；"清除学习数据"流程不依赖此选项，
-    // 因为 remove/purgeAll 已同时删除两轨。设为 true 可彻底消除
+    // 因为 remove/purgeAll 已经删掉了这两处。设为 true 可彻底消除
     // "旧 key 永存 → 直读裸 key 的代码看到已清除数据"的隐患。
     var config = { removeLegacyAfterMigrate: false };
 
@@ -610,7 +606,7 @@ window.HSPCBStore = (function () {
         try { return localStorage.getItem(k); } catch (e) { return null; }
     }
 
-    /** T2-2: 运行期配置（目前仅 removeLegacyAfterMigrate） */
+ /** 运行期配置（目前仅 removeLegacyAfterMigrate） */
     function configure(opts) {
         if (!opts || typeof opts !== 'object') return config;
         if (typeof opts.removeLegacyAfterMigrate === 'boolean') {
@@ -619,10 +615,10 @@ window.HSPCBStore = (function () {
         return config;
     }
 
-    // T0-17: 搬迁标记不能是简单的布尔值。
+    // 搬迁标记不能是简单的布尔值。
     // 原实现 `migratedKeys[key] = true` 只允许搬迁一次，导致：
-    //   用户点"清除数据"(remove 同时清了 NS 与裸 key) → 某个旧模块再次写入裸 key
-    //   → 标记仍为 true，永不再搬迁 → 数据看似丢失。
+    // 用户点"清除数据"(remove 同时清了 NS 与裸 key) → 某个旧模块再次写入裸 key
+    // → 标记仍为 true，永不再搬迁 → 数据看似丢失。
     // 改为记录"上次搬迁时看到的裸 key 值"，值变了或为 null 时允许重新搬迁。
     function shouldMigrate(key) {
         var legacy = raw(key);
@@ -649,7 +645,7 @@ window.HSPCBStore = (function () {
         try { localStorage.setItem(NS + key, String(value)); return true; } catch (e) { return false; }
     }
 
-    // T0-17 / P0-8: remove 必须同时清掉旧裸 key。
+    // remove 必须同时清掉旧裸 key。
     // 否则"清除学习数据"只删了 hspcb.st.<key>，旧裸 key 仍在，
     // 下次 get() 的自动搬迁会把它原样搬回来 → 用户点了清除，数据又复活。
     function remove(key) {
@@ -660,9 +656,9 @@ window.HSPCBStore = (function () {
     }
 
     /**
-     * T2-2 / P0-8: 已知 v1 裸 key 全集（学习数据向，不含主题偏好）。
-     * 来源：HSPCBProgress.V1_MAP + 散装工具自有 key。
-     * 惰性求值——progress.js 先于本 IIFE 定义，运行时一定可用。
+ * 已知 v1 裸 key 全集（学习数据向，不含主题偏好）。
+ * 来源：HSPCBProgress.V1_MAP + 散装工具自有 key。
+ * 惰性求值——progress.js 先于本 IIFE 定义，运行时一定可用。
      */
     var STORE_ONLY_KEYS = ['hspcb_manual_mastery'];
     function legacyKeys() {
@@ -678,10 +674,10 @@ window.HSPCBStore = (function () {
     }
 
     /**
-     * T2-2 / P0-8: 一次性清除本命名空间下**所有** key + 全部已知 v1 裸 key。
-     * 供"清除所有学习数据"使用——单 key remove 覆盖面不足，
-     * 用户点清除后期望 examHistory / gameScores / checkin 等一并消失。
-     * 返回 { removed: [...], failed: [...] }。
+ * 一次性清除本命名空间下**所有** key + 全部已知 v1 裸 key。
+ * 供"清除所有学习数据"使用——单 key remove 覆盖面不足，
+ * 用户点清除后期望 examHistory / gameScores / checkin 等一并消失。
+ * 返回 { removed: [...], failed: [...] }。
      */
     function purgeAll() {
         var removed = [];
@@ -720,16 +716,14 @@ window.HSPCBStore = (function () {
         return out;
     }
 
-    // ============================================================
-    // T0-17 打卡数据归一化
+    // 打卡数据归一化
     // 同一 key `hspcb_daily_checkin` 历史上被写成两种结构：
-    //   A) learning-tools.js  → { "2027-06-07": true, ... }（对象 map）
-    //   B) gamification-system → [ "2027-06-07", {date:"..."} ]（数组）
+    // A) learning-tools.js → { "2027-06-07": true, ... }（对象 map）
+    // B) gamification-system → [ "2027-06-07", {date:"..."} ]（数组）
     // 消费方各自 Array.isArray / Object.keys 判定，导致：
-    //   - 打卡后 gamification 的 streakDays 恒为 0
-    //   - "清除数据"后 learning-tools 认为已打卡、gamification 认为没打过
+    // - 打卡后 gamification 的 streakDays 恒为 0
+    // - "清除数据"后 learning-tools 认为已打卡、gamification 认为没打过
     // 统一为**对象 map**（写入方单一，无歧义），读取时把数组形态归一进来。
-    // ============================================================
     var CHECKIN_KEY = 'hspcb_daily_checkin';
 
     function parse(raw) {
@@ -757,14 +751,14 @@ window.HSPCBStore = (function () {
         return map;
     }
 
-    /** 读取打卡数据，始终返回 { "YYYY-MM-DD": true } 对象 map */
+ /** 读取打卡数据，始终返回 { "YYYY-MM-DD": true } 对象 map */
     function getCheckin() {
         var rawVal = get(CHECKIN_KEY);
         if (rawVal == null) return {};
         return normalizeCheckin(parse(rawVal));
     }
 
-    /** 标记某天已打卡，返回完整对象 map */
+ /** 标记某天已打卡，返回完整对象 map */
     function markCheckin(dateKey) {
         if (typeof dateKey !== 'string' || !dateKey) return getCheckin();
         var map = getCheckin();
@@ -773,7 +767,7 @@ window.HSPCBStore = (function () {
         return map;
     }
 
-    /** 取消某天打卡 */
+ /** 取消某天打卡 */
     function unmarkCheckin(dateKey) {
         var map = getCheckin();
         delete map[dateKey];
@@ -781,7 +775,7 @@ window.HSPCBStore = (function () {
         return map;
     }
 
-    /** 打卡日期升序数组（供 streak 计算） */
+ /** 打卡日期升序数组（供 streak 计算） */
     function checkinDays() {
         var map = getCheckin();
         return Object.keys(map).sort();

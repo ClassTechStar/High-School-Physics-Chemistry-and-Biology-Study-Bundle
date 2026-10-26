@@ -1,17 +1,13 @@
-// ============================================================
 // js/study-dashboard.js — 学习数据仪表盘
-// ============================================================
 window.studyDashboard = (function() {
     'use strict';
 
-    // ============================================================
-    // 【T2-3 存储三轨收敛】统一读取入口
-    //   轨 1：hspcb.v2.*      学习进度（权威）  → HSPCBProgress
-    //   轨 2：hspcb.st.*      散装工具数据      → HSPCBStore
-    //   轨 3：hspcb_* 裸 key   v1 遗留，只读迁移源，迁移后应清理
+    // 统一读取入口
+    // 轨 1：hspcb.v2.* 学习进度（权威） → HSPCBProgress
+    // 轨 2：hspcb.st.* 散装工具数据 → HSPCBStore
+    // 轨 3：hspcb_* 裸 key v1 遗留，只读迁移源，迁移后应清理
     // 任一项解析失败都必须**不影响其它项**（原实现共用 1 个 try/catch，
     // 单个坏数据会让整个仪表盘退化为空态）。
-    // ============================================================
     function readProgress(path, fallback) {
         try {
             if (typeof HSPCBProgress === 'undefined' || !HSPCBProgress) return fallback;
@@ -42,11 +38,11 @@ window.studyDashboard = (function() {
             recitationScores: []
         };
 
-        // 【T2-1 / P0-7】原先直接读 hspcb_game_scores / hspcb_recitation_scores，
+        // 原先直接读 hspcb_game_scores / hspcb_recitation_scores，
         // 这两个裸 key 在整仓**没有任何写入方**，仪表盘因此永远为空。
-        // 现改为按「三轨职责」读取真实写入源：
-        //   学习进度 → hspcb.v2.*（权威，走 HSPCBProgress）
-        //   散装工具数据 → hspcb.st.*（走 HSPCBStore，含 v1 裸 key 的透明搬迁）
+        // 现在按各存储的职责去读真正的写入方：
+        // 学习进度 → hspcb.v2.*（权威，走 HSPCBProgress）
+        // 散装工具数据 → hspcb.st.*（走 HSPCBStore，含 v1 裸 key 的透明搬迁）
         data.examHistory = readStore('examHistory', []);
         data.errorNotebook = readProgress('wrongQuestions', []);
         data.gameScores = readProgress('gameScores', []);
@@ -55,7 +51,7 @@ window.studyDashboard = (function() {
         return data;
     }
 
-    /** 从 HSPCBProgress 读取，单项失败不影响其它轨 */
+ /** 从 HSPCBProgress 读取，单项失败不影响其它轨 */
     function readProgress(path, fallback) {
         try {
             if (typeof HSPCBProgress === 'undefined' || !HSPCBProgress) return fallback;
@@ -67,7 +63,7 @@ window.studyDashboard = (function() {
         }
     }
 
-    /** 从 HSPCBStore 读取散装工具数据 */
+ /** 从 HSPCBStore 读取散装工具数据 */
     function readStore(key, fallback) {
         try {
             if (typeof HSPCBStore === 'undefined' || !HSPCBStore) return fallback;

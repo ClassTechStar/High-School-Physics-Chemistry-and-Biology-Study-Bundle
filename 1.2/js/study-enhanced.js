@@ -1,8 +1,7 @@
 // 记忆巩固与诊断模块
 // 包含：spacedRepetition(间隔重复), textbookFillBlank(教材挖空),
-//       adaptiveDiagnosis(自适应诊断), knowledgeHeatmap(知识盲区热力图)
+// adaptiveDiagnosis(自适应诊断), knowledgeHeatmap(知识盲区热力图)
 // 代码风格：ES5兼容，innerHTML渲染，内联样式，window暴露对象
-// ============================================================
 
 // ==================== 1. 间隔重复记忆系统（spacedRepetition）====================
 var spacedRepetition = {

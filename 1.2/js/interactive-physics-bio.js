@@ -2,9 +2,7 @@
 // 交互式学科工具模块
 // ES5兼容，零依赖，数据内嵌
 
-// ============================================================
 // 模块1: physicsGraphLab（物理图像实时实验室）
-// ============================================================
 window.physicsGraphLab = (function () {
     var state = {
         mode: 'kinematics',    // kinematics | electrical | mechanics
@@ -951,9 +949,7 @@ window.physicsGraphLab = (function () {
     };
 })();
 
-// ============================================================
 // 模块2: punnettSquareCalc（遗传棋盘法智能计算器）
-// ============================================================
 window.punnettSquareCalc = (function () {
     var state = {
         parent1: 'AaBb',

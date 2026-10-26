@@ -53,7 +53,7 @@ var ExamSystem={
                 }
             });
 
-            // T2-4 / P1-1: 原先此处保存 origLoad 再猴补丁 window.loadModuleContent，
+            // 原先此处保存 origLoad 再猴补丁 window.loadModuleContent，
             // 与 content-enhancement.js 的补丁、app.js 的权威定义构成 3 处赋值链。
             // 现改为 MODULE_REGISTRY 正式注册。注意：本监听器在 DOMContentLoaded
             // 中执行，晚于 app.js 的 registerBuiltinModules() IIFE，
@@ -614,10 +614,10 @@ var ExamSystem={
         var alreadyAnswered=container.dataset.answered;
         if(alreadyAnswered) return;
         container.dataset.answered='true';
-        // P0-19 修复：记录用户的**实际选择**。
+        // 修复：记录用户的**实际选择**。
         // 旧实现不记录，updateScore 只能靠读 option.style.background 反推用户选了哪个，
         // 而正确项无论用户选什么都会被染成 #e8f5e9 → selectedCorrect 恒为 true → 成绩恒 100%。
-        // 实测：故意选错（picked=2, correct=1）时，反馈显示「❌ 回答错误」但成绩显示 100%。
+        // 故意选错时（picked=2, correct=1），反馈显示回答错误但成绩显示 100%。
         container.dataset.picked=String(oidx);
         var correct=q.answer;
         options.forEach(function(opt,i){
@@ -652,7 +652,7 @@ var ExamSystem={
             var container=document.getElementById('quiz-q-'+subject+'-'+idx);
             if(container&&container.dataset.answered){
                 answered++;
-                // P0-19 修复：读 container.dataset.picked（checkAnswer 记录的用户实际选择），
+                // 修复：读 container.dataset.picked（checkAnswer 记录的用户实际选择），
                 // 不再读 style.background —— 后者无法区分「正确项」与「用户选中的正确项」。
                 var picked=container.dataset.picked;
                 if(picked!==undefined&&picked!==null&&picked!==''&&Number(picked)===Number(q.answer)){

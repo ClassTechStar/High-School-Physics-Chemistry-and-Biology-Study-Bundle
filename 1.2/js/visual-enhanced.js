@@ -1,16 +1,16 @@
 // 跨学科与可视化增强模块
 // 包含：crossSubjectTopics(跨学科融合专题)、techFrontiers(科技前沿关联)、
-//       formulaDerivation(公式推导动画)、physicsModelSim(物理模型可视化)、
-//       chemTransformNet(化学物质转化网络)、bioChartTrainer(生物图表题专项)
+// formulaDerivation(公式推导动画)、physicsModelSim(物理模型可视化)、
+// chemTransformNet(化学物质转化网络)、bioChartTrainer(生物图表题专项)
 // 纯前端实现，零依赖，ES5兼容。
-// 注：crossSubjectTopics 自 v1.4（T2-5）起改为运行时加载 data/cross-subject.json
-//     （22 条），内置 8 条仅作加载失败时的回退。
+// 注：crossSubjectTopics 自 v1.4（）起改为运行时加载 data/cross-subject.json
+// （22 条），内置 8 条仅作加载失败时的回退。
 
 // ==================== 1. crossSubjectTopics 跨学科融合专题 ====================
 var crossSubjectTopics = {
     state: { currentView: 'list', currentId: null },
 
-    // T2-5 / P1-2: data/cross-subject.json（22 条）曾被 Service Worker 预缓存、
+    // data/cross-subject.json（22 条）曾被 Service Worker 预缓存、
     // README 宣传，却无任何运行时消费方——本功能实际跑的是下方 8 条内置数据。
     // 现接线：异步加载 JSON 并适配为内置同构结构；加载失败（file:// 打开、
     // 网络异常等）回退内置数据，首屏始终立即可用。
@@ -243,7 +243,7 @@ var crossSubjectTopics = {
         });
     },
 
-    /** 学科码 → 中文名；icon/color 按主学科确定性派生 */
+ /** 学科码 → 中文名；icon/color 按主学科确定性派生 */
     _SUBJECT_NAMES: {
         physics: '物理', chemistry: '化学', biology: '生物',
         math: '数学', chinese: '语文', english: '英语'
@@ -257,7 +257,7 @@ var crossSubjectTopics = {
         math: '#f59e0b', chinese: '#ec4899', english: '#8b5cf6'
     },
 
-    /** JSON 条目 → 内置同构结构（examTrend→trend、学科学科码→中文、答案字母→索引） */
+ /** JSON 条目 → 内置同构结构（examTrend→trend、学科学科码→中文、答案字母→索引） */
     _adapt: function(raw) {
         var self = this;
         var letterToIdx = { A: 0, B: 1, C: 2, D: 3 };
@@ -298,7 +298,7 @@ var crossSubjectTopics = {
         return out;
     },
 
-    /** 加载 data/cross-subject.json；失败回退内置数据。callback(data) 必定被调用一次 */
+ /** 加载 data/cross-subject.json；失败回退内置数据。callback(data) 必定被调用一次 */
     loadData: function(callback) {
         var self = this;
         var done = function() {

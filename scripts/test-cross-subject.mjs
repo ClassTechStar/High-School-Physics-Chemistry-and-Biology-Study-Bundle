@@ -1,16 +1,16 @@
 /**
- * T2-5 / P1-2: cross-subject.json 接线回归测试
+ * cross-subject.json 接线回归测试
  *
  * 背景：data/cross-subject.json（22 条）曾被 Service Worker 预缓存、README 宣传，
  * 却无任何运行时消费方——跨学科专题功能实际跑的是 visual-enhanced.js 内置的 8 条。
  * v1.4 起改为运行时 fetch JSON 并适配为内置同构结构，加载失败回退内置数据。
  *
  * 本测试锁死：
- *   1. 适配器把 22 条 JSON 全部转换为渲染所需结构（无字段缺失）
- *   2. 答案字母（A/B/C/D）正确转为数字索引（_answer 按索引判题）
- *   3. 学科学科码（physics/...）转为中文名
- *   4. 内置回退数据仍在（8 条）且结构同构
- *   5. JSON 文件本身质量达标（防止接线后渲染出空壳条目）
+ * 1. 适配器把 22 条 JSON 全部转换为渲染所需结构（无字段缺失）
+ * 2. 答案字母（A/B/C/D）正确转为数字索引（_answer 按索引判题）
+ * 3. 学科学科码（physics/...）转为中文名
+ * 4. 内置回退数据仍在（8 条）且结构同构
+ * 5. JSON 文件本身质量达标（防止接线后渲染出空壳条目）
  */
 import { readFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';

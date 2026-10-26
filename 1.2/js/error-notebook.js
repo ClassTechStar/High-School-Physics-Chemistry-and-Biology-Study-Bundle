@@ -7,7 +7,7 @@ window.errorNotebook = (function() {
     var DIFFICULTY_LABELS = { easy: '基础', medium: '中等', hard: '较难' };
     var DIFFICULTY_STARS = { easy: '⭐', medium: '⭐⭐', hard: '⭐⭐⭐' };
 
-    /* ========== DATA LAYER ========== */
+ /* ========== DATA LAYER ========== */
 
     function loadData() {
         try {
@@ -19,7 +19,7 @@ window.errorNotebook = (function() {
                 return data;
             }
         } catch (e) {
-            /* corrupted data, reset */
+ /* corrupted data, reset */
         }
         return { errors: [], redoStats: { totalAttempts: 0, totalCorrect: 0, sessions: [] } };
     }
@@ -28,7 +28,7 @@ window.errorNotebook = (function() {
         try {
             HSPCBStore.set(STORAGE_KEY, JSON.stringify(data));
         } catch (e) {
-            /* storage full */
+ /* storage full */
         }
     }
 
@@ -40,7 +40,7 @@ window.errorNotebook = (function() {
         return new Date().toISOString();
     }
 
-    /* Add a wrong answer entry. Called by exam-review-system or other quiz modules. */
+ /* Add a wrong answer entry. Called by exam-review-system or other quiz modules. */
     function addError(entry) {
         var data = loadData();
         var err = {
@@ -120,7 +120,7 @@ window.errorNotebook = (function() {
         saveData(data);
     }
 
-    /* ========== STATS ========== */
+ /* ========== STATS ========== */
 
     function getStats() {
         var data = loadData();
@@ -141,7 +141,7 @@ window.errorNotebook = (function() {
         return { subjectStats: subjectStats, redoStats: data.redoStats, totalErrors: errors.length };
     }
 
-    /* Group errors by date for accuracy-over-time chart */
+ /* Group errors by date for accuracy-over-time chart */
     function getDailyAccuracy() {
         var data = loadData();
         var daily = {};
@@ -166,7 +166,7 @@ window.errorNotebook = (function() {
         return result;
     }
 
-    /* ========== FILTERING ========== */
+ /* ========== FILTERING ========== */
 
     function getFilteredErrors(filters) {
         var data = loadData();
@@ -198,7 +198,7 @@ window.errorNotebook = (function() {
         return result;
     }
 
-    /* ========== EXPORT ========== */
+ /* ========== EXPORT ========== */
 
     function exportAsText(filters) {
         var errors = filters ? getFilteredErrors(filters) : loadData().errors;
@@ -244,7 +244,7 @@ window.errorNotebook = (function() {
         URL.revokeObjectURL(url);
     }
 
-    /* ========== CSS STYLES ========== */
+ /* ========== CSS STYLES ========== */
 
     function injectStyles() {
         if (document.getElementById('error-notebook-styles')) return;
@@ -520,7 +520,7 @@ window.errorNotebook = (function() {
         document.head.appendChild(style);
     }
 
-    /* ========== RENDER FUNCTIONS ========== */
+ /* ========== RENDER FUNCTIONS ========== */
 
     var currentTab = 'all';
     var currentFilters = { subject: 'all', difficulty: 'all', mastered: 'all', dateFrom: '', dateTo: '', keyword: '' };
@@ -538,7 +538,7 @@ window.errorNotebook = (function() {
     }
 
     function buildLayout(app) {
-        /* Header */
+ /* Header */
         var header = document.createElement('div');
         header.className = 'enb-header';
         var title = document.createElement('h2');
@@ -549,33 +549,33 @@ window.errorNotebook = (function() {
         header.appendChild(actions);
         app.appendChild(header);
 
-        /* Stats bar */
+ /* Stats bar */
         var statsBar = document.createElement('div');
         statsBar.className = 'enb-stats-bar';
         statsBar.id = 'enb-stats-bar';
         app.appendChild(statsBar);
 
-        /* Tabs */
+ /* Tabs */
         var tabs = document.createElement('div');
         tabs.className = 'enb-tabs';
         tabs.id = 'enb-tabs';
         app.appendChild(tabs);
 
-        /* Tab content area */
+ /* Tab content area */
         var content = document.createElement('div');
         content.id = 'enb-tab-content';
         app.appendChild(content);
 
-        /* Build header action buttons */
+ /* Build header action buttons */
         buildHeaderActions(actions);
 
-        /* Build tabs */
+ /* Build tabs */
         buildTabs(tabs);
 
-        /* Refresh stats */
+ /* Refresh stats */
         refreshStats();
 
-        /* Show default tab */
+ /* Show default tab */
         switchTab('all');
     }
 
@@ -626,7 +626,7 @@ window.errorNotebook = (function() {
         currentTab = tab;
         redoState = null;
 
-        /* Update active tab styling */
+ /* Update active tab styling */
         var tabEls = document.querySelectorAll('#enb-tabs .enb-tab');
         for (var i = 0; i < tabEls.length; i++) {
             tabEls[i].classList.remove('active');
@@ -681,14 +681,14 @@ window.errorNotebook = (function() {
         return card;
     }
 
-    /* ========== TAB: ALL ERRORS ========== */
+ /* ========== TAB: ALL ERRORS ========== */
 
     function renderAllTab(container) {
-        /* Filters */
+ /* Filters */
         var filtersDiv = buildFilters();
         container.appendChild(filtersDiv);
 
-        /* Error list */
+ /* Error list */
         var listDiv = document.createElement('div');
         listDiv.id = 'enb-error-list';
         listDiv.className = 'enb-error-list';
@@ -701,7 +701,7 @@ window.errorNotebook = (function() {
         var div = document.createElement('div');
         div.className = 'enb-filters';
 
-        /* Subject filter */
+ /* Subject filter */
         var subjLabel = document.createElement('span');
         subjLabel.textContent = '学科:';
         subjLabel.style.cssText = 'font-size:0.85rem;font-weight:500;';
@@ -725,7 +725,7 @@ window.errorNotebook = (function() {
         }
         div.appendChild(subjSel);
 
-        /* Difficulty filter */
+ /* Difficulty filter */
         var diffLabel = document.createElement('span');
         diffLabel.textContent = '难度:';
         diffLabel.style.cssText = 'font-size:0.85rem;font-weight:500;margin-left:8px;';
@@ -751,7 +751,7 @@ window.errorNotebook = (function() {
         }
         div.appendChild(diffSel);
 
-        /* Status filter */
+ /* Status filter */
         var statLabel = document.createElement('span');
         statLabel.textContent = '状态:';
         statLabel.style.cssText = 'font-size:0.85rem;font-weight:500;margin-left:8px;';
@@ -776,7 +776,7 @@ window.errorNotebook = (function() {
         }
         div.appendChild(statSel);
 
-        /* Keyword */
+ /* Keyword */
         var kwInput = document.createElement('input');
         kwInput.type = 'text';
         kwInput.placeholder = '搜索关键词...';
@@ -792,7 +792,7 @@ window.errorNotebook = (function() {
         };
         div.appendChild(kwInput);
 
-        /* Date range */
+ /* Date range */
         var fromLabel = document.createElement('span');
         fromLabel.textContent = '从:';
         fromLabel.style.cssText = 'font-size:0.85rem;font-weight:500;margin-left:8px;';
@@ -838,7 +838,7 @@ window.errorNotebook = (function() {
             return;
         }
 
-        /* Sort by timestamp descending */
+ /* Sort by timestamp descending */
         errors.sort(function(a, b) {
             if (a.timestamp > b.timestamp) return -1;
             if (a.timestamp < b.timestamp) return 1;
@@ -855,7 +855,7 @@ window.errorNotebook = (function() {
         card.className = 'enb-error-card ' + (err.mastered ? 'mastered' : 'unmastered');
         card.setAttribute('data-id', err.id);
 
-        /* Meta row */
+ /* Meta row */
         var meta = document.createElement('div');
         meta.className = 'enb-error-meta';
 
@@ -889,13 +889,13 @@ window.errorNotebook = (function() {
 
         card.appendChild(meta);
 
-        /* Question */
+ /* Question */
         var questionDiv = document.createElement('div');
         questionDiv.className = 'enb-error-question';
         questionDiv.textContent = err.question;
         card.appendChild(questionDiv);
 
-        /* Answer row */
+ /* Answer row */
         var answerDiv = document.createElement('div');
         answerDiv.className = 'enb-error-answer';
         var wrongSpan = document.createElement('span');
@@ -912,7 +912,7 @@ window.errorNotebook = (function() {
         answerDiv.appendChild(countSpan);
         card.appendChild(answerDiv);
 
-        /* Explanation */
+ /* Explanation */
         if (err.explanation) {
             var explainDiv = document.createElement('div');
             explainDiv.className = 'enb-error-explain';
@@ -920,7 +920,7 @@ window.errorNotebook = (function() {
             card.appendChild(explainDiv);
         }
 
-        /* Options if present */
+ /* Options if present */
         if (err.options && err.options.length > 0) {
             var optsDiv = document.createElement('div');
             optsDiv.style.cssText = 'font-size:0.82rem;color:#555;margin-top:4px;';
@@ -928,7 +928,7 @@ window.errorNotebook = (function() {
             card.appendChild(optsDiv);
         }
 
-        /* Actions */
+ /* Actions */
         var actionsDiv = document.createElement('div');
         actionsDiv.className = 'enb-error-actions';
 
@@ -966,7 +966,7 @@ window.errorNotebook = (function() {
         return card;
     }
 
-    /* ========== TAB: BY SUBJECT ========== */
+ /* ========== TAB: BY SUBJECT ========== */
 
     function renderSubjectTab(container) {
         var stats = getStats();
@@ -977,7 +977,7 @@ window.errorNotebook = (function() {
         desc.textContent = '点击学科卡片查看该学科的错题详情。';
         container.appendChild(desc);
 
-        /* Subject cards grid */
+ /* Subject cards grid */
         var grid = document.createElement('div');
         grid.className = 'enb-subject-grid';
         grid.id = 'enb-subject-grid';
@@ -989,7 +989,7 @@ window.errorNotebook = (function() {
             grid.appendChild(buildSubjectCard(subj, st));
         }
 
-        /* Detail area */
+ /* Detail area */
         var detailDiv = document.createElement('div');
         detailDiv.id = 'enb-subject-detail';
         container.appendChild(detailDiv);
@@ -1000,7 +1000,7 @@ window.errorNotebook = (function() {
         card.className = 'enb-subject-card';
         card.setAttribute('data-subject', subject);
         card.onclick = function() {
-            /* Deselect all */
+ /* Deselect all */
             var allCards = document.querySelectorAll('.enb-subject-card');
             for (var i = 0; i < allCards.length; i++) {
                 allCards[i].classList.remove('selected');
@@ -1089,7 +1089,7 @@ window.errorNotebook = (function() {
             return;
         }
 
-        /* Difficulty breakdown in subject view */
+ /* Difficulty breakdown in subject view */
         var diffBreakdown = document.createElement('div');
         diffBreakdown.style.cssText = 'display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;font-size:0.85rem;';
         var difficulties = ['easy', 'medium', 'hard'];
@@ -1110,7 +1110,7 @@ window.errorNotebook = (function() {
         }
         detailDiv.appendChild(diffBreakdown);
 
-        /* Error list for subject */
+ /* Error list for subject */
         var listDiv = document.createElement('div');
         listDiv.className = 'enb-error-list';
         errors.sort(function(a, b) {
@@ -1124,10 +1124,10 @@ window.errorNotebook = (function() {
         detailDiv.appendChild(listDiv);
     }
 
-    /* ========== TAB: REDO MODE ========== */
+ /* ========== TAB: REDO MODE ========== */
 
     function renderRedoTab(container) {
-        /* Get errors for redo (filtered by current subject filter or all unmastered) */
+ /* Get errors for redo (filtered by current subject filter or all unmastered) */
         var redoFilters = {
             subject: currentFilters.subject || 'all',
             difficulty: 'all',
@@ -1151,7 +1151,7 @@ window.errorNotebook = (function() {
             return;
         }
 
-        /* Initialize redo session */
+ /* Initialize redo session */
         redoState = {
             errors: errors,
             currentIndex: 0,
@@ -1174,7 +1174,7 @@ window.errorNotebook = (function() {
 
         container.innerHTML = '';
 
-        /* Progress bar */
+ /* Progress bar */
         var progressDiv = document.createElement('div');
         progressDiv.className = 'enb-redo-progress';
 
@@ -1196,11 +1196,11 @@ window.errorNotebook = (function() {
 
         container.appendChild(progressDiv);
 
-        /* Question card */
+ /* Question card */
         var card = document.createElement('div');
         card.className = 'enb-redo-card';
 
-        /* Meta */
+ /* Meta */
         var meta = document.createElement('div');
         meta.className = 'enb-error-meta';
         var subjBadge = document.createElement('span');
@@ -1218,13 +1218,13 @@ window.errorNotebook = (function() {
         meta.appendChild(chBadge);
         card.appendChild(meta);
 
-        /* Question text */
+ /* Question text */
         var questionP = document.createElement('p');
         questionP.style.cssText = 'font-weight:600;line-height:1.6;margin:10px 0;';
         questionP.textContent = err.question;
         card.appendChild(questionP);
 
-        /* Options */
+ /* Options */
         if (err.options && err.options.length > 0) {
             var optsDiv = document.createElement('div');
             optsDiv.className = 'enb-redo-options';
@@ -1243,7 +1243,7 @@ window.errorNotebook = (function() {
             }
             card.appendChild(optsDiv);
         } else {
-            /* If no option list, provide text input */
+ /* If no option list, provide text input */
             var inputDiv = document.createElement('div');
             inputDiv.style.cssText = 'margin:10px 0;';
             var inputLabel = document.createElement('label');
@@ -1271,7 +1271,7 @@ window.errorNotebook = (function() {
             card.appendChild(inputDiv);
         }
 
-        /* Feedback */
+ /* Feedback */
         var feedback = document.createElement('div');
         feedback.className = 'enb-redo-feedback';
         feedback.id = 'enb-redo-feedback';
@@ -1288,7 +1288,7 @@ window.errorNotebook = (function() {
         var userAnswerLetter = selectedIndex < optionLabels.length ? optionLabels[selectedIndex] : String(selectedIndex);
         var isCorrect = (userAnswerLetter === correctAnswer);
 
-        /* Highlight options */
+ /* Highlight options */
         var optionBtns = document.querySelectorAll('#enb-redo-options .enb-redo-option');
         for (var i = 0; i < optionBtns.length; i++) {
             optionBtns[i].disabled = true;
@@ -1325,7 +1325,7 @@ window.errorNotebook = (function() {
         }
         recordRedoAttempt(isCorrect);
 
-        /* Show feedback */
+ /* Show feedback */
         var feedback = document.getElementById('enb-redo-feedback');
         if (feedback) {
             feedback.className = 'enb-redo-feedback show ' + (isCorrect ? 'correct' : 'wrong');
@@ -1336,7 +1336,7 @@ window.errorNotebook = (function() {
             }
         }
 
-        /* Next button */
+ /* Next button */
         var container = document.getElementById('enb-redo-container');
         if (!container) return;
 
@@ -1354,7 +1354,7 @@ window.errorNotebook = (function() {
             };
             navDiv.appendChild(nextBtn);
         } else {
-            /* Session complete */
+ /* Session complete */
             var finishBtn = document.createElement('button');
             finishBtn.className = 'enb-btn enb-btn-primary';
             finishBtn.textContent = '查看结果';
@@ -1364,7 +1364,7 @@ window.errorNotebook = (function() {
             navDiv.appendChild(finishBtn);
         }
 
-        /* Skip / end early */
+ /* Skip / end early */
         var endBtn = document.createElement('button');
         endBtn.className = 'enb-btn';
         endBtn.textContent = '结束重做';
@@ -1399,7 +1399,7 @@ window.errorNotebook = (function() {
         refreshStats();
     }
 
-    /* ========== MODAL ========== */
+ /* ========== MODAL ========== */
 
     function showClearConfirm() {
         var data = loadData();
@@ -1441,7 +1441,7 @@ window.errorNotebook = (function() {
         };
     }
 
-    /* ========== PUBLIC API ========== */
+ /* ========== PUBLIC API ========== */
 
     function getErrorsBySubject(subject) {
         var data = loadData();

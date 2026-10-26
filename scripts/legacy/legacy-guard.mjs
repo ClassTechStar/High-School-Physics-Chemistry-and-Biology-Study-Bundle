@@ -1,14 +1,14 @@
 /**
  * legacy-guard.mjs — 一次性数据脚本的熔断保护
  *
- * 背景（DEV-PLAN T0-4 / P1-9）：
- *   仓库里有一批一次性修复脚本会重写 1MB 的 exam-bank.json，且修复目标早已被门禁固化。
- *   其中 fix-phase-a-data.mjs 硬编码覆写 PHY_2018_01 的 options/answer/analysis ——
- *   重跑会把 P0-1 已修好的答案键 D 改回 A，重新引入 161 道题的解析/答案矛盾。
+ * 背景（DEV-PLAN ）：
+ * 仓库里有一批一次性修复脚本会重写 1MB 的 exam-bank.json，且修复目标早已被门禁固化。
+ * 其中 fix-phase-a-data.mjs 硬编码覆写 PHY_2018_01 的 options/answer/analysis ——
+ * 重跑会把 已修好的答案键 D 改回 A，重新引入 161 道题的解析/答案矛盾。
  *
  * 用法：
- *   import { guard } from './legacy-guard.mjs';
- *   guard('fix-no-options.mjs');   // 不带 --apply 时直接 return，不写任何文件
+ * import { guard } from './legacy-guard.mjs';
+ * guard('fix-no-options.mjs'); // 不带 --apply 时直接 return，不写任何文件
  */
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';

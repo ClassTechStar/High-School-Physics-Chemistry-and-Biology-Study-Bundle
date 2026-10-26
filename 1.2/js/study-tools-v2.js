@@ -1,7 +1,5 @@
-// ============================================================
 // js/study-tools-v2.js — Study Enhancement Tools (5 Modules)
 // ES5 Compatible | IIFE Pattern | Canvas Charts | Inline Styles
-// ============================================================
 
 /* ========== SHARED UTILITIES ========== */
 
@@ -131,7 +129,7 @@ window.pomodoroTimer = (function() {
             osc.start(ctx.currentTime);
             osc.stop(ctx.currentTime + 0.6);
 
-            /* second beep after short gap */
+ /* second beep after short gap */
             var osc2 = ctx.createOscillator();
             var gain2 = ctx.createGain();
             osc2.connect(gain2);
@@ -166,7 +164,7 @@ window.pomodoroTimer = (function() {
         data.dailyCount[today]++;
         if (!data.dailyTime[today]) data.dailyTime[today] = 0;
         data.dailyTime[today] += 25;
-        /* keep only last 200 sessions */
+ /* keep only last 200 sessions */
         if (data.sessions.length > 200) {
             data.sessions = data.sessions.slice(-200);
         }
@@ -193,7 +191,7 @@ window.pomodoroTimer = (function() {
         return result;
     }
 
-    /* ===== Canvas Progress Ring ===== */
+ /* ===== Canvas Progress Ring ===== */
 
     function drawRing() {
         var canvas = document.getElementById('pomodoro-canvas');
@@ -205,14 +203,14 @@ window.pomodoroTimer = (function() {
 
         ctx.clearRect(0, 0, w, h);
 
-        /* background ring */
+ /* background ring */
         ctx.beginPath();
         ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
         ctx.strokeStyle = '#e8e8e8';
         ctx.lineWidth = 10;
         ctx.stroke();
 
-        /* progress ring (remaining) */
+ /* progress ring (remaining) */
         var total = state.mode === 'focus' ? FOCUS_SECONDS : BREAK_SECONDS;
         var progress = total > 0 ? state.remaining / total : 0;
         var startAngle = -Math.PI / 2;
@@ -228,7 +226,7 @@ window.pomodoroTimer = (function() {
             ctx.stroke();
         }
 
-        /* time text */
+ /* time text */
         var mins = Math.floor(state.remaining / 60);
         var secs = state.remaining % 60;
         var timeStr = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
@@ -239,12 +237,12 @@ window.pomodoroTimer = (function() {
         ctx.textBaseline = 'middle';
         ctx.fillText(timeStr, cx, cy - 8);
 
-        /* mode label */
+ /* mode label */
         ctx.font = '15px Arial, sans-serif';
         ctx.fillStyle = color;
         ctx.fillText(state.mode === 'focus' ? '\u4E13\u6CE8\u4E2D' : '\u4F11\u606F\u4E2D', cx, cy + 24);
 
-        /* subject label */
+ /* subject label */
         ctx.font = '13px Arial, sans-serif';
         ctx.fillStyle = '#999';
         ctx.fillText(state.subject, cx, cy + 46);
@@ -369,7 +367,7 @@ window.pomodoroTimer = (function() {
         html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u756A\u8304\u949F\u5B66\u4E60\u6CD5</h2>';
         html += '<div data-style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">';
 
-        /* canvas area */
+ /* canvas area */
         html += '<div data-style="flex:0 0 auto;text-align:center;">';
         html += '<canvas id="pomodoro-canvas" width="220" height="220" data-style="display:block;margin:0 auto;"></canvas>';
         html += '<div data-style="margin-top:12px;display:flex;gap:10px;justify-content:center;">';
@@ -378,7 +376,7 @@ window.pomodoroTimer = (function() {
         html += '<button id="pomo-reset-btn" data-style="' + _ST.btn + _ST.btnGray + _ST.btnSm + '">\u91CD\u7F6E</button>';
         html += '</div></div>';
 
-        /* controls area */
+ /* controls area */
         html += '<div data-style="flex:1;min-width:240px;">';
         html += '<label data-style="' + _ST.label + '">\u5B66\u79D1\u9009\u62E9</label>';
         html += '<select id="pomo-subject-select" data-style="' + _ST.select + 'width:100%;">' + subjectOpts + '</select>';
@@ -396,7 +394,7 @@ window.pomodoroTimer = (function() {
         html += '</div>';
         html += '</div>'; /* end flex */
 
-        /* session list */
+ /* session list */
         html += '<div data-style="margin-top:20px;">';
         html += '<h3 data-style="font-size:15px;color:#555;margin:0 0 8px;">\u4ECA\u65E5\u5B8C\u6210\u8BB0\u5F55</h3>';
         html += '<div id="pomo-session-list" data-style="max-height:200px;overflow-y:auto;"></div>';
@@ -406,7 +404,7 @@ window.pomodoroTimer = (function() {
 
         container.innerHTML = html;
 
-        /* attach listeners */
+ /* attach listeners */
         var startBtn = document.getElementById('pomo-start-btn');
         if (startBtn) startBtn.addEventListener('click', start);
         var pauseBtn = document.getElementById('pomo-pause-btn');
@@ -421,7 +419,7 @@ window.pomodoroTimer = (function() {
         drawRing();
         renderSessionList();
 
-        /* resume interval if was running */
+ /* resume interval if was running */
         if (state.running && !state.intervalId) {
             state.intervalId = setInterval(tick, 1000);
         }
@@ -460,7 +458,7 @@ window.studyPlanGenerator = (function() {
         if (!days || days < 1) days = 30;
         days = Math.min(days, 365);
 
-        /* build weighted subject pool */
+ /* build weighted subject pool */
         var pool = [];
         for (var i = 0; i < SUBJECTS.length; i++) {
             var weight = 1;
@@ -493,7 +491,7 @@ window.studyPlanGenerator = (function() {
             var date = new Date(startDate.getTime() + d * 24 * 60 * 60 * 1000);
             var dateStr = _util.formatDate(date);
 
-            /* rest day every 7 days */
+ /* rest day every 7 days */
             if ((d + 1) % 7 === 0) {
                 plan.push({
                     date: dateStr,
@@ -514,7 +512,7 @@ window.studyPlanGenerator = (function() {
             var evening = pickSubject(usedToday);
             usedToday.push(evening);
 
-            /* practice test every 3 study days */
+ /* practice test every 3 study days */
             practiceCounter++;
             var practiceTest = '\u65E0';
             if (practiceCounter >= 3) {
@@ -553,7 +551,7 @@ window.studyPlanGenerator = (function() {
         html += '</div>';
         html += '</div>';
 
-        /* stats summary */
+ /* stats summary */
         var studyDays = 0, restDays = 0;
         var subjCount = {};
         for (var i = 0; i < plan.length; i++) {
@@ -575,7 +573,7 @@ window.studyPlanGenerator = (function() {
         html += '<div data-style="background:#fff7e6;padding:8px 16px;border-radius:8px;font-size:13px;">\u4F11\u606F\u5929: <b>' + restDays + '</b></div>';
         html += '</div>';
 
-        /* subject distribution */
+ /* subject distribution */
         html += '<div data-style="margin-bottom:12px;font-size:13px;color:#666;">';
         var subjKeys = Object.keys(subjCount);
         for (var s = 0; s < subjKeys.length; s++) {
@@ -583,7 +581,7 @@ window.studyPlanGenerator = (function() {
         }
         html += '</div>';
 
-        /* table */
+ /* table */
         html += '<div data-style="overflow-x:auto;max-height:500px;overflow-y:auto;">';
         html += '<table data-style="' + _ST.table + '">';
         html += '<thead><tr><th data-style="' + _ST.th + '">\u65E5\u671F</th><th data-style="' + _ST.th + '">\u4E0A\u5348</th><th data-style="' + _ST.th + '">\u4E0B\u5348</th><th data-style="' + _ST.th + '">\u665A\u95F4\u590D\u4E60</th><th data-style="' + _ST.th + '">\u7EC3\u4E60\u6D4B\u8BD5</th></tr></thead>';
@@ -673,7 +671,7 @@ window.studyPlanGenerator = (function() {
         html += '<div data-style="' + _ST.card + '">';
         html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u9AD8\u8003\u590D\u4E60\u8BA1\u5212\u751F\u6210\u5668</h2>';
 
-        /* input form */
+ /* input form */
         html += '<div data-style="' + _ST.flexCol + 'margin-bottom:16px;">';
         html += '<div data-style="' + _ST.flexRow + '">';
         html += '<div data-style="flex:1;min-width:180px;"><label data-style="' + _ST.label + '">\u8DDD\u9AD8\u8003\u5929\u6570</label>';
@@ -682,7 +680,7 @@ window.studyPlanGenerator = (function() {
         html += '<input id="sp-score-input" type="number" value="600" min="300" max="750" data-style="' + _ST.input + '"></div>';
         html += '</div>';
 
-        /* weak subjects checkboxes */
+ /* weak subjects checkboxes */
         html += '<div><label data-style="' + _ST.label + '">\u8584\u5F31\u5B66\u79D1\uFF08\u52FE\u9009\u540E\u5C06\u83B7\u5F97\u66F4\u591A\u65F6\u95F4\u5206\u914D\uFF09</label>';
         html += '<div data-style="' + _ST.flexRow + '">';
         for (var i = 0; i < SUBJECTS.length; i++) {
@@ -694,7 +692,7 @@ window.studyPlanGenerator = (function() {
         html += '<div><button id="sp-generate-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u751F\u6210\u590D\u4E60\u8BA1\u5212</button></div>';
         html += '</div>';
 
-        /* saved plan notice */
+ /* saved plan notice */
         var saved = loadSavedPlan();
         if (saved && saved.plan) {
             html += '<div data-style="background:#f6ffed;border:1px solid #b7eb84;padding:10px 16px;border-radius:8px;font-size:13px;color:#52c41a;margin-bottom:12px;">';
@@ -704,7 +702,7 @@ window.studyPlanGenerator = (function() {
 
         html += '</div>';
 
-        /* plan output area */
+ /* plan output area */
         html += '<div id="sp-plan-output"></div>';
 
         container.innerHTML = html;
@@ -712,7 +710,7 @@ window.studyPlanGenerator = (function() {
         var genBtn = document.getElementById('sp-generate-btn');
         if (genBtn) genBtn.addEventListener('click', generate);
 
-        /* if saved plan exists, render it */
+ /* if saved plan exists, render it */
         if (saved && saved.plan) {
             var out = document.getElementById('sp-plan-output');
             if (out) {
@@ -900,7 +898,7 @@ window.masteryRadar = (function() {
 
         ctx.clearRect(0, 0, w, h);
 
-        /* grid rings */
+ /* grid rings */
         for (var r = 1; r <= 4; r++) {
             ctx.beginPath();
             var rr = radius * r / 4;
@@ -915,7 +913,7 @@ window.masteryRadar = (function() {
             ctx.stroke();
         }
 
-        /* grid level labels */
+ /* grid level labels */
         ctx.font = '10px Arial, sans-serif';
         ctx.fillStyle = '#bbb';
         ctx.textAlign = 'left';
@@ -923,7 +921,7 @@ window.masteryRadar = (function() {
             ctx.fillText((rl * 25) + '', cx + 2, cy - radius * rl / 4 + 3);
         }
 
-        /* axes */
+ /* axes */
         for (var a = 0; a < n; a++) {
             var angleA = -Math.PI / 2 + a * 2 * Math.PI / n;
             ctx.beginPath();
@@ -934,7 +932,7 @@ window.masteryRadar = (function() {
             ctx.stroke();
         }
 
-        /* data polygon */
+ /* data polygon */
         ctx.beginPath();
         for (var d = 0; d <= n; d++) {
             var idx = d % n;
@@ -950,7 +948,7 @@ window.masteryRadar = (function() {
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        /* data points */
+ /* data points */
         for (var p = 0; p < n; p++) {
             var valP = values[p] / 100;
             var angleP = -Math.PI / 2 + p * 2 * Math.PI / n;
@@ -965,7 +963,7 @@ window.masteryRadar = (function() {
             ctx.stroke();
         }
 
-        /* labels */
+ /* labels */
         ctx.font = '13px Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -976,14 +974,14 @@ window.masteryRadar = (function() {
             ctx.fillStyle = '#555';
             ctx.fillText(labels[l], lx, ly);
 
-            /* value below label */
+ /* value below label */
             ctx.font = '11px Arial, sans-serif';
             ctx.fillStyle = '#4a90e2';
             ctx.fillText(values[l] + '', lx, ly + 14);
             ctx.font = '13px Arial, sans-serif';
         }
 
-        /* title */
+ /* title */
         ctx.font = 'bold 16px Arial, sans-serif';
         ctx.fillStyle = '#333';
         ctx.textAlign = 'center';
@@ -1007,7 +1005,7 @@ window.masteryRadar = (function() {
         data[currentSubject][dim] = parseInt(value, 10);
         saveMasteryData(data);
 
-        /* update value display */
+ /* update value display */
         var valEl = document.getElementById('mastery-slider-val-' + dimIdx);
         if (valEl) valEl.textContent = value;
 
@@ -1061,7 +1059,7 @@ window.masteryRadar = (function() {
         html += '<div data-style="' + _ST.card + '">';
         html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u638C\u63E1\u5EA6\u96F7\u8FBE\u56FE</h2>';
 
-        /* subject tabs */
+ /* subject tabs */
         html += '<div data-style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;">';
         for (var i = 0; i < SUBJECT_KEYS.length; i++) {
             var key = SUBJECT_KEYS[i];
@@ -1074,7 +1072,7 @@ window.masteryRadar = (function() {
         }
         html += '</div>';
 
-        /* canvas + sliders */
+ /* canvas + sliders */
         html += '<div data-style="display:flex;gap:24px;flex-wrap:wrap;">';
         html += '<div data-style="flex:0 0 360px;text-align:center;">';
         html += '<canvas id="mastery-canvas" width="360" height="360" data-style="display:block;margin:0 auto;"></canvas>';
@@ -1094,13 +1092,13 @@ window.masteryRadar = (function() {
 
         container.innerHTML = html;
 
-        /* attach tab listeners */
+ /* attach tab listeners */
         var tabs = container.getElementsByClassName('mastery-subj-btn');
         for (var j = 0; j < tabs.length; j++) {
             (function(tab) {
                 tab.addEventListener('click', function() {
                     switchSubject(tab.getAttribute('data-key'));
-                    /* update tab styles */
+ /* update tab styles */
                     var allTabs = container.getElementsByClassName('mastery-subj-btn');
                     for (var k = 0; k < allTabs.length; k++) {
                         allTabs[k].style.borderColor = '#d9d9d9';
@@ -1171,7 +1169,7 @@ window.errorVariation = (function() {
         saveStats(stats);
     }
 
-    /* ===== Variation Generation ===== */
+ /* ===== Variation Generation ===== */
 
     function generateVariation(error) {
         var q = error.question || '';
@@ -1213,7 +1211,7 @@ window.errorVariation = (function() {
 
         if (changes.length === 0) return null;
 
-        /* try to compute new answer */
+ /* try to compute new answer */
         var newAnswer = correctAnswer;
         var canCompute = false;
         var ansNumMatch = correctAnswer.match(numRegex);
@@ -1232,7 +1230,7 @@ window.errorVariation = (function() {
             canCompute = true;
         }
 
-        /* update options if multiple choice */
+ /* update options if multiple choice */
         var newOptions = [];
         for (var o = 0; o < options.length; o++) {
             var opt = options[o];
@@ -1290,7 +1288,7 @@ window.errorVariation = (function() {
                 variations.push(v);
             }
         }
-        /* limit to 20 variations */
+ /* limit to 20 variations */
         if (variations.length > 20) variations = variations.slice(0, 20);
         return variations;
     }
@@ -1333,25 +1331,25 @@ window.errorVariation = (function() {
         html += '<span data-style="font-size:13px;color:#999;">\u7B2C ' + (state.currentIdx + 1) + ' / ' + state.variations.length + ' \u9053</span>';
         html += '</div>';
 
-        /* progress bar */
+ /* progress bar */
         var progress = state.variations.length > 0 ? (state.currentIdx / state.variations.length) * 100 : 0;
         html += '<div data-style="background:#f0f0f0;border-radius:4px;height:6px;margin-bottom:16px;overflow:hidden;">';
         html += '<div data-style="width:' + progress + '%;height:100%;background:#4a90e2;transition:width .3s;"></div></div>';
 
-        /* score so far */
+ /* score so far */
         html += '<div data-style="display:flex;gap:12px;margin-bottom:16px;">';
         html += '<span data-style="' + _ST.tag + 'background:#e6f7ff;color:#4a90e2;">\u6B63\u786E: ' + state.correctCount + '</span>';
         html += '<span data-style="' + _ST.tag + 'background:#fff1f0;color:#ff4d4f;">\u9519\u8BEF: ' + (state.totalCount - state.correctCount) + '</span>';
         html += '<span data-style="' + _ST.tag + 'background:#f6ffed;color:#52c41a;">\u5B66\u79D1: ' + SUBJECT_NAMES[v.subject] + '</span>';
         html += '</div>';
 
-        /* variation question */
+ /* variation question */
         html += '<div data-style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
         html += '<div data-style="font-size:11px;color:#fa8c16;margin-bottom:8px;">\u2191 \u4EE5\u4E0B\u4E3A\u53D8\u5F0F\u9898\u76EE\uFF08\u6570\u503C\u5DF2\u4FEE\u6539\uFF09</div>';
         html += '<p data-style="font-size:15px;line-height:1.8;color:#333;margin:0;">' + _util.escapeHtml(v.variationQuestion) + '</p>';
         html += '</div>';
 
-        /* options or input */
+ /* options or input */
         if (v.variationOptions && v.variationOptions.length > 0) {
             html += '<div id="ev-options-area" data-style="margin-bottom:16px;">';
             for (var i = 0; i < v.variationOptions.length; i++) {
@@ -1369,7 +1367,7 @@ window.errorVariation = (function() {
             html += '</div>';
         }
 
-        /* action buttons */
+ /* action buttons */
         if (!state.answered) {
             html += '<div id="ev-action-area">';
             html += '<button id="ev-submit-btn" data-style="' + _ST.btn + _ST.btnPrimary + '">\u63D0\u4EA4\u7B54\u6848</button>';
@@ -1379,14 +1377,14 @@ window.errorVariation = (function() {
             html += '</div>';
         }
 
-        /* result area (filled after answering) */
+ /* result area (filled after answering) */
         html += '<div id="ev-result-area"></div>';
 
         html += '</div>';
 
         container.innerHTML = html;
 
-        /* attach listeners */
+ /* attach listeners */
         var submitBtn = document.getElementById('ev-submit-btn');
         if (submitBtn) submitBtn.addEventListener('click', submitAnswer);
 
@@ -1395,7 +1393,7 @@ window.errorVariation = (function() {
             (function(el) {
                 el.addEventListener('click', function() {
                     if (state.answered) return;
-                    /* deselect others */
+ /* deselect others */
                     var siblings = container.getElementsByClassName('ev-option');
                     for (var k = 0; k < siblings.length; k++) {
                         siblings[k].style.borderColor = '#e0e0e0';
@@ -1456,12 +1454,12 @@ window.errorVariation = (function() {
             resultHtml += '<div data-style="background:#fff1f0;border:1px solid #ffa39e;padding:14px;border-radius:8px;margin-top:12px;">';
             resultHtml += '<div data-style="font-size:16px;color:#ff4d4f;font-weight:bold;margin-bottom:8px;">\u2718 \u7B54\u9519\u4E86</div>';
         } else {
-            /* self-grade */
+ /* self-grade */
             resultHtml += '<div data-style="background:#fffbe6;border:1px solid #ffe58f;padding:14px;border-radius:8px;margin-top:12px;">';
             resultHtml += '<div data-style="font-size:16px;color:#faad14;font-weight:bold;margin-bottom:8px;">\u8BF7\u81EA\u884C\u5224\u65AD</div>';
         }
 
-        /* show original vs variation */
+ /* show original vs variation */
         resultHtml += '<div data-style="margin-top:10px;font-size:13px;">';
         resultHtml += '<div data-style="margin-bottom:6px;color:#666;"><b>\u539F\u9898:</b> ' + _util.escapeHtml(v.originalQuestion) + '</div>';
         resultHtml += '<div data-style="margin-bottom:6px;color:#666;"><b>\u539F\u7B54\u6848:</b> ' + _util.escapeHtml(v.originalAnswer) + '</div>';
@@ -1478,7 +1476,7 @@ window.errorVariation = (function() {
         }
         resultHtml += '</div>';
 
-        /* self-grade buttons if needed */
+ /* self-grade buttons if needed */
         if (isCorrect === null) {
             resultHtml += '<div data-style="margin-top:10px;display:flex;gap:8px;">';
             resultHtml += '<button id="ev-self-correct" data-style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u6211\u7B54\u5BF9\u4E86</button>';
@@ -1492,15 +1490,15 @@ window.errorVariation = (function() {
         var resultArea = document.getElementById('ev-result-area');
         if (resultArea) resultArea.innerHTML = resultHtml;
 
-        /* hide submit area */
+ /* hide submit area */
         var actionArea = document.getElementById('ev-action-area');
         if (actionArea) actionArea.style.display = 'none';
 
-        /* attach next button */
+ /* attach next button */
         var nextBtn = document.getElementById('ev-next-btn');
         if (nextBtn) nextBtn.addEventListener('click', nextVariation);
 
-        /* attach self-grade buttons */
+ /* attach self-grade buttons */
         var selfCorrect = document.getElementById('ev-self-correct');
         if (selfCorrect) selfCorrect.addEventListener('click', function() {
             state.correctCount++;
@@ -1548,12 +1546,12 @@ window.errorVariation = (function() {
         html += '<div><div data-style="font-size:24px;font-weight:bold;color:#4a90e2;">' + state.totalCount + '</div><div data-style="font-size:12px;color:#999;">\u603B\u8BA1</div></div>';
         html += '</div>';
 
-        /* overall stats */
+ /* overall stats */
         html += '<div data-style="background:#f5f5f5;padding:12px;border-radius:8px;margin-bottom:20px;font-size:13px;color:#666;">';
         html += '\u5386\u53F2\u53D8\u5F0F\u7EC3\u4E60: ' + stats.totalAttempts + ' \u6B21\uFF0C\u603B\u6B63\u786E\u7387: ' + overallAcc + '%';
         html += '</div>';
 
-        /* by subject */
+ /* by subject */
         if (stats.bySubject) {
             var keys = Object.keys(stats.bySubject);
             if (keys.length > 0) {
@@ -1696,13 +1694,13 @@ window.noteSystem = (function() {
         saveData(filtered);
     }
 
-    /* ===== Simple Markdown Renderer ===== */
+ /* ===== Simple Markdown Renderer ===== */
 
     function inlineFormat(text) {
         var t = _util.escapeHtml(text);
-        /* bold */
+ /* bold */
         t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-        /* inline code */
+ /* inline code */
         t = t.replace(/`([^`]+)`/g, '<code data-style="background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:13px;">$1</code>');
         return t;
     }
@@ -1718,7 +1716,7 @@ window.noteSystem = (function() {
             var line = lines[i];
             var trimmed = line.replace(/^\s+/, '');
 
-            /* code block toggle */
+ /* code block toggle */
             if (trimmed.indexOf('```') === 0) {
                 if (inCode) {
                     html += '</code></pre>';
@@ -1735,7 +1733,7 @@ window.noteSystem = (function() {
                 continue;
             }
 
-            /* headers */
+ /* headers */
             if (trimmed.indexOf('### ') === 0) {
                 if (inList) { html += '</ul>'; inList = false; }
                 html += '<h3 data-style="margin:10px 0 5px;font-size:15px;color:#333;">' + inlineFormat(trimmed.slice(4)) + '</h3>';
@@ -1797,7 +1795,7 @@ window.noteSystem = (function() {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         } catch (e) {
-            /* fallback for older browsers */
+ /* fallback for older browsers */
             var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(json);
             var a2 = document.createElement('a');
             a2.href = dataStr;
@@ -1833,7 +1831,7 @@ window.noteSystem = (function() {
             addNote(subject, topic, content);
         }
 
-        /* reset form */
+ /* reset form */
         if (topicEl) topicEl.value = '';
         if (contentEl) contentEl.value = '';
         var submitBtn = document.getElementById('note-submit-btn');
@@ -1950,7 +1948,7 @@ window.noteSystem = (function() {
         html += '<div data-style="' + _ST.card + '">';
         html += '<h2 data-style="margin:0 0 16px;font-size:20px;color:#333;">\u5B66\u4E60\u7B14\u8BB0</h2>';
 
-        /* editor form */
+ /* editor form */
         html += '<div data-style="background:#f9f9f9;padding:16px;border-radius:8px;margin-bottom:16px;">';
         html += '<div data-style="' + _ST.flexRow + 'margin-bottom:10px;">';
         html += '<div data-style="flex:0 0 120px;"><label data-style="' + _ST.label + '">\u5B66\u79D1</label>';
@@ -1967,24 +1965,24 @@ window.noteSystem = (function() {
         html += '</div>';
         html += '</div>';
 
-        /* search and filter bar */
+ /* search and filter bar */
         html += '<div data-style="' + _ST.flexRow + 'margin-bottom:12px;">';
         html += '<input id="note-search-input" type="text" data-style="' + _ST.input + 'flex:1;" placeholder="\u641C\u7D22\u7B14\u8BB0...">';
         html += '<select id="note-filter-select" data-style="' + _ST.select + 'width:140px;">' + subjectOpts + '</select>';
         html += '<button id="note-export-btn" data-style="' + _ST.btn + _ST.btnSuccess + _ST.btnSm + '">\u5BFC\u51FA JSON</button>';
         html += '</div>';
 
-        /* note count */
+ /* note count */
         html += '<div data-style="font-size:13px;color:#999;margin-bottom:8px;">\u5171 <span id="note-count">0</span> \u6761\u7B14\u8BB0</div>';
 
-        /* note list */
+ /* note list */
         html += '<div id="note-list"></div>';
 
         html += '</div>';
 
         container.innerHTML = html;
 
-        /* attach listeners */
+ /* attach listeners */
         var submitBtn = document.getElementById('note-submit-btn');
         if (submitBtn) submitBtn.addEventListener('click', submitNote);
         var cancelBtn = document.getElementById('note-cancel-btn');
@@ -2003,7 +2001,7 @@ window.noteSystem = (function() {
         var filterSelect = document.getElementById('note-filter-select');
         if (filterSelect) filterSelect.addEventListener('change', renderNoteList);
 
-        /* keyboard shortcut: Ctrl+Enter to submit */
+ /* keyboard shortcut: Ctrl+Enter to submit */
         var contentInput = document.getElementById('note-content-input');
         if (contentInput) {
             contentInput.addEventListener('keydown', function(e) {
@@ -2016,7 +2014,7 @@ window.noteSystem = (function() {
         renderNoteList();
     }
 
-    /* expose edit/delete for inline onclick handlers */
+ /* expose edit/delete for inline onclick handlers */
     return {
         render: render,
         _startEdit: startEdit,

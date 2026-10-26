@@ -14,9 +14,9 @@
     } catch (e) { return def; }
   }
 
-  // 【T2-1 / T2-3】写入统一入口：
-  //   学习时长属**学习进度**轨 → 权威源为 hspcb.v2.studyTime（HSPCBProgress）。
-  //   同步写一份到 HSPCBStore 仅为兼容旧读取方，权威值以 v2 为准。
+  // 写入统一入口：
+  // 学习时长属**学习进度**轨 → 权威源为 hspcb.v2.studyTime（HSPCBProgress）。
+  // 同步写一份到 HSPCBStore 仅为兼容旧读取方，权威值以 v2 为准。
   function setProgress(path, value) {
     try {
       if (typeof HSPCBProgress !== 'undefined' && HSPCBProgress && typeof HSPCBProgress.set === 'function') {
@@ -513,7 +513,7 @@
         arr.push({ date: dateVal, subject: subj, seconds: mins * 60 });
         added++;
       }
-      // 【T2-3】原先裸写 hspcb_study_time，而进度面板读的是 v2 轨，
+      // 原先裸写 hspcb_study_time，而进度面板读的是 v2 轨，
       // 导致"手动录入学习时长"在仪表盘/进度页看不到。统一写 v2 权威轨。
       try { setProgress('studyTime', arr); } catch (e) {}
       var msg = bodyEl.querySelector('#tma-manual-msg');

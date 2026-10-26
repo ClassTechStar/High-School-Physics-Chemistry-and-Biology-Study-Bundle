@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-// ── 熔断保护（T0-4 / P1-9）───────────────────────────────────────────────
+// 熔断保护
 // 本脚本是一次性数据修复脚本，会重写 1MB 的 exam-bank.json。
 // 修复目标已被 npm run verify 门禁固化；重跑会把已修好的数据改回错误状态
 // （fix-phase-a-data 尤其会覆盖 PHY_2018_01 的已修答案键）。
