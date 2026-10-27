@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "name": "示例复习作息",
+    "schemaVersion": 1,
+    "startDate": "2026-09-01"
+  },
+  "days": [
+    {
+      "dayOfWeek": 1,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "19:00", "end": "20:00", "title": "数学·错题重做" },
+        { "type": "break", "start": "20:00", "end": "20:15", "title": "休息" },
+        { "type": "study", "start": "20:15", "end": "21:30", "title": "物理·专题刷题" }
+      ]
+    },
+    {
+      "dayOfWeek": 2,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "19:00", "end": "20:00", "title": "化学·方程式配平" },
+        { "type": "break", "start": "20:00", "end": "20:15", "title": "休息" },
+        { "type": "study", "start": "20:15", "end": "21:30", "title": "英语·听力与词汇" }
+      ]
+    },
+    {
+      "dayOfWeek": 3,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "19:00", "end": "20:00", "title": "生物·遗传专项" },
+        { "type": "break", "start": "20:00", "end": "20:15", "title": "休息" },
+        { "type": "study", "start": "20:15", "end": "21:30", "title": "语文·文言文阅读" }
+      ]
+    },
+    {
+      "dayOfWeek": 4,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "19:00", "end": "21:00", "title": "弱科补差（自选）" }
+      ]
+    },
+    {
+      "dayOfWeek": 5,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "19:30", "end": "21:00", "title": "本周错题清零" }
+      ]
+    },
+    {
+      "dayOfWeek": 6,
+      "weeks": "all",
+      "entries": [
+        { "type": "activity", "start": "09:30", "end": "11:00", "title": "模拟卷限时训练" },
+        { "type": "study", "start": "15:00", "end": "16:30", "title": "数学·压轴题拆解" }
+      ]
+    },
+    {
+      "dayOfWeek": 7,
+      "weeks": "all",
+      "entries": [
+        { "type": "study", "start": "10:00", "end": "11:30", "title": "一周复盘·错题归因" },
+        { "type": "activity", "start": "15:00", "end": "16:30", "title": "自由复习" }
+      ]
+    },
+    {
+      "dayOfWeek": 6,
+      "weeks": "odd",
+      "entries": [
+        { "type": "study", "start": "19:30", "end": "21:00", "title": "单周加练·英语完形" }
+      ]
+    }
+  ],
+  "overrides": {
+    "2026-10-01": {
+      "entries": [
+        { "type": "activity", "start": "10:00", "end": "11:30", "title": "假期自由复习" }
+      ]
+    }
+  }
+}

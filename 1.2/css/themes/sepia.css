@@ -1,0 +1,20 @@
+/* ============================================================
+   sepia.css — 护眼纸色主题包（v1.5 / T14 示例）
+   仅覆盖 tokens.css 变量；暗色模式仅微调背景。
+   由 js/theme-loader.js 按需注入，失败自动回退。
+   ============================================================ */
+:root {
+    --bg-primary: #f6f0e4;
+    --bg-secondary: #efe6d4;
+    --bg-card: #fbf6ea;
+    --primary: #a0722e;
+    --primary-light: #c08c46;
+    --primary-dark: #7c5620;
+    --hspcb-border: #e3d5ba;
+}
+[data-theme="dark"] {
+    --bg-primary: #1c1812;
+    --bg-secondary: #241f17;
+    --bg-card: #2a241b;
+    --hspcb-border: #3d3423;
+}

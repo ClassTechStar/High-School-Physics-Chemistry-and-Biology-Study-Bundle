@@ -447,6 +447,11 @@ window.englishVocabulary = (function() {
         if (knownState === 'known' || knownState === 'review') {
             html += '<button class="evocab-btn evocab-btn-undo" data-action="undo-card">撤销标记</button>';
         }
+        // v1.5：单词朗读（data-speak 由 speech-service 统一委托，不经 data-action 分发）
+        if (window.HSPCBSpeech && HSPCBSpeech.canSpeak('en-US')) {
+            var speakWord = String(wordObj.word || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+            html += '<button class="evocab-btn" data-speak="' + speakWord + '" data-speak-lang="en-US" title="朗读单词">&#128266; 朗读</button>';
+        }
         if (knownState !== 'known') {
             html += '<button class="evocab-btn evocab-btn-known" data-action="mark-known">&#10003; 已掌握</button>';
         }

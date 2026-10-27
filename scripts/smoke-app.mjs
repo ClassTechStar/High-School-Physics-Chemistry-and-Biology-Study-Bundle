@@ -159,6 +159,13 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
     'js/common-utils.js',
     'js/progress.js',
     'js/csp-delegation.js',
+    'js/tick-bus.js',
+    'js/boot-guard.js',
+    'js/notification-center.js',
+    'js/schedule-engine.js',
+    'js/speech-service.js',
+    'js/theme-loader.js',
+    'js/deep-link.js',
     'js/main-inline.js',
     'js/app.js',
     'js/app-chemistry.js',
@@ -171,6 +178,10 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
     'js/error-notebook.js',
     'js/global-search.js',
     'js/mock-exam.js',
+    'js/dashboard-widgets.js',
+    'js/settings-center.js',
+    'js/automation.js',
+    'js/plugin-loader.js',
   ];
   let loadErr = 0;
   for (const rel of loadOrder) {
@@ -192,6 +203,30 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
   ok(typeof sandbox.PlatformSystem === 'object', 'PlatformSystem');
   ok(typeof sandbox.darkModeToggle === 'object', 'darkModeToggle 委托实现');
   ok(typeof sandbox.CommonUtils === 'object', 'CommonUtils');
+
+  // v1.5 平台层模块
+  ok(typeof sandbox.HSPCBBus === 'object' && typeof sandbox.HSPCBBus.emit === 'function', 'HSPCBBus API');
+  {
+    let got = null;
+    const off = sandbox.HSPCBBus.on('smoke:test', (p) => { got = p; });
+    sandbox.HSPCBBus.emit('smoke:test', { v: 42 });
+    off();
+    sandbox.HSPCBBus.emit('smoke:test', { v: 0 });
+    ok(got && got.v === 42, 'HSPCBBus 订阅/发布/退订');
+  }
+  ok(typeof sandbox.HSPCBTick === 'object' && typeof sandbox.HSPCBTick.on === 'function', 'HSPCBTick API');
+  ok(typeof sandbox.HSPCBBoot === 'object' && typeof sandbox.HSPCBBoot.isSafe === 'function', 'HSPCBBoot API');
+  ok(typeof sandbox.HSPCBNotify === 'object' && typeof sandbox.HSPCBNotify.notify === 'function', 'HSPCBNotify API');
+  ok(typeof sandbox.HSPCBNotify.registerProvider === 'function', 'HSPCBNotify Provider 注册');
+  ok(sandbox.HSPCBSchedule && sandbox.HSPCBSchedule._pure && sandbox.HSPCBSchedule._pure.parseHM('19:00') === 1140, 'HSPCBSchedule 纯计算可用');
+  ok(sandbox.HSPCBSchedule.validate({ meta: {} }) !== null, 'HSPCBSchedule.validate 拦截坏数据');
+  ok(typeof sandbox.HSPCBSpeech === 'object' && typeof sandbox.HSPCBSpeech.canSpeak === 'function', 'HSPCBSpeech API');
+  ok(typeof sandbox.HSPCBDashboard === 'object' && typeof sandbox.HSPCBDashboard.register === 'function', 'HSPCBDashboard 注册表');
+  ok(typeof sandbox.HSPCBSettingsUI === 'object' && typeof sandbox.HSPCBSettingsUI.open === 'function', 'HSPCBSettingsUI 入口');
+  ok(typeof sandbox.HSPCBAutomation === 'object' && typeof sandbox.HSPCBAutomation.update === 'function', 'HSPCBAutomation 规则引擎');
+  ok(sandbox.HSPCBPlugin && typeof sandbox.HSPCBPlugin.register === 'function', 'HSPCBPlugin 注册口');
+  ok(typeof sandbox.HSPCBProgress.getSettings === 'function' && sandbox.HSPCBProgress.getSettings().notifications.master === true, 'HSPCBProgress 设置中心 API');
+  ok(typeof sandbox.HSPCBProgress.snapshotNow === 'function', 'HSPCBProgress 快照 API');
 
   // enhanced-tools exports after syntax fix
   ok(typeof sandbox.chemistryProcessAnalyzerEnhanced === 'object', 'chemistryProcessAnalyzerEnhanced');

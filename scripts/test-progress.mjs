@@ -244,5 +244,40 @@ console.log('progress.js tests');
   assert(r.ok === false, '净化后为空的载荷被拒绝');
 }
 
+// 13. 设置中心（v1.5）：默认值 / 更新持久化 / 导入净化白名单
+{
+  const { Progress, localStorage } = boot({});
+  const s0 = Progress.getSettings();
+  assert(s0.notifications.master === true && s0.appearance.themePack === 'none', '设置默认值就位');
+  Progress.updateSettings(function (st) { st.notifications.master = false; st.appearance.themePack = 'sepia'; });
+  const persisted = JSON.parse(localStorage.getItem('hspcb.v2.progress') || '{}');
+  assert(persisted.settings && persisted.settings.notifications.master === false, '设置更新已写盘');
+  // 导入：settings 子键白名单（合法键净化入库，未知键丢弃，危险键剥除）
+  const evil = JSON.parse('{"settings":{"notifications":{"master":true},"evilKey":"x","__proto__":{"bad":1}},"evilTop":2}');
+  Progress.importData(evil, 'merge');
+  const snap = JSON.parse(localStorage.getItem('hspcb.v2.progress') || '{}');
+  assert(snap.settings && snap.settings.notifications && snap.settings.notifications.master === true, 'settings 合法子键入库');
+  assert(!('evilKey' in (snap.settings || {})), 'settings 未知子键被丢弃');
+  assert(!('evilTop' in snap), 'settings 外的未知顶层键仍被丢弃');
+  assert(!({}).bad, 'settings 内 __proto__ 未污染原型');
+}
+
+// 14. 备份快照（v1.5）：创建/列表/恢复
+{
+  const { Progress, localStorage } = boot({});
+  Progress.importData({ wrongQuestions: [{ id: 'q1' }, { id: 'q2' }] }, 'merge');
+  assert(Progress.snapshotNow() === true, '手动快照成功');
+  const list = Progress.listSnapshots();
+  assert(list.length === 1 && list[0].slot === 'backup.0' && list[0].count === 2, '快照列表含日期与记录数');
+  // 破坏当前数据后恢复
+  Progress.importData({ wrongQuestions: [{ id: 'lost' }] }, 'replace');
+  assert(Progress.get('wrongQuestions').length === 1, '当前数据已被覆盖');
+  const res = Progress.restoreSnapshot('backup.0');
+  assert(res && res.ok === true, '恢复快照返回 ok');
+  const restored = JSON.parse(localStorage.getItem('hspcb.v2.progress') || '{}');
+  assert((restored.wrongQuestions || []).length === 2, '恢复后错题回到快照状态');
+  assert(Progress.restoreSnapshot('backup.2').ok === false, '空槽位恢复被拒');
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

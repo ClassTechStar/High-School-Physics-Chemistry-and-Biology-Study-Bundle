@@ -1,6 +1,6 @@
 {
   "name": "hspcb-study-bundle",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "description": "高中物化生语数英学习大礼包 — 六科知识点、题库与错题本（纯静态，可离线）",
   "type": "module",
@@ -11,12 +11,13 @@
     "check:collisions": "node scripts/check-global-collisions.mjs",
     "test": "node scripts/test-progress.mjs && node scripts/test-cross-subject.mjs",
     "test:smoke": "node scripts/smoke-app.mjs",
-    "verify": "npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:lint && npm run check:content && npm run check:runtime && npm run test && npm run test:smoke",
+    "verify": "npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:schedule && npm run check:lint && npm run check:content && npm run check:runtime && npm run test && npm run test:smoke",
     "check:runtime": "node scripts/runtime-defer-check.mjs",
     "check:lint": "node scripts/check-lint.mjs",
     "check:content": "node scripts/check-content.mjs",
     "check:theme": "node scripts/check-theme-tokens.mjs",
-    "check:csp": "node scripts/check-csp-inline.mjs"
+    "check:csp": "node scripts/check-csp-inline.mjs",
+    "check:schedule": "node scripts/check-schedule.mjs"
   },
   "engines": {
     "node": ">=18"

@@ -33,6 +33,17 @@ window.HSPCBProgress = (function () {
         variationChains: [],
         selfScoreSessions: [],
         sprintMode: null,
+        settings: {
+            schemaVersion: 1,
+            theme: null,
+            appearance: { themePack: 'none' },
+            notifications: { master: true, providers: {} },
+            plugins: { enabled: true, disabled: {} },
+            dashboard: { layout: [] },
+            schedule: { file: null, prepMinutes: 10 },
+            automation: { enabled: true, rules: {} },
+            security: { lockPin: null }
+        },
         meta: { schemaVersion: SCHEMA_VERSION, updatedAt: null }
     };
 
@@ -421,6 +432,22 @@ window.HSPCBProgress = (function () {
                 }
                 continue;
             }
+            if (key === 'settings') {
+                // v1.5 设置中心：子键白名单，逐键净化
+                var SETTINGS_KEYS = ['schemaVersion', 'theme', 'appearance', 'notifications', 'plugins',
+                    'dashboard', 'schedule', 'automation', 'security'];
+                var sIn = incoming[key];
+                if (sIn && typeof sIn === 'object' && !Array.isArray(sIn)) {
+                    var sOut = {};
+                    for (var si = 0; si < SETTINGS_KEYS.length; si++) {
+                        var sk = SETTINGS_KEYS[si];
+                        if (sIn[sk] === undefined) continue;
+                        sOut[sk] = importSanitizeValue(sIn[sk], 0);
+                    }
+                    clean.settings = sOut;
+                }
+                continue;
+            }
             var wantArray = IMPORT_ARRAY_KEYS.indexOf(key) >= 0;
             var val = incoming[key];
             if (wantArray) {
@@ -539,11 +566,112 @@ window.HSPCBProgress = (function () {
     }
 
  /** 初始化：自动迁移一次（幂等） */
+    /* ── 设置中心（v1.5 / T4）── */
+
+    function getSettings() {
+        var d = DEFAULTS.settings;
+        var s = loadAll().settings || {};
+        var out = JSON.parse(JSON.stringify(d));
+        for (var k in s) {
+            if (s[k] && typeof s[k] === 'object' && !Array.isArray(s[k]) && d[k] && typeof d[k] === 'object') {
+                out[k] = Object.assign({}, d[k], s[k]);
+            } else if (s[k] !== undefined) {
+                out[k] = s[k];
+            }
+        }
+        return out;
+    }
+
+    function updateSettings(mutator) {
+        if (typeof mutator !== 'function') return false;
+        var data = loadAll();
+        data.settings = Object.assign({}, JSON.parse(JSON.stringify(DEFAULTS.settings)), data.settings || {});
+        try { mutator(data.settings); } catch (e) { return false; }
+        _cache = data;
+        saveAll();
+        return true;
+    }
+
+    /* ── 备份快照（v1.5 / T8）：3 槽位每日轮转 ── */
+
+    var SNAP_SLOTS = ['backup.0', 'backup.1', 'backup.2'];
+
+    function todayKey() {
+        var d = new Date();
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function snapshotNow() {
+        try {
+            var data = clone(loadAll());
+            delete data.__export;
+            var payload = JSON.stringify({ date: todayKey(), count: (data.wrongQuestions || []).length, data: data });
+            // 0←新, 1←0, 2←1
+            var old2 = HSPCBStoreGet('backup.1'), old1 = HSPCBStoreGet('backup.0');
+            if (old2 != null) HSPCBStoreSet('backup.2', old2);
+            if (old1 != null) HSPCBStoreSet('backup.1', old1);
+            HSPCBStoreSet('backup.0', payload);
+            HSPCBStoreSet('backup.lastDate', todayKey());
+            return true;
+        } catch (e) {
+            console.warn('[HSPCBProgress] 快照失败（可能超出本地存储配额）:', e && e.message);
+            return false;
+        }
+    }
+
+    function dailyBackupRotate() {
+        if (HSPCBStoreGet('backup.lastDate') === todayKey()) return false;
+        return snapshotNow();
+    }
+
+    function listSnapshots() {
+        var out = [];
+        for (var i = 0; i < SNAP_SLOTS.length; i++) {
+            var raw = HSPCBStoreGet(SNAP_SLOTS[i]);
+            if (raw == null) continue;
+            try {
+                var p = JSON.parse(raw);
+                out.push({ slot: SNAP_SLOTS[i], date: p.date, count: p.count });
+            } catch (e) { /* 损坏快照跳过 */ }
+        }
+        return out;
+    }
+
+    function restoreSnapshot(slot) {
+        var raw = HSPCBStoreGet(slot);
+        if (!raw) return { ok: false, error: 'no-snapshot' };
+        try {
+            var p = JSON.parse(raw);
+            var res = importData(p.data || p, 'replace');
+            return res;
+        } catch (e) { return { ok: false, error: 'corrupt' }; }
+    }
+
+    function HSPCBStoreGet(key) {
+        try { return window.HSPCBStore ? HSPCBStore.get(key) : null; } catch (e) { return null; }
+    }
+    function HSPCBStoreSet(key, val) {
+        try { if (window.HSPCBStore) HSPCBStore.set(key, val); return true; } catch (e) { return false; }
+    }
+
     function init(options) {
         var result = migrateFromV1(options);
         if (result.migrated) {
             console.info('HSPCBProgress: 已从 v1 迁移', Object.keys(result.merged).length, '个旧 key');
         }
+        // v1.5：主题偏好并入设置中心（旧 key 保留，仅读取迁移）
+        try {
+            if (getSettings().theme == null) {
+                var legacyTheme = storageAvailable() ? localStorage.getItem('hspcb_theme') : null;
+                if (legacyTheme === 'light' || legacyTheme === 'dark') {
+                    updateSettings(function (s) { s.theme = legacyTheme; });
+                } else {
+                    updateSettings(function (s) { s.theme = 'light'; });
+                }
+            }
+        } catch (e) { /* ignore */ }
+        // v1.5：每日自动快照
+        try { dailyBackupRotate(); } catch (e) { /* ignore */ }
         return result;
     }
 
@@ -568,6 +696,12 @@ window.HSPCBProgress = (function () {
         migrateFromV1: migrateFromV1,
         resetAll: resetAll,
         storageAvailable: storageAvailable,
+        getSettings: getSettings,
+        updateSettings: updateSettings,
+        snapshotNow: snapshotNow,
+        listSnapshots: listSnapshots,
+        restoreSnapshot: restoreSnapshot,
+        dailyBackupRotate: dailyBackupRotate,
         _resetForTest: _resetForTest
     };
 })();

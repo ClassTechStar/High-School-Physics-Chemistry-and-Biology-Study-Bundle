@@ -242,6 +242,17 @@ const examPracticeSystem = {
         };
 
         this.results.push(result);
+        // v1.5：发布全局事件（插件/游戏化等订阅方解耦消费）
+        if (window.HSPCBBus) {
+            HSPCBBus.emit('exam:answered', {
+                examId,
+                subject: exam.subject,
+                category: exam.category,
+                knowledgePoints: exam.knowledgePoints || [],
+                isCorrect,
+                pending: result.pending
+            });
+        }
         this.stats.totalAnswered++;
         this.stats.subjectStats[exam.subject].total++;
         this.stats.difficultyStats[exam.difficulty].total++;
@@ -522,14 +533,23 @@ const examPracticeSystem = {
     },
 
     updateExamList() {
+        this._examPage = 1;
+        this._renderExamPage();
+    },
+
+    // v1.5：题库列表分页渲染（每页 50 条，避免一次性渲染全量题库）
+    _EXAM_PAGE_SIZE: 50,
+
+    _renderExamPage() {
         const subject = document.getElementById('exam-subject-filter').value;
         const year = document.getElementById('exam-year-filter').value;
         const difficulty = document.getElementById('exam-difficulty-filter').value;
 
         const exams = this.getAllExams(subject, { year, difficulty });
         const listEl = document.getElementById('exam-list');
+        const shown = exams.slice(0, this._EXAM_PAGE_SIZE * (this._examPage || 1));
 
-        listEl.innerHTML = exams.map((exam, idx) => `
+        listEl.innerHTML = shown.map((exam, idx) => `
             <div class="exam-item ${exam.difficulty}" data-id="${this._esc(exam.id)}">
                 <div class="exam-info">
                     <span class="exam-subject-tag ${exam.subject}">${this._subjectCn(exam.subject)}</span>
@@ -544,9 +564,28 @@ const examPracticeSystem = {
             </div>
         `).join('');
 
+        if (exams.length > shown.length) {
+            const scrollY = window.scrollY;
+            listEl.insertAdjacentHTML('beforeend',
+                `<div class="exam-load-more-wrap"><button class="btn-start-exam" data-call="examPracticeSystem.loadMoreExams">加载更多（还有 ${exams.length - shown.length} 题）</button></div>`);
+            window.scrollTo(0, scrollY);
+        }
+
         if (exams.length === 0) {
             listEl.innerHTML = '<div class="no-results">😅 暂无符合条件的题目，请调整筛选条件</div>';
         }
+    },
+
+    loadMoreExams() {
+        this._examPage = (this._examPage || 1) + 1;
+        this._renderExamPage();
+    },
+
+    // v1.5：英语题朗读按钮（点击经 speech-service 统一委托，CSP 友好）
+    _speakBtnHtml(exam) {
+        if (exam.subject !== 'english' || !window.HSPCBSpeech || !HSPCBSpeech.canSpeak('en-US')) return '';
+        const text = this._esc(exam.question).replace(/&quot;/g, '&#39;');
+        return ` <button class="hspcb-speak-btn" data-speak="${text}" data-speak-lang="en-US" title="朗读题目">🔊 朗读</button>`;
     },
 
     showExamDetail(examId) {
@@ -622,7 +661,7 @@ const examPracticeSystem = {
                 </div>
                 ${passageHtml}
                 <div class="question-box">
-                    <h4>📋 题目内容</h4>
+                    <h4>📋 题目内容${this._speakBtnHtml(exam)}</h4>
                     <p class="question-text">${this._esc(exam.question).replace(/\n/g, '<br>')}</p>
                 </div>
 
