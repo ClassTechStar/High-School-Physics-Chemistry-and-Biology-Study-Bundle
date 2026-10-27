@@ -143,3 +143,40 @@ window.CommonUtils = (function () {
         daysBetween: daysBetween
     };
 })();
+
+// ============================================================
+// HSPCBBus — 全局命名信号事件总线（v1.5 / T10，借鉴 Class-Widgets-2 ActionsAPI）
+// 模块间解耦：发布方不感知订阅方。事件名集中在各发布方注释中登记。
+// 当前事件：exam:answered（app-exam.js）、checkin:done（learning-tools.js）
+// ============================================================
+window.HSPCBBus = (function () {
+    'use strict';
+    var map = {};
+
+    function on(evt, fn) {
+        if (typeof evt !== 'string' || typeof fn !== 'function') return function () {};
+        (map[evt] = map[evt] || []).push(fn);
+        return function () { off(evt, fn); };
+    }
+
+    function off(evt, fn) {
+        var a = map[evt];
+        if (!a) return;
+        var i = a.indexOf(fn);
+        if (i >= 0) a.splice(i, 1);
+    }
+
+    function emit(evt, payload) {
+        var a = (map[evt] || []).slice();
+        for (var i = 0; i < a.length; i++) {
+            try { a[i](payload); } catch (e) { console.warn('[HSPCBBus] 订阅者异常:', evt, e && e.message); }
+        }
+    }
+
+    return {
+        on: on,
+        off: off,
+        emit: emit,
+        _count: function (evt) { return (map[evt] || []).length; }
+    };
+})();

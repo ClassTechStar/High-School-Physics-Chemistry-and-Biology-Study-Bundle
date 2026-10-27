@@ -1,8 +1,8 @@
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v18（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v19（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 
-var CACHE_NAME = 'hspcb-v18';
+var CACHE_NAME = 'hspcb-v19';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -34,6 +34,22 @@ var CORE_ASSETS = [
     'js/common-utils.js',
     'js/progress.js',
     'js/csp-delegation.js',
+    'js/tick-bus.js',
+    'js/boot-guard.js',
+    'js/notification-center.js',
+    'js/schedule-engine.js',
+    'js/speech-service.js',
+    'js/theme-loader.js',
+    'js/deep-link.js',
+    'js/dashboard-widgets.js',
+    'js/settings-center.js',
+    'js/automation.js',
+    'js/plugin-loader.js',
+    'css/platform.css',
+    'css/themes/sepia.css',
+    'plugins/index.json',
+    'plugins/example/hspcb-plugin.json',
+    'plugins/example/example.js',
     'js/main-inline.js',
     'js/home-collapse.js',
     'js/theme-toggle.js',
@@ -112,7 +128,8 @@ var DATA_ASSETS = [
     'data/biology/knowledge.json',
     'data/math/knowledge.json',
     'data/chinese/knowledge.json',
-    'data/english/knowledge.json'
+    'data/english/knowledge.json',
+    'data/schedules/study-example.json'
 ];
 
 // 安装：预缓存核心资源

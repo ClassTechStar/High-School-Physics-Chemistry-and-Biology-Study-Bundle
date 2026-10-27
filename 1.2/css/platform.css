@@ -1,0 +1,199 @@
+/* ============================================================
+   platform.css — v1.5 平台层组件样式（通知中心/设置中心/仪表盘组件/语音按钮）
+   仅使用 tokens.css 令牌 + 自有变量；暗色跟随 [data-theme="dark"]。
+   交互元素一律真实 DOM + 类名，禁止内联事件/内联样式（CSP style-src 'self'）。
+   ============================================================ */
+
+:root {
+    --hspcb-border: #e2e8f0;
+    --hspcb-shadow: 0 8px 30px rgba(15, 23, 42, .14);
+    --hspcb-mask: rgba(15, 23, 42, .45);
+    --hspcb-toast-shadow: 0 6px 22px rgba(15, 23, 42, .22);
+}
+[data-theme="dark"] {
+    --hspcb-border: #334155;
+    --hspcb-shadow: 0 8px 30px rgba(0, 0, 0, .5);
+    --hspcb-mask: rgba(2, 6, 23, .66);
+    --hspcb-toast-shadow: 0 6px 22px rgba(0, 0, 0, .5);
+}
+
+/* ---------- 设置入口按钮（与 theme-toggle 并列） ---------- */
+.hspcb-settings-btn {
+    right: 62px;
+    font-size: 17px;
+}
+
+/* ---------- 通知中心 ---------- */
+.hspcb-notify-root {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 99990;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: min(360px, calc(100vw - 32px));
+    pointer-events: none;
+}
+.hspcb-toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--hspcb-border);
+    box-shadow: var(--hspcb-toast-shadow);
+    animation: hspcb-toast-in .28s ease-out;
+}
+@keyframes hspcb-toast-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hspcb-toast-icon { font-size: 18px; line-height: 1.4; }
+.hspcb-toast-body { flex: 1; min-width: 0; }
+.hspcb-toast-title { font-size: 13px; font-weight: 700; color: var(--text-primary, #1e293b); }
+.hspcb-toast-msg { font-size: 12px; color: var(--text-secondary, #64748b); margin-top: 2px; word-break: break-word; }
+.hspcb-toast-close {
+    border: 0; background: transparent; cursor: pointer;
+    color: var(--text-light, #94a3b8); font-size: 14px; line-height: 1.2; padding: 2px 4px;
+}
+.hspcb-toast.lv-warn { border-left: 4px solid var(--accent, #f59e0b); }
+.hspcb-toast.lv-error { border-left: 4px solid var(--danger, #ef4444); }
+.hspcb-toast.lv-info { border-left: 4px solid var(--primary, #4f6ef6); }
+
+/* ---------- 设置中心弹窗 ---------- */
+.hspcb-modal-mask {
+    position: fixed; inset: 0; z-index: 99995;
+    background: var(--hspcb-mask);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+}
+.hspcb-modal {
+    width: min(640px, 100%);
+    max-height: min(80vh, 640px);
+    display: flex; flex-direction: column;
+    background: var(--bg-card, #fff);
+    border-radius: 16px;
+    box-shadow: var(--hspcb-shadow);
+    overflow: hidden;
+}
+.hspcb-modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px 10px;
+}
+.hspcb-modal-title { font-size: 16px; font-weight: 700; color: var(--text-primary, #1e293b); }
+.hspcb-modal-close {
+    border: 0; background: transparent; cursor: pointer;
+    font-size: 18px; color: var(--text-secondary, #64748b); padding: 4px 8px;
+}
+.hspcb-modal-tabs {
+    display: flex; gap: 4px; padding: 0 12px;
+    border-bottom: 1px solid var(--hspcb-border);
+    overflow-x: auto;
+}
+.hspcb-tab {
+    border: 0; background: transparent; cursor: pointer;
+    padding: 8px 12px; font-size: 13px;
+    color: var(--text-secondary, #64748b);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+.hspcb-tab.hspcb-tab-active {
+    color: var(--primary, #4f6ef6);
+    border-bottom-color: var(--primary, #4f6ef6);
+    font-weight: 600;
+}
+.hspcb-modal-body { padding: 14px 18px 18px; overflow-y: auto; }
+
+/* 表单与行 */
+.hspcb-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 10px 0;
+    border-bottom: 1px dashed var(--hspcb-border);
+}
+.hspcb-row:last-child { border-bottom: 0; }
+.hspcb-row-label { font-size: 13px; color: var(--text-primary, #1e293b); }
+.hspcb-row-hint { font-size: 11px; color: var(--text-light, #94a3b8); margin-top: 2px; }
+.hspcb-btn {
+    border: 1px solid var(--hspcb-border); background: var(--bg-secondary, #f1f5f9);
+    color: var(--text-primary, #1e293b);
+    border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer;
+}
+.hspcb-btn.hspcb-btn-primary { background: var(--primary, #4f6ef6); border-color: var(--primary, #4f6ef6); color: #fff; }
+.hspcb-btn.hspcb-btn-danger { background: transparent; border-color: var(--danger, #ef4444); color: var(--danger, #ef4444); }
+.hspcb-btn:disabled { opacity: .5; cursor: not-allowed; }
+.hspcb-input, .hspcb-select {
+    border: 1px solid var(--hspcb-border); border-radius: 8px;
+    background: var(--bg-card, #fff); color: var(--text-primary, #1e293b);
+    padding: 6px 8px; font-size: 12px;
+}
+.hspcb-muted { font-size: 12px; color: var(--text-secondary, #64748b); }
+.hspcb-card {
+    background: var(--bg-secondary, #f8fafc);
+    border: 1px solid var(--hspcb-border);
+    border-radius: 10px; padding: 10px 12px; margin-top: 10px;
+}
+.hspcb-tag-ok { color: var(--success, #10b981); font-weight: 600; }
+.hspcb-tag-off { color: var(--text-light, #94a3b8); }
+
+/* ---------- 作息表编辑器 ---------- */
+.hspcb-rule-card { margin-bottom: 10px; }
+.hspcb-rule-head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.hspcb-entry-row { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+.hspcb-entry-row .hspcb-input[type="time"] { width: 96px; }
+.hspcb-entry-row .hspcb-input.hspcb-entry-title { flex: 1; min-width: 90px; }
+
+/* ---------- 仪表盘迷你组件 ---------- */
+.hspcb-widgets-block { margin-top: 14px; }
+.hspcb-widgets-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+}
+.hspcb-widgets-title { font-size: 14px; font-weight: 700; color: var(--text-primary, #1e293b); }
+.hspcb-widgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+.hspcb-widget-card {
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--hspcb-border);
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+.hspcb-widget-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+}
+.hspcb-widget-name { font-size: 12px; font-weight: 600; color: var(--text-secondary, #64748b); }
+.hspcb-widget-actions { display: flex; gap: 2px; }
+.hspcb-widget-actions button {
+    border: 0; background: transparent; cursor: pointer;
+    font-size: 11px; color: var(--text-light, #94a3b8); padding: 2px 4px;
+}
+.hspcb-widget-actions button:hover { color: var(--text-primary, #1e293b); }
+.hspcb-widget-body { font-size: 13px; color: var(--text-primary, #1e293b); }
+.hspcb-clock-time { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+.hspcb-clock-date { font-size: 11px; color: var(--text-secondary, #64748b); margin-top: 2px; }
+.hspcb-stat-big { font-size: 24px; font-weight: 700; }
+.hspcb-widget-btn {
+    border: 0; background: var(--primary, #4f6ef6); color: #fff;
+    border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; margin-top: 6px;
+}
+
+/* ---------- 语音朗读按钮 ---------- */
+.hspcb-speak-btn {
+    border: 1px solid var(--hspcb-border); background: var(--bg-secondary, #f1f5f9);
+    color: var(--text-secondary, #64748b);
+    border-radius: 999px; padding: 2px 10px; font-size: 11px; cursor: pointer;
+    margin-left: 8px; vertical-align: middle;
+}
+.hspcb-speak-btn:hover { color: var(--primary, #4f6ef6); border-color: var(--primary, #4f6ef6); }
+
+/* ---------- 锁定模式：隐藏清数据入口 ---------- */
+body.hspcb-locked [data-lock-hide] { display: none !important; }
+
+/* ---------- 题库加载更多 ---------- */
+.exam-load-more-wrap { text-align: center; padding: 12px 0 4px; }

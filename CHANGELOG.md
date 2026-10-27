@@ -2,6 +2,26 @@
 
 ## 未发布
 
+### 平台化（v1.5 T1–T14，借鉴 ClassIsland / Class-Widgets-2 渐进式迭代方案）
+> 依据 `ITERATION-PLAN.md`（对两个参考项目的九维度架构调研与迁移筛选）执行；待确认项按约定跳过。
+
+- **T1 tick 总线** `js/tick-bus.js`：以系统秒变化触发的 1Hz 全局心跳（250ms 轮询检测，页面隐藏降频 5s），订阅者异常隔离。存量 17 处 setInterval 的迁移留待第二批（涉及番茄钟调用关系，待确认项跳过）。
+- **T2 通知中心** `js/notification-center.js`：Provider 注册表 + payload 规范（id/level/title/message/duration/closable）+ 队列（并发≤3、同 id 60s 去重、全局限流 1 条/10s、error 豁免）+ 应用内 toast（暗色令牌适配）+ PWA 系统通知桥接（用户手势授权，仅页面后台时投递）。
+- **T3 题库分页**：`app-exam.js updateExamList` 每页 50 条 + 「加载更多」，不再一次性渲染全量 1198 题。
+- **T4 设置中心** `progress.js` 新增 `settings` 段（通知/插件/仪表盘布局/作息/安全/外观）+ `getSettings/updateSettings` API；`importData` 净化器对 settings 实施子键白名单；页角 ⚙️ 打开 `js/settings-center.js` 弹窗（通用/通知/作息表/备份/安全与插件五个页签）。
+- **T5 启动自检** `js/boot-guard.js`：DOMContentLoaded 后 5s 体检 8 个关键模块，缺失计数并通知；连续 2 次失败写入隔离名单供注册表型模块跳过；`?safe=1` 安全模式（跳过插件）。
+- **T6 作息时间轴** `js/schedule-engine.js` + `data/schedules/study-example.json`：Entry 三类时段 + preparation 预备态；周规则 all/odd/even/cycle/list；调休与整日覆写；多规则按特异性合并。纯计算导出 `_pure`，配套 `check:schedule` 数据门禁与 `test-schedule.mjs` 29 项单测。不支持跨午夜时段（文档明示）。
+- **T7 仪表盘组件化** `js/dashboard-widgets.js`：定义/实例/预设三层模型，挂载于 `#study-dashboard-app` 末尾并自动补挂；内置时钟/当前时段/错题概览/打卡连击四卡，可增删排序（布局存 `settings.dashboard.layout`）。番茄钟组件待确认项跳过，以打卡连击替代。
+- **T8 备份快照** `progress.js`：每日首启自动快照 3 槽位轮转（含日期与记录数），设置 → 备份可恢复；超配额静默跳过并告警。
+- **T9 语音朗读** `js/speech-service.js`：Web Speech API 封装 + `[data-speak]` 全局委托；接入英语题目详情朗读按钮与单词卡朗读按钮（音色缺失自动隐藏；语文朗读入口属待确认项跳过）。
+- **T10 事件总线** `common-utils.js` 增 `HSPCBBus`：已发布 `exam:answered`（app-exam）与 `checkin:done`（learning-tools）；游戏化积分链路迁移涉及重复计奖风险，属待确认项跳过（示例插件作为首个订阅方验证链路）。
+- **T11 轻插件** `js/plugin-loader.js` + `plugins/example/`：清单校验（id/name/version/apiVersion/entry）、apiVersion 主版本门槛、同源 script 注入（CSP 友好）、5s 装载看门狗、失败自动停载、`?safe=1`/设置开关跳过；示例插件演示事件订阅 + 仪表盘卡片注册；README 新增「写一个插件」。
+- **T12 作息编辑器**：设置 → 作息表 → 新建/编辑我的作息；规则/时段行表单（一期不做拖拽），保存前经引擎校验，存 `HSPCBStore('schedule.custom')` 并以 `store:` 源启用。
+- **T13 自动化规则** `js/automation.js`：打卡提醒（19:00 后每自然日一次）、错题积压 ≥50（冷却 24h）、作息时段开始提醒（每时段一次，默认关）；全部本地判定，可在通知设置按 Provider 关闭。
+- **T14 生态三件套**：主题覆盖包 `css/themes/sepia.css`（加载失败自动回退）+ `?goto=` 深链路由（`js/deep-link.js`，含 tool: 前缀）+ 锁定模式（PIN 防误触隐藏清数据入口，明示非加密）。
+- **接线**：`index.html` 新增 11 个 defer 模块与 platform.css；`sw.js` CACHE_NAME `hspcb-v18` → `hspcb-v19`（新模块与插件资产入册）；`package.json` 1.5.0，verify 链插入 `check:schedule`。
+- **门禁**：smoke 53 → 68（新增 13 个模块装载与 API 断言）；test-progress 49 → 61（设置净化/快照恢复 12 项）；test-schedule 新增 29 项；`npm run verify` 十阶段全绿。
+
 ### 数据（P1-6 数据层去重）
 - **题库二轮内容去重**：1301 → **1198**（本轮归档 103 条，累计 520/1718 = 30.3%）。`exam-bank.json` 1,090,210 → 1,000,678 B（gzip 256,399 → 234,210 B）；归档写入 `1.2/data/_archive/duplicates-2026-10-25.json`（含补删的 `chemistry_2021_103` 与 2026-10-25 前一轮 102 条）。
 - **内容去重门禁**：`validate-data.mjs` 新增「题干 + 选项集合 + 正确选项内容」指纹（选项按内容排序，识别仅选项顺序不同的副本；无选项英语填空题排除），命中即失败。当前内容重复 0；重复题反向注入按预期熔断。

@@ -820,6 +820,7 @@ var countdownTaskSystem = {
                 self.checkinData[today] = true;
                 (window.HSPCBStore ? HSPCBStore.set('hspcb_daily_checkin', JSON.stringify(self.checkinData)) : localStorage.setItem('hspcb_daily_checkin', JSON.stringify(self.checkinData)));
             }
+            if (window.HSPCBBus) HSPCBBus.emit('checkin:done', { date: today });
             self.render();
         });
     },
