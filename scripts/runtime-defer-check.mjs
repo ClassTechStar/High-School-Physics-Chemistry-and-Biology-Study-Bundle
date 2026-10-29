@@ -162,6 +162,13 @@ function makeEl(tag = 'div', id = '') {
     setAttribute(k, v) { this[k] = v; }, getAttribute(k) { return this[k] ?? null; }, removeAttribute(k) { delete this[k]; },
     appendChild(c) { this.children.push(c); return c; }, removeChild(c) { this.children = this.children.filter((x) => x !== c); return c; },
     insertBefore(c) { this.children.push(c); return c; },
+    // 真实 DOM 的 insertAdjacentHTML 不会重解析已有节点（事件监听与滚动位置得以保留）；
+    // 假 DOM 用字符串拼接等价表达，并复用 innerHTML setter 的 id 登记逻辑
+    insertAdjacentHTML(pos, html) {
+      const p = String(pos || 'beforeend').toLowerCase();
+      const h = String(html == null ? '' : html);
+      this.innerHTML = p === 'afterbegin' ? h + (this._html || '') : (this._html || '') + h;
+    },
     addEventListener() {}, removeEventListener() {}, dispatchEvent() {},
     querySelector() { return null; }, querySelectorAll() { return []; },
     closest() { return null; }, contains() { return false; }, remove() {},
