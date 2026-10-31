@@ -53,10 +53,15 @@ console.log('onclick root symbols checked:', onclickFns.size);
 console.log('potentially missing exports:', missing.length);
 for (const m of missing.slice(0, 40)) console.log(' ', m);
 
-// data-tool routing in index inline script
-const toolCases = new Set([...html.matchAll(/case\s+'([^']+)'/g)].map((m) => m[1]));
+// data-tool routing：case 分发表自 index.html 内联脚本 + main-inline.js
+//（T3-4e 起内联脚本已外置，路由逻辑居 main-inline.js，只扫 html 会误报 unrouted）
+const MAIN_INLINE = (() => {
+  try { return readFileSync(join(APP, 'js', 'main-inline.js'), 'utf8'); } catch { return ''; }
+})();
+const routingScope = html + MAIN_INLINE;
+const toolCases = new Set([...routingScope.matchAll(/case\s+'([^']+)'/g)].map((m) => m[1]));
 const dataTools = new Set([...html.matchAll(/data-tool="([^"]+)"/g)].map((m) => m[1]));
-const unrouted = [...dataTools].filter((t) => !toolCases.has(t) && !html.includes(`id="${t}-section"`));
+const unrouted = [...dataTools].filter((t) => !toolCases.has(t) && !routingScope.includes(`id="${t}-section"`));
 console.log('data-tool count', dataTools.size, 'switch cases', toolCases.size);
 console.log('data-tool without case and without *-section:', unrouted.length);
 // These may still be handled by default or other maps - info only

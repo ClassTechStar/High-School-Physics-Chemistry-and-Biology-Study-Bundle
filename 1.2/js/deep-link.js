@@ -36,13 +36,19 @@ window.HSPCBDeepLink = (function () {
             for (var i = 0; i < TOOL_SUBJECTS.length; i++) {
                 if (tool.indexOf(TOOL_SUBJECTS[i] + '-') === 0) { subject = TOOL_SUBJECTS[i]; break; }
             }
-            if (!subject) return false;
-            showSection(subject + '-section');
-            if (typeof setActiveNav === 'function') setActiveNav(subject);
-            if (typeof navigateToolPage === 'function') {
-                setTimeout(function () { try { navigateToolPage(tool); } catch (e) { /* ignore */ } }, 200);
+            if (subject) {
+                showSection(subject + '-section');
+                if (typeof setActiveNav === 'function') setActiveNav(subject);
+                if (typeof navigateToolPage === 'function') {
+                    setTimeout(function () { try { navigateToolPage(tool); } catch (e) { /* ignore */ } }, 200);
+                }
+                return true;
             }
-            return true;
+            // 无六科前缀的工具（如 chem-equilibrium）：页面里存在对应 data-tool
+            // 入口按钮时直接触发它，走既有委托路由
+            var trigger = document.querySelector('[data-tool="' + tool + '"]');
+            if (trigger) { trigger.click(); return true; }
+            return false;
         }
         return false;
     }
@@ -67,8 +73,11 @@ window.HSPCBDeepLink = (function () {
     }
 
     if (typeof document !== 'undefined') {
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-        else boot();
+        // 本文件随 defer 批装载时 readyState 已是 'interactive'，但同批后面的
+        // 模块（如 settings-center.js）尚未执行 —— 必须等 DOMContentLoaded
+        //（defer 全部执行完才触发）再跑路由，否则 ?goto=settings 必然扑空。
+        if (document.readyState === 'complete') boot();
+        else document.addEventListener('DOMContentLoaded', boot);
     }
 
     return { go: go, routes: function () { return Object.keys(SECTIONS).concat(['settings', 'tool:*']); } };

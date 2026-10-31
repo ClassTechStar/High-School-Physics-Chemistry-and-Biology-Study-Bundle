@@ -27,6 +27,12 @@ jobs:
         run: npm run check:data
       - name: ② 全局声明碰撞扫描（真的会失败）
         run: npm run check:collisions
+      - name: ②-b 内联事件/样式 CSP 门禁
+        run: npm run check:csp
+      - name: ②-c 主题令牌门禁
+        run: npm run check:theme
+      - name: ②-d 作息表数据门禁
+        run: npm run check:schedule
       - name: ③ 代码卫生门禁
         run: npm run check:lint
       - name: ④ 内容语义门禁

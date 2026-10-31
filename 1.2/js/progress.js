@@ -582,10 +582,30 @@ window.HSPCBProgress = (function () {
         return out;
     }
 
+    /** 按 DEFAULTS 形状递归补齐（两层），旧档/导入数据缺子键时保证 mutator 可安全写入 */
+    function fillSettingsDefaults(dst, src) {
+        for (var k in src) {
+            if (!Object.prototype.hasOwnProperty.call(src, k)) continue;
+            var v = src[k];
+            if (v && typeof v === 'object' && !Array.isArray(v)
+                && dst[k] && typeof dst[k] === 'object' && !Array.isArray(dst[k])) {
+                dst[k] = fillSettingsDefaults(Object.assign({}, dst[k]), v);
+            } else {
+                dst[k] = v;
+            }
+        }
+        return dst;
+    }
+
     function updateSettings(mutator) {
         if (typeof mutator !== 'function') return false;
         var data = loadAll();
-        data.settings = Object.assign({}, JSON.parse(JSON.stringify(DEFAULTS.settings)), data.settings || {});
+        // 先按 DEFAULTS 深补齐再交给 mutator —— 否则旧数据缺 notifications.providers
+        // 等子键时 mutator 会抛 TypeError 被吞掉，设置写入静默失败
+        data.settings = fillSettingsDefaults(
+            JSON.parse(JSON.stringify(DEFAULTS.settings)),
+            data.settings && typeof data.settings === 'object' ? data.settings : {}
+        );
         try { mutator(data.settings); } catch (e) { return false; }
         _cache = data;
         saveAll();

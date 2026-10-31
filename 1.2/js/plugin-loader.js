@@ -48,6 +48,11 @@ window.HSPCBPlugins = (function () {
                     throw new Error('apiVersion ' + meta.apiVersion + ' 与运行时 ' + API_MAJOR + '.x 不兼容');
                 }
                 manifests.push(meta);
+                // 超时看门狗可能已把该插件记为失败 —— 迟到的成功注册要把失败条目撤回，
+                // 否则 list() 里同一插件同时出现「已装载」和「失败」两条
+                for (var fi = failed.length - 1; fi >= 0; fi--) {
+                    if (failed[fi].id === meta.id) failed.splice(fi, 1);
+                }
                 meta.setup(makeCtx(meta.id));
             } catch (e) {
                 fail(meta && meta.id || 'unknown', e && e.message || String(e));

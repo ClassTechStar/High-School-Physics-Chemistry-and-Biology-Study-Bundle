@@ -97,10 +97,11 @@ window.HSPCBNotify = (function () {
 
             var now = Date.now();
             var level = payload.level === 'warn' || payload.level === 'error' ? payload.level : 'info';
+            // 去重必须先于限流窗口更新：被去重的消息不得刷新全局限流窗口，
+            // 否则周期性重试同一 id 的模块会持续压制其它模块的非 error 通知
+            if (seen[payload.id] && now - seen[payload.id] < 60000) return { ok: false, reason: 'deduped' };
             if (level !== 'error' && now - lastGlobal < 10000) return { ok: false, reason: 'rate-limited' };
             lastGlobal = now;
-
-            if (seen[payload.id] && now - seen[payload.id] < 60000) return { ok: false, reason: 'deduped' };
             seen[payload.id] = now;
 
             systemNotify(payload);

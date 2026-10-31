@@ -19,6 +19,7 @@ window.HSPCBSchedule = (function () {
     var data = null;
     var loading = false;
     var lastFile = null;
+    var failedFile = null; // 本会话内加载/校验失败的源，避免每秒 tick 触发 fetch 风暴
 
     /* ---------------- 纯计算 ---------------- */
 
@@ -135,7 +136,7 @@ window.HSPCBSchedule = (function () {
             var r = data.days[i];
             if (!(r.dayOfWeek >= 1 && r.dayOfWeek <= 7)) return 'days[' + i + '].dayOfWeek 越界';
             if (r.weeks != null && !weekRuleMatches(r.weeks, 1) && r.weeks !== 'odd' && r.weeks !== 'even'
-                && !(Array.isArray(r.weeks)) && !(r.weeks && r.weeks.cycle)) return 'days[' + i + '].weeks 不合法';
+                && !(Array.isArray(r.weeks)) && !(r.weeks && r.weeks.cycle) && typeof r.weeks !== 'number') return 'days[' + i + '].weeks 不合法';
             for (var j = 0; j < (r.entries || []).length; j++) {
                 var e = r.entries[j];
                 if (!TYPES[e.type]) return 'days[' + i + '] entries[' + j + '].type 不合法';
@@ -178,24 +179,28 @@ window.HSPCBSchedule = (function () {
             return;
         }
         if (data && data.__file === file) { cb(data); return; }
+        if (file === failedFile) { cb(null); return; } // 已失败过的 fetch 源：本会话不再重试
         if (loading) { setTimeout(function () { ensureLoaded(cb); }, 120); return; }
         if (typeof fetch !== 'function') { cb(null); return; }
         loading = true;
         fetch(file).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
             data = (j && validate(j) === null) ? j : null;
             if (data) data.__file = file;
+            else failedFile = file;
             if (!data) console.warn('[HSPCBSchedule] 作息数据无效或加载失败:', file);
         }).catch(function () {
             data = null;
+            failedFile = file;
             console.warn('[HSPCBSchedule] 作息数据加载失败:', file);
         }).then(function () { loading = false; cb(data); });
     }
 
-    /** 使缓存失效（设置更换数据源后调用） */
+    /** 使缓存失效（设置更换数据源后调用），并解除该源的本会话失败标记 */
     function configure(file) {
         lastFile = file === undefined ? null : file;
         data = null;
         loading = false;
+        failedFile = null; // 换源后允许重新尝试
     }
 
     function getDayEntries(date, cb) {

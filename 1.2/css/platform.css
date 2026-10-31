@@ -194,6 +194,9 @@
 
 /* ---------- 锁定模式：隐藏清数据入口 ---------- */
 body.hspcb-locked [data-lock-hide] { display: none !important; }
+/* 清数据入口多为工具页渲染期动态 DOM，类选择器规则可覆盖后渲染的按钮 */
+body.hspcb-locked #clear-data-btn,
+body.hspcb-locked .btn-reset-stats { display: none !important; }
 
 /* ---------- 题库加载更多 ---------- */
 .exam-load-more-wrap { text-align: center; padding: 12px 0 4px; }

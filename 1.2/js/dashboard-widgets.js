@@ -23,9 +23,10 @@ window.HSPCBDashboard = (function () {
 
     function register(def) {
         if (!def || !def.id || typeof def.render !== 'function') return false;
-        var isNew = !defs[def.id];
         defs[def.id] = { id: def.id, name: def.name || def.id, render: def.render, defaultSettings: def.defaultSettings || {} };
-        if (isNew) return true;
+        // 插件在页面装载后才 register：若组件块已挂载，刷新「添加组件」下拉，
+        // 否则新注册的组件只能显示（布局里已有）却无法通过 UI 添加
+        refreshAddOptions();
         return true;
     }
 
@@ -50,6 +51,9 @@ window.HSPCBDashboard = (function () {
 
     function add(widgetId) {
         if (!defs[widgetId]) return false;
+        // 同一组件只允许一个实例：clock 等组件有模块级单例状态（如 tick 退订），
+        // 重复添加会让旧实例冻结
+        if (getLayout().some(function (x) { return x.widget === widgetId; })) return false;
         var layout = getLayout();
         layout.push({ id: 'w' + Date.now().toString(36), widget: widgetId, settings: {} });
         persist(layout);
@@ -104,6 +108,21 @@ window.HSPCBDashboard = (function () {
         }
         card.appendChild(body);
         return card;
+    }
+
+    /** 组件块已挂载时，重建「添加组件」下拉的 options（register 迟到场景） */
+    function refreshAddOptions() {
+        try {
+            var sel = document.querySelector('#' + BLOCK_ID + ' select[aria-label="添加组件"]');
+            if (!sel) return;
+            sel.textContent = '';
+            sel.appendChild(el('option', null, '＋ 添加组件'));
+            Object.keys(defs).forEach(function (id) {
+                var o = el('option', null, defs[id].name);
+                o.value = id;
+                sel.appendChild(o);
+            });
+        } catch (e) { /* ignore */ }
     }
 
     function mount() {
@@ -226,8 +245,10 @@ window.HSPCBDashboard = (function () {
         render: function (body) {
             var streak = 0;
             try {
-                var raw = window.HSPCBStore && HSPCBStore.get('hspcb_daily_checkin');
-                var map = raw ? JSON.parse(raw) : {};
+                // 必须经 getCheckin 归一化读取：该 key 存在数组形态的旧数据（旧 gamification 写入），
+                // 直接 JSON.parse 后按 map 用会把旧档连击恒算为 0
+                var map = window.HSPCBStore && typeof HSPCBStore.getCheckin === 'function'
+                    ? HSPCBStore.getCheckin() : {};
                 var d = new Date();
                 for (;;) {
                     var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');

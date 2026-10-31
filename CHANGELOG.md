@@ -2,6 +2,31 @@
 
 ## 未发布
 
+### 全量 bug 排查修复（v1.5.1，含 v1.5 新模块回归）
+> 对 main 全量跑九道门禁 + deep/static/handler 三扫描 + 浏览器端到端；修复 12 处真实缺陷（3 高 / 5 中 / 4 低），并修正 1 处检查器误报。基线门禁全绿后方可发布。
+
+**高**
+- **deep-link**：`?goto=settings` 深链 100% 失效——defer 批执行时 `readyState` 已是 `interactive` 而同批后面的 settings-center 尚未装载，路由立即扑空且 URL 被抹掉。改为等 `DOMContentLoaded`（defer 全部就绪）再路由。
+- **schedule-engine**：作息源 404/校验失败后每秒 tick 触发无限 refetch（请求风暴）。新增本会话失败标记，换源（`configure`）时解除。
+- **CI（verify.yml）**：手工步骤缺 `check:csp` / `check:theme` / `check:schedule` 三个门禁，v1.5 的 CSP 与作息门禁在 CI 形同虚设——补齐；孤儿测试 `test-schedule.mjs` 挂入 `npm test` 链（29 项随 CI 执行）。
+
+**中**
+- **progress.updateSettings** 浅合并导致旧档/导入数据缺 `notifications.providers` 等子键时，通知开关/插件启停/锁定 PIN/布局持久化五条链路静默失败——新增 `fillSettingsDefaults` 按 DEFAULTS 深补齐后再交给 mutator。
+- **notification-center** 去重判定发生在全局限流窗口更新之后，周期性重试同一 id 会持续压制其它模块通知——调整顺序并用时间推进法回归（deduped 不刷新 lastGlobal）。
+- **automation.fire** 冷却在通知被接受前落盘，一次限流冲突即吞掉当天打卡提醒——改为 `notify` 返回 `ok` 才写冷却；打卡读取改走 `HSPCBStore.getCheckin()` 归一化（旧数组形态数据此前被恒判「未打卡」）；冷却表自动清理 7 天前条目。
+- **settings-center 锁定模式**：选择器匹配不到真实清除入口（`#clear-data-btn`）且盖不住后渲染按钮——改为主体 `body.hspcb-locked` + platform.css 类选择器规则（CSS 天然覆盖动态 DOM），补 `#clear-data-btn` 与 `.btn-reset-stats`。
+- **dashboard-widgets / automation 打卡读取**：绕过 `getCheckin()` 归一化，旧档连击恒 0、19 点后每天误报——统一改走归一化读取器。
+
+**低**
+- 仪表盘「学习次数」NaN：`gameScores` v2 默认为对象形态无 `.length`——gatherData 读取后归一化为数组。
+- dashboard `add()` 允许重复添加同一组件（clock 单例 tick 会被顶掉冻结）——同组件去重；插件迟到 `register()` 时刷新「添加组件」下拉。
+- 插件 5s 超时判失败后迟到注册成功，`list()` 出现双重条目——成功注册撤回同 id 失败记录。
+- `theme-toggle` 切换不同步 `settings.theme`（设置下拉显示旧值）——apply 内同步；设置中心「关于」版本号读 `data-app-version`（index.html 根标签，随版本更新）。
+- schedule `validate` 放开引擎本就支持的数字型 `weeks`；deep-link `tool:` 对无六科前缀工具（如 `chem-equilibrium`）回退为触发页面上的 `data-tool` 入口按钮。
+- **检查器修正**：`handler-integrity.mjs` 只扫 index.html 导致 4 个 data-tool 误报 unrouted（case 已迁至 main-inline.js）——扫描范围并入 main-inline.js，误报清零（122 tool / 127 case / 0 unrouted）。
+- `study-dashboard` 清理重复声明的 `readProgress/readStore` 死代码；「近期活动」改一次性拼接（孤立 `</div>` 会被 innerHTML 解析器丢弃）。
+- 版本号 1.5.0 → **1.5.1**。
+
 ### 平台化（v1.5 T1–T14，借鉴 ClassIsland / Class-Widgets-2 渐进式迭代方案）
 > 依据 `ITERATION-PLAN.md`（对两个参考项目的九维度架构调研与迁移筛选）执行；待确认项按约定跳过。
 

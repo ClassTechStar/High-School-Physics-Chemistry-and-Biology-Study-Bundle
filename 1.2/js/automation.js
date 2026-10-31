@@ -18,6 +18,11 @@ window.HSPCBAutomation = (function () {
             var raw = window.HSPCBStore && HSPCBStore.get('automation.lastFired');
             lastFired = raw ? JSON.parse(raw) : {};
         } catch (e) { lastFired = {}; }
+        // 卫生：丢弃 7 天前的冷却记录，防止 checkin:<date> 类 key 无限增长
+        var cutoff = Date.now() - 7 * 24 * 3600e3;
+        for (var k in lastFired) {
+            if (lastFired[k] < cutoff) delete lastFired[k];
+        }
     }
     function saveLast() {
         try { window.HSPCBStore && HSPCBStore.set('automation.lastFired', JSON.stringify(lastFired)); } catch (e) { /* ignore */ }
@@ -31,11 +36,15 @@ window.HSPCBAutomation = (function () {
     function fire(key, payload, cooldownMs) {
         var now = Date.now();
         if (lastFired[key] && now - lastFired[key] < (cooldownMs || 24 * 3600e3)) return;
+        // 先发通知，确认被接受（未被去重/限流/关闭）才写冷却 —— 否则一次限流冲突
+        // 就会消耗掉整个冷却期（如 19:00 打卡提醒当天不再重试）
+        var res = null;
+        try {
+            res = window.HSPCBNotify && HSPCBNotify.notify(Object.assign({ id: 'auto.' + key }, payload));
+        } catch (e) { /* ignore */ }
+        if (!res || res.ok !== true) return;
         lastFired[key] = now;
         saveLast();
-        try {
-            window.HSPCBNotify && HSPCBNotify.notify(Object.assign({ id: 'auto.' + key }, payload));
-        } catch (e) { /* ignore */ }
     }
 
     function enabled() {
@@ -53,8 +62,10 @@ window.HSPCBAutomation = (function () {
         if (now.getHours() >= 19) {
             var done = false;
             try {
-                var raw = window.HSPCBStore && HSPCBStore.get('hspcb_daily_checkin');
-                var map = raw ? JSON.parse(raw) : {};
+                // 必须经 getCheckin 归一化读取：该 key 存在数组形态的旧数据，
+                // 直接 JSON.parse 后按 map 用会把旧档全部误判为「未打卡」
+                var map = window.HSPCBStore && typeof HSPCBStore.getCheckin === 'function'
+                    ? HSPCBStore.getCheckin() : {};
                 done = map[dk] === true;
             } catch (e) { done = false; }
             if (!done) {

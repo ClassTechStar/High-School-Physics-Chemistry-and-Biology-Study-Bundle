@@ -28,6 +28,14 @@
             localStorage.setItem(KEY, theme);
             localStorage.setItem(LEGACY, theme === 'dark' ? '1' : '0');
         } catch (e) {}
+
+        // v1.5：同步设置中心的主题偏好，避免 🌙 切换后设置下拉显示旧值
+        try {
+            if (window.HSPCBProgress && typeof HSPCBProgress.updateSettings === 'function'
+                && HSPCBProgress.getSettings().theme !== theme) {
+                HSPCBProgress.updateSettings(function (s) { s.theme = theme; });
+            }
+        } catch (e) {}
     }
 
     window.toggleTheme = function () { apply(current() === 'dark' ? 'light' : 'dark'); };

@@ -8,28 +8,6 @@ window.studyDashboard = (function() {
     // 轨 3：hspcb_* 裸 key v1 遗留，只读迁移源，迁移后应清理
     // 任一项解析失败都必须**不影响其它项**（原实现共用 1 个 try/catch，
     // 单个坏数据会让整个仪表盘退化为空态）。
-    function readProgress(path, fallback) {
-        try {
-            if (typeof HSPCBProgress === 'undefined' || !HSPCBProgress) return fallback;
-            var v = HSPCBProgress.get(path);
-            return v === undefined || v === null ? fallback : v;
-        } catch (e) {
-            console.warn('[study-dashboard] 读取学习进度失败:', path, e && e.message);
-            return fallback;
-        }
-    }
-
-    function readStore(key, fallback) {
-        try {
-            if (typeof HSPCBStore === 'undefined' || !HSPCBStore) return fallback;
-            var v = HSPCBStore.get(key);
-            return v === undefined || v === null ? fallback : v;
-        } catch (e) {
-            console.warn('[study-dashboard] 读取工具数据失败:', key, e && e.message);
-            return fallback;
-        }
-    }
-
     function gatherData() {
         var data = {
             examHistory: [],
@@ -46,6 +24,7 @@ window.studyDashboard = (function() {
         data.examHistory = readStore('examHistory', []);
         data.errorNotebook = readProgress('wrongQuestions', []);
         data.gameScores = readProgress('gameScores', []);
+        if (!Array.isArray(data.gameScores)) data.gameScores = []; // v2 默认为对象形态，条数统计仅对数组有意义
         data.recitationScores = readProgress('moduleStats.recitation', []);
 
         return data;
@@ -378,16 +357,17 @@ window.studyDashboard = (function() {
             '<canvas id="dashboard-pie" width="300" height="300" data-style="width:100%;max-width:300px;display:block;margin:0 auto;"></canvas></div>' +
             '</div>';
 
-        // Recent activity
-        container.innerHTML += '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
+        // Recent activity（一次性拼接：避免孤立 </div> 被 innerHTML 解析器丢弃）
+        var recentHtml = '<div data-style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">' +
             '<div data-style="font-size:14px;font-weight:bold;color:#333;margin-bottom:10px;">\u8FD1\u671F\u6D3B\u52A8</div>';
         for (var j = 0; j < recentActivity.length; j++) {
             var act = recentActivity[j];
-            container.innerHTML += '<div data-style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#555;">' +
+            recentHtml += '<div data-style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#555;">' +
                 '<span><span data-style="background:#eff6ff;color:#3b82f6;padding:2px 8px;border-radius:10px;font-size:11px;margin-right:8px;">' + act.type + '</span>' + act.subject + '</span>' +
                 '<span data-style="color:#999;">' + act.detail + ' <span data-style="margin-left:8px;font-size:11px;">' + act.date + '</span></span></div>';
         }
-        container.innerHTML += '</div>';
+        recentHtml += '</div>';
+        container.innerHTML += recentHtml;
 
         // Draw charts after DOM update
         setTimeout(function() {

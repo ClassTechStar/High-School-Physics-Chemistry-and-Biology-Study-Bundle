@@ -330,10 +330,12 @@ window.HSPCBSettingsUI = (function () {
         try {
             var s = HSPCBProgress.getSettings();
             var locked = !!(s.security && s.security.lockPin);
+            // 主机制：body 上的 locked 类 + platform.css 的 display:none 规则，
+            // 天然覆盖「之后才渲染」的按钮（清除入口多为工具页渲染期 DOM）
             document.body.classList.toggle('hspcb-locked', locked);
             if (locked) {
-                // 标记清数据入口（锁定期间隐藏）
-                document.querySelectorAll('.btn-reset-stats, [data-call="HSPCBProgress.resetAll"]').forEach(function (n) {
+                // 兜底：对当前已在 DOM 的入口补标记
+                document.querySelectorAll('.btn-reset-stats, #clear-data-btn, [data-lock-hide]').forEach(function (n) {
                     n.setAttribute('data-lock-hide', '');
                 });
             }
