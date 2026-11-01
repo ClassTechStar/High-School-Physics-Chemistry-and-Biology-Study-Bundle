@@ -1,8 +1,8 @@
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v19（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v20（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 
-var CACHE_NAME = 'hspcb-v19';
+var CACHE_NAME = 'hspcb-v20';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -47,6 +47,8 @@ var CORE_ASSETS = [
     'js/plugin-loader.js',
     'css/platform.css',
     'css/themes/sepia.css',
+    'css/themes/liquid-glass.css',
+    'js/liquid-glass.js',
     'plugins/index.json',
     'plugins/example/hspcb-plugin.json',
     'plugins/example/example.js',

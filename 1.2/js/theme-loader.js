@@ -11,7 +11,8 @@ window.HSPCBTheme = (function () {
     var LINK_ID = 'hspcb-theme-pack';
     var PACKS = [
         { id: 'none', name: '默认外观' },
-        { id: 'sepia', name: '护眼纸色' }
+        { id: 'sepia', name: '护眼纸色' },
+        { id: 'liquid-glass', name: '液态玻璃' }
     ];
     var current = 'none';
 

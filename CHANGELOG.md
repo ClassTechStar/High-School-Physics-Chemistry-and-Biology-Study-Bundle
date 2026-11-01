@@ -2,6 +2,15 @@
 
 ## 未发布
 
+### 液态玻璃主题包（v1.5.2）
+> 参考三个液态玻璃实现提炼共享材质语言，用 Web 原生能力等价落地：liquid-glass-js（Apple Liquid Glass 的 WebGL 复刻，提供折射/模糊/色调参数）、kyant0/AndroidLiquidGlass（Compose「backdrop 层 + 前景玻璃」架构）、liquid-glass（iOS/RN 原生材质）。未引入任何参考项目代码或依赖。
+
+- **主题包** `css/themes/liquid-glass.css`：主要卡片（学科卡/工具卡/知识卡/题库项/弹窗/通知/迷你组件）、导航条与悬浮按钮统一为磨砂玻璃材质——`backdrop-filter: blur+saturate`、上缘反光高光条、内描边、弹性 hover 形变（尊重 `prefers-reduced-motion`）。
+- **液态折射增强** `js/liquid-glass.js`：注入 `feTurbulence + feGaussianBlur + feDisplacementMap` SVG 折射滤镜，Chromium 下经 `backdrop-filter: url(#…)` 产生背景折射形变；门控条件不满足（Firefox/Safari、`prefers-reduced-transparency`、deviceMemory<4、省流/2G）时自动回退纯磨砂，CSS 另有实底兜底。经 tick 轮询感知主题切换（≤1s 生效），与 theme-loader 零耦合。
+- **背景色斑**：Chromium 增强模式下 body 增加三处柔和径向渐变色斑，让折射有可感知的「液」感；暗色模式独立配色。
+- **接线**：theme-loader PACKS 注册「液态玻璃」（设置 → 通用 → 外观主题包 动态出现）；index.html 登记 defer 脚本；`sw.js` `hspcb-v19 → hspcb-v20`。
+- 版本 1.5.1 → **1.5.2**。
+
 ### 全量 bug 排查修复（v1.5.1，含 v1.5 新模块回归）
 > 对 main 全量跑九道门禁 + deep/static/handler 三扫描 + 浏览器端到端；修复 12 处真实缺陷（3 高 / 5 中 / 4 低），并修正 1 处检查器误报。基线门禁全绿后方可发布。
 
