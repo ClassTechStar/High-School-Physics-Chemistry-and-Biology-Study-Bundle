@@ -5,6 +5,8 @@
 
 在线版：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>
 
+参赛与答辩：见 [COMPETITION.md](COMPETITION.md)（评审维度映射、三分钟演示脚本、答辩 Q&A）；作品展示页：[showcase.html](1.2/showcase.html)。
+
 ## 怎么用
 
 **直接用在线版**，浏览器打开就能用。Chrome / Edge 可以「添加到主屏幕」装成 PWA，

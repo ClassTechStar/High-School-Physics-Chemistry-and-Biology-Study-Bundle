@@ -82,6 +82,20 @@ window.HSPCBSettingsUI = (function () {
             function (v) { window.HSPCBTheme && HSPCBTheme.setPack(v); }));
         frag.appendChild(rPack);
 
+        // v1.6 评委演示模式：一键填充示例学习数据，注入前自动快照
+        var demoCard = el('div', 'hspcb-card');
+        demoCard.appendChild(el('div', 'hspcb-row-label', '评委演示模式'));
+        demoCard.appendChild(el('div', 'hspcb-row-hint', '注入示例错题 / 打卡 / 笔记（注入前自动快照，可在「备份」页恢复真实数据）。'));
+        var demoRow = el('div', 'hspcb-entry-row');
+        demoRow.appendChild(btn('注入演示数据', 'hspcb-btn-primary', function () {
+            if (window.HSPCBDemo) HSPCBDemo.inject();
+        }));
+        demoRow.appendChild(btn('清除演示数据', 'hspcb-btn-danger', function () {
+            if (window.HSPCBDemo) HSPCBDemo.clear();
+        }));
+        demoCard.appendChild(demoRow);
+        frag.appendChild(demoCard);
+
         var about = el('div', 'hspcb-card hspcb-muted');
         about.textContent = 'HSPCB ' + (document.documentElement.getAttribute('data-app-version') || '') + ' · 所有数据仅存于本浏览器。';
         frag.appendChild(about);

@@ -37,6 +37,7 @@ for (const p of [
   'css/tokens.css', 'css/style.css', 'css/theme-dark.css',
   'js/progress.js', 'js/app.js', 'js/enhanced-tools.js',
   'data/exam-bank.json', 'data/physics/knowledge.json',
+  'showcase.html', 'css/showcase.css', 'js/demo-mode.js', 'js/liquid-glass.js',
 ]) {
   ok(existsSync(join(APP, p)), `存在 ${p}`);
 }
@@ -182,6 +183,8 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
     'js/settings-center.js',
     'js/automation.js',
     'js/plugin-loader.js',
+    'js/liquid-glass.js',
+    'js/demo-mode.js',
   ];
   let loadErr = 0;
   for (const rel of loadOrder) {
@@ -225,6 +228,9 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
   ok(typeof sandbox.HSPCBSettingsUI === 'object' && typeof sandbox.HSPCBSettingsUI.open === 'function', 'HSPCBSettingsUI 入口');
   ok(typeof sandbox.HSPCBAutomation === 'object' && typeof sandbox.HSPCBAutomation.update === 'function', 'HSPCBAutomation 规则引擎');
   ok(sandbox.HSPCBPlugin && typeof sandbox.HSPCBPlugin.register === 'function', 'HSPCBPlugin 注册口');
+  ok(typeof sandbox.HSPCBLiquidGlass === 'object' && typeof sandbox.HSPCBLiquidGlass.enhancementAvailable === 'function', 'HSPCBLiquidGlass API');
+  ok(typeof sandbox.HSPCBDemo === 'object' && typeof sandbox.HSPCBDemo.inject === 'function', 'HSPCBDemo API');
+  ok(typeof sandbox.examPracticeSystem.startHeroQuiz === 'function', 'startHeroQuiz 入口');
   ok(typeof sandbox.HSPCBProgress.getSettings === 'function' && sandbox.HSPCBProgress.getSettings().notifications.master === true, 'HSPCBProgress 设置中心 API');
   ok(typeof sandbox.HSPCBProgress.snapshotNow === 'function', 'HSPCBProgress 快照 API');
 

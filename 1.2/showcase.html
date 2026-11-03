@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-app-version="1.6.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="高中物化生语数英学习大礼包 — 六科题库与错题本，纯静态、可离线、零上传。参赛展示页。">
+<title>作品展示 · 高中物化生语数英学习大礼包</title>
+<link rel="stylesheet" href="css/showcase.css">
+</head>
+<body>
+
+<header class="sc-hero">
+  <p class="sc-eyebrow">参赛作品 · 网页设计与开发</p>
+  <h1>高中物化生语数英学习大礼包</h1>
+  <p class="sc-sub">六科题库 · 错题归因 · 作息驱动 · 纯静态可离线 · 数据零上传</p>
+  <div class="sc-cta">
+    <a class="sc-btn sc-btn-primary" href="index.html">🚀 进入应用</a>
+    <a class="sc-btn" href="presentation.html">📖 项目介绍</a>
+  </div>
+</header>
+
+<main class="sc-main">
+
+  <section class="sc-section" aria-labelledby="sc-stats">
+    <h2 id="sc-stats">一屏看懂</h2>
+    <div class="sc-stats" role="list">
+      <div class="sc-stat" role="listitem"><strong>1198</strong><span>道去重真题</span></div>
+      <div class="sc-stat" role="listitem"><strong>6</strong><span>个学科全覆盖</span></div>
+      <div class="sc-stat" role="listitem"><strong>41</strong><span>章 · 168 个考点</span></div>
+      <div class="sc-stat" role="listitem"><strong>122</strong><span>个学习小工具</span></div>
+      <div class="sc-stat" role="listitem"><strong>10</strong><span>道自动门禁</span></div>
+      <div class="sc-stat" role="listitem"><strong>0</strong><span>字节上传服务器</span></div>
+    </div>
+  </section>
+
+  <section class="sc-section" aria-labelledby="sc-features">
+    <h2 id="sc-features">核心功能（全部本地运行）</h2>
+    <div class="sc-grid">
+      <article class="sc-card"><h3>📝 真题练习与错题归因</h3><p>1198 道真题按学科 / 章节 / 难度 / 年份筛选；错题自动归因到考点，按复习优先级排序；分页加载保证千题级流畅浏览。</p></article>
+      <article class="sc-card"><h3>⏰ 作息驱动的学习提醒</h3><p>自定义每天的学习时段（支持单双周与假期覆写），驱动「当前时段」卡片与到点提醒——从「该学什么」到「现在该学什么」。</p></article>
+      <article class="sc-card"><h3>🔔 本地通知中心</h3><p>打卡提醒、错题积压预警、时段开始提醒；Provider 注册表 + 频控去重，每类可独立开关，PWA 安装后支持系统通知。</p></article>
+      <article class="sc-card"><h3>🧩 可插拔轻插件</h3><p>一份 JSON 清单 + 一个脚本即可注册通知 / 仪表盘卡片；apiVersion 版本门槛 + 超时隔离 + 连续失败自动停载，安全模式一键跳过。</p></article>
+      <article class="sc-card"><h3>🎨 外观主题包</h3><p>护眼纸色 / 液态玻璃两套主题（含背景折射增强），加载失败自动回退；明暗双主题全站令牌驱动。</p></article>
+      <article class="sc-card"><h3>💾 备份快照与锁定模式</h3><p>每日自动 3 槽位快照可一键恢复；机房公共设备可设 PIN 隐藏清数据入口，防误触不加密。</p></article>
+    </div>
+  </section>
+
+  <section class="sc-section" aria-labelledby="sc-eng">
+    <h2 id="sc-eng">工程与质量（评委可复现验证）</h2>
+    <div class="sc-cols">
+      <div class="sc-col">
+        <h3>十阶段自动门禁</h3>
+        <ol class="sc-list">
+          <li>数据与题库结构质检</li>
+          <li>跨文件声明碰撞扫描</li>
+          <li>CSP 内联事件 / 样式门禁</li>
+          <li>主题令牌一致性</li>
+          <li>作息数据校验</li>
+          <li>代码卫生（裸存储 / 转义覆盖）</li>
+          <li>内容语义（解析与答案矛盾检出）</li>
+          <li>defer 时序运行时复现</li>
+          <li>存储与引擎单测（104 项）</li>
+          <li>功能冒烟（68 项）</li>
+        </ol>
+      </div>
+      <div class="sc-col">
+        <h3>安全与隐私设计</h3>
+        <ul class="sc-list">
+          <li>CSP：<code>script-src 'self'</code>、无内联事件、无内联样式，<code>object-src 'none'</code></li>
+          <li>全部交互经声明式委托（<code>data-call / data-hook</code>），样式经 CSSOM 桥</li>
+          <li>备份导入按 schema 白名单净化，防原型污染与超长载荷</li>
+          <li>学习记录仅存浏览器本地，不收集、不上报、无第三方请求</li>
+          <li>门禁自举：CI 内注入已知缺陷，验证门禁自身具备真实失败能力</li>
+        </ul>
+      </div>
+      <div class="sc-col">
+        <h3>体验工程</h3>
+        <ul class="sc-list">
+          <li>PWA 离线安装，Service Worker 分层预缓存（壳 22 项 / 其余空闲补齐）</li>
+          <li>题库惰性加载与分页，首屏不拉取 1MB 题库</li>
+          <li>全局 1Hz tick 心跳统一计时器；启动自检 + 安全模式自愈</li>
+          <li>Web Speech 朗读、深链路由（<code>?goto=</code>）、锁定模式</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sc-section" aria-labelledby="sc-quick">
+    <h2 id="sc-quick">三分钟体验路线</h2>
+    <ol class="sc-steps">
+      <li>打开 <a href="index.html">应用首页</a>，点「🎲 随机挑战一题」立即作答；</li>
+      <li>错题自动归因，进入「提分工具 → 学习仪表盘」查看统计与迷你组件；</li>
+      <li>右下角 ⚙️ 设置 → 通用 → 外观主题包切换「液态玻璃」；</li>
+      <li>设置 → 作息表，启用示例作息后仪表盘出现「当前时段」；</li>
+      <li>断网刷新页面——PWA 离线依旧可用。</li>
+    </ol>
+  </section>
+
+  <section class="sc-section sc-note" aria-labelledby="sc-meta">
+    <h2 id="sc-meta">作品信息</h2>
+    <p>技术栈：原生 HTML5 / CSS3 / JavaScript（ES6+），无框架、无构建、无第三方运行时依赖。<br>
+    运行环境：现代浏览器（Chrome / Edge 体验最佳），支持部署到任意静态服务器。<br>
+    数据与题目整理自公开教材与考纲，仅供学习交流；详见仓库 <code>LICENSE</code>。</p>
+  </section>
+
+</main>
+
+<footer class="sc-footer">
+  <a href="index.html">← 返回应用</a> · <a href="promo.html">宣传页</a> · <a href="presentation.html">项目介绍</a>
+</footer>
+
+</body>
+</html>

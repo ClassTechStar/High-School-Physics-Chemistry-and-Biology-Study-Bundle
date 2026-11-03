@@ -2,6 +2,15 @@
 
 ## 未发布
 
+### 参赛级打磨（v1.6.0）
+> 按大型赛事通用评审维度（创新性 / 技术性 / 艺术性 / 完成度）系统补强，配套答辩材料 `COMPETITION.md`（评审维度映射、三分钟演示脚本、答辩 Q&A 预案与诚实边界声明）。
+
+- **参赛展示页** `showcase.html` + `css/showcase.css`：一屏数据带（1198 题 / 六科 / 168 考点 / 122 工具 / 10 门禁 / 0 上传）、六大功能矩阵、十阶段门禁与安全隐私设计（评委可复现验证）、三分钟体验路线；纯静态零 JS，与主应用同款 CSP，响应式 + 自动暗色。
+- **首页 Hero CTA**：welcome 卡新增「🎲 随机挑战一题」（`startHeroQuiz`：题库未就绪时先惰性预热再随机出题并导航到题库模块）与「📊 学习仪表盘」直达、作品展示入口。
+- **评委演示模式** `js/demo-mode.js`：一键注入示例错题（六科各 4 道真题改写）/ 打卡连击 12 天 / 笔记，注入前自动快照可恢复；设置 → 通用 提供注入与清除入口，`?demo=1` 每会话自动一次；题库未就绪时异步等待。
+- **无障碍基线**：skip-link（跳到主要内容）+ 全局 `:focus-visible` 键盘焦点环 + home-section `tabindex`，页脚新增作品展示页链接。
+- **接线**：index.html 增 meta description；`sw.js` `hspcb-v20 → hspcb-v21`（showcase / demo-mode 入册）；版本 1.6.0。
+
 ### 液态玻璃主题包（v1.5.2）
 > 参考三个液态玻璃实现提炼共享材质语言，用 Web 原生能力等价落地：liquid-glass-js（Apple Liquid Glass 的 WebGL 复刻，提供折射/模糊/色调参数）、kyant0/AndroidLiquidGlass（Compose「backdrop 层 + 前景玻璃」架构）、liquid-glass（iOS/RN 原生材质）。未引入任何参考项目代码或依赖。
 

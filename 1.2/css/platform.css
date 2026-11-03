@@ -200,3 +200,49 @@ body.hspcb-locked .btn-reset-stats { display: none !important; }
 
 /* ---------- 题库加载更多 ---------- */
 .exam-load-more-wrap { text-align: center; padding: 12px 0 4px; }
+
+/* ---------- v1.6 首页 Hero CTA ---------- */
+.hero-cta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+.hero-btn {
+    border: 1px solid var(--hspcb-border, #e2e8f0);
+    background: var(--primary, #4f6ef6);
+    color: #fff;
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.hero-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(79, 110, 246, 0.35); }
+.hero-btn:active { transform: translateY(0); }
+.hero-btn:not(.hero-btn-primary) {
+    background: var(--bg-card, #fff);
+    color: var(--text-primary, #1e293b);
+}
+.hero-btn-ghost { background: transparent !important; }
+
+/* ---------- v1.6 无障碍：跳转链接与键盘焦点 ---------- */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100000;
+    background: var(--primary, #4f6ef6);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 0 0 8px 0;
+    font-size: 13px;
+    text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+:focus-visible {
+    outline: 2px solid var(--primary, #4f6ef6);
+    outline-offset: 2px;
+}

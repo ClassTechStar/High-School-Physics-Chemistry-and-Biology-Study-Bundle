@@ -820,13 +820,25 @@ const examPracticeSystem = {
     },
 
     startRandomQuiz() {
-        const exams = this.getRandomExams(1, 
+        const exams = this.getRandomExams(1,
             document.getElementById('exam-subject-filter').value,
             document.getElementById('exam-difficulty-filter').value
         );
         if (exams.length > 0) {
             this.showExamDetail(exams[0].id);
         }
+    },
+
+    // v1.6: 首页「随机挑战一题」入口——先确保题库模块就绪并渲染，再随机出题
+    startHeroQuiz() {
+        const content = document.getElementById('exam-content');
+        if (!this.examData) {
+            this.ensureLoaded().then(() => this.startHeroQuiz());
+            return;
+        }
+        if (typeof showSection === 'function') showSection('exam-section');
+        if (content && !content.hasChildNodes()) this.renderExamDashboard(content);
+        this.startRandomQuiz();
     },
 
     refreshStats() {
