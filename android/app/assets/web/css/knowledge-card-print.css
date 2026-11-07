@@ -1,0 +1,81 @@
+/* ============================================================
+   knowledge-card-print.css — 知识点速记卡片打印弹窗样式（D3，v1.4）
+   原为 js/utility-tools-v2.js 内 window.open 文档里的内联 <style> 块，
+   CSP style-src 收紧为 'self' 后内联样式块会被拦截，故外置为独立文件，
+   由弹窗文档以 <link rel="stylesheet"> 引入（同源，'self' 允许）。
+   ============================================================ */
+
+@page {
+    size: A4;
+    margin: 12mm;
+}
+
+body {
+    font-family: "Microsoft YaHei", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #1f2937;
+}
+
+.page {
+    page-break-after: always;
+    padding: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+}
+
+.card {
+    border: 1.5px solid #3b82f6;
+    border-radius: 6px;
+    padding: 8mm;
+    min-height: 70mm;
+    box-sizing: border-box;
+}
+
+.tag {
+    font-size: 10pt;
+    color: #1e40af;
+    background: #dbeafe;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 4mm;
+}
+
+.title {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 0 0 3mm;
+}
+
+.content {
+    font-size: 11pt;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.back-label {
+    font-size: 9pt;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 4mm;
+    padding-top: 3mm;
+    border-top: 1px dashed #d1d5db;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16pt;
+    margin: 0 0 6mm;
+}
+
+.info {
+    text-align: center;
+    font-size: 10pt;
+    color: #6b7280;
+    margin-bottom: 6mm;
+}

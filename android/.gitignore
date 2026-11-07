@@ -1,0 +1,6 @@
+# 构建产物（脚本生成；assets/web/ 有意入库使 android/ 自包含）
+android/build/
+android/app/build/
+android/.gradle/
+android/local.properties
+*.apk.idsig

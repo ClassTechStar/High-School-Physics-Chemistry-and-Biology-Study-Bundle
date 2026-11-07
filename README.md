@@ -6,6 +6,7 @@
 在线版：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>
 
 参赛与答辩：见 [COMPETITION.md](COMPETITION.md)（评审维度映射、三分钟演示脚本、答辩 Q&A）；作品展示页：[showcase.html](1.2/showcase.html)。
+安卓端：原生 APK（源码在 [`android/`](android/)，构建说明见 [`android/README.md`](android/README.md)）；APK 产物随仓库发布于 `android/releases/`。
 
 ## 怎么用
 

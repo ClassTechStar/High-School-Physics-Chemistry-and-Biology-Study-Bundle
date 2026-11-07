@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-app-version="1.6.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="六科题库、错题归因与学习仪表盘——纯静态、可离线、数据零上传的高中学习工具。">
+<title>高中物化生语数英学习大礼包</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/theme-dark.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/chinese-knowledge.css">
+<link rel="stylesheet" href="css/platform.css">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#4f6ef6">
+
+<!-- D3：内联样式收敛桥。须早于任何 innerHTML，故置于 head 非 defer 且最前。
+     js/ 模板里写 data-style="..." 而非 style="..."，由本模块写入 CSSOM；
+     theme-dark.css 的暗色覆盖同步改写为 [data-style*="..."]（保留模板原文）。 -->
+<script src="js/cssom-style-bridge.js"></script>
+
+<script src="js/error-fallback.js"></script>
+
+<script src="js/theme-bootstrap.js"></script>
+
+</head>
+<body>
+<div class="container">
+<header class="main-header">
+<h1>🔬 高中物化生语数英学习大礼包</h1>
+<p class="subtitle">物理 · 化学 · 生物 · 数学 · 语文 · 英语</p>
+</header>
+
+<nav class="subject-nav" aria-label="学科导航">
+<button class="nav-btn active" data-subject="home"><span class="icon">🏠</span><span class="label">首页</span></button>
+<button class="nav-btn" data-subject="physics"><span class="icon">⚡</span><span class="label">物理</span></button>
+<button class="nav-btn" data-subject="chemistry"><span class="icon">🧪</span><span class="label">化学</span></button>
+<button class="nav-btn" data-subject="biology"><span class="icon">🧬</span><span class="label">生物</span></button>
+<button class="nav-btn nav-btn-exam" data-subject="exam"><span class="icon">📝</span><span class="label">备考中心</span></button>
+<button class="nav-btn nav-btn-platform" data-subject="platform"><span class="icon">🏛️</span><span class="label">平台架构</span></button>
+<button class="nav-btn nav-btn-math" data-subject="math"><span class="icon">📐</span><span class="label">数学</span></button>
+<button class="nav-btn nav-btn-english" data-subject="english"><span class="icon">🇬🇧</span><span class="label">英语</span></button>
+<button class="nav-btn nav-btn-chinese" data-subject="chinese"><span class="icon">📚</span><span class="label">语文</span></button>
+</nav>
+
+<main>
+<!-- ===== HOME ===== -->
+<a class="skip-link" href="#home-section">跳到主要内容</a>
+<section id="home-section" class="section active" tabindex="-1">
+<div class="welcome-card">
+<h2>高中物化生语数英学习大礼包</h2>
+<p>六科的知识点、题库、错题本和模拟考试都在这一个页面里。数据存在浏览器本地，不联网、不注册，也不需要安装。</p>
+<ul class="feature-list">
+<li><strong>题库：</strong>1198 道题，2018–2026 年，可按学科、章节、难度和年份筛选</li>
+<li><strong>知识点：</strong>六科共 41 章 168 个考点，每个考点列出核心要点和常见错误</li>
+<li><strong>错题本：</strong>做题时标记错题，按考点归类并给出复习顺序</li>
+<li><strong>工具：</strong>122 个在线小工具，含化学方程式配平、3D 分子、细胞分裂模拟、波动光学等</li>
+<li><strong>模拟考试：</strong>按学科组卷，计时作答后出分并记录成绩</li>
+</ul>
+<div class="hero-cta">
+<button class="hero-btn hero-btn-primary" data-call="examPracticeSystem.startHeroQuiz">🎲 随机挑战一题</button>
+<button class="hero-btn" data-call="showSection" data-arg1="@s:study-dashboard-section">📊 学习仪表盘</button>
+<a class="hero-btn hero-btn-ghost" href="showcase.html">🏆 作品展示</a>
+</div>
+</div>
+
+<div class="subject-cards">
+<div class="subject-card physics">
+<h4>⚡ 高中物理</h4>
+<ul>
+<li><a href="#" data-subject="physics">📐 力学 — 牛顿定律、动能与动量</a></li>
+<li><a href="#" data-subject="physics">⚡ 电磁学 — 带电粒子、电磁感应、电路</a></li>
+<li><a href="#" data-subject="physics">📏 光学、热学与机械振动</a></li>
+<li><a href="#" data-subject="physics">🔧 近代物理 — 原子结构与核反应</a></li>
+</ul>
+</div>
+<div class="subject-card chemistry">
+<h4>🧪 高中化学</h4>
+<ul>
+<li><a href="#" data-subject="chemistry">⚖️ 化学反应原理 — 平衡、速率、电化学</a></li>
+<li><a href="#" data-subject="chemistry">🔬 常见元素及其化合物 — 钠铁铝、卤素、硫氮</a></li>
+<li><a href="#" data-subject="chemistry">🧬 物质结构与元素周期律</a></li>
+<li><a href="#" data-subject="chemistry">🏭 有机化学基础与实验化学</a></li>
+</ul>
+</div>
+<div class="subject-card biology">
+<h4>🧬 高中生物</h4>
+<ul>
+<li><a href="#" data-subject="biology">🧬 遗传与变异 — 分离与自由组合、突变与育种</a></li>
+<li><a href="#" data-subject="biology">🩺 生命活动调节与稳态</a></li>
+<li><a href="#" data-subject="biology">🔬 细胞生物学 — 代谢、遗传信息传递</a></li>
+<li><a href="#" data-subject="biology">🔥 进化与生态</a></li>
+</ul>
+</div>
+<div class="subject-card chinese">
+<h4>📚 高中语文</h4>
+<ul>
+<li><a href="#" data-subject="chinese">📖 现代文阅读与文言文阅读</a></li>
+<li><a href="#" data-subject="chinese">📜 古诗词鉴赏与名句默写</a></li>
+<li><a href="#" data-subject="chinese">🎋 语言文字运用 — 病句、成语、连贯</a></li>
+<li><a href="#" data-subject="chinese">📝 高考作文</a></li>
+</ul>
+</div>
+<div class="subject-card math">
+<h4>📐 高中数学</h4>
+<ul>
+<li><a href="#" data-subject="math">📘 集合与逻辑、一元二次函数与不等式</a></li>
+<li><a href="#" data-subject="math">📗 函数性质、指数与对数、三角函数</a></li>
+<li><a href="#" data-subject="math">📙 导数及其应用、立体几何</a></li>
+<li><a href="#" data-subject="math">📕 圆锥曲线、数列、计数原理、概率与统计</a></li>
+</ul>
+</div>
+<div class="subject-card english">
+<h4>🇬🇧 高中英语</h4>
+<ul>
+<li><a href="#" data-subject="english">📝 语法知识</a></li>
+<li><a href="#" data-subject="english">📖 词汇与短语</a></li>
+<li><a href="#" data-subject="english">📚 阅读理解与听力理解</a></li>
+<li><a href="#" data-subject="english">✍️ 书面表达</a></li>
+</ul>
+</div>
+</div>
+
+<div class="quick-access"></div>
+
+<div class="quick-access">
+<h3>🚀 常用工具快速入口</h3>
+<div class="tool-grid">
+<button class="tool-card" data-tool="physics-formula"><div class="tool-icon">📐</div><h4>物理公式计算器</h4><p>力学·电磁学·热学公式速算</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-balancer"><div class="tool-icon">⚖️</div><h4>化学方程式配平</h4><p>智能配平+原子计数可视化</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-genetics"><div class="tool-icon">🧬</div><h4>遗传规律模拟器</h4><p>孟德尔定律·伴性遗传·基因频率</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="physics-measurement"><div class="tool-icon">📏</div><h4>物理测量仪器指南</h4><p>游标卡尺·螺旋测微器·多用电表精读</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-equipment"><div class="tool-icon">🔬</div><h4>化学实验器材大全</h4><p>烧杯·漏斗·量器·瓶类·加热器</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-exam-skills"><div class="tool-icon">📝</div><h4>生物答题技巧全解</h4><p>信息题·选择题·实验设计·遗传计算</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="biology-knowledge-graph"><div class="tool-icon">🗺️</div><h4>生物知识图谱</h4><p>13大热点专题·6维关联·考点清单</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="exam-dashboard"><div class="tool-icon">🎯</div><h4>备考数据中心</h4><p>分数线·知识图谱·个性化推荐·进度追踪</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="platform-overview"><div class="tool-icon">🏛️</div><h4>平台结构总览</h4><p>三层结构·各模块权重·题库构成</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="chinese-knowledge"><div class="tool-icon">📚</div><h4>语文知识点合集</h4><p>现代文·文言文·诗词·作文全解</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="secondary-conclusions"><div class="tool-icon">📋</div><h4>物化二级结论</h4><p>物理快捷公式·化学核心结论速查</p><span class="tool-tag physics">必备</span></button>
+<button class="tool-card" data-tool="valence-atlas"><div class="tool-icon">⚗️</div><h4>元素价态图谱</h4><p>Na·Fe·S·N 价态二维图·反应网络</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="english-grammar-quiz"><div class="tool-icon">📝</div><h4>英语语法闯关</h4><p>30道语法题·三级难度·即时解析</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-reading-trainer"><div class="tool-icon">📚</div><h4>阅读理解训练</h4><p>8篇文章·32题·计时练习</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-composition-templates"><div class="tool-icon">✍️</div><h4>书面表达模板</h4><p>18篇范文·高分句型·过渡词库</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="pomodoro-timer"><div class="tool-icon">⏱️</div><h4>番茄钟计时器</h4><p>25分钟专注·学习时长统计</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="study-plan-generator"><div class="tool-icon">📅</div><h4>学习计划生成器</h4><p>自动组卷·弱科加强·可打印</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="mastery-radar"><div class="tool-icon">📈</div><h4>掌握度雷达图</h4><p>六科多维·视觉化强弱分布</p><span class="tool-tag platform">数据</span></button>
+<button class="tool-card" data-tool="error-variation"><div class="tool-icon">🔄</div><h4>错题变式生成</h4><p>错一道练一类·参数自动变化</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="note-system"><div class="tool-icon">📓</div><h4>学习笔记系统</h4><p>Markdown·按科目分类·导出备份</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="data-exporter"><div class="tool-icon">💾</div><h4>数据导出/导入</h4><p>错题+模考+笔记·跨设备迁移</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="chinese-recitation"><div class="tool-icon">📝</div><h4>默写自测系统</h4><p>19篇必背·情境填空·即时批改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-vocabulary-quiz"><div class="tool-icon">🎯</div><h4>文言实词闯关</h4><p>25个实词·选择题·配对练习</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-composition-materials"><div class="tool-icon">📚</div><h4>作文素材库</h4><p>4大主题·人物名言事例·一键复制</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="onboarding"><div class="tool-icon">🛨️</div><h4>新手引导</h4><p>5步入门·功能介绍·快速上手</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="error-notebook"><div class="tool-icon">❌</div><h4>错题本系统</h4><p>自动收集错题·分类回顾·重做闯关</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="mock-exam"><div class="tool-icon">⏱️</div><h4>全真模拟考试</h4><p>随机组卷·倒计时·自动评分·五科可选</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="global-search"><div class="tool-icon">🔍</div><h4>全局搜索</h4><p>88+工具·六科知识图谱·Ctrl+K</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="chinese-sentence-correction"><div class="tool-icon">✍️</div><h4>病句修改训练器</h4><p>6大病句类型·30道高考真题·选择题+修改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="math-grapher"><div class="tool-icon">📈</div><h4>函数图像绘制器</h4><p>多函数叠加·平滑绘图·坐标网格</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-derivative"><div class="tool-icon">📐</div><h4>导数计算器</h4><p>符号求导·数值计算·图像对比</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-integral"><div class="tool-icon">∫</div><h4>积分计算器</h4><p>定积分数值计算·面积可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-geometry"><div class="tool-icon">📏</div><h4>几何画板</h4><p>直线·圆·圆锥曲线可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-sequence"><div class="tool-icon">📊</div><h4>数列可视化</h4><p>等差·等比·柱状图·通项公式</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-probability"><div class="tool-icon">🎲</div><h4>概率模拟器</h4><p>古典概型·二项分布·频率直方图</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-handbook"><div class="tool-icon">📖</div><h4>数学公式手册</h4><p>7大分类·34条核心公式速查</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="physics-wave-optics"><div class="tool-icon">🌊</div><h4>波动光学模拟</h4><p>波的干涉·光的折射·实时动画</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-3d-molecules"><div class="tool-icon">⚛️</div><h4>3D分子模型</h4><p>H2O·CH4·NH3·CO2·C6H6可旋转</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-cell-division"><div class="tool-icon">🧬</div><h4>细胞分裂动画</h4><p>有丝分裂·减数分裂·分步演示</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="study-dashboard"><div class="tool-icon">📊</div><h4>学习数据仪表盘</h4><p>学习时长·正确率趋势·科目分布</p><span class="tool-tag platform">数据</span></button>
+<button class="tool-card" data-tool="english-vocabulary"><div class="tool-icon">📖</div><h4>英语词汇记忆</h4><p>120高频词·单词卡片·选择题测试</p><span class="tool-tag english">英语</span></button>
+
+</div>
+<div class="tools-section mt-20">
+<h3>🎯 广东卷特色专项</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="guangdong-analysis">📊 命题规律白皮书</button>
+<button class="tool-access-btn" data-tool="situational-quiz">🌍 情境化试题训练</button>
+<button class="tool-access-btn" data-tool="cross-subject-enhanced">🔬 跨学科融合专题</button>
+<button class="tool-access-btn" data-tool="tech-frontiers">🏆 科技前沿关联</button>
+</div>
+</div>
+<div class="tools-section mt-16">
+<h3>📝 答题规范与提分</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="answer-template">📋 大题答题模板库</button>
+<button class="tool-access-btn" data-tool="calc-step">🧮 计算题分步训练</button>
+<button class="tool-access-btn" data-tool="interactive-mistakes">⚠️ 交互式易错点</button>
+<button class="tool-access-btn" data-tool="exam-strategy">🎯 考前策略指南</button>
+</div>
+</div>
+<div class="tools-section mt-16">
+<h3>🧠 记忆与诊断</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="spaced-repetition">🔁 间隔重复记忆系统</button>
+<button class="tool-access-btn" data-tool="textbook-fill">📖 教材原文挖空</button>
+<button class="tool-access-btn" data-tool="adaptive-diagnosis">🔍 自适应诊断测试</button>
+<button class="tool-access-btn" data-tool="knowledge-heatmap">🌡️ 知识盲区热力图</button>
+</div>
+</div>
+<div class="tools-section mt-16">
+<h3>📊 可视化与变式</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="formula-derivation">🎬 公式推导动画</button>
+<button class="tool-access-btn" data-tool="physics-model">⚙️ 物理模型可视化</button>
+<button class="tool-access-btn" data-tool="chem-transform">🔗 化学转化网络</button>
+<button class="tool-access-btn" data-tool="bio-chart">📈 生物图表题专项</button>
+<button class="tool-access-btn" data-tool="exam-variation">🔄 真题变式生成</button>
+<button class="tool-access-btn" data-tool="wrong-variation">❌ 错题变式生成</button>
+<button class="tool-access-btn" data-tool="study-calendar">📅 学习日历</button>
+<button class="tool-access-btn" data-tool="chem-lab-builder">🧪 实验装置拼装</button>
+<button class="tool-access-btn" data-tool="physics-graph-lab">📐 物理图像实验室</button>
+<button class="tool-access-btn" data-tool="chem-equilibrium">⚖️ 化学平衡模拟器</button>
+<button class="tool-access-btn" data-tool="periodic-table">🔬 交互式元素周期表</button>
+<button class="tool-access-btn" data-tool="punnett-square">🧬 遗传棋盘计算器</button>
+<button class="tool-access-btn" data-tool="open-answer-trainer">✍️ 开放题答题训练</button>
+<button class="tool-access-btn" data-tool="framework-trainer">📝 框架式答题训练</button>
+<button class="tool-access-btn" data-tool="exam-heatmap">🌡️ 考点热力图分析</button>
+<button class="tool-access-btn" data-tool="terminology">📖 术语易错字速查</button>
+<button class="tool-access-btn" data-tool="countdown-task">⏰ 高考倒计时任务</button>
+<button class="tool-access-btn" data-tool="concept-match">🎮 概念辨析对对碰</button>
+<button class="tool-access-btn" data-tool="scratchpad">✏️ 内置草稿画板</button>
+<button class="tool-access-btn" data-tool="study-report">📊 学习报告生成器</button>
+<button class="tool-access-btn" data-tool="experiment-table">🔬 教材实验六栏全表</button>
+<button class="tool-access-btn" data-tool="thinking-chain">💡 大题解题思维链</button>
+<button class="tool-access-btn" data-tool="variation-rec">🔄 变式题推荐系统</button>
+</div>
+<div class="tools-section mt-16">
+<h3>🆕 学科内容补全</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="poem-appreciation">🎨 古诗文鉴赏交互器</button>
+<button class="tool-access-btn" data-tool="classical-translation">📜 文言文翻译对照器</button>
+<button class="tool-access-btn" data-tool="solid-geometry-3d">📐 立体几何3D查看器</button>
+<button class="tool-access-btn" data-tool="trig-unit-circle">🎡 三角函数单位圆</button>
+<button class="tool-access-btn" data-tool="english-listening">🎧 英语听力训练</button>
+<button class="tool-access-btn" data-tool="english-cloze">📝 英语完形填空</button>
+<button class="tool-access-btn" data-tool="celestial-motion">🪐 天体运动模拟器</button>
+<button class="tool-access-btn" data-tool="crystal-structure-3d">💎 晶体结构3D查看器</button>
+<button class="tool-access-btn" data-tool="dna-central-dogma">🧬 DNA中心法则动画</button>
+</div>
+</div>
+<div class="tools-section mt-16">
+<h3>🎯 学习激励与数据分析</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="achievement-system">🏆 成就徽章系统</button>
+<button class="tool-access-btn" data-tool="study-share-card">📸 学习打卡分享图</button>
+<button class="tool-access-btn" data-tool="score-calculator">🔢 分数计算器/志愿参考</button>
+<button class="tool-access-btn" data-tool="error-analysis-report">📊 错题智能分析报告</button>
+<button class="tool-access-btn" data-tool="time-management">⏱️ 时间管理分析器</button>
+<button class="tool-access-btn" data-tool="score-line">📈 广东历年分数线</button>
+<button class="tool-access-btn" data-tool="experiment-exam-special">🔬 实验题专项训练</button>
+<button class="tool-access-btn" data-tool="choice-tricks">⚡ 选择题秒杀技巧库</button>
+<button class="tool-access-btn" data-tool="sentence-analyzer">📝 英语长难句分析器</button>
+<button class="tool-access-btn" data-tool="exam-timer-pro">⏲️ 考试计时器Pro</button>
+<button class="tool-access-btn" data-tool="knowledge-card-exporter">📇 知识点卡片导出</button>
+<button class="tool-access-btn" data-tool="learning-path-recommender">🧭 学习路径推荐</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== PHYSICS ===== -->
+<section id="physics-section" class="section">
+<div class="module-tabs">
+<button class="module-tab active" data-module="concepts">📖 核心概念</button>
+<button class="module-tab" data-module="examples">📝 典型例题</button>
+<button class="module-tab" data-module="experiments">🔬 物理实验</button>
+<button class="module-tab" data-module="tests">✅ 课后检测</button>
+</div>
+<div id="physics-content" class="module-content"></div>
+<div class="tools-section mt-24">
+<h3>⚡ 物理专项工具</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="physics-formula">📐 物理公式计算器</button>
+<button class="tool-access-btn" data-tool="physics-mechanics">🔧 受力分析工具</button>
+<button class="tool-access-btn" data-tool="physics-projectile">🎯 抛体运动模拟</button>
+<button class="tool-access-btn" data-tool="physics-electricity">⚡ 电路分析工具</button>
+<button class="tool-access-btn" data-tool="physics-optics">🔍 光学模拟</button>
+<button class="tool-access-btn" data-tool="physics-measurement">📏 测量仪器精读指南</button>
+<button class="tool-access-btn" data-tool="formula-handbook">📐 公式手册速查</button>
+<button class="tool-access-btn" data-tool="timed-quiz">⏱️ 计时刷题</button>
+<button class="tool-access-btn" data-tool="daily-learning">📅 每日一题</button>
+<button class="tool-access-btn" data-tool="interdisciplinary">🌐 学科交叉</button>
+<button class="tool-access-btn" data-tool="secondary-conclusions">📋 物理二级结论速查</button>
+</div>
+</div>
+</section>
+
+<!-- ===== CHEMISTRY ===== -->
+<section id="chemistry-section" class="section">
+<div class="module-tabs">
+<button class="module-tab active" data-module="concepts">📖 核心概念</button>
+<button class="module-tab" data-module="examples">📝 典型例题</button>
+<button class="module-tab" data-module="experiments">🔬 化学实验</button>
+<button class="module-tab" data-module="tests">✅ 课后检测</button>
+</div>
+<div id="chemistry-content" class="module-content"></div>
+<div class="tools-section mt-24">
+<h3>🧪 化学专项工具</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="chemistry-balancer">⚖️ 方程式配平器</button>
+<button class="tool-access-btn" data-tool="chemistry-quiz">📝 化学知识闯关</button>
+<button class="tool-access-btn" data-tool="chemistry-safety">⚠️ 实验室安全</button>
+<button class="tool-access-btn" data-tool="chemistry-electrochem">🔋 电化学模拟</button>
+<button class="tool-access-btn" data-tool="chemistry-process">🏭 化工流程分析</button>
+<button class="tool-access-btn" data-tool="chemistry-organic">🧬 有机化学工具</button>
+<button class="tool-access-btn" data-tool="chemistry-equipment">🔬 实验器材全解</button>
+<button class="tool-access-btn" data-tool="chemistry-notebook">📓 方程式抄本</button>
+<button class="tool-access-btn" data-tool="chemistry-process-analyzer">📊 流程分析器</button>
+<button class="tool-access-btn" data-tool="valence-atlas">⚗️ 元素价态图谱</button>
+<button class="tool-access-btn" data-tool="secondary-conclusions">📋 化学二级结论速查</button>
+</div>
+</div>
+</section>
+
+<!-- ===== BIOLOGY ===== -->
+<section id="biology-section" class="section">
+<div class="module-tabs">
+<button class="module-tab active" data-module="concepts">📖 核心概念</button>
+<button class="module-tab" data-module="examples">📝 典型例题</button>
+<button class="module-tab" data-module="experiments">🔬 生物实验</button>
+<button class="module-tab" data-module="tests">✅ 课后检测</button>
+</div>
+<div id="biology-content" class="module-content"></div>
+<div class="tools-section mt-24">
+<h3>🧬 生物专项工具</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="biology-genetics">🧬 遗传规律模拟器</button>
+<button class="tool-access-btn" data-tool="biology-ecosystem">🌍 生态系统模拟</button>
+<button class="tool-access-btn" data-tool="biology-mindmap">🗺️ 知识思维导图</button>
+<button class="tool-access-btn" data-tool="biology-knowledge-graph">🔥 13大热点知识图谱</button>
+<button class="tool-access-btn" data-tool="biology-exam-skills">📝 答题技巧全解</button>
+<button class="tool-access-btn" data-tool="biology-pcr-sim">🧬 PCR模拟动画</button>
+<button class="tool-access-btn" data-tool="biology-electrophoresis">🔬 凝胶电泳模拟</button>
+<button class="tool-access-btn" data-tool="biology-pedigree">👨‍👩‍👧 遗传系谱分析</button>
+<button class="tool-access-btn" data-tool="biology-photosynthesis">🌿 光合作用训练</button>
+<button class="tool-access-btn" data-tool="biology-experiment">🧪 实验方案设计</button>
+                    <button class="tool-access-btn" data-tool="biology-metabolism">🍬 糖类·脂质·ATP</button>
+                    <button class="tool-access-btn" data-tool="biology-evolution">🦎 进化理论</button>
+                    <button class="tool-access-btn" data-tool="biology-biotech">🔬 微生物·发酵·细胞工程</button>
+</div>
+</div>
+</section>
+
+<!-- ===== MATH (数学) ===== -->
+<section id="math-section" class="section">
+<div class="knowledge-panel knowledge-panel--math">
+<h2>📐 高中数学知识体系</h2>
+<div class="module-tabs">
+<button class="module-tab active" data-module="m1">📘 选必一</button>
+<button class="module-tab" data-module="m2">📗 选必二</button>
+</div>
+<div id="math-content">
+<div id="math-m1" class="tab-pane">
+<h3>选必一 — 集合·函数·三角·导数</h3>
+<div class="knowledge-card"><h4>集合与常用逻辑用语</h4><p>集合的运算(交并补)、充分必要条件判断、全称量词与存在量词</p></div>
+<div class="knowledge-card"><h4>函数概念与性质</h4><p>定义域值域、单调性奇偶性周期性、反函数、复合函数、函数图像变换</p></div>
+<div class="knowledge-card"><h4>指数函数与对数函数</h4><p>指数/对数运算法则、指数函数/对数函数图像与性质、对数换底公式</p></div>
+<div class="knowledge-card"><h4>三角函数</h4><p>任意角弧度制、诱导公式、和差倍角公式、正弦/余弦/正切函数图像</p></div>
+<div class="knowledge-card"><h4>导数及其应用</h4><p>导数定义与几何意义、基本导数公式、导数与单调性/极值/最值、切线方程</p></div>
+</div>
+<div id="math-m2" class="tab-pane is-hidden">
+<h3>选必二 — 向量·解析几何·数列·概率</h3>
+<div class="knowledge-card"><h4>空间向量与立体几何</h4><p>空间直角坐标系、向量坐标运算、线面角二面角、距离计算</p></div>
+<div class="knowledge-card"><h4>直线与圆的方程</h4><p>直线的五种形式、距离公式、圆的标准/一般方程、位置关系</p></div>
+<div class="knowledge-card"><h4>圆锥曲线</h4><p>椭圆/双曲线/抛物线的标准方程、焦点准线性质、离心率</p></div>
+<div class="knowledge-card"><h4>数列</h4><p>等差/等比数列通项与求和、递推数列、数学归纳法</p></div>
+<div class="knowledge-card"><h4>计数原理</h4><p>分类/分步计数、排列组合、二项式定理</p></div>
+<div class="knowledge-card"><h4>概率与统计</h4><p>古典概型、条件概率、二项分布、正态分布、期望与方差</p></div>
+</div>
+</div>
+<div class="tools-section mt-24">
+<h3>📐 数学专项工具</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="math-grapher">📈 函数图像绘制器</button>
+<button class="tool-access-btn" data-tool="math-derivative">📐 导数计算器</button>
+<button class="tool-access-btn" data-tool="math-integral">∫ 积分计算器</button>
+<button class="tool-access-btn" data-tool="math-geometry">📏 几何画板</button>
+<button class="tool-access-btn" data-tool="math-sequence">📊 数列可视化</button>
+<button class="tool-access-btn" data-tool="math-probability">🎲 概率模拟器</button>
+<button class="tool-access-btn" data-tool="math-handbook">📖 数学公式手册</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== ENGLISH (英语) ===== -->
+<section id="english-section" class="section">
+<div class="knowledge-panel knowledge-panel--english">
+<h2>🇬🇧 高中英语知识体系</h2>
+<div class="module-tabs">
+<button class="module-tab active" data-module="eng-grammar">📝 语法知识</button>
+<button class="module-tab" data-module="eng-vocab">📖 词汇短语</button>
+<button class="module-tab" data-module="eng-reading">📚 阅读理解</button>
+<button class="module-tab" data-module="eng-writing">✍️ 书面表达</button>
+</div>
+<div id="english-content">
+<div id="english-eng-grammar" class="tab-pane">
+<h3>📝 语法知识</h3>
+<div class="knowledge-card"><h4>时态与语态</h4><p>16种时态，重点：一般现在/过去/将来时、现在/过去完成时、现在/过去进行时。被动语态：be+过去分词。</p></div>
+<div class="knowledge-card"><h4>非谓语动词</h4><p>不定式(to do)、动名词(doing)、分词(doing/done)。作主/宾/定/状/补语。</p></div>
+<div class="knowledge-card"><h4>三大从句</h4><p>定语从句(that/which/who/whom/whose)、名词性从句(主/宾/表/同位语)、状语从句(9种)。</p></div>
+<div class="knowledge-card"><h4>虚拟语气</h4><p>条件句虚拟(与现在/过去/将来相反)、名词性从句虚拟(should+原形)、wish/as if等。</p></div>
+<div class="knowledge-card"><h4>倒装与强调</h4><p>部分倒装(否定前置/only前置/so neither)、完全倒装(地点状语前置)。强调句：It is...that/who...</p></div>
+</div>
+<div id="english-eng-vocab" class="tab-pane is-hidden">
+<h3>📖 词汇与短语</h3>
+<div class="knowledge-card"><h4>高频词汇</h4><p>新课标3500词中核心高频词约1500个。一词多义：observe(观察→遵守→庆祝)、address(地址→演讲→处理)。</p></div>
+<div class="knowledge-card"><h4>短语动词</h4><p>take/bring/come/go/put/get/turn+介词/副词：take up(开始)、take over(接管)、take off(起飞/成功)。</p></div>
+<div class="knowledge-card"><h4>词义辨析</h4><p>alone/lonely, rise/raise/arise, affect/effect/influence 等近义词区分。</p></div>
+<div class="knowledge-card"><h4>构词法</h4><p>前缀(un-/dis-/re-/pre-/inter-)、后缀(-tion/-ment/-ness/-able/-ful/-less)、合成词、转化词。</p></div>
+</div>
+<div id="english-eng-reading" class="tab-pane is-hidden">
+<h3>📚 阅读理解</h3>
+<div class="knowledge-card"><h4>主旨大意题</h4><p>找主题句(首段/末段/每段首句)，概括全文，选最佳标题。防以偏概全。</p></div>
+<div class="knowledge-card"><h4>细节理解题</h4><p>定位关键词回原文找对应信息，注意同义替换、正话反说。</p></div>
+<div class="knowledge-card"><h4>推理判断题</h4><p>基于原文合理推断，不加主观假设。提问词：infer, suggest, imply, conclude。</p></div>
+<div class="knowledge-card"><h4>词义猜测题</h4><p>利用上下文线索(定义/举例/对比/因果)、构词法、常识猜测词义。</p></div>
+</div>
+<div id="english-eng-writing" class="tab-pane is-hidden">
+<h3>✍️ 书面表达</h3>
+<div class="knowledge-card"><h4>书信作文</h4><p>邀请/建议/申请/感谢/道歉/投诉信。格式：称呼+正文+结束语+签名。</p></div>
+<div class="knowledge-card"><h4>议论文</h4><p>三段式：观点引入→论证(2-3论点+论据)→总结升华。连接词：Firstly, Moreover, In conclusion。</p></div>
+<div class="knowledge-card"><h4>读后续写</h4><p>新高考25分题型。读懂原文+合理续写两段(150词/段)，风格一致、首句衔接自然。</p></div>
+</div>
+</div>
+<div class="tools-section mt-24">
+<h3>🇬🇧 英语专项工具</h3>
+<div class="tools-access">
+<button class="tool-access-btn" data-tool="english-grammar-quiz">📝 语法闯关</button>
+<button class="tool-access-btn" data-tool="english-reading-trainer">📚 阅读训练</button>
+<button class="tool-access-btn" data-tool="english-composition-templates">✍️ 作文模板</button>
+<button class="tool-access-btn" data-tool="english-vocabulary">📖 词汇记忆系统</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== EXAM ===== -->
+<section id="exam-section" class="section">
+<div id="exam-content"></div>
+</section>
+
+<!-- ===== PLATFORM ===== -->
+<section id="platform-section" class="section">
+<div class="module-tabs">
+<button class="module-tab active" data-module="overview">🏛️ 平台总览</button>
+<button class="module-tab" data-module="round1">📗 一轮复习</button>
+<button class="module-tab" data-module="round2">📕 二轮专题</button>
+<button class="module-tab" data-module="bank">🏦 情境题库</button>
+<button class="module-tab" data-module="experiment-center">🔬 探究中心</button>
+<button class="module-tab" data-module="learning-path">🛤️ 学习路径</button>
+<button class="module-tab" data-module="teaching-apps">🏫 教学应用</button>
+<button class="module-tab" data-module="competition">🏆 比赛输出</button>
+</div>
+<div id="platform-content" class="module-content"></div>
+</section>
+
+<!-- ===== TOOL PAGES ===== -->
+<section id="physics-formula-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>📐 物理公式计算器</h2></div><div id="physics-calculator-app" class="physics-app"></div></section>
+<section id="physics-mechanics-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>🔧 受力分析工具</h2></div><div id="physics-mechanics-app" class="physics-app"></div></section>
+<section id="physics-projectile-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>🎯 抛体运动模拟</h2></div><div id="projectile-sim-app" class="physics-app"></div></section>
+<section id="physics-electricity-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>⚡ 电路分析工具</h2></div><div id="physics-electricity-app" class="physics-app"></div></section>
+<section id="physics-optics-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>🔍 光学模拟</h2></div><div id="physics-optics-app" class="physics-app"></div></section>
+<section id="physics-measurement-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>📏 物理测量仪器精读指南</h2></div><div id="physics-measurement-app" class="physics-app"></div></section>
+
+<section id="chemistry-balancer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>⚖️ 化学方程式配平器</h2></div><div id="chemistry-balancer-app" class="chemistry-app"></div></section>
+<section id="chemistry-quiz-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>📝 化学知识闯关</h2></div><div id="chemistry-quiz-app" class="chemistry-app"></div></section>
+<section id="chemistry-safety-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>⚠️ 实验室安全</h2></div><div id="chemistry-safety-app" class="chemistry-app"></div></section>
+<section id="chemistry-electrochem-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>🔋 电化学模拟</h2></div><div id="electrochem-app" class="chemistry-app"></div></section>
+<section id="chemistry-process-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>🏭 化工流程分析</h2></div><div id="process-flow-app" class="chemistry-app"></div></section>
+<section id="chemistry-organic-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>🧬 有机化学工具</h2></div><div id="organic-converter-app" class="chemistry-app"></div></section>
+<section id="chemistry-equipment-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>🔬 化学实验器材分类全解</h2></div><div id="chemistry-equipment-app" class="chemistry-app"></div></section>
+<section id="chemistry-notebook-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>📓 方程式抄本</h2></div><div id="equation-notebook-app" class="chemistry-app"></div></section>
+
+<section id="biology-genetics-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🧬 遗传规律模拟器</h2></div><div id="biology-genetics-app" class="biology-app"></div></section>
+<section id="biology-ecosystem-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🌍 生态系统模拟</h2></div><div id="ecosystem-sim-app" class="biology-app"></div></section>
+<section id="biology-mindmap-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🗺️ 知识思维导图</h2></div><div id="biology-mindmap-app" class="biology-app"></div></section>
+<section id="biology-knowledge-graph-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🔥 13大热点知识图谱</h2></div><div id="biology-knowledge-graph-app" class="biology-app"></div></section>
+<section id="biology-exam-skills-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>📝 生物答题技巧全解</h2></div><div id="biology-exam-skills-app" class="biology-app"></div></section>
+<section id="biology-pcr-sim-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🧬 PCR扩增模拟动画</h2></div><div id="biology-pcr-sim-app" class="biology-app"></div></section>
+<section id="biology-electrophoresis-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🔬 凝胶电泳模拟</h2></div><div id="biology-electrophoresis-app" class="biology-app"></div></section>
+<section id="biology-pedigree-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>👨‍👩‍👧 遗传系谱分析器</h2></div><div id="genetics-pedigree-app" class="biology-app"></div></section>
+<section id="biology-cell-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🔬 细胞结构3D浏览器</h2></div><div id="biology-cell-structure-app" class="biology-app"></div></section>
+<section id="biology-protein-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🧬 蛋白质合成模拟</h2></div><div id="biology-protein-synth-app" class="biology-app"></div></section>
+<section id="biology-photosynthesis-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🌿 光合作用训练器</h2></div><div id="photosynthesis-trainer-app" class="biology-app"></div></section>
+<section id="biology-experiment-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🧪 实验方案设计器</h2></div><div id="experiment-designer-app" class="biology-app"></div></section>
+    <section id="biology-metabolism-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🍬 糖类·脂质·ATP专题</h2></div><div id="biology-metabolism-app" class="biology-app"></div></section>
+    <section id="biology-evolution-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🦎 进化理论全解</h2></div><div id="biology-evolution-app" class="biology-app"></div></section>
+    <section id="biology-biotech-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🔬 微生物·发酵·细胞工程</h2></div><div id="biology-biotech-app" class="biology-app"></div></section>
+<section id="chemistry-process-analyzer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>📊 化工流程分析器</h2></div><div id="process-analyzer-app" class="chemistry-app"></div></section>
+<section id="secondary-conclusions-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📋 物化二级结论速查</h2></div><div id="secondary-conclusions-app"></div></section>
+<section id="valence-atlas-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>⚗️ 元素价态图谱</h2></div><div id="valence-atlas-app"></div></section>
+
+<section id="formula-handbook-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📐 公式手册与速查卡</h2></div><div id="formula-handbook-app"></div></section>
+<section id="timed-quiz-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏱️ 计时刷题模式</h2></div><div id="timed-quiz-app"></div></section>
+<section id="daily-learning-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📅 每日一题·30天学习计划</h2></div><div id="daily-learning-app"></div></section>
+<section id="interdisciplinary-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🌐 学科交叉专题</h2></div><div id="interdisciplinary-app"></div></section>
+
+<!-- ===== 高级备考工具 Sections ===== -->
+<section id="guangdong-analysis-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📊 广东卷命题规律白皮书</h2></div><div id="guangdong-analysis-app"></div></section>
+<section id="situational-quiz-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🌍 情境化试题训练</h2></div><div id="situational-quiz-app"></div></section>
+<section id="cross-subject-enhanced-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔬 跨学科融合专题</h2></div><div id="cross-subject-app"></div></section>
+<section id="tech-frontiers-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🏆 科技前沿关联</h2></div><div id="tech-frontiers-app"></div></section>
+<section id="answer-template-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📋 大题答题模板库</h2></div><div id="answer-template-app"></div></section>
+<section id="calc-step-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🧮 计算题分步训练器</h2></div><div id="calc-step-app"></div></section>
+<section id="interactive-mistakes-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⚠️ 交互式易错点</h2></div><div id="interactive-mistakes-app"></div></section>
+<section id="exam-strategy-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎯 考前策略指南</h2></div><div id="exam-strategy-app"></div></section>
+<section id="spaced-repetition-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔁 间隔重复记忆系统</h2></div><div id="spaced-repetition-app"></div></section>
+<section id="textbook-fill-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📖 教材原文挖空</h2></div><div id="textbook-fill-app"></div></section>
+<section id="adaptive-diagnosis-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔍 自适应诊断测试</h2></div><div id="adaptive-diagnosis-app"></div></section>
+<section id="knowledge-heatmap-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🌡️ 知识盲区热力图</h2></div><div id="knowledge-heatmap-app"></div></section>
+<section id="formula-derivation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎬 公式推导动画</h2></div><div id="formula-derivation-app"></div></section>
+<section id="physics-model-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⚙️ 物理模型可视化</h2></div><div id="physics-model-app"></div></section>
+<section id="chem-transform-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔗 化学物质转化网络</h2></div><div id="chem-transform-app"></div></section>
+<section id="bio-chart-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📈 生物图表题专项</h2></div><div id="bio-chart-app"></div></section>
+<section id="exam-variation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔄 真题变式生成器</h2></div><div id="exam-variation-app"></div></section>
+<section id="wrong-variation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>❌ 错题变式生成</h2></div><div id="wrong-variation-app"></div></section>
+<section id="study-calendar-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📅 学习日历</h2></div><div id="study-calendar-app"></div></section>
+
+
+
+
+<section id="english-grammar-quiz-section" class="section"><div class="tool-header"><button class="back-btn" data-back="english">← 返回英语</button><h2>📝 英语语法闯关</h2></div><div id="english-grammar-quiz-app"></div></section>
+<section id="english-reading-trainer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="english">← 返回英语</button><h2>📚 阅读理解训练</h2></div><div id="english-reading-trainer-app"></div></section>
+<section id="english-composition-templates-section" class="section"><div class="tool-header"><button class="back-btn" data-back="english">← 返回英语</button><h2>✍️ 书面表达模板</h2></div><div id="english-composition-templates-app"></div></section>
+<section id="pomodoro-timer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏱️ 番茄钟计时器</h2></div><div id="pomodoro-timer-app"></div></section>
+<section id="study-plan-generator-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📅 学习计划生成器</h2></div><div id="study-plan-generator-app"></div></section>
+<section id="mastery-radar-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📈 知识点掌握雷达图</h2></div><div id="mastery-radar-app"></div></section>
+<section id="error-variation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔄 错题变式生成</h2></div><div id="error-variation-app"></div></section>
+<section id="note-system-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📓 学习笔记系统</h2></div><div id="note-system-app"></div></section>
+<section id="data-exporter-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>💾 数据导出/导入</h2></div><div id="data-exporter-app"></div></section>
+
+<section id="chinese-recitation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chinese">← 返回语文</button><h2>📝 默写自测系统</h2></div><div id="chinese-recitation-app"></div></section>
+<section id="chinese-vocabulary-quiz-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chinese">← 返回语文</button><h2>🎯 文言实词闯关</h2></div><div id="chinese-vocabulary-quiz-app"></div></section>
+<section id="chinese-composition-materials-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chinese">← 返回语文</button><h2>📚 作文素材库</h2></div><div id="chinese-composition-materials-app"></div></section>
+
+<section id="error-notebook-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>❌ 错题本系统</h2></div><div id="error-notebook-app"></div></section>
+<section id="mock-exam-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏱️ 全真模拟考试</h2></div><div id="mock-exam-app"></div></section>
+<section id="global-search-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔍 全局搜索</h2></div><div id="global-search-app"></div></section>
+<section id="chinese-sentence-correction-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chinese">← 返回语文</button><h2>✍️ 病句修改训练器</h2></div><div id="chinese-sentence-correction-app"></div></section>
+<section id="math-integral-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>∫ 积分计算器</h2></div><div id="math-integral-app"></div></section>
+<section id="physics-wave-optics-section" class="section"><div class="tool-header"><button class="back-btn" data-back="physics">← 返回物理</button><h2>🌊 波动光学模拟</h2></div><div id="physics-wave-optics-app"></div></section>
+<section id="chemistry-3d-molecules-section" class="section"><div class="tool-header"><button class="back-btn" data-back="chemistry">← 返回化学</button><h2>⚛️ 3D分子模型</h2></div><div id="chemistry-3d-molecules-app"></div></section>
+<section id="biology-cell-division-section" class="section"><div class="tool-header"><button class="back-btn" data-back="biology">← 返回生物</button><h2>🧬 细胞分裂动画</h2></div><div id="biology-cell-division-app"></div></section>
+<section id="study-dashboard-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📊 学习数据仪表盘</h2></div><div id="study-dashboard-app"></div></section>
+<section id="english-vocabulary-section" class="section"><div class="tool-header"><button class="back-btn" data-back="english">← 返回英语</button><h2>📖 英语词汇记忆</h2></div><div id="english-vocabulary-app"></div></section>
+<section id="onboarding-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🛈 新手引导</h2></div><div id="onboarding-app"></div></section>
+<!-- ===== V2/V3 INTERACTIVE MODULES ===== -->
+<section id="chem-lab-builder-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🧪 实验装置拼装</h2></div><div id="chem-lab-builder-app"></div></section>
+<section id="physics-graph-lab-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📐 物理图像实验室</h2></div><div id="physics-graph-lab-app"></div></section>
+<section id="chem-equilibrium-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⚖️ 化学平衡模拟器</h2></div><div id="chem-equilibrium-app"></div></section>
+<section id="periodic-table-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔬 交互式元素周期表</h2></div><div id="periodic-table-app"></div></section>
+<section id="punnett-square-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🧬 遗传棋盘计算器</h2></div><div id="punnett-square-app"></div></section>
+<section id="framework-trainer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📝 框架式答题训练</h2></div><div id="framework-trainer-app"></div></section>
+<section id="exam-heatmap-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🌡️ 考点热力图</h2></div><div id="exam-heatmap-app"></div></section>
+<section id="terminology-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📖 术语易错字速查</h2></div><div id="terminology-app"></div></section>
+<section id="countdown-task-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏰ 高考倒计时</h2></div><div id="countdown-task-app"></div></section>
+<section id="concept-match-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎮 概念辨析对对碰</h2></div><div id="concept-match-app"></div></section>
+<section id="scratchpad-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>✏️ 草稿画板</h2></div><div id="scratchpad-app"></div></section>
+<section id="study-report-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📊 学习报告</h2></div><div id="study-report-app"></div></section>
+<section id="experiment-table-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔬 实验六栏全表</h2></div><div id="experiment-table-app"></div></section>
+<section id="thinking-chain-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>💡 解题思维链</h2></div><div id="thinking-chain-app"></div></section>
+<section id="variation-rec-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔄 变式题推荐</h2></div><div id="variation-rec-app"></div></section>
+<section id="poem-appreciation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎨 古诗文鉴赏</h2></div><div id="poem-appreciation-app"></div></section>
+<section id="classical-translation-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📜 文言文翻译对照</h2></div><div id="classical-translation-app"></div></section>
+<section id="solid-geometry-3d-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📐 立体几何3D</h2></div><div id="solid-geometry-3d-app"></div></section>
+<section id="trig-unit-circle-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎡 三角函数单位圆</h2></div><div id="trig-unit-circle-app"></div></section>
+<section id="english-listening-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🎧 英语听力训练</h2></div><div id="english-listening-app"></div></section>
+<section id="english-cloze-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📝 完形填空</h2></div><div id="english-cloze-app"></div></section>
+<section id="celestial-motion-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🪐 天体运动模拟</h2></div><div id="celestial-motion-app"></div></section>
+<section id="crystal-structure-3d-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>💎 晶体结构3D</h2></div><div id="crystal-structure-3d-app"></div></section>
+<section id="dna-central-dogma-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🧬 DNA中心法则</h2></div><div id="dna-central-dogma-app"></div></section>
+<section id="achievement-system-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🏆 成就徽章</h2></div><div id="achievement-system-app"></div></section>
+<section id="study-share-card-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📸 打卡分享图</h2></div><div id="study-share-card-app"></div></section>
+<section id="score-calculator-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔢 分数计算器</h2></div><div id="score-calculator-app"></div></section>
+<section id="error-analysis-report-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📊 错题分析报告</h2></div><div id="error-analysis-report-app"></div></section>
+<section id="time-management-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏱️ 时间管理</h2></div><div id="time-management-app"></div></section>
+<section id="score-line-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📈 分数线可视化</h2></div><div id="score-line-app"></div></section>
+<section id="experiment-exam-special-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🔬 实验题专项</h2></div><div id="experiment-exam-special-app"></div></section>
+<section id="choice-tricks-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⚡ 选择题技巧</h2></div><div id="choice-tricks-app"></div></section>
+<section id="sentence-analyzer-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📝 长难句分析</h2></div><div id="sentence-analyzer-app"></div></section>
+<section id="exam-timer-pro-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>⏲️ 考试计时器Pro</h2></div><div id="exam-timer-pro-app"></div></section>
+<section id="knowledge-card-exporter-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>📇 知识卡片导出</h2></div><div id="knowledge-card-exporter-app"></div></section>
+<section id="learning-path-recommender-section" class="section"><div class="tool-header"><button class="back-btn" data-back="home">← 返回首页</button><h2>🧭 学习路径推荐</h2></div><div id="learning-path-recommender-app"></div></section>
+<section id="math-grapher-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>📈 函数图像绘制器</h2></div><div id="math-grapher-app"></div></section>
+<section id="math-derivative-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>📐 导数计算器</h2></div><div id="math-derivative-app"></div></section>
+<section id="math-geometry-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>📏 几何画板</h2></div><div id="math-geometry-app"></div></section>
+<section id="math-sequence-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>📊 数列可视化</h2></div><div id="math-sequence-app"></div></section>
+<section id="math-probability-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>🎲 概率模拟器</h2></div><div id="math-probability-app"></div></section>
+<section id="math-handbook-section" class="section"><div class="tool-header"><button class="back-btn" data-back="math">← 返回数学</button><h2>📖 数学公式手册</h2></div><div id="math-handbook-app"></div></section>
+<!-- ===== CHINESE (语文) ===== -->
+<section id="chinese-section" class="section">
+<div class="chinese-knowledge">
+<div class="header">
+    <h1>📚 广东新高考I卷·高中语文知识点大合集</h1>
+    <div class="subtitle">高三备考 · 基础夯实专用版</div>
+    <div class="search-box">
+        <input type="text" id="chineseSearchInput" data-action="chinese-search" placeholder="🔍 搜索语文知识点...">
+    </div>
+</div>
+
+<div class="container">
+
+<nav class="sidebar" aria-label="语文知识目录">
+    <div class="sidebar-header">📑 知识目录</div>
+
+    <div class="nav-item">
+        <div class="nav-item-title active">
+            <span>📋</span> 试卷考情
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children show">
+            <a href="#kaoqing">新高考I卷结构</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>📖</span> 现代文阅读
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m1-s1">1.1 论述类文本</a>
+            <a href="#m1-s2">1.2 实用类文本</a>
+            <a href="#m1-s3">1.3 文学类文本</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>📜</span> 文言文阅读
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m2">考点概述</a>
+            <a href="#m2-s1">120个实词</a>
+            <a href="#m2-s2">18个虚词</a>
+            <a href="#m2-s3">词类活用</a>
+            <a href="#m2-s4">古今异义</a>
+            <a href="#m2-s5">文言句式</a>
+            <a href="#m2-s6">断句翻译</a>
+            <a href="#m2-s7">文化常识</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>🎋</span> 古诗词鉴赏
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m3">考点概述</a>
+            <a href="#m3-s1">诗歌体裁</a>
+            <a href="#m3-s2">常见意象</a>
+            <a href="#m3-s3">表现手法</a>
+            <a href="#m3-s4">题材情感</a>
+            <a href="#m3-s5">答题规范</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>✍️</span> 名句默写
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m6">必背60篇</a>
+            <a href="#m6-s1">高中14篇</a>
+            <a href="#m6-s2">初中46篇</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>🔤</span> 语言文字运用
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m5-s1">字音字形</a>
+            <a href="#m5-s2">词语辨析</a>
+            <a href="#m5-s3">病句修改</a>
+            <a href="#m5-s4">标点符号</a>
+            <a href="#m5-s5">语言表达</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>📝</span> 写作
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#m4-s1">议论文写作</a>
+            <a href="#m4-s2">记叙文写作</a>
+            <a href="#m4-s3">审题立意</a>
+            <a href="#m4-s4">应试策略</a>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-item-title">
+            <span>📋</span> 附录
+            <span class="arrow">▶</span>
+        </div>
+        <div class="nav-children">
+            <a href="#appendix">备考规划</a>
+        </div>
+    </div>
+</nav>
+
+<div class="main-content">
+
+
+<!-- 试卷考情 -->
+<div class="module" id="kaoqing">
+    <div class="module-header">📋 一、新高考I卷语文试卷考情说明</div>
+    <div class="module-body">
+        <div class="section">
+            <div class="section-title">试卷结构与分值</div>
+            <p>广东高考采用<span class="key-point">新高考全国I卷</span>，试卷满分150分，考试时间150分钟，基础分占比70%以上。</p>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>板块</th><th>题型题量</th><th>分值</th><th>优先级</th></tr>
+                <tr><td>现代文阅读</td><td>信息类文本（3单选+2主观）<br>文学类文本（2单选+2主观）</td><td>19分+16分=35分</td><td>★★★★</td></tr>
+                <tr><td>古代诗文阅读</td><td>文言文（3单选+2主观）<br>古诗词（1单选+1主观）<br>名篇名句默写</td><td>20分+9分+6分=35分</td><td>★★★★★</td></tr>
+                <tr><td>语言文字运用</td><td>2语段，共5题</td><td>20分</td><td>★★★★★</td></tr>
+                <tr><td>写作</td><td>思辨类材料作文</td><td>60分</td><td>★★★★</td></tr>
+            </table></template>
+            <div class="info-box red">
+                <strong>⭐ 基础备考核心原则：</strong>先抓保底分（默写、语言文字运用、文言基础），再规范主观题答题模板，最后突破作文与鉴赏题深度。
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模块一：现代文阅读 -->
+<div class="module" id="m1">
+    <div class="module-header">📖 二、现代文阅读知识点</div>
+    <div class="module-body">
+
+        <div class="section" id="m1-s1">
+            <div class="section-title">1.1 信息类文本阅读（论述类+实用类）</div>
+
+            <div class="subsection">
+                <div class="subsection-title">核心基础知识点</div>
+                <ol>
+                    <li>核心考查能力：信息筛选与整合、逻辑分析、论证分析、观点推断</li>
+                    <li>文本三要素：<span class="key-point">论点、论据、论证</span></li>
+                </ol>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">论证方法及答题规范</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>论证方法</th><th>核心定义</th><th>标准答题格式</th></tr>
+                    <tr><td>举例论证</td><td>列举确凿典型事例证明论点</td><td>举了……的典型事例，具体有力地论证了……的观点，增强了文本的说服力</td></tr>
+                    <tr><td>道理论证</td><td>用经典言论、科学原理证明论点</td><td>引用……的名言/公理，深入论证了……的观点，增强了权威性和严谨性</td></tr>
+                    <tr><td>对比论证</td><td>正反两方面论点/论据做对比</td><td>将……和……进行正反对比，鲜明突出地论证了……的观点</td></tr>
+                    <tr><td>比喻论证</td><td>用熟知的事物作比喻证明论点</td><td>把……比作……，生动形象地论证了……的观点</td></tr>
+                    <tr><td>因果论证</td><td>分析论点与论据的因果关系</td><td>通过分析……的因果逻辑，严谨地论证了……的观点</td></tr>
+                </table></template>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">选择题8大高频易错陷阱</div>
+                <div class="info-box orange">
+                    <span class="easy-wrong">偷换概念</span>：篡改原文概念的内涵/外延<br>
+                    <span class="easy-wrong">以偏概全</span>：将部分判断扩大为整体判断<br>
+                    <span class="easy-wrong">混淆时态</span>：将原文"未然/已然/或然"混淆<br>
+                    <span class="easy-wrong">因果混乱</span>：因果倒置、强加因果<br>
+                    <span class="easy-wrong">曲解文意</span>：故意错误解读原文语句含义<br>
+                    <span class="easy-wrong">无中生有</span>：选项内容在原文中无对应依据<br>
+                    <span class="easy-wrong">混淆是非</span>：将原文肯定/否定内容颠倒<br>
+                    <span class="easy-wrong">扩大/缩小范围</span>：改变原文限定的范围、程度
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">主观题答题模板</div>
+                <div class="template-box">
+                    <strong>【论证思路/行文脉络题】</strong><br>
+                    ①文章首先提出……的中心论点（开篇方式：开门见山/由现象/事例引出）；<br>
+                    ②然后从……等方面，运用……的论证方法，分……个层次展开论证；<br>
+                    ③接着进一步分析……/补充论证了……；<br>
+                    ④最后总结全文，得出……的结论/发出……的号召。
+                </div>
+                <div class="template-box">
+                    <strong>【论证特点题】（6个维度）</strong><br>
+                    ①<b>论证结构</b>：采用……的结构，思路清晰，逻辑严密；<br>
+                    ②<b>论证方式</b>：采用立论/驳论/立驳结合的论证方式；<br>
+                    ③<b>论证方法</b>：综合运用了……等多种论证方法；<br>
+                    ④<b>论点提出</b>：开篇……方式提出中心论点；<br>
+                    ⑤<b>论据特点</b>：论据典型、丰富、真实，兼具事实论据与道理论据；<br>
+                    ⑥<b>语言风格</b>：语言严谨准确/生动形象，富有感染力。
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="m1-s2">
+            <div class="section-title">1.2 文学类文本阅读（小说+散文）</div>
+
+            <div class="subsection">
+                <div class="subsection-title">小说核心三要素</div>
+                <p><span class="key-point">人物、情节、环境，核心是人物，最终指向主题。所有题型都可从"人物、情节、环境、主题、读者"5个维度作答。</span></p>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">人物形象分析题</div>
+                <div class="template-box">
+                    <strong>【答题格式】</strong><br>
+                    ①总括：XX是一个……（核心性格）的人物形象；<br>
+                    ②分点分析：每一点遵循"<b>性格特点+文本具体依据</b>"的格式，分3-4点作答；<br>
+                    ③总结：该人物形象的意义/对主题的作用。
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">情节作用分析题（5大维度）</div>
+                <div class="template-box">
+                    <strong>【答题格式】</strong><br>
+                    <b>对人物</b>：塑造了……的人物形象，突出了人物……的性格/心理；<br>
+                    <b>对情节</b>：为下文……情节做铺垫/埋下伏笔，推动情节发展；<br>
+                    <b>对环境</b>：交代/烘托了……的环境；<br>
+                    <b>对主题</b>：揭示/深化/突出了……的主题；<br>
+                    <b>对读者</b>：设置悬念，吸引读者阅读兴趣。
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">环境描写作用题</div>
+                <div class="template-box">
+                    <strong>【自然环境描写答题格式】</strong><br>
+                    ①交代了故事发生的时间、地点、季节、场景，奠定了全文……的感情基调；<br>
+                    ②渲染了……的氛围；<br>
+                    ③烘托了人物……的心情/形象，暗示了人物的身份、命运；<br>
+                    ④推动情节发展，为下文……情节做铺垫；<br>
+                    ⑤暗示/深化了……的主题。
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-title">散文阅读核心特点</div>
+                <p><span class="key-point">形散神聚</span>："形散"指选材、结构、手法自由；"神聚"指中心、情感、主旨集中统一。</p>
+                <div class="template-box">
+                    <strong>【行文思路题答题格式】</strong><br>
+                    ①文章以……为线索，先写了……，再写了……，接着写了……，最后写了……；<br>
+                    ②由……到……，由浅入深，层层递进，抒发了作者……的情感，表达了……的主旨。
+                </div>
+                <div class="template-box">
+                    <strong>【情感主旨题答题格式】</strong><br>
+                    文章通过描写……的景物/事件/场景，抒发了作者……的情感，表达了作者……的观点/人生思考。
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模块二：文言文阅读 -->
+<div class="module" id="m2">
+    <div class="module-header">📜 三、文言文阅读知识点</div>
+    <div class="module-body">
+
+        <div class="section">
+            <div class="section-title">考点概述</div>
+            <p>广东新高考I卷文言文选材以<span class="key-point">二十四史人物传记</span>为主，核心考查文言基础积累，是提分性价比最高的板块。</p>
+            <div class="info-box">
+                <strong>⭐ 高频考点：</strong>120个常用实词、18个常用虚词、词类活用、古今异义、文言句式、断句、翻译
+            </div>
+        </div>
+
+        <div class="section" id="m2-s1">
+            <div class="section-title">120个常用实词（高频必背）</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>实词</th><th>常见义项</th><th>实词</th><th>常见义项</th></tr>
+                <tr><td>爱</td><td>爱护/吝惜/喜欢</td><td>安</td><td>安定/安逸/怎么</td></tr>
+                <tr><td>被</td><td>遭受/覆盖/通"披"</td><td>倍</td><td>加倍/违背/背叛</td></tr>
+                <tr><td>本</td><td>根本/推究/本来</td><td>鄙</td><td>边疆/鄙陋/轻视</td></tr>
+                <tr><td>兵</td><td>兵器/军队/战争</td><td>病</td><td>疾病/困苦/担心</td></tr>
+                <tr><td>察</td><td>观察/考察/清楚</td><td>朝</td><td>早晨/朝代/朝廷/朝见</td></tr>
+                <tr><td>乘</td><td>乘坐/趁着/四匹马车</td><td>诚</td><td>确实/如果/真诚</td></tr>
+                <tr><td>除</td><td>任命/除去/台阶</td><td>辞</td><td>言辞/辞别/推托/文体</td></tr>
+                <tr><td>从</td><td>跟随/听从/参与</td><td>当</td><td>抵挡/应当/主持</td></tr>
+                <tr><td>道</td><td>道路/道理/说/方法</td><td>得</td><td>得到/能够/得意</td></tr>
+                <tr><td>度</td><td>度量/估计/制度</td><td>非</td><td>不对/不是/除非</td></tr>
+                <tr><td>复</td><td>又/恢复/再</td><td>负</td><td>背负/依仗/辜负</td></tr>
+                <tr><td>盖</td><td>遮盖/大概/因为</td><td>故</td><td>缘故/所以/旧/故意</td></tr>
+                <tr><td>固</td><td>坚固/固执/本来</td><td>顾</td><td>回头看/顾及/反而</td></tr>
+                <tr><td>归</td><td>返回/归附/出嫁</td><td>国</td><td>国家/国都/地域</td></tr>
+                <tr><td>过</td><td>经过/超过/过错</td><td>何</td><td>什么/为什么/多么</td></tr>
+                <tr><td>恨</td><td>遗憾/怨恨</td><td>胡</td><td>为什么/胡人</td></tr>
+                <tr><td>患</td><td>忧虑/祸害/厌恶</td><td>或</td><td>有的/也许/有时</td></tr>
+                <tr><td>疾</td><td>疾病/痛恨/快/强</td><td>及</td><td>等到/涉及/比得上</td></tr>
+                <tr><td>即</td><td>立即/就是/即使</td><td>既</td><td>已经/既然/既…又</td></tr>
+                <tr><td>假</td><td>借用/假的/假如</td><td>间</td><td>中间/间隔/秘密地</td></tr>
+                <tr><td>见</td><td>看见/被/显现/我</td><td>解</td><td>理解/解释/解开</td></tr>
+                <tr><td>就</td><td>接近/完成/就职</td><td>举</td><td>举起/全/推荐/攻占</td></tr>
+                <tr><td>绝</td><td>断绝/极/独一无二</td><td>堪</td><td>忍受/能够</td></tr>
+                <tr><td>克</td><td>能够/战胜/克制</td><td>类</td><td>种类/类似/大都</td></tr>
+                <tr><td>怜</td><td>怜惜/爱/可爱</td><td>弥</td><td>满/更加/遍</td></tr>
+                <tr><td>莫</td><td>没有人/不要/没有</td><td>乃</td><td>于是/竟然/你/是</td></tr>
+                <tr><td>期</td><td>期望/期限/约定</td><td>奇</td><td>奇特/零数/认为…奇</td></tr>
+                <tr><td>迁</td><td>迁移/升职/贬官</td><td>请</td><td>请求/请允许我</td></tr>
+                <tr><td>穷</td><td>困窘/尽/边远</td><td>去</td><td>离开/距离/前往</td></tr>
+                <tr><td>劝</td><td>勉励/劝说</td><td>却</td><td>退却/拒绝/但是</td></tr>
+                <tr><td>如</td><td>像/如果/到</td><td>若</td><td>像/如果/你/这</td></tr>
+                <tr><td>善</td><td>好/善于/友好</td><td>稍</td><td>稍微/逐渐</td></tr>
+                <tr><td>少</td><td>年轻/缺少/稍微</td><td>涉</td><td>渡过/经历/涉猎</td></tr>
+                <tr><td>胜</td><td>胜利/承受/优美/尽</td><td>识</td><td>知道/记住/标记</td></tr>
+                <tr><td>使</td><td>派遣/让/使者</td><td>是</td><td>正确/这/判断词</td></tr>
+                <tr><td>适</td><td>到/适合/刚才</td><td>书</td><td>书写/书信/书籍</td></tr>
+                <tr><td>孰</td><td>谁/哪一个/仔细</td><td>属</td><td>隶属/类别/连接</td></tr>
+                <tr><td>数</td><td>数目/屡次/计算</td><td>率</td><td>率领/大致/一律</td></tr>
+                <tr><td>说</td><td>说话/言论/通"悦"</td><td>私</td><td>私人/私下/偏爱</td></tr>
+                <tr><td>素</td><td>白色/朴素/平时</td><td>汤</td><td>热水/汤药/商朝</td></tr>
+                <tr><td>徒</td><td>同类的人/白白地</td><td>亡</td><td>灭亡/逃跑/丢失</td></tr>
+                <tr><td>王</td><td>帝王/称王/为王</td><td>望</td><td>远望/盼望/名望</td></tr>
+                <tr><td>恶</td><td>坏/讨厌/怎么</td><td>微</td><td>微小/隐约/如果没有</td></tr>
+                <tr><td>悉</td><td>全/都知道</td><td>相</td><td>互相/相貌/辅助</td></tr>
+                <tr><td>谢</td><td>道歉/推辞/凋谢/感谢</td><td>信</td><td>信用/相信/实在</td></tr>
+                <tr><td>兴</td><td>兴起/发动/成功</td><td>修</td><td>修理/修养/长/修建</td></tr>
+                <tr><td>徐</td><td>缓慢</td><td>许</td><td>答应/大约/地方</td></tr>
+                <tr><td>阳</td><td>山的南面/太阳</td><td>要</td><td>重要/想要/约定</td></tr>
+                <tr><td>宜</td><td>应该/适宜</td><td>遗</td><td>遗留/给予/丢失</td></tr>
+                <tr><td>贻</td><td>赠送/留下</td><td>易</td><td>改变/容易/交换</td></tr>
+                <tr><td>阴</td><td>山的北面/阴天/暗中</td><td>右</td><td>右边/尊贵/重视</td></tr>
+                <tr><td>余</td><td>剩余/我/多</td><td>予</td><td>给予/我</td></tr>
+                <tr><td>御</td><td>驾驭/治理/抵挡</td><td>缘</td><td>沿着/因为/边缘</td></tr>
+                <tr><td>云</td><td>说/云彩/如此</td><td>载</td><td>装载/记载/年</td></tr>
+                <tr><td>章</td><td>印章/篇章/花纹</td><td>知</td><td>知道/主持/智慧</td></tr>
+                <tr><td>致</td><td>送达/情趣/达到</td><td>质</td><td>质地/询问/本质</td></tr>
+                <tr><td>诸</td><td>众/之于/之乎</td><td>族</td><td>家族/类/灭族</td></tr>
+                <tr><td>卒</td><td>士兵/终于/死亡</td><td>走</td><td>跑/逃跑/前往</td></tr>
+                <tr><td>左</td><td>左边/不正/贬官</td><td>坐</td><td>坐着/因为/犯罪</td></tr>
+                <tr><td>置</td><td>放置/放弃/购置</td><td>向</td><td>朝着/从前/假如</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m2-s2">
+            <div class="section-title">18个常用虚词</div>
+            <p><span class="key-point">而、何、乎、乃、其、且、若、所、为、焉、也、以、因、于、与、则、者、之</span></p>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>虚词</th><th>核心用法</th><th>典型例句</th></tr>
+                <tr><td rowspan="5">而</td><td>连词，表并列：又、并且</td><td>蟹六跪而二螯</td></tr>
+                <tr><td>连词，表承接：就、然后</td><td>登高而招</td></tr>
+                <tr><td>连词，表转折：但是、却</td><td>青，取之于蓝，而青于蓝</td></tr>
+                <tr><td>连词，表修饰：地</td><td>吾尝终日而思矣</td></tr>
+                <tr><td>连词，表递进：而且</td><td>君子博学而日参省乎己</td></tr>
+                <tr><td rowspan="4">以</td><td>介词，把、用、凭借、因为</td><td>以勇气闻于诸侯</td></tr>
+                <tr><td>连词，表目的：来、用来</td><td>故为之说，以俟夫观人风者得焉</td></tr>
+                <tr><td>连词，表承接：而</td><td>余与四人拥火以入</td></tr>
+                <tr><td>通"已"，已经</td><td>日以尽矣</td></tr>
+                <tr><td rowspan="4">之</td><td>助词，的</td><td>古之学者必有师</td></tr>
+                <tr><td>代词，他/她/它</td><td>人非生而知之者</td></tr>
+                <tr><td>助词，主谓之间，取消句子独立性</td><td>师道之不传也久矣</td></tr>
+                <tr><td>助词，宾语前置标志</td><td>何陋之有</td></tr>
+                <tr><td rowspan="3">其</td><td>代词，他/它/其中的</td><td>其闻道也固先乎吾</td></tr>
+                <tr><td>副词，大概/难道</td><td>其孰能讥之乎</td></tr>
+                <tr><td>连词，如果/那么</td><td>其若是，孰能御之</td></tr>
+                <tr><td rowspan="2">为</td><td>介词，被/替/为了</td><td>身死人手，为天下笑者</td></tr>
+                <tr><td>语气，呢/吗</td><td>何辞为</td></tr>
+                <tr><td rowspan="2">于</td><td>介词，在/到/向/对/从/比/被</td><td>苛政猛于虎</td></tr>
+                <tr><td>固定，于是/至于</td><td>以至于</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m2-s3">
+            <div class="section-title">词类活用（翻译必考点）</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>活用类型</th><th>核心规则</th><th>典型例句</th></tr>
+                <tr><td>名词作动词</td><td>名词临时充当动词</td><td>假舟楫者，非能水也（水：游泳）</td></tr>
+                <tr><td>名词作状语</td><td>名词修饰动词，表状态、方式、时间</td><td>君子博学而日参省乎己（日：每天）</td></tr>
+                <tr><td>名词使动用法</td><td>使宾语变成这个名词所代表的人/事物</td><td>先破秦入咸阳者王之（王：使……称王）</td></tr>
+                <tr><td>名词意动用法</td><td>主观上认为宾语是这个名词所代表的人/事物</td><td>吾从而师之（师：以……为师）</td></tr>
+                <tr><td>动词作名词</td><td>动词充当主语/宾语</td><td>盖其又深，则其至又加少矣（至：到达的人）</td></tr>
+                <tr><td>动词使动用法</td><td>使宾语发出这个动词的动作</td><td>项伯杀人，臣活之（活：使……活下来）</td></tr>
+                <tr><td>形容词作名词</td><td>形容词充当主语/宾语</td><td>小学而大遗（小：小的方面；大：大的方面）</td></tr>
+                <tr><td>形容词使动用法</td><td>使宾语具有该形容词的性质</td><td>必先苦其心志（苦：使……痛苦）</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m2-s4">
+            <div class="section-title">古今异义（高频易错点）</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>词语</th><th>古义</th><th>今义</th><th>例句</th></tr>
+                <tr><td>行李</td><td>出使的人</td><td>出门携带的包裹</td><td>行李之遗，共其乏困</td></tr>
+                <tr><td>山东</td><td>崤山以东</td><td>山东省</td><td>山东豪俊遂并起而亡秦族矣</td></tr>
+                <tr><td>非常</td><td>意外的变故</td><td>程度副词，很</td><td>世之奇伟、瑰怪、非常之观</td></tr>
+                <tr><td>婚姻</td><td>儿女亲家</td><td>夫妻关系</td><td>约为婚姻</td></tr>
+                <tr><td>学者</td><td>求学的人</td><td>学术上有成就的人</td><td>古之学者必有师</td></tr>
+                <tr><td>小学</td><td>小的方面学习</td><td>初等教育学校</td><td>小学而大遗</td></tr>
+                <tr><td>不必</td><td>不一定</td><td>不需要</td><td>弟子不必不如师</td></tr>
+                <tr><td>地方</td><td>土地方圆</td><td>地点、区域</td><td>地方百里</td></tr>
+                <tr><td>妻子</td><td>妻和子女</td><td>男子的配偶</td><td>率妻子邑人来此绝境</td></tr>
+                <tr><td>其实</td><td>它的果实/实际情况</td><td>实际上</td><td>其实味不同</td></tr>
+                <tr><td>无论</td><td>不要说/更不必说</td><td>条件关系的连词</td><td>无论魏晋</td></tr>
+                <tr><td>卑鄙</td><td>身份低微、见识浅陋</td><td>品德恶劣</td><td>先帝不以臣卑鄙</td></tr>
+                <tr><td>感激</td><td>感动激动</td><td>衷心感谢</td><td>由是感激</td></tr>
+                <tr><td>牺牲</td><td>祭祀用的猪牛羊</td><td>为正义事业舍弃生命</td><td>牺牲玉帛，弗敢加也</td></tr>
+                <tr><td>交通</td><td>交错相通</td><td>运输邮电事业</td><td>阡陌交通，鸡犬相闻</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m2-s5">
+            <div class="section-title">文言特殊句式（翻译必考点）</div>
+            <div class="info-box red">
+                <strong>翻译核心要求：</strong>特殊句式必须调整为现代汉语正常语序，踩分点明确，漏译句式会扣分。
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">一、判断句</div>
+                <p>翻译必须译出"是/不是"</p>
+                <ul>
+                    <li>……者，……也。（廉颇者，赵之良将也）</li>
+                    <li>……，……也。（和氏璧，天下所共传宝也）</li>
+                    <li>用"乃、则、皆、本、诚"表判断（当立者乃公子扶苏）</li>
+                    <li>否定判断用"非"（六国破灭，非兵不利，战不善）</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">二、被动句</div>
+                <p>翻译必须译出"被"</p>
+                <ul>
+                    <li>用"于"表被动（而君幸于赵王）</li>
+                    <li>用"见""见……于……"表被动（臣诚恐见欺于王而负赵）</li>
+                    <li>用"为""为……所……"表被动（若属皆且为所虏）</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">三、倒装句（高频必考）</div>
+                <ul>
+                    <li><strong>宾语前置</strong>：否定句中代词作宾语前置（古之人不余欺也）；疑问句中疑问代词作宾语前置（大王来何操）</li>
+                    <li><strong>状语后置</strong>：青，取之于蓝，而青于蓝</li>
+                    <li><strong>定语后置</strong>：马之千里者；蚓无爪牙之利，筋骨之强</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">四、省略句</div>
+                <p>翻译必须补出省略的成分</p>
+                <ul>
+                    <li>省略主语：（公）度我至军中，公乃入</li>
+                    <li>省略谓语：一鼓作气，再（鼓）而衰，三（鼓）而竭</li>
+                    <li>省略宾语：不如因而厚遇之，使（之）归赵</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="m2-s6">
+            <div class="section-title">断句技巧与翻译方法</div>
+            <div class="subsection">
+                <div class="subsection-title">断句六大原则</div>
+                <ol>
+                    <li><strong>找名词/代词：</strong>常作主语或宾语，前后需断开</li>
+                    <li><strong>找虚词：</strong>"曰""盖""夫"等常在句首；"也""矣""焉""哉"等常在句末</li>
+                    <li><strong>找对话标志：</strong>"曰""云""言"后常断开</li>
+                    <li><strong>利用对称结构：</strong>排比、对偶、反复中间常断开</li>
+                    <li><strong>依据语法结构：</strong>主谓之间、动宾之间常断开</li>
+                    <li><strong>参考语境意义：</strong>根据上下文语义判断</li>
+                </ol>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">翻译"六字诀"</div>
+                <div class="template-box green">
+                    <strong>留：</strong>保留人名、地名、官名等专有名词<br>
+                    <strong>删：</strong>删除无实义的虚词<br>
+                    <strong>补：</strong>补充省略的主语、宾语、介词等<br>
+                    <strong>换：</strong>单音节词换成双音节词<br>
+                    <strong>调：</strong>调整倒装句的语序<br>
+                    <strong>贯：</strong>直译为主、意译为辅，语句通顺
+                </div>
+            </div>
+            <div class="info-box green">
+                <strong>翻译踩分点：</strong>①重点实词（一词多义、词类活用、古今异义）；②重点虚词；③特殊句式；④句意通顺
+            </div>
+        </div>
+
+        <div class="section" id="m2-s7">
+            <div class="section-title">古代文化常识</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>类别</th><th>内容</th></tr>
+                <tr><td>人的称谓</td><td>姓名字号、谦称、敬称、年龄称谓（垂髫、豆蔻、束发、弱冠、而立、不惑、知天命、花甲、古稀、耄耋、期颐）</td></tr>
+                <tr><td>官职科举</td><td>三省六部、官职升降（拜、除、擢、迁、谪、黜、罢）、科举（院试-乡试-会试-殿试，状元、榜眼、探花）</td></tr>
+                <tr><td>天文历法</td><td>干支纪年、十二时辰、二十四节气、地理方位（阴阳、山东、关中、江表）</td></tr>
+                <tr><td>礼仪制度</td><td>五礼（吉、凶、军、宾、嘉）、祭祀、尊卑礼仪、避讳</td></tr>
+                <tr><td>典籍文体</td><td>四书五经、二十四史、史书体例（编年体、纪传体、国别体）</td></tr>
+            </table></template>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模块三：古诗词鉴赏 -->
+<div class="module" id="m3">
+    <div class="module-header">🎋 四、古诗词鉴赏知识点</div>
+    <div class="module-body">
+
+        <div class="section">
+            <div class="section-title">考点概述</div>
+            <p>诗歌鉴赏考查对古诗的理解、分析和审美能力，涵盖<span class="key-point">意象意境、表现手法、思想感情、炼字炼句</span>等方面。</p>
+        </div>
+
+        <div class="section" id="m3-s1">
+            <div class="section-title">诗歌体裁分类</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>分类</th><th>类别</th><th>特点</th><th>代表作品</th></tr>
+                <tr><td rowspan="4">按体裁</td><td>古体诗</td><td>不受格律限制，对仗平仄押韵自由</td><td>《诗经》《古诗十九首》</td></tr>
+                <tr><td>近体诗-律诗</td><td>八句，讲究平仄对仗</td><td>杜甫《登高》</td></tr>
+                <tr><td>近体诗-绝句</td><td>四句，讲究平仄</td><td>李白《静夜思》</td></tr>
+                <tr><td>词</td><td>长短句，依词牌，分上下片</td><td>苏轼《念奴娇》</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m3-s2">
+            <div class="section-title">常见意象及其寓意</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>意象</th><th>寓意</th><th>意象</th><th>寓意</th></tr>
+                <tr><td>月亮</td><td>思乡/团圆/美好</td><td>柳树</td><td>送别/留恋/惜别</td></tr>
+                <tr><td>菊花</td><td>隐逸/高洁/坚贞</td><td>梅花</td><td>坚韧/高洁/傲骨</td></tr>
+                <tr><td>松柏</td><td>坚贞/正直/长寿</td><td>莲花</td><td>高洁/纯洁/君子之风</td></tr>
+                <tr><td>梧桐</td><td>凄凉/愁苦/孤寂</td><td>杜鹃</td><td>悲苦/哀怨/思归</td></tr>
+                <tr><td>鸿雁</td><td>书信/思念/信使</td><td>燕子</td><td>春光/变迁/昔盛今衰</td></tr>
+                <tr><td>浮云</td><td>游子/漂泊</td><td>流水</td><td>时光流逝/愁绪绵绵</td></tr>
+                <tr><td>夕阳/落日</td><td>失落/惆怅/衰败</td><td>春风</td><td>希望/生机/喜悦</td></tr>
+                <tr><td>秋风</td><td>萧瑟/凄凉/悲愁</td><td>羌笛/胡笳</td><td>边塞/思乡/哀怨</td></tr>
+                <tr><td>长亭/南浦</td><td>送别之地/离愁</td><td>酒</td><td>欢聚/消愁/豪放</td></tr>
+                <tr><td>西风</td><td>萧瑟/衰落/悲凉</td><td>孤舟</td><td>漂泊/孤独/自由</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m3-s3">
+            <div class="section-title">诗歌题材分类及常见情感</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>题材</th><th>常见情感主旨</th></tr>
+                <tr><td>山水田园诗</td><td>①对山水美景的喜爱赞美；②对田园闲适生活的向往，归隐之志；③对官场黑暗的厌弃；④闲适恬淡、超然物外的心境</td></tr>
+                <tr><td>边塞征战诗</td><td>①保家卫国，建功立业的豪情；②对边塞雄奇风光的赞美；③对战争的厌恶，对和平的向往；④对家乡亲人的思念</td></tr>
+                <tr><td>咏史怀古诗</td><td>①昔盛今衰、物是人非的感慨；②借古讽今，批判当朝统治者；③缅怀先贤，抒发怀才不遇、壮志难酬的悲愤</td></tr>
+                <tr><td>咏物言志诗</td><td>①表现所咏之物的特征、品格；②托物言志，表达自己的志向、品格、理想；③抒发怀才不遇、命运坎坷的感慨</td></tr>
+                <tr><td>羁旅思乡诗</td><td>①漂泊在外的孤苦寂寞，对家乡亲人的思念；②对安定生活的向往；③年华易逝、仕途失意的感慨</td></tr>
+                <tr><td>送别怀人诗</td><td>①离别的伤感，对友人的依依不舍；②对友人的祝福、勉励与宽慰；③借送别抒发自己的人生感慨、仕途失意</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m3-s4">
+            <div class="section-title">表现手法大全</div>
+            <div class="subsection">
+                <div class="subsection-title">修辞手法</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>手法</th><th>作用</th><th>例句</th></tr>
+                    <tr><td>比喻</td><td>生动形象/化抽象为具体</td><td>忽如一夜春风来，千树万树梨花开</td></tr>
+                    <tr><td>拟人</td><td>亲切生动/富有感染力</td><td>感时花溅泪，恨别鸟惊心</td></tr>
+                    <tr><td>夸张</td><td>突出特征/强化情感</td><td>飞流直下三千尺</td></tr>
+                    <tr><td>对比</td><td>突出差异/强调某一方</td><td>朱门酒肉臭，路有冻死骨</td></tr>
+                    <tr><td>借代</td><td>形象生动/引人联想</td><td>知否，知否？应是绿肥红瘦</td></tr>
+                    <tr><td>用典</td><td>含蓄蕴藉/丰富内涵</td><td>怀旧空吟闻笛赋</td></tr>
+                    <tr><td>设问</td><td>引起注意/启发思考</td><td>问君能有几多愁？恰似一江春水向东流</td></tr>
+                </table></template>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">表现手法</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>手法</th><th>作用</th></tr>
+                    <tr><td>借景抒情</td><td>情景交融/含蓄蕴藉</td></tr>
+                    <tr><td>托物言志</td><td>含蓄委婉/形象生动</td></tr>
+                    <tr><td>借古讽今</td><td>借古喻今/含蓄深刻</td></tr>
+                    <tr><td>虚实结合</td><td>拓展空间/丰富内涵</td></tr>
+                    <tr><td>动静结合</td><td>相互映衬/生动活泼</td></tr>
+                    <tr><td>以小见大</td><td>以点带面/深入浅出</td></tr>
+                    <tr><td>欲扬先抑</td><td>形成波澜/对比鲜明</td></tr>
+                </table></template>
+            </div>
+        </div>
+
+        <div class="section" id="m3-s5">
+            <div class="section-title">答题格式规范</div>
+
+            <div class="template-box">
+                <strong>【炼字题标准答题格式】</strong><br>
+                ①释义：解释该字在诗句中的含义，点明是否有词类活用、修辞手法；<br>
+                ②描景：把该字放入原句中，描述诗句展现的画面/景象；<br>
+                ③析效果：该字生动形象地写出了……的特点，烘托了……的氛围；<br>
+                ④点情感：抒发了诗人……的情感。
+            </div>
+
+            <div class="template-box">
+                <strong>【表达技巧题标准答题格式】</strong><br>
+                ①准确指出诗句/全诗运用了……的表达技巧；<br>
+                ②结合诗句具体分析，该技巧在诗中是如何运用的；<br>
+                ③分析表达效果：生动形象地写出了……的特点，营造了……的氛围；<br>
+                ④点明情感主旨：抒发了诗人……的情感。
+            </div>
+
+            <div class="template-box">
+                <strong>【情感主旨题标准答题格式】</strong><br>
+                ①诗歌通过描写……的景物/场景/事件；<br>
+                ②抒发了诗人……的情感（分点作答，结合诗句分析）；<br>
+                ③表达了诗人……的人生思考/观点态度。
+            </div>
+
+            <div class="template-box">
+                <strong>【名句赏析万能公式】</strong><br>
+                <span class="key-point">手法 + 释义 + 意境 + 情感</span><br>
+                运用了……手法，描绘了……画面，营造了……氛围，表达了……情感。
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模块六：名句默写 -->
+<div class="module" id="m6">
+    <div class="module-header">✍️ 五、名篇名句默写知识点</div>
+    <div class="module-body">
+
+        <div class="section">
+            <div class="section-title">默写考查范围</div>
+            <p>新高考I卷默写考查范围为新课标规定的<span class="key-point">必背古诗文60篇（高中14篇+初中46篇）</span>，题型为情境式默写，3小题6分，是必须拿满的基础送分题。</p>
+            <div class="info-box orange">
+                <strong>⚠️ 备考核心技巧：</strong><br>
+                ①先背熟，再写对——重点攻克易错字，避免会背但写错<br>
+                ②理解含义，应对情境式考查——精准匹配情境<br>
+                ③整理高频易错字，反复强化——每天默写巩固
+            </div>
+        </div>
+
+        <div class="section" id="m6-s1">
+            <div class="section-title">高中必背14篇（核心重点）</div>
+            <ol>
+                <li>《论语》十二章</li>
+                <li>《劝学》-荀子</li>
+                <li>《屈原列传》（节选）-司马迁</li>
+                <li>《谏太宗十思疏》-魏征</li>
+                <li>《师说》-韩愈</li>
+                <li>《阿房宫赋》-杜牧</li>
+                <li>《六国论》-苏洵</li>
+                <li>《答司马谏议书》-王安石</li>
+                <li>《赤壁赋》-苏轼</li>
+                <li>《项脊轩志》-归有光</li>
+                <li>《子路、曾皙、冉有、公西华侍坐》-《论语》</li>
+                <li>《报任安书》（节选）-司马迁</li>
+                <li>《过秦论》（上）-贾谊</li>
+                <li>《陈情表》-李密</li>
+            </ol>
+        </div>
+
+        <div class="section" id="m6-s2">
+            <div class="section-title">初中必背46篇</div>
+            <div class="subsection">
+                <div class="subsection-title">先秦·汉魏六朝</div>
+                <ol>
+                    <li>《关雎》-《诗经》</li>
+                    <li>《蒹葭》-《诗经》</li>
+                    <li>《十五从军征》</li>
+                    <li>《观沧海》-曹操</li>
+                    <li>《陶渊明集》饮酒（其五）</li>
+                    <li>《木兰诗》</li>
+                    <li>《登幽州台歌》-陈子昂</li>
+                    <li>《送杜少府之任蜀州》-王勃</li>
+                </ol>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">唐诗</div>
+                <ol>
+                    <li>《次北固山下》-王湾</li>
+                    <li>《使至塞上》-王维</li>
+                    <li>《闻王昌龄左迁龙标遥有此寄》-李白</li>
+                    <li>《行路难》-李白</li>
+                    <li>《黄鹤楼》-崔颢</li>
+                    <li>《望岳》-杜甫</li>
+                    <li>《春望》-杜甫</li>
+                    <li>《茅屋为秋风所破歌》-杜甫</li>
+                    <li>《白雪歌送武判官归京》-岑参</li>
+                    <li>《酬乐天初逢席上见赠》-刘禹锡</li>
+                    <li>《卖炭翁》-白居易</li>
+                    <li>《琵琶行》-白居易</li>
+                    <li>《韩愈集》早春呈水部张十八员外</li>
+                    <li>《雁门太守行》-李贺</li>
+                    <li>《泊秦淮》-杜牧</li>
+                    <li>《赤壁》-杜牧</li>
+                    <li>《泊秦淮》-杜牧</li>
+                    <li>《夜雨寄北》-李商隐</li>
+                    <li>《无题》-李商隐</li>
+                    <li>《锦瑟》-李商隐</li>
+                    <li>《相见欢》-李煜</li>
+                </ol>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">宋词</div>
+                <ol>
+                    <li>《渔家傲》-范仲淹</li>
+                    <li>《浣溪沙》-晏殊</li>
+                    <li>《登飞来峰》-王安石</li>
+                    <li>《江城子·密州出猎》-苏轼</li>
+                    <li>《水调歌头》-苏轼</li>
+                    <li>《念奴娇》-苏轼</li>
+                    <li>《游山西村》-陆游</li>
+                    <li>《破阵子》-辛弃疾</li>
+                    <li>《永遇乐》-辛弃疾</li>
+                    <li>《丑奴儿》-辛弃疾</li>
+                    <li>《过零丁洋》-文天祥</li>
+                    <li>《天净沙·秋思》-马致远</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模块五：语言文字运用 -->
+<div class="module" id="m5">
+    <div class="module-header">🔤 六、语言文字运用知识点</div>
+    <div class="module-body">
+
+        <div class="section" id="m5-s1">
+            <div class="section-title">字音字形</div>
+            <div class="subsection">
+                <div class="subsection-title">易读错字（高频）</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>汉字</th><th>正确读音</th><th>易错读音</th><th>汉字</th><th>正确读音</th><th>易错读音</th></tr>
+                    <tr><td>粗糙</td><td>cāo cāo</td><td>cào/zào</td><td>憎恶</td><td>zēng wù</td><td>zèng</td></tr>
+                    <tr><td>哺育</td><td>bǔ yù</td><td>pǔ</td><td>谄媚</td><td>chǎn mèi</td><td>xiàn</td></tr>
+                    <tr><td>奢侈</td><td>shē chǐ</td><td>chí/chì</td><td>鞭笞</td><td>biān chī</td><td>tái</td></tr>
+                    <tr><td>呆板</td><td>dāi bǎn</td><td>ái</td><td>逮捕</td><td>dài bǔ</td><td>dǎi</td></tr>
+                    <tr><td>玷污</td><td>diàn wū</td><td>zhān</td><td>氛围</td><td>fēn wéi</td><td>fèn</td></tr>
+                    <tr><td>粗犷</td><td>cū guǎng</td><td>kuàng</td><td>刽子手</td><td>guì zi shou</td><td>kuài</td></tr>
+                    <tr><td>脊背</td><td>jī bèi</td><td>jí</td><td>给予</td><td>jǐ yǔ</td><td>gěi</td></tr>
+                    <tr><td>角色</td><td>jué sè</td><td>jiǎo</td><td>歼灭</td><td>jiān miè</td><td>qiān</td></tr>
+                    <tr><td>发酵</td><td>fā jiào</td><td>xiào</td><td>针灸</td><td>zhēn jiǔ</td><td>jiū</td></tr>
+                    <tr><td>模具</td><td>mú jù</td><td>mó</td><td>强迫</td><td>qiǎng pò</td><td>qiáng</td></tr>
+                    <tr><td>龋齿</td><td>qǔ chǐ</td><td>yǔ</td><td>游说</td><td>yóu shuì</td><td>shuō</td></tr>
+                    <tr><td>说服</td><td>shuō fú</td><td>shuì</td><td>瞬间</td><td>shùn jiān</td><td>sùn</td></tr>
+                </table></template>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">易错字形</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>正确</th><th>错误</th><th>正确</th><th>错误</th><th>正确</th><th>错误</th></tr>
+                    <tr><td>安详</td><td>安祥</td><td>脉搏</td><td>脉膊</td><td>重叠</td><td>重迭</td></tr>
+                    <tr><td>度假</td><td>渡假</td><td>即使</td><td>既使</td><td>家具</td><td>家俱</td></tr>
+                    <tr><td>脍炙人口</td><td>烩炙人口</td><td>青睐</td><td>亲睐</td><td>美轮美奂</td><td>美仑美奂</td></tr>
+                    <tr><td>呕心沥血</td><td>沤心沥血</td><td>气概</td><td>气慨</td><td>趋之若鹜</td><td>趋之若骛</td></tr>
+                    <tr><td>融会贯通</td><td>融汇贯通</td><td>声名鹊起</td><td>声名雀起</td><td>谈笑风生</td><td>谈笑风声</td></tr>
+                    <tr><td>走投无路</td><td>走头无路</td><td>针砭时弊</td><td>针贬时弊</td><td>相形见绌</td><td>相形见拙</td></tr>
+                </table></template>
+            </div>
+        </div>
+
+        <div class="section" id="m5-s2">
+            <div class="section-title">成语辨析</div>
+            <div class="subsection">
+                <div class="subsection-title">成语使用8大常见错误</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>错误类型</th><th>核心说明</th><th>典型示例</th></tr>
+                    <tr><td>望文生义</td><td>只按字面意思理解，误用深层含义</td><td>"不刊之论"指不可磨灭的正确言论</td></tr>
+                    <tr><td>用错对象</td><td>成语有固定适用对象</td><td>"美轮美奂"形容建筑，不能形容风景</td></tr>
+                    <tr><td>褒贬失当</td><td>成语感情色彩与语境不符</td><td>"处心积虑"是贬义词，不能用于褒义语境</td></tr>
+                    <tr><td>谦敬错位</td><td>谦辞用于自己，敬辞用于对方</td><td>"抛砖引玉"是谦辞，只能用于自己</td></tr>
+                    <tr><td>语义重复</td><td>成语含义与句中其他词语含义重复</td><td>"忍俊不禁地笑了"语义重复</td></tr>
+                    <tr><td>轻重失度</td><td>成语词义轻重与语境不符</td><td>"日理万机"词义过重</td></tr>
+                    <tr><td>不合语境</td><td>成语含义与句子语境、逻辑不符</td><td>"不绝如缕"形容形势危急，不能形容人多</td></tr>
+                    <tr><td>形近混淆</td><td>字形相近的成语混淆使用</td><td>"不负众望"与"不孚众望"混淆</td></tr>
+                </table></template>
+            </div>
+        </div>
+
+        <div class="section" id="m5-s3">
+            <div class="section-title">病句辨析与修改</div>
+            <div class="info-box red">
+                <strong>高考病句六大类型（基础必背）</strong>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">一、语序不当</div>
+                <ul>
+                    <li>多层定语语序不当：正确顺序：领属/时间/处所 + 指称/数量 + 动词短语 + 形容词短语 + 名词短语</li>
+                    <li>多层状语语序不当：正确顺序：目的/原因 + 时间 + 处所 + 范围 + 情态 + 对象</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">二、搭配不当</div>
+                <ul>
+                    <li>主谓搭配不当、动宾搭配不当、主宾搭配不当</li>
+                    <li>一面与两面搭配不当：学习成绩的提高，取决于学生自身是否努力</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">三、成分残缺或赘余</div>
+                <ul>
+                    <li>主语残缺：通过这次学习，使我受到了深刻的教育（"通过"和"使"同时使用）</li>
+                    <li>成分赘余：他同老农多次反复地进行实验（"多次"和"反复"重复）</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">四、结构混乱</div>
+                <ul>
+                    <li>句式杂糅：本着……为原则（正确：本着……的原则/以……为原则）</li>
+                    <li>中途易辙：一句话说了一半，更换主语</li>
+                </ul>
+            </div>
+            <div class="info-box green">
+                <strong>病句辨析技巧：</strong>①先找句子主干（主谓宾）；②再看修饰成分（定状补）；③关注关联词、否定词、两面词、并列短语；④看是否有句式杂糅、逻辑混乱
+            </div>
+        </div>
+
+        <div class="section" id="m5-s4">
+            <div class="section-title">标点符号</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>标点</th><th>用法</th><th>示例</th></tr>
+                <tr><td>句号（。）</td><td>陈述句末尾</td><td>今天天气很好。</td></tr>
+                <tr><td>问号（？）</td><td>疑问句末尾</td><td>你去哪里？</td></tr>
+                <tr><td>逗号（，）</td><td>句内停顿</td><td>他走了，我也走了。</td></tr>
+                <tr><td>顿号（、）</td><td>并列词语之间</td><td>苹果、香蕉、橘子</td></tr>
+                <tr><td>分号（；）</td><td>并列分句之间</td><td>他学习很好；他工作也很努力。</td></tr>
+                <tr><td>冒号（：）</td><td>提示下文或总结上文</td><td>他说："明天见。"</td></tr>
+                <tr><td>引号（""）</td><td>引用、强调、特殊含义</td><td>他说"好"</td></tr>
+                <tr><td>破折号（——）</td><td>解释说明、话题转换</td><td>他——我的朋友——来了。</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m5-s5">
+            <div class="section-title">语言表达</div>
+            <div class="subsection">
+                <div class="subsection-title">基本要求</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>要求</th><th>含义</th><th>注意事项</th></tr>
+                    <tr><td>简明</td><td>简洁明了，不啰嗦</td><td>删除多余词语，避免重复</td></tr>
+                    <tr><td>连贯</td><td>语句衔接自然流畅</td><td>话题统一、顺序合理、前后照应</td></tr>
+                    <tr><td>得体</td><td>符合语境和语体要求</td><td>注意场合、对象、身份、目的</td></tr>
+                    <tr><td>准确</td><td>用词准确，表意明确</td><td>注意词语的感情色彩</td></tr>
+                </table></template>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">常见题型与技巧</div>
+                <template data-lazy-content="chinese-table"><table>
+                    <tr><th>题型</th><th>解题方法</th></tr>
+                    <tr><td>语句补写</td><td>分析上下文逻辑关系，注意关联词、指代词</td></tr>
+                    <tr><td>语句排序</td><td>找首句、找关联词、找指代词、找逻辑顺序</td></tr>
+                    <tr><td>图文转换</td><td>观察图表要素，分析数据变化，归纳规律</td></tr>
+                    <tr><td>仿写句子</td><td>分析句式结构，把握修辞手法</td></tr>
+                </table></template>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模块四：写作 -->
+<div class="module" id="m4">
+    <div class="module-header">📝 七、高考作文知识点</div>
+    <div class="module-body">
+
+        <div class="section">
+            <div class="section-title">试卷结构与评分标准</div>
+            <p>广东新高考I卷作文以<span class="key-point">思辨类材料作文</span>为主，满分60分，是高考语文的半壁江山。</p>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>等级</th><th>评分维度</th><th>核心要求</th></tr>
+                <tr><td rowspan="4">基础等级40分</td><td>符合题意</td><td>准确把握材料内涵，立意符合材料要求，不偏题、不跑题</td></tr>
+                <tr><td>中心突出</td><td>有明确的中心论点，全文围绕中心论点展开</td></tr>
+                <tr><td>内容充实</td><td>论据充分、典型，能有力支撑论点</td></tr>
+                <tr><td>结构完整</td><td>结构完整，首尾呼应，过渡自然；语言流畅</td></tr>
+                <tr><td rowspan="4">发展等级20分</td><td>深刻</td><td>透过现象看本质，揭示内在因果关系</td></tr>
+                <tr><td>丰富</td><td>论据丰富，材料充足，论证充分</td></tr>
+                <tr><td>有文采</td><td>用词贴切，句式灵活，善用修辞手法</td></tr>
+                <tr><td>有创意</td><td>见解新颖，材料新鲜，构思精巧</td></tr>
+            </table></template>
+        </div>
+
+        <div class="section" id="m4-s1">
+            <div class="section-title">议论文基础结构模板</div>
+            <div class="template-box">
+                <strong>【并列式结构】（最易上手）</strong><br>
+                <b>开头：</b>引述材料，提出明确的中心论点（100-150字）<br>
+                <b>主体段1：</b>分论点1 + 道理论证 + 事实论据 + 分析论证 + 回扣论点（200-250字）<br>
+                <b>主体段2：</b>分论点2 + 道理论证 + 事实论据 + 分析论证 + 回扣论点<br>
+                <b>主体段3：</b>分论点3 + 道理论证 + 事实论据 + 分析论证 + 回扣论点<br>
+                <b>结尾：</b>总结全文，重申中心论点，升华主题（100-150字）
+            </div>
+            <div class="template-box">
+                <strong>【递进式结构】（思辨性强，易拿高分）</strong><br>
+                <b>开头：</b>引述材料，提出中心论点<br>
+                <b>主体段1：</b>是什么——阐释核心概念的内涵，界定论点的范围<br>
+                <b>主体段2：</b>为什么——分析论点的意义、价值、重要性<br>
+                <b>主体段3：</b>怎么办——结合现实，提出践行论点的具体方法<br>
+                <b>主体段4：</b>思辨段——辩证分析，补充论点，避免绝对化<br>
+                <b>结尾：</b>总结全文，重申论点，升华主题
+            </div>
+            <div class="info-box green">
+                <strong>标准议论段五步法：</strong><b>观点句 + 阐释句 + 材料句 + 分析句 + 结论句</b>
+            </div>
+        </div>
+
+        <div class="section" id="m4-s2">
+            <div class="section-title">审题立意技巧</div>
+            <div class="info-box orange">
+                <strong>思辨类材料作文审题5步法：</strong><br>
+                ①抓核心要素——通读材料，圈出关键词、关键句，明确核心话题<br>
+                ②辨逻辑关系——分析材料中多个概念之间的关系（对立统一、相辅相成、递进等）<br>
+                ③悟命题意图——思考命题人想要考查的价值导向、时代主题<br>
+                ④立中心论点——提炼出明确、鲜明、有思辨性的中心论点<br>
+                ⑤拟分论点——围绕中心论点，拆分出3个逻辑清晰的分论点
+            </div>
+            <div class="template-box">
+                <strong>【开头3种基础写法】</strong><br>
+                ①<b>材料入题法</b>：简洁引述材料，分析材料，直接提出中心论点<br>
+                ②<b>名言入题法</b>：引用与论点相关的名言警句，引出中心论点<br>
+                ③<b>排比入题法</b>：用排比句式引出话题，提出中心论点，增强气势
+            </div>
+            <div class="template-box">
+                <strong>【结尾3种基础写法】</strong><br>
+                ①<b>总结回扣式</b>：总结全文分论点，重申中心论点，首尾呼应<br>
+                ②<b>时代升华式</b>：结合时代背景、青年使命，升华主题<br>
+                ③<b>呼吁号召式</b>：发出号召，引发读者共鸣
+            </div>
+        </div>
+
+        <div class="section" id="m4-s3">
+            <div class="section-title">基础备考核心建议</div>
+            <ol>
+                <li><strong>积累素材：</strong>分主题积累素材（家国情怀、青春奋斗、科技创新、文化传承等），每个主题积累2-3个经典人物事例、3句名言</li>
+                <li><strong>坚持练笔：</strong>每周写1篇完整作文，每天写1个标准议论段，保持写作手感</li>
+                <li><strong>打磨标题：</strong>标题要鲜明、对仗、有文采，直接点明中心论点</li>
+                <li><strong>卷面工整：</strong>字迹清晰，卷面整洁，卷面分直接影响阅卷老师的评分</li>
+            </ol>
+        </div>
+
+    </div>
+</div>
+
+<!-- 附录 -->
+<div class="module" id="appendix">
+    <div class="module-header">📋 附录：高三语文基础备考规划</div>
+    <div class="module-body">
+
+        <div class="section">
+            <div class="section-title">基础夯实阶段（一轮复习，现在-模考前）</div>
+            <div class="info-box">
+                <strong>核心目标：</strong>全覆盖知识点，夯实基础，消灭知识盲区，保底分全部拿满
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">每日任务</div>
+                <ul>
+                    <li>10分钟：名句默写，背诵+默写，攻克易错字</li>
+                    <li>15分钟：文言实词/虚词/文化常识积累，每天积累5个实词+1个虚词</li>
+                    <li>20分钟：做1篇信息类文本+1篇文学类文本，规范答题模板</li>
+                    <li>15分钟：语言文字运用题型练习，攻克病句、成语基础</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <div class="subsection-title">每周任务</div>
+                <ul>
+                    <li>1篇文言文精读+翻译</li>
+                    <li>1篇古诗词鉴赏</li>
+                    <li>1篇完整作文</li>
+                    <li>整理错题本</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">强化提升阶段（二轮复习，模考-考前1个月）</div>
+            <ul>
+                <li><strong>核心目标：</strong>突破主观题答题规范，提升作文深度，总结答题技巧，查漏补缺</li>
+                <li><strong>重点突破：</strong>主观题答题模板固化、作文审题立意训练、高频错题复盘</li>
+                <li><strong>每周完成：</strong>1套完整高考真题，限时训练，模拟考试节奏</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">冲刺阶段（考前1个月-高考）</div>
+            <ul>
+                <li><strong>核心目标：</strong>保持手感，回归基础，调整心态，稳定发挥</li>
+                <li><strong>回归：</strong>教材、错题本、基础知识点，不做偏难怪题</li>
+                <li><strong>每周限时：</strong>完成1套真题，保持考试节奏，背诵作文素材和答题模板</li>
+            </ul>
+            <div class="info-box red">
+                <strong>备考核心提醒：</strong>语文提分重在积累和坚持，每天的小积累，最终会汇聚成高考的大提升。先抓基础保底分，再逐步突破高分，循序渐进，稳步提分。
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">高考时间分配建议</div>
+            <template data-lazy-content="chinese-table"><table>
+                <tr><th>题型</th><th>建议时间</th><th>分值</th></tr>
+                <tr><td>现代文阅读</td><td>30-35分钟</td><td>35分</td></tr>
+                <tr><td>文言文阅读</td><td>20-25分钟</td><td>20分</td></tr>
+                <tr><td>古诗词鉴赏</td><td>10-15分钟</td><td>9分</td></tr>
+                <tr><td>名篇名句默写</td><td>5分钟</td><td>6分</td></tr>
+                <tr><td>语言文字运用</td><td>15-20分钟</td><td>20分</td></tr>
+                <tr><td>写作</td><td>60分钟</td><td>60分</td></tr>
+            </table></template>
+            <div class="info-box">
+                <strong>时间分配原则：</strong>先易后难，保证作文时间，留5分钟检查
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+</section>
+
+</main>
+<footer class="main-footer">
+<p><a href="showcase.html">🏆 作品展示页</a> · 评委与老师可从此页了解项目全貌</p>
+<p>高中物化生语数英学习大礼包 · 题目与知识点仅供学习参考</p>
+<p class="disclaimer">学习记录保存在浏览器本地，清除浏览器数据会一并清除</p>
+</footer>
+</div>
+
+<script src="js/common-utils.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/csp-delegation.js"></script>
+<script defer src="js/tick-bus.js"></script>
+<script defer src="js/boot-guard.js"></script>
+<script defer src="js/notification-center.js"></script>
+<script defer src="js/schedule-engine.js"></script>
+<script defer src="js/speech-service.js"></script>
+<script defer src="js/theme-loader.js"></script>
+<script defer src="js/deep-link.js"></script>
+<script defer src="js/liquid-glass.js"></script>
+<script defer src="js/demo-mode.js"></script>
+
+<script defer src="js/home-collapse.js"></script>
+<script defer src="js/theme-toggle.js"></script>
+<script defer src="js/sw-register.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/app-chemistry.js"></script>
+<script defer src="js/app-physics.js"></script>
+<script defer src="js/app-biology.js"></script>
+<script defer src="js/app-exam.js"></script>
+<script defer src="js/enhanced-tools.js"></script>
+<script defer src="js/content-enhancement.js"></script>
+<script defer src="js/comprehensive-data.js"></script>
+<script defer src="js/exam-review-system.js"></script>
+<script defer src="js/platform-system.js"></script>
+<script defer src="js/missing-tools-part2.js"></script>
+<script defer src="js/guangdong-features.js"></script>
+<script defer src="js/study-enhanced.js"></script>
+<script defer src="js/visual-enhanced.js"></script>
+<script defer src="js/auxiliary-tools.js"></script>
+<script defer src="js/math-tools.js"></script>
+<script defer src="js/chinese-tools.js"></script>
+<script defer src="js/error-notebook.js"></script>
+<script defer src="js/mock-exam.js"></script>
+<script defer src="js/global-search.js"></script>
+<script defer src="js/chinese-sentence-correction.js"></script>
+<script defer src="js/physics-wave-optics.js"></script>
+<script defer src="js/chemistry-3d-molecules.js"></script>
+<script defer src="js/biology-cell-division.js"></script>
+<script defer src="js/study-dashboard.js"></script>
+<script defer src="js/onboarding.js"></script>
+<script defer src="js/english-vocabulary.js"></script>
+<script defer src="js/game-scratchpad.js"></script>
+<script defer src="js/learning-tools.js"></script>
+<script defer src="js/open-answer-trainer.js"></script>
+<script defer src="js/english-tools.js"></script>
+<script defer src="js/study-tools-v2.js"></script>
+<script defer src="js/study-tools-enhanced.js"></script>
+<script defer src="js/interactive-physics-bio.js"></script>
+<script defer src="js/interactive-chemistry.js"></script>
+<script defer src="js/content-enhanced-v2.js"></script>
+<script defer src="js/subject-gap-1.js"></script>
+<script defer src="js/subject-gap-2.js"></script>
+<script defer src="js/subject-gap-3.js"></script>
+<script defer src="js/gamification-system.js"></script>
+<script defer src="js/data-analysis-enhanced.js"></script>
+<script defer src="js/content-deep-v3.js"></script>
+<script defer src="js/utility-tools-v2.js"></script>
+<script defer src="js/learning-path-recommender.js"></script>
+<script defer src="js/dashboard-widgets.js"></script>
+<script defer src="js/settings-center.js"></script>
+<script defer src="js/automation.js"></script>
+<script defer src="js/plugin-loader.js"></script>
+
+
+<script src="js/main-inline.js"></script>
+<button class="theme-toggle hspcb-settings-btn" id="hspcbSettingsBtn" data-hook="open-settings" title="设置" aria-label="打开设置">⚙️</button>
+<button class="theme-toggle" id="themeToggle" data-action="toggle-theme" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>
+</body>
+</html>

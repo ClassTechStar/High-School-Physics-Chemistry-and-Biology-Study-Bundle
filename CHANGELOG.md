@@ -2,6 +2,17 @@
 
 ## 未发布
 
+### 原生安卓端（v1.7.0）
+> Kotlin/Java 原生壳 + 内嵌 Web 应用的混合架构：`android/` 目录新增原生工程（零第三方依赖），完整保留 Web 端全部核心功能与界面风格。
+
+- **原生壳**：`MainActivity`（Java，无 androidx/第三方库）以 WebView 加载虚构资产域 `https://appassets.local/`，`shouldInterceptRequest` 将请求映射到 APK 内 `assets/web/**`（仓库 `1.2/` 同源拷贝）——不创建 socket、不走网络，离线完整可用；https 语义下 localStorage / fetch / Web Speech 正常。
+- **架构决策记录**：初版本地 HTTP 服务器方案在 Android 16 真机（Redmi 23117RK66C）上实测绑定 loopback 报 `EPERM`，改为拦截式资产域（androidx.webkit AssetLoader 同原理的最小手写实现，保持零依赖）。
+- **原生能力**：系统返回键映射 WebView 后退、外部链接移交系统浏览器、随系统明暗切换原生主题（values-night）、启动器图标复用 PWA 图标。
+- **构建**：`android/build-apk.sh` 一键免 Gradle 构建（aapt2 → javac → d8 → zipalign → apksigner，零 Maven 依赖）；同时提供 Android Studio 工程文件（gradle 路径未在本机验证）。debug.keystore 入库保证升级签名一致（仅测试分发）。
+- **验证**：真机（Redmi 23117RK66C / Android 16）安装、启动、玻璃 UI 渲染、随机出题全链路（data-call 委托 + 题库资产拦截 + 题目详情）通过，零 crash；截图见 `android/screenshots/`。
+- **产物**：`android/releases/HSPCB-v1.7.0-debug.apk`（versionName 跟随根 package.json，当前 1.7.0）。Web 端零改动。
+- 版本 1.6.0 → **1.7.0**。
+
 ### 参赛级打磨（v1.6.0）
 > 按大型赛事通用评审维度（创新性 / 技术性 / 艺术性 / 完成度）系统补强，配套答辩材料 `COMPETITION.md`（评审维度映射、三分钟演示脚本、答辩 Q&A 预案与诚实边界声明）。
 

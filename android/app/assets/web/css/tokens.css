@@ -1,0 +1,99 @@
+/* ============================================================
+   tokens.css — HSPCB 共享设计令牌（CSS变量）
+   三套CSS共享的变量定义，确保视觉色系统一
+   加载方式: index.html 中按 tokens.css → style.css → theme-dark.css
+   的顺序用 <link> 引入（theme-dark.css 依赖前者已生效的变量），
+   各 CSS 文件内部不写 @import
+   ============================================================ */
+
+:root {
+    /* 主色调 */
+    --primary: #4f6ef6;
+    --primary-light: #7b93fa;
+    --primary-dark: #3a56d4;
+
+    /* 辅助色 */
+    --secondary: #6c757d;
+    --accent: #f59e0b;
+    --danger: #ef4444;
+    --success: #10b981;
+
+    /* 学科主题色（六科色相互不相同） */
+    --physics: #3b82f6;    /* 蓝 */
+    --chemistry: #10b981;  /* 翠绿 */
+    --biology: #f59e0b;    /* 琥珀 */
+    --exam: #ef4444;
+    --platform: #8b5cf6;
+    --chinese: #0ea5e9;    /* 天蓝（与 nav-btn 阴影 rgba(14,165,233) 及暗色 #38bdf8 同族） */
+    --math: #ec4899;       /* 品红（原与 --physics 同为 #3b82f6，T3-1 换色相） */
+    --english: #8b5cf6;    /* 紫（T3-1 新增；此前英语卡/导航无令牌可用） */
+
+    /* 背景色 */
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-dark: #0f172a;
+
+    /* 文字色 */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-light: #94a3b8;
+    --text-white: #ffffff;
+
+    /* 边框色 */
+    --border-light: #e2e8f0;
+    --border-medium: #cbd5e1;
+
+    /* 间距 */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* 圆角 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+
+    /* 字体 */
+    --font-sans: "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+    --font-mono: "Consolas", "Courier New", monospace;
+
+    /* 阴影 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* 演示页主色(presentation/promo 深色主题专用,与浅色主题 --primary 区分) */
+    --pres-primary: #667eea;
+    --pres-primary-dark: #764ba2;
+
+    /* D 类类化保留令牌（T3-4f）：主题无关，明暗两态取值一致。
+       原为 index.html 静态 style 属性写死值；类化后以令牌保持现值，
+       确保 computed-style 外观零变化（不跟随 --math/--english 的 T3-1 新色相，
+       色相改版须用户另行确认）。 */
+    --tag-math-bg: #dbeafe;
+    --tag-math-fg: #3b82f6;
+    --tag-chinese-bg: #e0f2fe;
+    --tag-chinese-fg: #0369a1;
+    --tag-english-bg: #ede9fe;
+    --tag-english-fg: #7c3aed;
+    --panel-math-bg: #f5f7fa;
+    --panel-math-title: #3b82f6;
+    --panel-english-bg: #f8fafc;
+    --panel-english-title: #8b5cf6;
+}
+
+/* 暗黑模式变量覆盖 */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --border-light: #334155;
+    --border-medium: #475569;
+    --primary: var(--primary-light);
+}

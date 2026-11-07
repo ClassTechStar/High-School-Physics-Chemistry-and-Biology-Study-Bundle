@@ -1,0 +1,28 @@
+/* ============================================================
+   print-report.css — 数据分析报告弹窗样式（D3，v1.4）
+   原为 js/data-analysis-enhanced.js 内 window.open 文档里的内联 <style> 块，
+   CSP style-src 收紧为 'self' 后内联样式块会被拦截，故外置为独立文件，
+   由弹窗文档以 <link rel="stylesheet"> 引入（同源，'self' 允许）。
+   ============================================================ */
+
+body {
+    font-family: "Microsoft YaHei", sans-serif;
+    padding: 24px;
+    color: #222;
+    line-height: 1.6;
+}
+
+h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+}
+
+h4 {
+    color: #34495e;
+    margin-top: 18px;
+}
+
+svg {
+    max-width: 100%;
+}

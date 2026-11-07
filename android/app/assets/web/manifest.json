@@ -1,0 +1,71 @@
+{
+  "name": "高中物化生语数英学习大礼包",
+  "short_name": "高考备考",
+  "description": "物理化学生物数学语文英语六科的知识点、题库、错题本与模拟考试（纯静态，可离线）",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f6ef6",
+  "lang": "zh-CN",
+  "orientation": "any",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "物理",
+      "short_name": "物理",
+      "url": "index.html?subject=physics"
+    },
+    {
+      "name": "化学",
+      "short_name": "化学",
+      "url": "index.html?subject=chemistry"
+    },
+    {
+      "name": "生物",
+      "short_name": "生物",
+      "url": "index.html?subject=biology"
+    },
+    {
+      "name": "数学",
+      "short_name": "数学",
+      "url": "index.html?subject=math"
+    },
+    {
+      "name": "语文",
+      "short_name": "语文",
+      "url": "index.html?subject=chinese"
+    },
+    {
+      "name": "英语",
+      "short_name": "英语",
+      "url": "index.html?subject=english"
+    }
+  ]
+}

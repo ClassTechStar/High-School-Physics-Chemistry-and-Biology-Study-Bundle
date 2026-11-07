@@ -1,0 +1,9 @@
+{
+  "id": "example",
+  "name": "示例插件",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "entry": "example.js",
+  "author": "HSPCB",
+  "description": "演示轻插件能力：监听答题事件给出鼓励、注册一张仪表盘卡片"
+}
