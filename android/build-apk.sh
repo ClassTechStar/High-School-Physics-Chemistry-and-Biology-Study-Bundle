@@ -20,19 +20,35 @@ PLATFORM="$SDK/platforms/android-34/android.jar"
 [ -f "$PLATFORM" ] || PLATFORM="$SDK/platforms/$(ls "$SDK/platforms" | sort -V | tail -1)/android.jar"
 JAVA="${JAVA_BIN:-java}"
 command -v "$JAVA" >/dev/null 2>&1 || JAVA="C:/Program Files/Android/Android Studio/jbr/bin/java.exe"
+if [ ! -x "$JAVA" ] && ! command -v "$JAVA" >/dev/null 2>&1; then
+  echo "❌ 未找到 java（设 JAVA_BIN 后重试）"; exit 1
+fi
 if [ -x "$(dirname "$JAVA")/keytool.exe" ]; then
   KEYTOOL="$(dirname "$JAVA")/keytool.exe"
 else
   KEYTOOL="$(command -v keytool || echo "C:/Program Files/Android/Android Studio/jbr/bin/keytool.exe")"
 fi
+[ -x "$KEYTOOL" ] || { echo "❌ 未找到 keytool"; exit 1; }
 JAVAC="$(dirname "$JAVA")/javac"
 [ -x "$JAVAC" ] || JAVAC=javac
-PY="$(command -v python || command -v python3)"
+# python 探测：WindowsApps 的存根可能只是占位（执行失败），逐候选执行校验
+PY=""
+for C in $(command -v python3 2>/dev/null || true) \
+         $(command -v python 2>/dev/null || true) \
+         "$LOCALAPPDATA/Python"/pythoncore-*/python.exe; do
+  if [ -n "$C" ] && "$C" -c "print('ok')" >/dev/null 2>&1; then
+    PY="$C"; break
+  fi
+done
+if [ -z "$PY" ]; then
+  echo "❌ 未找到可用的 python3（zip 打包步骤需要）"; exit 1
+fi
 
 echo "SDK       : $SDK"
 echo "build-tools: $BT"
 echo "platform  : $PLATFORM"
 echo "java      : $($JAVA -version 2>&1 | head -1)"
+echo "python    : $PY"
 
 APP_ID="com.classtechstar.hspcb"
 VER="$(grep -o '"version": *"[^"]*"' "$ROOT/package.json" | head -1 | grep -o '[0-9][^"]*')"
@@ -72,7 +88,6 @@ rm -rf build && mkdir -p build/gen build/obj build/dex
 echo "── [3/7] javac"
 find app/java -name '*.java' > build/sources.txt
 find build/gen -name '*.java' >> build/sources.txt
-"$JAVA" >/dev/null 2>&1 || true
 JAVAC="$(dirname "$JAVA")/javac"
 [ -x "$JAVAC" ] || JAVAC=javac
 "$JAVAC" --release 11 -nowarn -cp "$PLATFORM" -d build/obj @build/sources.txt

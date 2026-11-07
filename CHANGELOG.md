@@ -2,6 +2,19 @@
 
 ## 未发布
 
+### 第二轮全量 bug 排查修复（v1.7.1，聚焦 v1.5.2–v1.7.0 三批新文件）
+> 门禁基线全绿后，深度代理逐文件复查液态玻璃 / 参赛包 / 安卓端三批新增文件与既有代码集成点，确认并修复 6 处缺陷，另新增 1 道防漂移门禁。
+
+- **【高】首页「学习仪表盘」按钮打开空白 section**：`showSection('study-dashboard-section')` 只切区不渲染（studyDashboard.render 的触发点在 navigateToolPage('study-dashboard')）——按钮改走 `navigateToolPage`，点击即见完整仪表盘。
+- **【中】「清除演示数据」清不掉打卡连击**：demo 打卡写在 HSPCBStore 轨，`resetAll()` 只清 v2 主档——`clear()` 补 `purgeAll()` 两轨成对清（对齐 learning-tools 清除流程），兑现 confirm 文案承诺。
+- **【低中】演示数据与错题本页脱节**：错题本页读独立存储 `hspcb_error_notebook`，demo 此前只写 `wrongQuestions`（仅仪表盘计数可见）且「笔记」是死数据——现在按 `addError` schema 组装五科各 2 道示例错题写入错题本（其渲染器无英语，跳过英语），删除死笔记注入，toast 文案与实际落点精确对齐；`hasDemoData` 双轨检测。
+- **【低】demo 双触发竞态**：`?demo=1` 与手点按钮并发可双份执行（重复快照消耗槽位）——加 `injecting` 标志。
+- **【低】build-apk.sh 工具链探测健壮性**：WindowsApps python 存根「存在但执行失败」导致构建中断——逐候选执行校验（python3/python/pythoncore 直径）；java/keytool 探测失败给出明确报错；删除无意义的 java 探测残留行。
+- **【低】Android Studio 工程文件可构建化**：AGP 8.5 不兼容 manifest 的 `package=` 属性（aapt2 脚本路径依赖它）——gradle 改用 AGP 7.4.2 + Gradle 7.6.4，并显式挂载扁平布局（java/res/assets/manifest）与 1.2/ 资产刷新任务；仍标注「未本机验证，以脚本为准」。
+- **新增门禁 `check:asset-sync`**：比对 `1.2/` ↔ `android/app/assets/web/` 的文件清单与内容哈希（111 文件），防止 Web 更新后忘记同步安卓拷贝导致 APK 内容陈旧；纳入 verify 链。
+- **验证**：全量 verify 十一阶段全绿（121+61+14+29+75 + 资产同步 111 文件一致）；v1.7.1 APK 真机（Redmi / Android 16）重装启动零 crash。
+- 版本 1.7.0 → **1.7.1**（Web、Manifest、Gradle 三处同步）。
+
 ### 原生安卓端（v1.7.0）
 > Kotlin/Java 原生壳 + 内嵌 Web 应用的混合架构：`android/` 目录新增原生工程（零第三方依赖），完整保留 Web 端全部核心功能与界面风格。
 
