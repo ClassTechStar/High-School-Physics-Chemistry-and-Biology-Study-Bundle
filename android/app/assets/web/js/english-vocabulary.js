@@ -716,7 +716,10 @@ window.englishVocabulary = (function() {
             containerEl = document.createElement('div');
             containerEl.id = 'evocab-container';
             // Try to find a suitable mount point
-            var mountPoint = document.querySelector('.main-content') || document.querySelector('#app') || document.body;
+            // 优先挂到本工具自己的 section 容器；退到 .main-content 会落到所有 section 之后，
+            // 导致切到别的学科时这块内容还挂在页面底部
+            var mountPoint = document.getElementById('english-vocabulary-app')
+                || document.querySelector('.main-content') || document.body;
             mountPoint.appendChild(containerEl);
         }
 

@@ -317,6 +317,7 @@ window.onboarding = (function() {
     function render() {
         injectStyles();
         createHelpButton();
+        renderPanel();
 
         if (checkFirstVisit()) {
             // Small delay to let the page render first
@@ -324,6 +325,23 @@ window.onboarding = (function() {
                 startGuide();
             }, 800);
         }
+    }
+
+    // 引导本体是聚光灯浮层，不写 #onboarding-app。非首次访问时浮层不会自己弹，
+    // 用户点进来只会看到一片空白，所以这里补一个可重播的说明面板。
+    function renderPanel() {
+        var app = document.getElementById('onboarding-app');
+        if (!app) return;
+        app.innerHTML =
+            '<div class="knowledge-section">' +
+            '<div class="knowledge-card">' +
+            '<h4>新手引导</h4>' +
+            '<div class="key-point">第一次打开首页时会自动弹出引导，用聚光灯依次介绍页面上的各个区域。</div>' +
+            '<div class="key-point">引导过程中按 <strong>→</strong> 或 <strong>Enter</strong> 进入下一步，按 <strong>Esc</strong> 跳过。</div>' +
+            '<button type="button" class="btn-onboarding-replay" data-style="margin-top:12px;padding:8px 18px;border:none;border-radius:6px;background:var(--primary,#4f6ef6);color:#fff;font-size:13px;cursor:pointer;">重新播放引导</button>' +
+            '</div></div>';
+        var btn = app.querySelector('.btn-onboarding-replay');
+        if (btn) btn.addEventListener('click', function () { startGuide(); });
     }
 
  // KEYBOARD SUPPORT

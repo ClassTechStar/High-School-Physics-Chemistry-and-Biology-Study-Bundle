@@ -43,6 +43,11 @@ public class MainActivity extends Activity {
         st.setMediaPlaybackRequiresUserGesture(false); // 朗读按钮（Web Speech）
         st.setUseWideViewPort(true);
         st.setLoadWithOverviewMode(true);
+        // 页面按 1280px 桌面视口布局（见 build-apk.sh 的 viewport 改写），
+        // 手机屏放不下时靠捏合/双击缩放查看，避免回落到 768px 的移动专属排版
+        st.setSupportZoom(true);
+        st.setBuiltInZoomControls(true);
+        st.setDisplayZoomControls(false);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override

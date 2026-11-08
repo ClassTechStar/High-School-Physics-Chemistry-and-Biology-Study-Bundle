@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.webkit.WebResourceResponse;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,6 +21,13 @@ public final class AssetResponder {
 
     public static final String HOST = "appassets.local";
     private static final String ROOT = "web/";
+    private static final String INDEX_HTML = "/index.html";
+
+    /** 页面里的视口声明（Web 版用 device-width，手机上会走 768px 移动断点）。 */
+    private static final String VP_WEB =
+            "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">";
+    /** 安卓端改成固定桌面宽度，页面布局与 Web 版一致；屏不够宽时靠捏合缩放查看。 */
+    private static final String VP_APP = "<meta name=\"viewport\" content=\"width=1280\">";
 
     private static final Map<String, String> MIME = new HashMap<>();
 
@@ -62,6 +70,12 @@ public final class AssetResponder {
         if (is == null) {
             return text(404, "Not Found");
         }
+        // 安卓端按桌面视口排版，页面结构与 Web 版完全一致，不回落到 768px 的移动专属布局。
+        // 只改返回给 WebView 的这份内容；磁盘上的 assets 与仓库 1.2/ 保持字节一致
+        // （scripts/check-asset-sync.mjs 按哈希比对两端）。
+        if (INDEX_HTML.equals(path)) {
+            is = withDesktopViewport(is);
+        }
         return new WebResourceResponse(mimeOf(path), encodingOf(path), is);
     }
 
@@ -83,6 +97,24 @@ public final class AssetResponder {
     private static WebResourceResponse text(int code, String message) {
         return new WebResourceResponse("text/plain", "utf-8", code, message,
                 null, new ByteArrayInputStream(message.getBytes()));
+    }
+
+    /** 读完后替换视口声明，返回新的字节流。找不到原声明时原样返回。 */
+    private static InputStream withDesktopViewport(InputStream is) {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[16384];
+            int n;
+            while ((n = is.read(buf)) > 0) bos.write(buf, 0, n);
+            is.close();
+            String html = new String(bos.toByteArray(), "utf-8");
+            if (html.contains(VP_WEB)) {
+                html = html.replace(VP_WEB, VP_APP);
+            }
+            return new ByteArrayInputStream(html.getBytes("utf-8"));
+        } catch (IOException e) {
+            return is;
+        }
     }
 
     /** 路径规范化：拒绝 ..、绝对路径等穿越尝试；返回以 / 开头的规范化路径。 */

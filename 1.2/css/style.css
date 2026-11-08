@@ -3533,3 +3533,38 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
 @keyframes ll-spin {
     to { transform: rotate(360deg); }
 }
+
+/* ============ 生物知识图谱（SVG 图谱视图） ============ */
+.kg-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.kg-toolbar h3 { margin:0; }
+.kg-meta { font-size:12px; color:var(--text-light); }
+.kg-reset { padding:5px 12px; font-size:12px; border:1px solid var(--border-light); border-radius:6px; background:var(--bg-card); color:var(--text-secondary); cursor:pointer; }
+.kg-reset:hover { background:var(--bg-secondary); }
+.kg-wrap { display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; }
+.kg-canvas-box { flex:1; min-width:320px; position:relative; border:1px solid var(--border-light); border-radius:10px; background:var(--bg-card); overflow:hidden; }
+.kg-svg { display:block; width:100%; height:auto; touch-action:none; cursor:grab; }
+.kg-svg.is-panning { cursor:grabbing; }
+.kg-node { cursor:pointer; }
+.kg-label { font-size:11px; fill:var(--text-secondary); pointer-events:none; -webkit-user-select:none; user-select:none; }
+.kg-node-name { font-size:10px; fill:var(--text-light); pointer-events:none; -webkit-user-select:none; user-select:none; }
+.kg-hint { position:absolute; left:8px; bottom:6px; font-size:11px; color:var(--text-light); pointer-events:none; }
+.kg-detail { width:320px; flex-shrink:0; max-height:640px; overflow-y:auto; }
+.kg-empty { padding:16px; border:1px dashed var(--border-medium); border-radius:10px; color:var(--text-light); font-size:13px; text-align:center; }
+.kg-card { border:1px solid var(--border-light); border-radius:10px; padding:14px; background:var(--bg-card); }
+.kg-card-id { font-size:11px; color:var(--text-light); margin-bottom:2px; }
+.kg-card-name { font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.35; margin-bottom:6px; }
+.kg-card-stat { font-size:12px; color:var(--text-secondary); margin-bottom:12px; }
+.kg-block { padding:9px 10px; margin-bottom:8px; border-radius:6px; background:var(--bg-secondary); font-size:12.5px; line-height:1.65; color:var(--text-secondary); }
+.kg-block strong { color:var(--text-primary); }
+.kg-block-danger { background:var(--danger-light,#fee2e2); border-left:3px solid var(--danger,#ef4444); }
+.kg-rels { margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-light); }
+.kg-rels-title { font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:6px; }
+.kg-rel-jump { cursor:pointer; padding:5px 7px; margin-bottom:4px; border-radius:5px; background:var(--bg-secondary); font-size:12px; color:var(--text-secondary); }
+.kg-rel-jump:hover { filter:brightness(0.96); }
+.kg-legend { margin-top:10px; display:flex; gap:12px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); }
+.kg-legend-item { display:inline-flex; align-items:center; gap:4px; }
+.kg-legend-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+
+/* 工具加载失败提示（替代原来的 alert，避免空白无提示） */
+.tool-error { padding:16px 18px; border:1px solid var(--danger,#ef4444); border-left:4px solid var(--danger,#ef4444); border-radius:8px; background:var(--bg-card); color:var(--text-primary); font-size:14px; }
+.tool-error-detail { margin-top:6px; font-size:12px; color:var(--text-secondary); font-family:ui-monospace,Consolas,monospace; word-break:break-all; }

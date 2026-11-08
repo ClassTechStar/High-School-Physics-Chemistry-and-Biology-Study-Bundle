@@ -233,34 +233,311 @@
 
         if (typeof CE === 'undefined') {
             console.error('[生物知识图谱] CE 对象未定义，检查 content-enhancement.js 是否加载');
-            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>内容增强文件 (content-enhancement.js) 未正确加载</p></div>';
+            app.innerHTML = '<div class="kg-empty">数据加载失败：content-enhancement.js 未正确加载</div>';
             return;
         }
 
         if (!CE.biologyKnowledgeGraph) {
             console.error('[生物知识图谱] biologyKnowledgeGraph 数据不存在');
-            app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物知识图谱数据未找到</p></div>';
+            app.innerHTML = '<div class="kg-empty">生物知识图谱数据未找到</div>';
             return;
         }
 
         var kg = CE.biologyKnowledgeGraph;
-        console.log('[生物知识图谱] 正在渲染，节点数:', kg.nodes.length);
+        // 节点列表在数据里叫 topics；旧代码读 nodes，kg.nodes 为 undefined 后取 .length 抛错，整块只剩标题
+        var topics = kg.topics || kg.nodes || [];
+        var relations = kg.relations || [];
+        if (!topics.length) {
+            app.innerHTML = '<div class="kg-empty">暂无图谱数据</div>';
+            return;
+        }
 
-        var html = '<div class="knowledge-section"><h3>🔥 ' + kg.title + '</h3>'+
-            '<div class="knowledge-card"><div class="key-point">共收录<strong>' + kg.nodes.length + '</strong>个热点专题节点，<strong>' + kg.relations.length + '</strong>条知识关联关系，覆盖近五年广东高考生物高频考点。</div></div>';
-        kg.nodes.forEach(function(node) {
-            html += '<div class="knowledge-card" data-style="position:relative;">'+
-                '<h4>🔥 ' + node.name + ' <span data-style="font-size:0.9rem;background:#e8edff;padding:2px 8px;border-radius:10px;">权重：'+(node.weight*100).toFixed(0)+'%</span></h4>'+
-                '<div class="key-point"><strong>📖 核心概念：</strong>' + node.concept + '</div>'+
-                '<div class="key-point"><strong>🖼️ 关键图解：</strong>' + node.diagram + '</div>'+
-                '<div class="key-point"><strong>🔬 实验/情境：</strong>' + node.experiment + '</div>'+
-                '<div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>⚠️ 易错点：</strong>' + node.pitfall + '</div>'+
-                '<div class="key-point"><strong>📝 真题参考：</strong>' + node.examRef + '</div>'+
-                '<div class="key-point"><strong>💡 备考策略：</strong>' + node.strategy + '</div>'+
-                '</div>';
+        var esc = (window.CommonUtils && CommonUtils.escapeHtml)
+            ? CommonUtils.escapeHtml
+            : function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+
+        var MODULE_COLORS = {
+            '必修1《分子与细胞》': '#3b82f6',
+            '必修2《遗传与进化》': '#8b5cf6',
+            '选必2《生物与环境》': '#10b981',
+            '选必3《生物技术与工程》': '#f97316',
+            '跨模块': '#0ea5e9',
+            '能力考查': '#ec4899'
+        };
+        function colorOf(m) { return MODULE_COLORS[m] || '#64748b'; }
+
+        // 按模块分组的环形布局：确定性，无抖动、无动画循环
+        var groupOrder = [], groups = [];
+        topics.forEach(function (t) {
+            var m = t.module || '其他';
+            var gi = groupOrder.indexOf(m);
+            if (gi < 0) {
+                groupOrder.push(m);
+                groups.push({ name: m, items: [] });
+                gi = groups.length - 1;
+            }
+            groups[gi].items.push(t);
         });
+
+        var CX = 430, CY = 320, RING = 205;
+        groups.forEach(function (g, gi) {
+            var ga = (Math.PI * 2 * gi / groups.length) - Math.PI / 2;
+            var gx = CX + Math.cos(ga) * RING;
+            var gy = CY + Math.sin(ga) * RING;
+            g.items.forEach(function (t, i) {
+                var n = g.items.length;
+                var rr = n === 1 ? 0 : 46;
+                var a = (Math.PI * 2 * i / n) + ga;
+                t._x = Math.round(gx + Math.cos(a) * rr);
+                t._y = Math.round(gy + Math.sin(a) * rr);
+                t._r = Math.round(15 + (t.weight || 0.05) * 100);
+            });
+        });
+
+        var byId = {};
+        topics.forEach(function (t) { byId[t.id] = t; });
+
+        var html = '';
+        html += '<div class="knowledge-section">';
+        html += '<div class="kg-toolbar">';
+        html += '<h3>生物知识图谱</h3>';
+        html += '<div class="kg-toolbar" data-style="margin:0;gap:8px;">';
+        html += '<span class="kg-meta">' + topics.length + ' 个专题 · ' + relations.length + ' 条关联</span>';
+        html += '<button type="button" class="kg-reset btn-reset-kg">重置视图</button>';
+        html += '</div></div>';
+
+        html += '<div class="kg-wrap">';
+        html += '<div class="kg-canvas-box">';
+        html += '<svg id="kg-svg" class="kg-svg" viewBox="0 0 860 640" role="img" aria-label="生物知识图谱：' + topics.length + ' 个专题节点与 ' + relations.length + ' 条关联">';
+        html += '<defs><marker id="kg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">';
+        html += '<path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"></path></marker></defs>';
+        html += '<g id="kg-root">';
+
+        relations.forEach(function (r, i) {
+            var a = byId[r.from], b = byId[r.to];
+            if (!a || !b) return;
+            var isSeq = r.type === 'PRECEDES';
+            html += '<line class="kg-edge" data-edge="' + i + '" x1="' + a._x + '" y1="' + a._y + '" x2="' + b._x + '" y2="' + b._y + '"'
+                + ' stroke="' + (isSeq ? '#94a3b8' : '#cbd5e1') + '"'
+                + ' stroke-width="' + (isSeq ? 2 : 1.5) + '"'
+                + (isSeq ? ' marker-end="url(#kg-arrow)"' : ' stroke-dasharray="6 4"')
+                + '></line>';
+        });
+
+        topics.forEach(function (t, i) {
+            var c = colorOf(t.module);
+            html += '<g class="kg-node" data-node="' + i + '">';
+            html += '<circle cx="' + t._x + '" cy="' + t._y + '" r="' + t._r + '" fill="' + c + '" fill-opacity="0.16" stroke="' + c + '" stroke-width="2"></circle>';
+            html += '<circle class="kg-dot" cx="' + t._x + '" cy="' + t._y + '" r="6" fill="' + c + '"></circle>';
+            html += '<text class="kg-label" x="' + t._x + '" y="' + (t._y + t._r + 14) + '" text-anchor="middle">' + esc(t.id.replace('TOPIC_', 'T')) + '</text>';
+            html += '</g>';
+        });
+
+        html += '</g></svg>';
+        html += '<div class="kg-hint">滚轮缩放 · 拖动平移 · 拖动节点固定 · 点击查看详情</div>';
         html += '</div>';
+
+        html += '<div id="kg-detail" class="kg-detail">';
+        html += '<div class="kg-empty">点击左侧任一节点，查看该专题的核心概念、易错点与备考策略</div>';
+        html += '</div>';
+        html += '</div>';
+
+        html += '<div class="kg-legend">';
+        groups.forEach(function (g) {
+            html += '<span class="kg-legend-item"><span class="kg-legend-dot" data-style="background:' + colorOf(g.name) + ';"></span>' + esc(g.name) + '</span>';
+        });
+        html += '<span class="kg-legend-item" data-style="color:var(--text-light);">实线箭头＝学习先后　虚线＝关联</span>';
+        html += '</div>';
+        html += '</div>';
+
         app.innerHTML = html;
+
+        var svg = app.querySelector('#kg-svg');
+        var root = app.querySelector('#kg-root');
+        var detail = app.querySelector('#kg-detail');
+        if (!svg || !root || !detail) return;
+
+        var view = { k: 1, tx: 0, ty: 0 };
+        function applyView() {
+            root.setAttribute('transform', 'translate(' + view.tx + ',' + view.ty + ') scale(' + view.k + ')');
+        }
+
+        function svgPoint(evt) {
+            var rect = svg.getBoundingClientRect();
+            var vb = svg.viewBox.baseVal;
+            return {
+                x: (evt.clientX - rect.left) / rect.width * vb.width,
+                y: (evt.clientY - rect.top) / rect.height * vb.height
+            };
+        }
+
+        svg.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            var p = svgPoint(e);
+            var factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+            var nk = Math.min(3.2, Math.max(0.45, view.k * factor));
+            if (nk === view.k) return;
+            view.tx = p.x - (p.x - view.tx) * (nk / view.k);
+            view.ty = p.y - (p.y - view.ty) * (nk / view.k);
+            view.k = nk;
+            applyView();
+        }, { passive: false });
+
+        var drag = null;
+        svg.addEventListener('pointerdown', function (e) {
+            var nodeG = e.target.closest ? e.target.closest('.kg-node') : null;
+            var p = svgPoint(e);
+            if (nodeG) {
+                var idx = +nodeG.getAttribute('data-node');
+                var t = topics[idx];
+                drag = { kind: 'node', idx: idx, t: t, offX: t._x - p.x, offY: t._y - p.y, moved: false };
+                nodeG.setAttribute('opacity', '0.75');
+            } else {
+                drag = { kind: 'pan', sx: p.x, sy: p.y, tx0: view.tx, ty0: view.ty, moved: false };
+                svg.classList.add('is-panning');
+            }
+            try { svg.setPointerCapture(e.pointerId); } catch (err) { }
+        });
+
+        svg.addEventListener('pointermove', function (e) {
+            if (!drag) return;
+            var p = svgPoint(e);
+            if (drag.kind === 'pan') {
+                var dx = p.x - drag.sx, dy = p.y - drag.sy;
+                if (Math.abs(dx) > 1 || Math.abs(dy) > 1) drag.moved = true;
+                view.tx = drag.tx0 + dx;
+                view.ty = drag.ty0 + dy;
+                applyView();
+            } else {
+                drag.moved = true;
+                drag.t._x = Math.round(p.x + drag.offX);
+                drag.t._y = Math.round(p.y + drag.offY);
+                redrawNodeGeometry(drag.t);
+            }
+        });
+
+        function endDrag(e) {
+            if (!drag) return;
+            if (drag.kind === 'node') {
+                var g = root.querySelector('.kg-node[data-node="' + drag.idx + '"]');
+                if (g) g.setAttribute('opacity', '1');
+                if (!drag.moved) selectTopic(drag.idx);
+            } else {
+                svg.classList.remove('is-panning');
+            }
+            drag = null;
+            try { svg.releasePointerCapture(e.pointerId); } catch (err) { }
+        }
+        svg.addEventListener('pointerup', endDrag);
+        svg.addEventListener('pointercancel', endDrag);
+
+        function redrawNodeGeometry(t) {
+            var idx = topics.indexOf(t);
+            var g = root.querySelector('.kg-node[data-node="' + idx + '"]');
+            if (g) {
+                var circles = g.querySelectorAll('circle');
+                if (circles[0]) { circles[0].setAttribute('cx', t._x); circles[0].setAttribute('cy', t._y); }
+                if (circles[1]) { circles[1].setAttribute('cx', t._x); circles[1].setAttribute('cy', t._y); }
+                var tx = g.querySelector('text');
+                if (tx) { tx.setAttribute('x', t._x); tx.setAttribute('y', t._y + t._r + 14); }
+            }
+            relations.forEach(function (r, i) {
+                var line = root.querySelector('[data-edge="' + i + '"]');
+                if (!line) return;
+                if (r.from === t.id) { line.setAttribute('x1', t._x); line.setAttribute('y1', t._y); }
+                if (r.to === t.id) { line.setAttribute('x2', t._x); line.setAttribute('y2', t._y); }
+            });
+        }
+
+        function selectTopic(idx) {
+            var t = topics[idx];
+            if (!t) return;
+
+            var neighbor = {};
+            neighbor[t.id] = true;
+            relations.forEach(function (r) {
+                if (r.from === t.id) neighbor[r.to] = true;
+                if (r.to === t.id) neighbor[r.from] = true;
+            });
+
+            topics.forEach(function (x, i) {
+                var g = root.querySelector('.kg-node[data-node="' + i + '"]');
+                if (g) g.setAttribute('opacity', neighbor[x.id] ? '1' : '0.28');
+            });
+            relations.forEach(function (r, i) {
+                var line = root.querySelector('[data-edge="' + i + '"]');
+                if (!line) return;
+                var active = (r.from === t.id || r.to === t.id);
+                line.setAttribute('opacity', active ? '1' : '0.15');
+                if (active) line.setAttribute('stroke', colorOf(t.module));
+            });
+
+            var rels = relations.filter(function (r) { return r.from === t.id || r.to === t.id; });
+            var c = colorOf(t.module);
+            var h = '';
+            h += '<div class="kg-card">';
+            h += '<div class="kg-card-id">' + esc(t.id) + ' · ' + esc(t.module) + '</div>';
+            h += '<div class="kg-card-name">' + esc(t.name) + '</div>';
+            h += '<div class="kg-card-stat">权重 ' + Math.round((t.weight || 0) * 100) + '%　关联 ' + rels.length + ' 条</div>';
+
+            function block(label, val, danger) {
+                if (!val) return '';
+                return '<div class="kg-block' + (danger ? ' kg-block-danger' : '') + '"><strong>' + label + '</strong>' + esc(val) + '</div>';
+            }
+            h += block('核心概念　', t.concept);
+            h += block('关键图解　', t.diagram);
+            h += block('实验/情境　', t.experiment);
+            h += block('易错点　', t.pitfall, true);
+            h += block('真题参考　', t.examRef);
+            h += block('备考策略　', t.strategy);
+
+            if (rels.length) {
+                h += '<div class="kg-rels">';
+                h += '<div class="kg-rels-title">关联专题</div>';
+                rels.forEach(function (r) {
+                    var otherId = r.from === t.id ? r.to : r.from;
+                    var o = byId[otherId];
+                    if (!o) return;
+                    var arrow = r.from === t.id ? '→' : '←';
+                    var label = r.type === 'PRECEDES' ? '先后' : '关联';
+                    h += '<div class="kg-rel-jump" data-jump="' + topics.indexOf(o) + '">'
+                        + '<span data-style="color:' + colorOf(o.module) + ';">' + arrow + '</span> ' + esc(o.name)
+                        + ' <span class="kg-meta">· ' + label + '</span></div>';
+                });
+                h += '</div>';
+            }
+            h += '</div>';
+            detail.innerHTML = h;
+
+            detail.querySelectorAll('.kg-rel-jump').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    selectTopic(+el.getAttribute('data-jump'));
+                });
+            });
+            detail.scrollTop = 0;
+        }
+
+        var resetBtn = app.querySelector('.btn-reset-kg');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function () {
+                view.k = 1; view.tx = 0; view.ty = 0;
+                applyView();
+                topics.forEach(function (x, i) {
+                    var g = root.querySelector('.kg-node[data-node="' + i + '"]');
+                    if (g) g.setAttribute('opacity', '1');
+                });
+                relations.forEach(function (r, i) {
+                    var line = root.querySelector('[data-edge="' + i + '"]');
+                    if (line) {
+                        line.setAttribute('opacity', '1');
+                        line.setAttribute('stroke', r.type === 'PRECEDES' ? '#94a3b8' : '#cbd5e1');
+                    }
+                });
+                detail.innerHTML = '<div class="kg-empty">点击左侧任一节点，查看该专题的核心概念、易错点与备考策略</div>';
+            });
+        }
+
+        console.log('[生物知识图谱] 渲染完成：' + topics.length + ' 节点 / ' + relations.length + ' 关系');
     }
 
     var PCRSim = {
@@ -1014,9 +1291,15 @@
                     else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>生物思维导图加载中...</p></div>';
                     break;
                 case 'biology-pedigree':
-                    if(typeof geneticsPedigreeTrainer!=='undefined'&&typeof geneticsPedigreeTrainer.renderTrainer==='function')
-                        geneticsPedigreeTrainer.renderTrainer();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>遗传系谱训练器加载中...</p></div>';
+                    // renderTrainer() 开头是「没有 currentProblem 就直接 return」，
+                    // 首次进入时它还是 null，等于什么都不画。入口应走 selectProblem()/init()。
+                    if (typeof geneticsPedigreeTrainerEnhanced !== 'undefined'
+                        && typeof geneticsPedigreeTrainerEnhanced.init === 'function')
+                        geneticsPedigreeTrainerEnhanced.init();
+                    else if (typeof geneticsPedigreeTrainer !== 'undefined'
+                        && typeof geneticsPedigreeTrainer.selectProblem === 'function')
+                        geneticsPedigreeTrainer.selectProblem();
+                    else if (appEl) appEl.innerHTML = '<div class="knowledge-section"><p>遗传系谱训练器加载中...</p></div>';
                     break;
                 case 'biology-cell': populateBiologyCell(); break;
                 case 'biology-protein': populateBiologyProtein(); break;
@@ -1312,8 +1595,17 @@
                     break;
             }
         } catch(err) {
+            // 原来只打日志 + alert，用户看到的就是一片空白，找不到原因。
+            // 改成把错误显示到对应容器里，至少能看出是哪个工具、什么错。
             console.error('navigateToolPage error:', err, 'tool:', tool);
-            alert('导航到 "' + tool + '" 时出错: ' + err.message);
+            var errSec = document.getElementById(tool + '-section');
+            var errBox = errSec ? (errSec.querySelector('[id$="-app"]') || errSec.querySelector('.tool-app-container')) : null;
+            if (errBox) {
+                errBox.innerHTML = '<div class="tool-error">'
+                    + '<strong>这个工具加载失败了</strong>'
+                    + '<div class="tool-error-detail">' + String(err && err.message ? err.message : err).replace(/</g, '&lt;') + '</div>'
+                    + '</div>';
+            }
         }
     }
 

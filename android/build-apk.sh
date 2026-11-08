@@ -59,6 +59,8 @@ rm -rf app/assets/web
 mkdir -p app/assets/web
 cp -r "$ROOT/1.2/." app/assets/web/
 echo "   assets/web: $(find app/assets/web -type f | wc -l) 个文件"
+# 注意：assets 必须与 1.2/ 字节一致（scripts/check-asset-sync.mjs 会比对哈希）。
+# 安卓端要的桌面视口由 AssetResponder 在返回 index.html 时改写，不落盘。
 
 # ---------- 1. debug keystore（项目内固定，保证升级安装签名一致） ----------
 KEYSTORE="debug.keystore"
