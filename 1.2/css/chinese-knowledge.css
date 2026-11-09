@@ -18,7 +18,7 @@
 .chinese-knowledge .footer { display: none; }
 
 .chinese-knowledge .header {
-    background: linear-gradient(120deg, #e0f2fe 0%, #bae6fd 50%, #e0f2fe 100%);
+    background: #e0f2fe;
     color: #0c4a6e;
     padding: 25px 20px 20px;
     text-align: center;
@@ -49,7 +49,7 @@
     font-size: 14px;
     outline: none;
     background: white;
-    transition: all 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s;
 }
 .chinese-knowledge .search-box input:focus {
     border-color: #38bdf8;
@@ -73,21 +73,21 @@
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     background: white;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     border: 1px solid #e0f2fe;
 }
 .chinese-knowledge .sidebar::-webkit-scrollbar { width: 3px; }
-.chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 2px; }
+.chinese-knowledge .sidebar::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: var(--radius-sm); }
 
 .chinese-knowledge .sidebar-header {
     position: relative !important;
     top: auto !important;
     z-index: auto !important;
     border-bottom: none !important;
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    background: #0ea5e9;
     color: white;
     padding: 12px 14px;
-    border-radius: 12px 12px 0 0;
+    border-radius: var(--radius-lg) 12px 0 0;
     font-size: 0.9em;
     font-weight: 600;
 }
@@ -132,7 +132,7 @@
     color: #64748b;
     text-decoration: none;
     font-size: 0.78em;
-    transition: all 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, opacity 0.2s, box-shadow 0.2s;
     border-left: 2px solid transparent;
 }
 .chinese-knowledge .nav-children a:hover {
@@ -145,14 +145,14 @@
 
 .chinese-knowledge .module {
     background: white;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     border: 1px solid #e0f2fe;
     margin-bottom: 20px;
     overflow: hidden;
 }
 
 .chinese-knowledge .module-header {
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    background: #0ea5e9;
     color: white;
     padding: 14px 20px;
     font-size: 1.1em;
@@ -166,7 +166,7 @@
     margin-bottom: 14px;
     padding: 14px;
     background: #fafefd;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     border: 1px solid #e0f2fe;
 }
 .chinese-knowledge .section:last-child { margin-bottom: 0; }
@@ -193,27 +193,27 @@
 .chinese-knowledge li { margin: 3px 0; }
 
 .chinese-knowledge .info-box {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    border-left: 4px solid #0ea5e9;
+    background: #f0f9ff;
+    border-left: 1px solid #0ea5e9;
     border-radius: 0 8px 8px 0;
     padding: 10px 14px;
     margin: 8px 0;
     font-size: 0.9em;
 }
 .chinese-knowledge .info-box.green {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    background: #f0fdf4;
     border-left-color: #22c55e;
 }
 .chinese-knowledge .info-box.orange {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    background: #fffbeb;
     border-left-color: #f59e0b;
 }
 .chinese-knowledge .info-box.purple {
-    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+    background: #faf5ff;
     border-left-color: #a855f7;
 }
 .chinese-knowledge .info-box.red {
-    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    background: #fef2f2;
     border-left-color: #ef4444;
 }
 .chinese-knowledge .info-box strong { color: #0369a1; }
@@ -224,7 +224,7 @@
 
 .chinese-knowledge .template-box {
     background: #f0f9ff;
-    border-left: 4px solid #0ea5e9;
+    border-left: 1px solid #0ea5e9;
     border-radius: 0 8px 8px 0;
     padding: 10px 14px;
     margin: 8px 0;
@@ -244,7 +244,7 @@
     border-collapse: collapse;
     margin: 8px 0;
     font-size: 0.82em;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 .chinese-knowledge th, .chinese-knowledge td {
@@ -253,7 +253,7 @@
     text-align: left;
 }
 .chinese-knowledge th {
-    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+    background: #0ea5e9;
     color: white;
     font-weight: 600;
 }
@@ -265,7 +265,7 @@
     background: #e0f2fe;
     color: #0369a1;
     padding: 1px 7px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     font-size: 0.72em;
     margin-right: 4px;
     vertical-align: middle;

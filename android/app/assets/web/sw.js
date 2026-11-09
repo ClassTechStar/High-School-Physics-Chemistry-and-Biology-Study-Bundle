@@ -23,6 +23,7 @@ var CORE_ASSETS = [
     'icons/icon-192.png',
     'icons/icon-512.png',
     'icons/icon-maskable-512.png',
+    'css/craft.css',
     'css/tokens.css',
     'css/style.css',
     'css/theme-dark.css',

@@ -6,6 +6,7 @@
     <title>高中物化生语数英学习大礼包 - 项目介绍</title>
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="presentation.css">
+<link rel="stylesheet" href="css/craft.css">
 </head>
 <body>
     <div class="presentation">
@@ -13,9 +14,9 @@
         <div class="slide active" id="slide-1">
             <div class="slide-content cover">
                 <canvas id="cover-particles" class="cover-canvas"></canvas>
-                <div class="badge">广东高考六科学习工具</div>
+                
                 <h1>高中物化生语数英<br>学习大礼包</h1>
-                <p class="subtitle">122 个工具入口 · 六科知识点与题库 · 纯静态，离线可用</p>
+                <p class="subtitle">122 个工具入口，六科知识点与题库，纯静态页面，断网也能用。</p>
                 <div class="stats-row">
                     <div class="stat">
                         <span class="number" data-count="122">0</span>
@@ -35,12 +36,12 @@
                     </div>
                 </div>
                 <div class="subject-icons">
-                    <span class="subject physics"><span class="s-icon">⚡</span>物理</span>
-                    <span class="subject chemistry"><span class="s-icon">🧪</span>化学</span>
-                    <span class="subject biology"><span class="s-icon">🧬</span>生物</span>
-                    <span class="subject chinese"><span class="s-icon">📚</span>语文</span>
-                    <span class="subject math"><span class="s-icon">📐</span>数学</span>
-                    <span class="subject english"><span class="s-icon">📖</span>英语</span>
+                    <span class="subject physics"><span class="s-icon" aria-hidden="true">物</span>物理</span>
+                    <span class="subject chemistry"><span class="s-icon" aria-hidden="true">化</span>化学</span>
+                    <span class="subject biology"><span class="s-icon" aria-hidden="true">生</span>生物</span>
+                    <span class="subject chinese"><span class="s-icon" aria-hidden="true">语</span>语文</span>
+                    <span class="subject math"><span class="s-icon" aria-hidden="true">数</span>数学</span>
+                    <span class="subject english"><span class="s-icon" aria-hidden="true">英</span>英语</span>
                 </div>
                 <div class="visual-preview-row">
                     <div class="mini-demo physics-mini">
@@ -283,7 +284,7 @@
                             <span class="tool-icon-lg">🎯</span>
                             <div>
                                 <h3>抛物线运动模拟器</h3>
-                                <p class="tool-subtitle">Canvas 实时绘制 · 参数可调 · 场景预设</p>
+                                <p class="tool-subtitle">Canvas 实时绘制，参数可调，附场景预设</p>
                             </div>
                         </div>
                         <div class="tool-body-enhanced reverse-layout">
@@ -877,7 +878,7 @@
                             <!-- Layer 1: Presentation -->
                             <rect x="50" y="20" width="500" height="55" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                             <text x="300" y="45" text-anchor="middle" font-size="14" fill="#1565c0" font-weight="bold">前端展示层 (Presentation)</text>
-                            <text x="300" y="65" text-anchor="middle" font-size="11" fill="#666">HTML5 · CSS3 · JavaScript ES6+</text>
+                            <text x="300" y="65" text-anchor="middle" font-size="11" fill="#666">HTML5，CSS3，JavaScript ES6+</text>
                             
                             <!-- Arrows down -->
                             <path d="M300,75 L300,95" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
@@ -885,7 +886,7 @@
                             <!-- Layer 2: Visualization -->
                             <rect x="50" y="100" width="500" height="55" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
                             <text x="300" y="125" text-anchor="middle" font-size="14" fill="#e65100" font-weight="bold">可视化引擎层 (Visualization)</text>
-                            <text x="300" y="145" text-anchor="middle" font-size="11" fill="#666">Canvas API · SVG · CSS Animations · WebGL</text>
+                            <text x="300" y="145" text-anchor="middle" font-size="11" fill="#666">Canvas API，SVG，CSS Animations · WebGL</text>
                             
                             <!-- Arrows down -->
                             <path d="M300,155 L300,175" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
@@ -893,7 +894,7 @@
                             <!-- Layer 3: Interaction -->
                             <rect x="50" y="180" width="500" height="55" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
                             <text x="300" y="205" text-anchor="middle" font-size="14" fill="#2e7d32" font-weight="bold">交互功能层 (Interaction)</text>
-                            <text x="300" y="225" text-anchor="middle" font-size="11" fill="#666">Web Speech API · Drag & Drop · localStorage · Regex Engine</text>
+                            <text x="300" y="225" text-anchor="middle" font-size="11" fill="#666">Web Speech API，Drag & Drop，localStorage · Regex Engine</text>
                             
                             <!-- Arrows down -->
                             <path d="M300,235 L300,255" stroke="#667eea" stroke-width="2" marker-end="url(#archArrow)"/>
@@ -1315,7 +1316,7 @@
                 <canvas id="ending-particles" class="cover-canvas"></canvas>
                 <div class="badge">立即开始学习</div>
                 <h1>高中物化生语数英<br>学习大礼包</h1>
-                <p class="promo-text">物理、化学、生物、语文、数学、英语 · 122 个工具入口 · 纯静态，离线可用</p>
+                <p class="promo-text">物理、化学、生物、语文、数学、英语六科，122 个工具入口，纯静态页面，断网也能用</p>
                 <div class="final-stats">
                     <div class="fs-item">
                         <span class="fs-num">122</span>
@@ -1345,11 +1346,11 @@
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" id="prev-btn">◀ 上一页</button>
+        <button class="nav-btn" id="prev-btn">上一页</button>
         <div class="slide-indicator">
             <span id="current-slide">1</span> / <span id="total-slides">12</span>
         </div>
-        <button class="nav-btn" id="next-btn">下一页 ▶</button>
+        <button class="nav-btn" id="next-btn">下一页</button>
     </div>
 
     <div class="progress-bar">

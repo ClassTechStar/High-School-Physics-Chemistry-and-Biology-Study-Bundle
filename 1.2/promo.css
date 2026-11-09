@@ -5,8 +5,8 @@
 }
 
 :root {
-    --primary: #667eea;
-    --primary-dark: #764ba2;
+    --primary: #79a8ae;
+    --primary-dark: #54838c;
     --physics: #4A90D9;
     --chemistry: #48A9A6;
     --biology: #7CB342;
@@ -88,7 +88,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 120px 50px 80px;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b4e 100%);
+    background: #0f0f23;
     position: relative;
     overflow: hidden;
 }
@@ -100,7 +100,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+    background: transparent;
     animation: pulse 10s ease-in-out infinite;
 }
 
@@ -117,7 +117,7 @@ body {
 
 .hero-badge {
     display: inline-block;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
     padding: 8px 24px;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -128,10 +128,7 @@ body {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 .hero-subtitle {
@@ -172,16 +169,16 @@ body {
 
 .btn {
     padding: 14px 35px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s;
     display: inline-block;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
     color: #fff;
 }
 
@@ -213,7 +210,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 15px 25px;
     display: flex;
     align-items: center;
@@ -268,7 +265,7 @@ body {
 .subject-tag {
     display: inline-block;
     padding: 6px 20px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 15px;
@@ -299,7 +296,7 @@ body {
 
 .intro-section {
     padding: 100px 0;
-    background: linear-gradient(180deg, var(--dark-bg) 0%, #151530 100%);
+    background: var(--dark-bg);
 }
 
 .intro-grid {
@@ -356,7 +353,7 @@ body {
 
 .intro-stats-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -402,7 +399,7 @@ body {
 
 .feature-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
@@ -441,11 +438,11 @@ body {
 }
 
 .physics-tools {
-    background: linear-gradient(180deg, #151530 0%, #1a1a3e 100%);
+    background: #151530;
 }
 
 .chemistry-tools {
-    background: linear-gradient(180deg, #1a1a3e 0%, #151530 100%);
+    background: #1a1a3e;
 }
 
 .tools-showcase {
@@ -458,7 +455,7 @@ body {
     display: flex;
     gap: 50px;
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 40px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     opacity: 0;
@@ -481,14 +478,14 @@ body {
 
 .tool-mockup {
     background: #0a0a1a;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mockup-screen {
     padding: 30px;
-    background: linear-gradient(180deg, #1a2a4a 0%, #0a1525 100%);
+    background: #1a2a4a;
     text-align: center;
 }
 
@@ -581,7 +578,7 @@ body {
     background: rgba(102, 126, 234, 0.2);
     color: var(--primary);
     padding: 5px 15px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
 }
 
@@ -597,7 +594,7 @@ body {
 
 .tool-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 25px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -639,7 +636,7 @@ body {
     background: var(--primary);
     color: #fff;
     padding: 3px 10px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     font-size: 0.7rem;
 }
 
@@ -649,7 +646,7 @@ body {
 
 .highlight-tool-section {
     padding: 100px 0;
-    background: linear-gradient(135deg, #1a1a3e 0%, #2d1b4e 100%);
+    background: #1a1a3e;
 }
 
 .highlight-tool {
@@ -667,7 +664,7 @@ body {
     background: #E74C3C;
     color: #fff;
     padding: 6px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     margin-bottom: 20px;
 }
@@ -698,7 +695,7 @@ body {
 .hf-icon {
     width: 35px;
     height: 35px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -733,7 +730,7 @@ body {
     background: rgba(72, 169, 166, 0.2);
     border: 2px solid var(--chemistry);
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-size: 0.9rem;
 }
 
@@ -749,7 +746,7 @@ body {
 
 .reaction-example {
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 25px;
 }
 
@@ -775,7 +772,7 @@ body {
 .reaction-analysis span {
     background: rgba(102, 126, 234, 0.2);
     padding: 5px 15px;
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     color: var(--primary);
 }
@@ -786,7 +783,7 @@ body {
 
 .pedigree-highlight {
     padding: 100px 0;
-    background: linear-gradient(135deg, #1a2a1a 0%, #152015 100%);
+    background: #1a2a1a;
 }
 
 .pedigree-content {
@@ -874,7 +871,7 @@ body {
 
 .pedigree-question {
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 20px;
 }
 
@@ -901,7 +898,7 @@ body {
 
 .tech-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -922,7 +919,7 @@ body {
     background: rgba(102, 126, 234, 0.2);
     color: var(--primary);
     padding: 6px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-size: 0.9rem;
 }
 
@@ -949,7 +946,7 @@ body {
 
 .contact-section {
     padding: 100px 0;
-    background: linear-gradient(180deg, #151530 0%, var(--dark-bg) 100%);
+    background: #151530;
 }
 
 .contact-grid {
@@ -960,7 +957,7 @@ body {
 
 .contact-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 40px 30px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1037,7 +1034,7 @@ body {
 
 .subject {
     padding: 8px 20px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     font-size: 0.9rem;
     font-weight: 500;
 }

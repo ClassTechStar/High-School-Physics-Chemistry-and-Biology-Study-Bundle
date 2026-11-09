@@ -13,10 +13,11 @@
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/chinese-knowledge.css">
 <link rel="stylesheet" href="css/platform.css">
+<link rel="stylesheet" href="css/craft.css">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<meta name="theme-color" content="#4f6ef6">
+<meta name="theme-color" content="#2d5a63">
 
 <!-- D3：内联样式收敛桥。须早于任何 innerHTML，故置于 head 非 defer 且最前。
      js/ 模板里写 data-style="..." 而非 style="..."，由本模块写入 CSSOM；
@@ -31,20 +32,20 @@
 <body>
 <div class="container">
 <header class="main-header">
-<h1>🔬 高中物化生语数英学习大礼包</h1>
-<p class="subtitle">物理 · 化学 · 生物 · 数学 · 语文 · 英语</p>
+<h1>高中物化生语数英学习大礼包</h1>
+<p class="subtitle">物理、化学、生物、数学、语文、英语六科，离线可用</p>
 </header>
 
 <nav class="subject-nav" aria-label="学科导航">
-<button class="nav-btn active" data-subject="home"><span class="icon">🏠</span><span class="label">首页</span></button>
-<button class="nav-btn" data-subject="physics"><span class="icon">⚡</span><span class="label">物理</span></button>
-<button class="nav-btn" data-subject="chemistry"><span class="icon">🧪</span><span class="label">化学</span></button>
-<button class="nav-btn" data-subject="biology"><span class="icon">🧬</span><span class="label">生物</span></button>
-<button class="nav-btn nav-btn-exam" data-subject="exam"><span class="icon">📝</span><span class="label">备考中心</span></button>
-<button class="nav-btn nav-btn-platform" data-subject="platform"><span class="icon">🏛️</span><span class="label">平台架构</span></button>
-<button class="nav-btn nav-btn-math" data-subject="math"><span class="icon">📐</span><span class="label">数学</span></button>
-<button class="nav-btn nav-btn-english" data-subject="english"><span class="icon">🇬🇧</span><span class="label">英语</span></button>
-<button class="nav-btn nav-btn-chinese" data-subject="chinese"><span class="icon">📚</span><span class="label">语文</span></button>
+<button class="nav-btn active" data-subject="home"><span class="icon" aria-hidden="true">总</span><span class="label">首页</span></button>
+<button class="nav-btn" data-subject="physics"><span class="icon" aria-hidden="true">物</span><span class="label">物理</span></button>
+<button class="nav-btn" data-subject="chemistry"><span class="icon" aria-hidden="true">化</span><span class="label">化学</span></button>
+<button class="nav-btn" data-subject="biology"><span class="icon" aria-hidden="true">生</span><span class="label">生物</span></button>
+<button class="nav-btn nav-btn-exam" data-subject="exam"><span class="icon" aria-hidden="true">考</span><span class="label">备考中心</span></button>
+<button class="nav-btn nav-btn-platform" data-subject="platform"><span class="icon" aria-hidden="true">台</span><span class="label">平台架构</span></button>
+<button class="nav-btn nav-btn-math" data-subject="math"><span class="icon" aria-hidden="true">数</span><span class="label">数学</span></button>
+<button class="nav-btn nav-btn-english" data-subject="english"><span class="icon" aria-hidden="true">英</span><span class="label">英语</span></button>
+<button class="nav-btn nav-btn-chinese" data-subject="chinese"><span class="icon" aria-hidden="true">语</span><span class="label">语文</span></button>
 </nav>
 
 <main>
@@ -52,7 +53,7 @@
 <a class="skip-link" href="#home-section">跳到主要内容</a>
 <section id="home-section" class="section active" tabindex="-1">
 <div class="welcome-card">
-<h2>高中物化生语数英学习大礼包</h2>
+<h2>六科，一个页面</h2>
 <p>六科的知识点、题库、错题本和模拟考试都在这一个页面里。数据存在浏览器本地，不联网、不注册，也不需要安装。</p>
 <ul class="feature-list">
 <li><strong>题库：</strong>1198 道题，2018–2026 年，可按学科、章节、难度和年份筛选</li>
@@ -62,65 +63,65 @@
 <li><strong>模拟考试：</strong>按学科组卷，计时作答后出分并记录成绩</li>
 </ul>
 <div class="hero-cta">
-<button class="hero-btn hero-btn-primary" data-call="examPracticeSystem.startHeroQuiz">🎲 随机挑战一题</button>
-<button class="hero-btn" data-call="navigateToolPage" data-arg1="@s:study-dashboard">📊 学习仪表盘</button>
-<a class="hero-btn hero-btn-ghost" href="showcase.html">🏆 作品展示</a>
+<button class="hero-btn hero-btn-primary" data-call="examPracticeSystem.startHeroQuiz">随机挑战一题</button>
+<button class="hero-btn" data-call="navigateToolPage" data-arg1="@s:study-dashboard">学习仪表盘</button>
+<a class="hero-btn hero-btn-ghost" href="showcase.html">作品展示</a>
 </div>
 </div>
 
 <div class="subject-cards">
 <div class="subject-card physics">
-<h4>⚡ 高中物理</h4>
+<h4>高中物理</h4>
 <ul>
-<li><a href="#" data-subject="physics">📐 力学 — 牛顿定律、动能与动量</a></li>
-<li><a href="#" data-subject="physics">⚡ 电磁学 — 带电粒子、电磁感应、电路</a></li>
-<li><a href="#" data-subject="physics">📏 光学、热学与机械振动</a></li>
-<li><a href="#" data-subject="physics">🔧 近代物理 — 原子结构与核反应</a></li>
+<li><a href="#" data-subject="physics">力学：牛顿定律、动能与动量</a></li>
+<li><a href="#" data-subject="physics">电磁学：带电粒子、电磁感应、电路</a></li>
+<li><a href="#" data-subject="physics">光学、热学与机械振动</a></li>
+<li><a href="#" data-subject="physics">近代物理：原子结构与核反应</a></li>
 </ul>
 </div>
 <div class="subject-card chemistry">
-<h4>🧪 高中化学</h4>
+<h4>高中化学</h4>
 <ul>
-<li><a href="#" data-subject="chemistry">⚖️ 化学反应原理 — 平衡、速率、电化学</a></li>
-<li><a href="#" data-subject="chemistry">🔬 常见元素及其化合物 — 钠铁铝、卤素、硫氮</a></li>
-<li><a href="#" data-subject="chemistry">🧬 物质结构与元素周期律</a></li>
-<li><a href="#" data-subject="chemistry">🏭 有机化学基础与实验化学</a></li>
+<li><a href="#" data-subject="chemistry">化学反应原理：平衡、速率、电化学</a></li>
+<li><a href="#" data-subject="chemistry">常见元素及其化合物：钠铁铝、卤素、硫氮</a></li>
+<li><a href="#" data-subject="chemistry">物质结构与元素周期律</a></li>
+<li><a href="#" data-subject="chemistry">有机化学基础与实验化学</a></li>
 </ul>
 </div>
 <div class="subject-card biology">
-<h4>🧬 高中生物</h4>
+<h4>高中生物</h4>
 <ul>
-<li><a href="#" data-subject="biology">🧬 遗传与变异 — 分离与自由组合、突变与育种</a></li>
-<li><a href="#" data-subject="biology">🩺 生命活动调节与稳态</a></li>
-<li><a href="#" data-subject="biology">🔬 细胞生物学 — 代谢、遗传信息传递</a></li>
-<li><a href="#" data-subject="biology">🔥 进化与生态</a></li>
+<li><a href="#" data-subject="biology">遗传与变异：分离与自由组合、突变与育种</a></li>
+<li><a href="#" data-subject="biology">生命活动调节与稳态</a></li>
+<li><a href="#" data-subject="biology">细胞生物学：代谢、遗传信息传递</a></li>
+<li><a href="#" data-subject="biology">进化与生态</a></li>
 </ul>
 </div>
 <div class="subject-card chinese">
-<h4>📚 高中语文</h4>
+<h4>高中语文</h4>
 <ul>
-<li><a href="#" data-subject="chinese">📖 现代文阅读与文言文阅读</a></li>
-<li><a href="#" data-subject="chinese">📜 古诗词鉴赏与名句默写</a></li>
-<li><a href="#" data-subject="chinese">🎋 语言文字运用 — 病句、成语、连贯</a></li>
-<li><a href="#" data-subject="chinese">📝 高考作文</a></li>
+<li><a href="#" data-subject="chinese">现代文阅读与文言文阅读</a></li>
+<li><a href="#" data-subject="chinese">古诗词鉴赏与名句默写</a></li>
+<li><a href="#" data-subject="chinese">语言文字运用：病句、成语、连贯</a></li>
+<li><a href="#" data-subject="chinese">高考作文</a></li>
 </ul>
 </div>
 <div class="subject-card math">
-<h4>📐 高中数学</h4>
+<h4>高中数学</h4>
 <ul>
-<li><a href="#" data-subject="math">📘 集合与逻辑、一元二次函数与不等式</a></li>
-<li><a href="#" data-subject="math">📗 函数性质、指数与对数、三角函数</a></li>
-<li><a href="#" data-subject="math">📙 导数及其应用、立体几何</a></li>
-<li><a href="#" data-subject="math">📕 圆锥曲线、数列、计数原理、概率与统计</a></li>
+<li><a href="#" data-subject="math">集合与逻辑、一元二次函数与不等式</a></li>
+<li><a href="#" data-subject="math">函数性质、指数与对数、三角函数</a></li>
+<li><a href="#" data-subject="math">导数及其应用、立体几何</a></li>
+<li><a href="#" data-subject="math">圆锥曲线、数列、计数原理、概率与统计</a></li>
 </ul>
 </div>
 <div class="subject-card english">
-<h4>🇬🇧 高中英语</h4>
+<h4>高中英语</h4>
 <ul>
-<li><a href="#" data-subject="english">📝 语法知识</a></li>
-<li><a href="#" data-subject="english">📖 词汇与短语</a></li>
-<li><a href="#" data-subject="english">📚 阅读理解与听力理解</a></li>
-<li><a href="#" data-subject="english">✍️ 书面表达</a></li>
+<li><a href="#" data-subject="english">语法知识</a></li>
+<li><a href="#" data-subject="english">词汇与短语</a></li>
+<li><a href="#" data-subject="english">阅读理解与听力理解</a></li>
+<li><a href="#" data-subject="english">书面表达</a></li>
 </ul>
 </div>
 </div>
@@ -128,53 +129,53 @@
 <div class="quick-access"></div>
 
 <div class="quick-access">
-<h3>🚀 常用工具快速入口</h3>
+<h3>常用工具快速入口</h3>
 <div class="tool-grid">
-<button class="tool-card" data-tool="physics-formula"><div class="tool-icon">📐</div><h4>物理公式计算器</h4><p>力学·电磁学·热学公式速算</p><span class="tool-tag physics">物理</span></button>
-<button class="tool-card" data-tool="chemistry-balancer"><div class="tool-icon">⚖️</div><h4>化学方程式配平</h4><p>智能配平+原子计数可视化</p><span class="tool-tag chemistry">化学</span></button>
-<button class="tool-card" data-tool="biology-genetics"><div class="tool-icon">🧬</div><h4>遗传规律模拟器</h4><p>孟德尔定律·伴性遗传·基因频率</p><span class="tool-tag biology">生物</span></button>
-<button class="tool-card" data-tool="physics-measurement"><div class="tool-icon">📏</div><h4>物理测量仪器指南</h4><p>游标卡尺·螺旋测微器·多用电表精读</p><span class="tool-tag physics">物理</span></button>
-<button class="tool-card" data-tool="chemistry-equipment"><div class="tool-icon">🔬</div><h4>化学实验器材大全</h4><p>烧杯·漏斗·量器·瓶类·加热器</p><span class="tool-tag chemistry">化学</span></button>
-<button class="tool-card" data-tool="biology-exam-skills"><div class="tool-icon">📝</div><h4>生物答题技巧全解</h4><p>信息题·选择题·实验设计·遗传计算</p><span class="tool-tag biology">生物</span></button>
-<button class="tool-card" data-tool="biology-knowledge-graph"><div class="tool-icon">🗺️</div><h4>生物知识图谱</h4><p>13大热点专题·6维关联·考点清单</p><span class="tool-tag biology">生物</span></button>
-<button class="tool-card" data-tool="exam-dashboard"><div class="tool-icon">🎯</div><h4>备考数据中心</h4><p>分数线·知识图谱·个性化推荐·进度追踪</p><span class="tool-tag exam">备考</span></button>
-<button class="tool-card" data-tool="platform-overview"><div class="tool-icon">🏛️</div><h4>平台结构总览</h4><p>三层结构·各模块权重·题库构成</p><span class="tool-tag platform">平台</span></button>
-<button class="tool-card" data-tool="chinese-knowledge"><div class="tool-icon">📚</div><h4>语文知识点合集</h4><p>现代文·文言文·诗词·作文全解</p><span class="tool-tag chinese">语文</span></button>
-<button class="tool-card" data-tool="secondary-conclusions"><div class="tool-icon">📋</div><h4>物化二级结论</h4><p>物理快捷公式·化学核心结论速查</p><span class="tool-tag physics">必备</span></button>
-<button class="tool-card" data-tool="valence-atlas"><div class="tool-icon">⚗️</div><h4>元素价态图谱</h4><p>Na·Fe·S·N 价态二维图·反应网络</p><span class="tool-tag chemistry">化学</span></button>
-<button class="tool-card" data-tool="english-grammar-quiz"><div class="tool-icon">📝</div><h4>英语语法闯关</h4><p>30道语法题·三级难度·即时解析</p><span class="tool-tag english">英语</span></button>
-<button class="tool-card" data-tool="english-reading-trainer"><div class="tool-icon">📚</div><h4>阅读理解训练</h4><p>8篇文章·32题·计时练习</p><span class="tool-tag english">英语</span></button>
-<button class="tool-card" data-tool="english-composition-templates"><div class="tool-icon">✍️</div><h4>书面表达模板</h4><p>18篇范文·高分句型·过渡词库</p><span class="tool-tag english">英语</span></button>
-<button class="tool-card" data-tool="pomodoro-timer"><div class="tool-icon">⏱️</div><h4>番茄钟计时器</h4><p>25分钟专注·学习时长统计</p><span class="tool-tag platform">工具</span></button>
-<button class="tool-card" data-tool="study-plan-generator"><div class="tool-icon">📅</div><h4>学习计划生成器</h4><p>自动组卷·弱科加强·可打印</p><span class="tool-tag platform">工具</span></button>
-<button class="tool-card" data-tool="mastery-radar"><div class="tool-icon">📈</div><h4>掌握度雷达图</h4><p>六科多维·视觉化强弱分布</p><span class="tool-tag platform">数据</span></button>
-<button class="tool-card" data-tool="error-variation"><div class="tool-icon">🔄</div><h4>错题变式生成</h4><p>错一道练一类·参数自动变化</p><span class="tool-tag exam">备考</span></button>
-<button class="tool-card" data-tool="note-system"><div class="tool-icon">📓</div><h4>学习笔记系统</h4><p>Markdown·按科目分类·导出备份</p><span class="tool-tag platform">工具</span></button>
-<button class="tool-card" data-tool="data-exporter"><div class="tool-icon">💾</div><h4>数据导出/导入</h4><p>错题+模考+笔记·跨设备迁移</p><span class="tool-tag platform">工具</span></button>
-<button class="tool-card" data-tool="chinese-recitation"><div class="tool-icon">📝</div><h4>默写自测系统</h4><p>19篇必背·情境填空·即时批改</p><span class="tool-tag chinese">语文</span></button>
-<button class="tool-card" data-tool="chinese-vocabulary-quiz"><div class="tool-icon">🎯</div><h4>文言实词闯关</h4><p>25个实词·选择题·配对练习</p><span class="tool-tag chinese">语文</span></button>
-<button class="tool-card" data-tool="chinese-composition-materials"><div class="tool-icon">📚</div><h4>作文素材库</h4><p>4大主题·人物名言事例·一键复制</p><span class="tool-tag chinese">语文</span></button>
-<button class="tool-card" data-tool="onboarding"><div class="tool-icon">🛨️</div><h4>新手引导</h4><p>5步入门·功能介绍·快速上手</p><span class="tool-tag platform">平台</span></button>
-<button class="tool-card" data-tool="error-notebook"><div class="tool-icon">❌</div><h4>错题本系统</h4><p>自动收集错题·分类回顾·重做闯关</p><span class="tool-tag exam">备考</span></button>
-<button class="tool-card" data-tool="mock-exam"><div class="tool-icon">⏱️</div><h4>全真模拟考试</h4><p>随机组卷·倒计时·自动评分·五科可选</p><span class="tool-tag exam">备考</span></button>
-<button class="tool-card" data-tool="global-search"><div class="tool-icon">🔍</div><h4>全局搜索</h4><p>88+工具·六科知识图谱·Ctrl+K</p><span class="tool-tag platform">平台</span></button>
-<button class="tool-card" data-tool="chinese-sentence-correction"><div class="tool-icon">✍️</div><h4>病句修改训练器</h4><p>6大病句类型·30道高考真题·选择题+修改</p><span class="tool-tag chinese">语文</span></button>
-<button class="tool-card" data-tool="math-grapher"><div class="tool-icon">📈</div><h4>函数图像绘制器</h4><p>多函数叠加·平滑绘图·坐标网格</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-derivative"><div class="tool-icon">📐</div><h4>导数计算器</h4><p>符号求导·数值计算·图像对比</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-integral"><div class="tool-icon">∫</div><h4>积分计算器</h4><p>定积分数值计算·面积可视化</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-geometry"><div class="tool-icon">📏</div><h4>几何画板</h4><p>直线·圆·圆锥曲线可视化</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-sequence"><div class="tool-icon">📊</div><h4>数列可视化</h4><p>等差·等比·柱状图·通项公式</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-probability"><div class="tool-icon">🎲</div><h4>概率模拟器</h4><p>古典概型·二项分布·频率直方图</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="math-handbook"><div class="tool-icon">📖</div><h4>数学公式手册</h4><p>7大分类·34条核心公式速查</p><span class="tool-tag math">数学</span></button>
-<button class="tool-card" data-tool="physics-wave-optics"><div class="tool-icon">🌊</div><h4>波动光学模拟</h4><p>波的干涉·光的折射·实时动画</p><span class="tool-tag physics">物理</span></button>
-<button class="tool-card" data-tool="chemistry-3d-molecules"><div class="tool-icon">⚛️</div><h4>3D分子模型</h4><p>H2O·CH4·NH3·CO2·C6H6可旋转</p><span class="tool-tag chemistry">化学</span></button>
-<button class="tool-card" data-tool="biology-cell-division"><div class="tool-icon">🧬</div><h4>细胞分裂动画</h4><p>有丝分裂·减数分裂·分步演示</p><span class="tool-tag biology">生物</span></button>
-<button class="tool-card" data-tool="study-dashboard"><div class="tool-icon">📊</div><h4>学习数据仪表盘</h4><p>学习时长·正确率趋势·科目分布</p><span class="tool-tag platform">数据</span></button>
-<button class="tool-card" data-tool="english-vocabulary"><div class="tool-icon">📖</div><h4>英语词汇记忆</h4><p>120高频词·单词卡片·选择题测试</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="physics-formula"><div class="tool-icon" aria-hidden="true">物</div><h4>物理公式计算器</h4><p>力学、电磁学、热学公式速算</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-balancer"><div class="tool-icon" aria-hidden="true">化</div><h4>化学方程式配平</h4><p>智能配平+原子计数可视化</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-genetics"><div class="tool-icon" aria-hidden="true">遗</div><h4>遗传规律模拟器</h4><p>孟德尔定律、伴性遗传、基因频率</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="physics-measurement"><div class="tool-icon" aria-hidden="true">物</div><h4>物理测量仪器指南</h4><p>游标卡尺、螺旋测微器、多用电表精读</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-equipment"><div class="tool-icon" aria-hidden="true">化</div><h4>化学实验器材大全</h4><p>烧杯、漏斗、量器、瓶类、加热器</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-exam-skills"><div class="tool-icon" aria-hidden="true">生</div><h4>生物答题技巧全解</h4><p>信息题、选择题、实验设计、遗传计算</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="biology-knowledge-graph"><div class="tool-icon" aria-hidden="true">生</div><h4>生物知识图谱</h4><p>13大热点专题、6维关联、考点清单</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="exam-dashboard"><div class="tool-icon" aria-hidden="true">备</div><h4>备考数据中心</h4><p>分数线、知识图谱、个性化推荐、进度追踪</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="platform-overview"><div class="tool-icon" aria-hidden="true">平</div><h4>平台结构总览</h4><p>三层结构、各模块权重、题库构成</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="chinese-knowledge"><div class="tool-icon" aria-hidden="true">语</div><h4>语文知识点合集</h4><p>现代文、文言文、诗词、作文全解</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="secondary-conclusions"><div class="tool-icon" aria-hidden="true">物</div><h4>物化二级结论</h4><p>物理快捷公式、化学核心结论速查</p><span class="tool-tag physics">必备</span></button>
+<button class="tool-card" data-tool="valence-atlas"><div class="tool-icon" aria-hidden="true">元</div><h4>元素价态图谱</h4><p>Na、Fe、S、N 价态二维图、反应网络</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="english-grammar-quiz"><div class="tool-icon" aria-hidden="true">英</div><h4>英语语法闯关</h4><p>30道语法题、三级难度、即时解析</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-reading-trainer"><div class="tool-icon" aria-hidden="true">阅</div><h4>阅读理解训练</h4><p>8篇文章、32题、计时练习</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="english-composition-templates"><div class="tool-icon" aria-hidden="true">书</div><h4>书面表达模板</h4><p>18篇范文、高分句型、过渡词库</p><span class="tool-tag english">英语</span></button>
+<button class="tool-card" data-tool="pomodoro-timer"><div class="tool-icon" aria-hidden="true">番</div><h4>番茄钟计时器</h4><p>25分钟专注、学习时长统计</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="study-plan-generator"><div class="tool-icon" aria-hidden="true">学</div><h4>学习计划生成器</h4><p>自动组卷、弱科加强、可打印</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="mastery-radar"><div class="tool-icon" aria-hidden="true">掌</div><h4>掌握度雷达图</h4><p>六科多维、视觉化强弱分布</p><span class="tool-tag platform">数据</span></button>
+<button class="tool-card" data-tool="error-variation"><div class="tool-icon" aria-hidden="true">错</div><h4>错题变式生成</h4><p>错一道练一类、参数自动变化</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="note-system"><div class="tool-icon" aria-hidden="true">学</div><h4>学习笔记系统</h4><p>Markdown、按科目分类、导出备份</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="data-exporter"><div class="tool-icon" aria-hidden="true">数</div><h4>数据导出/导入</h4><p>错题+模考+笔记、跨设备迁移</p><span class="tool-tag platform">工具</span></button>
+<button class="tool-card" data-tool="chinese-recitation"><div class="tool-icon" aria-hidden="true">默</div><h4>默写自测系统</h4><p>19篇必背、情境填空、即时批改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-vocabulary-quiz"><div class="tool-icon" aria-hidden="true">文</div><h4>文言实词闯关</h4><p>25个实词、选择题、配对练习</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="chinese-composition-materials"><div class="tool-icon" aria-hidden="true">作</div><h4>作文素材库</h4><p>4大主题、人物名言事例、一键复制</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="onboarding"><div class="tool-icon" aria-hidden="true">新</div><h4>新手引导</h4><p>5步入门、功能介绍、快速上手</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="error-notebook"><div class="tool-icon" aria-hidden="true">错</div><h4>错题本系统</h4><p>自动收集错题、分类回顾、重做闯关</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="mock-exam"><div class="tool-icon" aria-hidden="true">全</div><h4>全真模拟考试</h4><p>随机组卷、倒计时、自动评分、五科可选</p><span class="tool-tag exam">备考</span></button>
+<button class="tool-card" data-tool="global-search"><div class="tool-icon" aria-hidden="true">全</div><h4>全局搜索</h4><p>88+工具、六科知识图谱、Ctrl+K</p><span class="tool-tag platform">平台</span></button>
+<button class="tool-card" data-tool="chinese-sentence-correction"><div class="tool-icon" aria-hidden="true">病</div><h4>病句修改训练器</h4><p>6大病句类型、30道高考真题、选择题+修改</p><span class="tool-tag chinese">语文</span></button>
+<button class="tool-card" data-tool="math-grapher"><div class="tool-icon" aria-hidden="true">函</div><h4>函数图像绘制器</h4><p>多函数叠加、平滑绘图、坐标网格</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-derivative"><div class="tool-icon" aria-hidden="true">导</div><h4>导数计算器</h4><p>符号求导、数值计算、图像对比</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-integral"><div class="tool-icon" aria-hidden="true">积</div><h4>积分计算器</h4><p>定积分数值计算、面积可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-geometry"><div class="tool-icon" aria-hidden="true">几</div><h4>几何画板</h4><p>直线、圆、圆锥曲线可视化</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-sequence"><div class="tool-icon" aria-hidden="true">数</div><h4>数列可视化</h4><p>等差、等比、柱状图、通项公式</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-probability"><div class="tool-icon" aria-hidden="true">概</div><h4>概率模拟器</h4><p>古典概型、二项分布、频率直方图</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="math-handbook"><div class="tool-icon" aria-hidden="true">数</div><h4>数学公式手册</h4><p>7大分类、34条核心公式速查</p><span class="tool-tag math">数学</span></button>
+<button class="tool-card" data-tool="physics-wave-optics"><div class="tool-icon" aria-hidden="true">波</div><h4>波动光学模拟</h4><p>波的干涉、光的折射、实时动画</p><span class="tool-tag physics">物理</span></button>
+<button class="tool-card" data-tool="chemistry-3d-molecules"><div class="tool-icon" aria-hidden="true">3</div><h4>3D分子模型</h4><p>H2O、CH4、NH3、CO2、C6H6可旋转</p><span class="tool-tag chemistry">化学</span></button>
+<button class="tool-card" data-tool="biology-cell-division"><div class="tool-icon" aria-hidden="true">细</div><h4>细胞分裂动画</h4><p>有丝分裂、减数分裂、分步演示</p><span class="tool-tag biology">生物</span></button>
+<button class="tool-card" data-tool="study-dashboard"><div class="tool-icon" aria-hidden="true">学</div><h4>学习数据仪表盘</h4><p>学习时长、正确率趋势、科目分布</p><span class="tool-tag platform">数据</span></button>
+<button class="tool-card" data-tool="english-vocabulary"><div class="tool-icon" aria-hidden="true">英</div><h4>英语词汇记忆</h4><p>120高频词、单词卡片、选择题测试</p><span class="tool-tag english">英语</span></button>
 
 </div>
 <div class="tools-section mt-20">
-<h3>🎯 广东卷特色专项</h3>
+<h3>广东卷特色专项</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="guangdong-analysis">📊 命题规律白皮书</button>
 <button class="tool-access-btn" data-tool="situational-quiz">🌍 情境化试题训练</button>
@@ -183,7 +184,7 @@
 </div>
 </div>
 <div class="tools-section mt-16">
-<h3>📝 答题规范与提分</h3>
+<h3>答题规范与提分</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="answer-template">📋 大题答题模板库</button>
 <button class="tool-access-btn" data-tool="calc-step">🧮 计算题分步训练</button>
@@ -192,7 +193,7 @@
 </div>
 </div>
 <div class="tools-section mt-16">
-<h3>🧠 记忆与诊断</h3>
+<h3>记忆与诊断</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="spaced-repetition">🔁 间隔重复记忆系统</button>
 <button class="tool-access-btn" data-tool="textbook-fill">📖 教材原文挖空</button>
@@ -201,7 +202,7 @@
 </div>
 </div>
 <div class="tools-section mt-16">
-<h3>📊 可视化与变式</h3>
+<h3>可视化与变式</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="formula-derivation">🎬 公式推导动画</button>
 <button class="tool-access-btn" data-tool="physics-model">⚙️ 物理模型可视化</button>
@@ -228,7 +229,7 @@
 <button class="tool-access-btn" data-tool="variation-rec">🔄 变式题推荐系统</button>
 </div>
 <div class="tools-section mt-16">
-<h3>🆕 学科内容补全</h3>
+<h3>学科内容补全</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="poem-appreciation">🎨 古诗文鉴赏交互器</button>
 <button class="tool-access-btn" data-tool="classical-translation">📜 文言文翻译对照器</button>
@@ -242,7 +243,7 @@
 </div>
 </div>
 <div class="tools-section mt-16">
-<h3>🎯 学习激励与数据分析</h3>
+<h3>学习激励与数据分析</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="achievement-system">🏆 成就徽章系统</button>
 <button class="tool-access-btn" data-tool="study-share-card">📸 学习打卡分享图</button>
@@ -271,7 +272,7 @@
 </div>
 <div id="physics-content" class="module-content"></div>
 <div class="tools-section mt-24">
-<h3>⚡ 物理专项工具</h3>
+<h3>物理专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="physics-formula">📐 物理公式计算器</button>
 <button class="tool-access-btn" data-tool="physics-mechanics">🔧 受力分析工具</button>
@@ -298,7 +299,7 @@
 </div>
 <div id="chemistry-content" class="module-content"></div>
 <div class="tools-section mt-24">
-<h3>🧪 化学专项工具</h3>
+<h3>化学专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="chemistry-balancer">⚖️ 方程式配平器</button>
 <button class="tool-access-btn" data-tool="chemistry-quiz">📝 化学知识闯关</button>
@@ -325,7 +326,7 @@
 </div>
 <div id="biology-content" class="module-content"></div>
 <div class="tools-section mt-24">
-<h3>🧬 生物专项工具</h3>
+<h3>生物专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="biology-genetics">🧬 遗传规律模拟器</button>
 <button class="tool-access-btn" data-tool="biology-ecosystem">🌍 生态系统模拟</button>
@@ -372,7 +373,7 @@
 </div>
 </div>
 <div class="tools-section mt-24">
-<h3>📐 数学专项工具</h3>
+<h3>数学专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="math-grapher">📈 函数图像绘制器</button>
 <button class="tool-access-btn" data-tool="math-derivative">📐 导数计算器</button>
@@ -398,7 +399,7 @@
 </div>
 <div id="english-content">
 <div id="english-eng-grammar" class="tab-pane">
-<h3>📝 语法知识</h3>
+<h3>语法知识</h3>
 <div class="knowledge-card"><h4>时态与语态</h4><p>16种时态，重点：一般现在/过去/将来时、现在/过去完成时、现在/过去进行时。被动语态：be+过去分词。</p></div>
 <div class="knowledge-card"><h4>非谓语动词</h4><p>不定式(to do)、动名词(doing)、分词(doing/done)。作主/宾/定/状/补语。</p></div>
 <div class="knowledge-card"><h4>三大从句</h4><p>定语从句(that/which/who/whom/whose)、名词性从句(主/宾/表/同位语)、状语从句(9种)。</p></div>
@@ -406,28 +407,28 @@
 <div class="knowledge-card"><h4>倒装与强调</h4><p>部分倒装(否定前置/only前置/so neither)、完全倒装(地点状语前置)。强调句：It is...that/who...</p></div>
 </div>
 <div id="english-eng-vocab" class="tab-pane is-hidden">
-<h3>📖 词汇与短语</h3>
+<h3>词汇与短语</h3>
 <div class="knowledge-card"><h4>高频词汇</h4><p>新课标3500词中核心高频词约1500个。一词多义：observe(观察→遵守→庆祝)、address(地址→演讲→处理)。</p></div>
 <div class="knowledge-card"><h4>短语动词</h4><p>take/bring/come/go/put/get/turn+介词/副词：take up(开始)、take over(接管)、take off(起飞/成功)。</p></div>
 <div class="knowledge-card"><h4>词义辨析</h4><p>alone/lonely, rise/raise/arise, affect/effect/influence 等近义词区分。</p></div>
 <div class="knowledge-card"><h4>构词法</h4><p>前缀(un-/dis-/re-/pre-/inter-)、后缀(-tion/-ment/-ness/-able/-ful/-less)、合成词、转化词。</p></div>
 </div>
 <div id="english-eng-reading" class="tab-pane is-hidden">
-<h3>📚 阅读理解</h3>
+<h3>阅读理解</h3>
 <div class="knowledge-card"><h4>主旨大意题</h4><p>找主题句(首段/末段/每段首句)，概括全文，选最佳标题。防以偏概全。</p></div>
 <div class="knowledge-card"><h4>细节理解题</h4><p>定位关键词回原文找对应信息，注意同义替换、正话反说。</p></div>
 <div class="knowledge-card"><h4>推理判断题</h4><p>基于原文合理推断，不加主观假设。提问词：infer, suggest, imply, conclude。</p></div>
 <div class="knowledge-card"><h4>词义猜测题</h4><p>利用上下文线索(定义/举例/对比/因果)、构词法、常识猜测词义。</p></div>
 </div>
 <div id="english-eng-writing" class="tab-pane is-hidden">
-<h3>✍️ 书面表达</h3>
+<h3>书面表达</h3>
 <div class="knowledge-card"><h4>书信作文</h4><p>邀请/建议/申请/感谢/道歉/投诉信。格式：称呼+正文+结束语+签名。</p></div>
 <div class="knowledge-card"><h4>议论文</h4><p>三段式：观点引入→论证(2-3论点+论据)→总结升华。连接词：Firstly, Moreover, In conclusion。</p></div>
 <div class="knowledge-card"><h4>读后续写</h4><p>新高考25分题型。读懂原文+合理续写两段(150词/段)，风格一致、首句衔接自然。</p></div>
 </div>
 </div>
 <div class="tools-section mt-24">
-<h3>🇬🇧 英语专项工具</h3>
+<h3>英语专项工具</h3>
 <div class="tools-access">
 <button class="tool-access-btn" data-tool="english-grammar-quiz">📝 语法闯关</button>
 <button class="tool-access-btn" data-tool="english-reading-trainer">📚 阅读训练</button>
@@ -1605,7 +1606,7 @@
 </main>
 <footer class="main-footer">
 <p><a href="showcase.html">🏆 作品展示页</a> · 评委与老师可从此页了解项目全貌</p>
-<p>高中物化生语数英学习大礼包 · 题目与知识点仅供学习参考</p>
+<p>高中物化生语数英学习大礼包 、 题目与知识点仅供学习参考</p>
 <p class="disclaimer">学习记录保存在浏览器本地，清除浏览器数据会一并清除</p>
 </footer>
 </div>

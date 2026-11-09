@@ -41,7 +41,7 @@
     align-items: flex-start;
     gap: 10px;
     padding: 12px 14px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     background: var(--bg-card, #fff);
     border: 1px solid var(--hspcb-border);
     box-shadow: var(--hspcb-toast-shadow);
@@ -75,7 +75,7 @@
     max-height: min(80vh, 640px);
     display: flex; flex-direction: column;
     background: var(--bg-card, #fff);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     box-shadow: var(--hspcb-shadow);
     overflow: hidden;
 }
@@ -119,13 +119,13 @@
 .hspcb-btn {
     border: 1px solid var(--hspcb-border); background: var(--bg-secondary, #f1f5f9);
     color: var(--text-primary, #1e293b);
-    border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer;
+    border-radius: var(--radius-md); padding: 6px 12px; font-size: 12px; cursor: pointer;
 }
 .hspcb-btn.hspcb-btn-primary { background: var(--primary, #4f6ef6); border-color: var(--primary, #4f6ef6); color: #fff; }
 .hspcb-btn.hspcb-btn-danger { background: transparent; border-color: var(--danger, #ef4444); color: var(--danger, #ef4444); }
 .hspcb-btn:disabled { opacity: .5; cursor: not-allowed; }
 .hspcb-input, .hspcb-select {
-    border: 1px solid var(--hspcb-border); border-radius: 8px;
+    border: 1px solid var(--hspcb-border); border-radius: var(--radius-md);
     background: var(--bg-card, #fff); color: var(--text-primary, #1e293b);
     padding: 6px 8px; font-size: 12px;
 }
@@ -133,7 +133,7 @@
 .hspcb-card {
     background: var(--bg-secondary, #f8fafc);
     border: 1px solid var(--hspcb-border);
-    border-radius: 10px; padding: 10px 12px; margin-top: 10px;
+    border-radius: var(--radius-md); padding: 10px 12px; margin-top: 10px;
 }
 .hspcb-tag-ok { color: var(--success, #10b981); font-weight: 600; }
 .hspcb-tag-off { color: var(--text-light, #94a3b8); }
@@ -160,7 +160,7 @@
 .hspcb-widget-card {
     background: var(--bg-card, #fff);
     border: 1px solid var(--hspcb-border);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 10px 12px;
 }
 .hspcb-widget-head {
@@ -180,7 +180,7 @@
 .hspcb-stat-big { font-size: 24px; font-weight: 700; }
 .hspcb-widget-btn {
     border: 0; background: var(--primary, #4f6ef6); color: #fff;
-    border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; margin-top: 6px;
+    border-radius: var(--radius-md); padding: 4px 10px; font-size: 11px; cursor: pointer; margin-top: 6px;
 }
 
 /* ---------- 语音朗读按钮 ---------- */

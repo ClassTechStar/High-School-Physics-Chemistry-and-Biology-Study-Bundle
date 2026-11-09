@@ -1,0 +1,119 @@
+/* Hallmark · redesign: restyle · critique: P4 H4 E4 S4 R4 V3 · weakest: S, the indigo-and-glow system read as a stock dashboard; moved to a paper-and-ink palette */
+/* 设计基线：保留全部结构、接线与响应式，只收敛视觉系统。 */
+
+html, body { overflow-x: clip; }
+
+/* 焦点环：所有可交互元素一致、立即可见 */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* 尊重系统的减少动效设置 */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 纸感：极淡的横向纹理，用来替代发光和渐变表达层次 */
+body {
+    background-image: repeating-linear-gradient(
+        0deg,
+        var(--paper-grain) 0 1px,
+        transparent 1px 4px
+    );
+}
+
+/* 标题与正文分层：衬线只用在页面主标题，正文保持无衬线 */
+.main-header h1,
+.promo-hero h1,
+.cover h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+/* 导航的中文单字标记：细线方框，不再靠 emoji 或发光 */
+.subject-nav .nav-btn .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    line-height: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+.subject-nav .nav-btn.active .icon {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.subject-icons .s-icon {
+    font-family: var(--font-display);
+    font-size: 0.9em;
+}
+
+/* 数字从「巨型统计墙」收敛成一行朴素说明，data-count 等脚本钩子全部保留 */
+.hero-stats,
+.stats-row { gap: 1.75rem; }
+.hero-stat-num,
+.stats-row .number {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    background: none;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: currentColor;
+    background-clip: border-box;
+}
+.hero-stat-label,
+.stats-row .label {
+    font-size: var(--step-label);
+    color: var(--text-secondary);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* 演示页封面的粒子装饰：隐藏画布即可，JS 仍照常运行 */
+#cover-particles.cover-canvas { display: none; }
+
+.container .welcome-card h2, .container .section h2 { color: var(--text-primary); }
+
+/* 卡片用细发丝线分层，不靠厚阴影 */
+.subject-card,
+.welcome-card,
+.tool-card {
+    border: 1px solid var(--rule);
+    box-shadow: 0 1px 2px var(--rule);
+}
+
+/* 图片/表格网格不撑破容器 */
+.subject-cards,
+.tool-grid { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+.section h2,
+.welcome-card h2 { overflow-wrap: break-word; min-width: 0; }
+
+/* 工具卡片：中文首字细线标记，替代 2.5rem 的大 emoji */
+.tool-card .tool-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-family: var(--font-display, serif);
+    font-size: 12px;
+    line-height: 1;
+    margin-bottom: var(--space-sm, 8px);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius-sm, 4px);
+    color: var(--text-secondary);
+}

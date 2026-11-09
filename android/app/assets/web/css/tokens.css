@@ -8,9 +8,9 @@
 
 :root {
     /* 主色调 */
-    --primary: #4f6ef6;
-    --primary-light: #7b93fa;
-    --primary-dark: #3a56d4;
+    --primary: #2d5a63;
+    --primary-light: #54838c;
+    --primary-dark: #20444c;
 
     /* 辅助色 */
     --secondary: #6c757d;
@@ -29,20 +29,20 @@
     --english: #8b5cf6;    /* 紫（T3-1 新增；此前英语卡/导航无令牌可用） */
 
     /* 背景色 */
-    --bg-primary: #f8fafc;
-    --bg-secondary: #f1f5f9;
-    --bg-card: #ffffff;
+    --bg-primary: #f6f4ef;
+    --bg-secondary: #ebe7de;
+    --bg-card: #fdfcf8;
     --bg-dark: #0f172a;
 
     /* 文字色 */
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
+    --text-primary: #1c2733;
+    --text-secondary: #5b6669;
     --text-light: #94a3b8;
     --text-white: #ffffff;
 
     /* 边框色 */
-    --border-light: #e2e8f0;
-    --border-medium: #cbd5e1;
+    --border-light: #ddd8cc;
+    --border-medium: #bdb6a6;
 
     /* 间距 */
     --space-xs: 4px;
@@ -74,6 +74,14 @@
        原为 index.html 静态 style 属性写死值；类化后以令牌保持现值，
        确保 computed-style 外观零变化（不跟随 --math/--english 的 T3-1 新色相，
        色相改版须用户另行确认）。 */
+    /* 质感层：细线、纸纹、字阶，用这些替代发光和渐变来表达层次 */
+    --rule: rgba(28, 39, 51, 0.14);
+    --rule-strong: rgba(28, 39, 51, 0.28);
+    --paper-grain: rgba(28, 39, 51, 0.022);
+    --ink-accent: #b4453c;
+    --font-display: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, serif;
+    --step-label: 0.75rem;
+    --step-lede: 1.0625rem;
     --tag-math-bg: #dbeafe;
     --tag-math-fg: #3b82f6;
     --tag-chinese-bg: #e0f2fe;
@@ -96,4 +104,9 @@
     --border-light: #334155;
     --border-medium: #475569;
     --primary: var(--primary-light);
+    /* 暗色下的细线：浅色墨的透明版，否则纸质细线在深底上看不见 */
+    --rule: rgba(230, 227, 220, 0.16);
+    --rule-strong: rgba(230, 227, 220, 0.34);
+    --paper-grain: rgba(230, 227, 220, 0.018);
+    /* --dm-rule-check */
 }
