@@ -13,9 +13,16 @@
 - **【性能】题库按学科拆分（P2）**：`data/exam-bank.json`（1001 KB 六科合一，进题库必拉全量）拆为 `data/exam/index.json`（1.7 KB 清单）+ `data/exam/{subject}.json`（六科分文件）；`app-exam.js` 改按科懒加载（`ensureIndex`/`ensureSubject`/`ensureLoaded` 三级），选了哪科拉哪科，六科外的题零成本延迟，SW 按文件缓存天然衔接。拆分后 1198 题 id 与内容逐题一致；mock-exam / 全局搜索 / 学习路径推荐同步适配（搜索索引未齐时后台补载并自动重搜）。
 - **【体验】移动端真适配（P2）**：撤掉 `AssetResponder.java` 的 `width=1280` 视口改写 hack（此前手机上靠捏合缩放看桌面排版），`responsive.css` 补齐题库仪表盘 768px 断点收拢规则（grid 子项 `min-width:0`、筛选栏全宽、卡片换行、进度条弹性）；浏览器 390px 实测首页与题库页零水平溢出。
 - **【工具】一次性修复脚本归位**：`dedupe-by-content.mjs`、`fix-answer-analysis-mismatch.mjs` 迁入 `scripts/legacy/`（面向拆分前布局的历史脚本，legacy/README 补录说明）；`scripts/lib/exam-bank.mjs` 提供拆分后题库的整库读取视图，供质检/冒烟门禁共用。
+- **【结构】main-inline.js 按路由/导航/初始化拆分（P3）**：约 2460 行的单体 IIFE 拆为 `main-init.js`（初始化/defer 回填枢纽）/ `main-nav.js`（路由导航/事件委托）/ `main-views.js`（内容渲染器）/ `main-tools.js`（语文工具/计算器）四件套；跨文件共享状态收敛到 `window.HSPCBMain`（CD/PS/CE 缓存 + views 渲染器注册表），window 导出面与拆分前完全一致；门禁锚点（自检 C 的 syncModules 注入点）与 handler-integrity/runtime-defer-check/smoke 的引用同步迁移。
+- **【结构】content-\* 三代归一（P3）**：`content-enhancement.js` + `content-enhanced-v2.js` + `content-deep-v3.js`（共 431 KB 代际累加的三个模块）字节级合并为 `js/content.js` 单一模块，执行序与拆分前加载序一致，index.html/sw.js/门禁引用同步更新（逻辑层内容去重留待后续内容治理）。
+- **【学习科学】错题本接入简化 SM-2 间隔重复（P3）**：新增纯计算模块 `spaced-repetition.js`（记住 1→3→×ease 递增间隔；忘了 ease −0.2 下限 1.3、10 分钟重试）；错题卡片带复习排期徽标与「✓ 记住了 / ✗ 忘了」自评按钮（连对 3 次自动标记已掌握）；仪表盘新增「今日应复习」迷你组件（新布局默认启用，老布局可在「添加组件」中手动添加）。
+- **【工程】Pages 发布期压缩（P2）**：新增 `scripts/build-pages.mjs`（esbuild 仅压缩 gh-pages 产物，仓库保持源码形态；压缩后逐文件语法校验 + 关键标识符抽查防改名破坏），pages.yml 发布前先构建 `dist-pages/` 再上传。
+- **【工程】零依赖本地服务脚本**：`scripts/serve.mjs`（node:http 静态服务）接替 `npm run serve` 的 python 实现，无 python 的机器也能本地起服务。
+- **【工程】真实浏览器 E2E 入 CI（P2）**：Playwright（devDependencies，不破坏「运行时零依赖」）覆盖五条主路径——六科导航切换、题库筛选与判分、错题本（`?demo=1` 演示数据）、全局搜索、模拟考试组卷；`e2e.yml` 每次 push/PR 自动跑（node 20 + chromium），失败上传 trace 报告。
+- **【修复】演示数据空池缺陷（E2E 发现）**：v1.8 懒加载下 `demo-mode.js` 的 `inject()` 就绪判断（`!eps.examData`）会漏过「清单已载、题目未载」状态，`?demo=1` 自动注入拿到空题池——改为 `_hasAllQuestions()` 判定并单次补载防死循环。
 - **【缓存】CACHE_NAME hspcb-v21 → hspcb-v22**：本轮 CSS/JS/数据均有变更，递增缓存版本使存量用户自动换新。
-- 版本 1.7.1 → **1.8.0**（package.json / PWA manifest / AndroidManifest / Gradle 四处同步，versionCode 8 → 9，`check:version` 门禁把关）。
-- **验证**：`npm run verify` 十二阶段全绿（含 121 项运行时检查、77 项冒烟）；真实浏览器全链路（题库懒加载 → 答题 → 判分 → 解析）通过，`data/exam/*.json` 七文件均 200、无 404；`build-apk.sh` 端到端构建通过（资产同步 118 文件、签名校验通过）；390px 移动视口首页/题库页布局复验通过。
+- 版本 1.7.1 → **1.8.0**（package.json / PWA manifest / AndroidManifest / Gradle 四处同步，versionCode 8 → 9，`check:version` 门禁把关）；补打 v1.5.0–v1.7.1 六个历史 tag 并随首个 v1.8 提交推送。
+- **验证**：`npm run verify` 十二阶段全绿（含 121 项运行时检查、61+14+29+15 四组单测、77 项冒烟、同步演练 120 文件一致）；Playwright E2E 五条主路径多轮全绿；`build:pages` 发布压缩实测 JS −29.9%（3.80→2.66 MB）/ CSS −28.7%，产物逐文件语法校验 + 关键标识符抽查通过；真实浏览器全链路（题库懒加载 → 答题 → 判分 → 解析）通过；`build-apk.sh` 端到端构建通过；390px 移动视口布局复验通过。
 
 ### 第二轮全量 bug 排查修复（v1.7.1，聚焦 v1.5.2–v1.7.0 三批新文件）
 > 门禁基线全绿后，深度代理逐文件复查液态玻璃 / 参赛包 / 安卓端三批新增文件与既有代码集成点，确认并修复 6 处缺陷，另新增 1 道防漂移门禁。

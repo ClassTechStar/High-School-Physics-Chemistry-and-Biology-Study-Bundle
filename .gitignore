@@ -17,6 +17,9 @@ desktop.ini
 dist/
 build/
 .cache/
+dist-pages/
+playwright-report/
+test-results/
 
 # Local env
 .env

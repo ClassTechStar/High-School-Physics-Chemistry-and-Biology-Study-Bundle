@@ -5,12 +5,14 @@
   "description": "高中物化生语数英学习大礼包 — 六科知识点、题库与错题本（纯静态，可离线）",
   "type": "module",
   "scripts": {
-    "serve": "python -m http.server 8000 --directory 1.2",
+    "serve": "node scripts/serve.mjs",
+    "test:e2e": "playwright test",
+    "build:pages": "node scripts/build-pages.mjs",
     "check:version": "node scripts/check-version.mjs",
     "check:data": "node scripts/validate-data.mjs",
     "check:data:json": "node scripts/validate-data.mjs --json",
     "check:collisions": "node scripts/check-global-collisions.mjs",
-    "test": "node scripts/test-progress.mjs && node scripts/test-cross-subject.mjs && node scripts/test-schedule.mjs",
+    "test": "node scripts/test-progress.mjs && node scripts/test-cross-subject.mjs && node scripts/test-schedule.mjs && node scripts/test-sm2.mjs",
     "test:smoke": "node scripts/smoke-app.mjs",
     "verify": "npm run check:version && npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:schedule && npm run check:lint && npm run check:content && npm run check:runtime && npm run check:asset-sync && npm run test && npm run test:smoke",
     "check:runtime": "node scripts/runtime-defer-check.mjs",
@@ -24,5 +26,9 @@
   "engines": {
     "node": ">=18"
   },
-  "license": "CC-BY-NC-SA-4.0"
+  "license": "CC-BY-NC-SA-4.0",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "esbuild": "^0.28.2"
+  }
 }

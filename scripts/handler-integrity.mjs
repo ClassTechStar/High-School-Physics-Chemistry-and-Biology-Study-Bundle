@@ -53,10 +53,10 @@ console.log('onclick root symbols checked:', onclickFns.size);
 console.log('potentially missing exports:', missing.length);
 for (const m of missing.slice(0, 40)) console.log(' ', m);
 
-// data-tool routing：case 分发表自 index.html 内联脚本 + main-inline.js
-//（T3-4e 起内联脚本已外置，路由逻辑居 main-inline.js，只扫 html 会误报 unrouted）
+// data-tool routing：case 分发表自 index.html 内联脚本 + main-nav.js
+//（T3-4e 起内联脚本已外置；v1.8 P3 拆分后路由逻辑居 main-nav.js，只扫 html 会误报 unrouted）
 const MAIN_INLINE = (() => {
-  try { return readFileSync(join(APP, 'js', 'main-inline.js'), 'utf8'); } catch { return ''; }
+  try { return readFileSync(join(APP, 'js', 'main-nav.js'), 'utf8'); } catch { return ''; }
 })();
 const routingScope = html + MAIN_INLINE;
 const toolCases = new Set([...routingScope.matchAll(/case\s+'([^']+)'/g)].map((m) => m[1]));

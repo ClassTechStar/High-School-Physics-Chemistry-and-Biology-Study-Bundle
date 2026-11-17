@@ -8,7 +8,7 @@ var CACHE_NAME = 'hspcb-v22';
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
 // 且 manifest.json 的图标已从 data: URI 改为真实文件）。
 // e: index.html 原 6 个内联脚本外置为 js/ 外部脚本（error-fallback /
-// theme-bootstrap / csp-delegation / main-inline 为解析期非 defer，
+// theme-bootstrap / csp-delegation / main-*（init/Views/nav/tools）为解析期非 defer，
 // home-collapse / theme-toggle / sw-register 为 defer），全部纳入预缓存；
 // 另补入 v14 遗漏的 js/csp-delegation.js（d 新增的委托中枢）。
 // f: index.html 原 2 个内联 <style> 块外置为 css/responsive.css 与
@@ -56,7 +56,10 @@ var CORE_ASSETS = [
     'plugins/index.json',
     'plugins/example/hspcb-plugin.json',
     'plugins/example/example.js',
-    'js/main-inline.js',
+    'js/main-init.js',
+    'js/main-views.js',
+    'js/main-nav.js',
+    'js/main-tools.js',
     'js/home-collapse.js',
     'js/theme-toggle.js',
     'js/sw-register.js',
@@ -78,7 +81,7 @@ var DEFERRED_ASSETS = [
     'js/app-biology.js',
     'js/app-exam.js',
     'js/enhanced-tools.js',
-    'js/content-enhancement.js',
+    'js/content.js',
     'js/comprehensive-data.js',
     'js/exam-review-system.js',
     'js/platform-system.js',
@@ -89,6 +92,7 @@ var DEFERRED_ASSETS = [
     'js/auxiliary-tools.js',
     'js/math-tools.js',
     'js/chinese-tools.js',
+    'js/spaced-repetition.js',
     'js/error-notebook.js',
     'js/mock-exam.js',
     'js/global-search.js',
@@ -107,13 +111,11 @@ var DEFERRED_ASSETS = [
     'js/study-tools-enhanced.js',
     'js/interactive-physics-bio.js',
     'js/interactive-chemistry.js',
-    'js/content-enhanced-v2.js',
     'js/subject-gap-1.js',
     'js/subject-gap-2.js',
     'js/subject-gap-3.js',
     'js/gamification-system.js',
     'js/data-analysis-enhanced.js',
-    'js/content-deep-v3.js',
     'js/utility-tools-v2.js',
     'js/learning-path-recommender.js'
 ];

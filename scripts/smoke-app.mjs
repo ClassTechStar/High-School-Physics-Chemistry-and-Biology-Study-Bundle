@@ -55,7 +55,7 @@ console.log('=== 3. index 关键接线 ===');
   ok(html.includes('js/sw-register.js') && readJs('sw-register.js').includes('serviceWorker'), '注册 SW');
   // A+B：懒加载接线（静态断言，防止回退到首屏自动 init / 无条件预热）
   {
-    const ce = readJs('content-enhanced-v2.js');
+    const ce = readJs('content.js');
     ok(!/setTimeout\(init, 50\)/.test(ce), '框架题/变式题首屏不自动 init（P1-6 A）');
     ok(ce.includes('QuestionDataLoader.getCached().length') && ce.includes('VariationDataLoader.getCached().length'), '框架题/变式题数据在 render 时按需加载');
     const lp = readJs('learning-path-recommender.js');
@@ -66,7 +66,7 @@ console.log('=== 3. index 关键接线 ===');
     const sw = readFileSync(join(APP, 'sw.js'), 'utf8');
     ok(sw.includes('DEFERRED_ASSETS') && sw.includes("action === 'warm'"), 'SW 预缓存分层 + warm 消息（P1-6 E）');
     ok(readJs('sw-register.js').includes('postMessage({ action: "warm" })'), '页面空闲触发 SW 后台补齐（P1-6 E）');
-    ok(html.includes('data-lazy-content="chinese-table"') && readJs('main-inline.js').includes('materializeSection'), '语文知识表惰性实例化（P1-6 F）');
+    ok(html.includes('data-lazy-content="chinese-table"') && readJs('main-nav.js').includes('materializeSection'), '语文知识表惰性实例化（P1-6 F）');
   }
   // subject cards
   const start = html.indexOf('<div class="subject-cards">');
@@ -168,7 +168,10 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
     'js/speech-service.js',
     'js/theme-loader.js',
     'js/deep-link.js',
-    'js/main-inline.js',
+    'js/main-init.js',
+    'js/main-views.js',
+    'js/main-nav.js',
+    'js/main-tools.js',
     'js/app.js',
     'js/app-chemistry.js',
     'js/app-physics.js',
@@ -177,6 +180,7 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
     'js/enhanced-tools.js',
     'js/platform-system.js',
     'js/gamification-system.js',
+    'js/spaced-repetition.js',
     'js/error-notebook.js',
     'js/global-search.js',
     'js/mock-exam.js',

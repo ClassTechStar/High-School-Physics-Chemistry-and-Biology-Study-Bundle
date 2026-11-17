@@ -1,98 +1,15 @@
-/* 主逻辑 · 外置自 index.html body 内联脚本（e）；非 defer 解析期同步执行，内部按 document.readyState 分支引导 defer 模块就绪 */
+/* main-views.js — 主逻辑·内容渲染（v1.8 P3 自 main-inline.js 拆分）
+   工具页/二级结论/实验卡片等全部渲染器；只被 main-nav 的 navigateToolPage
+   经 HSPCBMain.views 注册表分发调用，以及 app.js 的 MODULE_REGISTRY 经 window 导出调用。 */
 (function() {
     'use strict';
-
-    // 修复：comprehensive-data.js / platform-system.js / content-enhancement.js
-    // 均为 <script defer>，在本内联脚本（解析期）执行时尚未就绪。此处若直接
-    // `var CD = window.ComprehensiveData` 捕获到的将永久是 undefined 且不会自更新，
-    // 导致平台区 8 个 tab、三科 checklist、2 个器材工具与 2 处错误页全部失效。
-    // 改为「声明但不赋值」，由 syncModules() 在真正需要时点实时回填。
-    var CD = null;
-    var PS = null;
-    var CE = null;
-
-    function syncModules() {
-        CD = window.ComprehensiveData || null;
-        PS = window.PlatformSystem || null;
-        CE = window.ContentEnhancer || null;
-        return { CD: CD, PS: PS, CE: CE };
-    }
-    syncModules();
-
-    // v1.3: 外部模块脚本带 defer，解析期尚未就绪 —— 平台初始化延后到 DOMContentLoaded
-    function bootPlatform() {
-        syncModules();
-        if (PS) { PS.init(); }
-        if (window.darkModeToggle && window.darkModeToggle.render) { window.darkModeToggle.render(); }
-    }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootPlatform);
-    } else {
-        bootPlatform();
-    }
-
-    function walkUp(el, attr) {
-        while (el && el !== document.body && el !== document.documentElement) {
-            if (el.hasAttribute && el.hasAttribute(attr)) return el;
-            el = el.parentElement;
-        }
-        return null;
-    }
-
-    function getClosestWithAttr(el, attr) {
-        if (!el) return null;
-        if (el.closest) {
-            return el.closest('[' + attr + ']');
-        }
-        return walkUp(el, attr);
-    }
-
-    // 隐藏区块惰性实例化。<template data-lazy-content> 内的节点不在文档树中，
-    // 首次导航到该 section 时才展开（当前用于语文知识库 20 张大表）。
-    function materializeSection(id) {
-        var sec = document.getElementById(id);
-        if (!sec) return;
-        var templates = sec.querySelectorAll('template[data-lazy-content]');
-        for (var i = 0; i < templates.length; i++) {
-            var tpl = templates[i];
-            if (tpl.parentNode) tpl.parentNode.replaceChild(tpl.content, tpl);
-        }
-    }
-
-    function showSection(id) {
-        materializeSection(id);
-        document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
-        var sec = document.getElementById(id);
-        if (sec) { sec.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-        var subject = id.replace('-section', '');
-        if (['physics', 'chemistry', 'biology'].indexOf(subject) >= 0) {
-            var activeTab = document.querySelector('#' + id + ' .module-tab.active');
-            var module = activeTab ? activeTab.getAttribute('data-module') : 'concepts';
-            var contentEl = document.getElementById(subject + '-content');
-            if (contentEl && !contentEl.hasChildNodes()) {
-                if (typeof loadModuleContent === 'function') {
-                    loadModuleContent(subject, module);
-                } else if (typeof window.loadModuleContent === 'function') {
-                    window.loadModuleContent(subject, module);
-                }
-            }
-        }
-        if (subject === 'platform' && typeof handlePlatformTab === 'function') {
-            handlePlatformTab('overview');
-        }
-    }
-
-    function setActiveNav(subject) {
-        document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
-        var btn = document.querySelector('[data-subject="' + subject + '"]');
-        if (btn) btn.classList.add('active');
-    }
+    var M = window.HSPCBMain;
 
     function renderPhysicsInstruments() {
-        syncModules();
+        M.syncModules();
         var app = document.getElementById('physics-measurement-app');
-        if (!app || !CD || !CD.physicsInstruments) return;
-        var pi = CD.physicsInstruments;
+        if (!app || !M.CD || !M.CD.physicsInstruments) return;
+        var pi = M.CD.physicsInstruments;
         var html = '<div class="knowledge-section"><h3>📏 物理测量仪器精读指南</h3>'+
             '<div class="knowledge-card"><h4>📐 ' + pi.estimationRules.title + '</h4>'+
             '<div class="key-point"><strong>估读核心规则：</strong>一般仪器读数读到<b>分度值的下一位</b>（最小刻度后的第一位）。游标卡尺不需要估读（对齐线即为最终读数），螺旋测微器需估读到0.001mm。</div></div>';
@@ -114,10 +31,10 @@
     }
 
     function renderChemistryEquipment() {
-        syncModules();
+        M.syncModules();
         var app = document.getElementById('chemistry-equipment-app');
-        if (!app || !CD || !CD.chemistryEquipment) return;
-        var ceq = CD.chemistryEquipment;
+        if (!app || !M.CD || !M.CD.chemistryEquipment) return;
+        var ceq = M.CD.chemistryEquipment;
         var html = '<div class="knowledge-section"><h3>🔬 化学实验器材分类及应用全解</h3>';
         ['beakers','flasks','funnels','measuringAndHeating','otherTools'].forEach(function(key) {
             var cat = ceq[key];
@@ -133,26 +50,26 @@
     }
 
     function renderBiologyExamSkills() {
-        syncModules();
+        M.syncModules();
         var app = document.getElementById('biology-exam-skills-app');
         if (!app) {
             console.error('[生物答题技巧] 找不到容器元素 #biology-exam-skills-app');
             return;
         }
 
-        if (typeof CD === 'undefined') {
-            console.error('[生物答题技巧] CD 对象未定义，检查 comprehensive-data.js 是否加载');
+        if (typeof M.CD === 'undefined') {
+            console.error('[生物答题技巧] M.CD 对象未定义，检查 comprehensive-data.js 是否加载');
             app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据加载失败</h3><p>综合数据文件 (comprehensive-data.js) 未正确加载</p><p>请刷新页面重试，或检查浏览器控制台错误信息</p></div>';
             return;
         }
 
-        if (!CD.biologyExamStrategies) {
+        if (!M.CD.biologyExamStrategies) {
             console.error('[生物答题技巧] biologyExamStrategies 数据不存在');
             app.innerHTML = '<div data-style="padding:40px;text-align:center;color:#ef4444;"><h3>⚠️ 数据缺失</h3><p>生物答题策略数据未找到</p><p>请检查数据文件完整性</p></div>';
             return;
         }
 
-        var bes = CD.biologyExamStrategies;
+        var bes = M.CD.biologyExamStrategies;
         console.log('[生物答题技巧] 正在渲染，数据标题:', bes.title);
 
         var html = '<div class="knowledge-section"><h3>📝 ' + bes.title + '</h3>';
@@ -224,26 +141,26 @@
     }
 
     function renderBiologyKnowledgeGraph() {
-        syncModules();
+        M.syncModules();
         var app = document.getElementById('biology-knowledge-graph-app');
         if (!app) {
             console.error('[生物知识图谱] 找不到容器元素 #biology-knowledge-graph-app');
             return;
         }
 
-        if (typeof CE === 'undefined') {
-            console.error('[生物知识图谱] CE 对象未定义，检查 content-enhancement.js 是否加载');
-            app.innerHTML = '<div class="kg-empty">数据加载失败：content-enhancement.js 未正确加载</div>';
+        if (typeof M.CE === 'undefined') {
+            console.error('[生物知识图谱] M.CE 对象未定义，检查 content.js 是否加载');
+            app.innerHTML = '<div class="kg-empty">数据加载失败：content.js 未正确加载</div>';
             return;
         }
 
-        if (!CE.biologyKnowledgeGraph) {
+        if (!M.CE.biologyKnowledgeGraph) {
             console.error('[生物知识图谱] biologyKnowledgeGraph 数据不存在');
             app.innerHTML = '<div class="kg-empty">生物知识图谱数据未找到</div>';
             return;
         }
 
-        var kg = CE.biologyKnowledgeGraph;
+        var kg = M.CE.biologyKnowledgeGraph;
         // 节点列表在数据里叫 topics；旧代码读 nodes，kg.nodes 为 undefined 后取 .length 抛错，整块只剩标题
         var topics = kg.topics || kg.nodes || [];
         var relations = kg.relations || [];
@@ -1207,500 +1124,6 @@
         app.innerHTML = html;
     }
 
-    function navigateToolPage(tool) {
-        if (!tool) return;
-        try {
-            var sectionId = tool + '-section';
-            var targetSection = document.getElementById(sectionId);
-            if (!targetSection) { console.warn('Section not found:', sectionId); return; }
-
-            showSection(sectionId);
-
-            var appEl = targetSection.querySelector('.tool-app-container') || targetSection.querySelector('[id$="-app"]');
-
-            switch(tool) {
-                case 'physics-measurement': renderPhysicsInstruments(); break;
-                case 'chemistry-equipment': renderChemistryEquipment(); break;
-                case 'biology-exam-skills': renderBiologyExamSkills(); break;
-                case 'biology-knowledge-graph': renderBiologyKnowledgeGraph(); break;
-                case 'biology-pcr-sim': renderPCRSimulation(); break;
-                case 'biology-electrophoresis': renderElectrophoresisSimulation(); break;
-                case 'physics-formula':
-                    if(typeof physicsFormulaCalculator!=='undefined'&&typeof physicsFormulaCalculator.renderCalculator==='function')
-                        physicsFormulaCalculator.renderCalculator();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>物理公式计算器加载中...</p></div>';
-                    break;
-                case 'physics-mechanics': populatePhysicsMechanics(); break;
-                case 'physics-projectile':
-                    if(typeof projectileSimulator!=='undefined'&&typeof projectileSimulator.renderSimulator==='function')
-                        projectileSimulator.renderSimulator();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>抛体运动模拟器加载中...</p></div>';
-                    break;
-                case 'physics-electricity': populatePhysicsElectricity(); break;
-                case 'physics-optics': populatePhysicsOptics(); break;
-                case 'chemistry-balancer':
-                    if(typeof renderChemistryBalancer==='function') renderChemistryBalancer();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>化学方程配平器加载中...</p></div>';
-                    break;
-                case 'chemistry-quiz':
-                    if(typeof renderChemistryQuiz==='function') renderChemistryQuiz();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>化学练习系统加载中...</p></div>';
-                    break;
-                case 'chemistry-safety':
-                    if(typeof chemistrySafetySystem!=='undefined'&&typeof chemistrySafetySystem.renderSystem==='function')
-                        chemistrySafetySystem.renderSystem();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>化学安全系统加载中...</p></div>';
-                    break;
-                case 'chemistry-electrochem':
-                    if(typeof electrochemistryViewer!=='undefined'&&typeof electrochemistryViewer.renderViewer==='function')
-                        electrochemistryViewer.renderViewer();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>电化学可视化工具加载中...</p></div>';
-                    break;
-                case 'chemistry-process':
-                    if(typeof chemicalProcessFlow!=='undefined'&&typeof chemicalProcessFlow.renderSystem==='function')
-                        chemicalProcessFlow.renderSystem();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>工业流程分析器加载中...</p></div>';
-                    break;
-                case 'chemistry-organic':
-                    if(typeof organicConverter!=='undefined'&&typeof organicConverter.renderConverter==='function')
-                        organicConverter.renderConverter();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>有机物转化工具加载中...</p></div>';
-                    break;
-                case 'chemistry-notebook':
-                    if(typeof equationNotebook!=='undefined'&&typeof equationNotebook.renderNotebook==='function')
-                        equationNotebook.renderNotebook();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>方程式抄本加载中...</p></div>';
-                    break;
-                case 'chemistry-process-analyzer':
-                    if(typeof chemistryProcessAnalyzer!=='undefined'&&typeof chemistryProcessAnalyzer.renderAnalyzer==='function')
-                        chemistryProcessAnalyzer.renderAnalyzer();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>工艺过程分析器加载中...</p></div>';
-                    break;
-                case 'biology-genetics':
-                    if(typeof renderBiologyGenetics==='function') renderBiologyGenetics();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>遗传规律模拟器加载中...</p></div>';
-                    break;
-                case 'biology-ecosystem':
-                    if(typeof ecosystemSimulator!=='undefined'&&typeof ecosystemSimulator.renderSimulation==='function')
-                        ecosystemSimulator.renderSimulation();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>生态系统模拟器加载中...</p></div>';
-                    break;
-                case 'biology-mindmap':
-                    if(typeof biologyMindMap!=='undefined'&&typeof biologyMindMap.renderMindMap==='function')
-                        biologyMindMap.renderMindMap();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>生物思维导图加载中...</p></div>';
-                    break;
-                case 'biology-pedigree':
-                    // renderTrainer() 开头是「没有 currentProblem 就直接 return」，
-                    // 首次进入时它还是 null，等于什么都不画。入口应走 selectProblem()/init()。
-                    if (typeof geneticsPedigreeTrainerEnhanced !== 'undefined'
-                        && typeof geneticsPedigreeTrainerEnhanced.init === 'function')
-                        geneticsPedigreeTrainerEnhanced.init();
-                    else if (typeof geneticsPedigreeTrainer !== 'undefined'
-                        && typeof geneticsPedigreeTrainer.selectProblem === 'function')
-                        geneticsPedigreeTrainer.selectProblem();
-                    else if (appEl) appEl.innerHTML = '<div class="knowledge-section"><p>遗传系谱训练器加载中...</p></div>';
-                    break;
-                case 'biology-cell': populateBiologyCell(); break;
-                case 'biology-protein': populateBiologyProtein(); break;
-                case 'biology-photosynthesis':
-                    if(typeof photosynthesisTrainer!=='undefined'&&typeof photosynthesisTrainer.renderTrainer==='function')
-                        photosynthesisTrainer.renderTrainer();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>光合作用训练器加载中...</p></div>';
-                    break;
-                case 'biology-experiment':
-                    if(typeof experimentDesigner!=='undefined'&&typeof experimentDesigner.renderDesigner==='function')
-                        experimentDesigner.renderDesigner();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>实验方案设计器加载中...</p></div>';
-                    break;
-                case 'biology-metabolism': populateBiologyMetabolism(); break;
-                case 'biology-evolution': populateBiologyEvolution(); break;
-                case 'biology-biotech': populateBiologyBiotech(); break;
-                case 'pcr-sim':
-                case 'pcr-animation': renderPCRSimulation(); break;
-                case 'electrophoresis': renderElectrophoresisSimulation(); break;
-                case 'exam-dashboard':
-                    setActiveNav('exam');
-                    if(typeof examPracticeSystem!=='undefined'&&typeof examPracticeSystem.renderExamDashboard==='function')
-                        examPracticeSystem.renderExamDashboard(document.getElementById('exam-content'));
-                    break;
-                case 'platform-overview':
-                    setActiveNav('platform');
-                    syncModules();
-                    if(PS && PS.renderPlatformPage) PS.renderPlatformPage();
-                    break;
-                case 'secondary-conclusions':
-                    renderSecondaryConclusions();
-                    break;
-                case 'valence-atlas':
-                    renderValenceAtlas();
-                    break;
-                case 'formula-handbook':
-                    if(typeof formulaHandbook!=='undefined'&&typeof formulaHandbook.render==='function')
-                        formulaHandbook.render();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>公式手册加载中...</p></div>';
-                    break;
-                case 'timed-quiz':
-                    if(typeof timedQuiz!=='undefined'&&typeof timedQuiz.render==='function')
-                        timedQuiz.render();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>计时刷题加载中...</p></div>';
-                    break;
-                                                case 'daily-learning':
-                    if(typeof dailyLearning!=='undefined'&&typeof dailyLearning.render==='function')
-                        dailyLearning.render();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>每日一题加载中...</p></div>';
-                    break;
-                case 'interdisciplinary':
-                    if(typeof interdisciplinaryTopics!=='undefined'&&typeof interdisciplinaryTopics.render==='function')
-                        interdisciplinaryTopics.render();
-                    else if(appEl) appEl.innerHTML='<div class="knowledge-section"><p>学科交叉专题加载中...</p></div>';
-                    break;
-                // 高级备考工具
-                case 'guangdong-analysis':
-                    if(typeof guangdongAnalysis!=='undefined'&&typeof guangdongAnalysis.render==='function')guangdongAnalysis.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>命题规律白皮书加载中...</p></div>';
-                    break;
-                case 'situational-quiz':
-                    if(typeof situationalQuiz!=='undefined'&&typeof situationalQuiz.render==='function')situationalQuiz.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>情境化试题加载中...</p></div>';
-                    break;
-                case 'cross-subject-enhanced':
-                    if(typeof crossSubjectTopics!=='undefined'&&typeof crossSubjectTopics.init==='function')crossSubjectTopics.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>跨学科融合专题加载中...</p></div>';
-                    break;
-                case 'tech-frontiers':
-                    if(typeof techFrontiers!=='undefined'&&typeof techFrontiers.init==='function')techFrontiers.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>科技前沿关联加载中...</p></div>';
-                    break;
-                case 'answer-template':
-                    if(typeof answerTemplateLib!=='undefined'&&typeof answerTemplateLib.render==='function')answerTemplateLib.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>答题模板库加载中...</p></div>';
-                    break;
-                case 'calc-step':
-                    if(typeof calcStepTrainer!=='undefined'&&typeof calcStepTrainer.render==='function')calcStepTrainer.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>计算题分步训练加载中...</p></div>';
-                    break;
-                case 'interactive-mistakes':
-                    if(typeof interactiveMistakes!=='undefined'&&typeof interactiveMistakes.render==='function')interactiveMistakes.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>交互式易错点加载中...</p></div>';
-                    break;
-                case 'exam-strategy':
-                    if(typeof examStrategy!=='undefined'&&typeof examStrategy.render==='function')examStrategy.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>考前策略加载中...</p></div>';
-                    break;
-                case 'spaced-repetition':
-                    if(typeof spacedRepetition!=='undefined'&&typeof spacedRepetition.init==='function')spacedRepetition.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>间隔重复记忆系统加载中...</p></div>';
-                    break;
-                case 'textbook-fill':
-                    if(typeof textbookFillBlank!=='undefined'&&typeof textbookFillBlank.init==='function')textbookFillBlank.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>教材挖空加载中...</p></div>';
-                    break;
-                case 'adaptive-diagnosis':
-                    if(typeof adaptiveDiagnosis!=='undefined'&&typeof adaptiveDiagnosis.init==='function')adaptiveDiagnosis.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>自适应诊断加载中...</p></div>';
-                    break;
-                case 'knowledge-heatmap':
-                    if(typeof knowledgeHeatmap!=='undefined'&&typeof knowledgeHeatmap.init==='function')knowledgeHeatmap.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>知识盲区热力图加载中...</p></div>';
-                    break;
-                case 'formula-derivation':
-                    if(typeof formulaDerivation!=='undefined'&&typeof formulaDerivation.init==='function')formulaDerivation.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>公式推导动画加载中...</p></div>';
-                    break;
-                case 'physics-model':
-                    if(typeof physicsModelSim!=='undefined'&&typeof physicsModelSim.init==='function')physicsModelSim.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>物理模型可视化加载中...</p></div>';
-                    break;
-                case 'chem-transform':
-                    if(typeof chemTransformNet!=='undefined'&&typeof chemTransformNet.init==='function')chemTransformNet.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>化学转化网络加载中...</p></div>';
-                    break;
-                case 'bio-chart':
-                    if(typeof bioChartTrainer!=='undefined'&&typeof bioChartTrainer.init==='function')bioChartTrainer.init();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>生物图表题加载中...</p></div>';
-                    break;
-                case 'exam-variation':
-                    if(typeof examVariation!=='undefined'&&typeof examVariation.render==='function')examVariation.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>真题变式生成器加载中...</p></div>';
-                    break;
-                case 'wrong-variation':
-                    if(typeof wrongVariationGen!=='undefined'&&typeof wrongVariationGen.render==='function')wrongVariationGen.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>错题变式生成加载中...</p></div>';
-                    break;
-                case 'study-calendar':
-                    if(typeof studyCalendar!=='undefined'&&typeof studyCalendar.render==='function')studyCalendar.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>学习日历加载中...</p></div>';
-                    break;
-                                case 'error-notebook':
-                    if(typeof errorNotebook!=='undefined'&&typeof errorNotebook.render==='function')errorNotebook.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>错题本系统加载中...</p></div>';
-                    break;
-                case 'mock-exam':
-                    if(typeof mockExam!=='undefined'&&typeof mockExam.render==='function')mockExam.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>模拟考试加载中...</p></div>';
-                    break;
-                case 'global-search':
-                    if(typeof globalSearch!=='undefined'&&typeof globalSearch.open==='function')globalSearch.open();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>全局搜索加载中...</p></div>';
-                    break;
-                case 'onboarding':
-                    if(typeof onboarding!=='undefined'&&typeof onboarding.render==='function')onboarding.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>新手引导加载中...</p></div>';
-                    break;
-                case 'study-dashboard':
-                    if(typeof studyDashboard!=='undefined'&&typeof studyDashboard.render==='function')studyDashboard.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>学习仪表盘加载中...</p></div>';
-                    break;
-                case 'english-vocabulary':
-                    if(typeof englishVocabulary!=='undefined'&&typeof englishVocabulary.render==='function')englishVocabulary.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>英语词汇加载中...</p></div>';
-                    break;
-                case 'physics-wave-optics':
-                    if(typeof physicsWaveOptics!=='undefined'&&typeof physicsWaveOptics.render==='function')physicsWaveOptics.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>波动光学加载中...</p></div>';
-                    break;
-                case 'chemistry-3d-molecules':
-                    if(typeof chemistry3DMolecules!=='undefined'&&typeof chemistry3DMolecules.render==='function')chemistry3DMolecules.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>3D分子模型加载中...</p></div>';
-                    break;
-                case 'biology-cell-division':
-                    if(typeof biologyCellDivision!=='undefined'&&typeof biologyCellDivision.render==='function')biologyCellDivision.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>细胞分裂动画加载中...</p></div>';
-                    break;
-                case 'chinese-recitation':
-                    if(typeof chineseRecitation!=='undefined'&&typeof chineseRecitation.renderRecitation==='function')chineseRecitation.renderRecitation();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>默写自测加载中...</p></div>';
-                    break;
-                case 'chinese-vocabulary-quiz':
-                    if(typeof chineseVocabularyQuiz!=='undefined'&&typeof chineseVocabularyQuiz.renderVocabularyQuiz==='function')chineseVocabularyQuiz.renderVocabularyQuiz();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>实词闯关加载中...</p></div>';
-                    break;
-                case 'chinese-composition-materials':
-                    if(typeof chineseCompositionMaterials!=='undefined'&&typeof chineseCompositionMaterials.renderCompositionMaterials==='function')chineseCompositionMaterials.renderCompositionMaterials();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>作文素材加载中...</p></div>';
-                    break;
-                case 'chinese-sentence-correction':
-                    if(typeof chineseSentenceCorrection!=='undefined'&&typeof chineseSentenceCorrection.render==='function')chineseSentenceCorrection.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>病句修改加载中...</p></div>';
-                    break;
-                case 'math-grapher':
-                    if(typeof mathGrapher!=='undefined'&&typeof mathGrapher.renderGrapher==='function')mathGrapher.renderGrapher();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>函数图像加载中...</p></div>';
-                    break;
-                case 'math-derivative':
-                    if(typeof mathDerivative!=='undefined'&&typeof mathDerivative.renderDerivative==='function')mathDerivative.renderDerivative();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>导数计算加载中...</p></div>';
-                    break;
-                case 'math-geometry':
-                    if(typeof mathGeometry!=='undefined'&&typeof mathGeometry.renderGeometry==='function')mathGeometry.renderGeometry();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>几何画板加载中...</p></div>';
-                    break;
-                case 'math-sequence':
-                    if(typeof mathSequence!=='undefined'&&typeof mathSequence.renderSequence==='function')mathSequence.renderSequence();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>数列可视化加载中...</p></div>';
-                    break;
-                case 'math-probability':
-                    if(typeof mathProbability!=='undefined'&&typeof mathProbability.renderProbability==='function')mathProbability.renderProbability();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>概率模拟加载中...</p></div>';
-                    break;
-                case 'math-handbook':
-                    if(typeof mathHandbook!=='undefined'&&typeof mathHandbook.renderHandbook==='function')mathHandbook.renderHandbook();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>数学公式手册加载中...</p></div>';
-                    break;
-                case 'math-integral':
-                    if(typeof mathIntegral!=='undefined'&&typeof mathIntegral.renderIntegral==='function')mathIntegral.renderIntegral();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>积分计算加载中...</p></div>';
-                    break;
-                case 'english-grammar-quiz':
-                    if(typeof englishGrammarQuiz!=='undefined'&&typeof englishGrammarQuiz.render==='function')englishGrammarQuiz.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>语法闯关加载中...</p></div>';
-                    break;
-                case 'english-reading-trainer':
-                    if(typeof englishReadingTrainer!=='undefined'&&typeof englishReadingTrainer.render==='function')englishReadingTrainer.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>阅读训练加载中...</p></div>';
-                    break;
-                case 'english-composition-templates':
-                    if(typeof englishCompositionTemplates!=='undefined'&&typeof englishCompositionTemplates.render==='function')englishCompositionTemplates.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>作文模板加载中...</p></div>';
-                    break;
-                case 'pomodoro-timer':
-                    if(typeof pomodoroTimer!=='undefined'&&typeof pomodoroTimer.render==='function')pomodoroTimer.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>番茄钟加载中...</p></div>';
-                    break;
-                case 'study-plan-generator':
-                    if(typeof studyPlanGenerator!=='undefined'&&typeof studyPlanGenerator.render==='function')studyPlanGenerator.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>学习计划加载中...</p></div>';
-                    break;
-                case 'mastery-radar':
-                    if(typeof masteryRadar!=='undefined'&&typeof masteryRadar.render==='function')masteryRadar.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>雷达图加载中...</p></div>';
-                    break;
-                case 'error-variation':
-                    if(typeof errorVariation!=='undefined'&&typeof errorVariation.render==='function')errorVariation.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>错题变式加载中...</p></div>';
-                    break;
-                case 'note-system':
-                    if(typeof noteSystem!=='undefined'&&typeof noteSystem.render==='function')noteSystem.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>笔记系统加载中...</p></div>';
-                    break;
-                case 'data-exporter':
-                    if(typeof dataExporter!=='undefined'&&typeof dataExporter.render==='function')dataExporter.render();
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>数据导出加载中...</p></div>';
-                    break;
-                case 'chinese-knowledge':
-                    if(typeof showSection==='function'){showSection('chinese');setActiveNav('chinese');}
-                    else if(appEl)appEl.innerHTML='<div class="knowledge-section"><p>????...</p></div>';
-                    break;
-                case 'chem-lab-builder': if(window.chemistryLabBuilder&&window.chemistryLabBuilder.render)window.chemistryLabBuilder.render(); break;
-                case 'physics-graph-lab': if(window.physicsGraphLab&&window.physicsGraphLab.render)window.physicsGraphLab.render(); break;
-                case 'chem-equilibrium': if(window.chemEquilibriumSim&&window.chemEquilibriumSim.render)window.chemEquilibriumSim.render(); break;
-                case 'periodic-table': if(window.periodicTableInteractive&&window.periodicTableInteractive.render)window.periodicTableInteractive.render(); break;
-                case 'punnett-square': if(window.punnettSquareCalc&&window.punnettSquareCalc.render)window.punnettSquareCalc.render(); break;
-                case 'open-answer-trainer': if(window.openAnswerTrainer&&window.openAnswerTrainer.render)window.openAnswerTrainer.render(); break;
-                case 'framework-trainer': if(window.frameworkAnswerTrainer&&window.frameworkAnswerTrainer.render)window.frameworkAnswerTrainer.render(); break;
-                case 'exam-heatmap': if(window.examHeatmap&&window.examHeatmap.render)window.examHeatmap.render(); break;
-                case 'terminology': if(window.terminologyChecker&&window.terminologyChecker.render)window.terminologyChecker.render(); break;
-                case 'countdown-task': if(window.countdownTaskSystem&&window.countdownTaskSystem.render)window.countdownTaskSystem.render(); break;
-                case 'concept-match': if(window.conceptMatchGame&&window.conceptMatchGame.render)window.conceptMatchGame.render(); break;
-                case 'scratchpad': if(window.scratchpad&&window.scratchpad.render)window.scratchpad.render(); break;
-                case 'study-report': if(window.studyReport&&window.studyReport.render)window.studyReport.render(); break;
-                case 'experiment-table': if(window.experimentTable&&window.experimentTable.render)window.experimentTable.render(); break;
-                case 'thinking-chain': if(window.thinkingChain&&window.thinkingChain.render)window.thinkingChain.render(); break;
-                case 'variation-rec': if(window.variationRecommender&&window.variationRecommender.render)window.variationRecommender.render(); break;
-                case 'poem-appreciation': if(window.poemAppreciation&&window.poemAppreciation.render)window.poemAppreciation.render(); break;
-                case 'classical-translation': if(window.classicalTranslation&&window.classicalTranslation.render)window.classicalTranslation.render(); break;
-                case 'solid-geometry-3d': if(window.solidGeometry3D&&window.solidGeometry3D.render)window.solidGeometry3D.render(); break;
-                case 'trig-unit-circle': if(window.trigUnitCircle&&window.trigUnitCircle.render)window.trigUnitCircle.render(); break;
-                case 'english-listening': if(window.englishListening&&window.englishListening.render)window.englishListening.render(); break;
-                case 'english-cloze': if(window.englishCloze&&window.englishCloze.render)window.englishCloze.render(); break;
-                case 'celestial-motion': if(window.celestialMotionSim&&window.celestialMotionSim.render)window.celestialMotionSim.render(); break;
-                case 'crystal-structure-3d': if(window.crystalStructure3D&&window.crystalStructure3D.render)window.crystalStructure3D.render(); break;
-                case 'dna-central-dogma': if(window.dnaCentralDogma&&window.dnaCentralDogma.render)window.dnaCentralDogma.render(); break;
-                case 'achievement-system': if(window.achievementSystem&&window.achievementSystem.render)window.achievementSystem.render(); break;
-                case 'study-share-card': if(window.studyShareCard&&window.studyShareCard.render)window.studyShareCard.render(); break;
-                case 'score-calculator': if(window.scoreCalculator&&window.scoreCalculator.render)window.scoreCalculator.render(); break;
-                case 'error-analysis-report': if(window.errorAnalysisReport&&window.errorAnalysisReport.render)window.errorAnalysisReport.render(); break;
-                case 'time-management': if(window.timeManagementAnalyzer&&window.timeManagementAnalyzer.render)window.timeManagementAnalyzer.render(); break;
-                case 'score-line': if(window.scoreLineVisualization&&window.scoreLineVisualization.render)window.scoreLineVisualization.render(); break;
-                case 'experiment-exam-special': if(window.experimentExamSpecial&&window.experimentExamSpecial.render)window.experimentExamSpecial.render(); break;
-                case 'choice-tricks': if(window.choiceQuestionTricks&&window.choiceQuestionTricks.render)window.choiceQuestionTricks.render(); break;
-                case 'sentence-analyzer': if(window.englishSentenceAnalyzer&&window.englishSentenceAnalyzer.render)window.englishSentenceAnalyzer.render(); break;
-                case 'exam-timer-pro': if(window.examTimerPro&&window.examTimerPro.render)window.examTimerPro.render(); break;
-                case 'knowledge-card-exporter': if(window.knowledgeCardExporter&&window.knowledgeCardExporter.render)window.knowledgeCardExporter.render(); break;
-                case 'learning-path-recommender': if(window.learningPathRecommender&&window.learningPathRecommender.render)window.learningPathRecommender.render(); break;
-                default:
-                    if(appEl && !appEl.innerHTML.trim())
-                        appEl.innerHTML = '<div class="knowledge-section"><h3>' + tool + '</h3><div class="knowledge-card"><p>该功能正在开发完善中，敬请期待！</p></div></div>';
-                    break;
-            }
-        } catch(err) {
-            // 原来只打日志 + alert，用户看到的就是一片空白，找不到原因。
-            // 改成把错误显示到对应容器里，至少能看出是哪个工具、什么错。
-            console.error('navigateToolPage error:', err, 'tool:', tool);
-            var errSec = document.getElementById(tool + '-section');
-            var errBox = errSec ? (errSec.querySelector('[id$="-app"]') || errSec.querySelector('.tool-app-container')) : null;
-            if (errBox) {
-                errBox.innerHTML = '<div class="tool-error">'
-                    + '<strong>这个工具加载失败了</strong>'
-                    + '<div class="tool-error-detail">' + String(err && err.message ? err.message : err).replace(/</g, '&lt;') + '</div>'
-                    + '</div>';
-            }
-        }
-    }
-
-    function handlePlatformTab(module) {
-        syncModules();
-        var el = document.getElementById('platform-content');
-        if (!el) return;
-        if (!PS) { el.innerHTML = '<div class="knowledge-section"><p>平台模块加载中...</p></div>'; return; }
-        if (module === 'overview') { PS.renderPlatformPage(); }
-        else if (module === 'round1') { el.innerHTML = '<div class="knowledge-section"><h3>📗 一轮系统复习</h3><div class="knowledge-card"><h4>选择学科查看一轮复习详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理一轮</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学一轮</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物一轮</button></div></div></div>'; }
-        else if (module === 'round2') { el.innerHTML = '<div class="knowledge-section"><h3>📕 二轮专题冲刺</h3><div class="knowledge-card"><h4>选择学科查看二轮专题详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理二轮</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学二轮</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物二轮</button></div></div></div>'; }
-        else if (module === 'bank') { el.innerHTML = '<div class="knowledge-section"><h3>🏦 题库</h3><div class="knowledge-card"><h4>选择学科查看题库详情</h4><div data-style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;"><button class="btn btn-primary" data-subject="physics" data-style="flex:1;min-width:100px;">⚡ 物理题库</button><button class="btn btn-primary" data-subject="chemistry" data-style="flex:1;min-width:100px;">🧪 化学题库</button><button class="btn btn-primary" data-subject="biology" data-style="flex:1;min-width:100px;">🧬 生物题库</button></div></div></div>'; }
-        else if (module === 'experiment-center') {
-            var html = '<div class="knowledge-section"><h3>🔬 实验与探究资源中心（三层架构）</h3>';
-            if (PS && PS.experimentCenter && PS.experimentCenter.coreTiers) {
-                PS.experimentCenter.coreTiers.forEach(function(tier) {
-                    html += '<div class="knowledge-card" data-style="border-left:4px solid #10b981;"><h4>' + tier.name + ' <span data-style="font-size:0.75rem;color:#10b981;">（' + tier.positioning + '）</span></h4>';
-                    tier.features.forEach(function(f) { html += '<div class="key-point">✅ ' + f + '</div>'; });
-                    html += '</div>';
-                });
-            }
-            html += '</div>';
-            el.innerHTML = html;
-        }
-        else if (module === 'learning-path') {
-            el.innerHTML = '<div class="knowledge-section"><h3>🛤️ 学习路径推荐</h3>'+
-                '<div class="knowledge-card"><h4>推荐依据</h4>'+
-                '<div class="key-point"><strong>错题归类：</strong>读取错题本里的记录，按 knowledgePoints 归到具体考点（考点名经别名表映射到知识点体系）</div>'+
-                '<div class="key-point"><strong>薄弱排序：</strong>按每个考点的错误次数统计，错误多的排在前面</div>'+
-                '<div class="key-point"><strong>配套练习：</strong>每个考点给出题库里同考点的题目，可直接进入练习</div>'+
-                '<div class="key-point"><strong>答题模板：</strong>部分考点能从 answer-templates.json 匹配到对应的答题模板</div>'+
-                '<div class="key-point"><strong>知识点关系图：</strong>按章节画出考点间的前后关系，标出错题集中的位置</div>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>📅 两周冲刺计划</h4>'+
-                '<table data-style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:8px;">'+
-                '<tr data-style="background:var(--primary);color:#fff;"><th data-style="padding:8px;border:1px solid #ddd;">阶段</th><th data-style="padding:8px;border:1px solid #ddd;">天数</th><th data-style="padding:8px;border:1px solid #ddd;">物理</th><th data-style="padding:8px;border:1px solid #ddd;">化学</th><th data-style="padding:8px;border:1px solid #ddd;">生物</th></tr>'+
-                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e74c3c;">第1阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day1-3</td><td data-style="padding:6px;border:1px solid #ddd;">运动学与牛顿定律</td><td data-style="padding:6px;border:1px solid #ddd;">氧化还原与离子反应</td><td data-style="padding:6px;border:1px solid #ddd;">细胞组成与结构</td></tr>'+
-                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#e67e22;">第2阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day4-6</td><td data-style="padding:6px;border:1px solid #ddd;">曲线运动与万有引力</td><td data-style="padding:6px;border:1px solid #ddd;">元素化合物（Na/Fe/Cu）</td><td data-style="padding:6px;border:1px solid #ddd;">细胞代谢（光合与呼吸）</td></tr>'+
-                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#f1c40f;">第3阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day7-8</td><td data-style="padding:6px;border:1px solid #ddd;">动能定理与动量守恒</td><td data-style="padding:6px;border:1px solid #ddd;">反应速率与化学平衡</td><td data-style="padding:6px;border:1px solid #ddd;">遗传规律与伴性遗传</td></tr>'+
-                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#27ae60;">第4阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day9-10</td><td data-style="padding:6px;border:1px solid #ddd;">电场与电磁感应</td><td data-style="padding:6px;border:1px solid #ddd;">电化学与盐类水解</td><td data-style="padding:6px;border:1px solid #ddd;">调节与稳态</td></tr>'+
-                '<tr><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#3498db;">第5阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day11-12</td><td data-style="padding:6px;border:1px solid #ddd;">热学、光学与近代物理</td><td data-style="padding:6px;border:1px solid #ddd;">有机化学与实验操作</td><td data-style="padding:6px;border:1px solid #ddd;">变异、进化与生物技术</td></tr>'+
-                '<tr data-style="background:#fef2f2;"><td data-style="padding:6px;border:1px solid #ddd;font-weight:700;color:#c62828;">冲刺阶段</td><td data-style="padding:6px;border:1px solid #ddd;text-align:center;">Day13-14</td><td data-style="padding:6px;border:1px solid #ddd;" colspan="3">三科综合模拟 + 错题回顾 + 薄弱点强化</td></tr>'+
-                '</table>'+
-                '<div data-style="margin-top:10px;font-size:0.82rem;color:#666;">每日时间分配可按自己的薄弱项调整，优先给错误率最高的考点</div>'+
-                '</div>'+
-                '</div>';
-        }
-        else if (module === 'teaching-apps') {
-            el.innerHTML = '<div class="knowledge-section"><h3>🏫 课堂与自习场景</h3>'+
-                '<div class="knowledge-card"><h4>📱 四种用法</h4>'+
-                '<div class="key-point"><strong>按错题排复习清单：</strong>学生标记错题后按考点归类，列出要先补的考点</div>'+
-                '<div class="key-point"><strong>按考点集中练：</strong>从题库按知识点、难度、年份筛选，生成一组同类题</div>'+
-                '<div class="key-point"><strong>实验方法对照：</strong>实验中心按教材实验、创新案例、科研摘要三层整理</div>'+
-                '<div class="key-point"><strong>答题规范对照：</strong>主观题答案与解析给出参考答案，可与自己的作答逐点比对</div>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>👨‍🏫 教师用</h4>'+
-                '<div class="key-point">📝 <strong>组卷：</strong>按学科、章节、知识点、难度、年份筛选题目，导出为一组练习</div>'+
-                '<div class="key-point">📊 <strong>知识梳理：</strong>六科 168 个考点的知识要点与常见错误，可直接当讲义</div>'+
-                '<div class="key-point">📈 <strong>学情记录：</strong>学生的错题与正确率存在本地，可导出备份后汇总</div>'+
-                '</div></div>';
-        }
-        else if (module === 'competition') {
-            el.innerHTML = '<div class="knowledge-section"><h3>🏆 项目说明</h3>'+
-                '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(239,68,68,0.06));border:2px solid rgba(245,158,11,0.3);">'+
-                '<h4>📐 一套纯静态、能离线、能核对的学习工具</h4>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>📋 数据层</h4>'+
-                '<div class="key-point">题库：六科 1301 道，2018-2026 年，每题带解析与考点标注</div>'+
-                '<div class="key-point">知识点：六科 41 章 168 个考点，含核心要点、常见错误、公式与应试提示</div>'+
-                '<div class="key-point">学习记录：错题、正确率、打卡与考试记录存在浏览器 localStorage</div>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>🔧 功能层</h4>'+
-                '<div class="key-point">真题练习：按学科、章节、难度、年份筛选，作答后出解析</div>'+
-                '<div class="key-point">错题本：标记错题后按知识点归类，生成复习清单</div>'+
-                '<div class="key-point">模拟考试：按学科组卷，计时作答后出分并记录</div>'+
-                '<div class="key-point">工具：122 个在线小工具，含化学配平、3D 分子、细胞分裂模拟、波动光学</div>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>📊 工程实现</h4>'+
-                '<div class="key-point">零依赖：HTML + CSS + 原生 JS，无构建步骤，npm install 不装任何东西</div>'+
-                '<div class="key-point">离线可用：Service Worker 缓存资源，可安装为 PWA</div>'+
-                '<div class="key-point">质量门禁：数据质检、声明碰撞扫描、静态与内容规则、运行时检查、单测与冒烟，CI 每次 push 自动跑</div>'+
-                '</div>'+
-                '<div class="knowledge-card"><h4>✅ 数据说明</h4>'+
-                '<div class="key-point">题目与知识点整理自公开教材与考纲，仅供学习参考，真题版权归原作者与出版方</div>'+
-                '<div class="key-point">本地存储数据可随时导出备份，也可一键清除</div>'+
-                '</div>'+
-                '<div class="knowledge-card" data-style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(79,110,246,0.06));">'+
-                '<h4>🏅 特点</h4>'+
-                '<div class="key-point"><strong>可离线：</strong>装上之后断网也能用</div>'+
-                '<div class="key-point"><strong>可核对：</strong>题量、答案分布这些数字都能在仓库里查到</div>'+
-                '<div class="key-point"><strong>无账号：</strong>不收集任何数据，学习记录只存在本机浏览器里</div>'+
-                '</div></div>';
-        }
-        else { el.innerHTML = '<div class="knowledge-section"><p>该模块内容加载中...</p></div>'; }
-    }
 
     function renderPhysicsExperiments(subject, contentEl) {
         var sc = window.subjectContent;
@@ -2062,51 +1485,6 @@
         if (card) card.classList.add('exp-open');
     }
 
-    function handleModuleTabClick(subject, module, contentEl) {
-        syncModules();
-        if (module === 'concepts' || module === 'examples' || module === 'experiments' || module === 'tests') {
-            if (typeof loadModuleContent === 'function') {
-                loadModuleContent(subject, module === 'concepts' ? 'knowledge' : module);
-                return;
-            }
-        }
-        if (module === 'round1' && PS && PS.getRound1Content) {
-            contentEl.innerHTML = PS.getRound1Content(subject); return;
-        }
-        if (module === 'round2' && PS && PS.getRound2Content) {
-            contentEl.innerHTML = PS.getRound2Content(subject); return;
-        }
-        if (module === 'bank' && PS && PS.getQuestionBankContent) {
-            contentEl.innerHTML = PS.getQuestionBankContent(subject); return;
-        }
-        if (module === 'experiment-center' && PS && PS.getExperimentCenterContent) {
-            contentEl.innerHTML = PS.getExperimentCenterContent(subject); return;
-        }
-        if (module === 'methodology') {
-            try { if (typeof getMethodologyContent === 'function') { contentEl.innerHTML = getMethodologyContent(subject); return; } } catch(e) {}
-            contentEl.innerHTML = '<div class="knowledge-section"><h3>📝 解题方法论</h3><div class="knowledge-card"><h4>通用解题框架</h4><div class="key-point">①<strong>审题：</strong>读题干→圈关键词→明确待求量</div><div class="key-point">②<strong>建模：</strong>匹配学科模型→确定适用公式/原理</div><div class="key-point">③<strong>列式：</strong>按步骤列出方程/推理路径</div><div class="key-point">④<strong>求解：</strong>代入数据→统一单位→计算→检查量纲</div><div class="key-point">⑤<strong>规范：</strong>带单位答卷→合理使用有效数字→逻辑链完整</div></div></div>'; return;
-        }
-        if (module === 'errors') {
-            contentEl.innerHTML = '<div class="knowledge-section"><h3>⚠️ 易错汇编</h3><div class="knowledge-card"><h4>三科高频易错点速查</h4><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>物理：</strong>混淆平均功率与瞬时功率 | 误用机械能守恒条件（忽略摩擦力做功）| 左手定则与右手定则混用 | 带电粒子在磁场中时间计算直接用t=s/v（应用t=θ/2π·T）</div><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>化学：</strong>混淆"氧化性强弱"与"得电子数目" | 电解池中离子放电顺序错误 | 同分异构体漏计顺反异构 | 未考虑盐类水解对溶液中离子浓度的影响</div><div class="key-point" data-style="background:#fee2e2;border-left:3px solid #ef4444;"><strong>生物：</strong>有氧呼吸全过程中并非每一步都需O₂ | 植物细胞≠都有叶绿体（根尖细胞无叶绿体）| ATP不只在线粒体产生（光合作用光反应也产生）| 基因频率计算中显性纯合与杂合混淆</div></div></div>'; return;
-        }
-        if (module === 'graph') {
-            try { if (typeof getKnowledgeGraphContent === 'function') { contentEl.innerHTML = getKnowledgeGraphContent(subject); return; } } catch(e) {}
-            contentEl.innerHTML = '<div class="knowledge-section"><p>知识图谱正在加载中...</p></div>'; return;
-        }
-        if (module === 'hotspot') {
-            try { if (typeof getHotspotContent === 'function') { contentEl.innerHTML = getHotspotContent(subject); return; } } catch(e) {}
-            contentEl.innerHTML = '<div class="knowledge-section"><p>热点聚焦正在加载中...</p></div>'; return;
-        }
-        if (module === 'tools') {
-            var tHtml = '<div class="knowledge-section"><h3>🛠️ 特色工具</h3><div class="knowledge-card"><h4>快速入口</h4><div class="quick-tools-grid">';
-            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:physics-section" data-arg2="@s:physics" data-arg3="@s:physics-formula">⚡物理公式计算器</button>';
-            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:chemistry-section" data-arg2="@s:chemistry" data-arg3="@s:chemistry-balancer">⚗️化学方程配平</button>';
-            tHtml += '<button class="quick-tool-btn" data-call="quickTool" data-arg1="@s:biology-section" data-arg2="@s:biology" data-arg3="@s:biology-genetics">🧬遗传模拟器</button>';
-            tHtml += '</div></div></div>';
-            contentEl.innerHTML = tHtml; return;
-        }
-        contentEl.innerHTML = '<div class="knowledge-section"><p>该模块内容正在丰富中...</p></div>';
-    }
 
     // 原先此处有一段 `if (typeof loadModuleContent !== 'undefined')` 的猴补丁死块——
     // 解析期 loadModuleContent 尚未定义（它在 defer 的 app.js 里），条件恒为 false，
@@ -2115,84 +1493,6 @@
     window.renderPhysicsExperiments = renderPhysicsExperiments;
     window.renderChemistryExperiments = renderChemistryExperiments;
     window.renderBiologyExperiments = renderBiologyExperiments;
-    window.handleModuleTabClick = handleModuleTabClick;
-
-    document.addEventListener('click', function(e) {
-        var target = e.target;
-
-        var toolEl = getClosestWithAttr(target, 'data-tool');
-        if (toolEl) {
-            e.preventDefault();
-            e.stopPropagation();
-            var tool = toolEl.getAttribute('data-tool');
-            if (!tool) return;
-            try { navigateToolPage(tool); } catch(err) {
-                console.error('Tool navigation error:', err, 'tool:', tool);
-                alert('工具 "' + tool + '" 加载失败，请刷新页面重试');
-            }
-            return;
-        }
-
-        var moduleTabEl = getClosestWithAttr(target, 'data-module');
-        if (moduleTabEl) {
-            e.preventDefault();
-            e.stopPropagation();
-            var module = moduleTabEl.getAttribute('data-module');
-            var parentSection = moduleTabEl.closest('.section');
-            if (!parentSection) return;
-            var sectionId = parentSection.id;
-            var subject = sectionId.replace('-section', '');
-            // 原白名单只有 physics/chemistry/biology/platform，把 数学/语文/英语 排除在外，
-            // 导致这 3 科的「考情分析 / 一轮复习 / 二轮专题 / 互动练习」4 个 tab 全是死按钮。
-            // 这些 tab 由 exam-review-system.js 在 DOMContentLoaded 中**追加**（晚于 app.js 的扫描），
-            // 所以必须靠这里的 document 级事件委托兜住，不能只依赖 app.js 的一次性绑定。
-            if (!['physics', 'chemistry', 'biology', 'platform', 'math', 'chinese', 'english'].includes(subject)) return;
-
-            parentSection.querySelectorAll('.module-tab').forEach(function(t) { t.classList.remove('active'); });
-            moduleTabEl.classList.add('active');
-
-            if (subject === 'platform') { try { handlePlatformTab(module); } catch(e) {} return; }
-            try { loadModuleContent(subject, module); } catch(e) { var mcEl = parentSection.querySelector('.module-content'); if (mcEl) mcEl.innerHTML = '<div class="knowledge-section"><p>模块内容正在加载中...</p></div>'; }
-            return;
-        }
-
-        var subjectEl = getClosestWithAttr(target, 'data-subject');
-        if (subjectEl) {
-            e.preventDefault();
-            e.stopPropagation();
-            var subject = subjectEl.getAttribute('data-subject');
-            if (!subject) return;
-            showSection(subject + '-section');
-            setActiveNav(subject);
-            if (subject === 'exam' && typeof examPracticeSystem !== 'undefined') {
-                examPracticeSystem.renderExamDashboard(document.getElementById('exam-content'));
-            }
-            if (subject === 'platform') {
-                handlePlatformTab('overview');
-            }
-            return;
-        }
-
-        var backEl = getClosestWithAttr(target, 'data-back');
-        if (backEl) {
-            e.preventDefault();
-            e.stopPropagation();
-            var backSection = backEl.getAttribute('data-back');
-            showSection(backSection + '-section');
-            setActiveNav(backSection);
-            window.scrollTo({top:0,behavior:'smooth'});
-            return;
-        }
-    });
-
-    var firstPhysicsTab = document.querySelector('#physics-section .module-tab');
-    if (firstPhysicsTab) {
-        firstPhysicsTab.classList.add('active');
-        try { if (typeof loadModuleContent === 'function') loadModuleContent('physics', 'concepts'); } catch(e) {}
-    }
-
-    // 不再用解析期捕获值覆写全局（那是定时炸弹：任一 defer 脚本被移除即把真实模块置 undefined）
-    window.navigateToolPage = navigateToolPage;
 
     // 二级结论数据与渲染
     var secondaryConclusions = {
@@ -2472,126 +1772,22 @@
 
 
     // Chinese (语文) section support
-    function chineseSearch() {
-        var input = document.getElementById("chineseSearchInput").value.toLowerCase();
-        if (input.length < 2) return;
-        var container = document.querySelector('.chinese-knowledge');
-        if (!container) return;
-        var sections = container.querySelectorAll('.section');
-        for (var i = 0; i < sections.length; i++) {
-            var text = sections[i].innerText.toLowerCase();
-            if (text.indexOf(input) > -1) {
-                sections[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                sections[i].style.boxShadow = "0 0 15px rgba(14, 165, 233, 0.4)";
-                setTimeout(function(s) { return function() { s.style.boxShadow = ""; }; }(sections[i]), 2000);
-                break;
-            }
-        }
-    }
 
-    // Bind sidebar navigation within Chinese section
-    function initChineseSidebar() {
-        var container = document.querySelector('.chinese-knowledge');
-        if (!container) return;
-        var navTitles = container.querySelectorAll('.nav-item-title');
-        navTitles.forEach(function(title) {
-            title.addEventListener('click', function() {
-                var children = this.nextElementSibling;
-                if (children && children.classList.contains('nav-children')) {
-                    children.classList.toggle('show');
-                    this.classList.toggle('active');
-                }
-            });
-        });
-        // Bind sidebar links to scroll to sections
-        var navLinks = container.querySelectorAll('.nav-children a');
-        navLinks.forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                var targetId = this.getAttribute('href').substring(1);
-                var targetEl = container.querySelector('#' + targetId);
-                if (targetEl) {
-                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                navLinks.forEach(function(l) { l.style.fontWeight = ''; });
-                this.style.fontWeight = '700';
-            });
-        });
-    }
-
-
-    // Route chinese-knowledge tool to chinese section
-    document.querySelectorAll('[data-tool="chinese-knowledge"]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            showSection('chinese-section');
-            setActiveNav('chinese');
-        });
-    });
-
-    // Init Chinese sidebar when section is shown
-    var origShowSection = showSection;
-    showSection = function(id) {
-        origShowSection(id);
-        if (id === "chinese-section") {
-            initChineseSidebar();
-        }
-    };
-
-    // v1.3: 暴露到全局 —— 修复内联事件属性无法引用 IIFE 内部函数的问题
-    window.showSection = showSection;
-    window.materializeSection = materializeSection;
-    window.setActiveNav = setActiveNav;
-    // handlePlatformTab 未导出 → global-search 搜到"平台架构总览/备考数据中心"时无法路由
-    window.handlePlatformTab = handlePlatformTab;
-    // chineseSearch 原定义于本 IIFE 内部，未挂window → 原 onkeyup 必然 ReferenceError
-    window.chineseSearch = chineseSearch;
-
-    // c / T12：内联事件属性改事件委托
-    // CSP 的 script-src 一旦去掉 'unsafe-inline'，HTML 内联事件属性（onclick/onkeyup）
-    // 会被浏览器直接拦截。原静态 HTML 中真实存在 2 处：主题切换按钮 + 语文搜索框，
-    // 现改为 data-action 约定 + 文档级委托（与 english-tools 等既有 data-action 机制一致）。
-    // 注意：委托必须挂在此处（而非 app.js 的 DOMContentLoaded），因为触发元素
-    // 位于本 IIFE 所在 script 之前，若等 DOMContentLoaded 则首屏交互无响应。
-    // 主题切换按钮的委托在下方「统一主题切换」IIFE 内注册（apply/current 只在该作用域可见）。
-    document.addEventListener('keyup', function (e) {
-        var t = e.target && e.target.closest ? e.target.closest('[data-action="chinese-search"]') : null;
-        if (!t) return;
-        chineseSearch();
-    });
-
-    // d：字符串模板内的内联 onclick 改委托
-    // CSP script-src 去掉 'unsafe-inline' 后，innerHTML/字符串拼出的 on* 属性同样被
-    // 浏览器拦截。原 3 个计算器按钮 / 17 个实验卡片标题 / 3 个快捷工具按钮分别改为：
-    // 具名函数 + data-call、data-hook + HSPCBEV 委托、quickTool 包装函数。
-    // 委托中枢 js/csp-delegation.js 以非 defer 方式先于本脚本加载，window.HSPCBEV 必就绪。
-
- /* 斜面力学计算器（原 index.html:2688 内联 onclick IIFE，逻辑原样搬移） */
-    function calcMechIncline() {
-        var m=parseFloat(document.getElementById('mech-mass').value)||0;var ang=parseFloat(document.getElementById('mech-angle').value)||0;var mu=parseFloat(document.getElementById('mech-mu').value)||0;var F=parseFloat(document.getElementById('mech-force').value)||0;var rad=ang*Math.PI/180;var G=m*9.8;var Fgs=G*Math.sin(rad);var Fgn=G*Math.cos(rad);var f=mu*Fgn;var a=(F-Fgs-f)/m;var res=document.getElementById('mech-result');if(res){var cls=a>0.01?'#10b981':(a<-0.01?'#ef4444':'#f59e0b');var desc=a>0.01?'\u2191\u52a0\u901f\u5ea6\u5411\u4e0a':(a<-0.01?'\u2193\u52a0\u901f\u5ea6\u5411\u4e0b':'=0\uff08\u5300\u901f\u6216\u9759\u6b62\uff09');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u6cbf\u659c\u9762\uff09\uff1a</strong>mg\u00b7sin\u03b8 = '+Fgs.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u91cd\u529b\u5206\u91cf\uff08\u5782\u76f4\u659c\u9762\uff09\uff1a</strong>mg\u00b7cos\u03b8 = '+Fgn.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u6469\u64e6\u529b\uff1a</strong>f = \u03bc\u00b7N = '+f.toFixed(2)+' N</div><div class=\'key-point\'><strong>\u5408\u529b\uff08\u6cbf\u659c\u9762\u5411\u4e0a\u4e3a\u6b63\uff09\uff1a</strong>'+(F-Fgs-f).toFixed(2)+' N</div><div class=\'key-point\'>\u00b7 \u52a0\u901f\u5ea6 a = <b data-style=\'color:'+cls+'\'>'+a.toFixed(2)+' m/s\u00b2</b> '+desc+'</div></div>';}
-    }
- /* 串/并联电路计算器（原 index.html:2710 内联 onclick IIFE，逻辑原样搬移） */
-    function calcElecCircuit() {
-        var U=parseFloat(document.getElementById('elec-volt').value)||0;var R1=parseFloat(document.getElementById('elec-r1').value)||0;var R2=parseFloat(document.getElementById('elec-r2').value)||0;var conn=document.getElementById('elec-conn').value;var res=document.getElementById('elec-result');if(!res)return;var Req,I1,I2,U1,U2,P;if(conn==='series'){Req=R1+R2;I1=I2=U/Req;U1=I1*R1;U2=I2*R2;P=U*I1;res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u4e32\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081 + R\u2082 = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u7535\u6d41\uff1a</strong>I = I\u2081 = I\u2082 = U/R<sub>\u603b</sub> = '+I1.toFixed(3)+' A</div><div class=\'key-point\'><strong>\u5206\u538b\uff1a</strong>U\u2081 = '+U1.toFixed(2)+' V, U\u2082 = '+U2.toFixed(2)+' V (\u5206\u538b\u6bd4 R\u2081:R\u2082 = '+(R1/Req*100).toFixed(1)+'%:'+(R2/Req*100).toFixed(1)+'%)</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = UI = '+P.toFixed(2)+' W</div></div>';}else{Req=(R1*R2)/(R1+R2);I1=U/R1;I2=U/R2;U1=U2=U;P=U*(I1+I2);res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u5e76\u8054\u7535\u8def\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u603b\u7535\u963b\uff1a</strong>R<sub>\u603b</sub> = R\u2081R\u2082/(R\u2081+R\u2082) = '+Req.toFixed(1)+' \u03a9</div><div class=\'key-point\'><strong>\u5206\u6d41\uff1a</strong>I\u2081 = U/R\u2081 = '+I1.toFixed(3)+' A, I\u2082 = U/R\u2082 = '+I2.toFixed(3)+' A (I\u2081:I\u2082 = R\u2082:R\u2081 = '+I1.toFixed(3)+':'+I2.toFixed(3)+')</div><div class=\'key-point\'><strong>\u603b\u7535\u6d41\uff1a</strong>I<sub>\u603b</sub> = I\u2081 + I\u2082 = '+(I1+I2).toFixed(3)+' A</div><div class=\'key-point\'><strong>\u603b\u529f\u7387\uff1a</strong>P = '+P.toFixed(2)+' W</div></div>';}
-    }
- /* 透镜成像计算器（原 index.html:2734 内联 onclick IIFE，逻辑原样搬移） */
-    function calcOpticsMirror() {
-        var f=parseFloat(document.getElementById('opt-f').value)||0;var u=parseFloat(document.getElementById('opt-u').value)||0;var res=document.getElementById('opt-result');if(!res||f<=0||u<=0)return;var v=1/(1/f-1/u);var m=-v/u;var vAbs=Math.abs(v);var mAbs=Math.abs(m);var imgType=v>0?'\u5b9e\u50cf':'\u865a\u50cf';var orientation=m>0?'\u6b63\u7acb':'\u5012\u7acb';var size=mAbs>1?'\u653e\u5927':(mAbs<1?'\u7f29\u5c0f':'\u7b49\u5927');res.innerHTML='<div class=\'result-card\'><h4>\ud83d\udcca \u900f\u955c\u6210\u50cf\u8ba1\u7b97\u7ed3\u679c</h4><div class=\'key-point\'><strong>\u50cf\u8ddd v =</strong> '+v.toFixed(2)+' cm \uff08'+imgType+' \uff09</div><div class=\'key-point\'><strong>\u653e\u5927\u7387 m =</strong> '+Math.abs(m).toFixed(2)+' \u00d7 \uff08'+orientation+' \uff09</div><div class=\'key-point\'><strong>\u6210\u50cf\u6027\u8d28\uff1a</strong>'+size+' \u00b7 '+orientation+' \u00b7 '+imgType+'</div></div>';
-    }
-    window.calcMechIncline = calcMechIncline;
-    window.calcElecCircuit = calcElecCircuit;
-    window.calcOpticsMirror = calcOpticsMirror;
-
- /* 首页快捷工具跳转（原 3 处内联 onclick 的三语句包装） */
-    window.quickTool = function (section, nav, tool) {
-        showSection(section);
-        setActiveNav(nav);
-        setTimeout(function () { try { navigateToolPage(tool); } catch (e) {} }, 200);
-    };
-
- /* 实验卡片折叠（原 17 处内联 onclick 的 classList.toggle） */
-    if (window.HSPCBEV) {
-        HSPCBEV.on('click', '[data-hook="exp-card-toggle"]', function (el) {
-            el.parentElement.classList.toggle('exp-open');
-        });
-    }
+    // 渲染器注册表：navigateToolPage 的 switch 按名分发（main-nav 经 M.views 调用）
+    M.views.renderPhysicsInstruments = renderPhysicsInstruments;
+    M.views.renderChemistryEquipment = renderChemistryEquipment;
+    M.views.renderBiologyExamSkills = renderBiologyExamSkills;
+    M.views.renderBiologyKnowledgeGraph = renderBiologyKnowledgeGraph;
+    M.views.renderPCRSimulation = renderPCRSimulation;
+    M.views.renderElectrophoresisSimulation = renderElectrophoresisSimulation;
+    M.views.populatePhysicsMechanics = populatePhysicsMechanics;
+    M.views.populatePhysicsElectricity = populatePhysicsElectricity;
+    M.views.populatePhysicsOptics = populatePhysicsOptics;
+    M.views.populateBiologyCell = populateBiologyCell;
+    M.views.populateBiologyProtein = populateBiologyProtein;
+    M.views.populateBiologyMetabolism = populateBiologyMetabolism;
+    M.views.populateBiologyEvolution = populateBiologyEvolution;
+    M.views.populateBiologyBiotech = populateBiologyBiotech;
+    M.views.renderSecondaryConclusions = renderSecondaryConclusions;
+    M.views.renderValenceAtlas = renderValenceAtlas;
 })();

@@ -56,6 +56,7 @@ window.errorNotebook = (function() {
             timestamp: entry.timestamp || nowISO(),
             mastered: false,
             correctCount: 0,
+            sm2: (window.HSPCBSpacedRepetition ? HSPCBSpacedRepetition.initCard() : null),
             source: entry.source || 'unknown'
         };
         data.errors.push(err);
@@ -94,6 +95,35 @@ window.errorNotebook = (function() {
             }
         }
         return false;
+    }
+
+ /* SM-2 间隔重复（v1.8）：复习一次错题。remembered=true 记住了 / false 忘了。
+    记住累计 3 次自动标记已掌握；忘了则重排 10 分钟后重试并下调难度系数。 */
+    function reviewCard(id, remembered) {
+        var data = loadData();
+        for (var i = 0; i < data.errors.length; i++) {
+            if (data.errors[i].id === id) {
+                var e = data.errors[i];
+                var SR = window.HSPCBSpacedRepetition;
+                e.sm2 = SR ? SR.schedule(e.sm2, remembered, Date.now()) : (e.sm2 || null);
+                if (remembered) {
+                    e.correctCount = (e.correctCount || 0) + 1;
+                    if (e.correctCount >= 3) e.mastered = true;
+                }
+                saveData(data);
+                return true;
+            }
+        }
+        return false;
+    }
+
+ /* 到期待复习条目（默认当前时刻；已掌握的不再排期） */
+    function dueErrors(now) {
+        var data = loadData();
+        var SR = window.HSPCBSpacedRepetition;
+        return data.errors.filter(function (e) {
+            return !e.mastered && (!SR || SR.isDue(e.sm2, now));
+        });
     }
 
     function incrementCorrectCount(id) {
@@ -887,6 +917,14 @@ window.errorNotebook = (function() {
         dateSpan.textContent = err.timestamp.slice(0, 10);
         meta.appendChild(dateSpan);
 
+ /* SM-2 复习排期徽标（v1.8） */
+        if (!err.mastered && window.HSPCBSpacedRepetition) {
+            var dueBadge = document.createElement('span');
+            dueBadge.className = 'enb-badge ' + (HSPCBSpacedRepetition.isDue(err.sm2) ? 'enb-badge-pending' : 'enb-badge-mastered');
+            dueBadge.textContent = HSPCBSpacedRepetition.dueLabel(err.sm2);
+            meta.appendChild(dueBadge);
+        }
+
         card.appendChild(meta);
 
  /* Question */
@@ -959,6 +997,33 @@ window.errorNotebook = (function() {
                 };
             })(err.id);
             actionsDiv.appendChild(masBtn);
+        }
+
+ /* SM-2 复习自评按钮（v1.8） */
+        if (window.HSPCBSpacedRepetition) {
+            var okBtn = document.createElement('button');
+            okBtn.className = 'enb-btn enb-btn-sm enb-btn-success';
+            okBtn.textContent = '✓ 记住了';
+            okBtn.onclick = (function(id) {
+                return function() {
+                    reviewCard(id, true);
+                    refreshErrorList();
+                    refreshStats();
+                };
+            })(err.id);
+            actionsDiv.appendChild(okBtn);
+
+            var ngBtn = document.createElement('button');
+            ngBtn.className = 'enb-btn enb-btn-sm';
+            ngBtn.textContent = '✗ 忘了';
+            ngBtn.onclick = (function(id) {
+                return function() {
+                    reviewCard(id, false);
+                    refreshErrorList();
+                    refreshStats();
+                };
+            })(err.id);
+            actionsDiv.appendChild(ngBtn);
         }
 
         card.appendChild(actionsDiv);
@@ -1459,6 +1524,8 @@ window.errorNotebook = (function() {
         clearAll: clearAll,
         clearBySubject: clearBySubject,
         markMastered: markMastered,
+        reviewCard: reviewCard,
+        dueErrors: dueErrors,
         getStats: getStats,
         getDailyAccuracy: getDailyAccuracy,
         getFilteredErrors: getFilteredErrors,

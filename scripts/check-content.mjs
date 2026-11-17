@@ -451,7 +451,7 @@ console.log('=== C12. 营销腔/自造概念残留（文案层） ===');
   ];
   const SURFACES = [
     'index.html', 'presentation.html', 'promo.html', 'manifest.json',
-    'js/platform-system.js', 'js/content-enhancement.js', 'js/gamification-system.js',
+    'js/platform-system.js', 'js/content.js', 'js/gamification-system.js',
     'js/global-search.js', 'js/onboarding.js',
   ];
   const hits = [];

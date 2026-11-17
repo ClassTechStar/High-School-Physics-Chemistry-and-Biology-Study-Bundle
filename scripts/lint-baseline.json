@@ -70,9 +70,9 @@
     ],
     "L2-escapeHtml-duplicates": [
       {
-        "file": "content-deep-v3.js",
+        "file": "content.js",
         "issue": "T1-5",
-        "note": "同文件 3 份顶层声明，后两处覆盖前一处；前两份已是死代码"
+        "note": "原 content-deep-v3.js 同文件 3 份顶层声明（v1.8 三代归一后并入 content.js 第三代段），后两处覆盖前一处；前两份已是死代码"
       },
       {
         "file": "global-search.js",

@@ -37,7 +37,7 @@ window.HSPCBDashboard = (function () {
             layout = s && s.dashboard && Array.isArray(s.dashboard.layout) ? s.dashboard.layout : null;
         } catch (e) { layout = null; }
         if (!layout || !layout.length) {
-            layout = ['clock', 'today', 'wrong', 'checkin'].filter(function (id) { return defs[id]; })
+            layout = ['clock', 'today', 'wrong', 'checkin', 'review'].filter(function (id) { return defs[id]; })
                 .map(function (id, i) { return { id: 'w' + (i + 1), widget: id, settings: {} }; });
         }
         return layout.filter(function (inst) { return inst && inst.id && defs[inst.widget]; });
@@ -258,6 +258,30 @@ window.HSPCBDashboard = (function () {
             var big = el('div', 'hspcb-stat-big', streak + ' 天');
             body.appendChild(big);
             body.appendChild(el('div', 'hspcb-muted', streak > 0 ? '保持下去' : '今天打个卡吧（提分工具）'));
+        }
+    });
+
+    // v1.8：SM-2 间隔重复排期 —— 今天该复习几道错题
+    register({
+        id: 'review', name: '今日应复习',
+        render: function (body) {
+            var due = [];
+            try {
+                due = (window.errorNotebook && typeof errorNotebook.dueErrors === 'function')
+                    ? errorNotebook.dueErrors() : [];
+            } catch (e) { due = []; }
+            var big = el('div', 'hspcb-stat-big', String(due.length));
+            big.style !== undefined && (big.style.color = due.length > 0 ? 'var(--exam, #ef4444)' : 'var(--success, #10b981)');
+            body.appendChild(big);
+            body.appendChild(el('div', 'hspcb-muted', due.length > 0 ? '按 SM-2 排期该复习了' : '今天没有到期待复习的错题'));
+            if (due.length > 0 && typeof navigateToolPage === 'function') {
+                var btn = el('button', 'hspcb-widget-btn', '去复习');
+                btn.type = 'button';
+                btn.addEventListener('click', function () {
+                    try { navigateToolPage('error-notebook'); } catch (e) { /* ignore */ }
+                });
+                body.appendChild(btn);
+            }
         }
     });
 

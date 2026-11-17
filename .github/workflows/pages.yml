@@ -22,9 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # v1.8 P2：发布期压缩（esbuild 只压 gh-pages 产物，仓库保持源码形态）
+      - run: npm ci
+      - run: node scripts/build-pages.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: 1.2
+          path: dist-pages
       - id: deployment
         uses: actions/deploy-pages@v4

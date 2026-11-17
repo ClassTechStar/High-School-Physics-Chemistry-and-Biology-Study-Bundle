@@ -100,17 +100,20 @@ window.HSPCBDemo = (function () {
 
     var injecting = false; // 防双触发竞态（?demo=1 自动注入与手点按钮并发）
 
-    function inject() {
+    function inject(_bankRetried) {
         try {
             if (injecting) return false;
             if (hasDemoData()) {
                 notify({ id: 'demo.dup', level: 'warn', duration: 4000, title: '演示数据已存在', message: '如需重来，请先点「清除演示数据」。' });
                 return false;
             }
-            // 题库未就绪（惰性加载）：等预热完成后再注入
+            // 题库未就绪：v1.8 按科懒加载下 examData 可能只有清单没有题目，
+            // 必须等全库就绪再注入（只补载一次防死循环）
             var eps = window.examPracticeSystem;
-            if (eps && typeof eps.ensureLoaded === 'function' && !eps.examData) {
-                eps.ensureLoaded().then(function () { inject(); });
+            var bankReady = !eps || typeof eps.ensureLoaded !== 'function'
+                || (eps._hasAllQuestions ? eps._hasAllQuestions() : !!eps.examData);
+            if (!bankReady && !_bankRetried) {
+                eps.ensureLoaded().then(function () { inject(true); });
                 return true;
             }
             injecting = true;

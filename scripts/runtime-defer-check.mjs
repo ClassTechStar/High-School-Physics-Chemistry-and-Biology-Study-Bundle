@@ -778,9 +778,10 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         : `T0-18 路由未指向函数: ${unmappedRoute.join(', ')}`);
 
     // 路由目标必须真的存在于 window
-    // e：原内联主逻辑外置为 js/main-inline.js（仍为非 defer 解析期执行），
-    // 导出语句随之外移，静态断言改读该文件
-    const mainSrc = readFileSync(join(APP, 'js', 'main-inline.js'), 'utf8');
+    // e：原内联主逻辑外置为外部 js（仍为非 defer 解析期执行）；
+    // v1.8 P3 起按初始化/路由导航/内容渲染/工具拆为 main-* 四件套，
+    // 导出语句居 main-nav.js，静态断言改读该文件
+    const mainSrc = readFileSync(join(APP, 'js', 'main-nav.js'), 'utf8');
     ok(/window\.handlePlatformTab\s*=\s*handlePlatformTab/.test(mainSrc),
       'T0-18 handlePlatformTab 已导出到 window（搜索路由目标可解析）');
     ok(typeof sandbox.handlePlatformTab === 'function',
@@ -796,7 +797,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 
   // --- 计时器摧毁 UI ---
   {
-    const src = R('content-deep-v3.js');
+    const src = R('content.js');
     ok(/id="ct-timer"/.test(src), 'T0-13 计时器节点带 id="ct-timer"（可精确定位）');
     // 禁止用 innerHTML 覆写祖先节点来刷新计时文字
     const badOverwrite = /querySelectorAll\('#choice-tricks-app div'\)[\s\S]{0,400}?\.innerHTML\s*=\s*'已用时/.test(src);
@@ -836,11 +837,11 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   // --- 静默失败 ---
   {
     // 数据路径必须相对 index.html，不能用 ../data/
-    const ce2 = R('content-enhanced-v2.js');
+    const ce2 = R('content.js');
     const badUrls = [...ce2.matchAll(/_dataUrl:\s*'([^']+)'/g)].map((m) => m[1]).filter((u) => u.startsWith('../'));
     ok(badUrls.length === 0,
       badUrls.length === 0
-        ? "T0-14 content-enhanced-v2 数据路径不再用 '../data/'（原为永久 404）"
+        ? "T0-14 content.js（v2 段）数据路径不再用 '../data/'（原为永久 404）"
         : `T0-14 仍使用会 404 的路径: ${badUrls.join(', ')}`);
 
     // 引用的数据文件必须真实存在
@@ -852,7 +853,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
         : `T0-14 数据文件缺失: ${missing.join(', ')}`);
 
     // #main-content 不存在，必须回退到 <main>
-    const cEnh = R('content-enhancement.js');
+    const cEnh = R('content.js');
     ok(!/getElementById\('main-content'\)\s*;\s*\n\s*if\(!mainContent\)\s*return;/.test(cEnh),
       'T0-14 addNewSections 不再因 #main-content 不存在而直接 return');
     ok(/getElementById\('main-content'\)[\s\S]{0,120}?querySelector\('main'\)/.test(cEnh),
@@ -861,7 +862,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
     // 容器修正后，被创建的 section 必须真的能被 navigateTo 命中
     const cEnhObj = sandbox.contentEnhancement || sandbox.ContentEnhancer;
     const hasHook = cEnhObj && typeof cEnhObj.addNewSections === 'function';
-    ok(!hasHook || /periodic-table-section/.test(R('content-enhancement.js')),
+    ok(!hasHook || /periodic-table-section/.test(R('content.js')),
       hasHook
         ? 'T0-14 动态创建的 section（含 periodic-table-section）代码在位'
         : 'T0-14 contentEnhancement 挂载情况需人工确认');
