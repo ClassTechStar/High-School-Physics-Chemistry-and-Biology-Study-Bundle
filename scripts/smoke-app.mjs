@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync, spawn } from 'node:child_process';
 import http from 'node:http';
 import vm from 'node:vm';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP = join(ROOT, '1.2');
@@ -36,7 +37,7 @@ for (const p of [
   'index.html', 'manifest.json', 'sw.js',
   'css/tokens.css', 'css/style.css', 'css/theme-dark.css',
   'js/progress.js', 'js/app.js', 'js/enhanced-tools.js',
-  'data/exam-bank.json', 'data/physics/knowledge.json',
+  'data/exam/index.json', 'data/exam/physics.json', 'data/physics/knowledge.json',
   'showcase.html', 'css/showcase.css', 'js/demo-mode.js', 'js/liquid-glass.js',
 ]) {
   ok(existsSync(join(APP, p)), `存在 ${p}`);
@@ -249,7 +250,7 @@ console.log('=== 4. 模拟 DOM 装载核心脚本 ===');
 
 console.log('=== 5. 数据与题库抽样 ===');
 {
-  const eb = JSON.parse(readFileSync(join(APP, 'data/exam-bank.json'), 'utf8'));
+  const eb = loadExamBank(APP);
   const allIds = new Set();
   let dups = 0, n = 0;
   for (const s of Object.keys(eb).filter((k) => k !== 'meta')) {
@@ -320,7 +321,7 @@ console.log('=== 6. HTTP 服务资源 ===');
     }
   });
   await new Promise((r) => server.listen(8767, '127.0.0.1', r));
-  const paths = ['/index.html', '/js/progress.js', '/js/enhanced-tools.js', '/data/exam-bank.json', '/css/theme-dark.css', '/sw.js', '/manifest.json'];
+  const paths = ['/index.html', '/js/progress.js', '/js/enhanced-tools.js', '/data/exam/index.json', '/data/exam/physics.json', '/css/theme-dark.css', '/sw.js', '/manifest.json'];
   for (const path of paths) {
     const body = await new Promise((resolve2, reject) => {
       http.get('http://127.0.0.1:8767' + path, (res) => {

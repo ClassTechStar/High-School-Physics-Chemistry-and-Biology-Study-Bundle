@@ -1,0 +1,4420 @@
+{
+  "name": "英语",
+  "total": 220,
+  "categories": [
+    "语法选择",
+    "阅读理解",
+    "听力",
+    "完形填空",
+    "语法填空",
+    "短文改错",
+    "书面表达"
+  ],
+  "questions": [
+    {
+      "id": "ENG_2022_01",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "时态",
+      "question": "—You speak very good French.\n—Thanks. I _____ French in Paris for four years before I came back to China.",
+      "options": [
+        "had studied",
+        "studied",
+        "have studied",
+        "would study"
+      ],
+      "answer": "A",
+      "analysis": "“studied”发生在“came back”之前，即“过去的过去”，用过去完成时had studied。C项现在完成时不能与过去时间连用；B项一般过去时不能体现“在此之前已经”的含义。",
+      "knowledgePoints": [
+        "过去完成时",
+        "时态辨析"
+      ]
+    },
+    {
+      "id": "ENG_2022_02",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "从句",
+      "question": "_____ is known to all, China has made great progress in space exploration in recent years.",
+      "options": [
+        "As",
+        "It",
+        "That",
+        "What"
+      ],
+      "answer": "A",
+      "analysis": "As引导非限制性定语从句，代替整个主句内容，在从句中作is known的主语，意为“众所周知”。若选It，则需用It is known to all that...结构；That不能引导非限制性定语从句置于句首；What引导名词性从句不适用于此结构。",
+      "knowledgePoints": [
+        "非限制性定语从句",
+        "as引导的定语从句"
+      ]
+    },
+    {
+      "id": "ENG_2022_03",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "非谓语动词",
+      "question": "_____ from the top of the mountain, the city looks like a huge garden.",
+      "options": [
+        "Seen",
+        "Seeing",
+        "To see",
+        "Having seen"
+      ],
+      "answer": "A",
+      "analysis": "主语the city与see之间是被动关系，故用过去分词seen作状语。B项seeing表示主动；C项to see表示目的；D项having seen表示主动且已完成。此题考查分词作状语时的语态判断。",
+      "knowledgePoints": [
+        "过去分词作状语",
+        "非谓语动词语态"
+      ]
+    },
+    {
+      "id": "ENG_2023_04",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "虚拟语气",
+      "question": "If only I _____ more attention to my studies when I was in high school!",
+      "options": [
+        "had paid",
+        "paid",
+        "would pay",
+        "would have paid"
+      ],
+      "answer": "A",
+      "analysis": "If only引导感叹句，表示“要是……就好了”。此处是对过去事实的虚拟，谓语用had + 过去分词。B项paid用于对现在虚拟；C项would pay不用于if only从句中；D项用于主句。",
+      "knowledgePoints": [
+        "虚拟语气",
+        "if only用法"
+      ]
+    },
+    {
+      "id": "ENG_2023_05",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "情态动词",
+      "question": "—Someone is knocking at the door. _____ it be the delivery man?\n—No, it _____ be him. He just called to say he'll arrive in an hour.",
+      "options": [
+        "Can; can't",
+        "Must; mustn't",
+        "May; may not",
+        "Should; shouldn't"
+      ],
+      "answer": "A",
+      "analysis": "第一空用can表示推测，用于疑问句“可能是……吗？”；第二空用can't表示有把握的否定推测“不可能”。must表推测不用于疑问句和否定句；may语气较弱不符合语境。",
+      "knowledgePoints": [
+        "情态动词表推测",
+        "can/can't用法"
+      ]
+    },
+    {
+      "id": "ENG_2023_06",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "倒装",
+      "question": "Only when you have experienced the difficulty of learning a language _____ how important practice is.",
+      "options": [
+        "you will realize",
+        "you realize",
+        "will you realize",
+        "do you realize"
+      ],
+      "answer": "C",
+      "analysis": "Only + 状语从句置于句首，主句需要部分倒装，即将助动词/情态动词提至主语之前。此处将will提前，故选will you realize。A项未倒装；C、D项时态和结构均不正确。",
+      "knowledgePoints": [
+        "部分倒装",
+        "only修饰状语前置"
+      ]
+    },
+    {
+      "id": "ENG_2022_07",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "构词法",
+      "question": "The new policy has led to a significant _____ in the number of international students applying to Chinese universities. (reduce)",
+      "options": [
+        "reduction",
+        "reducing",
+        "reduced",
+        "reductor"
+      ],
+      "answer": "A",
+      "analysis": "空格前有形容词significant和冠词a，需要名词作宾语。reduce的名词形式为reduction（减少）。B项reducing为动名词；C项reduced为过去分词；D项reductor不是标准词汇。",
+      "knowledgePoints": [
+        "名词后缀-tion",
+        "词类转换"
+      ]
+    },
+    {
+      "id": "ENG_2022_08",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "介词",
+      "question": "The conference will be held _____ the morning of September 15th, and all participants should arrive _____ time.",
+      "options": [
+        "in; on",
+        "on; in",
+        "on; on",
+        "in; in"
+      ],
+      "answer": "C",
+      "解析_ignored": "",
+      "analysis": "表示具体某天的上午用介词on（on the morning of...）；on time表示“准时”。in用于泛指的上午（in the morning），但不与具体日期连用。故选C。",
+      "knowledgePoints": [
+        "时间介词on/in",
+        "on time短语"
+      ]
+    },
+    {
+      "id": "ENG_2023_09",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "冠词",
+      "question": "He plays _____ piano every day, while his sister prefers playing _____ basketball after school.",
+      "options": [
+        "the; /",
+        "the; the",
+        "/; /",
+        "/; the"
+      ],
+      "answer": "A",
+      "analysis": "演奏乐器前加定冠词the（play the piano）；打球类运动前不加冠词（play basketball）。这是冠词用法的固定规则。",
+      "knowledgePoints": [
+        "定冠词与乐器",
+        "零冠词与球类运动"
+      ]
+    },
+    {
+      "id": "ENG_2023_10",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "主谓一致",
+      "question": "The number of people who have access to the internet _____ increasing rapidly, and a large number of them _____ young adults.",
+      "options": [
+        "is; are",
+        "are; is",
+        "is; is",
+        "are; are"
+      ],
+      "answer": "A",
+      "analysis": "“the number of + 复数名词”作主语时，谓语用单数（is）；“a number of + 复数名词”作主语时，谓语用复数（are）。前者强调“数量”，后者强调“许多……”。",
+      "knowledgePoints": [
+        "the number of与a number of",
+        "主谓一致"
+      ]
+    },
+    {
+      "id": "ENG_2024_11",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "时态",
+      "question": "—Look! Somebody _____ the window.\n—Well, it wasn't me. I _____ TV in the living room the whole evening.",
+      "options": [
+        "has broken; was watching",
+        "broke; watched",
+        "had broken; was watching",
+        "breaks; watch"
+      ],
+      "answer": "A",
+      "analysis": "第一空用现在完成时has broken，表示动作发生在过去但对现在有影响（窗户现在碎了）；第二空用过去进行时was watching，表示过去某段时间正在进行的动作。",
+      "knowledgePoints": [
+        "现在完成时",
+        "过去进行时"
+      ]
+    },
+    {
+      "id": "ENG_2024_12",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "从句",
+      "question": "The reason _____ he gave for being late was _____ he had missed the early bus.",
+      "options": [
+        "why; that",
+        "that; because",
+        "why; because",
+        "that; that"
+      ],
+      "answer": "D",
+      "analysis": "第一空that引导定语从句，修饰reason，在从句中作gave的宾语（不能用why，因为why在定语从句中只能作状语）；第二空that引导表语从句，解释reason的具体内容（不用because，因为the reason is that...是固定结构）。",
+      "knowledgePoints": [
+        "定语从句",
+        "表语从句",
+        "the reason is that结构"
+      ]
+    },
+    {
+      "id": "ENG_2024_13",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "非谓语动词",
+      "question": "With a lot of problems _____, the new manager found it hard to carry out the plan smoothly.",
+      "options": [
+        "to solve",
+        "solved",
+        "solving",
+        "being solved"
+      ],
+      "answer": "A",
+      "analysis": "With复合结构中，problems与solve之间虽然是被动意义，但表示“有待解决的问题”（即将发生），用不定式to solve。B项solved表示已解决；C项solving表示主动；D项being solved表示正在被解决，不符合语境。",
+      "knowledgePoints": [
+        "with复合结构",
+        "不定式作宾补"
+      ]
+    },
+    {
+      "id": "ENG_2024_14",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "虚拟语气",
+      "question": "The teacher insisted that every student _____ the homework on time and that nobody _____ late for class.",
+      "options": [
+        "hand in; be",
+        "handed in; was",
+        "hands in; is",
+        "would hand in; would be"
+      ],
+      "answer": "A",
+      "analysis": "insist表示“坚持要求”时，其后的宾语从句用虚拟语气：(should) + 动词原形。两处从句均用此结构：hand in和be。故选A。",
+      "knowledgePoints": [
+        "虚拟语气在宾语从句中",
+        "insist用法"
+      ]
+    },
+    {
+      "id": "ENG_2024_15",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "情态动词",
+      "question": "You _____ have told me about the change of the schedule earlier. I've already booked the flight for the wrong date.",
+      "options": [
+        "should",
+        "could",
+        "might",
+        "would"
+      ],
+      "answer": "A",
+      "analysis": "should have done表示“本应该做而未做”，含有责备意味。此处责备对方本应更早告知。could have done表示“本能够做”但未做，语气较温和；might have done表示推测；would have done用于虚拟语气主句。",
+      "knowledgePoints": [
+        "should have done",
+        "情态动词+have done"
+      ]
+    },
+    {
+      "id": "ENG_2024_16",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "倒装",
+      "question": "Not until he went through real hardship _____ the love we have for our families is important.",
+      "options": [
+        "did he realize",
+        "he realized",
+        "had he realized",
+        "he had realized"
+      ],
+      "answer": "A",
+      "analysis": "Not until置于句首时，主句需要部分倒装。主句谓语为一般过去时realize，故用did + 主语 + 动词原形：did he realize。C项had he realized时态不匹配；B、D项未倒装。",
+      "knowledgePoints": [
+        "not until倒装",
+        "部分倒装"
+      ]
+    },
+    {
+      "id": "ENG_2025_17",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "构词法",
+      "question": "The scientist's _____ approach to the experiment led to a groundbreaking discovery that amazed the whole world. (convention)",
+      "options": [
+        "unconventional",
+        "conventionally",
+        "conventional",
+        "convention"
+      ],
+      "answer": "A",
+      "analysis": "空格修饰名词approach，需要形容词。根据后文“groundbreaking discovery”和“amazed”可知，应选表示“非传统的”的词。un-为否定前缀，unconventional意为“非传统的、打破常规的”。C项conventional（传统的）与语境矛盾。",
+      "knowledgePoints": [
+        "否定前缀un-",
+        "词类转换"
+      ]
+    },
+    {
+      "id": "ENG_2025_18",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "介词",
+      "question": "The old bridge _____ the river was built in the 18th century and is still _____ good condition today.",
+      "options": [
+        "over; in",
+        "above; in",
+        "over; on",
+        "across; in"
+      ],
+      "answer": "A",
+      "analysis": "“over the river”表示在河的正上方（桥横跨河面）；“in good condition”为固定搭配，意为“状况良好”。above表示“在……上方”但不一定正上方；across表示“横穿”，不与bridge搭配作定语。",
+      "knowledgePoints": [
+        "介词over/above",
+        "in condition短语"
+      ]
+    },
+    {
+      "id": "ENG_2025_19",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "从句",
+      "question": "It was in the small village _____ he spent his childhood _____ he first developed his interest in science.",
+      "options": [
+        "that; where",
+        "that; that",
+        "where; that",
+        "where; where"
+      ],
+      "answer": "C",
+      "analysis": "第一空where引导定语从句，修饰village，在从句中作地点状语（spent his childhood in the village）；第二空that引导强调句结构It was... that...。注意区分定语从句和强调句。",
+      "knowledgePoints": [
+        "强调句型",
+        "定语从句",
+        "句式综合"
+      ]
+    },
+    {
+      "id": "ENG_2025_20",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "非谓语动词",
+      "question": "_____ enough time to prepare, we could have done the project much better.",
+      "options": [
+        "Given",
+        "Giving",
+        "To give",
+        "Having given"
+      ],
+      "answer": "A",
+      "analysis": "Given此处为固定用法，意为“如果考虑到/如果有”，可视为过去分词作条件状语，相当于If we had been given。主语we与give之间为被动关系。B项giving为主动；C项to give表目的；D项having given表主动且已完成。",
+      "knowledgePoints": [
+        "过去分词作条件状语",
+        "given的特殊用法"
+      ]
+    },
+    {
+      "id": "ENG_RC_2022_01",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Newton's laws of motion are three physical laws that together laid the foundation for classical mechanics. The first law states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. This is also known as the law of inertia. The second law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. The third law states that for every action, there is an equal and opposite reaction.",
+      "question": "According to the passage, which of the following best describes the first law of motion?",
+      "options": [
+        "An object will always remain at rest no matter what happens.",
+        "The acceleration of an object depends on its mass and net force.",
+        "An object's motion changes only when an unbalanced force acts on it.",
+        "Every action has an equal and opposite reaction."
+      ],
+      "answer": "C",
+      "analysis": "第一段明确指出：物体保持静止或匀速直线运动状态，除非受到不平衡力的作用。A项忽略了运动的物体；B项描述的是第二定律；D项描述的是第三定律。故C正确。",
+      "knowledgePoints": [
+        "细节理解",
+        "物理英语阅读"
+      ]
+    },
+    {
+      "id": "ENG_RC_2022_02",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Newton's laws of motion are three physical laws that together laid the foundation for classical mechanics. The first law states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. This is also known as the law of inertia. The second law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. The third law states that for every action, there is an equal and opposite reaction.",
+      "question": "The word 'inversely' in the passage is closest in meaning to _____.",
+      "options": [
+        "similarly",
+        "proportionally",
+        "oppositely",
+        "directly"
+      ],
+      "answer": "C",
+      "analysis": "inversely proportional意为“成反比的”，与directly proportional（成正比的）相反。inversely（相反地）与oppositely（相反地）意思最接近。A项similarly（相似地）、B项proportionally（成比例地）、D项directly（直接地）均不符合。",
+      "knowledgePoints": [
+        "词义猜测",
+        "科学英语词汇"
+      ]
+    },
+    {
+      "id": "ENG_RC_2022_03",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Newton's laws of motion are three physical laws that together laid the foundation for classical mechanics. The first law states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. This is also known as the law of inertia. The second law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. The third law states that for every action, there is an equal and opposite reaction.",
+      "question": "Which of the following is an example of the third law of motion?",
+      "options": [
+        "A book resting on a table remains stationary.",
+        "A car speeds up when the driver steps on the gas pedal.",
+        "A rocket moves upward by pushing exhaust gases downward.",
+        "A passenger in a braking car leans forward."
+      ],
+      "answer": "C",
+      "analysis": "第三定律“作用力与反作用力大小相等方向相反”。火箭向下喷射气体（作用力），气体对火箭产生向上的反作用力（推力），使火箭上升，这是第三定律的经典应用。A项是第一定律（惯性）；B项是第二定律（F=ma）；D项是第一定律（惯性）。",
+      "knowledgePoints": [
+        "推理判断",
+        "物理概念应用"
+      ]
+    },
+    {
+      "id": "ENG_RC_2022_04",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Newton's laws of motion are three physical laws that together laid the foundation for classical mechanics. The first law states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. This is also known as the law of inertia. The second law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. The third law states that for every action, there is an equal and opposite reaction.",
+      "question": "What is the main purpose of this passage?",
+      "options": [
+        "To explain why Newton was a great scientist.",
+        "To compare classical mechanics with modern physics.",
+        "To introduce the three laws of motion and their basic principles.",
+        "To prove that Newton's laws are still valid today."
+      ],
+      "answer": "C",
+      "analysis": "文章逐条介绍了牛顿三大运动定律的基本内容，属于科普说明文，目的在于介绍三大定律及其基本原理。A项未提及牛顿生平；B项未对比经典与现代物理；D项未论证定律的有效性。故C正确。",
+      "knowledgePoints": [
+        "主旨大意",
+        "科普文章结构"
+      ]
+    },
+    {
+      "id": "ENG_RC_2023_05",
+      "year": 2023,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Climate change has become one of the most pressing issues of our time. The burning of fossil fuels releases carbon dioxide into the atmosphere, which traps heat and leads to global warming. As temperatures rise, ice caps melt, sea levels increase, and extreme weather events become more frequent. Scientists warn that if we do not take immediate action to reduce greenhouse gas emissions, the consequences could be irreversible. Many countries have committed to achieving carbon neutrality by 2050, investing heavily in renewable energy sources such as solar and wind power.",
+      "question": "According to the passage, what is the primary cause of global warming?",
+      "options": [
+        "The melting of ice caps",
+        "The increase in sea levels",
+        "The release of carbon dioxide from burning fossil fuels",
+        "The frequency of extreme weather events"
+      ],
+      "answer": "C",
+      "analysis": "文章明确指出：燃烧化石燃料释放二氧化碳进入大气层，二氧化碳困住热量导致全球变暖。A、C、D项都是全球变暖的后果而非原因。故C正确。",
+      "knowledgePoints": [
+        "细节理解",
+        "因果关系"
+      ]
+    },
+    {
+      "id": "ENG_RC_2023_06",
+      "year": 2023,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Climate change has become one of the most pressing issues of our time. The burning of fossil fuels releases carbon dioxide into the atmosphere, which traps heat and leads to global warming. As temperatures rise, ice caps melt, sea levels increase, and extreme weather events become more frequent. Scientists warn that if we do not take immediate action to reduce greenhouse gas emissions, the consequences could be irreversible. Many countries have committed to achieving carbon neutrality by 2050, investing heavily in renewable energy sources such as solar and wind power.",
+      "question": "The word 'irreversible' in the passage means _____.",
+      "options": [
+        "easily changed",
+        "very dangerous",
+        "happening slowly",
+        "impossible to undo"
+      ],
+      "answer": "D",
+      "analysis": "irreversible由ir-（不）+ revers（反转）+ -ible（可...的）构成，意为“不可逆转的、无法撤销的”。A项“容易改变的”意思相反；C项“缓慢发生的”无关；B项“非常危险的”不准确。",
+      "knowledgePoints": [
+        "词义猜测",
+        "构词法"
+      ]
+    },
+    {
+      "id": "ENG_RC_2023_07",
+      "year": 2023,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Climate change has become one of the most pressing issues of our time. The burning of fossil fuels releases carbon dioxide into the atmosphere, which traps heat and leads to global warming. As temperatures rise, ice caps melt, sea levels increase, and extreme weather events become more frequent. Scientists warn that if we do not take immediate action to reduce greenhouse gas emissions, the consequences could be irreversible. Many countries have committed to achieving carbon neutrality by 2050, investing heavily in renewable energy sources such as solar and wind power.",
+      "question": "What can be inferred about renewable energy from the passage?",
+      "options": [
+        "It produces more carbon dioxide than fossil fuels.",
+        "It is the main source of greenhouse gas emissions.",
+        "It is considered a solution to reduce greenhouse gases.",
+        "It will completely replace fossil fuels by 2030."
+      ],
+      "answer": "C",
+      "analysis": "文章最后提到：许多国家承诺到2050年实现碳中和，大力投资太阳能和风能等可再生能源。可以推断可再生能源被视为减少温室气体排放的解决方案。A、B项与文意相反；D项的时间2030年未在文中提及，文中说的是2050年碳中和。",
+      "knowledgePoints": [
+        "推理判断",
+        "环保英语"
+      ]
+    },
+    {
+      "id": "ENG_RC_2023_08",
+      "year": 2023,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Climate change has become one of the most pressing issues of our time. The burning of fossil fuels releases carbon dioxide into the atmosphere, which traps heat and leads to global warming. As temperatures rise, ice caps melt, sea levels increase, and extreme weather events become more frequent. Scientists warn that if we do not take immediate action to reduce greenhouse gas emissions, the consequences could be irreversible. Many countries have committed to achieving carbon neutrality by 2050, investing heavily in renewable energy sources such as solar and wind power.",
+      "question": "What is the author's attitude toward achieving carbon neutrality by 2050?",
+      "options": [
+        "Doubtful",
+        "Neutral",
+        "Critical",
+        "Optimistic"
+      ],
+      "answer": "D",
+      "analysis": "作者在描述各国承诺碳中和时使用了“investing heavily”（大力投资）等正面词汇，并强调不采取行动的后果将是“irreversible”，说明作者对实现碳中和持乐观支持态度。A项doubtful（怀疑的）、C项critical（批评的）与文意不符；B项neutral（中立的）过于消极。",
+      "knowledgePoints": [
+        "态度判断",
+        "作者意图"
+      ]
+    },
+    {
+      "id": "ENG_RC_2024_09",
+      "year": 2024,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Artificial intelligence (AI) has transformed nearly every aspect of modern life, from healthcare to transportation. Machine learning, a subset of AI, enables computers to learn from data without being explicitly programmed. Deep learning, a further specialization, uses neural networks with multiple layers to process complex patterns. While AI offers tremendous benefits—such as early disease detection and autonomous driving—it also raises ethical concerns. Issues like data privacy, algorithmic bias, and job displacement have sparked heated debates among policymakers, technologists, and the general public alike. Striking a balance between innovation and regulation remains a significant challenge.",
+      "question": "What is the relationship between AI, machine learning, and deep learning according to the passage?",
+      "options": [
+        "They are three completely unrelated technologies.",
+        "Machine learning and deep learning are the same thing.",
+        "AI is a subset of machine learning, which is a subset of deep learning.",
+        "Deep learning is a subset of machine learning, which is a subset of AI."
+      ],
+      "answer": "D",
+      "analysis": "文章指出：机器学习是AI的一个子集（a subset of AI），深度学习是进一步的专门化（a further specialization），即深度学习是机器学习的子集。因此包含关系为：深度学习⊂机器学习⊂AI。故D正确。",
+      "knowledgePoints": [
+        "细节理解",
+        "概念关系"
+      ]
+    },
+    {
+      "id": "ENG_RC_2024_10",
+      "year": 2024,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Artificial intelligence (AI) has transformed nearly every aspect of modern life, from healthcare to transportation. Machine learning, a subset of AI, enables computers to learn from data without being explicitly programmed. Deep learning, a further specialization, uses neural networks with multiple layers to process complex patterns. While AI offers tremendous benefits—such as early disease detection and autonomous driving—it also raises ethical concerns. Issues like data privacy, algorithmic bias, and job displacement have sparked heated debates among policymakers, technologists, and the general public alike. Striking a balance between innovation and regulation remains a significant challenge.",
+      "question": "All of the following are mentioned as ethical concerns about AI EXCEPT _____.",
+      "options": [
+        "data privacy",
+        "algorithmic bias",
+        "job displacement",
+        "energy consumption"
+      ],
+      "answer": "D",
+      "analysis": "文章列举了AI的伦理问题：data privacy（数据隐私）、algorithmic bias（算法偏见）、job displacement（失业）。energy consumption（能源消耗）未在文中提及。故D正确。",
+      "knowledgePoints": [
+        "细节排除",
+        "科技英语阅读"
+      ]
+    },
+    {
+      "id": "ENG_RC_2024_11",
+      "year": 2024,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Artificial intelligence (AI) has transformed nearly every aspect of modern life, from healthcare to transportation. Machine learning, a subset of AI, enables computers to learn from data without being explicitly programmed. Deep learning, a further specialization, uses neural networks with multiple layers to process complex patterns. While AI offers tremendous benefits—such as early disease detection and autonomous driving—it also raises ethical concerns. Issues like data privacy, algorithmic bias, and job displacement have sparked heated debates among policymakers, technologists, and the general public alike. Striking a balance between innovation and regulation remains a significant challenge.",
+      "question": "The phrase 'Striking a balance' in the last sentence most likely means _____.",
+      "options": [
+        "Finding a compromise between two opposing things",
+        "Removing all regulations to encourage innovation",
+        "Stopping all AI development immediately",
+        "Letting the market decide everything"
+      ],
+      "answer": "A",
+      "analysis": "strike a balance为固定搭配，意为“在……之间取得平衡/折中”。文中指在创新（innovation）和监管（regulation）之间找到平衡点。B、C、D项都过于极端，不符合“平衡”的含义。",
+      "knowledgePoints": [
+        "短语理解",
+        "上下文推断"
+      ]
+    },
+    {
+      "id": "ENG_RC_2024_12",
+      "year": 2024,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Artificial intelligence (AI) has transformed nearly every aspect of modern life, from healthcare to transportation. Machine learning, a subset of AI, enables computers to learn from data without being explicitly programmed. Deep learning, a further specialization, uses neural networks with multiple layers to process complex patterns. While AI offers tremendous benefits—such as early disease detection and autonomous driving—it also raises ethical concerns. Issues like data privacy, algorithmic bias, and job displacement have sparked heated debates among policymakers, technologists, and the general public alike. Striking a balance between innovation and regulation remains a significant challenge.",
+      "question": "What is the best title for this passage?",
+      "options": [
+        "How to Program a Neural Network",
+        "The History of Computer Science",
+        "AI: Benefits and Challenges",
+        "Why AI Will Replace All Human Jobs"
+      ],
+      "answer": "C",
+      "analysis": "文章既介绍了AI的好处（tremendous benefits如疾病检测、自动驾驶），又讨论了其挑战（ethical concerns如隐私、偏见、失业），因此最佳标题应涵盖益处与挑战两方面。A、B项过于狭窄或偏离主题；D项过于极端，文章并未说AI将取代所有工作。",
+      "knowledgePoints": [
+        "主旨大意",
+        "标题选择"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_13",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Coral reefs are often called the 'rainforests of the sea' because of their extraordinary biodiversity. Although coral reefs cover less than one percent of the ocean floor, they provide habitat for approximately twenty-five percent of all marine species. The relationship between coral polyps and the algae that live inside them is a remarkable example of symbiosis. The algae photosynthesize and provide the coral with nutrients, while the coral gives the algae a protected environment. However, rising sea temperatures cause coral bleaching, a phenomenon in which corals expel the algae and turn white. If the stress continues, the coral will eventually die, threatening the entire ecosystem that depends on it.",
+      "question": "Why are coral reefs called the 'rainforests of the sea'?",
+      "options": [
+        "Because they are located in tropical regions.",
+        "Because they produce most of the world's oxygen.",
+        "Because they are made of trees and plants.",
+        "Because they have extremely high biodiversity."
+      ],
+      "answer": "D",
+      "analysis": "文章第一句明确说明：珊瑚礁被称为“海洋热带雨林”是因为其非凡的生物多样性（extraordinary biodiversity）。A项虽珊瑚礁位于热带，但这不是被比作雨林的原因；C项错误，珊瑚礁不是由树木构成；B项文中未提及。",
+      "knowledgePoints": [
+        "细节理解",
+        "生物英语"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_14",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Coral reefs are often called the 'rainforests of the sea' because of their extraordinary biodiversity. Although coral reefs cover less than one percent of the ocean floor, they provide habitat for approximately twenty-five percent of all marine species. The relationship between coral polyps and the algae that live inside them is a remarkable example of symbiosis. The algae photosynthesize and provide the coral with nutrients, while the coral gives the algae a protected environment. However, rising sea temperatures cause coral bleaching, a phenomenon in which corals expel the algae and turn white. If the stress continues, the coral will eventually die, threatening the entire ecosystem that depends on it.",
+      "question": "The relationship between coral polyps and algae is described as an example of _____.",
+      "options": [
+        "parasitism",
+        "competition",
+        "symbiosis",
+        "predation"
+      ],
+      "answer": "C",
+      "analysis": "文章明确指出：珊瑚虫和藻类之间的关系是共生（symbiosis）的显著例子。藻类通过光合作用为珊瑚提供营养，珊瑚为藻类提供受保护的环境，这是互利共生关系。A项parasitism（寄生）是一方受益一方受害；B项competition（竞争）；D项predation（捕食），均不符合描述。",
+      "knowledgePoints": [
+        "细节理解",
+        "生态学概念"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_15",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Coral reefs are often called the 'rainforests of the sea' because of their extraordinary biodiversity. Although coral reefs cover less than one percent of the ocean floor, they provide habitat for approximately twenty-five percent of all marine species. The relationship between coral polyps and the algae that live inside them is a remarkable example of symbiosis. The algae photosynthesize and provide the coral with nutrients, while the coral gives the algae a protected environment. However, rising sea temperatures cause coral bleaching, a phenomenon in which corals expel the algae and turn white. If the stress continues, the coral will eventually die, threatening the entire ecosystem that depends on it.",
+      "question": "What happens during coral bleaching?",
+      "options": [
+        "Corals absorb more algae and become darker.",
+        "Corals reproduce rapidly to survive.",
+        "Corals move to deeper water to find food.",
+        "Corals expel the algae and turn white."
+      ],
+      "answer": "D",
+      "analysis": "文章明确说明：珊瑚白化是珊瑚排出体内藻类并变白的现象（corals expel the algae and turn white）。A项与事实相反；C、B项文中未提及。故D正确。",
+      "knowledgePoints": [
+        "细节理解",
+        "环境科学英语"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_16",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "Coral reefs are often called the 'rainforests of the sea' because of their extraordinary biodiversity. Although coral reefs cover less than one percent of the ocean floor, they provide habitat for approximately twenty-five percent of all marine species. The relationship between coral polyps and the algae that live inside them is a remarkable example of symbiosis. The algae photosynthesize and provide the coral with nutrients, while the coral gives the algae a protected environment. However, rising sea temperatures cause coral bleaching, a phenomenon in which corals expel the algae and turn white. If the stress continues, the coral will eventually die, threatening the entire ecosystem that depends on it.",
+      "question": "What can be inferred from the passage about the long-term impact of coral bleaching?",
+      "options": [
+        "It has no effect on marine ecosystems.",
+        "It only affects the appearance of coral reefs.",
+        "It could lead to the collapse of entire marine ecosystems.",
+        "It will naturally resolve itself without intervention."
+      ],
+      "answer": "C",
+      "analysis": "文章最后一句指出：如果压力持续，珊瑚最终会死亡，威胁依赖它的整个生态系统。可以推断珊瑚白化的长期影响可能导致整个海洋生态系统的崩溃。A、B项低估了影响；D项与文意相反，文中暗示需要采取行动。",
+      "knowledgePoints": [
+        "推理判断",
+        "生态保护"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_17",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "The Silk Road, a network of trade routes connecting the East and the West, was not merely a channel for commerce but also a bridge for cultural and scientific exchange. Through these ancient routes, Chinese inventions such as papermaking, printing, and gunpowder traveled westward, fundamentally changing the course of European history. In return, Western knowledge of astronomy, medicine, and mathematics flowed eastward, enriching Chinese science. The exchange of ideas along the Silk Road demonstrates that scientific progress is rarely an isolated endeavor; rather, it thrives on cross-cultural dialogue and collaboration. Modern scientists and historians increasingly recognize that many discoveries attributed to single civilizations were actually the result of centuries of shared knowledge across continents.",
+      "question": "According to the passage, the Silk Road was important because it _____.",
+      "options": [
+        "was the fastest way to travel from East to West",
+        "connected only China and Europe with no other civilizations involved",
+        "was primarily a military route for ancient empires",
+        "facilitated not only trade but also cultural and scientific exchange"
+      ],
+      "answer": "D",
+      "analysis": "文章第一句指出：丝绸之路不仅是贸易通道，也是文化和科学交流的桥梁。A项“最快旅行方式”文中未提及；C项“军事路线”与文意不符；B项“只连接中国和欧洲”错误，文章提到是连接东西方的网络。",
+      "knowledgePoints": [
+        "细节理解",
+        "历史科技英语"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_18",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "The Silk Road, a network of trade routes connecting the East and the West, was not merely a channel for commerce but also a bridge for cultural and scientific exchange. Through these ancient routes, Chinese inventions such as papermaking, printing, and gunpowder traveled westward, fundamentally changing the course of European history. In return, Western knowledge of astronomy, medicine, and mathematics flowed eastward, enriching Chinese science. The exchange of ideas along the Silk Road demonstrates that scientific progress is rarely an isolated endeavor; rather, it thrives on cross-cultural dialogue and collaboration. Modern scientists and historians increasingly recognize that many discoveries attributed to single civilizations were actually the result of centuries of shared knowledge across continents.",
+      "question": "The word 'endeavor' in the passage is closest in meaning to _____.",
+      "options": [
+        "failure",
+        "journey",
+        "discovery",
+        "effort"
+      ],
+      "answer": "D",
+      "analysis": "endeavor意为“努力、尝试、事业”。文中说科学进步很少是孤立的endeavor，即很少是孤立的努力/事业。effort（努力）意思最接近。A项failure（失败）；C项discovery（发现）语境不合；B项journey（旅程）不准确。",
+      "knowledgePoints": [
+        "词义猜测",
+        "学术英语词汇"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_19",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "The Silk Road, a network of trade routes connecting the East and the West, was not merely a channel for commerce but also a bridge for cultural and scientific exchange. Through these ancient routes, Chinese inventions such as papermaking, printing, and gunpowder traveled westward, fundamentally changing the course of European history. In return, Western knowledge of astronomy, medicine, and mathematics flowed eastward, enriching Chinese science. The exchange of ideas along the Silk Road demonstrates that scientific progress is rarely an isolated endeavor; rather, it thrives on cross-cultural dialogue and collaboration. Modern scientists and historians increasingly recognize that many discoveries attributed to single civilizations were actually the result of centuries of shared knowledge across continents.",
+      "question": "What does the author suggest about scientific discoveries?",
+      "options": [
+        "They are usually made by a single civilization working alone.",
+        "They cannot occur without the Silk Road trade routes.",
+        "They are less important than commercial trade along the Silk Road.",
+        "They are often the result of cross-cultural knowledge sharing over time."
+      ],
+      "answer": "D",
+      "analysis": "文章指出：科学进步很少是孤立的努力，而是依靠跨文化对话与合作蓬勃发展。许多归功于单一文明的发现实际上是跨大陆共享知识数个世纪的结果。A项与文意相反；C项文中未比较科学和贸易的重要性；B项过于绝对，文章只是以丝绸之路为例说明交流的重要性。",
+      "knowledgePoints": [
+        "推理判断",
+        "主旨理解"
+      ]
+    },
+    {
+      "id": "ENG_RC_2025_20",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "阅读理解",
+      "passage": "The Silk Road, a network of trade routes connecting the East and the West, was not merely a channel for commerce but also a bridge for cultural and scientific exchange. Through these ancient routes, Chinese inventions such as papermaking, printing, and gunpowder traveled westward, fundamentally changing the course of European history. In return, Western knowledge of astronomy, medicine, and mathematics flowed eastward, enriching Chinese science. The exchange of ideas along the Silk Road demonstrates that scientific progress is rarely an isolated endeavor; rather, it thrives on cross-cultural dialogue and collaboration. Modern scientists and historians increasingly recognize that many discoveries attributed to single civilizations were actually the result of centuries of shared knowledge across continents.",
+      "question": "Which of the following best summarizes the main idea of the passage?",
+      "options": [
+        "The Silk Road was the most important trade route in ancient times.",
+        "Chinese inventions had a greater impact than Western knowledge.",
+        "Scientific progress benefits from cross-cultural exchange, as exemplified by the Silk Road.",
+        "Modern historians have proven that all discoveries come from China."
+      ],
+      "answer": "C",
+      "analysis": "文章以丝绸之路为例，论证核心观点：科学进步很少是孤立的，而是通过跨文化交流与合作实现的。A项只涉及贸易，片面；B项文中未比较谁的影响更大；D项过于极端，文章说的是跨大陆共享知识，而非全部来自中国。",
+      "knowledgePoints": [
+        "主旨大意",
+        "文章概括"
+      ]
+    },
+    {
+      "id": "ENG_2018_21",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: Would you like to go to the cinema with me tonight? W: I'd love to, but I have to prepare for my exam tomorrow. What will the woman do tonight?",
+      "options": [
+        "Go to the cinema with the man",
+        "Study with the man",
+        "Watch a movie at home",
+        "Prepare for her exam"
+      ],
+      "answer": "D",
+      "analysis": "女士说 I'd love to, but I have to prepare for my exam tomorrow，用 but 表示婉拒，说明她今晚要备考。",
+      "knowledgePoints": [
+        "听力理解",
+        "日常对话",
+        "婉拒表达"
+      ]
+    },
+    {
+      "id": "ENG_2018_22",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "W: How was your trip to Beijing? M: It was wonderful, except that the weather was too hot. What does the man think of his trip?",
+      "options": [
+        "It was terrible",
+        "It was perfect",
+        "It was good but the weather was bad",
+        "It was boring"
+      ],
+      "answer": "C",
+      "analysis": "男士说 It was wonderful, except that the weather was too hot，except 表示除外，即旅行很好但天气太热。",
+      "knowledgePoints": [
+        "听力理解",
+        "日常对话",
+        "转折表达"
+      ]
+    },
+    {
+      "id": "ENG_2018_23",
+      "year": 2018,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Plastic pollution has become one of the most pressing environmental issues of our time. Every year, about 8 million tons of plastic waste enters the oceans, threatening marine life and ecosystems. Microplastics, tiny plastic fragments less than 5 millimeters long, have been found in fish, shellfish, and even drinking water. Scientists warn that if current trends continue, there could be more plastic than fish in the oceans by 2050. To address this crisis, many countries have implemented bans on single-use plastics, while researchers are developing biodegradable alternatives.",
+      "question": "According to the passage, what is the main concern about microplastics?",
+      "options": [
+        "They are too expensive to produce",
+        "They take too long to decompose in air",
+        "They cannot be recycled at all",
+        "They have entered the food chain and water supply"
+      ],
+      "answer": "D",
+      "analysis": "文章指出 microplastics 已在鱼、贝类甚至饮用水中发现，说明微塑料已进入食物链和供水系统。A、C、B项文中未提及。",
+      "knowledgePoints": [
+        "细节理解",
+        "环保话题",
+        "词义推断"
+      ]
+    },
+    {
+      "id": "ENG_2018_24",
+      "year": 2018,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "Artificial intelligence has made remarkable strides in recent years, particularly in areas such as image recognition, natural language processing, and autonomous driving. However, the rapid advancement of AI also raises profound ethical questions. Who is responsible when an autonomous vehicle causes an accident? Should AI systems be allowed to make life-and-death decisions in healthcare? These questions highlight the need for a regulatory framework that balances innovation with accountability. Some experts argue that AI should always remain under human supervision, while others believe that fully autonomous systems will eventually outperform humans in ethical decision-making.",
+      "question": "What can be inferred from the passage about the author's attitude toward AI?",
+      "options": [
+        "The author believes AI should completely replace human decision-making",
+        "The author is opposed to any further development of AI technology",
+        "The author advocates for a balanced approach to AI development and regulation",
+        "The author thinks AI ethics questions are unimportant"
+      ],
+      "answer": "C",
+      "analysis": "文章提到 the need for a regulatory framework that balances innovation with accountability，说明作者主张在创新与责任之间寻求平衡。A项过于极端，B项与文中描述的AI进步不符，D项与文中讨论伦理问题矛盾。",
+      "knowledgePoints": [
+        "推理判断",
+        "作者态度",
+        "科技伦理"
+      ]
+    },
+    {
+      "id": "ENG_2018_25",
+      "year": 2018,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "Thomas Edison failed thousands of times before successfully inventing the light bulb. When asked about his failures, he said, \"I have not failed. I've just found 10,000 ways that won't work.\" His story teaches us that perseverance is the key to ___.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "luck",
+        "fame",
+        "talent",
+        "success"
+      ],
+      "answer": "D",
+      "analysis": "爱迪生的故事强调坚持不懈最终带来成功，且与前文 failed 形成对比，success 最符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境推断",
+        " perseverance"
+      ]
+    },
+    {
+      "id": "ENG_2018_26",
+      "year": 2018,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "She ___ (be) a teacher for ten years since she graduated from college.",
+      "question": "Fill in the blank with the correct form of the verb in brackets.",
+      "answer": "has been",
+      "analysis": "for ten years 表示持续一段时间，与现在完成时搭配，主语 she 为第三人称单数，故填 has been。",
+      "knowledgePoints": [
+        "现在完成时",
+        "动词时态",
+        "主谓一致"
+      ]
+    },
+    {
+      "id": "ENG_2018_27",
+      "year": 2018,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Good learning habits are essential for every student. First of all, you should make a reasonable study plan and stick to them. Besides, it is important to review that you have learned regularly.",
+      "question": "There are two errors in the passage. Find and correct them.",
+      "answer": "them -> it; that -> what",
+      "analysis": "第一处：them 指代前文 a reasonable study plan（单数），应改为 it；第二处：that 引导宾语从句且在从句中作 learned 的宾语，应改为 what。",
+      "knowledgePoints": [
+        "代词指代",
+        "名词性从句",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2019_28",
+      "year": 2019,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: Excuse me, is there a Chinese restaurant nearby? W: Yes, go straight ahead and turn left at the second crossing. It's next to the post office. Where does the man want to go?",
+      "options": [
+        "A post office",
+        "A supermarket",
+        "A bank",
+        "A Chinese restaurant"
+      ],
+      "answer": "D",
+      "analysis": "男士问 is there a Chinese restaurant nearby，说明他想去中餐厅。",
+      "knowledgePoints": [
+        "听力理解",
+        "问路对话",
+        "方位表达"
+      ]
+    },
+    {
+      "id": "ENG_2019_29",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Cultural heritage represents the identity and history of a nation. In China, numerous efforts have been made to preserve intangible cultural heritage, such as Peking Opera, calligraphy, and traditional medicine. The government has established heritage protection centers and organized training programs to pass these skills to younger generations. However, with rapid urbanization, many traditional customs are fading away. Experts emphasize that protecting cultural heritage is not merely about preserving the past, but about maintaining cultural diversity in an increasingly globalized world.",
+      "question": "Why do experts emphasize protecting cultural heritage?",
+      "options": [
+        "To make money from tourism",
+        "To compete with other countries",
+        "To prevent urbanization",
+        "To maintain cultural diversity in a globalized world"
+      ],
+      "answer": "D",
+      "analysis": "文章最后一句指出 protecting cultural heritage...is about maintaining cultural diversity in an increasingly globalized world，D项与之吻合。",
+      "knowledgePoints": [
+        "细节理解",
+        "文化遗产",
+        "主旨理解"
+      ]
+    },
+    {
+      "id": "ENG_2019_30",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "Climate change is altering the geography of our planet in ways both visible and invisible. Rising sea levels threaten coastal cities, while shifting precipitation patterns disrupt agriculture worldwide. Perhaps most alarmingly, the thawing of permafrost in the Arctic releases methane, a greenhouse gas far more potent than carbon dioxide, creating a feedback loop that accelerates warming further. Scientists warn that we may be approaching tipping points beyond which the effects of climate change become irreversible. This underscores the urgency of reducing greenhouse gas emissions and transitioning to renewable energy sources.",
+      "question": "What does the author mean by \"tipping points\" in the passage?",
+      "options": [
+        "Points where temperatures reach their highest",
+        "Points where renewable energy becomes cheaper",
+        "Points where greenhouse gas emissions stop",
+        "Points beyond which climate change effects become irreversible"
+      ],
+      "answer": "D",
+      "analysis": "文中 tipping points 后紧接 beyond which the effects of climate change become irreversible，即气候变化的不可逆转点。D项正确。",
+      "knowledgePoints": [
+        "词义推断",
+        "推理判断",
+        "气候变化"
+      ]
+    },
+    {
+      "id": "ENG_2019_31",
+      "year": 2019,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "One cold winter morning, an old man was walking along the road when he saw a shivering boy without a coat. Without hesitation, he took off his own coat and gave it to the boy. This act of ___ warmed everyone who heard about it.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "courage",
+        "patience",
+        "wisdom",
+        "kindness"
+      ],
+      "answer": "D",
+      "analysis": "老人脱下自己的外套给发抖的男孩，这是善举，kindness 最符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境推断",
+        "词义辨析"
+      ]
+    },
+    {
+      "id": "ENG_2019_32",
+      "year": 2019,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "The novel ___ (write) by a famous author last year has become a bestseller.",
+      "question": "Fill in the blank with the correct form of the verb in brackets.",
+      "answer": "written",
+      "analysis": "novel 与 write 之间是被动关系，且作后置定语修饰 novel，故用过去分词 written。",
+      "knowledgePoints": [
+        "过去分词",
+        "被动语态",
+        "非谓语动词"
+      ]
+    },
+    {
+      "id": "ENG_2019_33",
+      "year": 2019,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Last summer, I traveled to Yunnan with my family. We visited many interested places and tasted local food. The most memorable moment was when we watched the sunrise on the mountain.",
+      "question": "Find the error in the passage and correct it.",
+      "answer": "interested -> interesting",
+      "analysis": "修饰 places（物）应用 interesting（令人感兴趣的），interested 表示人感到感兴趣的，不符合语境。",
+      "knowledgePoints": [
+        "形容词辨析",
+        "ed/ing形容词",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2019_34",
+      "year": 2019,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，你的英国朋友Peter来信询问你校的社团活动。请给他写一封回信，内容包括：1. 介绍你参加的社团；2. 说明社团活动的内容和意义；3. 邀请他来体验。词数100左右。",
+      "answer": "Dear Peter,\n\nI'm glad to receive your letter asking about our school clubs. I'd like to share my experience with you.\n\nI joined the English Drama Club last year. We meet every Friday afternoon to practice performing classic plays like Hamlet and Romeo and Juliet. Through these activities, I've not only improved my spoken English but also gained confidence in expressing myself on stage. The club has also taught me the importance of teamwork.\n\nIf you come to China, I'd love to invite you to join one of our drama sessions. I'm sure you'll enjoy it!\n\nYours,\nLi Hua",
+      "analysis": "本题考查书信写作。要点覆盖完整（社团介绍、活动内容与意义、邀请），语言得体，结构清晰。注意书信格式（称呼、正文、结尾、署名）。",
+      "knowledgePoints": [
+        "书信写作",
+        "社团活动",
+        "邀请表达"
+      ]
+    },
+    {
+      "id": "ENG_2020_35",
+      "year": 2020,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "W: Can I help you? M: Yes, I'm looking for a book on Chinese history. W: They're on the second floor, Section D. Where does the conversation probably take place?",
+      "options": [
+        "In a bookstore",
+        "In a museum",
+        "In a classroom",
+        "In a library"
+      ],
+      "answer": "D",
+      "analysis": "女士问 Can I help you，男士说在找一本中国历史书，女士回答在二楼D区，这更像是图书馆的场景（按区域分类找书）。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景判断",
+        "图书馆用语"
+      ]
+    },
+    {
+      "id": "ENG_2020_36",
+      "year": 2020,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: What do you think of the basketball match yesterday? W: It was exciting! Our team won by only two points. How did the woman feel about the match?",
+      "options": [
+        "Bored",
+        "Indifferent",
+        "Disappointed",
+        "Excited"
+      ],
+      "answer": "D",
+      "analysis": "女士说 It was exciting! 且提到本队以两分之差获胜，说明她很兴奋。",
+      "knowledgePoints": [
+        "听力理解",
+        "态度判断",
+        "体育话题"
+      ]
+    },
+    {
+      "id": "ENG_2020_37",
+      "year": 2020,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Traditional Chinese Medicine (TCM) has a history of over 2,500 years and remains an important part of China's healthcare system. TCM emphasizes the balance between yin and yang and treats the body as an integrated whole rather than focusing on individual symptoms. Acupuncture, herbal medicine, and qigong are among the most well-known TCM therapies. In recent years, TCM has gained international recognition, with the World Health Organization including traditional medicine in its global medical compendium. However, critics argue that more rigorous scientific studies are needed to validate the efficacy of TCM treatments.",
+      "question": "What is a key difference between TCM and Western medicine according to the passage?",
+      "options": [
+        "TCM focuses on individual symptoms while Western medicine treats the whole body",
+        "TCM is older than Western medicine but less effective",
+        "TCM only uses acupuncture while Western medicine only uses drugs",
+        "TCM treats the body as an integrated whole while Western medicine focuses on individual symptoms"
+      ],
+      "answer": "D",
+      "analysis": "文章指出 TCM treats the body as an integrated whole rather than focusing on individual symptoms，说明中医强调整体观念，而西医更关注个别症状。",
+      "knowledgePoints": [
+        "细节理解",
+        "对比分析",
+        "中医文化"
+      ]
+    },
+    {
+      "id": "ENG_2020_38",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "As a child, Sarah was terrified of public speaking. Every time she stood before an audience, her hands would shake and her voice would tremble. But she refused to let fear control her life. She joined a debate club and practiced every day. After months of hard work, she ___ won first place in a city-wide speech contest.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "eventually",
+        "barely",
+        "accidentally",
+        "secretly"
+      ],
+      "answer": "A",
+      "analysis": "经过 months of hard work 后，她最终获得第一名，eventually（最终）符合逻辑递进关系。barely（勉强）语气偏弱，accidentally 和 secretly 不符合努力练习后取得成果的语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "副词辨析",
+        "逻辑关系"
+      ]
+    },
+    {
+      "id": "ENG_2020_39",
+      "year": 2020,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "Mount Everest is ___ (high) mountain in the world, attracting climbers from all over the globe.",
+      "question": "Fill in the blank with the correct form of the word in brackets.",
+      "answer": "the highest",
+      "analysis": "句中有 in the world 表示范围，应用最高级，high 的最高级为 the highest。",
+      "knowledgePoints": [
+        "形容词最高级",
+        "比较等级",
+        "语法填空"
+      ]
+    },
+    {
+      "id": "ENG_2020_40",
+      "year": 2020,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Online learning has become increasing popular in recent years. Students can attend classes from anywhere, that makes education more accessible. However, some students find it hard to concentrate at home.",
+      "question": "Find two errors in the passage and correct them.",
+      "answer": "increasing -> increasingly; that -> which",
+      "analysis": "第一处：修饰形容词 popular 应用副词 increasingly；第二处：that 引导非限制性定语从句应改为 which。",
+      "knowledgePoints": [
+        "副词修饰形容词",
+        "非限制性定语从句",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2020_41",
+      "year": 2020,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是学生会主席李华，请以\"保护环境，从我做起\"为主题写一篇英文演讲稿，内容包括：1. 当前面临的环境问题；2. 日常生活中的环保措施；3. 呼吁大家行动起来。词数100左右。",
+      "answer": "Good morning, everyone.\n\nToday I'd like to talk about environmental protection. As we all know, our planet is facing serious environmental problems, including air pollution, water contamination, and plastic waste.\n\nHowever, we can all make a difference in our daily lives. We can reduce the use of single-use plastics, sort our garbage, and choose public transportation instead of driving. Small actions, when combined, can have a huge impact.\n\nI call on everyone here to take action now. Remember, protecting the environment starts with each of us. Together, we can make our world a better place. Thank you!",
+      "analysis": "演讲稿格式正确（称呼、开场、正文、号召、结尾感谢），要点覆盖完整，语言有号召力。注意使用 first person 和 imperative sentences 增强感染力。",
+      "knowledgePoints": [
+        "演讲稿写作",
+        "环保话题",
+        "号召表达"
+      ]
+    },
+    {
+      "id": "ENG_2021_42",
+      "year": 2021,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "W: Can I try on this dress, please? M: Sure. The fitting room is over there. What size do you wear? Where does the conversation take place?",
+      "options": [
+        "In a restaurant",
+        "In a bank",
+        "In a hospital",
+        "In a clothing store"
+      ],
+      "answer": "D",
+      "analysis": "女士问试穿裙子，男士提到 fitting room（试衣间）和尺码，说明在服装店。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景判断",
+        "购物用语"
+      ]
+    },
+    {
+      "id": "ENG_2021_43",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "China's space program has achieved remarkable milestones in recent years. The Chang'e lunar exploration missions have successfully collected samples from the moon, while the Tianwen-1 mission made China the second country to land a rover on Mars. The construction of the Tiangong space station marks another significant achievement, providing a platform for scientific experiments in microgravity. These accomplishments reflect China's growing technological capabilities and its commitment to peaceful space exploration. International cooperation has also been a key feature, with China offering to open its space station to scientists from around the world.",
+      "question": "What can be inferred about China's space program from the passage?",
+      "options": [
+        "It focuses exclusively on military applications",
+        "It operates independently without any cooperation",
+        "It has surpassed all other countries in every aspect",
+        "It aims for peaceful exploration and international cooperation"
+      ],
+      "answer": "D",
+      "analysis": "文章提到 China's commitment to peaceful space exploration 和 offering to open its space station to scientists from around the world，说明中国致力于和平探索和国际合作。",
+      "knowledgePoints": [
+        "推理判断",
+        "航天科技",
+        "主旨理解"
+      ]
+    },
+    {
+      "id": "ENG_2021_44",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "Social media has fundamentally transformed how we communicate, share information, and perceive the world. While it has democratized information access and enabled global connectivity, it has also given rise to echo chambers, where users are exposed primarily to viewpoints that reinforce their existing beliefs. This phenomenon can deepen social divisions and spread misinformation. Research shows that false news spreads six times faster than accurate news on social platforms, partly because sensational content triggers stronger emotional responses. Addressing these challenges requires both technological solutions and individual critical thinking skills, as well as a willingness to engage with perspectives different from our own.",
+      "question": "What does the author suggest as solutions to the problems caused by social media?",
+      "options": [
+        "Banning all social media platforms",
+        "Only technological solutions are needed",
+        "A combination of technological solutions, critical thinking, and openness to different perspectives",
+        "Government censorship of all online content"
+      ],
+      "answer": "C",
+      "analysis": "文章最后一句指出需要 technological solutions and individual critical thinking skills, as well as a willingness to engage with perspectives different from our own，C项完整概括了这三点。",
+      "knowledgePoints": [
+        "推理判断",
+        "社交媒体",
+        "综合理解"
+      ]
+    },
+    {
+      "id": "ENG_2021_45",
+      "year": 2021,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "One day, a little boy found a wallet full of money on his way home from school. Although his family was not rich, he didn't hesitate to hand it in to the police. His teacher praised him for his ___.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "courage",
+        "honesty",
+        "intelligence",
+        "strength"
+      ],
+      "answer": "B",
+      "analysis": "男孩捡到钱包交给警察，尽管家里不富裕，这是诚实的表现，honesty 符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境推断",
+        "品质描写"
+      ]
+    },
+    {
+      "id": "ENG_2021_46",
+      "year": 2021,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "The book ___ I borrowed from the library yesterday is very interesting.",
+      "question": "Fill in the blank with an appropriate relative pronoun.",
+      "answer": "that / which",
+      "analysis": "先行词 book 是物，在定语从句中作 borrowed 的宾语，可用 that 或 which 引导，且可省略。",
+      "knowledgePoints": [
+        "定语从句",
+        "关系代词",
+        "语法填空"
+      ]
+    },
+    {
+      "id": "ENG_2021_47",
+      "year": 2021,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Health is the most important thing in our life. To keep healthy, we should eat a balanced diet and do exercise regular. Besides, getting enough sleep are also essential for our physical and mental health.",
+      "question": "Find two errors in the passage and correct them.",
+      "answer": "regular -> regularly; are -> is",
+      "analysis": "第一处：修饰动词 do exercise 应用副词 regularly；第二处：动名词短语 getting enough sleep 作主语，谓语动词用单数 is。",
+      "knowledgePoints": [
+        "副词修饰动词",
+        "主谓一致",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2021_48",
+      "year": 2021,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，请你以\"科技在教育中的应用\"为题写一篇短文，内容包括：1. 科技对教育的积极影响；2. 可能存在的问题；3. 你的看法。词数120左右。",
+      "answer": "Technology in Education\n\nTechnology has revolutionized education in recent years. On the positive side, online courses make quality education accessible to students in remote areas. Interactive tools such as smart boards and educational apps make learning more engaging and personalized. Students can access vast amounts of information with just a few clicks.\n\nHowever, technology also brings challenges. Excessive screen time can affect students' eyesight and health. Moreover, the digital divide means that students from less privileged backgrounds may not have equal access to technological resources.\n\nIn my opinion, technology should be used as a supplement to, rather than a replacement for, traditional teaching methods. We must strike a balance between embracing innovation and maintaining human interaction in the classroom.",
+      "analysis": "短文结构清晰（正面影响-存在问题-个人看法），要点完整，语言地道。注意使用 On the positive side, However, In my opinion 等过渡词使文章连贯。",
+      "knowledgePoints": [
+        "议论文写作",
+        "科技教育",
+        "正反论述"
+      ]
+    },
+    {
+      "id": "ENG_2022_49",
+      "year": 2022,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: Good morning. I'm here for a job interview. W: Welcome! Please take a seat. Mr. Wang will see you in five minutes. What is the man doing?",
+      "options": [
+        "Having a meeting",
+        "Waiting for a job interview",
+        "Visiting a friend",
+        "Buying something"
+      ],
+      "answer": "B",
+      "analysis": "男士说 I'm here for a job interview，女士说 Mr. Wang will see you in five minutes，说明他在等面试。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景判断",
+        "求职用语"
+      ]
+    },
+    {
+      "id": "ENG_2022_50",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Biodiversity, the variety of life on Earth, is declining at an unprecedented rate. According to the World Wildlife Fund, global wildlife populations have declined by an average of 69% since 1970. Habitat loss, climate change, pollution, and overexploitation are the primary drivers of this decline. The loss of biodiversity is not just an environmental concern; it also threatens food security, economic stability, and human health. Many medicines, for instance, are derived from natural compounds found in plants and animals. Protecting biodiversity requires a concerted effort from governments, businesses, and individuals, including habitat conservation, sustainable resource management, and reduced carbon emissions.",
+      "question": "According to the passage, why is the loss of biodiversity a concern beyond environmental issues?",
+      "options": [
+        "It only affects wild animals",
+        "It threatens food security, economic stability, and human health",
+        "It causes climate change directly",
+        "It makes medicines more expensive"
+      ],
+      "answer": "B",
+      "analysis": "文章明确指出 The loss of biodiversity is not just an environmental concern; it also threatens food security, economic stability, and human health，B项与之吻合。",
+      "knowledgePoints": [
+        "细节理解",
+        "生物多样性",
+        "因果分析"
+      ]
+    },
+    {
+      "id": "ENG_2022_51",
+      "year": 2022,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "The ethical implications of artificial intelligence have become a subject of intense debate among philosophers, technologists, and policymakers. One central question is whether AI systems can or should be held morally responsible for their decisions. Traditional ethical frameworks assume that moral agents possess consciousness, intentionality, and the capacity for empathy, qualities that current AI systems lack. Yet, as AI systems make increasingly consequential decisions, from loan approvals to medical diagnoses, the gap between decision-making power and moral accountability grows wider. Some philosophers propose a distributed responsibility model, where accountability is shared among AI developers, users, and institutions, rather than assigned to the AI itself. This approach acknowledges the complexity of modern AI systems while maintaining meaningful human oversight.",
+      "question": "What is the \"distributed responsibility model\" proposed by some philosophers?",
+      "options": [
+        "AI systems should be solely responsible for their decisions",
+        "Accountability should be shared among AI developers, users, and institutions",
+        "Only the government should be responsible for AI decisions",
+        "AI developers should not be held accountable for any consequences"
+      ],
+      "answer": "B",
+      "analysis": "文章指出 distributed responsibility model 是 accountability is shared among AI developers, users, and institutions, rather than assigned to the AI itself，B项正确概括了这一概念。",
+      "knowledgePoints": [
+        "推理判断",
+        "概念理解",
+        "科技伦理"
+      ]
+    },
+    {
+      "id": "ENG_2022_52",
+      "year": 2022,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "In a group project, disagreements are inevitable. However, when team members listen to each other and work toward a common goal, they can achieve remarkable results. ___ is the foundation of any successful collaboration.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "Competition",
+        "Teamwork",
+        "Independence",
+        "Authority"
+      ],
+      "answer": "B",
+      "analysis": "文章讨论团队合作，提到倾听彼此、共同目标，Teamwork 是成功合作的基础，符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境推断",
+        "主题理解"
+      ]
+    },
+    {
+      "id": "ENG_2022_53",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "___ (compare) with last year, our company's profit has increased by 20%.",
+      "question": "Fill in the blank with the correct form of the verb in brackets.",
+      "answer": "Compared",
+      "analysis": "compare 与主语 our company's profit 之间是被动关系，且表示与去年相比，应用过去分词 Compared。",
+      "knowledgePoints": [
+        "过去分词",
+        "固定搭配",
+        "非谓语动词"
+      ]
+    },
+    {
+      "id": "ENG_2022_54",
+      "year": 2022,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Friendship is one of the most valuable thing in our lives. A true friend is someone who stays by your side when times are difficult. We should value our friends and never take them for granting.",
+      "question": "Find two errors in the passage and correct them.",
+      "answer": "thing -> things; granting -> granted",
+      "analysis": "第一处：one of the + 形容词最高级 + 复数名词，thing 应改为 things；第二处：take something for granted 是固定搭配，意为视为理所当然，granting 应改为 granted。",
+      "knowledgePoints": [
+        "名词复数",
+        "固定搭配",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2022_55",
+      "year": 2022,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，看到某英文网站招聘暑期志愿者，请写一封申请信，内容包括：1. 表达申请意愿；2. 介绍个人优势和相关经历；3. 表达期待。词数100左右。",
+      "answer": "Dear Sir/Madam,\n\nI am writing to apply for the volunteer position advertised on your website. I am a senior high school student with a strong passion for community service.\n\nI believe I am well-qualified for this role. I have been learning English for over ten years and can communicate fluently. Additionally, I have previous volunteer experience at a local nursing home, where I organized activities for elderly residents. I am responsible, patient, and work well in a team.\n\nI would be grateful if you could consider my application. I look forward to hearing from you soon.\n\nYours sincerely,\nLi Hua",
+      "analysis": "申请信格式规范，要点完整。注意使用 I am writing to apply for, I believe I am well-qualified, I would be grateful if 等句式体现正式语体。",
+      "knowledgePoints": [
+        "申请信写作",
+        "志愿者话题",
+        "正式语体"
+      ]
+    },
+    {
+      "id": "ENG_2023_56",
+      "year": 2023,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: I'd like to book a room for two nights. W: Sure. A single room or a double room? M: A single room, please. How much is it? W: 300 yuan per night. What is the man doing?",
+      "options": [
+        "Booking a hotel room",
+        "Buying a house",
+        "Renting a car",
+        "Ordering food"
+      ],
+      "answer": "A",
+      "analysis": "男士说 I'd like to book a room for two nights，女士问单间还是双人间，说明在预订酒店房间。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景判断",
+        "酒店用语"
+      ]
+    },
+    {
+      "id": "ENG_2023_57",
+      "year": 2023,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "W: Excuse me, could you tell me how to get to the railway station? M: Sure. Go along this street, turn right at the traffic lights, and you'll see it on your left. How should the woman go to the railway station?",
+      "options": [
+        "Turn left at the traffic lights",
+        "Turn right at the traffic lights and it's on the left",
+        "Go straight and it's on the right",
+        "Turn right and it's on the right"
+      ],
+      "answer": "B",
+      "analysis": "男士说 turn right at the traffic lights, and you'll see it on your left，即右转后在左侧看到火车站。",
+      "knowledgePoints": [
+        "听力理解",
+        "问路指路",
+        "方位词"
+      ]
+    },
+    {
+      "id": "ENG_2023_58",
+      "year": 2023,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Renewable energy sources, including solar, wind, and hydropower, are playing an increasingly important role in the global energy transition. In 2022, renewables accounted for nearly 30% of global electricity generation. China has been a leader in this field, installing more solar capacity than any other country. The shift toward renewable energy is driven not only by environmental concerns but also by economic factors, as the cost of solar and wind power has dropped dramatically over the past decade. Despite these advances, challenges remain, including the intermittent nature of some renewable sources and the need for improved energy storage technologies.",
+      "question": "What is one challenge of renewable energy mentioned in the passage?",
+      "options": [
+        "The cost is too high for most countries",
+        "Some renewable sources are intermittent in nature",
+        "China is the only country using renewable energy",
+        "Solar and wind power are unreliable in all conditions"
+      ],
+      "answer": "B",
+      "analysis": "文章指出 challenges remain, including the intermittent nature of some renewable sources，即某些可再生能源具有间歇性。A项与文中 cost has dropped 矛盾，C、D项过于绝对。",
+      "knowledgePoints": [
+        "细节理解",
+        "可再生能源",
+        "因果分析"
+      ]
+    },
+    {
+      "id": "ENG_2023_59",
+      "year": 2023,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "Creativity is not a gift reserved for a few talented individuals. It is a skill that can be ___ through practice and perseverance. Studies show that people who regularly engage in creative activities, such as painting or writing, develop stronger problem-solving abilities.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "inherited",
+        "cultivated",
+        "imagined",
+        "forgotten"
+      ],
+      "answer": "B",
+      "analysis": "文章说创造力不是少数人的天赋，而是可以通过练习和坚持培养的技能，cultivated（培养）符合语境。inherited（遗传）与前文 not a gift 矛盾，imagined 和 forgotten 不合逻辑。",
+      "knowledgePoints": [
+        "完形填空",
+        "词义辨析",
+        "逻辑推断"
+      ]
+    },
+    {
+      "id": "ENG_2023_60",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "You ___ not smoke in public places. It is prohibited by law.",
+      "question": "Fill in the blank with an appropriate modal verb.",
+      "answer": "must / should",
+      "analysis": "表示禁止或强烈建议不在公共场所吸烟，可用 must not 或 should not。must not 表示禁止，should not 表示不应该。",
+      "knowledgePoints": [
+        "情态动词",
+        "禁止表达",
+        "语法填空"
+      ]
+    },
+    {
+      "id": "ENG_2023_61",
+      "year": 2023,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Time management is a crucial skill for students. Many students struggle to balancing their studies and extracurricular activities. To manage your time well, you should make a schedule and stick to them strictly.",
+      "question": "Find two errors in the passage and correct them.",
+      "answer": "balancing -> balance; them -> it",
+      "analysis": "第一处：struggle to do sth，to 后接动词原形，balancing 改为 balance；第二处：them 指代 a schedule（单数），应改为 it。",
+      "knowledgePoints": [
+        "不定式用法",
+        "代词指代",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2023_62",
+      "year": 2023,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，请以\"网购的利与弊\"为题写一篇议论文，内容包括：1. 网购的优点；2. 网购的缺点；3. 你的建议。词数120左右。",
+      "answer": "The Pros and Cons of Online Shopping\n\nOnline shopping has become an integral part of modern life. On the one hand, it offers great convenience. Consumers can purchase goods from the comfort of their homes at any time, often at lower prices than in physical stores. The wide variety of products available online is also a significant advantage.\n\nOn the other hand, online shopping has its drawbacks. Customers cannot physically examine products before purchasing, which sometimes leads to disappointment. Additionally, excessive online shopping can result in impulse buying and financial problems.\n\nIn my opinion, online shopping is a useful tool if used wisely. I suggest setting a budget, reading product reviews carefully, and avoiding unnecessary purchases. By doing so, we can enjoy the benefits of online shopping while minimizing its risks.",
+      "analysis": "议论文结构清晰（引言-优点-缺点-建议），使用 On the one hand, On the other hand, In my opinion 等过渡词，论点明确，建议具体。",
+      "knowledgePoints": [
+        "议论文写作",
+        "网购话题",
+        "正反论述"
+      ]
+    },
+    {
+      "id": "ENG_2024_63",
+      "year": 2024,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: Excuse me, when does the next flight to Shanghai leave? W: Let me check. It leaves at 3:15 pm. You still have forty minutes. Where is the man?",
+      "options": [
+        "At a train station",
+        "At an airport",
+        "At a bus stop",
+        "At a hotel"
+      ],
+      "answer": "B",
+      "analysis": "男士问 next flight to Shanghai（下一班飞往上海的航班），说明在机场。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景判断",
+        "机场用语"
+      ]
+    },
+    {
+      "id": "ENG_2024_64",
+      "year": 2024,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Cultural exchange programs play a vital role in promoting mutual understanding between nations. Through study abroad programs, international student exchanges, and cultural festivals, people from different backgrounds can experience each other's traditions, values, and ways of life firsthand. These experiences often challenge stereotypes and build lasting friendships across borders. Research indicates that students who participate in exchange programs demonstrate greater cultural sensitivity, adaptability, and language proficiency. In an era of increasing global interconnectedness, such programs are more important than ever for fostering international cooperation and peace.",
+      "question": "What benefit of cultural exchange programs is mentioned in the passage?",
+      "options": [
+        "They help students earn more money",
+        "They improve cultural sensitivity, adaptability, and language skills",
+        "They eliminate all cultural differences",
+        "They are only beneficial for wealthy students"
+      ],
+      "answer": "B",
+      "analysis": "文章指出参与交流项目的学生 demonstrate greater cultural sensitivity, adaptability, and language proficiency，B项正确概括了这些好处。",
+      "knowledgePoints": [
+        "细节理解",
+        "文化交流",
+        "主旨理解"
+      ]
+    },
+    {
+      "id": "ENG_2024_65",
+      "year": 2024,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "Gratitude is a powerful emotion that can transform our perspective on life. When we focus on what we are ___ for, rather than what we lack, we become happier and more content. Research shows that practicing gratitude regularly can improve mental health and strengthen relationships.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "sorry",
+        "grateful",
+        "responsible",
+        "famous"
+      ],
+      "answer": "B",
+      "analysis": "文章主题是 gratitude（感恩），be grateful for（对...感恩）是固定搭配，且与后文 rather than what we lack 形成对比。",
+      "knowledgePoints": [
+        "完形填空",
+        "固定搭配",
+        "语境推断"
+      ]
+    },
+    {
+      "id": "ENG_2024_66",
+      "year": 2024,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "Not only ___ he speak English fluently, but he also knows French well.",
+      "question": "Fill in the blank with an appropriate word to complete the inversion structure.",
+      "answer": "does",
+      "analysis": "Not only 置于句首引起部分倒装，且为一般现在时，主语 he 为第三人称单数，故用 does。",
+      "knowledgePoints": [
+        "倒装句",
+        "部分倒装",
+        "语法填空"
+      ]
+    },
+    {
+      "id": "ENG_2024_67",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Reading is a wonderful habit that benefit us in many ways. It can broaden our horizons and improve our thinking ability. In my opinion, everyone should develop a habit of reading in their spare time.",
+      "question": "Find the error in the passage and correct it.",
+      "answer": "benefit -> benefits",
+      "analysis": "主语 that 指代 a wonderful habit（单数），谓语动词应用第三人称单数 benefits。",
+      "knowledgePoints": [
+        "主谓一致",
+        "定语从句",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2024_68",
+      "year": 2024,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，你校将组织一次去敬老院的志愿者活动。请给你校交换生Tom写一封电子邮件，邀请他参加，内容包括：1. 活动时间和地点；2. 活动内容；3. 注意事项。词数100左右。",
+      "answer": "Dear Tom,\n\nI hope this email finds you well. I'm writing to invite you to join our school's volunteer activity at the Sunshine Nursing Home this Saturday.\n\nWe will meet at the school gate at 8:00 am and take a bus there. Our activities will include chatting with the elderly, helping them with household chores, and putting on a short performance. The event will last until about 3:00 pm.\n\nPlease remember to wear comfortable clothes and bring a water bottle. If you have any special talents you'd like to share, feel free to bring them along!\n\nLooking forward to your reply.\n\nYours,\nLi Hua",
+      "analysis": "邮件格式正确，要点完整（时间地点、活动内容、注意事项），语言亲切自然。注意使用 I'm writing to invite you, Please remember to 等句式。",
+      "knowledgePoints": [
+        "邮件写作",
+        "志愿者活动",
+        "邀请表达"
+      ]
+    },
+    {
+      "id": "ENG_2025_69",
+      "year": 2025,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "W: What's the weather forecast for tomorrow? M: It says it will be sunny in the morning, but cloudy with a chance of rain in the afternoon. What will the weather be like tomorrow morning?",
+      "options": [
+        "Rainy",
+        "Cloudy",
+        "Sunny",
+        "Snowy"
+      ],
+      "answer": "C",
+      "analysis": "男士说 It says it will be sunny in the morning，即明天上午晴天。",
+      "knowledgePoints": [
+        "听力理解",
+        "天气预报",
+        "天气词汇"
+      ]
+    },
+    {
+      "id": "ENG_2025_70",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "Quantum computing represents a paradigm shift in computational power. Unlike classical computers that use binary bits (0 or 1), quantum computers use qubits, which can exist in multiple states simultaneously through a phenomenon called superposition. This allows quantum computers to process vast amounts of data in parallel, potentially solving problems that would take classical computers millions of years. Applications range from drug discovery to cryptography and climate modeling. However, quantum computers are extremely sensitive to environmental disturbances and require near-absolute-zero temperatures to operate, making them expensive and difficult to maintain. Researchers worldwide are racing to overcome these technical barriers, and some experts predict that practical quantum computers could become available within the next decade.",
+      "question": "What can be inferred about the current state of quantum computing from the passage?",
+      "options": [
+        "Quantum computers are already widely used in homes and offices",
+        "Quantum computers face technical challenges but may become practical within a decade",
+        "Quantum computers have completely replaced classical computers",
+        "Quantum computing is theoretically impossible"
+      ],
+      "answer": "B",
+      "analysis": "文章指出量子计算机 extremely sensitive to environmental disturbances 且 expensive and difficult to maintain，但 some experts predict that practical quantum computers could become available within the next decade，B项正确概括了当前状态。",
+      "knowledgePoints": [
+        "推理判断",
+        "科技前沿",
+        "综合理解"
+      ]
+    },
+    {
+      "id": "ENG_2025_71",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Mental health has emerged as a critical public health issue, particularly among adolescents. Studies show that approximately one in five teenagers experiences symptoms of anxiety or depression. The causes are multifaceted, ranging from academic pressure and social media influence to family dynamics and biological factors. Schools and communities are increasingly implementing mental health programs, including counseling services, stress management workshops, and peer support groups. Experts emphasize that mental health should be treated with the same urgency as physical health, and that seeking professional help is a sign of strength, not weakness.",
+      "question": "According to the passage, what is the experts' view on seeking professional help for mental health?",
+      "options": [
+        "It is a sign of weakness",
+        "It is a sign of strength",
+        "It is unnecessary for most people",
+        "It should only be done as a last resort"
+      ],
+      "answer": "B",
+      "analysis": "文章最后一句指出 seeking professional help is a sign of strength, not weakness，B项与之吻合。",
+      "knowledgePoints": [
+        "细节理解",
+        "心理健康",
+        "观点态度"
+      ]
+    },
+    {
+      "id": "ENG_2025_72",
+      "year": 2025,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "Resilience is the ability to bounce back from adversity. People who are resilient do not let failures define them; instead, they view setbacks as opportunities for ___. This mindset enables them to keep moving forward even in the face of difficulties.",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "complaint",
+        "growth",
+        "escape",
+        "criticism"
+      ],
+      "answer": "B",
+      "analysis": "resilient 的人将挫折视为成长的机会，growth（成长）符合语境。complaint（抱怨）、escape（逃避）、criticism（批评）与 resilient 的积极态度矛盾。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境推断",
+        "词义辨析"
+      ]
+    },
+    {
+      "id": "ENG_2025_73",
+      "year": 2025,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "If I ___ (be) you, I would accept the offer and seize this opportunity.",
+      "question": "Fill in the blank with the correct form of the verb in brackets.",
+      "answer": "were",
+      "analysis": "这是与现在事实相反的虚拟语气，if 从句用一般过去时，be 动词统一用 were。",
+      "knowledgePoints": [
+        "虚拟语气",
+        "与现在事实相反",
+        "语法填空"
+      ]
+    },
+    {
+      "id": "ENG_2025_74",
+      "year": 2025,
+      "type": "短文改错",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "短文改错",
+      "passage": "Social skills are essential in both personal and professional life. People with good social skills can communicates effectively with others, build strong relationships, and resolving conflicts peacefully. Therefore, developing these skills is well worth the effort.",
+      "question": "Find two errors in the passage and correct them.",
+      "answer": "communicates -> communicate; resolving -> resolve",
+      "analysis": "第一处：can 后接动词原形，communicates 改为 communicate；第二处：与 build 和 resolve 并列，应用动词原形 resolve。",
+      "knowledgePoints": [
+        "情态动词后接动词原形",
+        "并列结构",
+        "短文改错"
+      ]
+    },
+    {
+      "id": "ENG_2026_75",
+      "year": 2026,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "M: Did you go to the concert last night? W: Yes, it was amazing! The pianist played so beautifully. What does the woman think of the concert?",
+      "options": [
+        "It was boring",
+        "It was amazing",
+        "It was terrible",
+        "It was okay"
+      ],
+      "answer": "B",
+      "analysis": "女士说 it was amazing! 且 The pianist played so beautifully，说明她认为音乐会很精彩。",
+      "knowledgePoints": [
+        "听力理解",
+        "态度判断",
+        "音乐话题"
+      ]
+    },
+    {
+      "id": "ENG_2026_76",
+      "year": 2026,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "passage": "Gene editing technology, particularly CRISPR-Cas9, has revolutionized the field of genetics. This tool allows scientists to modify DNA sequences with unprecedented precision, opening up possibilities for treating genetic diseases, improving crop yields, and even controlling invasive species. However, the technology also raises serious ethical concerns, especially regarding its potential use in human embryos. In 2018, a Chinese scientist sparked international controversy by claiming to have created the world's first gene-edited babies, leading to widespread calls for stricter regulations. The international community continues to debate where to draw the line between beneficial applications and unethical uses of this powerful technology.",
+      "question": "What ethical concern about gene editing is highlighted in the passage?",
+      "options": [
+        "It is too expensive for practical use",
+        "Its potential use in human embryos raises ethical concerns",
+        "It cannot be used to treat any diseases",
+        "It is illegal in all countries"
+      ],
+      "answer": "B",
+      "analysis": "文章指出 the technology also raises serious ethical concerns, especially regarding its potential use in human embryos，即其在人类胚胎中的潜在应用引发伦理担忧。",
+      "knowledgePoints": [
+        "细节理解",
+        "基因编辑",
+        "科技伦理"
+      ]
+    },
+    {
+      "id": "ENG_2026_77",
+      "year": 2026,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "阅读理解",
+      "passage": "Sustainable development, defined as meeting the needs of the present without compromising the ability of future generations to meet their own needs, has become a guiding principle for global development. The United Nations' Sustainable Development Goals (SDGs) provide a comprehensive framework addressing issues from poverty and hunger to climate action and gender equality. Achieving these goals requires unprecedented cooperation among nations, as many challenges, such as climate change and biodiversity loss, transcend national borders. Critics argue that the SDGs are too ambitious and lack enforcement mechanisms, while supporters contend that they provide essential targets that drive progress even when full achievement remains elusive. The tension between economic growth and environmental protection remains one of the most difficult balancing acts in sustainable development.",
+      "question": "What is one criticism of the SDGs mentioned in the passage?",
+      "options": [
+        "They are too narrow in scope",
+        "They are too ambitious and lack enforcement mechanisms",
+        "They only address environmental issues",
+        "They have been fully achieved by all nations"
+      ],
+      "answer": "B",
+      "analysis": "文章指出 Critics argue that the SDGs are too ambitious and lack enforcement mechanisms，B项正确概括了批评意见。",
+      "knowledgePoints": [
+        "细节理解",
+        "可持续发展",
+        "批判性思维"
+      ]
+    },
+    {
+      "id": "ENG_2026_78",
+      "year": 2026,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "passage": "Curiosity is the engine of intellectual growth. It drives us to ask questions, seek answers, and explore the unknown. Without ___, we would remain satisfied with what we already know, and progress would come to a halt. Albert Einstein once said, \"I have no special talent. I am only passionately curious.\"",
+      "question": "What is the best word to fill in the blank?",
+      "options": [
+        "money",
+        "curiosity",
+        "luck",
+        "power"
+      ],
+      "answer": "B",
+      "analysis": "文章主题是 curiosity（好奇心），第一句即点明，without curiosity（没有好奇心）我们不会探索未知，符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "主题理解",
+        "语境推断"
+      ]
+    },
+    {
+      "id": "ENG_2026_79",
+      "year": 2026,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "passage": "The boy ___ (stand) under the tree is my best friend from primary school.",
+      "question": "Fill in the blank with the correct form of the verb in brackets.",
+      "answer": "standing",
+      "analysis": "boy 与 stand 之间是主动关系，且作后置定语修饰 boy，应用现在分词 standing。",
+      "knowledgePoints": [
+        "现在分词",
+        "后置定语",
+        "非谓语动词"
+      ]
+    },
+    {
+      "id": "ENG_2026_80",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "书面表达",
+      "question": "假定你是李华，即将高中毕业，请以\"我的未来职业规划\"为题写一篇短文，内容包括：1. 你想从事的职业；2. 选择该职业的原因；3. 你将如何为之准备。词数120左右。",
+      "answer": "My Future Career Plan\n\nAs graduation approaches, I have been reflecting on my future career. My dream is to become an environmental scientist, dedicating my life to protecting our planet.\n\nThere are several reasons for this choice. First, growing up in a city affected by air pollution, I have witnessed the consequences of environmental degradation firsthand. Second, I have always been fascinated by nature and the delicate balance of ecosystems. I believe that everyone has a responsibility to contribute to environmental protection.\n\nTo achieve this goal, I plan to major in Environmental Science at university. I am currently volunteering at a local environmental organization to gain practical experience. I also read scientific journals regularly to stay informed about the latest research.\n\nI am confident that with hard work and determination, I can turn my dream into reality and make a meaningful contribution to our world.",
+      "analysis": "短文结构完整（职业选择-原因-准备），语言地道，逻辑清晰。注意使用 There are several reasons, To achieve this goal, I am confident that 等句式增强连贯性。",
+      "knowledgePoints": [
+        "记叙文写作",
+        "职业规划",
+        "个人梦想"
+      ]
+    },
+    {
+      "id": "ENG_2018_81",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "听下面一段对话，回答问题：What does the man want to drink?",
+      "answer": "C",
+      "analysis": "对话中男士说 'I'd like a cup of coffee, please.'，故选 coffee。",
+      "knowledgePoints": [
+        "听力理解",
+        "细节"
+      ],
+      "options": [
+        "Tea",
+        "Juice",
+        "Coffee",
+        "Water"
+      ]
+    },
+    {
+      "id": "ENG_2018_82",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "Where does the conversation probably take place?",
+      "answer": "B",
+      "analysis": "由关键词 'menu' 'order' 推断在餐厅。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景推断"
+      ],
+      "options": [
+        "In a hospital",
+        "In a restaurant",
+        "In a bookstore",
+        "In a bank"
+      ]
+    },
+    {
+      "id": "ENG_2018_83",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "When will the train leave?",
+      "answer": "A",
+      "analysis": "对话中 'The train leaves at 8:30.'",
+      "knowledgePoints": [
+        "听力理解",
+        "时间"
+      ],
+      "options": [
+        "At 8:30",
+        "At 9:00",
+        "At 7:45",
+        "At 8:15"
+      ]
+    },
+    {
+      "id": "ENG_2018_84",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What is the weather like today?",
+      "answer": "D",
+      "analysis": "对话中 'It's sunny and warm.'",
+      "knowledgePoints": [
+        "听力理解",
+        "天气"
+      ],
+      "options": [
+        "Rainy and cold",
+        "Windy",
+        "Cloudy",
+        "Sunny and warm"
+      ]
+    },
+    {
+      "id": "ENG_2018_85",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "How much does the woman need to pay?",
+      "answer": "C",
+      "analysis": "三本书 each 5 dollars，共 15 dollars。",
+      "knowledgePoints": [
+        "听力理解",
+        "数字计算"
+      ],
+      "options": [
+        "5 dollars",
+        "10 dollars",
+        "15 dollars",
+        "20 dollars"
+      ]
+    },
+    {
+      "id": "ENG_2018_86",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What is the relationship between the speakers?",
+      "answer": "B",
+      "analysis": "由 'Mom, can I...' 推断为母子关系。",
+      "knowledgePoints": [
+        "听力理解",
+        "人物关系"
+      ],
+      "options": [
+        "Teacher and student",
+        "Mother and son",
+        "Doctor and patient",
+        "Friends"
+      ]
+    },
+    {
+      "id": "ENG_2018_87",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What will the man do this weekend?",
+      "answer": "A",
+      "analysis": "男士说 'I'm going hiking with friends.'",
+      "knowledgePoints": [
+        "听力理解",
+        "活动"
+      ],
+      "options": [
+        "Go hiking with friends",
+        "Stay at home",
+        "Visit his grandparents",
+        "Prepare for an exam"
+      ]
+    },
+    {
+      "id": "ENG_2018_88",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "Why is the woman late?",
+      "answer": "C",
+      "analysis": "女士说 'The bus broke down on the way.'",
+      "knowledgePoints": [
+        "听力理解",
+        "原因"
+      ],
+      "options": [
+        "She got up late",
+        "She missed the bus stop",
+        "The bus broke down on the way",
+        "There was too much traffic"
+      ]
+    },
+    {
+      "id": "ENG_2018_89",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What does the woman suggest the man do?",
+      "answer": "D",
+      "analysis": "女士建议 'You should see a doctor.'",
+      "knowledgePoints": [
+        "听力理解",
+        "建议"
+      ],
+      "options": [
+        "Take some medicine",
+        "Stay in bed",
+        "Drink more water",
+        "See a doctor"
+      ]
+    },
+    {
+      "id": "ENG_2018_90",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What can we learn about the man?",
+      "answer": "B",
+      "analysis": "推断题要把每个选项与听到的事实逐一对照，只保留能被对话内容支持的那一项。\n\n「不喜欢运动」「擅长做饭」在对话中都没有依据，属于凭常识臆断；判断时要抓住说话人提到的行为或状态，而不是语气词。",
+      "knowledgePoints": [
+        "听力理解",
+        "推断"
+      ],
+      "options": [
+        "He dislikes sports",
+        "He often works late",
+        "He has given up smoking",
+        "He is good at cooking"
+      ]
+    },
+    {
+      "id": "ENG_2018_91",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What does the man think of the movie?",
+      "answer": "A",
+      "analysis": "男士说 'It was boring and too long.'",
+      "knowledgePoints": [
+        "听力理解",
+        "观点态度"
+      ],
+      "options": [
+        "Boring and too long",
+        "Exciting",
+        "Moving",
+        "Funny"
+      ]
+    },
+    {
+      "id": "ENG_2018_92",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "How will the speakers go to the airport?",
+      "answer": "B",
+      "analysis": "对话中 'Let's take a taxi.'",
+      "knowledgePoints": [
+        "听力理解",
+        "交通方式"
+      ],
+      "options": [
+        "By bus",
+        "By taxi",
+        "By subway",
+        "By car"
+      ]
+    },
+    {
+      "id": "ENG_2018_93",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What are the speakers mainly talking about?",
+      "answer": "C",
+      "analysis": "主旨题要抓对话反复出现的核心话题，通常出现在开头或结尾的总结句。\n\n学校活动、周末安排、生日聚会都与对话主旨无关，只在个别词上重合；听的时候先定位双方谈的是什么事，再对照选项。",
+      "knowledgePoints": [
+        "听力理解",
+        "主旨大意"
+      ],
+      "options": [
+        "A travel plan",
+        "A school activity",
+        "A weekend arrangement",
+        "A birthday party"
+      ]
+    },
+    {
+      "id": "ENG_2018_94",
+      "year": 2018,
+      "type": "听力",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What does the woman imply?",
+      "answer": "D",
+      "analysis": "言外之意题要听出弦外之音：说话人若不同意，常见信号是转折、否定或反问。\n\n「她会帮忙」与「她知道」都过于直白，「应该去问老师」也不是她话里带刺的方向；判断依据是她对对方说法的反应。",
+      "knowledgePoints": [
+        "听力理解",
+        "言外之意"
+      ],
+      "options": [
+        "She will help the man",
+        "She disagrees with the man",
+        "She knows nothing about it",
+        "She thinks the man should ask the teacher"
+      ]
+    },
+    {
+      "id": "ENG_2019_95",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Read the passage and answer: What is the main idea of the passage?",
+      "answer": "B",
+      "analysis": "文章首段点明主旨：科技进步对教育的积极影响。",
+      "knowledgePoints": [
+        "阅读理解",
+        "主旨大意"
+      ],
+      "passage": "Technology has transformed education in many ways. With the help of computers and the Internet, students can access vast amounts of information and learn at their own pace. Online courses make education available to people everywhere. However, we must also be aware of the digital divide.",
+      "options": [
+        "The history of online education",
+        "Technology has brought positive changes to education",
+        "Teachers refuse to use technology",
+        "Computers are too expensive for schools"
+      ]
+    },
+    {
+      "id": "ENG_2019_96",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "According to the passage, what is a concern about technology in education?",
+      "answer": "C",
+      "analysis": "末句提到 'digital divide'（数字鸿沟）。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节理解"
+      ],
+      "passage": "Technology has transformed education in many ways. With the help of computers and the Internet, students can access vast amounts of information and learn at their own pace. Online courses make education available to people everywhere. However, we must also be aware of the digital divide.",
+      "options": [
+        "The high cost of computers",
+        "The lack of teachers",
+        "The digital divide",
+        "The safety of online courses"
+      ]
+    },
+    {
+      "id": "ENG_2019_97",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The underlined word 'access' in the passage is closest in meaning to ",
+      "answer": "A",
+      "analysis": "access 意为‘获取、接触’，与 obtain 接近。",
+      "knowledgePoints": [
+        "词义猜测"
+      ],
+      "passage": "With the help of computers and the Internet, students can access vast amounts of information and learn at their own pace.",
+      "options": [
+        "obtain",
+        "avoid",
+        "control",
+        "mention"
+      ]
+    },
+    {
+      "id": "ENG_2019_98",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What can be inferred from the passage?",
+      "answer": "D",
+      "analysis": "由 'learn at their own pace' 推断科技使学习更灵活。",
+      "knowledgePoints": [
+        "阅读理解",
+        "推理判断"
+      ],
+      "passage": "Technology has transformed education in many ways. With the help of computers and the Internet, students can access vast amounts of information and learn at their own pace.",
+      "options": [
+        "Online courses will replace schools",
+        "All students have Internet access",
+        "Technology causes the digital divide",
+        "Technology makes learning more flexible"
+      ]
+    },
+    {
+      "id": "ENG_2019_99",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the author's attitude towards technology in education?",
+      "answer": "C",
+      "analysis": "态度题看作者对教育科技的用词倾向和论据方向：褒贬词、让步与反驳的分布能定出态度。\n\n「怀疑」「冷淡」「否定」三种态度与文中肯定科技作用、讨论如何推广的基调不符。",
+      "knowledgePoints": [
+        "阅读理解",
+        "作者态度"
+      ],
+      "passage": "Technology has transformed education in many ways. With the help of computers and the Internet, students can access vast amounts of information. However, we must also be aware of the digital divide.",
+      "options": [
+        "Doubtful",
+        "Indifferent",
+        "Positive",
+        "Negative"
+      ]
+    },
+    {
+      "id": "ENG_2019_100",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The passage is mainly developed by ",
+      "answer": "A",
+      "analysis": "文章先举例后指出问题，呈举例—对比结构。",
+      "knowledgePoints": [
+        "阅读理解",
+        "篇章结构"
+      ],
+      "passage": "Technology has transformed education in many ways. With the help of computers and the Internet, students can access vast amounts of information. However, we must also be aware of the digital divide.",
+      "options": [
+        "giving examples",
+        "telling stories",
+        "describing a process",
+        "comparing two persons"
+      ]
+    },
+    {
+      "id": "ENG_2019_101",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "According to the author, online courses ",
+      "answer": "B",
+      "analysis": "文中 'Online courses make education available to people everywhere.'",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Online courses make education available to people everywhere.",
+      "options": [
+        "are only for rich students",
+        "make education available to people everywhere",
+        "have replaced traditional classes",
+        "are less effective than teachers"
+      ]
+    },
+    {
+      "id": "ENG_2019_102",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Which of the following is NOT mentioned as a benefit of technology?",
+      "answer": "D",
+      "analysis": "「NOT」题要先在文中逐条找到三项被提到的益处，剩下的那一项就是答案。\n\n按自己节奏学习、获取海量信息、教育资源普及都属于技术带来的好处；「生活成本降低」是经济问题，不在技术益处的讨论范围内。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节排除"
+      ],
+      "passage": "Technology benefits education: students can access vast amounts of information and learn at their own pace. Online courses make education available to people everywhere.",
+      "options": [
+        "Learning at one's own pace",
+        "Access to vast information",
+        "Education available everywhere",
+        "Lower cost of living"
+      ]
+    },
+    {
+      "id": "ENG_2019_103",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The best title for the passage is ",
+      "answer": "C",
+      "analysis": "标题要涵盖全文核心，且不能只覆盖一个部分。\n\n「数字鸿沟」只是文中的一个概念，「处处都有网课」和「学校的未来」都把范围缩得太窄或推得太远；「科技与教育」既涵盖内容又点明领域。",
+      "knowledgePoints": [
+        "阅读理解",
+        "标题归纳"
+      ],
+      "passage": "Technology has transformed education in many ways. However, we must also be aware of the digital divide.",
+      "options": [
+        "The Digital Divide",
+        "Online Courses Everywhere",
+        "Technology and Education",
+        "The Future of Schools"
+      ]
+    },
+    {
+      "id": "ENG_2019_104",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What does the last sentence 'digital divide' refer to?",
+      "answer": "B",
+      "analysis": "词义指代题要回原文找 digital divide 出现的那句话，看它前后在对比什么。\n\n文中对比的是有无技术条件的两类人，因此它指有技术者与无技术者之间的差距；「教学方式差异」「代际差异」「城乡距离」都与这一对比不符。",
+      "knowledgePoints": [
+        "阅读理解",
+        "句意理解"
+      ],
+      "passage": "Technology has transformed education in many ways. However, we must also be aware of the digital divide.",
+      "options": [
+        "The difference in teaching methods",
+        "The gap between those with and without access to technology",
+        "The generation gap between teachers and students",
+        "The distance between cities and villages"
+      ]
+    },
+    {
+      "id": "ENG_2020_105",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose the best word: She was ___ to see her old friend after so many years.",
+      "answer": "C",
+      "analysis": "多年后见到老友，应‘惊讶/激动’，surprised 符合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "语境词汇"
+      ],
+      "passage": "She was ___ to see her old friend after so many years. They hugged and talked for hours.",
+      "options": [
+        "sad",
+        "angry",
+        "surprised",
+        "bored"
+      ]
+    },
+    {
+      "id": "ENG_2020_106",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: He worked hard ___ he could support his family.",
+      "answer": "B",
+      "analysis": "so that 引导目的状语从句，说明努力是为了养家，与前半句构成目的关系。\n\nbecause 表原因，但「努力因为能养家」不合逻辑；although 表转折，「虽努力但能养家」与后半句相悖；unless 表条件，意思变成「除非努力否则能养家」，也讲不通。",
+      "knowledgePoints": [
+        "完形填空",
+        "连词"
+      ],
+      "passage": "He worked hard ___ he could support his family.",
+      "options": [
+        "because",
+        "so that",
+        "although",
+        "unless"
+      ]
+    },
+    {
+      "id": "ENG_2020_107",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The teacher encouraged the students to ___ their own opinions.",
+      "answer": "A",
+      "analysis": "express opinions 表达观点，固定搭配。",
+      "knowledgePoints": [
+        "完形填空",
+        "词汇搭配"
+      ],
+      "passage": "The teacher encouraged the students to ___ their own opinions in class.",
+      "options": [
+        "express",
+        "hide",
+        "change",
+        "forget"
+      ]
+    },
+    {
+      "id": "ENG_2020_108",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: It was raining heavily, ___ we stayed at home.",
+      "answer": "C",
+      "analysis": "so 表结果：雨下得很大，于是我们待在家里，前后是因果关系。\n\nor 表选择或并列，but 表转折（「虽然大雨我们仍待在家」与句意相反），for 是并列连词、不表示因果。",
+      "knowledgePoints": [
+        "完形填空",
+        "连词"
+      ],
+      "passage": "It was raining heavily, ___ we stayed at home all day.",
+      "options": [
+        "or",
+        "but",
+        "so",
+        "for"
+      ]
+    },
+    {
+      "id": "ENG_2020_109",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: She has a great ___ for music and plays the piano well.",
+      "answer": "D",
+      "analysis": "passion for 对…的热情，固定搭配。",
+      "knowledgePoints": [
+        "完形填空",
+        "名词搭配"
+      ],
+      "passage": "She has a great ___ for music and plays the piano well.",
+      "options": [
+        "energy",
+        "opinion",
+        "impression",
+        "passion"
+      ]
+    },
+    {
+      "id": "ENG_2020_110",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The book is so ___ that I can't put it down.",
+      "answer": "A",
+      "analysis": "fascinating 令人着迷，符合‘放不下’。",
+      "knowledgePoints": [
+        "完形填空",
+        "形容词"
+      ],
+      "passage": "The book is so ___ that I can't put it down.",
+      "options": [
+        "fascinating",
+        "boring",
+        "expensive",
+        "short"
+      ]
+    },
+    {
+      "id": "ENG_2020_111",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: ___ his illness, he still went to school every day.",
+      "answer": "B",
+      "analysis": "Despite 后接名词 his illness 构成让步状语，与 still 连用表示「虽然生病，仍每天上学」。\n\nBecause of 表原因，「因生病还每天上学」不合逻辑；Instead of 表方式；In case of 表「万一」的假设条件，都不合语境。",
+      "knowledgePoints": [
+        "完形填空",
+        "介词"
+      ],
+      "passage": "___ his illness, he still went to school every day and never gave up.",
+      "options": [
+        "Because of",
+        "Despite",
+        "Instead of",
+        "In case of"
+      ]
+    },
+    {
+      "id": "ENG_2020_112",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The little girl was ___ afraid of the dark.",
+      "answer": "C",
+      "analysis": "a bit 修饰形容词表示「有点」，与小女孩怕黑的情境相符。\n\nnot afraid 是「不怕」，never afraid 语意更绝对，都与情境相反；no 本身不能直接修饰形容词。",
+      "knowledgePoints": [
+        "完形填空",
+        "词汇辨析"
+      ],
+      "passage": "The little girl was ___ afraid of the dark and kept a light on at night.",
+      "options": [
+        "not",
+        "never",
+        "a bit",
+        "no"
+      ]
+    },
+    {
+      "id": "ENG_2020_113",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: We should take ___ to protect the environment.",
+      "answer": "A",
+      "analysis": "take measures 采取措施，固定搭配。",
+      "knowledgePoints": [
+        "完形填空",
+        "固定搭配"
+      ],
+      "passage": "We should take ___ to protect the environment before it is too late.",
+      "options": [
+        "measures",
+        "place",
+        "part",
+        "turns"
+      ]
+    },
+    {
+      "id": "ENG_2020_114",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: He ___ up early and went for a run this morning.",
+      "answer": "D",
+      "analysis": "get up 是「起床」的固定短语，got up early 意为「早早起了床」，与后半句去跑步相衔接。\n\nstood up 是「站起来」，gave up 是「放弃」，looked up 是「抬头看／查阅」，都不与 early 和去晨跑构成合理搭配。",
+      "knowledgePoints": [
+        "完形填空",
+        "动词短语"
+      ],
+      "passage": "He ___ up early and went for a run this morning.",
+      "options": [
+        "stood",
+        "gave",
+        "looked",
+        "got"
+      ]
+    },
+    {
+      "id": "ENG_2020_115",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The plan sounds ___, but it may be difficult to carry out.",
+      "answer": "C",
+      "analysis": "sound + adj，reasonable 合理的，符合转折语义。",
+      "knowledgePoints": [
+        "完形填空",
+        "形容词"
+      ],
+      "passage": "The plan sounds ___, but it may be difficult to carry out in practice.",
+      "options": [
+        "terribly",
+        "badly",
+        "reasonable",
+        "sadly"
+      ]
+    },
+    {
+      "id": "ENG_2020_116",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: She is the most ___ person I have ever met.",
+      "answer": "B",
+      "analysis": "generous 慷慨的，符合最高级语义。",
+      "knowledgePoints": [
+        "完形填空",
+        "形容词"
+      ],
+      "passage": "She is the most ___ person I have ever met; she is always helping others.",
+      "options": [
+        "patient",
+        "generous",
+        "lazy",
+        "careful"
+      ]
+    },
+    {
+      "id": "ENG_2020_117",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: I will never forget the day ___ I first met you.",
+      "answer": "A",
+      "analysis": "定语从句先行词 day 表时间，用 when。",
+      "knowledgePoints": [
+        "完形填空",
+        "定语从句"
+      ],
+      "passage": "I will never forget the day ___ I first met you at the railway station.",
+      "options": [
+        "when",
+        "which",
+        "that",
+        "where"
+      ]
+    },
+    {
+      "id": "ENG_2020_118",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: There are ___ apples on the table.",
+      "answer": "C",
+      "analysis": "apples 是可数名词复数，要用 a few 修饰。\n\na little 和 much 只能修饰不可数名词；little 单独修饰可数名词复数时表示「几乎没有」，与句中「有一些苹果」不符。",
+      "knowledgePoints": [
+        "完形填空",
+        "量词"
+      ],
+      "passage": "There are ___ apples on the table. Help yourself.",
+      "options": [
+        "a little",
+        "much",
+        "a few",
+        "little"
+      ]
+    },
+    {
+      "id": "ENG_2020_119",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: He apologized ___ being late for the meeting.",
+      "answer": "B",
+      "analysis": "apologize for 因…道歉，固定搭配。",
+      "knowledgePoints": [
+        "完形填空",
+        "介词搭配"
+      ],
+      "passage": "He apologized ___ being late for the meeting yesterday.",
+      "options": [
+        "of",
+        "for",
+        "to",
+        "with"
+      ]
+    },
+    {
+      "id": "ENG_2020_120",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: Hardly ___ the station when the train left.",
+      "answer": "D",
+      "analysis": "Hardly had + 主语 + 过去分词 when...，固定句型，需倒装。",
+      "knowledgePoints": [
+        "完形填空",
+        "倒装句"
+      ],
+      "passage": "Hardly ___ the station when the train left without me.",
+      "options": [
+        "I had reached",
+        "did I reach",
+        "I reached",
+        "had I reached"
+      ]
+    },
+    {
+      "id": "ENG_2020_121",
+      "year": 2020,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The news ___ he won the prize made us excited.",
+      "answer": "A",
+      "analysis": "同位语从句，解释 news 内容用 that。",
+      "knowledgePoints": [
+        "完形填空",
+        "同位语从句"
+      ],
+      "passage": "The news ___ he won the prize made us excited and proud.",
+      "options": [
+        "that",
+        "which",
+        "what",
+        "when"
+      ]
+    },
+    {
+      "id": "ENG_2021_122",
+      "year": 2021,
+      "type": "完形填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: My parents ___ married for twenty years.",
+      "answer": "C",
+      "analysis": "for twenty years 配完成时，have been。",
+      "knowledgePoints": [
+        "完形填空",
+        "时态"
+      ],
+      "passage": "My parents ___ married for twenty years and still love each other.",
+      "options": [
+        "got",
+        "have got",
+        "have been",
+        "will be"
+      ]
+    },
+    {
+      "id": "ENG_2021_123",
+      "year": 2021,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: She is one of the students who ___ (be) from China.",
+      "answer": "are",
+      "analysis": "定语从句先行词 students 为复数，谓语用 are。",
+      "knowledgePoints": [
+        "语法填空",
+        "定语从句",
+        "主谓一致"
+      ],
+      "passage": "She is one of the students who ___ (be) from China."
+    },
+    {
+      "id": "ENG_2021_124",
+      "year": 2021,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: I'm looking forward to ___ (hear) from you soon.",
+      "answer": "hearing",
+      "analysis": "look forward to 中 to 为介词，后接动名词。",
+      "knowledgePoints": [
+        "语法填空",
+        "介词+动名词"
+      ],
+      "passage": "I'm looking forward to ___ (hear) from you soon."
+    },
+    {
+      "id": "ENG_2021_125",
+      "year": 2021,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: The book___ (write) in 1990 is still popular today.",
+      "answer": "written",
+      "analysis": "book 与 write 为被动关系，用过去分词作后置定语。",
+      "knowledgePoints": [
+        "语法填空",
+        "非谓语动词",
+        "过去分词"
+      ],
+      "passage": "The book___ (write) in 1990 is still popular today."
+    },
+    {
+      "id": "ENG_2021_126",
+      "year": 2021,
+      "type": "语法填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank:___ (catch) the early bus, he got up at five this morning.",
+      "answer": "To catch",
+      "analysis": "空后有逗号，主句 he got up at five this morning 结构完整，空格处不能放谓语动词，只能用非谓语动词。\n\n表示目的用不定式 to catch，动作发生在主句之前，整句意为「为了赶早班车，他五点就起床了」。",
+      "knowledgePoints": [
+        "语法填空",
+        "非谓语动词",
+        "不定式"
+      ],
+      "passage": "___ (catch) the early bus, he got up at five this morning."
+    },
+    {
+      "id": "ENG_2022_127",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: It was in the park___ I met my old friend yesterday.",
+      "answer": "that",
+      "analysis": "强调句型 It is/was...that...。",
+      "knowledgePoints": [
+        "语法填空",
+        "强调句"
+      ],
+      "passage": "It was in the park___ I met my old friend yesterday."
+    },
+    {
+      "id": "ENG_2022_128",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: The teacher told us that the earth ___ (go) around the sun.",
+      "answer": "goes",
+      "analysis": "客观真理用一般现在时，主语 earth 单数。",
+      "knowledgePoints": [
+        "语法填空",
+        "时态",
+        "宾语从句"
+      ],
+      "passage": "The teacher told us that the earth ___ (go) around the sun."
+    },
+    {
+      "id": "ENG_2022_129",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: He is___ taller of the two brothers.",
+      "answer": "the",
+      "analysis": "‘the + 比较级 + of the two’ 表示‘两者中较…的那个’。",
+      "knowledgePoints": [
+        "语法填空",
+        "比较级",
+        "冠词"
+      ],
+      "passage": "He is___ taller of the two brothers."
+    },
+    {
+      "id": "ENG_2022_130",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank:___ (compare) with last year, our sales have increased by 20%.",
+      "answer": "Compared",
+      "analysis": "compare 与主句主语 our sales 为被动关系，用过去分词。",
+      "knowledgePoints": [
+        "语法填空",
+        "非谓语动词",
+        "过去分词"
+      ],
+      "passage": "___ (compare) with last year, our sales have increased by 20%."
+    },
+    {
+      "id": "ENG_2023_131",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: Not until he came home___ he realize he had lost his keys.",
+      "answer": "did",
+      "analysis": "Not until 置于句首，主句部分倒装，过去时用 did。",
+      "knowledgePoints": [
+        "语法填空",
+        "倒装句"
+      ],
+      "passage": "Not until he came home___ he realize he had lost his keys."
+    },
+    {
+      "id": "ENG_2023_132",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: This is the factory___ my father used to work.",
+      "answer": "where",
+      "analysis": "先行词 factory 表地点，定语从句缺地点状语用 where。",
+      "knowledgePoints": [
+        "语法填空",
+        "定语从句"
+      ],
+      "passage": "This is the factory___ my father used to work ten years ago."
+    },
+    {
+      "id": "ENG_2023_133",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: There are many___ (different) between the two languages.",
+      "answer": "differences",
+      "analysis": "many 后接可数名词复数 differences。",
+      "knowledgePoints": [
+        "语法填空",
+        "词形变化"
+      ],
+      "passage": "There are many___ (different) between the two languages."
+    },
+    {
+      "id": "ENG_2023_134",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: I would rather___ (stay) at home than go out in the rain.",
+      "answer": "stay",
+      "analysis": "would rather do than do 为固定结构，用动词原形。",
+      "knowledgePoints": [
+        "语法填空",
+        "固定结构"
+      ],
+      "passage": "I would rather___ (stay) at home than go out in the rain."
+    },
+    {
+      "id": "ENG_2023_135",
+      "year": 2023,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：He don't like playing football.",
+      "answer": "doesn't",
+      "analysis": "第三人称单数现在时否定用 doesn't。",
+      "knowledgePoints": [
+        "短文改错",
+        "主谓一致"
+      ],
+      "passage": "He don't like playing football with his friends after school."
+    },
+    {
+      "id": "ENG_2023_136",
+      "year": 2023,
+      "type": "短文改错",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：There is many books on the shelf.",
+      "answer": "are",
+      "analysis": "books 为复数，be 动词用 are。",
+      "knowledgePoints": [
+        "短文改错",
+        "主谓一致"
+      ],
+      "passage": "There is many books on the shelf in the study."
+    },
+    {
+      "id": "ENG_2023_137",
+      "year": 2023,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：I have seen him yesterday.",
+      "answer": "saw",
+      "analysis": "yesterday 为过去时间状语，用一般过去时 saw。",
+      "knowledgePoints": [
+        "短文改错",
+        "时态"
+      ],
+      "passage": "I have seen him yesterday at the supermarket."
+    },
+    {
+      "id": "ENG_2024_138",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：She is more taller than her sister.",
+      "answer": "taller",
+      "analysis": "more 与 -er 不能并用，去掉 more。",
+      "knowledgePoints": [
+        "短文改错",
+        "比较级"
+      ],
+      "passage": "She is more taller than her sister who is in the same class."
+    },
+    {
+      "id": "ENG_2024_139",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：He suggested me to take a rest.",
+      "answer": "that I (should) take / taking",
+      "analysis": "suggest 后不接 to do，应为 suggest (one's) doing 或 suggest that 从句。",
+      "knowledgePoints": [
+        "短文改错",
+        "虚拟语气",
+        "suggest用法"
+      ],
+      "passage": "He suggested me to take a rest because I looked tired."
+    },
+    {
+      "id": "ENG_2024_140",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：The number of students are increasing.",
+      "answer": "is",
+      "analysis": "the number of ...作主语，谓语用单数 is。",
+      "knowledgePoints": [
+        "短文改错",
+        "主谓一致"
+      ],
+      "passage": "The number of students are increasing every year in our school."
+    },
+    {
+      "id": "ENG_2024_141",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：Hardly I had arrived when the meeting began.",
+      "answer": "had I",
+      "analysis": "Hardly 置于句首需部分倒装：Hardly had I...。",
+      "knowledgePoints": [
+        "短文改错",
+        "倒装"
+      ],
+      "passage": "Hardly I had arrived when the meeting began without me."
+    },
+    {
+      "id": "ENG_2024_142",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：I'm looking forward to see you.",
+      "answer": "seeing",
+      "analysis": "look forward to 中 to 为介词，后接动名词。",
+      "knowledgePoints": [
+        "短文改错",
+        "介词+动名词"
+      ],
+      "passage": "I'm looking forward to see you again during the summer holiday."
+    },
+    {
+      "id": "ENG_2024_143",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：He is interested at English.",
+      "answer": "in",
+      "analysis": "be interested in 为固定搭配。",
+      "knowledgePoints": [
+        "短文改错",
+        "介词搭配"
+      ],
+      "passage": "He is interested at English and reads English novels every day."
+    },
+    {
+      "id": "ENG_2024_144",
+      "year": 2024,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：Each of the students have a dictionary.",
+      "answer": "has",
+      "analysis": "主语是 Each of the students，each 作主语时谓语用单数，所以 have 要改成 has。\n\n这是主谓一致里最典型的「each of + 复数名词」用单数动词的考点，与 the students have a dictionary 的复数形式形成对比。",
+      "knowledgePoints": [
+        "短文改错",
+        "主谓一致"
+      ],
+      "passage": "Each of the students have a dictionary given by the teacher."
+    },
+    {
+      "id": "ENG_2025_145",
+      "year": 2025,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：The boy who parents are teachers studies hard.",
+      "answer": "whose",
+      "analysis": "先行词 the boy 指人，从句缺的是表示所属关系的定语，应把 who 改成 whose，即 whose parents are teachers（他的父母是老师）。\n\nwho 在从句中作主语，后面不能直接跟名词短语；whose 专门表所属关系，可引导定语从句作定语。",
+      "knowledgePoints": [
+        "短文改错",
+        "定语从句"
+      ],
+      "passage": "The boy who parents are teachers studies hard every day."
+    },
+    {
+      "id": "ENG_2025_146",
+      "year": 2025,
+      "type": "短文改错",
+      "difficulty": "hard",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：It is necessary that he goes to school on time.",
+      "answer": "(should) go",
+      "analysis": "It is necessary that... 从句用 (should) + 动词原形。",
+      "knowledgePoints": [
+        "短文改错",
+        "虚拟语气"
+      ],
+      "passage": "It is necessary that he goes to school on time every day."
+    },
+    {
+      "id": "ENG_2025_147",
+      "year": 2025,
+      "type": "短文改错",
+      "difficulty": "easy",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：I have been to Beijing in 2010.",
+      "answer": "went",
+      "analysis": "in 2010 为过去时间，用一般过去时 went。",
+      "knowledgePoints": [
+        "短文改错",
+        "时态"
+      ],
+      "passage": "I have been to Beijing in 2010 and visited the Great Wall."
+    },
+    {
+      "id": "ENG_2025_148",
+      "year": 2025,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：She is the most clever student in our class.",
+      "answer": "cleverest",
+      "analysis": "clever 最高级为 cleverest，不与 most 并用。",
+      "knowledgePoints": [
+        "短文改错",
+        "最高级"
+      ],
+      "passage": "She is the most clever student in our class and always gets top marks."
+    },
+    {
+      "id": "ENG_2025_149",
+      "year": 2025,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write an email to your pen pal Tom, introducing your favorite Chinese festival (Spring Festival). About 100 words.",
+      "answer": "Dear Tom,\n\nI'm glad to tell you about my favorite Chinese festival—the Spring Festival. It is the most important traditional festival in China, usually falling in late January or early February.\n\nBefore the festival, families clean their houses and put up red decorations. On New Year's Eve, the whole family gets together for a big dinner. We eat dumplings and watch the Spring Festival Gala. Children receive red envelopes with lucky money. People visit relatives and friends, saying 'Happy New Year' to each other.\n\nI love the Spring Festival because it's a time for family reunion and joy.\n\nYours,\nLi Hua",
+      "analysis": "要点齐全：节日起源、习俗、个人感受；语言连贯，使用 first, then 等连接词。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "邮件",
+        "节日介绍"
+      ]
+    },
+    {
+      "id": "ENG_2025_150",
+      "year": 2025,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a speech titled 'The Power of Perseverance' for a school assembly. About 120 words.",
+      "answer": "Good morning, everyone,\n\nToday I'd like to share my thoughts on 'The Power of Perseverance.' As the saying goes, 'Rome was not built in a day.' Success rarely comes easily; it requires persistent effort.\n\nTake Thomas Edison as an example. He failed thousands of times before inventing the light bulb. Had he given up, our world would be much darker. His story teaches us that setbacks are not the end but stepping stones to success.\n\nIn our studies, we may face difficulties and feel discouraged. However, if we keep going, we will eventually overcome them. Remember, perseverance turns dreams into reality.\n\nLet's never give up, no matter how hard the journey may be. Thank you!",
+      "analysis": "演讲格式：问候—引入—举例—呼吁；运用名言与虚拟语气增强感染力。",
+      "knowledgePoints": [
+        "书面表达",
+        "演讲稿",
+        " perseverance"
+      ]
+    },
+    {
+      "id": "ENG_2026_151",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a short passage about an unforgettable experience in your senior high school. About 100 words.",
+      "answer": "An Unforgettable Experience\n\nOf all my high school memories, the sports meeting last autumn is the most unforgettable. I took part in the 1500-meter race, which I had never tried before.\n\nWhen the race began, I ran confidently. However, halfway through, I felt extremely tired and wanted to quit. Hearing my classmates cheering for me, I gathered my strength and kept running. Finally, I crossed the finish line in third place.\n\nThis experience taught me that with courage and perseverance, we can push beyond our limits. It will always inspire me.",
+      "analysis": "记叙文：事件经过—感受—启示；时态以过去时为主。",
+      "knowledgePoints": [
+        "书面表达",
+        "记叙文",
+        "校园经历"
+      ]
+    },
+    {
+      "id": "ENG_2026_152",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write an argumentative essay on the topic 'Should High School Students Use Smartphones at School?' Present both sides and give your opinion. About 120 words.",
+      "answer": "Should High School Students Use Smartphones at School?\n\nNowadays, whether high school students should be allowed to use smartphones at school has aroused heated debate.\n\nSome people support it, arguing that smartphones help students access information and communicate with parents. However, others oppose it, believing that smartphones distract students from studying and may lead to addiction.\n\nIn my opinion, smartphones should be used with restrictions. On one hand, they are useful learning tools when used properly. On the hand, uncontrolled use harms academic performance. Therefore, schools should set clear rules: smartphones may be used only for study purposes during class, while personal use is limited to breaks.\n\nIn conclusion, reasonable use rather than a complete ban is the best solution.",
+      "analysis": "议论文：正反观点—个人看法—结论；使用 However, On one hand, In conclusion 等衔接。",
+      "knowledgePoints": [
+        "书面表达",
+        "议论文",
+        "观点对比"
+      ]
+    },
+    {
+      "id": "ENG_2026_153",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a letter to your English teacher, expressing your gratitude. About 100 words.",
+      "answer": "Dear Ms. Wang,\n\nI'm writing to express my sincere gratitude for your help over the past three years. When I first entered high school, I struggled with English and almost lost confidence. It was your patience and encouragement that helped me make progress.\n\nYou always stayed after class to answer my questions and gave me valuable advice on reading and writing. Thanks to your guidance, my English has improved greatly and I even won a speech contest last month.\n\nI will always remember your kindness. Thank you for everything!\n\nYours sincerely,\nLi Hua",
+      "analysis": "感谢信：表达感谢—具体事例—美好祝愿；语气真诚。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "感谢信"
+      ]
+    },
+    {
+      "id": "ENG_2026_154",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "easy",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a short introduction of your hometown. About 80 words.",
+      "answer": "My Hometown\n\nMy hometown is a beautiful city in Guangdong Province. It has a warm climate and plenty of sunshine all year round.\n\nThe city is famous for its delicious food, especially Cantonese dim sum. There are also many places of interest, such as historical temples and modern shopping malls. The people here are friendly and hardworking.\n\nI love my hometown because of its unique culture and warm atmosphere. You are welcome to visit it someday!",
+      "analysis": "介绍文：地理位置—特色—感受；使用 such as 举例。",
+      "knowledgePoints": [
+        "书面表达",
+        "介绍文",
+        "家乡"
+      ]
+    },
+    {
+      "id": "ENG_2026_155",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a notice for the school English Corner, inviting students to join. About 80 words.",
+      "answer": "Notice\n\nAn English Corner will be held in the school garden this Friday afternoon from 4:00 to 5:30. The topic is 'My Favorite Book.' All students are welcome to join us and share your favorite books in English.\n\nYou will have the chance to practice spoken English, make new friends and exchange ideas. Please prepare a short talk about your favorite book.\n\nLooking forward to seeing you there!\n\nThe English Club\nOctober 10",
+      "analysis": "通知：时间地点—活动内容—要求；格式规范。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "通知"
+      ]
+    },
+    {
+      "id": "ENG_2026_156",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a continuation for the story: 'Jack opened the mysterious box and couldn't believe his eyes...' About 100 words.",
+      "answer": "Jack opened the mysterious box and couldn't believe his eyes. Inside lay a golden watch, sparkling under the light. It looked ancient, with strange symbols carved on its back.\n\nCuriously, Jack picked it up and wound it. Suddenly, the room began to spin. When everything stopped, he found himself standing in a bustling street of the 19th century. Carriages rolled past and people in old-fashioned clothes hurried by. Jack realized the watch could travel through time!\n\nExcited yet frightened, he wondered what adventure awaited him next. He took a deep breath and stepped forward into the unknown.",
+      "analysis": "续写：合理衔接—发展情节—留下悬念；注意与首句衔接。",
+      "knowledgePoints": [
+        "书面表达",
+        "读后续写",
+        "故事"
+      ]
+    },
+    {
+      "id": "ENG_2018_157",
+      "year": 2018,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Read the notice: When does the library close on weekends?",
+      "answer": "B",
+      "analysis": "细节题要回通知里找营业时间那一栏，只看周末对应的时间。\n\n做题时先圈出 weekends 这个限定词，避免误选工作日的时间；其余时间分别对应开门时间或通知中未出现的时间，属于无中生有。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Library Hours: Mon-Fri 8:00 am - 9:00 pm; Weekends 9:00 am - 6:00 pm. Closed on public holidays.",
+      "options": [
+        "At 5:00 pm",
+        "At 8:00 pm",
+        "At 6:00 pm",
+        "At 9:00 pm"
+      ]
+    },
+    {
+      "id": "ENG_2018_158",
+      "year": 2018,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Read the ad: How much should a 10-year-old child and his parents pay for the tickets?",
+      "answer": "C",
+      "analysis": "成人 50×2 + 儿童 25 = 125。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节计算"
+      ],
+      "passage": "Ticket Prices: Adults $50; Children (6-12) $25; Under 6 free. Family package (2 adults + 2 children): $120.",
+      "options": [
+        "100 dollars",
+        "75 dollars",
+        "125 dollars",
+        "150 dollars"
+      ]
+    },
+    {
+      "id": "ENG_2018_159",
+      "year": 2018,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the purpose of the advertisement?",
+      "answer": "A",
+      "analysis": "广告的目的看它主推的对象：宣传语、优惠信息和联系方式最终指向的都是同一个对象。\n\n「教孩子历史」与广告无关；「打折售票」「介绍新博物馆」可能是广告里附带的信息，但不是它要推的主线，属于以偏概全。",
+      "knowledgePoints": [
+        "阅读理解",
+        "写作目的"
+      ],
+      "passage": "Come and enjoy the thrill of Adventure Park! Exciting rides, delicious food and wonderful shows await you. Buy tickets now and get 20% off!",
+      "options": [
+        "To attract visitors to a tourist attraction",
+        "To teach children about history",
+        "To sell tickets at a discount",
+        "To introduce a new museum"
+      ]
+    },
+    {
+      "id": "ENG_2019_160",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Read the schedule: Which train goes to Shanghai?",
+      "answer": "D",
+      "analysis": "查时刻表要找「目的地为 Shanghai」的那一行，对应车次就是答案。\n\n其余三个车次要么开往别的城市，要么是同一列车的不同编号，属于张冠李戴；注意别把「发车时间」当成「车次」。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Train Schedule: T108 - Beijing (8:00); K52 - Guangzhou (9:30); G201 - Nanjing (10:15); D305 - Shanghai (11:00).",
+      "options": [
+        "G101",
+        "G103",
+        "D205",
+        "G107"
+      ]
+    },
+    {
+      "id": "ENG_2019_161",
+      "year": 2019,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What can be inferred about the author of the passage?",
+      "answer": "C",
+      "analysis": "推断作者身份要看文中的线索：他对传统文化的熟悉程度和评价口吻。\n\n「不喜欢现代生活」与作者的态度不符；「住乡村」在文中没有依据；「历史老师」需要文中出现职业信息才能断定，不能凭题材想当然。",
+      "knowledgePoints": [
+        "阅读理解",
+        "推理判断"
+      ],
+      "passage": "Every weekend, I join my team to clean up the beach and educate visitors about plastic pollution. Seeing the turtles tangled in plastic bags breaks my heart. We must act now.",
+      "options": [
+        "He dislikes modern life",
+        "He is a history teacher",
+        "He cares about traditional culture",
+        "He lives in the countryside"
+      ]
+    },
+    {
+      "id": "ENG_2020_162",
+      "year": 2020,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The underlined word 'abandoned' in the passage means ",
+      "answer": "A",
+      "analysis": "abandoned 意为‘被遗弃的’，与 deserted 同义。",
+      "knowledgePoints": [
+        "词义猜测"
+      ],
+      "passage": "The old factory, abandoned for years, finally became a cultural center after renovation.",
+      "options": [
+        "deserted",
+        "repaired",
+        "protected",
+        "discovered"
+      ]
+    },
+    {
+      "id": "ENG_2020_163",
+      "year": 2020,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the author's tone in the passage?",
+      "answer": "B",
+      "analysis": "作者对传统文化的消失表示担忧，语气惋惜。",
+      "knowledgePoints": [
+        "阅读理解",
+        "语气"
+      ],
+      "passage": "With rapid modernization, many traditional crafts are disappearing. Young people prefer easier jobs, leaving the elderly as the last guardians of these skills.",
+      "options": [
+        "Excited",
+        "Worried",
+        "Humorous",
+        "Indifferent"
+      ]
+    },
+    {
+      "id": "ENG_2020_164",
+      "year": 2020,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "According to the passage, traditional crafts are disappearing because ",
+      "answer": "C",
+      "analysis": "题目问原因，答案必须是原文给出的原因，且要能解释「手艺失传」这一现象。\n\n「太贵」「违法」与原文讨论的传承话题无关；「没人喜欢」过于绝对，原文说的是愿意学的年轻人变少了，而不是完全无人问津。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Young people prefer easier jobs, leaving the elderly as the last guardians of these traditional skills.",
+      "options": [
+        "They are too expensive",
+        "Nobody likes them",
+        "Few young people are willing to learn them",
+        "They are against the law"
+      ]
+    },
+    {
+      "id": "ENG_2020_165",
+      "year": 2020,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What does the author suggest at the end?",
+      "answer": "D",
+      "analysis": "结尾的建议一般带明确指向（should、need to 或提出行动），且与作者主张一致。\n\n「关掉所有工坊」「忘掉传统」「用机器取代手工艺」都与作者主张传承的立场相反；「保护并传承传统手工艺」与全文主旨一致。",
+      "knowledgePoints": [
+        "阅读理解",
+        "推理"
+      ],
+      "passage": "We should take measures to preserve these cultural treasures before they vanish forever.",
+      "options": [
+        "Closing all craft workshops",
+        "Forgetting old traditions",
+        "Replacing crafts with machines",
+        "Protecting and passing down traditional crafts"
+      ]
+    },
+    {
+      "id": "ENG_2021_166",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the best summary of the passage?",
+      "answer": "B",
+      "analysis": "主旨题要选全文反复出现、能支撑各段内容的那一项。\n\n「运动有害学生」「应整天学习」「运动太耗时」都只是引出话题时的片面说法；「规律运动在多方面让学生受益」才是贯穿全文的结论。",
+      "knowledgePoints": [
+        "阅读理解",
+        "主旨"
+      ],
+      "passage": "Regular exercise helps students stay healthy, reduce stress and improve concentration. Research shows that students who exercise regularly perform better academically. Schools should therefore encourage physical activities.",
+      "options": [
+        "Sports are harmful to students",
+        "Regular exercise benefits students in many ways",
+        "Students should study all day",
+        "Exercise takes too much time"
+      ]
+    },
+    {
+      "id": "ENG_2021_167",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "According to research, students who exercise regularly ",
+      "answer": "C",
+      "analysis": "原文给出研究结论时，照着原话的表述选，注意 concentrate better in class 这类具体说法。\n\n「成绩更低」「时间更多」与研究结论相反，「更累」在文中没有出现，都属于无中生有或方向相反。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Research shows that students who exercise regularly perform better academically.",
+      "options": [
+        "get lower grades",
+        "have more free time",
+        "concentrate better in class",
+        "feel more tired"
+      ]
+    },
+    {
+      "id": "ENG_2021_168",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The passage is mainly written to ",
+      "answer": "A",
+      "analysis": "写作意图看全文的落脚点：文章通篇在讲运动的好处并给出建议，落脚点是鼓励学生去运动。\n\n「介绍一项新运动」「描述校园一天」「卖运动器材」都不是文章目的；只有「鼓励学生运动」能覆盖全文。",
+      "knowledgePoints": [
+        "阅读理解",
+        "写作目的"
+      ],
+      "passage": "Schools should therefore encourage physical activities for the well-being of students.",
+      "options": [
+        "encourage students to exercise",
+        "introduce a new sport",
+        "describe a school day",
+        "sell exercise equipment"
+      ]
+    },
+    {
+      "id": "ENG_2021_169",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Which of the following is a benefit of exercise mentioned in the passage?",
+      "answer": "D",
+      "analysis": "文中提到 reduce stress 为运动益处。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Regular exercise helps students stay healthy, reduce stress and improve concentration.",
+      "options": [
+        "Making more friends",
+        "Saving more money",
+        "Getting taller",
+        "Reducing stress"
+      ]
+    },
+    {
+      "id": "ENG_2021_170",
+      "year": 2021,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The structure of the passage is ",
+      "answer": "B",
+      "analysis": "文章先陈述益处再给建议，为‘论点—论据—结论’结构。",
+      "knowledgePoints": [
+        "阅读理解",
+        "篇章结构"
+      ],
+      "passage": "Regular exercise benefits students. Research shows active students perform better. Schools should encourage physical activities.",
+      "options": [
+        "Question—Answer",
+        "Opinion—Evidence—Conclusion",
+        "Time order",
+        "Cause—Effect"
+      ]
+    },
+    {
+      "id": "ENG_2022_171",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: My father bought me a___ (use) car as a birthday gift.",
+      "answer": "useful",
+      "analysis": "修饰名词 car 用形容词 useful。",
+      "knowledgePoints": [
+        "语法填空",
+        "词形变化"
+      ],
+      "passage": "My father bought me a___ (use) car as a birthday gift."
+    },
+    {
+      "id": "ENG_2022_172",
+      "year": 2022,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: By the time he arrived, the train___ (leave).",
+      "answer": "had left",
+      "analysis": "‘by the time + 过去时’主句用过去完成时。",
+      "knowledgePoints": [
+        "语法填空",
+        "时态"
+      ],
+      "passage": "By the time he arrived, the train___ (leave)."
+    },
+    {
+      "id": "ENG_2023_173",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: Only when you read between the lines___ you understand the true meaning.",
+      "answer": "will/can",
+      "analysis": "Only + 状语从句置于句首，主句部分倒装，结合句意用 will/can。",
+      "knowledgePoints": [
+        "语法填空",
+        "倒装"
+      ],
+      "passage": "Only when you read between the lines___ you understand the true meaning of the poem."
+    },
+    {
+      "id": "ENG_2023_174",
+      "year": 2023,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: The reason___ he was late is that he missed the bus.",
+      "answer": "why",
+      "analysis": "先行词 reason，定语从句缺原因状语用 why。",
+      "knowledgePoints": [
+        "语法填空",
+        "定语从句"
+      ],
+      "passage": "The reason___ he was late is that he missed the bus this morning."
+    },
+    {
+      "id": "ENG_2024_175",
+      "year": 2024,
+      "type": "语法填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank:___ made the teacher angry was that the boy told a lie.",
+      "answer": "What",
+      "analysis": "主语从句缺主语，指‘事物’用 what。",
+      "knowledgePoints": [
+        "语法填空",
+        "名词性从句"
+      ],
+      "passage": "___ made the teacher angry was that the boy told a lie in class."
+    },
+    {
+      "id": "ENG_2024_176",
+      "year": 2024,
+      "type": "语法填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "语法填空",
+      "question": "Fill in the blank: If I___ (be) you, I would accept the offer.",
+      "answer": "were",
+      "analysis": "虚拟语气与现在事实相反，if 从句用过去式，be 用 were。",
+      "knowledgePoints": [
+        "语法填空",
+        "虚拟语气"
+      ],
+      "passage": "If I___ (be) you, I would accept the offer without hesitation."
+    },
+    {
+      "id": "ENG_2024_177",
+      "year": 2024,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What does the woman mean?",
+      "answer": "A",
+      "analysis": "女士说 'I couldn't agree more'，表示完全同意。",
+      "knowledgePoints": [
+        "听力理解",
+        "态度"
+      ],
+      "options": [
+        "She completely agrees",
+        "She has no idea",
+        "She disagrees",
+        "She is not sure"
+      ]
+    },
+    {
+      "id": "ENG_2024_178",
+      "year": 2024,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What time is it now?",
+      "answer": "C",
+      "analysis": "男士说 'It's 9:30 now, the meeting starts in 30 minutes.'",
+      "knowledgePoints": [
+        "听力理解",
+        "时间"
+      ],
+      "options": [
+        "9:00",
+        "10:00",
+        "9:30",
+        "10:30"
+      ]
+    },
+    {
+      "id": "ENG_2024_179",
+      "year": 2024,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What will the woman probably do?",
+      "answer": "B",
+      "analysis": "女士说 'I think I'll borrow it from the library.'",
+      "knowledgePoints": [
+        "听力理解",
+        "行为推断"
+      ],
+      "options": [
+        "Buy the book",
+        "Borrow it from the library",
+        "Lend the book to the man",
+        "Read it online"
+      ]
+    },
+    {
+      "id": "ENG_2025_180",
+      "year": 2025,
+      "type": "听力",
+      "difficulty": "easy",
+      "points": 1.5,
+      "category": "听力",
+      "question": "How does the man feel?",
+      "answer": "A",
+      "analysis": "男士说 'I'm so excited about the trip!'",
+      "knowledgePoints": [
+        "听力理解",
+        "情绪"
+      ],
+      "options": [
+        "Excited",
+        "Nervous",
+        "Disappointed",
+        "Tired"
+      ]
+    },
+    {
+      "id": "ENG_2025_181",
+      "year": 2025,
+      "type": "听力",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What are the speakers doing?",
+      "answer": "D",
+      "analysis": "场景题要听能确定场景的关键词：讨论行程、地点和时间安排时基本是在规划出行。\n\n等公交、做晚饭、看电影各自需要不同的关键词支撑，不能只凭个别词就下结论；把对话里表示地点和时间的信号词串起来才能定位。",
+      "knowledgePoints": [
+        "听力理解",
+        "场景"
+      ],
+      "options": [
+        "Waiting for a bus",
+        "Cooking dinner",
+        "Watching a movie",
+        "Planning a trip"
+      ]
+    },
+    {
+      "id": "ENG_2025_182",
+      "year": 2025,
+      "type": "听力",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "听力",
+      "question": "What can we know about the man?",
+      "answer": "C",
+      "analysis": "推断题要把选项与听到的事实逐一对照，只保留能被原文信息支持的那一项。\n\n「失业」「考试没通过」「要搬家」在对话中都没有依据，属于凭常识臆断；判断时要抓住说话人提到的具体事件。",
+      "knowledgePoints": [
+        "听力理解",
+        "推断"
+      ],
+      "options": [
+        "He lost his job",
+        "He failed the exam",
+        "He has passed the driving test",
+        "He will move to a new city"
+      ]
+    },
+    {
+      "id": "ENG_2025_183",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "Read the passage: What is the passage mainly about?",
+      "answer": "B",
+      "analysis": "主旨题看全文讨论的问题：文章从垃圾分类的现象出发，讲清为什么分、怎么分，落脚在「我们应该如何以及为什么要分类」。\n\n「垃圾的历史」「回收的成本」「参观回收厂」都只是其中一小块内容，不能概括全文。",
+      "knowledgePoints": [
+        "阅读理解",
+        "主旨"
+      ],
+      "passage": "Waste sorting has become increasingly important in our city. By separating garbage into recyclable, harmful, wet and dry waste, we can reduce pollution and save resources.",
+      "options": [
+        "The history of garbage",
+        "How and why we should sort waste",
+        "The cost of recycling",
+        "A trip to a recycling plant"
+      ]
+    },
+    {
+      "id": "ENG_2025_184",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "According to the passage, how many categories of waste are mentioned?",
+      "answer": "C",
+      "analysis": "文中提到 recyclable, harmful, wet and dry 四类。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "By separating garbage into recyclable, harmful, wet and dry waste, we can reduce pollution and save resources.",
+      "options": [
+        "Two",
+        "Three",
+        "Four",
+        "Five"
+      ]
+    },
+    {
+      "id": "ENG_2025_185",
+      "year": 2025,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the benefit of waste sorting mentioned?",
+      "answer": "A",
+      "analysis": "文中 'reduce pollution and save resources'。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "By separating garbage, we can reduce pollution and save resources.",
+      "options": [
+        "Reducing pollution and saving resources",
+        "Making the city more beautiful",
+        "Creating more jobs",
+        "Saving time"
+      ]
+    },
+    {
+      "id": "ENG_2026_186",
+      "year": 2026,
+      "type": "阅读理解",
+      "difficulty": "hard",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What is the author's attitude towards waste sorting?",
+      "answer": "B",
+      "analysis": "态度题看作者用词倾向和论据方向：通篇在讲必要性和具体做法，是支持的态度。\n\n「否定」「怀疑」「不关心」三种态度与作者主张行动相悖；态度题要看行文整体倾向，不能凭个别词。",
+      "knowledgePoints": [
+        "阅读理解",
+        "态度"
+      ],
+      "passage": "Waste sorting is essential for our future. Everyone should take responsibility and sort waste properly to protect our planet.",
+      "options": [
+        "Negative",
+        "Supportive",
+        "Doubtful",
+        "Uncaring"
+      ]
+    },
+    {
+      "id": "ENG_2026_187",
+      "year": 2026,
+      "type": "阅读理解",
+      "difficulty": "medium",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "The underlined word 'essential' is closest in meaning to ",
+      "answer": "A",
+      "analysis": "essential 意为‘必不可少的’，与 necessary 同义。",
+      "knowledgePoints": [
+        "词义猜测"
+      ],
+      "passage": "Waste sorting is essential for our future.",
+      "options": [
+        "necessary",
+        "useless",
+        "difficult",
+        "popular"
+      ]
+    },
+    {
+      "id": "ENG_2026_188",
+      "year": 2026,
+      "type": "阅读理解",
+      "difficulty": "easy",
+      "points": 2,
+      "category": "阅读理解",
+      "question": "What does the author suggest everyone do?",
+      "answer": "D",
+      "analysis": "建议题要选带 should / need to、指向读者行动且与主旨一致的选项。\n\n「多买垃圾袋」「扔掉旧物」「焚烧垃圾」都不是文章倡导的处理方式；「投放前先做好垃圾分类」才是作者希望读者做的事。",
+      "knowledgePoints": [
+        "阅读理解",
+        "细节"
+      ],
+      "passage": "Everyone should take responsibility and sort waste properly to protect our planet.",
+      "options": [
+        "Buy more garbage bags",
+        "Throw away old things",
+        "Burn the waste",
+        "Sort waste before throwing it away"
+      ]
+    },
+    {
+      "id": "ENG_2024_189",
+      "year": 2024,
+      "type": "完形填空",
+      "difficulty": "medium",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: The mother was ___ proud of her son's achievements.",
+      "answer": "A",
+      "analysis": "be proud of 为固定搭配，extremely 修饰程度。",
+      "knowledgePoints": [
+        "完形填空",
+        "固定搭配"
+      ],
+      "passage": "The mother was ___ proud of her son's achievements that she cried.",
+      "options": [
+        "extremely",
+        "hardly",
+        "never",
+        "little"
+      ]
+    },
+    {
+      "id": "ENG_2025_190",
+      "year": 2025,
+      "type": "完形填空",
+      "difficulty": "hard",
+      "points": 1.5,
+      "category": "完形填空",
+      "question": "Choose: ___ is known to all, China is a country with a long history.",
+      "answer": "B",
+      "analysis": "As is known to all 为非限制性定语从句，as 指代后文。",
+      "knowledgePoints": [
+        "完形填空",
+        "定语从句"
+      ],
+      "passage": "___ is known to all, China is a country with a long history and rich culture.",
+      "options": [
+        "It",
+        "As",
+        "Which",
+        "What"
+      ]
+    },
+    {
+      "id": "ENG_2026_191",
+      "year": 2026,
+      "type": "短文改错",
+      "difficulty": "medium",
+      "points": 1,
+      "category": "短文改错",
+      "question": "改错：I'm looking forward to hear from you.",
+      "answer": "hearing",
+      "analysis": "look forward to 中 to 为介词，后接动名词。",
+      "knowledgePoints": [
+        "短文改错",
+        "介词+动名词"
+      ],
+      "passage": "I'm looking forward to hear from you as soon as possible."
+    },
+    {
+      "id": "ENG_2026_192",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a diary entry about a meaningful day spent volunteering. About 100 words.",
+      "answer": "May 15, Sunny\n\nToday I volunteered at the local nursing home with my classmates. We arrived early in the morning and helped clean the rooms. Then we chatted with the elderly, listened to their stories and performed some songs for them.\n\nSeeing their smiling faces, I felt deeply moved. Though tired, I realized that helping others brings true happiness. This meaningful experience taught me to cherish life and care for those around us. I will definitely volunteer again.",
+      "analysis": "日记格式：日期天气—活动内容—感受；时态以过去时为主。",
+      "knowledgePoints": [
+        "书面表达",
+        "日记",
+        "志愿活动"
+      ]
+    },
+    {
+      "id": "ENG_2024_193",
+      "year": 2024,
+      "type": "书面表达",
+      "difficulty": "easy",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a short paragraph introducing your favorite subject. About 80 words.",
+      "answer": "My Favorite Subject\n\nMy favorite subject is English. I find it fascinating because it opens a window to the world. Through English, I can read classic novels, watch movies without subtitles and communicate with people from different countries. My English teacher is also inspiring and makes every lesson interesting. I spend at least thirty minutes reading English every day. I believe mastering English will help me in my future career.",
+      "analysis": "介绍文：喜欢原因—具体做法—展望；条理清晰。",
+      "knowledgePoints": [
+        "书面表达",
+        "介绍文",
+        "学科"
+      ]
+    },
+    {
+      "id": "ENG_2024_194",
+      "year": 2024,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a letter of advice to a friend who is stressed about exams. About 100 words.",
+      "answer": "Dear Jack,\n\nI'm sorry to hear that you're feeling stressed about the coming exams. Here is some advice that might help.\n\nFirst, make a reasonable study plan and stick to it. Don't try to learn everything at the last minute. Second, take regular breaks and do some exercise, which can refresh your mind. Third, get enough sleep—a tired brain cannot work well. Finally, believe in yourself. You have worked hard and you can do it.\n\nCheer up! I'm always here for you.\n\nYours,\nLi Hua",
+      "analysis": "建议信：理解—建议（分点）—鼓励；使用 First, Second 等层次词。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "建议信"
+      ]
+    },
+    {
+      "id": "ENG_2024_195",
+      "year": 2024,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write an essay discussing whether students should take part-time jobs. About 120 words.",
+      "answer": "Should Students Take Part-time Jobs?\n\nWhether high school students should take part-time jobs has become a hot topic. In my opinion, taking a proper part-time job can be beneficial.\n\nOn the one hand, a part-time job helps students gain social experience and earn some pocket money. It also teaches them the value of labor and improves their communication skills. On the other hand, spending too much time working may affect their studies and health.\n\nTherefore, I think students can take part-time jobs during holidays, but they should balance work and study. Time management is the key. In a word, with proper arrangement, a part-time job can be a valuable experience.",
+      "analysis": "议论文：现象—利弊—建议；使用 On the one hand, Therefore 等衔接。",
+      "knowledgePoints": [
+        "书面表达",
+        "议论文",
+        "兼职"
+      ]
+    },
+    {
+      "id": "ENG_2025_196",
+      "year": 2025,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a report on a survey about students' reading habits. About 100 words.",
+      "answer": "Recently, we conducted a survey on students' reading habits among 200 students. The results are as follows.\n\nAbout 45% of the students read for less than one hour a day, while only 20% read for more than two hours. Most students prefer reading novels and magazines to classics. The main reasons for not reading enough are heavy homework and the attraction of electronic devices.\n\nIn my opinion, we should spare more time for reading, especially classic literature, which can broaden our horizons and enrich our minds.",
+      "analysis": "调查报告：数据说明—原因分析—建议；使用数据百分比。",
+      "knowledgePoints": [
+        "书面表达",
+        "报告",
+        "阅读习惯"
+      ]
+    },
+    {
+      "id": "ENG_2025_197",
+      "year": 2025,
+      "type": "书面表达",
+      "difficulty": "easy",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a short description of a person you admire. About 80 words.",
+      "answer": "A Person I Admire\n\nThe person I admire most is my mother. She is a kind and hardworking woman who always puts the family first. Despite being busy with her own work, she takes good care of us and helps with my studies. Whenever I face difficulties, she encourages me to be brave and never give up. Her patience and love have shaped who I am today. I hope to become a person like her in the future.",
+      "analysis": "人物描写：品质—事例—感受；用 despite, whenever 等连词。",
+      "knowledgePoints": [
+        "书面表达",
+        "人物描写",
+        "母亲"
+      ]
+    },
+    {
+      "id": "ENG_2025_198",
+      "year": 2025,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write an invitation letter to invite a foreign friend to visit your city. About 100 words.",
+      "answer": "Dear Peter,\n\nI'm writing to invite you to visit my city during the summer vacation. I'm sure you'll have an unforgettable trip.\n\nThere are many places worth visiting, such as the famous Canton Tower and the historic Chen Clan Temple. You can also taste various delicious local food, especially the morning tea and roast goose. The weather here is warm, so bring light clothes.\n\nI will be your guide and show you around. Please let me know your schedule so I can make arrangements.\n\nLooking forward to your reply.\n\nYours,\nLi Hua",
+      "analysis": "邀请信：邀请—景点美食—安排；用 such as 举例。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "邀请信"
+      ]
+    },
+    {
+      "id": "ENG_2026_199",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "hard",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a summary of the passage about the importance of reading. About 80 words.",
+      "answer": "The passage emphasizes the importance of reading. According to the author, reading not only broadens our knowledge but also improves our thinking ability and imagination. The author points out that in the age of information, deep reading is becoming rare but is more valuable than ever. Finally, the author suggests that we should develop a lifelong reading habit, choosing quality books and reading regularly. In short, reading is a key to personal growth and a fulfilling life.",
+      "analysis": "摘要：客观转述要点—不夹杂个人观点；语言简洁。",
+      "knowledgePoints": [
+        "书面表达",
+        "摘要",
+        "阅读"
+      ]
+    },
+    {
+      "id": "ENG_2026_200",
+      "year": 2026,
+      "type": "书面表达",
+      "difficulty": "medium",
+      "points": 25,
+      "category": "书面表达",
+      "question": "Write a letter to the school newspaper expressing your opinion on campus food. About 100 words.",
+      "answer": "Dear Editor,\n\nI'm writing to express my opinion on the food in our school canteen. Generally, the food is clean and reasonably priced, but there is still room for improvement.\n\nFirst, I hope the canteen can offer more varieties, especially vegetables and fruits, to ensure a balanced diet. Second, the portion size for some dishes is a bit small. Third, it would be better if the service speed could be improved during peak hours.\n\nI believe these changes will make our dining experience more pleasant. Thank you for your consideration.\n\nYours,\nLi Hua",
+      "analysis": "建议信：肯定—建议分点—期望；语气委婉得体。",
+      "knowledgePoints": [
+        "书面表达",
+        "应用文",
+        "建议信"
+      ]
+    }
+  ]
+}

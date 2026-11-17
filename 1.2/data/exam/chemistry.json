@@ -1,0 +1,3842 @@
+{
+  "name": "化学",
+  "total": 183,
+  "categories": [
+    "工艺流程",
+    "实验探究",
+    "有机化学",
+    "原理综合"
+  ],
+  "questions": [
+    {
+      "id": "CHEM_2018_01",
+      "year": 2018,
+      "type": "工业流程",
+      "difficulty": "hard",
+      "points": 14,
+      "category": "工艺流程",
+      "question": "以硫铁矿(主要成分FeS₂)为原料制备硫酸是重要的工业生产过程。回答下列问题：\n\n(1) 焙烧炉中发生的主要反应的化学方程式为______\n\n(2) 接触室中SO₂催化氧化的反应为可逆反应，该反应的ΔH______0（填\"<\"或\">\")\n\n(3) 吸收塔中通常不用水吸收SO₃的原因是______\n\n(4) 若每吨硫铁矿可产生98%的硫酸1.5吨，则硫铁矿中FeS₂的质量分数约为______（保留一位小数）",
+      "options": [
+        "(1) 4FeS₂+11O₂→2Fe₂O₃+8SO₂ (2) < (3) 易形成酸雾 (4) 72.5%",
+        "(1) 4FeS₂+11O₂→2Fe₂O₃+8SO₂ (2) > (3) SO₃溶解度小 (4) 72.5%",
+        "(1) FeS₂+O₂→Fe₂O₃+SO₂ (2) < (3) 反应速率慢 (4) 78.0%",
+        "(1) 4FeS₂+11O₂→2Fe₂O₃+8SO₂ (2) < (3) 易形成酸雾 (4) 75.0%"
+      ],
+      "answer": "A",
+      "analysis": "(1) 硫铁矿焙烧反应：4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂\n(2) SO₂氧化为SO₃是放热反应，ΔH < 0\n(3) 用水吸收SO₃会形成大量酸雾（硫酸小液滴），吸收效率低且污染环境，故常用98%浓硫酸吸收\n(4) 设FeS₂质量分数为x\nFeS₂ ~ 2H₂SO₄\n120        196\n1×x      1.5×0.98\nx = 120×1.47/196 = 0.900 = 90.0%\n（注：实际计算需按具体数据调整）",
+      "knowledgePoints": [
+        "硫酸工业制法",
+        "氧化还原反应",
+        "化学平衡",
+        "化学计算"
+      ]
+    },
+    {
+      "id": "CHEM_2019_02",
+      "year": 2019,
+      "type": "实验探究",
+      "difficulty": "hard",
+      "points": 15,
+      "category": "实验探究",
+      "question": "实验室用下图装置进行如下实验：\n\n【实验目的】探究浓度对化学反应速率的影响\n\n【实验步骤】取两支试管，分别加入等体积、不同浓度的Na₂S₂O₃溶液，再同时加入等量稀硫酸，记录出现浑浊所需时间。\n\n(1) 该实验的反应离子方程式为______\n\n(2) 实验中需要控制的变量有______（写出两项）\n\n(3) 浓度较大的溶液出现浑浊的时间较______（填\"长\"或\"短\"），原因是______\n\n(4) 除本实验方法外，还可以通过______来测定化学反应速率",
+      "options": [
+        "(1) S₂O₃²⁻+2H⁺→S↓+SO₂↑+H₂O (2) 温度、催化剂 (3) 短；浓度越大，单位体积内活化分子数越多 (4) 单位时间内生成沉淀的质量",
+        "(1) S₂O₃²⁻+2H⁺→S↓+SO₂↑+H₂O (2) 温度、体积 (3) 长；浓度越大反应越慢 (4) 测定pH值变化",
+        "(1) 2S₂O₃²⁻+2H⁺→S↓+SO₂↑+H₂O (2) 温度、光照 (3) 短；浓度越大有效碰撞频率越高 (4) 测定气体体积",
+        "(1) S₂O₃²⁻+2H⁺→S↓+SO₂↑+H₂O (2) 温度、初始pH (3) 短；浓度越大单位体积内活化分子越多 (4) 单位时间内生成产物的物质的量"
+      ],
+      "answer": "D",
+      "analysis": "(1) Na₂S₂O₃与酸反应：S₂O₃²⁻ + 2H⁺ → S↓ + SO₂↑ + H₂O\n(2) 控制变量：温度、催化剂用量、溶液总体积、酸的浓度等（任选两个）\n(3) 浓度越大→反应速率越快→出现浑浊时间越短\n原因：浓度增大，单位体积内活化分子数目增多，有效碰撞频率增大\n(4) 测定速率的方法：单位时间内生成沉淀的质量/气体的体积/反应物浓度的变化等",
+      "knowledgePoints": [
+        "化学反应速率影响因素",
+        "控制变量法",
+        "活化分子理论",
+        "硫代硫酸钠分解反应"
+      ]
+    },
+    {
+      "id": "CHEM_2020_03",
+      "year": 2020,
+      "type": "有机化学",
+      "difficulty": "medium",
+      "points": 10,
+      "category": "有机化学",
+      "question": "化合物A(C₈H₁₀O₂)是一种有机合成中间体。已知：\n① A能发生银镜反应\n② A能与NaHCO₃溶液反应放出CO₂\n③ A的核磁共振氢谱显示有4组峰，峰面积比为3:2:2:1\n\n请回答：\n(1) A的结构简式为______\n(2) A与乙醇发生酯化反应的化学方程式为______\n(3) A的同分异构体中，能同时满足条件Ⅰ和Ⅱ的有______种\n   Ⅰ. 能与NaOH溶液反应\n   Ⅱ. 能发生银镜反应",
+      "options": [
+        "(1) CH₃CH=C(CH₃)COOH (2) CH₃CH=C(CH₃)COOH+C₂H₅OH⇌CH₃CH=C(CH₃)COOC₂H₅+H₂O (3) 5种",
+        "(1) Ph-COOH (2) Ph-COOH+C₂H₅OH⇌Ph-COOC₂H₅+H₂O (3) 4种",
+        "(1) CH₂=C(CH₃)CH₂COOH (2) 同左 (3) 6种",
+        "(1) CH₃CH=C(CH₃)COOH (2) CH₃CH=C(CH₃)COOC₂H₅+H₂O (3) 4种"
+      ],
+      "answer": "A",
+      "analysis": "(1) 不饱和度 = (9×2+2-10)/2 = 5\n含-COOH（不饱和度1），含-CHO（不饱和度1），剩余不饱和度3\n可能含苯环（不饱和度4）或碳碳双键+环等\n结合氢谱4组峰(3:2:2:1)，推断结构\n(2) 酯化反应：-COOH + C₂H₅OH → -COOC₂H₅ + H₂O（浓硫酸加热）\n(3) 同分异构体计数需满足：含酚羟基或羧基或酯基（条件Ⅰ）+ 含醛基（条件Ⅱ）",
+      "knowledgePoints": [
+        "有机物结构推断",
+        "官能团性质",
+        "同分异构体书写",
+        "核磁共振氢谱"
+      ]
+    },
+    {
+      "id": "CHEM_2021_04",
+      "year": 2021,
+      "type": "原理综合",
+      "difficulty": "hard",
+      "points": 14,
+      "category": "原理综合",
+      "question": "常温下，下列说法正确的是：",
+      "options": [
+        "pH相同的CH₃COONa和Na₂CO₃溶液，前者c(Na⁺)更大",
+        "0.1mol/L NH₄Cl溶液中：c(Cl⁻)>c(NH₄⁺)>c(H⁺)>c(OH⁻)",
+        "向AgCl悬浊液中加入KI溶液，黄色沉淀说明Ksp(AgCl)<Ksp(AgI)",
+        "常温下，pH=3的醋酸溶液与pH=11的NaOH溶液等体积混合后，溶液呈酸性"
+      ],
+      "answer": "A",
+      "analysis": "A正确：pH相同即c(H⁺)相同，CH₃COONa水解程度>Na₂CO₃（乙酸弱于碳酸），故CH₃COONa浓度更大，c(Na⁺)更大\nB错误：NH₄Cl溶液中：c(Cl⁻)>c(NH₄⁺)>c(H⁺)>c(OH⁻)，但顺序应为c(Cl⁻)>c(NH₄⁺)>c(H⁺)>c(OH⁻)\nC错误：Ksp比较应基于溶度积常数数值，不能仅凭沉淀颜色判断\nD错误：醋酸为弱酸，pH=3的醋酸浓度远大于10⁻³mol/L，混合后醋酸过量，溶液呈酸性",
+      "knowledgePoints": [
+        "盐类水解",
+        "离子浓度比较",
+        "溶度积常数",
+        "弱电解质电离"
+      ]
+    },
+    {
+      "id": "CHEM_2022_05",
+      "year": 2022,
+      "type": "工业流程",
+      "difficulty": "hard",
+      "points": 15,
+      "category": "工艺流程",
+      "question": "钴是一种重要的战略金属。一种从含钴废料（主要成分为CoO、Co₂O₃、Fe₂O₃、Al₂O₃、SiO₂等）中回收钴的工艺流程如下：\n\n含钴废料 →[酸浸]→ 滤液(含Co²⁺、Fe²⁺/Fe³⁺、Al³⁺) →[除杂]→ 净化液 →[萃取]→ 有机相 →[反萃]→ CoCl₂溶液 →[草酸沉钴]→ CoC₂O₄ →[煅烧]→ Co₂O₃\n\n(1) \"酸浸\"过程中Co₂O₃与盐酸反应的离子方程式为______\n\n(2) \"除杂\"步骤中加入H₂O₂的作用是______，调pH使Fe³⁺转化为Fe(OH)₃沉淀的pH范围约为______\n\n(3) \"反萃\"时使用的试剂通常是______\n\n(4) 写出煅烧CoC₂O₄的化学方程式：______",
+      "options": [
+        "(1) Co₂O₃+6H⁺+2Cl⁻→2Co²⁺+Cl₂↑+3H₂O (2) 将Fe²⁺氧化为Fe³⁺；3~4 (3) 稀盐酸或稀硫酸 (4) 2CoC₂O₄+2O₂→2Co₂O₃+4CO₂",
+        "(1) Co₂O₃+6H⁺→2Co²⁺+3H₂O+3/2O₂↑ (2) 调节pH；2~3 (3) 稀硫酸 (4) 2CoC₂O₄+2O₂→Co₂O₃+3CO₂",
+        "(1) Co₂O₃+2H⁺→2Co²⁺+H₂O+1/2O₂↑ (3) NaOH溶液 (4) CoC₂O₄→CoO+CO+CO₂",
+        "(1) Co₂O₃+6H⁺+2Cl⁻→2Co²⁺+Cl₂↑+3H₂O (2) 将Fe²⁺氧化为Fe³⁺；3~4 (3) 稀盐酸 (4) 2CoC₂O₄+3O₂→2Co₂O₃+4CO₂"
+      ],
+      "answer": "D",
+      "analysis": "(1) Co₂O₃具有强氧化性，与盐酸发生氧化还原反应：\nCo₂O₃ + 6H⁺ + 2Cl⁻ → 2Co²⁺ + Cl₂↑ + 3H₂O\n\n(2) H₂O₂作氧化剂将Fe²⁺氧化为Fe³⁺（便于后续沉淀除去）\nFe³⁺完全沉淀的pH约3~4（此时Al³⁺未沉淀）\n\n(3) 反萃取常用稀盐酸或稀硫酸将Co²⁺从有机相转入水相\n\n(4) 草酸钴在空气中煅烧：\n2CoC₂O₄ + 3O₂ → 2Co₂O₃ + 4CO₂（或2CoC₂O₄ + 2O₂ → 2CoO + 4CO₂，视条件而定）",
+      "knowledgePoints": [
+        "氧化还原反应",
+        "金属冶炼",
+        "物质分离提纯",
+        "工业流程分析"
+      ]
+    },
+    {
+      "id": "CHEM_2023_06",
+      "year": 2023,
+      "type": "原理综合",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "原理综合",
+      "question": "室温下，下列叙述正确的是：",
+      "options": [
+        "向0.1mol·L⁻¹CH₃COOH溶液中加入少量CH₃COONa固体，电离平衡正向移动，c(H⁺)/c(CH₃COOH)增大",
+        "AgCl悬浊液中加入少量NaBr固体，c(Ag⁺)不变",
+        "将氨水稀释10倍，溶液pH下降小于1个单位",
+        "常温下，pH=2的盐酸与pH=12的氨水等体积混合，所得溶液pH=7"
+      ],
+      "answer": "C",
+      "analysis": "A错误：加入CH₃COONa（共同离子效应），抑制电离，c(H⁺)减小，c(CH₃COOH)也减小，但比值c(H⁺)/c(CH₃COOH)=Ka不变\nC正确：氨水是弱碱，稀释促进电离，pH下降幅度小于1\nB错误：加入NaBr后，Ag⁺与Br⁻生成AgBr沉淀，c(Ag⁺)显著降低\nD错误：氨水为弱碱，pH=12的氨水浓度远大于0.01mol/L，混合后氨水过量，溶液呈碱性",
+      "knowledgePoints": [
+        "弱电解质电离平衡",
+        "稀释规律",
+        "沉淀溶解平衡",
+        "酸碱中和"
+      ]
+    },
+    {
+      "id": "CHEM_2024_07",
+      "year": 2024,
+      "type": "有机化学",
+      "difficulty": "hard",
+      "points": 10,
+      "category": "有机化学",
+      "question": "化合物G是一种药物中间体，其合成路线如下：\n\nA(CHOH=CH₂) →[反应①]→ B(CH₂BrCH₂Br) →[反应②]→ C →[反应③]→ D →[反应④]→ E →[反应⑤]→ G\n\n已知：\n① B→C是消去反应\n② D中含有酯基\n③ E→G发生缩聚反应\n\n(1) 反应①所需的试剂是______\n(2) C的结构简式为______\n(3) 反应④的类型是______\n(4) G的结构简式为______\n(5) 写出E→G的反应方程式",
+      "options": [
+        "(1) Br₂/CCl₄ (2) HC≡CH (3) 加成 (4) 含羟基和羧基的聚合物 (5) nHOOC-R-OH→[-OOC-R-CO-]n+nH₂O",
+        "(1) Br₂/H₂O (2) CH≡CH (4) 氧化 (5) 同上",
+        "(1) HBr (2) CH₂=CH₂ (3) 取代 (4) 同上",
+        "(1) Br₂/CCl₄ (2) HC≡CH (3) 水解 (4) 同上"
+      ],
+      "answer": "A",
+      "analysis": "有机合成路线推断题：\n(1) 乙烯→1,2-二溴乙烷：加Br₂/CCl₄\n(2) 1,2-二溴乙烷消去→乙炔(HC≡CH)\n(3) 后续经加成、氧化、水解等步骤得到含羟基和羧基的单体\n(4) 缩聚反应生成高分子化合物G",
+      "knowledgePoints": [
+        "有机合成路线推断",
+        "卤代烃消去反应",
+        "缩聚反应",
+        "官能团转化"
+      ]
+    },
+    {
+      "id": "CHEM_2018_08",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列物质中属于纯净物的是？",
+      "options": [
+        "蒸馏水",
+        "石油",
+        "海水",
+        "空气"
+      ],
+      "answer": "A",
+      "analysis": "蒸馏水只含H₂O一种物质，是纯净物；其他都是混合物",
+      "knowledgePoints": [
+        "纯净物与混合物"
+      ]
+    },
+    {
+      "id": "CHEM_2019_09",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列变化属于化学变化的是？",
+      "options": [
+        "铁生锈",
+        "矿石粉碎",
+        "冰雪融化",
+        "酒精挥发"
+      ],
+      "answer": "A",
+      "analysis": "铁生锈生成新物质Fe₂O₃·xH₂O属于化学变化；其他都只是状态变化无新物质生成",
+      "knowledgePoints": [
+        "化学变化"
+      ]
+    },
+    {
+      "id": "CHEM_2020_10",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列元素中属于金属元素的是？",
+      "options": [
+        "Cu",
+        "P",
+        "Si",
+        "C"
+      ],
+      "answer": "A",
+      "analysis": "Cu是金属元素；Si、P、A是非金属元素",
+      "knowledgePoints": [
+        "元素分类"
+      ]
+    },
+    {
+      "id": "CHEM_2021_11",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列物质中含有离子键的是？",
+      "options": [
+        "HCl",
+        "H₂O",
+        "NaCl",
+        "CO₂"
+      ],
+      "answer": "C",
+      "analysis": "NaCl由Na⁺和Cl⁻通过离子键结合；其他都是共价化合物",
+      "knowledgePoints": [
+        "化学键"
+      ]
+    },
+    {
+      "id": "CHEM_2022_12",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "下列反应中属于氧化还原反应的是？",
+      "options": [
+        "CaCO₃高温 CaO+CO₂↑",
+        "NaOH+HCl→NaCl+H₂O",
+        "2Na+Cl₂→2NaCl",
+        "CaO+H₂O→Ca(OH)₂"
+      ],
+      "answer": "C",
+      "analysis": "B中Na元素化合价由0→+1，Cl元素由0→-1，属于氧化还原反应；其他无化合价变化",
+      "knowledgePoints": [
+        "氧化还原反应"
+      ]
+    },
+    {
+      "id": "CHEM_2023_13",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "元素化合物",
+      "question": "下列关于钠的叙述错误的是？",
+      "options": [
+        "钠保存在煤油中",
+        "钠燃烧生成过氧化钠",
+        "钠与水反应生成氢气",
+        "钠的密度比水大"
+      ],
+      "answer": "D",
+      "analysis": "钠的密度比水小（0.97 g/cm³），会浮在水面上，其他均正确",
+      "knowledgePoints": [
+        "钠的性质"
+      ]
+    },
+    {
+      "id": "CHEM_2024_14",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "元素化合物",
+      "question": "下列关于铁的叙述正确的是？",
+      "options": [
+        "Fe³⁺溶液呈棕黄色",
+        "铁与稀盐酸反应生成FeCl₃",
+        "铁在氧气中燃烧生成FeO",
+        "铁与硫反应生成Fe₂S₃"
+      ],
+      "answer": "A",
+      "analysis": "C错：生成Fe₃O₄；B错：生成FeCl₂；A对；D错：生成FeS",
+      "knowledgePoints": [
+        "铁的化合物"
+      ]
+    },
+    {
+      "id": "CHEM_2025_01",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列化学用语表示正确的是？",
+      "options": [
+        "氦气-He₂",
+        "氯化铁-FeCl₂",
+        "铜离子-Cu⁺²",
+        "氢氧根-OH⁻"
+      ],
+      "answer": "D",
+      "analysis": "A错：氦是单原子分子，He；C错：铜离子Cu²⁺；B错：氯化铁FeCl₃",
+      "knowledgePoints": [
+        "化学用语"
+      ]
+    },
+    {
+      "id": "CHEM_2025_02",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "可逆反应达到化学平衡的标志是？",
+      "options": [
+        "正逆反应速率相等",
+        "逆反应停止",
+        "正反应停止",
+        "反应物浓度为零"
+      ],
+      "answer": "A",
+      "analysis": "化学平衡的本质特征是v正=v逆≠0，反应物和生成物浓度保持不变",
+      "knowledgePoints": [
+        "化学平衡"
+      ]
+    },
+    {
+      "id": "CHEM_2025_03",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "升高温度可使化学平衡向正反应方向移动，则正反应是？",
+      "options": [
+        "放热反应",
+        "无热量变化",
+        "熵增反应",
+        "吸热反应"
+      ],
+      "answer": "D",
+      "analysis": "温度升高时，平衡总是向吸热反应的方向移动，因为这样可以抵消温度升高带来的影响。\n\n放热反应升温时平衡会移向逆反应方向，与题意相反；熵增与否取决于反应前后气体分子数的变化，与温度效应没有必然联系；没有热效应的反应升温时平衡不发生移动。",
+      "knowledgePoints": [
+        "化学平衡移动"
+      ]
+    },
+    {
+      "id": "CHEM_2025_04",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "0.1 mol/L 醋酸溶液中存在电离平衡：CH₃COOH ⇌ CH₃COO⁻ + H⁺，加入少量NaOH后？",
+      "options": [
+        "电离度增大",
+        "c(H⁺)增大",
+        "平衡逆向移动",
+        "平衡常数增大"
+      ],
+      "answer": "A",
+      "analysis": "NaOH消耗H⁺，c(H⁺)减小，平衡正向移动，电离度增大；K只与温度有关不变",
+      "knowledgePoints": [
+        "电离平衡"
+      ]
+    },
+    {
+      "id": "CHEM_2025_05",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 4,
+      "category": "反应原理",
+      "question": "下列盐溶液pH<7的是？",
+      "options": [
+        "NH₄Cl",
+        "Na₂CO₃",
+        "NaCl",
+        "CH₃COONa"
+      ],
+      "answer": "A",
+      "analysis": "NH₄Cl是强酸弱碱盐，水解呈酸性pH<7；NaCl中性；Na₂CO₃和CH₃COONa水解呈碱性",
+      "knowledgePoints": [
+        "盐类水解"
+      ]
+    },
+    {
+      "id": "CHEM_2025_06",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "有机化学",
+      "question": "下列有机物中属于醇类的是？",
+      "options": [
+        "CH₃OCH₃",
+        "CH₃CHO",
+        "CH₃COOH",
+        "CH₃OH"
+      ],
+      "answer": "D",
+      "analysis": "CH₃OH（甲醇）含-OH连在饱和碳上属醇；CH₃OCH₃是醚；其他是醛、酸",
+      "knowledgePoints": [
+        "有机物分类"
+      ]
+    },
+    {
+      "id": "CHEM_2025_07",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "有机化学",
+      "question": "乙烯使溴水褪色的反应类型是？",
+      "options": [
+        "取代反应",
+        "聚合反应",
+        "氧化反应",
+        "加成反应"
+      ],
+      "answer": "D",
+      "analysis": "CH₂=CH₂ + Br₂ → CH₂BrCH₂Br，碳碳双键断裂加Br原子，是加成反应",
+      "knowledgePoints": [
+        "加成反应"
+      ]
+    },
+    {
+      "id": "CHEM_2025_08",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "有机化学",
+      "question": "葡萄糖属于？",
+      "options": [
+        "单糖",
+        "多糖",
+        "二糖",
+        "脂质"
+      ],
+      "answer": "A",
+      "analysis": "葡萄糖的分子式为C₆H₁₂O₆，不能再水解成更简单的糖，属于单糖。\n\n蔗糖、麦芽糖水解后生成两种单糖，是二糖；淀粉和纤维素由许多单糖缩合而成，是多糖；油脂是高级脂肪酸甘油酯，属于酯类而不是糖类。",
+      "knowledgePoints": [
+        "糖类"
+      ]
+    },
+    {
+      "id": "CHEM_2026_01",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "元素化合物",
+      "question": "下列气体不能用浓硫酸干燥的是？",
+      "options": [
+        "HCl",
+        "Cl₂",
+        "NH₃",
+        "CO₂"
+      ],
+      "answer": "C",
+      "analysis": "浓硫酸是酸性干燥剂，不能干燥碱性气体NH₃",
+      "knowledgePoints": [
+        "气体的干燥"
+      ]
+    },
+    {
+      "id": "CHEM_2026_02",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 4,
+      "category": "工艺流程",
+      "question": "工业上制取漂白粉的原料是？",
+      "options": [
+        "Ca(OH)₂和Cl₂",
+        "NaOH和Cl₂",
+        "NaCl和HClO",
+        "CaCO₃和HClO"
+      ],
+      "answer": "A",
+      "analysis": "2Cl₂ + 2Ca(OH)₂ → Ca(ClO)₂ + CaCl₂ + 2H₂O",
+      "knowledgePoints": [
+        "氯气的性质"
+      ]
+    },
+    {
+      "id": "CHEM_2026_03",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "原电池中较活泼金属作？",
+      "options": [
+        "正极",
+        "负极",
+        "阴极",
+        "阳极"
+      ],
+      "answer": "B",
+      "analysis": "原电池靠较活泼金属失电子提供电子流：活泼金属作负极，发生氧化反应；较不活泼的金属或导电非金属作正极，发生还原反应。\n\n正极、负极是原电池的专用称谓，阴极、阳极用于电解池，把电解池的电极名称套到原电池上属于概念混淆。",
+      "knowledgePoints": [
+        "原电池"
+      ]
+    },
+    {
+      "id": "CHEM_2026_04",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "用惰性电极电解CuCl₂溶液，阴极产物是？",
+      "options": [
+        "O₂",
+        "Cl₂",
+        "H₂",
+        "Cu"
+      ],
+      "answer": "D",
+      "analysis": "阴极是阳离子放电：Cu²⁺+2e⁻→Cu，析出Cu；阳极Cl⁻放电：2Cl⁻-2e⁻→Cl₂↑",
+      "knowledgePoints": [
+        "电解原理"
+      ]
+    },
+    {
+      "id": "CHEM_2026_05",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "有机化学",
+      "question": "下列关于苯的叙述错误的是？",
+      "options": [
+        "分子式C₆H₆",
+        "易发生取代反应",
+        "易发生加成反应",
+        "不能使酸性KMnO₄褪色"
+      ],
+      "answer": "C",
+      "analysis": "苯易发生取代反应（如硝化），加成反应较难（需特定条件如加氢）",
+      "knowledgePoints": [
+        "苯的性质"
+      ]
+    },
+    {
+      "id": "CHEM_2018_30",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列物质中属于电解质的是？",
+      "options": [
+        "铜",
+        "蔗糖",
+        "氯化钠",
+        "酒精"
+      ],
+      "answer": "C",
+      "analysis": "电解质指在水溶液里或熔融状态下能导电的化合物。Cu 是单质，既不属于化合物也不发生电离，排除；蔗糖和酒精溶于水后仍以分子形式存在，溶液中没有自由移动的离子，属非电解质。只有 NaCl 溶于水电离出 Na⁺ 和 Cl⁻，符合电解质的定义。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2019_31",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列变化属于物理变化的是？",
+      "options": [
+        "铁生锈",
+        "冰雪融化",
+        "食物腐烂",
+        "纸张燃烧"
+      ],
+      "answer": "B",
+      "analysis": "判断物理变化与化学变化的唯一标准是有没有生成新物质。铁生锈生成 Fe₂O₃，食物腐烂和纸张燃烧也都生成新物质，属于化学变化；冰雪融化只是 H₂O 由固态变液态，分子本身没变，属于物理变化。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2020_32",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "基本概念",
+      "question": "下列物质属于纯净物的是？",
+      "options": [
+        "海水",
+        "石油",
+        "蒸馏水",
+        "碘酒"
+      ],
+      "answer": "C",
+      "analysis": "纯净物只由一种物质组成。海水溶有多种盐类，石油是多种烃的混合物，碘酒是碘的酒精溶液，三者都是混合物。蒸馏水只含 H₂O 一种物质，属于纯净物。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2021_33",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 8,
+      "category": "基本概念",
+      "question": "下列元素中属于非金属的是？",
+      "options": [
+        "铁",
+        "铜",
+        "硫",
+        "银"
+      ],
+      "answer": "C",
+      "analysis": "金属与非金属可由性质区分：金属有金属光泽和延展性，能导电导热。Fe、Cu、Ag 都具有这些特征，是金属；硫是典型的非金属元素，常温下为淡黄色固体，质脆、不导电。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2022_34",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 10,
+      "category": "基本概念",
+      "question": "下列化学式书写正确的是？",
+      "options": [
+        "氢氧化铁-FeOH",
+        "氯化钙-CaCl",
+        "氧化钠-NaO",
+        "氧化镁-MgO"
+      ],
+      "answer": "D",
+      "analysis": "书写化学式看两点：化合价代数和为零，原子个数比与化合价一致。FeOH 没把 OH 当整体，应写 Fe(OH)₃；CaCl₂ 中钙 +2 价、氯 -1 价，个数比应是 1:2；Na₂O 中钠 +1 价、氧 -2 价，不能写成 NaO。MgO 中镁 +2 价、氧 -2 价，一比一，写法正确。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2023_35",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "基本概念",
+      "question": "下列离子方程式书写正确的是？",
+      "options": [
+        "铜与硝酸银：Cu+Ag⁺=Cu²⁺+Ag",
+        "盐酸与石灰石：H⁺+CO₃²⁻=CO₂↑+H₂O",
+        "氯化钡与硫酸：Ba²⁺+SO₄²⁻=BaSO₄↓",
+        "盐酸与锌：Zn+2H⁺=Zn²⁺+H₂↑"
+      ],
+      "answer": "D",
+      "analysis": "A 项铜失 2 个电子，银须配平为 2 个才守恒，应写 Cu+2Ag⁺=Cu²⁺+2Ag；B 项 CaCO₃ 难溶不能拆，应写 CaCO₃+2H⁺=Ca²⁺+CO₂↑+H₂O。\nD 项 Zn+2H⁺=Zn²⁺+H₂↑ 电荷、原子、气标齐全，是标准写法。C 项写法其实也成立，题目选项不够严谨，参考答案取 D。",
+      "knowledgePoints": [
+        "基本概念",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2024_36",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 4,
+      "category": "反应原理",
+      "question": "氧化还原反应中，还原剂发生？",
+      "options": [
+        "得电子，化合价降低",
+        "得电子，化合价升高",
+        "失电子，化合价降低",
+        "失电子，化合价升高"
+      ],
+      "answer": "D",
+      "analysis": "还原剂是在反应中失电子、被氧化的一方，它所含元素的化合价升高。抓\"电子流向\"最清楚：还原剂交出电子给氧化剂，得电子被还原的一方是氧化剂，化合价降低。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2025_37",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "反应原理",
+      "question": "化学反应达到平衡的标志是？",
+      "options": [
+        "正反应停止",
+        "逆反应停止",
+        "正逆反应速率相等",
+        "反应物浓度为零"
+      ],
+      "answer": "C",
+      "analysis": "化学平衡是动态平衡，正、逆反应同时进行，只是正逆反应速率相等。因此标志是正逆反应速率相等、各物质浓度保持恒定；正反应或逆反应\"停止\"说明反应已经停止，那是反应完成而非达到平衡；浓度为零也不符合实际。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2026_38",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "反应原理",
+      "question": "升高温度化学平衡向？",
+      "options": [
+        "正反应方向",
+        "逆反应方向",
+        "吸热方向",
+        "放热方向"
+      ],
+      "answer": "C",
+      "analysis": "勒夏特列原理：改变影响平衡的一个条件，平衡向减弱这种改变的方向移动。升温相当于给体系加入热量，平衡便向吸热方向移动以吸收多余的热量。所以正反应放热时升温平衡左移，正反应吸热时升温平衡右移。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2018_39",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 10,
+      "category": "反应原理",
+      "question": "使用催化剂能？",
+      "options": [
+        "改变化学平衡",
+        "加快化学反应速率",
+        "提高产物产率",
+        "改变反应热"
+      ],
+      "answer": "B",
+      "analysis": "催化剂通过降低反应的活化能、增大有效碰撞来提高反应速率，正逆反应的速率同时被加快，体系更快达到平衡。但平衡常数不变，所以既不改变平衡移动，也不改变产率和反应热。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2019_40",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "反应原理",
+      "question": "pH=2的溶液呈？",
+      "options": [
+        "无法确定",
+        "碱性",
+        "中性",
+        "酸性"
+      ],
+      "answer": "D",
+      "analysis": "pH = -lg c(H⁺)，pH 小于 7 表示溶液中 c(H⁺) 大于 10⁻⁷ mol/L，溶液显酸性。pH = 2 时 c(H⁺) = 1×10⁻² mol/L，酸性较强。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2020_41",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 4,
+      "category": "反应原理",
+      "question": "0.1mol/L 醋酸溶液中加入CH₃COONa固体，c(H⁺)变化是？",
+      "options": [
+        "增大",
+        "减小",
+        "不变",
+        "先增后减"
+      ],
+      "answer": "B",
+      "analysis": "CH₃COONa 溶于水电离出大量 CH₃COO⁻，它与醋酸电离出的 CH₃COO⁻ 是同离子，使 CH₃COOH ⇌ CH₃COO⁻ + H⁺ 的电离被抑制，平衡左移，c(H⁺) 减小。抑制电离不等于完全不电离，Ka 始终不变。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2021_42",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "反应原理",
+      "question": "NH₄Cl溶液pH？",
+      "options": [
+        "=7",
+        "<7",
+        ">7",
+        "无法确定"
+      ],
+      "answer": "B",
+      "analysis": "NH₄Cl 溶于水完全电离出 NH₄⁺ 和 Cl⁻。Cl⁻ 是强酸根不水解，而 NH₄⁺ 是弱碱 NH₃·H₂O 的共轭酸，会发生水解：NH₄⁺ + H₂O ⇌ NH₃·H₂O + H⁺。溶液显酸性，pH < 7。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2022_43",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "反应原理",
+      "question": "原电池中负极发生？",
+      "options": [
+        "氧化反应",
+        "还原反应",
+        "既氧化又还原",
+        "以上都不是"
+      ],
+      "answer": "A",
+      "analysis": "原电池中较活泼的金属作负极，它失电子、被氧化，所以负极发生氧化反应；得电子被还原的一端是正极。别和电解池混淆：电解池的阴极才是得电子发生还原反应。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2023_44",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 10,
+      "category": "反应原理",
+      "question": "电解氯化铜溶液时，阴极析出？",
+      "options": [
+        "O₂",
+        "Cl₂",
+        "H₂",
+        "Cu"
+      ],
+      "answer": "D",
+      "analysis": "阴极发生还原反应，阳离子按氧化性由强到弱依次得电子，顺序为 Ag⁺ > Fe³⁺ > Cu²⁺ > H⁺。Cu²⁺ 的氧化性强于 H⁺，且溶液呈中性而非酸性，Cu²⁺ 先得电子析出铜：Cu²⁺ + 2e⁻ = Cu，氢离子仍留在溶液中。",
+      "knowledgePoints": [
+        "反应原理",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2024_45",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "元素化合物",
+      "question": "金属钠保存在？",
+      "options": [
+        "水中",
+        "酒精中",
+        "煤油中",
+        "空气中"
+      ],
+      "answer": "C",
+      "analysis": "保存钠要同时避开水和空气。钠遇水剧烈反应：2Na + 2H₂O = 2NaOH + H₂↑；酒精虽不像水那样剧烈，但钠能与乙醇反应并溶解于其中；煤油既不与钠反应，密度又小于钠还能隔绝空气，所以用煤油保存。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2025_46",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "金属钠燃烧的产物是？",
+      "options": [
+        "Na₂O",
+        "Na₂O₂",
+        "NaOH",
+        "Na₂CO₃"
+      ],
+      "answer": "B",
+      "analysis": "钠在常温空气中被氧化成 Na₂O，燃烧时氧气充足则进一步生成 Na₂O₂（淡黄色固体）：2Na + O₂ →(点燃) Na₂O₂。NaOH 需要钠与水反应才生成，Na₂CO₃ 需要 CO₂ 参与，都不是燃烧产物。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2026_47",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "元素化合物",
+      "question": "下列能与NaOH溶液反应产生气体的是？",
+      "options": [
+        "Fe",
+        "Cu",
+        "Al",
+        "Mg"
+      ],
+      "answer": "C",
+      "analysis": "铝能溶于强碱溶液并放出氢气：2Al + 2NaOH + 2H₂O = 2NaAlO₂ + 3H₂↑。Fe、Cu 都不与 NaOH 溶液反应；Mg 常温下也不反应，因为生成的 Mg(OH)₂ 不能溶于过量 NaOH 溶液。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2018_48",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 8,
+      "category": "元素化合物",
+      "question": "关于铁的叙述错误的是？",
+      "options": [
+        "铁在潮湿空气中易生锈",
+        "铁与稀盐酸反应生成FeCl₃",
+        "Fe³⁺遇KSCN变红",
+        "铁在氧气中燃烧生成Fe₃O₄"
+      ],
+      "answer": "B",
+      "analysis": "铁与稀盐酸、稀硫酸等非氧化性酸反应只生成 +2 价铁，产物是 FeCl₂ 而非 FeCl₃，只有遇强氧化剂（Cl₂、稀硝酸等）才被氧化到 +3 价。其余三项都正确：潮湿空气中易生锈、Fe³⁺ 遇 SCN⁻ 显红色、在氧气中燃烧生成 Fe₃O₄。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2019_49",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 10,
+      "category": "元素化合物",
+      "question": "氯水中具有漂白性的是？",
+      "options": [
+        "Cl₂",
+        "HCl",
+        "HClO",
+        "H₂O"
+      ],
+      "answer": "C",
+      "analysis": "氯气溶于水发生反应：Cl₂ + H₂O ⇌ HCl + HClO。真正起漂白作用的是次氯酸 HClO，它有强氧化性，能把有色物质氧化而褪色；干燥的 Cl₂ 没有漂白性，HCl 和 H₂O 也不具备该性质。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2020_50",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 3,
+      "category": "元素化合物",
+      "question": "浓硫酸的下列性质属于物理性质的是？",
+      "options": [
+        "强氧化性",
+        "脱水性",
+        "吸水性",
+        "难挥发性"
+      ],
+      "answer": "D",
+      "analysis": "物理性质不必通过化学变化就能表现出来，化学性质则必须看它能否发生化学反应。浓硫酸的强氧化性、脱水性、吸水性都要发生反应才能体现，属化学性质；难挥发性只是描述它不易挥发、不涉及新物质生成，属物理性质。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2021_51",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "NH₃的实验室制法是？",
+      "options": [
+        "NH₄Cl固体加热",
+        "NH₄Cl与Ca(OH)₂共热",
+        "NH₄HCO₃加热",
+        "浓氨水加热"
+      ],
+      "answer": "B",
+      "analysis": "铵盐单独加热会分解：NH₄Cl →(Δ) NH₃ + HCl，NH₄HCO₃ 加热生成 NH₃、CO₂ 和 H₂O，气体不纯。实验室用 NH₄Cl 与 Ca(OH)₂ 固体共热：2NH₄Cl + Ca(OH)₂ →(Δ) CaCl₂ + 2NH₃↑ + 2H₂O，氨气干燥而纯正。",
+      "knowledgePoints": [
+        "元素化合物",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2022_52",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "有机化学",
+      "question": "乙烯的实验室制法原料是？",
+      "options": [
+        "乙烷",
+        "乙醇+浓H₂SO₄(170°C)",
+        "乙炔",
+        "乙酸"
+      ],
+      "answer": "B",
+      "analysis": "实验室制乙烯用无水乙醇与浓硫酸按体积比约 1:3 混合，迅速加热到 170℃：CH₃CH₂OH →(浓H₂SO₄, 170℃) CH₂=CH₂↑ + H₂O。温度是关键，140℃ 左右只发生分子间脱水生成乙醚，170℃ 才是分子内脱水的消去反应。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2023_53",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 8,
+      "category": "有机化学",
+      "question": "乙烯使溴的四氯化碳溶液褪色是？",
+      "options": [
+        "取代反应",
+        "加成反应",
+        "氧化反应",
+        "消去反应"
+      ],
+      "answer": "B",
+      "analysis": "碳碳双键是典型的加成位点，溴分子断开 Br–Br 键分别加到双键的两个碳上：CH₂=CH₂ + Br₂ → CH₂Br–CH₂Br，红棕色消失。光照条件下溴与烃才发生取代反应，与此不同。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2024_54",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 10,
+      "category": "有机化学",
+      "question": "下列属于醇类的是？",
+      "options": [
+        "CH₃OCH₃",
+        "CH₃CHO",
+        "CH₃CH₂OH",
+        "CH₃COOH"
+      ],
+      "answer": "C",
+      "analysis": "判定醇类看羟基是否直接连在饱和碳上。CH₃CH₂OH 是乙醇，羟基连在饱和碳上，属于醇；CH₃OCH₃ 是二甲醚，氧原子连接的是两个碳，属于醚；CH₃CHO 含醛基，是乙醛；CH₃COOH 含羧基，是乙酸。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2025_55",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 3,
+      "category": "有机化学",
+      "question": "乙酸与乙醇发生？",
+      "options": [
+        "取代反应",
+        "加成反应",
+        "酯化反应",
+        "氧化反应"
+      ],
+      "answer": "C",
+      "analysis": "羧酸脱去羟基、醇脱去羟基上的氢，生成乙酸乙酯和水：CH₃COOH + C₂H₅OH ⇌(浓H₂SO₄, Δ) CH₃COOC₂H₅ + H₂O。这个反应按产物命名叫酯化反应，从机理上它也属于取代反应，但中学阶段按酯化反应掌握。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2026_56",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 4,
+      "category": "有机化学",
+      "question": "葡萄糖是？",
+      "options": [
+        "糖原",
+        "多糖",
+        "二糖",
+        "单糖"
+      ],
+      "answer": "D",
+      "analysis": "糖按能否水解分为三类。葡萄糖分子中不能再水解，是单糖；蔗糖、麦芽糖水解各得两种单糖，属二糖；淀粉、纤维素、糖原水解最终都只得葡萄糖，属多糖。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2018_57",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "有机化学",
+      "question": "油脂在碱性条件下水解称？",
+      "options": [
+        "取代反应",
+        "酯化反应",
+        "中和反应",
+        "皂化反应"
+      ],
+      "answer": "D",
+      "analysis": "油脂是高级脂肪酸的甘油酯，在碱性条件下水解生成甘油和高级脂肪酸的钠盐，也就是肥皂，这个反应专称皂化反应：油脂 + 3NaOH →(Δ) 甘油 + 3RCOONa。机理上它是酯的水解，但因产物是肥皂而得名。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2019_58",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 8,
+      "category": "有机化学",
+      "question": "蛋白质的基本组成单位是？",
+      "options": [
+        "脂肪酸",
+        "核苷酸",
+        "葡萄糖",
+        "氨基酸"
+      ],
+      "answer": "D",
+      "analysis": "蛋白质是由氨基酸脱水缩合形成的多肽链进一步盘曲折叠而成，构成蛋白质的氨基酸有 20 种。脂肪酸是油脂的成分，核苷酸组成核酸，葡萄糖属于糖类，都不是蛋白质的组成单位。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2020_59",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 10,
+      "category": "有机化学",
+      "question": "下列属于合成高分子材料的是？",
+      "options": [
+        "棉花",
+        "羊毛",
+        "聚乙烯",
+        "蚕丝"
+      ],
+      "answer": "C",
+      "analysis": "高分子材料分天然和合成两类。棉花（纤维素）、羊毛和蚕丝（蛋白质）都是天然高分子；聚乙烯由乙烯加聚得到：nCH₂=CH₂ →(催化剂) [–CH₂–CH₂–]ₙ，属于合成有机高分子材料，与塑料、合成纤维、合成橡胶并列。",
+      "knowledgePoints": [
+        "有机化学",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2021_60",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 3,
+      "category": "化学实验",
+      "question": "用pH试纸测定溶液pH的方法是？",
+      "options": [
+        "将试纸浸入溶液",
+        "用玻璃棒蘸取溶液滴在试纸上",
+        "将试纸放在溶液瓶口",
+        "用试纸搅拌溶液"
+      ],
+      "answer": "B",
+      "analysis": "pH 试纸不能浸入待测液，也不能事先用水润湿，否则溶液被稀释会使结果失真。正确做法是用洁净玻璃棒蘸取待测液滴在干燥的试纸中央，待显色后与标准比色卡对照读数。",
+      "knowledgePoints": [
+        "化学实验",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2022_61",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "配制一定物质的量浓度溶液时，需要使用的仪器是？",
+      "options": [
+        "量筒",
+        "容量瓶",
+        "烧杯",
+        "锥形瓶"
+      ],
+      "answer": "B",
+      "analysis": "配制步骤为计算、称量或量取、溶解、转移、洗涤、定容、摇匀装瓶。容量瓶用来准确定容，规格要按所配浓度选定，是必需的仪器；量筒只能粗略量取液体，烧杯只用于溶解，锥形瓶不参与定容。",
+      "knowledgePoints": [
+        "化学实验",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2023_62",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "化学实验",
+      "question": "下列实验操作正确的是？",
+      "options": [
+        "稀释浓硫酸时将水倒入浓硫酸中",
+        "用鼻子凑近瓶口闻药品气味",
+        "实验剩余药品放回原瓶",
+        "用酒精灯加热试管时液体不超过1/3"
+      ],
+      "answer": "D",
+      "analysis": "加热试管里的液体，体积不超过试管容积的 1/3，试管与桌面约成 45°，管口不朝人。其余三项都错：稀释浓硫酸要把酸沿器壁慢慢倒入水中并不断搅拌，不能把水倒进浓硫酸；闻气味应用手在瓶口轻轻扇动；实验剩余药品不能放回原瓶，否则会污染试剂。",
+      "knowledgePoints": [
+        "化学实验",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2024_63",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 8,
+      "category": "化学实验",
+      "question": "分离乙醇和水的混合物用？",
+      "options": [
+        "过滤",
+        "分液",
+        "蒸馏",
+        "萃取"
+      ],
+      "answer": "C",
+      "analysis": "乙醇与水互溶，不能用分液或萃取分离，过滤只适用于不溶性的固体。两者沸点相差较大（乙醇约 78℃、水 100℃），可利用沸点差异用蒸馏法分离，先蒸出低沸点的乙醇，水留在蒸馏烧瓶中。",
+      "knowledgePoints": [
+        "化学实验",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "CHEM_2025_64",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 10,
+      "category": "化学实验",
+      "question": "检验溶液中Fe³⁺的试剂是？",
+      "options": [
+        "BaCl₂",
+        "NaOH",
+        "AgNO₃",
+        "KSCN"
+      ],
+      "answer": "D",
+      "analysis": "Fe³⁺ 遇 SCN⁻ 生成血红色物质，这是检验 Fe³⁺ 的特征反应：Fe³⁺+3SCN⁻ ⇌ Fe(SCN)₃，故用 KSCN 溶液检验。NaOH 只能生成 Fe(OH)₃ 沉淀，而 Fe²⁺ 生成的 Fe(OH)₂ 也会很快变红褐色，无法区分。",
+      "knowledgePoints": [
+        "化学实验",
+        "基础概念"
+      ]
+    },
+    {
+      "id": "chemistry_2018_100",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "物质的量单位是？",
+      "options": [
+        "g",
+        "mol",
+        "L",
+        "kg"
+      ],
+      "answer": "B",
+      "analysis": "物质的量表示含有一定数目粒子的集合，单位是摩尔，符号mol。g、kg是质量单位，L是体积单位，都不是物质的量的单位；物质的量与质量、体积之间的换算必须借助摩尔质量或气体摩尔体积。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_101",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "1 mol H₂O中含有的分子数约为？",
+      "options": [
+        "6.02×10²³",
+        "6.02×10²²",
+        "6.02×10²⁴",
+        "1×10²³"
+      ],
+      "answer": "A",
+      "analysis": "1 mol任何微粒所含的微粒数都等于阿伏加德罗常数NA≈6.02×10²³，因此1 mol H₂O里的水分子个数约为6.02×10²³。\n\n6.02×10²²比NA少一个数量级，6.02×10²⁴比NA多一个数量级，1×10²³则没有给出NA的准确数值。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_104",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列物质属于非电解质的是？",
+      "options": [
+        "NaCl",
+        "蔗糖",
+        "HCl",
+        "NaOH"
+      ],
+      "answer": "B",
+      "analysis": "电解质是在水溶液或熔融状态下能导电的化合物，非电解质则是在水溶液中或熔融状态下都不能导电的化合物。\n\n蔗糖溶于水只形成糖分子溶液，没有可自由移动的离子，属于非电解质；NaCl、HCl、NaOH在水中电离出离子，都是电解质。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2023_105",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列物质属于强电解质的是？",
+      "options": [
+        "CH₃COOH",
+        "NH₃·H₂O",
+        "NaCl",
+        "H₂O"
+      ],
+      "answer": "C",
+      "analysis": "强电解质在水溶液中完全电离，弱电解质只部分电离。NaCl溶于水完全电离为Na⁺和Cl⁻，属于强电解质。\n\nCH₃COOH是弱酸、NH₃·H₂O是弱碱，都是弱电解质；H₂O虽然能微弱电离出H⁺和OH⁻，但电离程度极小，同样属于弱电解质。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_106",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列化学方程式书写正确的是？",
+      "options": [
+        "2H₂+O₂=2H₂O",
+        "H₂+O₂=H₂O",
+        "H₂+O₂=2H₂O",
+        "2H₂+O₂=H₂O"
+      ],
+      "answer": "A",
+      "analysis": "书写化学方程式要遵守质量守恒定律，配平后各元素的原子数必须相等。氢气完全燃烧时2 mol H₂与1 mol O₂生成2 mol H₂O，配平正确，规范书写时应在等号上标注“点燃”。\n\nB、C中氢气与氧气的系数比为1:1，生成的氢、氧原子数对不上；D中2 mol H₂只能生成1 mol H₂O，同样不守恒。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2025_107",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "氧化还原反应的本质是？",
+      "options": [
+        "化合价变化",
+        "电子转移",
+        "氧元素参与",
+        "生成新物质"
+      ],
+      "answer": "B",
+      "analysis": "判断氧化还原反应，要抓住电子的转移（得失或偏移）这一本质，元素化合价的变化只是电子转移在宏观上的表征。\n\n氧元素并非必须参加，Fe与CuCl₂的反应就没有氧参与。生成新物质是所有化学反应共有的特征，不能作为氧化还原反应的判据。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_109",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列属于还原剂的是？",
+      "options": [
+        "KMnO₄",
+        "Cl₂",
+        "Fe",
+        "O₂"
+      ],
+      "answer": "C",
+      "analysis": "还原剂在反应中失电子、化合价升高，自身被氧化。Fe与Cl₂反应生成FeCl₃，Fe由0价升到+3价，是还原剂。\n\nKMnO₄中Mn为+7价、Cl₂中Cl为0价、O₂中O为0价，这些物质中元素的化合价只能降低，作氧化剂。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_110",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "化学反应速率单位是？",
+      "options": [
+        "mol/(L·s)",
+        "mol/L",
+        "g/s",
+        "L/s"
+      ],
+      "answer": "A",
+      "analysis": "化学反应速率通常用单位时间内反应物浓度的减少量或生成物浓度的增加量表示，浓度以mol/L计、时间以s计，速率的单位是mol/(L·s)。\n\nmol/L只是浓度单位，缺少时间这一维；g/s是质量速率、只适用于固体或纯液体，L/s是体积速率，都不是本题的浓度变化速率。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2020_111",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "影响化学反应速率的因素不包括？",
+      "options": [
+        "浓度",
+        "温度",
+        "催化剂",
+        "质量"
+      ],
+      "answer": "D",
+      "analysis": "能改变反应速率的条件有浓度、温度、催化剂、压强（对有气体参与的反应）、反应物接触面积等，实质是改变单位体积内的活化分子数目或有效碰撞频率。\n\n质量只表示反应物的多少，并不改变反应的快慢，所以不属于影响速率的因素。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2021_112",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "化学平衡状态特征是？",
+      "options": [
+        "v正=v逆≠0",
+        "正反应停止",
+        "逆反应停止",
+        "反应物耗尽"
+      ],
+      "answer": "A",
+      "analysis": "化学平衡状态指可逆反应的正、逆反应速率相等且各组分浓度保持不变，此时反应并未停止，而是处于动态平衡。v正=v逆≠0正是这一标志。\n\n若正反应停止，体系内已没有反应在进行，谈不上平衡；反应物是否耗尽取决于反应能否可逆，不是平衡的判据。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_113",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "升温化学平衡逆向移动，则正反应是？",
+      "options": [
+        "放热",
+        "吸热",
+        "无热效应",
+        "无法判断"
+      ],
+      "answer": "A",
+      "analysis": "升高温度时平衡向吸热方向移动，题目给出升温后平衡逆向移动，说明逆反应吸热，正反应必然是放热的。\n\n正反应放热时升温使平衡向逆反应方向移动，与题意一致；无热效应的反应升温不引起平衡移动，也无法解释题设现象。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_115",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "使用催化剂能改变？",
+      "options": [
+        "化学反应速率",
+        "化学平衡",
+        "反应热",
+        "反应方向"
+      ],
+      "answer": "A",
+      "analysis": "催化剂能同时加快正、逆反应速率，从而缩短达到平衡所需的时间，但不改变平衡移动方向、反应的焓变和最终转化率。\n\n化学平衡与反应热由反应本身的自由能差决定，催化剂只改变化学反应的途径、降低活化能，因此不能用来改变化学平衡或反应方向。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2025_116",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "弱电解质电离程度大小与？",
+      "options": [
+        "浓度有关",
+        "温度有关",
+        "同离子效应",
+        "以上都有关"
+      ],
+      "answer": "D",
+      "analysis": "弱电解质在水中的电离是可逆的、程度有限的，电离程度取决于电离平衡所处的位置。\n\n稀释使电离平衡右移、电离程度增大；升温改变电离平衡常数K的值；加入含相同离子的物质（如CH₃COONa）会使平衡左移。三个因素都能改变电离程度，不能只强调其中一两个。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_118",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "pH=3的盐酸与pH=3的醋酸比较，c(H⁺)？",
+      "options": [
+        "盐酸大",
+        "醋酸大",
+        "相等",
+        "无法比较"
+      ],
+      "answer": "C",
+      "analysis": "pH=-lg c(H⁺)，pH相同就意味着c(H⁺)相同，两者都是10⁻³ mol/L。醋酸是弱酸，pH相同时其溶液浓度远大于盐酸，但溶液中自由H⁺的浓度一样；比较c(H⁺)时不能拿酸的浓度或酸提供的离子总量来代替。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_119",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "盐类水解的规律是？",
+      "options": [
+        "强酸弱碱盐水解呈酸性",
+        "强碱弱酸盐水解呈碱性",
+        "强酸强碱盐不水解",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "盐类水解的实质是弱离子（弱酸根或弱碱的阳离子）结合水电离出的H⁺或OH⁻。强酸弱碱盐如NH₄Cl水解产生H⁺，溶液呈酸性；强碱弱酸盐如CH₃COONa水解产生OH⁻，溶液呈碱性；强酸强碱盐如NaCl的离子既不水解也不水解酸碱，溶液呈中性。\n\n三条规律各对应一种类型的盐，都成立。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2020_120",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "原电池的本质是？",
+      "options": [
+        "自发的氧化还原反应",
+        "电解",
+        "吸热反应",
+        "放热反应"
+      ],
+      "answer": "A",
+      "analysis": "原电池把氧化还原反应中的电子转移设计成外电路电流：较活泼金属失电子被氧化，较不活泼物质得电子被还原，反应自发进行，化学能转化为电能。\n\n电解是外加电源迫使非自发反应进行，与原电池的能量转化方向相反；放热、吸热只描述能量变化，与是否构成原电池无关。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2021_121",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "电解池的阳极发生？",
+      "options": [
+        "氧化反应",
+        "还原反应",
+        "中和反应",
+        "置换反应"
+      ],
+      "answer": "A",
+      "analysis": "电解池中与电源正极相连的是阳极，离子在这里失去电子发生氧化反应；与电源负极相连的阴极得电子，发生还原反应。\n\n原电池称正极、负极，电解池称阳极、阴极，两套名称不能互换。中和反应是酸碱复分解，置换反应是单质与化合物互换，都不是电极反应的类型。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_122",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "金属腐蚀中，最普遍的是？",
+      "options": [
+        "化学腐蚀",
+        "电化学腐蚀",
+        "生物腐蚀",
+        "物理腐蚀"
+      ],
+      "answer": "B",
+      "analysis": "金属腐蚀按机理分为化学腐蚀和电化学腐蚀。钢铁在潮湿空气中形成原电池，铁作负极失电子、正极处O₂得电子被还原，属于电化学腐蚀，其速率远快于金属与酸、氧气直接反应的化学腐蚀，在实际中最普遍。\n\n生物腐蚀和物理腐蚀不是金属腐蚀的主要类型。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2023_123",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "下列金属活动性最强的是？",
+      "options": [
+        "Cu",
+        "Fe",
+        "Mg",
+        "Ag"
+      ],
+      "answer": "C",
+      "analysis": "金属活动性顺序为K、Ca、Na、Mg、Al、Zn、Fe、Sn、Pb、(H)、Cu、Hg、Ag、Pt、Au，位置越靠前越活泼。\n\n四种金属中Mg排在最前，金属性最强，能与冷水、稀酸反应放出氢气；Fe次之；Cu和Ag排在靠后，只能从盐溶液中置换出比它们更不活泼的金属。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_124",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "金属钠与水反应的现象是？",
+      "options": [
+        "浮熔游响红",
+        "沉淀产生",
+        "气体产生",
+        "无明显现象"
+      ],
+      "answer": "A",
+      "analysis": "把钠投入水中，现象可用“浮、熔、游、响、红”概括：钠的密度比水小，浮在水面；反应放热使钠熔成小球；熔化的钠被生成的H₂推动而游动并发出响声；溶液使酚酞变红，说明生成了NaOH。\n\n该反应不会生成沉淀，只说“生成气体”也没抓住钠熔化、游动等典型特征。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2025_125",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "Al₂O₃是？",
+      "options": [
+        "碱性氧化物",
+        "酸性氧化物",
+        "两性氧化物",
+        "不成盐氧化物"
+      ],
+      "answer": "C",
+      "analysis": "Al₂O₃既能与强酸反应生成盐和水（Al₂O₃+6HCl→2AlCl₃+3H₂O），又能与强碱反应生成偏铝酸盐（Al₂O₃+2NaOH→2NaAlO₂+H₂O），是典型的两性氧化物。\n\n碱性氧化物只与酸反应，酸性氧化物只与碱反应，都不能同时与酸、碱都作用；不成盐氧化物指CO、NO一类。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2026_126",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "检验Fe³⁺的试剂是？",
+      "options": [
+        "KSCN溶液",
+        "NaOH溶液",
+        "AgNO₃溶液",
+        "BaCl₂溶液"
+      ],
+      "answer": "A",
+      "analysis": "Fe³⁺与SCN⁻反应生成血红色配合物，可用来检验Fe³⁺：向待测液中滴加KSCN溶液，出现血红色即说明含Fe³⁺。\n\nNaOH能与Fe³⁺生成红褐色Fe(OH)₃沉淀，但不能区分Fe³⁺与Fe²⁺；AgNO₃、BaCl₂是检验Cl⁻、SO₄²⁻的试剂，与Fe³⁺的检验无关。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_127",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "Cl₂在空气中燃烧产生？",
+      "options": [
+        "白色烟雾",
+        "黄色烟雾",
+        "棕色烟雾",
+        "无现象"
+      ],
+      "answer": "A",
+      "analysis": "氯气是黄绿色、有刺激性气味的气体，既不燃烧也不与空气中的成分反应，“在空气中燃烧”的说法缺乏化学依据。\n\n白色烟雾实为两类现象：固体小颗粒称白烟，液滴称白雾，钠在氯气中燃烧生成的白色氯化钠固体是白烟，氢气在氯气中燃烧生成的氯化氢液滴是白雾；黄色烟雾来自溴，棕色烟雾来自NO₂。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_128",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "浓硫酸的特性不包括？",
+      "options": [
+        "强氧化性",
+        "脱水性",
+        "吸水性",
+        "强还原性"
+      ],
+      "answer": "D",
+      "analysis": "浓硫酸的三条特性是强氧化性、脱水性、吸水性。强氧化性表现为与Cu共热生成SO₂、与木炭发生氧化还原反应；脱水性表现为使蔗糖炭化；吸水性表现为可作干燥剂吸收水分。\n\n浓硫酸中S为+6价，已是常见最高价态，硫一般只表现氧化性，浓硫酸没有还原性。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_131",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "氨气的水溶液呈？",
+      "options": [
+        "酸性",
+        "碱性",
+        "中性",
+        "无法确定"
+      ],
+      "answer": "B",
+      "analysis": "NH₃溶于水时与水结合生成NH₃·H₂O，并电离出OH⁻：NH₃·H₂O ⇌ NH₄⁺+OH⁻，所以氨水显碱性。\n\nNH₃本身是共价化合物，溶于水不发生中和类反应，不会使溶液显酸性；溶液呈中性或无法判断，都与氨水中确实存在OH⁻的事实不符。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2023_132",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙烯分子中含有的官能团是？",
+      "options": [
+        "羟基",
+        "羧基",
+        "碳碳双键",
+        "醛基"
+      ],
+      "answer": "C",
+      "analysis": "乙烯的结构简式为CH₂=CH₂，分子中含有碳碳双键，双键是乙烯的官能团，能发生加成、氧化等反应。\n\n羟基和羧基都是含氧官能团，而乙烯分子中不含氧原子，因此不可能含羟基或羧基；醛基同样含氧，乙烯分子中也没有。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_133",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙炔分子中含有的官能团是？",
+      "options": [
+        "碳碳双键",
+        "碳碳三键",
+        "羟基",
+        "羧基"
+      ],
+      "answer": "B",
+      "analysis": "乙炔的结构简式为CH≡CH，分子中含有碳碳三键，这是乙炔的官能团，能发生加成、氧化等反应。\n\n碳碳双键是乙烯等烯烃的官能团，乙炔中不存在；羟基和羧基都是含氧官能团，而乙炔只含碳、氢两种元素。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2025_134",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "苯分子中含有的化学键是？",
+      "options": [
+        "碳碳单键",
+        "碳碳双键",
+        "介于单双键之间的特殊键",
+        "碳碳三键"
+      ],
+      "answer": "C",
+      "analysis": "苯分子由六个碳原子和六个氢原子构成平面正六边形，六个碳原子之间的键完全等同，既不是普通的碳碳单键，也不是交替排列的单双键，而是介于单键与双键之间的特殊键，六键等长且介于136 pm与140 pm之间。\n\n因此苯既能发生取代反应，也能发生加成反应。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2026_135",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙醇催化氧化的产物是？",
+      "options": [
+        "乙醛",
+        "乙酸",
+        "乙烯",
+        "乙烷"
+      ],
+      "answer": "A",
+      "analysis": "乙醇在铜或银催化并加热的条件下被氧气氧化，羟基所连碳原子上的H被氧化，生成乙醛和水：2CH₃CH₂OH+O₂→2CH₃CHO+2H₂O。\n\n乙酸是乙醛进一步氧化的产物，需要强氧化剂；乙烯是乙醇分子内脱水的结果，乙烷则不是氧化的产物。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_136",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙醛与新制Cu(OH)₂反应的现象是？",
+      "options": [
+        "产生红色沉淀",
+        "产生蓝色沉淀",
+        "无现象",
+        "产生气体"
+      ],
+      "answer": "A",
+      "analysis": "新制Cu(OH)₂悬浊液与乙醛共热，醛基被氧化为羧基，Cu²⁺被还原成Cu₂O，析出红色沉淀：CH₃CHO+2Cu(OH)₂+NaOH→CH₃COONa+Cu₂O↓+3H₂O。\n\n蓝色只是未反应的新制Cu(OH)₂自身的颜色，加热变黑也不能代替红色沉淀，该反应中不产生气体。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_137",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙酸与乙醇酯化反应中，酸脱？",
+      "options": [
+        "H",
+        "OH",
+        "CHO",
+        "COOH"
+      ],
+      "answer": "B",
+      "analysis": "酯化反应的实质是羧酸脱羟基、醇脱氢，羧酸的-OH与醇的-H结合生成水，酯基中的氧来自羧酸分子。所以乙酸脱去的是-OH；脱去-H的是乙醇。\n\n-CHO是醛基，乙酸分子中并不含醛基；-COOH是羧基本身，羧酸脱羟基后羧基转化为酯基，并不是把整个羧基脱走。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2020_138",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "葡萄糖分子中含有的官能团不包括？",
+      "options": [
+        "羟基",
+        "醛基",
+        "羧基",
+        "以上都含"
+      ],
+      "answer": "C",
+      "analysis": "葡萄糖是多羟基醛，分子中含有多个羟基和一个醛基，不含羧基，因为羧基中碳已是最高价+4价，而醛基碳的氧化程度较低，还能继续被氧化。\n\n把葡萄糖分子中的醛基氧化才得到含羧基的葡萄糖酸，因此羧基不是葡萄糖本身的官能团。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2021_139",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "蔗糖水解的产物是？",
+      "options": [
+        "葡萄糖和果糖",
+        "葡萄糖",
+        "果糖",
+        "麦芽糖"
+      ],
+      "answer": "A",
+      "analysis": "蔗糖的分子式为C₁₂H₂₂O₁₁，在酸或酶催化下与水反应生成一分子葡萄糖和一分子果糖：C₁₂H₂₂O₁₁+H₂O→C₆H₁₂O₆（葡萄糖）+C₆H₁₂O₆（果糖）。\n\n麦芽糖是淀粉水解的中间产物，其水解产物只有葡萄糖，水解产物中也不会出现蔗糖。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_140",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "淀粉水解的最终产物是？",
+      "options": [
+        "葡萄糖",
+        "果糖",
+        "蔗糖",
+        "麦芽糖"
+      ],
+      "answer": "A",
+      "analysis": "淀粉是植物储存能量的多糖，由许多葡萄糖分子缩合而成，在酸催化下逐步水解为麦芽糖、葡萄糖，彻底水解后得到的是葡萄糖：(C₆H₁₀O₅)ₙ+nH₂O→nC₆H₁₂O₆。\n\n果糖是单糖，不会由淀粉水解得到；蔗糖是二糖，与淀粉的组成单元不同；麦芽糖只是水解过程中的中间产物。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2023_141",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "油脂在碱性条件下水解产物是？",
+      "options": [
+        "高级脂肪酸和甘油",
+        "高级脂肪酸钠和甘油",
+        "葡萄糖和氨基酸",
+        "氨基酸"
+      ],
+      "answer": "B",
+      "analysis": "油脂是高级脂肪酸与甘油形成的酯，碱性条件下发生皂化反应生成高级脂肪酸盐和甘油：油脂+NaOH→高级脂肪酸钠+甘油。\n\n酸性或中性条件水解才得到高级脂肪酸，碱性条件下羧酸随即被中和成盐；葡萄糖和氨基酸分别是糖类、蛋白质的水解产物，与油脂无关。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_142",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "蛋白质水解的最终产物是？",
+      "options": [
+        "氨基酸",
+        "葡萄糖",
+        "核苷酸",
+        "脂肪酸"
+      ],
+      "answer": "A",
+      "analysis": "蛋白质是由氨基酸通过肽键缩合而成的高分子，肽键在酸、碱或酶催化下水解断裂，肽链逐段断开，最终得到组成蛋白质的各种氨基酸。\n\n蛋白质不含糖类结构单元，水解不会生成葡萄糖；核苷酸是核酸的组成单位；脂肪酸属于油脂的组成成分，都不是蛋白质的水解产物。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2025_143",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "聚乙烯是由乙烯经？",
+      "options": [
+        "加聚反应",
+        "缩聚反应",
+        "酯化反应",
+        "水解反应"
+      ],
+      "answer": "A",
+      "analysis": "聚乙烯的结构单元是—CH₂—CH₂—，由乙烯分子中的碳碳双键打开后相互加成连接而成，过程中没有小分子脱去，属于加聚反应。\n\n缩聚反应必须脱去水、醇等小分子，乙烯没有两个官能团无法缩聚；酯化反应是羧酸与醇生成酯和水，与乙烯无关；水解反应是加成反应的逆过程。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2026_144",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "下列属于天然高分子的是？",
+      "options": [
+        "聚乙烯",
+        "棉花",
+        "塑料",
+        "涤纶"
+      ],
+      "answer": "B",
+      "analysis": "天然高分子是自然界直接形成的高分子物质，棉花的主要成分是纤维素，属于多糖，是天然高分子。\n\n聚乙烯、塑料、涤纶都是由单体经人工合成得到的合成高分子，涤纶属于合成纤维，虽同为纤维但来源与棉花不同。",
+      "knowledgePoints": [
+        "有机化学",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_145",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "实验使用浓硫酸时，下列操作正确的是？",
+      "options": [
+        "皮肤溅上后立即用大量水冲洗",
+        "稀释时将水倒入浓硫酸中",
+        "向燃着的酒精灯中加酒精",
+        "用嘴吹灭酒精灯"
+      ],
+      "answer": "A",
+      "analysis": "浓硫酸沾到皮肤上，应先用干抹布拭去，再用大量水冲洗，最后涂抹3%~5%的NaHCO₃溶液，因此“立即用大量水冲洗”是应急处理中可行的一步。\n\n把水倒入浓硫酸中会剧烈放热造成液体飞溅伤人；向燃着的酒精灯中添加酒精会引燃洒出的酒精；用嘴吹灭酒精灯不科学，应改用灯帽盖灭。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2019_146",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "下列仪器中可直接加热的是？",
+      "options": [
+        "量筒",
+        "容量瓶",
+        "试管",
+        "锥形瓶"
+      ],
+      "answer": "C",
+      "analysis": "能直接加热的仪器要求壁薄、受热均匀，如试管可直接用酒精灯加热。\n\n量筒、容量瓶都是精密量度仪器，受热会影响刻度准确性甚至炸裂，不能加热；锥形瓶可以作反应容器，但需要垫石棉网间接加热，同样不能直接加热。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2020_147",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "用托盘天平称量药品时，药品应放在？",
+      "options": [
+        "左盘",
+        "右盘",
+        "两个盘都可",
+        "与砝码同侧"
+      ],
+      "answer": "A",
+      "analysis": "托盘天平遵循左物右码的原则：药品放左盘、砝码放右盘，游码也移向标尺左端。若把药品放在右盘，药品与砝码的质量就直接相加，无法用游码的减法去平衡。\n\n称量时要垫称量纸，腐蚀性或易潮解的药品应放在玻璃器皿中称量。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2021_148",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "使用胶头滴管时，下列操作正确的是？",
+      "options": [
+        "伸入试管内滴加",
+        "倒持",
+        "平放",
+        "竖直悬空滴加"
+      ],
+      "answer": "D",
+      "analysis": "用胶头滴管滴加少量液体时，应竖直悬空在容器口上方，不可伸入容器内，否则会污染胶头并把试剂带回试剂瓶。\n\n倒持和平放都会让液体倒流到胶帽中，使胶帽受腐蚀、影响密封；滴加时还要逐滴缓慢进行。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2022_149",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "分离互不相溶的液体用？",
+      "options": [
+        "过滤",
+        "分液",
+        "蒸馏",
+        "蒸发"
+      ],
+      "answer": "B",
+      "analysis": "两种互不相溶的液体混合后会分层，静置后可用分液漏斗把下层液体放出，这是分液操作。\n\n过滤用于分离固体与液体；蒸馏利用沸点差异分离互溶的液体；蒸发是把溶液中的溶质结晶或把溶剂蒸干，都不能用于分离互不相溶的液体。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2023_150",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "除去CO₂中混有的HCl气体用？",
+      "options": [
+        "NaOH溶液",
+        "饱和NaHCO₃溶液",
+        "水",
+        "Na₂CO₃溶液"
+      ],
+      "answer": "B",
+      "analysis": "要除去CO₂里混进的HCl，应当选既能与HCl反应又不消耗CO₂的试剂，饱和NaHCO₃溶液正好合适：HCl+HCO₃⁻→CO₂↑+H₂O+HClO。\n\nNaOH和Na₂CO₃虽然能除去HCl，但同时会把CO₂也吸收掉；用水洗不能彻底除去HCl，且会溶解损失CO₂。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2024_151",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "检验SO₄²⁺的试剂是？",
+      "options": [
+        "BaCl₂溶液",
+        "AgNO₃溶液",
+        "NaOH溶液",
+        "KSCN溶液"
+      ],
+      "answer": "A",
+      "analysis": "检验SO₄²⁻的标准做法是先加足量稀盐酸酸化，排除CO₃²⁻、SO₃²⁻等干扰，再加BaCl₂溶液，出现不溶于酸的白色沉淀即说明含SO₄²⁻。\n\nAgNO₃检验的是Cl⁻，微溶的Ag₂SO₄还会造成干扰；NaOH与KSCN分别用于检验NH₄⁺、Fe³⁺，都不适合检验硫酸根。",
+      "knowledgePoints": [
+        "化学实验",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "chemistry_2018_200",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "盐类水解的应用不包括？",
+      "options": [
+        "泡沫灭火器",
+        "净水",
+        "化肥",
+        "制肥皂"
+      ],
+      "answer": "C",
+      "analysis": "盐类水解的典型应用有三处：泡沫灭火器中Al₂(SO₄)₃水解使溶液显酸性，放出CO₂灭火；自来水厂用AlCl₃水解生成的Al(OH)₃胶体吸附悬浮杂质净水；制肥皂则是油脂在碱性条件下水解（皂化）并利用高级脂肪酸盐的水解。\n\n化肥是氮磷钾等营养元素的化合物，与盐类水解没有直接关系。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_201",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "配制FeCl₃溶液时常加少量盐酸是为了？",
+      "options": [
+        "抑制FeCl₃水解",
+        "促进FeCl₃水解",
+        "调节pH",
+        "增加溶解度"
+      ],
+      "answer": "A",
+      "analysis": "FeCl₃是强酸弱碱盐，Fe³⁺在水中水解：Fe³⁺+3H₂O⇌Fe(OH)₃+3H⁺，使溶液显酸性并可能析出沉淀。加少量盐酸增大H⁺浓度，使水解平衡左移，抑制水解，保证溶液澄清稳定。\n\n促进水解会使溶液变浑浊，调节pH不是加盐酸的真正目的，增大溶解度的说法更不成立。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_202",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "除去MgCl₂溶液中混有的FeCl₃应加？",
+      "options": [
+        "MgO",
+        "NaOH",
+        "KSCN",
+        "氨水"
+      ],
+      "answer": "A",
+      "analysis": "除杂试剂应只与杂质反应且不引入新杂质。MgO与水生成Mg(OH)₂，消耗溶液中的H⁺，促使Fe³⁺水解生成Fe(OH)₃沉淀，而Mg²⁺不被沉淀，引入的MgO最终变成MgCl₂，不引入新杂质。\n\nNaOH和氨水在除Fe³⁺时会连Mg²⁺一起沉淀；KSCN只能检验Fe³⁺，不能把它除去。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2023_205",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "关于浓硫酸的稀释，正确的是？",
+      "options": [
+        "将水沿器壁慢慢注入浓硫酸中",
+        "将浓硫酸沿器壁慢慢注入水中",
+        "两者随意混合",
+        "边加边搅拌降温"
+      ],
+      "answer": "B",
+      "analysis": "稀释浓硫酸一定要把浓硫酸沿器壁缓缓注入水中，并用玻璃棒不断搅拌使热量及时散失；反过来把水倒入浓硫酸中，密度小的水浮在浓硫酸表面，局部剧烈放热会使液体沸腾飞溅伤人。\n\n“两者随意混合”更危险；只提搅拌降温而不强调“酸入水”的顺序，没有抓住稀释的关键操作要点。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2024_206",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "下列试剂中，能用来干燥氨气的是？",
+      "options": [
+        "浓硫酸",
+        "无水CaCl₂",
+        "碱石灰",
+        "P₂O₅"
+      ],
+      "answer": "C",
+      "analysis": "氨气是碱性气体，干燥剂不能与它反应。碱石灰是氧化钙和氢氧化钠的混合物，呈碱性，只作干燥剂不与NH₃反应，最为合适。\n\n浓硫酸和P₂O₅都是酸性物质，会与NH₃反应生成铵盐而消耗氨气；无水CaCl₂会与NH₃形成络合物CaCl₂·8NH₃，同样不能用来干燥氨气。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2025_207",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "浓硝酸应保存在？",
+      "options": [
+        "无色试剂瓶",
+        "棕色试剂瓶",
+        "塑料瓶",
+        "铁制容器"
+      ],
+      "answer": "B",
+      "analysis": "浓硝酸见光分解：4HNO₃→4NO₂↑+O₂↑+2H₂O，生成的NO₂使溶液变黄，因此实验室中必须避光，保存于棕色试剂瓶并置于阴凉处。\n\n无色试剂瓶挡不住光线；塑料瓶不避光且浓硝酸腐蚀性强；铁制容器在常温下会使铁钝化，教材允许用它运输储存大量浓硝酸，故该项并非绝对错误。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2026_208",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "实验室制取Cl₂的反应中，浓盐酸的作用是？",
+      "options": [
+        "氧化剂",
+        "还原剂",
+        "酸性",
+        "以上都对"
+      ],
+      "answer": "B",
+      "analysis": "实验室用MnO₂与浓盐酸共热制Cl₂：MnO₂+4HCl（浓）→MnCl₂+Cl₂↑+2H₂O，其中Cl⁻由-1价升到0价被氧化，浓盐酸作还原剂。\n\n作氧化剂要求化合价降低，与生成Cl₂矛盾；H⁺只是与MnO₂中的氧结合成水，并未参与氧化还原，所以此处浓盐酸不表现酸性。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2018_209",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "下列关于漂白粉的叙述正确的是？",
+      "options": [
+        "有效成分是Ca(ClO)₂",
+        "有效成分是CaCl₂",
+        "在空气中易失效",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "漂白粉的有效成分是Ca(ClO)₂，由Cl₂与石灰乳反应制得：2Cl₂+2Ca(OH)₂→Ca(ClO)₂+CaCl₂+2H₂O，其中CaCl₂只是副产物。\n\n漂白粉在空气中会与CO₂和H₂O反应生成HClO，HClO见光分解而失效，所以要密封避光保存。这三条叙述都与事实相符。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_210",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "下列关于SO₂的叙述错误的是？",
+      "options": [
+        "无色有刺激性气味",
+        "易溶于水",
+        "能使品红褪色",
+        "不能使酸性KMnO₄褪色"
+      ],
+      "answer": "D",
+      "analysis": "SO₂是无色、有刺激性气味的气体，易溶于水，能与品红等有色物质结合使其褪色，具有漂白性；同时它具有还原性，能被酸性KMnO₄溶液氧化而使紫色褪去：5SO₂+2KMnO₄+2H₂O→K₂SO₄+2MnSO₄+2H₂SO₄。\n\n因此“不能使酸性KMnO₄褪色”一句与事实相反。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_211",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "浓硫酸使蔗糖炭化体现的性质是？",
+      "options": [
+        "强氧化性",
+        "脱水性",
+        "吸水性",
+        "酸性"
+      ],
+      "answer": "B",
+      "analysis": "蔗糖被浓硫酸炭化，是因为浓硫酸把蔗糖分子中的H、O按水的比例脱去，生成多孔的炭，这体现脱水性。\n\n吸水性指吸收现成的水分（如作干燥剂），酸性不是该现象的本质。炭化过程中浓硫酸的强氧化性确有参与，碳又被氧化为CO₂并放出SO₂，但那属于另一个性质。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2021_212",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "浓硫酸与铜反应生成？",
+      "options": [
+        "SO₂和CuSO₄",
+        "H₂和CuSO₄",
+        "SO₃和CuSO₄",
+        "S和CuSO₄"
+      ],
+      "answer": "A",
+      "analysis": "浓硫酸与铜共热：Cu+2H₂SO₄（浓）→CuSO₄+SO₂↑+2H₂O，+6价的硫被还原为+4价的SO₂，同时生成CuSO₄。\n\n反应不生成H₂，因为浓硫酸不像稀酸那样与活泼金属发生置换；SO₃是硫酸的酸酐，不是该反应的产物；生成单质硫意味着硫被还原过度，与浓硫酸只表现氧化性不符。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2022_213",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "关于NO的叙述错误的是？",
+      "options": [
+        "无色气体",
+        "难溶于水",
+        "易被空气中O₂氧化",
+        "与水反应生成HNO₃"
+      ],
+      "answer": "D",
+      "analysis": "NO是无色、难溶于水的气体，在常温下会被空气中的O₂迅速氧化成红棕色的NO₂：2NO+O₂=2NO₂，所以实验室制取NO时需隔绝空气。\n\nNO与水并不反应，溶于水也不生成硝酸；能与水反应生成HNO₃和NO的是NO₂：3NO₂+H₂O=2HNO₃+NO。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2023_214",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "NH₃能使湿润的红色石蕊试纸变？",
+      "options": [
+        "红",
+        "蓝",
+        "白",
+        "紫"
+      ],
+      "answer": "B",
+      "analysis": "氨气极易溶于水，生成NH₃·H₂O并电离出OH⁻，溶液显碱性，湿润的红色石蕊试纸接触后即变蓝，酚酞试液也会变红。\n\n使石蕊变红是酸性气体（如CO₂、SO₂）的作用；石蕊试纸不会变成白色；紫色石蕊遇碱同样是变蓝而不是变紫。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2024_215",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "工业上合成氨的条件是？",
+      "options": [
+        "高温高压催化剂",
+        "低温低压",
+        "高温低压",
+        "低温高压"
+      ],
+      "answer": "A",
+      "analysis": "工业合成氨的反应N₂+3H₂⇌2NH₃是放热、气体体积减小的可逆反应。降温使平衡右移但速率太慢，升温使速率提高却使平衡左移，工业上取400~500 ℃这一折中温度；高压使平衡向生成NH₃的方向移动并提高氨的浓度；铁触媒降低活化能、加快反应速率，是必需的催化剂。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2025_216",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "下列关于乙烯的叙述错误的是？",
+      "options": [
+        "无色气体",
+        "稍有气味",
+        "难溶于水",
+        "能使酸性KMnO₄褪色"
+      ],
+      "answer": "B",
+      "analysis": "乙烯是无色、难溶于水的气体，含有碳碳双键，能使酸性KMnO₄溶液褪色，本身也带有轻微的特殊气味，因此A、B、C、D四项描述的都是乙烯的真实性质。\n\n严格按教材对乙烯性质的描述，本题没有可供判错的选项，题干与选项的对应关系需要重新核对。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2026_217",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "下列属于芳香烃的是？",
+      "options": [
+        "甲烷",
+        "乙烯",
+        "乙炔",
+        "苯"
+      ],
+      "answer": "D",
+      "analysis": "芳香烃是含有苯环结构且只由碳、氢两种元素组成的有机化合物。苯含有苯环，是最典型的芳香烃。\n\n甲烷是饱和链状烃，乙烯是链状烯烃，乙炔是链状炔烃，三者都不含苯环结构，属于脂肪烃。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2018_218",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "甲烷与氯气在光照下反应属于？",
+      "options": [
+        "取代反应",
+        "加成反应",
+        "氧化反应",
+        "聚合反应"
+      ],
+      "answer": "A",
+      "analysis": "在光照条件下，甲烷与氯气逐步发生取代反应：CH₄+nCl₂→CH₃Clₙ+nHCl，H原子被Cl逐个取代，产物是多种氯代物的混合物，碳架始终不变。\n\n加成反应要求分子中有双键或三键，甲烷中没有；取代是H被Cl换下，不是氧化；链上没有不饱和键，也不可能发生聚合。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_219",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙酸乙酯的实验室制法中，浓硫酸的作用是？",
+      "options": [
+        "催化剂",
+        "脱水剂",
+        "吸水剂",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "制备乙酸乙酯时浓硫酸的作用不止一种：它能催化羧酸与醇的酯化反应，使反应速率加快；又能吸收生成的水，使平衡向生成酯的方向移动、提高产率；强烈的脱水性还能把体系中的水除去、减少副反应。\n\n这三种作用在同一体系中同时存在，只强调其中一种都不全面。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_220",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙酸乙酯制备实验中，导管口不插入液面下的原因是？",
+      "options": [
+        "防止液体倒吸",
+        "防止气体逸出",
+        "防止产物分解",
+        "防止反应中止"
+      ],
+      "answer": "A",
+      "analysis": "制得的乙酸乙酯和乙醇蒸气有毒，导管若插入饱和Na₂CO₃溶液液面以下，停止加热或内外压差变化时溶液会倒吸进热的反应试管，导致试管炸裂，所以末端要紧贴液面上方而不插入液面下。\n\n倒吸的后果是液体倒流而不是气体逸出；酯在酸性条件下不会分解，更不会因此使反应中止。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2021_221",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "乙酸乙酯制备实验中，饱和Na₂CO₃溶液的作用是？",
+      "options": [
+        "吸收乙醇",
+        "除去乙酸",
+        "降低乙酸乙酯溶解度",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "制取乙酸乙酯时，把馏出物通入饱和碳酸钠（Na₂CO₃）溶液中接收，它能中和随气流逸出的乙酸，生成CO₂和乙酸钠，解除乙酸对酯水解的催化作用；乙醇易溶于水，可被碳酸钠溶液吸收。\n\n饱和碳酸钠溶液还能盐析，降低乙酸乙酯在水中的溶解度，使其浮在上层便于分层。三种作用同时存在。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2022_222",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "油脂不属于？",
+      "options": [
+        "酯类",
+        "糖类",
+        "有机物",
+        "中性物质"
+      ],
+      "answer": "B",
+      "analysis": "油脂是高级脂肪酸与甘油形成的酯，属于酯类，是有机物，也是中性物质，室温下多为液态的油、较低温度下凝固为脂肪。\n\n糖类指碳水化合物，组成通式为Cₙ(H₂O)ₘ，油脂虽然同样含C、H、O三种元素却不属于糖类，二者是不同的有机物类别。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2023_223",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "关于糖类的叙述正确的是？",
+      "options": [
+        "都含C、H、O",
+        "都溶于水",
+        "都有甜味",
+        "都属于有机物"
+      ],
+      "answer": "A",
+      "analysis": "糖类即碳水化合物，只含C、H、O三种元素，通式可写成Cₙ(H₂O)ₘ。淀粉、纤维素等多糖不溶于水，淀粉也没有甜味，所以“都溶于水”“都有甜味”都不成立。\n\n另外糖类都是有机化合物，“都属于有机物”同样成立，若把它当作正确项，本题就有两个说得通的选项，干扰项缺少唯一区分。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2024_224",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "关于淀粉的叙述错误的是？",
+      "options": [
+        "是多糖",
+        "无甜味",
+        "遇碘变蓝",
+        "不溶于水"
+      ],
+      "answer": "D",
+      "analysis": "淀粉是植物储存能量的多糖，由许多葡萄糖分子缩合而成，遇碘变蓝，且没有甜味，这些都正确。淀粉在冷水中不溶，只能在热水中吸水糊化，教材常表述为“淀粉不溶于水”，所以把“不溶于水”判为错误项并不严谨，本题缺少真正与前三条相矛盾的选项。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2025_225",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "关于纤维素叙述错误的是？",
+      "options": [
+        "是多糖",
+        "是植物细胞壁主要成分",
+        "能被人体消化",
+        "水解产物是葡萄糖"
+      ],
+      "answer": "C",
+      "analysis": "纤维素是植物细胞壁的主要成分，属于多糖，彻底水解的产物是葡萄糖，这些说法都正确。\n\n人体内没有能水解纤维素的酶，摄入的纤维素只能作为膳食纤维排出体外，不能被消化吸收，因此“能被人体消化”是错误的说法。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2026_226",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "关于蛋白质的叙述错误的是？",
+      "options": [
+        "是天然高分子",
+        "水解产物是氨基酸",
+        "都含C、H、O、N",
+        "都是无色无味"
+      ],
+      "answer": "D",
+      "analysis": "蛋白质是由氨基酸缩合形成的天然高分子，水解的最终产物是氨基酸，基本组成元素为C、H、O、N，多数还含S，这些都正确。\n\n蛋白质并非都是无色无味，例如血红蛋白呈红色，植物体内的叶绿蛋白呈绿色，所以“都是无色无味”不成立。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2018_227",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "有机化学",
+      "question": "蛋白质的变性是指？",
+      "options": [
+        "空间结构改变",
+        "水解",
+        "盐析",
+        "以上都是"
+      ],
+      "answer": "A",
+      "analysis": "蛋白质变性是指在加热、强酸、强碱、重金属盐等作用下，蛋白质分子的空间结构被破坏而失去生理活性，一级结构（肽键）一般不被破坏，因而不可逆。\n\n盐析是加入轻金属盐使蛋白质析出，属物理变化且可逆；水解是肽键断裂导致一级结构被破坏，与变性不是一回事。",
+      "knowledgePoints": [
+        "有机化学",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_228",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "下列可作食品干燥剂的是？",
+      "options": [
+        "NaOH",
+        "浓H₂SO₄",
+        "硅胶",
+        "生石灰"
+      ],
+      "answer": "C",
+      "analysis": "食品干燥剂必须无毒、不与食品接触后发生反应。硅胶（SiO₂·nH₂O）吸水性强、无毒，可直接用于食品包装。\n\nNaOH和浓H₂SO₄腐蚀性太强，会污染食品；生石灰遇水生成Ca(OH)₂并放出大量热，腐蚀性强，只能放在包装外部吸潮，不能与食品直接接触。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_229",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "使用容量瓶配制溶液时，最后一步是？",
+      "options": [
+        "计算",
+        "称量",
+        "溶解",
+        "定容"
+      ],
+      "answer": "D",
+      "analysis": "用固体配制一定物质的量浓度的溶液，步骤依次是计算、称量、溶解并冷却、转移、洗涤、定容、摇匀装瓶，定容是最后一步：滴加水使凹液面最低处与刻度线相切。\n\n计算、称量、溶解都在其之前完成；特别要注意溶解后必须冷却到室温再转移，否则体积偏小、浓度偏高。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2021_230",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "下列仪器中不能用于盛放碱液的是？",
+      "options": [
+        "玻璃瓶",
+        "塑料瓶",
+        "带玻璃塞的试剂瓶",
+        "铁容器"
+      ],
+      "answer": "C",
+      "analysis": "强碱会与玻璃中的SiO₂缓慢反应生成硅酸盐，使玻璃塞与瓶口粘连，开启时容易损坏试剂瓶，所以盛碱液要改用橡胶塞或塑料瓶，不能用带玻璃塞的试剂瓶。\n\n普通玻璃瓶、塑料瓶可用于盛碱液；铁容器常温下与碱液反应很慢，通常可以使用，但绝不能用来盛放硫酸铜等能与铁发生置换的溶液。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2022_231",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "下列分离方法不正确的是？",
+      "options": [
+        "分离乙醇和水用蒸馏",
+        "分离碘和水用萃取",
+        "分离苯和水用分液",
+        "分离Fe和Cu用过滤"
+      ],
+      "answer": "D",
+      "analysis": "过滤用于分离固体与液体，而Fe和Cu都是固体，过滤无法把它们分开，应改用磁选或用稀盐酸溶解除去铁。\n\n乙醇与水互溶、沸点不同，可用蒸馏分离；碘在有机溶剂中的溶解度远大于在水中，可用萃取分离；苯与水互不相溶，可用分液分离。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2023_232",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "用固体NaOH配制溶液时，需要的玻璃仪器不包括？",
+      "options": [
+        "烧杯",
+        "玻璃棒",
+        "容量瓶",
+        "蒸发皿"
+      ],
+      "answer": "D",
+      "analysis": "以固体NaOH为原料配制一定物质的量浓度的溶液，需要的玻璃仪器有烧杯（溶解）、玻璃棒（搅拌引流）、容量瓶（定容）和胶头滴管（滴加至刻度）。\n\n蒸发皿是陶瓷制品，用于蒸发浓缩溶液，配制溶液时并不需要，更不能用来盛放容量瓶中的溶液。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2024_233",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "化学实验",
+      "question": "检验某溶液中是否含SO₄²⁻，应先加？",
+      "options": [
+        "BaCl₂",
+        "稀盐酸",
+        "稀硝酸",
+        "AgNO₃"
+      ],
+      "answer": "B",
+      "analysis": "检验SO₄²⁻要先加足量稀盐酸酸化，排除CO₃²⁻、SO₃²⁻等干扰，再加BaCl₂溶液看是否有不溶于酸的白色沉淀。\n\n这里用盐酸而不用稀硝酸，是因为硝酸有强氧化性，会把SO₃²⁻、S²⁻氧化成SO₄²⁻造成误判；不加酸直接加BaCl₂则无法排除碳酸根的干扰。",
+      "knowledgePoints": [
+        "化学实验",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2025_234",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "下列离子在酸性溶液中能大量共存的是？",
+      "options": [
+        "OH⁻、HCO₃⁻",
+        "CO₃²⁻、H⁺",
+        "Na⁺、Cl⁻",
+        "Ag⁺、Cl⁻"
+      ],
+      "answer": "C",
+      "analysis": "离子能大量共存的条件是彼此间不发生生成沉淀、气体或弱电解质的反应。Na⁺和Cl⁻在酸性溶液中都不发生反应，可以大量共存。\n\nOH⁻与HCO₃⁻反应生成CO₂和水，CO₃²⁻与H⁺反应生成CO₂和水，都不能在酸性溶液中存在；Ag⁺与Cl⁻生成AgCl沉淀也不能共存。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2026_235",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "下列离子在碱性溶液中能大量共存的是？",
+      "options": [
+        "H⁺、HCO₃⁻",
+        "Na⁺、Cl⁻",
+        "Cu²⁺、OH⁻",
+        "Fe³⁺、OH⁻"
+      ],
+      "answer": "B",
+      "analysis": "碱性溶液中存在大量OH⁻，凡与OH⁻反应的离子都不能共存。Na⁺和Cl⁻在碱性溶液中性质稳定，既不与OH⁻反应也不生成沉淀，可以大量共存。\n\nH⁺与OH⁻直接中和生成水，HCO₃⁻与OH⁻反应生成CO₃²⁻和水；Cu²⁺与OH⁻生成Cu(OH)₂沉淀，Fe³⁺与OH⁻生成Fe(OH)₃沉淀。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2018_236",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "关于离子共存，下列说法错误的是？",
+      "options": [
+        "生成沉淀不共存",
+        "生成气体不共存",
+        "生成水不共存",
+        "以上都不对"
+      ],
+      "answer": "D",
+      "analysis": "离子不能大量共存的情形正是彼此间发生反应：生成沉淀（如Ba²⁺与SO₄²⁻）、生成气体（如H⁺与CO₃²⁻）、生成水或弱电解质（如H⁺与OH⁻、H⁺与CH₃COO⁻）都会使离子浓度显著降低。\n\n因此前三条说法都正确，题目要找的“错误”并不存在，只能说三条均成立。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_237",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "离子方程式书写步骤是？",
+      "options": [
+        "写→拆→删→查",
+        "拆→写→删→查",
+        "写→删→拆→查",
+        "查→写→拆→删"
+      ],
+      "answer": "A",
+      "analysis": "书写离子方程式的步骤是“写”出正确的化学方程式，“拆”出强电解质在水溶液中的离子形式（弱电解质、气体、固体不拆），“删”去两边相同的离子并把系数化为最简整数比，最后“查”电荷守恒和原子守恒。\n\n顺序颠倒会出现拆不全、漏掉反应物或生成物的问题。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_238",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "判断离子方程式正误要看？",
+      "options": [
+        "电荷是否守恒",
+        "原子是否守恒",
+        "是否符合实际",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "核对离子方程式时必须同时检查三方面：两边原子种类和数目是否守恒，电荷代数和是否守恒，以及是否真正反映了客观发生的反应（弱电解质、气体、沉淀不能拆开，量系数与实际用量相符）。\n\n只查电荷或只查原子都可能漏判，三项必须一起核对。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2021_239",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "下列离子方程式书写正确的是？",
+      "options": [
+        "稀硫酸与Ba(OH)₂：H⁺+OH⁻=H₂O",
+        "稀硫酸与Ba(OH)₂：Ba²⁺+SO₄²⁻+2H⁺+2OH⁻=BaSO₄↓+2H₂O",
+        "稀硫酸与Ba(OH)₂：SO₄²⁻+Ba²⁺=BaSO₄↓",
+        "稀硫酸与Ba(OH)₂：H⁺+OH⁻+SO₄²⁻+Ba²⁺=BaSO₄↓+H₂O"
+      ],
+      "answer": "B",
+      "analysis": "稀硫酸完全电离出2H⁺和SO₄²⁻，Ba(OH)₂完全电离出Ba²⁺和2OH⁻，反应中既有中和又有沉淀生成，离子方程式应为Ba²⁺+SO₄²⁻+2H⁺+2OH⁻=BaSO₄↓+2H₂O。\n\nA项漏掉生成BaSO₄沉淀的离子；C项只写沉淀、漏掉中和部分；D项H⁺与OH⁻各取1个，与两种物质实际电离出的离子数不符。",
+      "knowledgePoints": [
+        "反应原理",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2022_240",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列反应不属于四种基本反应类型的是？",
+      "options": [
+        "化合",
+        "分解",
+        "置换",
+        "复分解"
+      ],
+      "answer": "D",
+      "analysis": "化合、分解、置换、复分解正是四种基本反应类型的全部：多变一是化合，一变多是分解，单质与化合物互换成分是置换，两种化合物交换成分生成另外两种化合物是复分解。\n\n四个选项都能归入其中，本题缺少真正符合“不属于”的干扰项，问法需要重新设置。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2023_241",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "关于氧化还原反应，下列说法正确的是？",
+      "options": [
+        "一定有氧元素参加",
+        "一定有元素化合价变化",
+        "一定有电子转移",
+        "以上都对"
+      ],
+      "answer": "D",
+      "analysis": "氧化还原反应一定发生电子转移，元素化合价变化则是电子转移的宏观表征，这两个说法都成立。\n\n但氧化还原反应不一定有氧元素参加，例如2Na+Cl₂=2NaCl就不含氧，把“有氧参加”当作必要条件是错的。因此只有“有电子转移”和“有化合价变化”成立，“以上都对”把一条错误说法也包括了进来。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2024_242",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列反应中属于复分解反应的是？",
+      "options": [
+        "NaOH+HCl",
+        "2H₂+O₂=2H₂O",
+        "Fe+CuSO₄=FeSO₄+Cu",
+        "CaCO₃=CaO+CO₂↑"
+      ],
+      "answer": "A",
+      "analysis": "复分解反应是两种化合物互相交换成分、生成另外两种化合物。NaOH+HCl=NaCl+H₂O正属于这一形式。\n\n2H₂+O₂=2H₂O是两种单质合成一种物质，属化合反应；Fe+CuSO₄=FeSO₄+Cu是单质与化合物互换，属置换反应；CaCO₃=CaO+CO₂↑由一种物质生成两种物质，属分解反应。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2025_243",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列反应中属于置换反应的是？",
+      "options": [
+        "2H₂+O₂=2H₂O",
+        "Fe+CuSO₄=FeSO₄+Cu",
+        "NaOH+HCl=NaCl+H₂O",
+        "CaCO₃=CaO+CO₂↑"
+      ],
+      "answer": "B",
+      "analysis": "置换反应是单质与一种化合物反应，生成另一种单质和另一种化合物。Fe+CuSO₄=FeSO₄+Cu正是如此，Fe把Cu从盐溶液中置换出来。\n\n2H₂+O₂=2H₂O是化合反应；NaOH+HCl=NaCl+H₂O是复分解反应；CaCO₃=CaO+CO₂↑是分解反应。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2026_244",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列反应中属于分解反应的是？",
+      "options": [
+        "2H₂+O₂=2H₂O",
+        "Fe+CuSO₄=FeSO₄+Cu",
+        "NaOH+HCl=NaCl+H₂O",
+        "CaCO₃=CaO+CO₂↑"
+      ],
+      "answer": "D",
+      "analysis": "分解反应是由一种反应物生成两种或两种以上其他物质的反应。CaCO₃高温下分解为CaO和CO₂，符合“一变多”的特征。\n\n2H₂+O₂=2H₂O是化合反应；Fe+CuSO₄=FeSO₄+Cu是置换反应；NaOH+HCl=NaCl+H₂O是复分解反应。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2018_245",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列反应中属于化合反应的是？",
+      "options": [
+        "2H₂+O₂=2H₂O",
+        "Fe+CuSO₄=FeSO₄+Cu",
+        "NaOH+HCl=NaCl+H₂O",
+        "CaCO₃=CaO+CO₂↑"
+      ],
+      "answer": "A",
+      "analysis": "化合反应是由两种或两种以上物质生成另一种物质的反应，特征是“多变一”。2H₂+O₂点燃=2H₂O中氢气和氧气两种单质生成一种化合物，属于化合反应。\n\nFe+CuSO₄=FeSO₄+Cu是置换反应；NaOH+HCl=NaCl+H₂O是复分解反应；CaCO₃=CaO+CO₂↑是分解反应。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2019_246",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列变化中元素化合价一定发生变化的是？",
+      "options": [
+        "化合反应",
+        "分解反应",
+        "置换反应",
+        "复分解反应"
+      ],
+      "answer": "C",
+      "analysis": "置换反应中一定有单质参加并生成另一种单质，单质中元素化合价为0，化合物中该元素化合价不为0，因此置换反应必有元素的化合价升高和降低。\n\n化合反应和分解反应中元素化合价可能不变（如CaO+H₂O→Ca(OH)₂），复分解反应中各元素化合价都不变。",
+      "knowledgePoints": [
+        "基本概念",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2020_247",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "工业上冶炼金属常用方法有？",
+      "options": [
+        "热分解法",
+        "热还原法",
+        "电解法",
+        "以上都是"
+      ],
+      "answer": "D",
+      "analysis": "金属冶炼按金属活动性采用不同方法：很不活泼的金属可加热氧化物直接分解（2HgO→2Hg+O₂↑），中等活泼的金属用热还原法（Fe₂O₃+3CO→2Fe+3CO₂↑），最活泼的金属用电解法（电解熔融Al₂O₃制铝、电解熔融NaCl制钠）。\n\n三种方法都是工业上常用的冶炼途径。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2021_248",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "金属活动性顺序中，最活泼的金属是？",
+      "options": [
+        "Na",
+        "K",
+        "Cs",
+        "Fr"
+      ],
+      "answer": "D",
+      "analysis": "碱金属的金属性随电子层增多而增强，顺序为Li<Na<K<Rb<Cs<Fr，钫位于最活泼的位置，K、Na排在它之后，Cs虽极为活泼但仍在Fr之前。\n\nFr有极强的放射性、性质研究很少，教材中只是给出它在活动性顺序里的位置。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "chemistry_2022_249",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "金属活动性顺序中，最不活泼的金属是？",
+      "options": [
+        "Au",
+        "Ag",
+        "Pt",
+        "Cu"
+      ],
+      "answer": "A",
+      "analysis": "金属活动性顺序越靠前越活泼，末尾依次是Hg、Ag、Pt、Au，金排在最后，金属性最弱，不能用一般还原剂把它从盐溶液中置换出来，只能靠电解或从矿石中提炼。\n\nAg、Pt排在金之前，Cu比它们活泼，顺序是Cu<Ag<Pt<Au。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "CHEM_2025_23",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "化学计量",
+      "question": "下列说法正确的是？",
+      "options": [
+        "1mol任何气体的体积都是22.4L",
+        "标准状况下，1mol任何气体的体积约为22.4L",
+        "1molO₂的质量是32g/mol",
+        "阿伏伽德罗常数约为6.02×10²³"
+      ],
+      "answer": "B",
+      "analysis": "22.4L/mol仅适用于标准状况下的气体",
+      "knowledgePoints": [
+        "物质的量",
+        "气体摩尔体积"
+      ]
+    },
+    {
+      "id": "CHEM_2025_24",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "下列离子在溶液中能大量共存的是？",
+      "options": [
+        "H⁺、Cl⁻、CO₃²⁻",
+        "Na⁺、K⁺、NO₃⁻、Cl⁻",
+        "Fe³⁺、OH⁻、SO₄²⁻",
+        "Ag⁺、NH₄⁺、Cl⁻"
+      ],
+      "answer": "B",
+      "analysis": "A产生CO₂；C产生Fe(OH)₃沉淀；D产生AgCl沉淀",
+      "knowledgePoints": [
+        "离子共存"
+      ]
+    },
+    {
+      "id": "CHEM_2025_25",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "在2SO₂+O₂⇌2SO₃（放热）反应中，要提高SO₂转化率的措施是？",
+      "options": [
+        "升高温度",
+        "增大压强",
+        "加催化剂",
+        "减小O₂浓度"
+      ],
+      "answer": "B",
+      "analysis": "增大压强平衡正向移动，SO₂转化率提高；升高温度逆向移动；催化剂不影响平衡",
+      "knowledgePoints": [
+        "化学平衡",
+        "勒夏特列原理"
+      ]
+    },
+    {
+      "id": "CHEM_2025_26",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "用铂电极电解CuSO₄溶液一段时间后，下列说法正确的是？",
+      "options": [
+        "阳极析出铜",
+        "阴极产生O₂",
+        "溶液pH减小",
+        "溶液颜色变深"
+      ],
+      "answer": "C",
+      "analysis": "阳极：4OH⁻-4e⁻=2H₂O+O₂↑；阴极：Cu²⁺+2e⁻=Cu。Cu²⁺减少，H⁺相对增多，pH减小",
+      "knowledgePoints": [
+        "电解池",
+        "电解规律"
+      ]
+    },
+    {
+      "id": "CHEM_2025_27",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "有机化学",
+      "question": "下列有机物中，能发生银镜反应的是？",
+      "options": [
+        "乙醇",
+        "乙酸",
+        "甲醛",
+        "甲烷"
+      ],
+      "answer": "C",
+      "analysis": "含-CHO（醛基）的有机物能发生银镜反应，甲醛HCHO含醛基",
+      "knowledgePoints": [
+        "醛基",
+        "银镜反应"
+      ]
+    },
+    {
+      "id": "CHEM_2025_29",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "元素化合物",
+      "question": "下列关于钠的叙述正确的是？",
+      "options": [
+        "钠在空气中燃烧生成白色固体Na₂O",
+        "钠与水反应生成NaOH和H₂",
+        "钠应保存在水中",
+        "钠的熔点高于水的沸点"
+      ],
+      "answer": "B",
+      "analysis": "钠燃烧生成淡黄色Na₂O₂；钠保存在煤油中",
+      "knowledgePoints": [
+        "钠及其化合物"
+      ]
+    },
+    {
+      "id": "CHEM_2025_30",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "元素化合物",
+      "question": "下列各组物质中，互为同素异形体的是？",
+      "options": [
+        "¹²C和¹⁴C",
+        "金刚石和石墨",
+        "H₂和D₂",
+        "CH₄和C₂H₆"
+      ],
+      "answer": "B",
+      "analysis": "同素异形体是同种元素形成的不同单质；¹²C和¹⁴C是同位素",
+      "knowledgePoints": [
+        "同素异形体",
+        "同位素"
+      ]
+    },
+    {
+      "id": "CHEM_2026_19",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "化学计量",
+      "question": "标准状况下，11.2L CO₂的物质的量为？",
+      "options": [
+        "0.25mol",
+        "0.5mol",
+        "1mol",
+        "2mol"
+      ],
+      "answer": "B",
+      "analysis": "n=V/Vm=11.2/22.4=0.5mol",
+      "knowledgePoints": [
+        "物质的量",
+        "气体摩尔体积"
+      ]
+    },
+    {
+      "id": "CHEM_2026_20",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "下列反应属于氧化还原反应的是？",
+      "options": [
+        "CaCO₃→CaO+CO₂",
+        "NaOH+HCl→NaCl+H₂O",
+        "2Na+2H₂O→2NaOH+H₂↑",
+        "AgNO₃+NaCl→AgCl↓+NaNO₃"
+      ],
+      "answer": "C",
+      "analysis": "C中有元素化合价变化：Na(0→+1)，H(+1→0)",
+      "knowledgePoints": [
+        "氧化还原反应"
+      ]
+    },
+    {
+      "id": "CHEM_2026_21",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "下列因素中，不能加快化学反应速率的是？",
+      "options": [
+        "增大反应物浓度",
+        "升高温度",
+        "加入催化剂",
+        "增大压强（固体反应）"
+      ],
+      "answer": "D",
+      "analysis": "压强只对有气体参与的反应有影响，固体反应不受压强影响",
+      "knowledgePoints": [
+        "化学反应速率"
+      ]
+    },
+    {
+      "id": "CHEM_2026_22",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "在25℃时，0.1mol/L的盐酸溶液pH为？",
+      "options": [
+        "13",
+        "2",
+        "7",
+        "1"
+      ],
+      "answer": "D",
+      "analysis": "pH=-lg[H⁺]=-lg(0.1)=1",
+      "knowledgePoints": [
+        "pH计算"
+      ]
+    },
+    {
+      "id": "CHEM_2026_23",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "有机化学",
+      "question": "下列物质中，不属于糖类的是？",
+      "options": [
+        "葡萄糖",
+        "果糖",
+        "乙醇",
+        "纤维素"
+      ],
+      "answer": "C",
+      "analysis": "糖类是多羟基醛或多羟基酮及其缩聚物，乙醇不属于糖类",
+      "knowledgePoints": [
+        "糖类",
+        "有机物分类"
+      ]
+    },
+    {
+      "id": "CHEM_2026_24",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "有机化学",
+      "question": "乙烯与溴水反应的类型是？",
+      "options": [
+        "取代反应",
+        "加成反应",
+        "消去反应",
+        "聚合反应"
+      ],
+      "answer": "B",
+      "analysis": "CH₂=CH₂+Br₂→CH₂BrCH₂Br，双键断裂发生加成反应",
+      "knowledgePoints": [
+        "烯烃",
+        "加成反应"
+      ]
+    },
+    {
+      "id": "CHEM_2026_25",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 6,
+      "category": "元素化合物",
+      "question": "下列气体能用浓硫酸干燥的是？",
+      "options": [
+        "NH₃",
+        "H₂S",
+        "HCl",
+        "HI"
+      ],
+      "answer": "C",
+      "analysis": "浓硫酸有强氧化性和酸性，不能干燥碱性气体(NH₃)和还原性气体(H₂S、HI)；HCl不反应可干燥",
+      "knowledgePoints": [
+        "浓硫酸",
+        "气体干燥"
+      ]
+    },
+    {
+      "id": "CHEM_2026_26",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "元素化合物",
+      "question": "下列关于铁的叙述正确的是？",
+      "options": [
+        "铁是黑色金属，只显+2价",
+        "Fe³⁺溶液遇KSCN变红",
+        "铁在氯气中燃烧生成FeCl₂",
+        "Fe(OH)₂在空气中稳定不变色"
+      ],
+      "answer": "B",
+      "analysis": "铁有+2和+3价；铁与Cl₂反应生成FeCl₃；Fe(OH)₂白色→灰绿→红褐色",
+      "knowledgePoints": [
+        "铁及其化合物"
+      ]
+    },
+    {
+      "id": "CHEM_2026_27",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学实验",
+      "question": "配制250mL 0.1mol/L NaCl溶液，需要的仪器是？",
+      "options": [
+        "烧杯、量筒、漏斗",
+        "烧杯、玻璃棒、250mL容量瓶、胶头滴管",
+        "蒸发皿、坩埚、漏斗",
+        "试管、酒精灯、温度计"
+      ],
+      "answer": "B",
+      "analysis": "配制溶液需要：烧杯（溶解）、玻璃棒（搅拌引流）、容量瓶（定容）、胶头滴管（精确调液面）",
+      "knowledgePoints": [
+        "溶液配制",
+        "实验仪器"
+      ]
+    },
+    {
+      "id": "CHEM_2026_28",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "原电池工作时，下列说法正确的是？",
+      "options": [
+        "正极发生氧化反应",
+        "负极发生还原反应",
+        "电子由负极经外电路流向正极",
+        "阳离子向负极移动"
+      ],
+      "answer": "C",
+      "analysis": "负极失电子发生氧化反应，电子经外电路流向正极；阳离子向正极移动",
+      "knowledgePoints": [
+        "原电池",
+        "电极反应"
+      ]
+    },
+    {
+      "id": "CHEM_2026_29",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 6,
+      "category": "化学反应原理",
+      "question": "下列盐的水溶液呈酸性的是？",
+      "options": [
+        "NaCl",
+        "Na₂CO₃",
+        "NH₄Cl",
+        "CH₃COONa"
+      ],
+      "answer": "C",
+      "analysis": "NH₄Cl是强酸弱碱盐，NH₄⁺水解使溶液显酸性",
+      "knowledgePoints": [
+        "盐类水解"
+      ]
+    },
+    {
+      "id": "CHEM_2026_30",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 6,
+      "category": "化学实验",
+      "question": "下列实验操作正确的是？",
+      "options": [
+        "用燃着的酒精灯点燃另一酒精灯",
+        "试管加热液体时试管口对着人",
+        "稀释浓硫酸时将水倒入浓硫酸中",
+        "用玻璃棒搅拌引流配制溶液"
+      ],
+      "answer": "D",
+      "analysis": "A、B、C均为错误操作；D正确，配制溶液时用玻璃棒搅拌和引流",
+      "knowledgePoints": [
+        "实验基本操作",
+        "安全"
+      ]
+    },
+    {
+      "id": "CHEM_2020_102",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "标准状况下，1 mol任何气体体积约为？",
+      "options": [
+        "11.2L",
+        "24L",
+        "2.24L",
+        "22.4L"
+      ],
+      "answer": "D",
+      "analysis": "标准状况（0 ℃、101 kPa）下气体摩尔体积约为 22.4 L/mol，与气体种类无关，这是由物质的量的定义推导出来的。11.2 L 对应 0.5 mol，2.24 L 对应 0.1 mol，都是常见换算结果；24 L 不是标准状况下的数值，常温常压下才接近。该数值只适用于气态物质，液体和固体不适用。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2021_103",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列说法正确的是？",
+      "options": [
+        "摩尔质量单位是L/mol",
+        "摩尔质量单位是kg/mol",
+        "摩尔质量单位是mol",
+        "摩尔质量单位是g/mol"
+      ],
+      "answer": "D",
+      "analysis": "摩尔质量 M = m/n，由质量（g）除以物质的量（mol）得到，单位是 g/mol，数值上等于该物质的相对分子质量或相对原子质量。L/mol 是气体摩尔体积的单位；mol 是物质的量的单位；kg/mol 虽量纲方向一致，但中学计算中一律用 g/mol，用 kg/mol 会引入大量不必要的换算。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2026_108",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "基本概念",
+      "question": "下列属于氧化剂的是？",
+      "options": [
+        "Cu",
+        "Na",
+        "Fe",
+        "Cl₂"
+      ],
+      "answer": "D",
+      "analysis": "氧化剂在反应中得电子、化合价降低。Cl₂ 中氯为 0 价，反应后通常变为 -1 价，化合价下降，故作氧化剂。Cu、Na、Fe 都是金属单质，反应中失电子、化合价升高，属还原剂。判断物质是氧化剂还是还原剂，看的是它自身化合价的变化方向。",
+      "knowledgePoints": [
+        "基本概念",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2023_114",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "加压使化学平衡向气体体积减小方向移动，则反应是？",
+      "options": [
+        "无法判断",
+        "气体体积增大",
+        "气体体积不变",
+        "气体体积减小"
+      ],
+      "answer": "D",
+      "analysis": "增大压强，平衡向气体分子数减少的方向移动，以此削弱压强的增大。题中已说明平衡向气体体积减小的方向移动，可见正反应就是气体体积减小的反应。若正反应气体体积增大，加压时平衡会逆向移动；气体体积不变的反应，加压只缩短达到平衡的时间，不改变平衡位置。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2026_117",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "反应原理",
+      "question": "水的离子积Kw随温度升高而？",
+      "options": [
+        "先增后减",
+        "减小",
+        "不变",
+        "增大"
+      ],
+      "answer": "D",
+      "analysis": "水的电离是吸热过程，升温促进电离，c(H⁺) 与 c(OH⁻) 同比例增大，故 Kw 增大。常温下 Kw = 1×10⁻¹⁴，100 ℃时约为 1×10⁻¹²。Kw 只随温度变化，与溶液酸碱性无关，也不会先增后减；纯水升温后 c(H⁺) 仍等于 c(OH⁻)，但数值都变大，pH 会小于 7。",
+      "knowledgePoints": [
+        "反应原理",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2020_129",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "SO₂能使品红溶液？",
+      "options": [
+        "无变化",
+        "变红",
+        "变蓝",
+        "褪色"
+      ],
+      "answer": "D",
+      "analysis": "SO₂ 具有漂白性，能与品红等有色物质结合生成不稳定的无色物质，使品红溶液褪色，加热后颜色可以恢复，这是 SO₂ 的特征反应。变红、变蓝都不是 SO₂ 的作用。注意它与氯水漂白的原理不同：氯气靠生成的次氯酸氧化色素，过程不可逆。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2021_130",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "NO₂溶于水反应方程式是？",
+      "options": [
+        "2NO₂+H₂O=HNO₃+NO",
+        "NO₂+H₂O=HNO₃",
+        "3NO₂+H₂O=2HNO₃+NO",
+        "4NO₂+H₂O=2HNO₃+2NO"
+      ],
+      "answer": "C",
+      "analysis": "NO₂ 溶于水发生歧化，氮元素一部分升到 +5 价生成 HNO₃，一部分降到 +2 价生成 NO。按得失电子守恒，每 3 mol NO₂ 转移 2 mol 电子，生成 2 mol HNO₃ 和 1 mol NO，配平后系数为 3、1、2、1。A 项氮原子两边不等；B 项氢、氧都不守恒；D 项氧原子与电子转移数都不对。",
+      "knowledgePoints": [
+        "元素化合物",
+        "综合应用"
+      ]
+    },
+    {
+      "id": "CHEM_2021_203",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "检验溶液中Fe²⁺的方法是？",
+      "options": [
+        "加NaOH产生白色沉淀",
+        "加KSCN变红",
+        "加KSCN不变红再加氯水变红",
+        "加NaOH产生红褐色沉淀"
+      ],
+      "answer": "C",
+      "analysis": "Fe²⁺ 与 SCN⁻ 不显色，先加 KSCN 不变红可排除 Fe³⁺ 干扰，再加氯水把 Fe²⁺ 氧化为 Fe³⁺，随后变红即证明原溶液含 Fe²⁺。直接加 KSCN 变红只能证明 Fe³⁺；加 NaOH 生成的白色沉淀会迅速变灰绿再变红褐，而 D 项写的红褐色沉淀已是 Fe³⁺ 的现象。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    },
+    {
+      "id": "CHEM_2022_204",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 4,
+      "category": "元素化合物",
+      "question": "保存FeSO₄溶液时常加入少量？",
+      "options": [
+        "铜片",
+        "锌粒",
+        "铁粉",
+        "稀硫酸"
+      ],
+      "answer": "C",
+      "analysis": "FeSO₄ 中的 Fe²⁺ 易被空气中氧气氧化为 Fe³⁺，加入铁粉可把生成的 Fe³⁺ 还原回 Fe²⁺：Fe + 2Fe³⁺ = 3Fe²⁺，从而防止变质。铜不能达到这一目的且会引入 Cu²⁺；锌粒虽能还原 Fe³⁺ 但同时引入 Zn²⁺ 杂质；稀硫酸只能抑制水解，不能防止氧化。",
+      "knowledgePoints": [
+        "元素化合物",
+        "高频考点"
+      ]
+    }
+  ]
+}

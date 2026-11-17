@@ -32,8 +32,7 @@ ANDROID_HOME="<你的SDK路径>" bash build-apk.sh
 ```
 
 脚本流水线：同步 `1.2/ → app/assets/web/` → aapt2 → javac → d8 →
-打包 → zipalign → apksigner（项目内 `debug.keystore`，已入库，保证升级安装签名一致；
-仅限测试分发，上架商店请换正式签名）。
+打包 → zipalign → apksigner（签名密钥见下方「签名与分发」）。
 
 ## 用 Android Studio 打开（可选，未在本机验证）
 
@@ -45,19 +44,33 @@ ANDROID_HOME="<你的SDK路径>" bash build-apk.sh
 ## 安装到设备
 
 ```bash
-adb install -r android/releases/HSPCB-v1.6.0-debug.apk
+adb install -r android/releases/HSPCB-v<版本>-debug.apk
 ```
+
+APK 从 [GitHub Releases](https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle/releases)
+下载（v1.8 起不再入库），也可以本地跑 `build-apk.sh` 自行构建。
 
 已在 Redmi 23117RK66C（Android 16, arm64）真机验证：安装/启动/渲染/
 随机出题/题库加载全部正常（截图见 `screenshots/`）。
+
+## 签名与分发
+
+- **APK 不入库**：`android/releases/` 与 `*.apk` 已在 `.gitignore`，产物一律走
+  GitHub Release（`apk-release.yml` 在发布 Release 时自动构建并挂附件）。
+- **签名密钥不入库**：`debug.keystore` 只存维护者本地（gitignored），构建脚本
+  可用 `HSPCB_KEYSTORE` 环境变量指定其他密钥。
+- **风险明示**：仓库历史中曾公开提交过旧 `debug.keystore`，git 历史不可抹除——
+  任何拿到该密钥的人都能签发「同签名升级」的 APK。已安装旧 APK 的用户升级必须
+  继续用同一密钥签名（维护者本地保留），**正式对外分发必须生成独立 release
+  keystore 并通过仓库 Secrets（`APK_KEYSTORE_BASE64`）注入 CI，不得复用历史密钥**。
 
 ## 目录
 
 ```
 android/
 ├── build-apk.sh              一键构建脚本（免 Gradle，已验证）
-├── debug.keystore            项目 debug 签名（入库，仅测试分发用）
-├── releases/                 构建产物 APK（入库）
+├── debug.keystore            本地测试签名（不入库，见「签名与分发」）
+├── releases/                 构建产物 APK（不入库，走 GitHub Release）
 ├── screenshots/              真机验证截图
 ├── settings.gradle.kts       ┐
 ├── build.gradle.kts          ├ Android Studio 工程文件
@@ -68,7 +81,7 @@ android/
     │   ├── MainActivity.java      原生壳（WebView + 拦截 + 生命周期）
     │   └── AssetResponder.java    资产域映射（路径规范化/MIME/404）
     ├── res/                       图标（来自 1.2/icons）+ 明暗主题
-    └── assets/web/                来自仓库 1.2/（随仓库入库，Web 更新后重跑脚本同步）
+    └── assets/web/                构建时由 build-apk.sh 第 0 步从 1.2/ 同步（不入库）
 ```
 
 ## 版本对应

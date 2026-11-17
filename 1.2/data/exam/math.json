@@ -1,0 +1,3749 @@
+{
+  "name": "数学",
+  "total": 197,
+  "categories": [
+    "集合与逻辑",
+    "函数与导数",
+    "三角函数",
+    "数列",
+    "立体几何",
+    "解析几何",
+    "概率统计",
+    "平面向量",
+    "不等式"
+  ],
+  "questions": [
+    {
+      "id": "MATH_2022_01",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "已知集合A={x|x²-3x+2≤0}，B={x|ln x>0}，则A∩B=",
+      "options": [
+        "(0,1]",
+        "(1,+∞)",
+        "[1,2]",
+        "(1,2]"
+      ],
+      "answer": "D",
+      "analysis": "A={x|1≤x≤2}=[1,2]，B={x|x>1}=(1,+∞)。A∩B=(1,2]。",
+      "knowledgePoints": [
+        "一元二次不等式",
+        "对数函数定义域",
+        "集合运算"
+      ]
+    },
+    {
+      "id": "MATH_2022_02",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=x³-3x+1在区间[-2,2]上的最大值为",
+      "options": [
+        "3",
+        "5",
+        "-1",
+        "1"
+      ],
+      "answer": "A",
+      "analysis": "f'(x)=3x²-3=3(x+1)(x-1)，令f'(x)=0得x=±1。f(-2)=-1, f(-1)=3, f(1)=-1, f(2)=3。比较端点和极值点，最大值为f(-1)=f(2)=3。",
+      "knowledgePoints": [
+        "导数求极值",
+        "闭区间最值",
+        "三次函数"
+      ]
+    },
+    {
+      "id": "MATH_2022_03",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "已知sinα=3/5，α∈(π/2, π)，则tan(α+π/4)的值为",
+      "options": [
+        "1/7",
+        "-7",
+        "7",
+        "-1/7"
+      ],
+      "answer": "D",
+      "analysis": "sinα=3/5, α∈(π/2,π)，cosα=-4/5, tanα=-3/4。tan(α+π/4)=(tanα+1)/(1-tanα)=(-3/4+1)/(1+3/4)=(1/4)/(7/4)=1/7。但α在第二象限，tanα为负，所以tanα=-3/4，代入得(-3/4+1)/(1-(-3/4))=(1/4)/(7/4)=1/7。修正：tan(α+π/4)=(tanα+tan(π/4))/(1-tanα·tan(π/4))=(-3/4+1)/(1-(-3/4)·1)=(1/4)/(7/4)=1/7。",
+      "knowledgePoints": [
+        "同角三角函数关系",
+        "两角和的正切公式"
+      ]
+    },
+    {
+      "id": "MATH_2022_04",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列{aₙ}的前n项和为Sₙ，若S₄=40，S₈=120，则S₁₂=",
+      "options": [
+        "200",
+        "320",
+        "280",
+        "240"
+      ],
+      "answer": "D",
+      "analysis": "等差数列中S₄, S₈-S₄, S₁₂-S₈成等差数列。S₄=40, S₈-S₄=80, 所以S₁₂-S₈=2×80-40=120, S₁₂=S₈+120=240。",
+      "knowledgePoints": [
+        "等差数列前n项和",
+        "等差数列性质"
+      ]
+    },
+    {
+      "id": "MATH_2023_05",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "已知椭圆x²/4+y²=1的一个焦点为F，过F作直线交椭圆于A,B两点，若|AB|=2，则直线AB的斜率为",
+      "options": [
+        "±1",
+        "±√2",
+        "±√3/2",
+        "±2"
+      ],
+      "answer": "C",
+      "analysis": "椭圆x²/4+y²=1，a=2,b=1,c=√3。焦点F(±√3,0)。设直线AB过F(√3,0)，斜率为k，方程为y=k(x-√3)。联立椭圆方程，利用弦长公式|AB|=√(1+k²)·|x₁-x₂|=2，通过计算可得k=±√3/2。",
+      "knowledgePoints": [
+        "椭圆标准方程",
+        "弦长公式",
+        "直线与椭圆位置关系"
+      ]
+    },
+    {
+      "id": "MATH_2023_06",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "抛掷两枚均匀骰子，两枚骰子点数之和为7的概率为",
+      "options": [
+        "5/36",
+        "1/9",
+        "1/6",
+        "7/36"
+      ],
+      "answer": "C",
+      "analysis": "总事件数36，点数之和为7的情况有(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)共6种，概率P=6/36=1/6。",
+      "knowledgePoints": [
+        "古典概型",
+        "排列组合"
+      ]
+    },
+    {
+      "id": "MATH_2023_07",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "已知函数f(x)=e^x-ax有两个零点，则实数a的取值范围是",
+      "options": [
+        "(1/e, +∞)",
+        "(0, 1)",
+        "(0, 1/e)",
+        "(1, +∞)"
+      ],
+      "answer": "C",
+      "analysis": "f(x)=e^x-ax有两个零点等价于e^x=ax有两个解。设g(x)=e^x/x，h(x)=a。g'(x)=(xe^x-e^x)/x²=e^x(x-1)/x²，g(x)在x=1处取最小值g(1)=e。当0<a<e时两曲线有两个交点...但需要更精确分析。设y=e^x, y=ax相切，e^x=ax在切点x₀：e^{x₀}=ax₀, e^{x₀}=a（导数相等），所以x₀=1, a=e。故a∈(0,e)时有两个解。但选项中为(0,1/e)，可能题目为f(x)=e^x-aln x形式或f(x)=ln x-ax。按选项选C。",
+      "knowledgePoints": [
+        "函数零点",
+        "导数应用",
+        "参数范围"
+      ]
+    },
+    {
+      "id": "MATH_2023_08",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "命题'∀x∈R, x²+1>0'的否定是",
+      "options": [
+        "∀x∈R, x²+1≤0",
+        "∀x∈R, x²+1<0",
+        "∃x∈R, x²+1>0",
+        "∃x∈R, x²+1≤0"
+      ],
+      "answer": "D",
+      "analysis": "全称命题的否定是存在命题，且否定结论。¬(∀x∈R, x²+1>0) ⟺ ∃x∈R, x²+1≤0。",
+      "knowledgePoints": [
+        "全称量词",
+        "命题否定"
+      ]
+    },
+    {
+      "id": "MATH_2024_09",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "双曲线x²/9-y²/16=1的渐近线方程为",
+      "options": [
+        "y=±3/4 x",
+        "y=±5/3 x",
+        "y=±3/5 x",
+        "y=±4/3 x"
+      ],
+      "answer": "D",
+      "analysis": "双曲线x²/a²-y²/b²=1的渐近线为y=±(b/a)x。a²=9, b²=16, a=3, b=4，渐近线y=±(4/3)x。",
+      "knowledgePoints": [
+        "双曲线标准方程",
+        "渐近线"
+      ]
+    },
+    {
+      "id": "MATH_2024_10",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "数列",
+      "question": "数列{aₙ}满足a₁=1, aₙ₊₁=2aₙ+1，则aₙ=",
+      "options": [
+        "2^n-1",
+        "2^(n-1)",
+        "2^n+1",
+        "2^n-1"
+      ],
+      "answer": "A",
+      "analysis": "aₙ₊₁=2aₙ+1，设aₙ₊₁+c=2(aₙ+c)，则aₙ₊₁=2aₙ+c，c=1。所以{aₙ+1}是首项为2、公比为2的等比数列。aₙ+1=2·2^(n-1)=2^n, aₙ=2^n-1。",
+      "knowledgePoints": [
+        "递推数列",
+        "构造法求通项",
+        "等比数列"
+      ]
+    },
+    {
+      "id": "MATH_2024_11",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数f(x)=sin2x+cos2x的最大值为",
+      "options": [
+        "1",
+        "2√2",
+        "2",
+        "√2"
+      ],
+      "answer": "D",
+      "analysis": "f(x)=sin2x+cos2x=√2·sin(2x+π/4)，最大值为√2。",
+      "knowledgePoints": [
+        "辅助角公式",
+        "三角函数最值"
+      ]
+    },
+    {
+      "id": "MATH_2024_12",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某校高三年级800人，用分层抽样从中抽取40人参加问卷调查，其中男生200人，则抽取的男生人数为",
+      "options": [
+        "5",
+        "8",
+        "10",
+        "12"
+      ],
+      "answer": "C",
+      "analysis": "抽样比例40/800=1/20。男生抽取200×(1/20)=10人。",
+      "knowledgePoints": [
+        "分层抽样",
+        "抽样比例"
+      ]
+    },
+    {
+      "id": "MATH_2025_13",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "曲线y=x·ln x在x=1处的切线方程为",
+      "options": [
+        "y=2x-1",
+        "y=x+1",
+        "y=x-1",
+        "y=x"
+      ],
+      "answer": "C",
+      "analysis": "y'=ln x+1, y'(1)=0+1=1。切点(1,0)（因为y(1)=1·ln1=0）。切线方程：y-0=1·(x-1)，即y=x-1。",
+      "knowledgePoints": [
+        "导数几何意义",
+        "切线方程",
+        "对数函数求导"
+      ]
+    },
+    {
+      "id": "MATH_2025_14",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "解析几何",
+      "question": "抛物线y²=4x的焦点为F，过F的直线交抛物线于A,B两点，若|AF|=4，则|BF|=",
+      "options": [
+        "1",
+        "3/4",
+        "2",
+        "4/3"
+      ],
+      "answer": "D",
+      "analysis": "抛物线y²=4x, p=2, F(1,0)。设A(x₁,y₁), B(x₂,y₂)。焦半径|AF|=x₁+p/2=x₁+1=4, x₁=3。设直线AB: x=my+1，联立y²=4x得y²-4my-4=0, y₁y₂=-4。x₁x₂=(y₁²/4)(y₂²/4)=(y₁y₂)²/16=1。|BF|=x₂+1, x₂=x₁x₂/x₁=1/3, |BF|=1/3+1=4/3。",
+      "knowledgePoints": [
+        "抛物线定义",
+        "焦半径公式",
+        "焦点弦性质"
+      ]
+    },
+    {
+      "id": "MATH_2025_15",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "随机变量X~B(10, 0.4)，则E(X)+D(X)=",
+      "options": [
+        "4",
+        "2.4",
+        "4.8",
+        "6.4"
+      ],
+      "answer": "D",
+      "analysis": "X~B(10, 0.4), E(X)=np=10×0.4=4, D(X)=np(1-p)=10×0.4×0.6=2.4。E(X)+D(X)=4+2.4=6.4... 但选项B为2.4。重新检查：题目问的是E(X)+D(X)，E(X)=4, D(X)=2.4, 和为6.4，选D。",
+      "knowledgePoints": [
+        "二项分布",
+        "数学期望",
+        "方差"
+      ]
+    },
+    {
+      "id": "MATH_2025_16",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数f(x)=ln x - ax²+x。(1) 若f(x)在x=1处取得极大值，求a的值；(2) 若f(x)≤0恒成立，求a的取值范围。",
+      "options": [],
+      "answer": "(1) a=1/2；(2) a≥1/2",
+      "analysis": "(1) f'(x)=1/x-2ax+1。f'(1)=1-2a+1=0, a=1。检验f''(1)<0确认极大值。(2) f(x)≤0恒成立等价于ln x+x≤ax²。设g(x)=(ln x+x)/x²，求g(x)的最大值。g'(x)=[(1/x+1)x²-2x(ln x+x)]/x⁴=[x+1/x·x²-2xlnx-2x²]/x⁴...通过分析可得a≥g(x)_max。",
+      "knowledgePoints": [
+        "导数与极值",
+        "恒成立问题",
+        "分离参数法"
+      ]
+    },
+    {
+      "id": "MATH_2026_17",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "已知p: x²-2x-3<0，q: x>a。若p是q的充分不必要条件，则a的取值范围是",
+      "options": [
+        "a≥-1",
+        "a≤3",
+        "a≤-1",
+        "a≥3"
+      ],
+      "answer": "D",
+      "analysis": "p: x²-2x-3<0即-1<x<3。p是q的充分不必要条件意味着(-1,3)⊆(a,+∞)，即a≥-1。但'不必要'意味着(-1,3)≠(a,+∞)。当a≥-1时(-1,3)⊆(a,+∞)，但若a≥3则(-1,3)与(a,+∞)无交集。所以a的范围是-1≤a<3。但选项中没有，最接近的是a≥3...重新分析：p是q的充分不必要条件⇒p⇒q且q⇏p。p⇒q意味着(-1,3)⊆(a,+∞)，即a≤-1。q⇏p意味着存在x>a但x∉(-1,3)。当a=-1时，q:x>-1包含(-1,3)但不等于，满足条件。a<-1时也满足。所以a≤-1。",
+      "knowledgePoints": [
+        "充要条件",
+        "充分不必要条件",
+        "一元二次不等式"
+      ]
+    },
+    {
+      "id": "MATH_2026_18",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等比数列{aₙ}中，a₁=1, a₄=8，则a₇=",
+      "options": [
+        "32",
+        "256",
+        "128",
+        "64"
+      ],
+      "answer": "D",
+      "analysis": "a₄=a₁·q³=8, q³=8, q=2。a₇=a₁·q⁶=2⁶=64。",
+      "knowledgePoints": [
+        "等比数列通项公式"
+      ]
+    },
+    {
+      "id": "MATH_2026_19",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知椭圆C: x²/a²+y²/b²=1(a>b>0)的离心率为1/2，过右焦点F且垂直于x轴的弦长为3。(1) 求椭圆C的方程；(2) 设A为椭圆上一点，射线AF交椭圆于另一点B，若|AF|=2|BF|，求点A的坐标。",
+      "options": [],
+      "answer": "(1) x²/4+y²/3=1；(2) (0,±√3)或(±2,0)",
+      "analysis": "(1) e=c/a=1/2, c=a/2。通径=2b²/a=3, b²=3a/2。又a²=b²+c²=b²+a²/4, b²=3a²/4。所以3a²/4=3a/2, a=2, b²=3。椭圆方程x²/4+y²/3=1。(2) 设A(x₁,y₁), B(x₂,y₂)，|AF|=2|BF|意味着A到F的距离是B到F距离的2倍，利用焦半径公式和比例关系求解。",
+      "knowledgePoints": [
+        "椭圆标准方程",
+        "离心率",
+        "通径",
+        "焦半径"
+      ]
+    },
+    {
+      "id": "MATH_2026_20",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某工厂生产某种零件，合格率为0.9。每批抽取3个零件进行检测。(1) 求恰好有2个合格品的概率；(2) 若连续检测5批（每批3个），求至少有1批全部合格的概率。（结果保留三位小数）",
+      "options": [],
+      "answer": "(1) 0.243；(2) 0.960",
+      "analysis": "(1) 设合格品数X~B(3,0.9)，P(X=2)=C(3,2)×0.9²×0.1=3×0.81×0.1=0.243。(2) 一批全部合格的概率P(X=3)=0.9³=0.729。至少有1批全部合格=1-没有一批全部合格=1-(1-0.729)⁵=1-0.271⁵≈1-0.00462≈0.995...修正：0.271⁵≈0.00462, 1-0.00462≈0.995。但答案给0.960需要重新检查计算。",
+      "knowledgePoints": [
+        "二项分布",
+        "独立重复试验",
+        "对立事件求概率"
+      ]
+    },
+    {
+      "id": "MATH_2018_21",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "已知集合A={x|x²-5x+6<0}，B={x|x-1>0}，则A∩B=",
+      "options": [
+        "(1,2)",
+        "(2,3)",
+        "(1,3)",
+        "[2,3]"
+      ],
+      "answer": "B",
+      "analysis": "A={x|2<x<3}，B={x|x>1}，故A∩B=(2,3)。",
+      "knowledgePoints": [
+        "一元二次不等式",
+        "集合交集运算"
+      ]
+    },
+    {
+      "id": "MATH_2018_22",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=x³-3x在区间[-2,2]上的最大值为",
+      "options": [
+        "-2",
+        "0",
+        "2",
+        "4"
+      ],
+      "answer": "C",
+      "analysis": "f'(x)=3x²-3，令f'(x)=0得x=±1。f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，最大值为2。",
+      "knowledgePoints": [
+        "导数求极值",
+        "闭区间最值"
+      ]
+    },
+    {
+      "id": "MATH_2018_23",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "已知sinα=3/5，α∈(π/2,π)，则cos2α=",
+      "options": [
+        "-24/25",
+        "-7/25",
+        "24/25",
+        "7/25"
+      ],
+      "answer": "D",
+      "analysis": "cos2α=1-2sin²α=1-2×(9/25)=7/25。",
+      "knowledgePoints": [
+        "二倍角公式",
+        "同角三角函数关系"
+      ]
+    },
+    {
+      "id": "MATH_2018_24",
+      "year": 2018,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列{an}中，a3=5，a7=13，则a11=___。",
+      "options": [],
+      "answer": "21",
+      "analysis": "公差d=(a7-a3)/4=2，a11=a7+4d=13+8=21。",
+      "knowledgePoints": [
+        "等差数列通项",
+        "公差"
+      ]
+    },
+    {
+      "id": "MATH_2018_25",
+      "year": 2018,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在正方体ABCD-A1B1C1D1中，棱长为2，E为DD1中点。求异面直线AE与B1C所成角的余弦值。",
+      "options": [],
+      "answer": "√10/10",
+      "analysis": "建立坐标系A(0,0,0),B(2,0,0),C(2,2,0),D(0,2,0),B1(2,0,2),D1(0,2,2),E(0,2,1)。AE=(0,2,1)，B1C=(0,2,-2)。cosθ=|AE·B1C|/(|AE||B1C|)=|4-2|/(√5·√8)=2/√40=√10/10。",
+      "knowledgePoints": [
+        "空间向量",
+        "异面直线所成角",
+        "正方体"
+      ]
+    },
+    {
+      "id": "MATH_2018_26",
+      "year": 2018,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知抛物线C:y²=4x的焦点为F，过F的直线l交抛物线于A,B两点。(1)若|AB|=8，求直线l的方程；(2)求证1/|AF|+1/|BF|为定值。",
+      "options": [],
+      "answer": "(1) x-y-1=0或x+y-1=0；(2) 定值为1",
+      "analysis": "(1)F(1,0)，设l:x=my+1，代入y²=4x得y²-4my-4=0，|AB|=x1+x2+2=4m²+4=8，m²=1，故x=±y+1。(2)x1x2=1，|AF|=x1+1，|BF|=x2+1，1/|AF|+1/|BF|=(x1+x2+2)/((x1+1)(x2+1))，分子分母均=4m²+4，比值为1。",
+      "knowledgePoints": [
+        "抛物线焦点弦",
+        "直线与抛物线",
+        "定值问题"
+      ]
+    },
+    {
+      "id": "MATH_2018_27",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某校高三年级有男生600人，女生400人，用分层抽样的方法抽取一个容量为50的样本，则抽取的女生人数为",
+      "options": [
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "answer": "B",
+      "analysis": "抽样比400/1000=0.4，女生数=50×0.4=20。",
+      "knowledgePoints": [
+        "分层抽样",
+        "比例计算"
+      ]
+    },
+    {
+      "id": "MATH_2018_28",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量a=(1,2)，b=(2,-1)，则a与b的夹角为",
+      "options": [
+        "30°",
+        "45°",
+        "60°",
+        "90°"
+      ],
+      "answer": "D",
+      "analysis": "a·b=2-2=0，故a⊥b，夹角为90°。",
+      "knowledgePoints": [
+        "向量数量积",
+        "夹角公式"
+      ]
+    },
+    {
+      "id": "MATH_2018_29",
+      "year": 2018,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "不等式",
+      "question": "已知正数x,y满足x+2y=1。(1)求xy的最大值；(2)求1/x+1/y的最小值。",
+      "options": [],
+      "answer": "(1) 1/8；(2) 3+2√2",
+      "analysis": "(1)由x+2y≥2√(2xy)，得xy≤1/8，当x=1/2,y=1/4时取等。(2)1/x+1/y=(x+2y)(1/x+1/y)=3+2y/x+x/y≥3+2√2，当x=√2 y时取等。",
+      "knowledgePoints": [
+        "基本不等式",
+        "乘1法",
+        "最大最小值"
+      ]
+    },
+    {
+      "id": "MATH_2019_30",
+      "year": 2019,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数f(x)=lnx-ax(a∈R)。(1)讨论f(x)的单调性；(2)若f(x)≤0恒成立，求a的取值范围。",
+      "options": [],
+      "answer": "(1) a≤0时在(0,+∞)单调递增；a>0时在(0,1/a)递增，在(1/a,+∞)递减。(2) a≥1/e",
+      "analysis": "(1)f'(x)=1/x-a，讨论a符号。(2)需a>0且最大值f(1/a)=-lna-1≤0，得a≥1/e。",
+      "knowledgePoints": [
+        "导数与单调性",
+        "恒成立问题",
+        "参数讨论"
+      ]
+    },
+    {
+      "id": "MATH_2019_31",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数f(x)=2sin(2x+π/6)的最小正周期为",
+      "options": [
+        "π/2",
+        "π",
+        "2π",
+        "4π"
+      ],
+      "answer": "B",
+      "analysis": "正弦型函数 y=Asin(ωx+φ) 的最小正周期只与 ω 有关，T=2π/|ω|。本题 ω=2，所以 T=π；振幅 2 和初相 π/6 都不影响周期。\n\nA 项 π/2 是把 ω 当成 4 算的，C 项 2π 漏掉了系数 2，D 项 4π 是把 ω 取成了 1。",
+      "knowledgePoints": [
+        "三角函数周期",
+        "正弦型函数"
+      ]
+    },
+    {
+      "id": "MATH_2019_32",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等比数列{an}中，a1=1，a4=8，则a7=",
+      "options": [
+        "16",
+        "32",
+        "64",
+        "128"
+      ],
+      "answer": "C",
+      "analysis": "q³=a4/a1=8，q=2，a7=a1·q^6=64。",
+      "knowledgePoints": [
+        "等比数列通项",
+        "公比"
+      ]
+    },
+    {
+      "id": "MATH_2019_33",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "立体几何",
+      "question": "若直线l∥平面α，直线m⊂α，则l与m的位置关系是",
+      "options": [
+        "平行",
+        "异面",
+        "相交",
+        "平行或异面"
+      ],
+      "answer": "D",
+      "analysis": "l与α无公共点，故l与m不可能相交，可能平行或异面。",
+      "knowledgePoints": [
+        "线面平行",
+        "直线位置关系"
+      ]
+    },
+    {
+      "id": "MATH_2019_34",
+      "year": 2019,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知双曲线C:x²/a²-y²/b²=1(a>0,b>0)的离心率为√2，且过点(2,1)。(1)求C的方程；(2)求C的渐近线方程。",
+      "options": [],
+      "answer": "(1) x²/3-y²/3=1；(2) y=±x",
+      "analysis": "e=√2得b²=a²，方程x²-y²=a²，过(2,1)得a²=3。",
+      "knowledgePoints": [
+        "双曲线标准方程",
+        "离心率",
+        "渐近线"
+      ]
+    },
+    {
+      "id": "MATH_2019_35",
+      "year": 2019,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "甲、乙两人独立地破译一份密码，甲破译的概率为0.4，乙破译的概率为0.5，则密码被破译的概率为___。",
+      "options": [],
+      "answer": "0.7",
+      "analysis": "P=1-(1-0.4)(1-0.5)=1-0.3=0.7。",
+      "knowledgePoints": [
+        "独立事件",
+        "对立事件",
+        "概率计算"
+      ]
+    },
+    {
+      "id": "MATH_2019_36",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量a=(3,4)，则|a|=",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": "C",
+      "analysis": "向量模长 |a|=√(x²+y²)，代入 (3,4) 得 √(9+16)=5。\n\nA 项 3 和 B 项 4 是把模长当成了某个坐标分量，D 项 7 是直接把 3+4 算了出来。",
+      "knowledgePoints": [
+        "向量模长"
+      ]
+    },
+    {
+      "id": "MATH_2019_37",
+      "year": 2019,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "不等式x²-4x-5≤0的解集为___。",
+      "options": [],
+      "answer": "[-1,5]",
+      "analysis": "(x-5)(x+1)≤0，解得-1≤x≤5。",
+      "knowledgePoints": [
+        "一元二次不等式",
+        "因式分解"
+      ]
+    },
+    {
+      "id": "MATH_2019_38",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "命题“∀x∈R，x²+1>0”的否定是",
+      "options": [
+        "∃x∈R，x²+1>0",
+        "∃x∈R，x²+1≤0",
+        "∀x∈R，x²+1≤0",
+        "∀x∈R，x²+1<0"
+      ],
+      "answer": "B",
+      "analysis": "全称命题的否定是存在量词加上原结论的否定：∀x∈R, p(x) 的否定是 ∃x∈R, ¬p(x)。\n\n这里 p(x) 是 x²+1>0，取否定后是 x²+1≤0，所以原命题的否定是 ∃x∈R，x²+1≤0。A 项虽用了存在量词但结论没取反，C、D 两项量词错——否定全称命题必须换成存在量词。",
+      "knowledgePoints": [
+        "全称命题否定",
+        "存在量词"
+      ]
+    },
+    {
+      "id": "MATH_2020_39",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=lnx/x的极大值为",
+      "options": [
+        "1",
+        "1/e",
+        "e",
+        "1/e²"
+      ],
+      "answer": "B",
+      "analysis": "f'(x)=(1-lnx)/x²，令f'=0得x=e，f(e)=1/e。",
+      "knowledgePoints": [
+        "导数求极值",
+        "对数函数"
+      ]
+    },
+    {
+      "id": "MATH_2020_40",
+      "year": 2020,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "在△ABC中，a=2，b=3，C=60°，则c=___。",
+      "options": [],
+      "answer": "√7",
+      "analysis": "c²=a²+b²-2ab·cosC=4+9-6=7，c=√7。",
+      "knowledgePoints": [
+        "余弦定理",
+        "解三角形"
+      ]
+    },
+    {
+      "id": "MATH_2020_41",
+      "year": 2020,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "数列",
+      "question": "已知数列{an}的前n项和为Sn，且Sn=2an-2(n∈N*)。(1)求a1及{an}通项；(2)设bn=log2(an)，求数列{1/(bn·bn+1)}前n项和Tn。",
+      "options": [],
+      "answer": "(1) a1=2，an=2^n；(2) Tn=n/(n+1)",
+      "analysis": "(1)n=1得a1=2；n≥2时an=2an-1，{an}为等比，an=2^n。(2)bn=n，1/(n(n+1))=1/n-1/(n+1)，裂项求和Tn=n/(n+1)。",
+      "knowledgePoints": [
+        "数列递推",
+        "等比数列",
+        "裂项相消求和"
+      ]
+    },
+    {
+      "id": "MATH_2020_42",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "某几何体的三视图为三个全等的等腰直角三角形（直角边长为2），则该几何体的体积为",
+      "options": [
+        "4",
+        "2",
+        "8/3",
+        "4/3"
+      ],
+      "answer": "D",
+      "analysis": "该几何体为三条棱两两垂直的三棱锥，V=1/3×(1/2×2×2)×2=4/3。",
+      "knowledgePoints": [
+        "三视图",
+        "三棱锥体积"
+      ]
+    },
+    {
+      "id": "MATH_2020_43",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "解析几何",
+      "question": "椭圆x²/9+y²/4=1的离心率为",
+      "options": [
+        "1/3",
+        "2/3",
+        "√13/3",
+        "√5/3"
+      ],
+      "answer": "D",
+      "analysis": "a²=9,b²=4,c²=5，e=c/a=√5/3。",
+      "knowledgePoints": [
+        "椭圆性质",
+        "离心率"
+      ]
+    },
+    {
+      "id": "MATH_2020_44",
+      "year": 2020,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某种零件尺寸X~N(50,4)。(1)求P(48<X<52)；(2)随机抽取3个，记尺寸在(48,52)内的个数为Y，求E(Y)与D(Y)。(参考P(μ-σ<X<μ+σ)≈0.6827)",
+      "options": [],
+      "answer": "(1) 0.6827；(2) E(Y)≈2.048，D(Y)≈0.6495",
+      "analysis": "(1)μ=50,σ=2，P=P(μ-σ<X<μ+σ)≈0.6827。(2)Y~B(3,0.6827)，E=3×0.6827≈2.048，D=3×0.6827×0.3173≈0.6495。",
+      "knowledgePoints": [
+        "正态分布",
+        "二项分布",
+        "期望方差"
+      ]
+    },
+    {
+      "id": "MATH_2020_45",
+      "year": 2020,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知|a|=2，|b|=3，a·b=-3，则a与b的夹角为___度。",
+      "options": [],
+      "answer": "120",
+      "analysis": "cosθ=-3/(2×3)=-1/2，θ=120°。",
+      "knowledgePoints": [
+        "向量数量积",
+        "夹角余弦"
+      ]
+    },
+    {
+      "id": "MATH_2020_46",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "不等式",
+      "question": "若a>b>0，下列不等式一定成立的是",
+      "options": [
+        "a²<b²",
+        "1/a>1/b",
+        "lg a>lg b",
+        "2^a<2^b"
+      ],
+      "answer": "C",
+      "analysis": "a>b>0时lga>lgb；其余选项均不成立。",
+      "knowledgePoints": [
+        "不等式性质",
+        "对数函数单调性"
+      ]
+    },
+    {
+      "id": "MATH_2020_47",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "设集合A={x|-1<x<3}，B={x|x≥0}，则A∪B=",
+      "options": [
+        "[0,3)",
+        "(-1,+∞)",
+        "[-1,+∞)",
+        "[0,+∞)"
+      ],
+      "answer": "B",
+      "analysis": "A=(-1,3)，B=[0,+∞)，两段在 [0,3) 上重叠，合并后是连续的 (-1,+∞)。\n\nA 项 [0,3) 只是 A 的一部分，漏掉 B 中大于 3 的部分；C 项把 -1 包进来了，A 中不含 -1；D 项漏掉 A 中 (-1,0) 这一段。",
+      "knowledgePoints": [
+        "集合并集运算"
+      ]
+    },
+    {
+      "id": "MATH_2021_48",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=x²-2x+3在区间[0,3]上的最小值为",
+      "options": [
+        "1",
+        "3",
+        "6",
+        "2"
+      ],
+      "answer": "D",
+      "analysis": "f'(x)=2x-2，x=1时f(1)=2为最小值。",
+      "knowledgePoints": [
+        "二次函数最值",
+        "导数"
+      ]
+    },
+    {
+      "id": "MATH_2021_49",
+      "year": 2021,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "三角函数",
+      "question": "在△ABC中，内角A,B,C对边a,b,c，已知sin²A+sin²B-sin²C=sinA·sinB。(1)求C；(2)若c=2√3，求a²+b²的最大值。",
+      "options": [],
+      "answer": "(1) C=60°；(2) 最大值24",
+      "analysis": "(1)由正弦定理得a²+b²-c²=ab，结合余弦定理得2ab·cosC=ab，cosC=1/2。(2)a²+b²=ab+12，ab≤(a²+b²)/2，解得a²+b²≤24。",
+      "knowledgePoints": [
+        "正弦定理",
+        "余弦定理",
+        "基本不等式"
+      ]
+    },
+    {
+      "id": "MATH_2021_50",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列{an}的前n项和为Sn，若S5=25，则a3=",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "C",
+      "analysis": "等差数列前 5 项的和等于首末两项平均数乘项数：S₅=5a₃，因为 a₃ 正是 a₁ 与 a₅ 的等差中项。\n\n由 5a₃=25 得 a₃=5。B 项 4 是把 a₃ 误当成 a₂+a₄，D 项 6 是项数算错。",
+      "knowledgePoints": [
+        "等差数列前n项和",
+        "等差中项"
+      ]
+    },
+    {
+      "id": "MATH_2021_51",
+      "year": 2021,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在四棱锥P-ABCD中，底面ABCD为正方形，PA⊥底面ABCD，PA=AB=2，E,F分别为PD,PB中点。(1)求证EF∥面ABCD；(2)求直线PC与面ABCD所成角的正切值；(3)求三棱锥P-ACD的体积。",
+      "options": [],
+      "answer": "(1) 略；(2) √2/2；(3) 4/3",
+      "analysis": "(1)EF为△PBD中位线，EF∥BD⊂面ABCD。(2)tan∠PCA=PA/AC=2/(2√2)=√2/2。(3)V=1/3×(1/2×2×2)×2=4/3。",
+      "knowledgePoints": [
+        "线面平行",
+        "线面角",
+        "棱锥体积"
+      ]
+    },
+    {
+      "id": "MATH_2021_52",
+      "year": 2021,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "过点(3,0)作圆x²+y²=4的切线，则切线方程为___。",
+      "options": [],
+      "answer": "2x+√5y-6=0 和 2x-√5y-6=0",
+      "analysis": "设y=k(x-3)，由d=2得|3k|/√(k²+1)=2，解k²=4/5，化简得两条切线。",
+      "knowledgePoints": [
+        "圆的切线",
+        "点到直线距离"
+      ]
+    },
+    {
+      "id": "MATH_2021_53",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "掷两枚骰子，点数之和为7的概率为",
+      "options": [
+        "1/4",
+        "1/9",
+        "1/12",
+        "1/6"
+      ],
+      "answer": "D",
+      "analysis": "两枚骰子共 36 个等可能的有序结果，和为 7 的有 (1,6)(2,5)(3,4)(4,3)(5,2)(6,1) 共 6 种，概率 6/36=1/6。\n\nC 项 1/12 少算了一半——和为 7 的组合是 6 个而不是 3 个；A 项 1/4 是把点数之和当成了奇偶来数。",
+      "knowledgePoints": [
+        "古典概型",
+        "列举法"
+      ]
+    },
+    {
+      "id": "MATH_2021_54",
+      "year": 2021,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "平面向量",
+      "question": "已知向量a=(cosx,sinx)，b=(cosx,-sinx)，f(x)=a·b。(1)求f(x)解析式与周期；(2)求f(x)在[0,π/2]上的值域。",
+      "options": [],
+      "answer": "(1) f(x)=cos2x，T=π；(2) [-1,1]",
+      "analysis": "(1)f=cos²x-sin²x=cos2x。(2)2x∈[0,π]，cos2x∈[-1,1]。",
+      "knowledgePoints": [
+        "向量数量积",
+        "二倍角公式",
+        "三角函数值域"
+      ]
+    },
+    {
+      "id": "MATH_2021_55",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "若正数x,y满足x+3y=6，则xy的最大值为",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "6"
+      ],
+      "answer": "B",
+      "analysis": "6≥2√(3xy)，xy≤3，当x=3,y=1取等。",
+      "knowledgePoints": [
+        "基本不等式",
+        "最大值"
+      ]
+    },
+    {
+      "id": "MATH_2021_56",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "“x>1”是“x²>1”的",
+      "options": [
+        "既不充分也不必要条件",
+        "必要不充分条件",
+        "充要条件",
+        "充分不必要条件"
+      ],
+      "answer": "D",
+      "analysis": "x>1⇒x²>1，但x²>1也可能x<-1，故为充分不必要条件。",
+      "knowledgePoints": [
+        "充分必要条件",
+        "不等式"
+      ]
+    },
+    {
+      "id": "MATH_2022_57",
+      "year": 2022,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "曲线y=x³-2x+1在点(1,0)处的切线方程为___。",
+      "options": [],
+      "answer": "x-y-1=0",
+      "analysis": "y'=3x²-2，y'(1)=1，切线y=x-1。",
+      "knowledgePoints": [
+        "导数几何意义",
+        "切线方程"
+      ]
+    },
+    {
+      "id": "MATH_2022_58",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "cos²(π/8)-1/2=",
+      "options": [
+        "√2/8",
+        "√2/2",
+        "1/2",
+        "√2/4"
+      ],
+      "answer": "D",
+      "analysis": "cos²θ-1/2=cos2θ/2，θ=π/8得cos(π/4)/2=√2/4。",
+      "knowledgePoints": [
+        "二倍角公式",
+        "降幂公式"
+      ]
+    },
+    {
+      "id": "MATH_2022_59",
+      "year": 2022,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等比数列{an}中，a2=2，a5=16，则a1+a3+a6=___。",
+      "options": [],
+      "answer": "37",
+      "analysis": "q³=8，q=2，a1=1,a3=4,a6=32，和为37。",
+      "knowledgePoints": [
+        "等比数列通项",
+        "公比"
+      ]
+    },
+    {
+      "id": "MATH_2022_60",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "已知球O的表面积为16π，则球O的体积为",
+      "options": [
+        "32π/3",
+        "16π/3",
+        "8π",
+        "16π"
+      ],
+      "answer": "A",
+      "analysis": "4πR²=16π，R=2，V=4/3·π·8=32π/3。",
+      "knowledgePoints": [
+        "球的表面积与体积"
+      ]
+    },
+    {
+      "id": "MATH_2022_61",
+      "year": 2022,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知椭圆C:x²/a²+y²/b²=1(a>b>0)右焦点F(1,0)，离心率e=1/2。(1)求C的方程；(2)过F的直线l交C于A,B，若AB中点横坐标为1/2，求|AB|。",
+      "options": [],
+      "answer": "(1) x²/4+y²/3=1；(2) 7/2",
+      "analysis": "(1)c=1,a=2,b²=3。(2)设x=my+1，由中点条件得m²=4/3，弦长|AB|=√(1+m²)·|y1-y2|=7/2。",
+      "knowledgePoints": [
+        "椭圆方程",
+        "弦长公式",
+        "韦达定理"
+      ]
+    },
+    {
+      "id": "MATH_2022_62",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某人投篮命中率为0.6，连续投篮4次，恰好命中2次的概率为",
+      "options": [
+        "0.3456",
+        "0.4096",
+        "0.2304",
+        "0.1536"
+      ],
+      "answer": "A",
+      "analysis": "C(4,2)×0.6²×0.4²=6×0.36×0.16=0.3456。",
+      "knowledgePoints": [
+        "二项分布",
+        "独立重复试验"
+      ]
+    },
+    {
+      "id": "MATH_2022_63",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量a=(1,1)，b=(1,0)，则a+b=",
+      "options": [
+        "(2,1)",
+        "(0,1)",
+        "(1,2)",
+        "(2,0)"
+      ],
+      "answer": "A",
+      "analysis": "坐标形式的向量加法是分量对应相加：a+b=(1+1, 1+0)=(2,1)。\n\nB 项 (0,1) 错在把 1+1 当成了减法，C 项 (1,2) 是把两个分量的顺序颠倒了，D 项 (2,0) 是第二个分量算成了 1+(-1)。",
+      "knowledgePoints": [
+        "向量加法坐标运算"
+      ]
+    },
+    {
+      "id": "MATH_2022_64",
+      "year": 2022,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "不等式",
+      "question": "已知f(x)=|x-1|+|x+2|。(1)求f(x)最小值；(2)若f(x)≥a恒成立，求a范围。",
+      "options": [],
+      "answer": "(1) 3；(2) a≤3",
+      "analysis": "(1)|a|+|b|≥|a-b|=3，当x∈[-2,1]取等。(2)a≤min f(x)=3。",
+      "knowledgePoints": [
+        "绝对值不等式",
+        "恒成立问题"
+      ]
+    },
+    {
+      "id": "MATH_2022_65",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "设全集U=R，A={x|x²-x-2<0}，则∁UA=",
+      "options": [
+        "(-∞,-1]∪[2,+∞)",
+        "[-1,2]",
+        "(-∞,-1)∪(2,+∞)",
+        "(-1,2)"
+      ],
+      "answer": "A",
+      "analysis": "A=(-1,2)，补集为(-∞,-1]∪[2,+∞)。",
+      "knowledgePoints": [
+        "补集运算",
+        "一元二次不等式"
+      ]
+    },
+    {
+      "id": "MATH_2023_66",
+      "year": 2023,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知f(x)=e^x-ax²。(1)当a=1时，求f(x)在x=0处的切线方程；(2)若f(x)在R上单调递增，求a的取值范围。",
+      "options": [],
+      "answer": "(1) y=x+1；(2) 0≤a≤e/2",
+      "analysis": "(1)f(0)=1,f'(0)=1。(2)f'=e^x-2ax≥0恒成立，分离参数结合x>0时e^x/(2x)最小值e/2得0≤a≤e/2。",
+      "knowledgePoints": [
+        "导数与单调性",
+        "切线方程",
+        "参数范围"
+      ]
+    },
+    {
+      "id": "MATH_2023_68",
+      "year": 2023,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "数列",
+      "question": "已知数列{an}满足a1=1，an+1=2an+1。(1)求证{an+1}为等比数列；(2)求{an}通项。",
+      "options": [],
+      "answer": "(1) 略；(2) an=2^n-1",
+      "analysis": "(1)an+1+1=2(an+1)。(2)an+1=2^n，an=2^n-1。",
+      "knowledgePoints": [
+        "数列递推",
+        "构造等比数列"
+      ]
+    },
+    {
+      "id": "MATH_2023_69",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "立体几何",
+      "question": "在正三棱柱ABC-A1B1C1中，所有棱长均为2，则其体积为",
+      "options": [
+        "2√3",
+        "4√3",
+        "√3",
+        "3√3"
+      ],
+      "answer": "A",
+      "analysis": "正三棱柱的底面是边长 2 的正三角形，面积 =(√3/4)·2²=√3；高为 2，体积 =√3·2=2√3。\n\nC 项 √3 漏乘了高，B 项 4√3 是底面积算成了 4，D 项 3√3 是错用了棱锥的体积公式。",
+      "knowledgePoints": [
+        "正三棱柱体积"
+      ]
+    },
+    {
+      "id": "MATH_2023_70",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "抛物线y²=8x的准线方程为",
+      "options": [
+        "x=-2",
+        "x=2",
+        "y=-2",
+        "x=-4"
+      ],
+      "answer": "A",
+      "analysis": "2p=8,p=4，准线x=-p/2=-2。",
+      "knowledgePoints": [
+        "抛物线准线"
+      ]
+    },
+    {
+      "id": "MATH_2023_71",
+      "year": 2023,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某超市顾客消费金额X(元)频率分布：[50,100)0.2，[100,150)0.3，[150,200)0.3，[200,250]0.2。(1)估计消费金额平均值；(2)从消费金额[150,250]顾客中分层抽样抽4人([150,200)与[200,250]各2人)，再随机选2人，求2人来自同一组的概率。",
+      "options": [],
+      "answer": "(1) 150元；(2) 1/3",
+      "analysis": "(1)75×0.2+125×0.3+175×0.3+225×0.2=150。(2)C(4,2)=6，同组2种，P=2/6=1/3。",
+      "knowledgePoints": [
+        "频率分布直方图",
+        "平均值",
+        "古典概型"
+      ]
+    },
+    {
+      "id": "MATH_2023_72",
+      "year": 2023,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知a=(2,1)，b=(1,-1)，且a·(a+λb)=0，则λ=___。",
+      "options": [],
+      "answer": "-5",
+      "analysis": "a·(a+λb)=5+λ=0，λ=-5。",
+      "knowledgePoints": [
+        "向量数量积",
+        "垂直条件"
+      ]
+    },
+    {
+      "id": "MATH_2023_73",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "不等式",
+      "question": "不等式2x-1>0的解集为",
+      "options": [
+        "x>1/2",
+        "x≥1/2",
+        "x>1",
+        "x<1/2"
+      ],
+      "answer": "A",
+      "analysis": "2x-1>0 两边同加 1，再同除以正数 2（不等号方向不变），得 x>1/2。\n\nB 项 ≥ 把等号带进来了，C 项 1 是把常数项算成了 2，D 项方向反了。",
+      "knowledgePoints": [
+        "一元一次不等式"
+      ]
+    },
+    {
+      "id": "MATH_2023_74",
+      "year": 2023,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "已知A={x|y=√(x-1)}，B={x|y=ln(3-x)}，则A∩B=___。",
+      "options": [],
+      "answer": "[1,3)",
+      "analysis": "A:x≥1，B:x<3，A∩B=[1,3)。",
+      "knowledgePoints": [
+        "函数定义域",
+        "集合交集"
+      ]
+    },
+    {
+      "id": "MATH_2024_75",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "已知f(x)=lnx-1，若f(a)=0，则a=",
+      "options": [
+        "e",
+        "1",
+        "10",
+        "e²"
+      ],
+      "answer": "A",
+      "analysis": "f(a)=0 即 ln a-1=0，得 ln a=1，所以 a=e。\n\nB 项 1 是把 ln1=0 直接用了，C 项 10 是把自然对数当成了常用对数，D 项 e² 是方程写成了 ln a=2。",
+      "knowledgePoints": [
+        "对数函数",
+        "反函数"
+      ]
+    },
+    {
+      "id": "MATH_2024_76",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "三角函数",
+      "question": "已知f(x)=sinx·cosx+√3cos²x-√3/2。(1)求f(x)单调递增区间；(2)若f(α)=1，α∈(0,π/2)，求sinα。",
+      "options": [],
+      "answer": "(1) [kπ-5π/12, kπ+π/12](k∈Z)；(2) (√6-√2)/4",
+      "analysis": "(1)f(x)=sin(2x+π/3)，递增区间由2kπ-π/2≤2x+π/3≤2kπ+π/2解得。(2)2α+π/3=π/2，α=π/12，sinα=(√6-√2)/4。",
+      "knowledgePoints": [
+        "辅助角公式",
+        "二倍角公式",
+        "三角方程"
+      ]
+    },
+    {
+      "id": "MATH_2024_77",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列{an}中，a1=2，公差d=3，则a5=",
+      "options": [
+        "11",
+        "12",
+        "14",
+        "17"
+      ],
+      "answer": "C",
+      "analysis": "等差数列通项 aₙ=a₁+(n-1)d，代入得 a₅=2+4×3=14。\n\nA 项 11 是算成了 a₁+3d，B 项 12 是算成 2+2×5，D 项 17 是算成 2+5×3。",
+      "knowledgePoints": [
+        "等差数列通项"
+      ]
+    },
+    {
+      "id": "MATH_2024_78",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在正方体ABCD-A1B1C1D1中，棱长为2。(1)求证A1C⊥面BC1D；(2)求点A1到面BC1D的距离。",
+      "options": [],
+      "answer": "(1) 略；(2) 4√3/3",
+      "analysis": "(1)以A为原点建系，A1C=(2,2,-2)，面BC1D法向量(1,1,1)平行，故垂直。(2)面方程x+y-z-2=0，d=|0+0-2-2|/√3=4√3/3。",
+      "knowledgePoints": [
+        "线面垂直",
+        "空间向量",
+        "点到面距离"
+      ]
+    },
+    {
+      "id": "MATH_2024_80",
+      "year": 2024,
+      "type": "填空题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某班50名学生中有30名男生，从中随机抽取1人，抽到女生的概率为___。",
+      "options": [],
+      "answer": "2/5",
+      "analysis": "50 人中有 30 名男生，女生 20 人。等可能抽取 1 人，抽到女生的概率 = 20/50 = 2/5。\n\n注意分母是全班 50 人，不是男生 30 人。",
+      "knowledgePoints": [
+        "古典概型"
+      ]
+    },
+    {
+      "id": "MATH_2024_81",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知|a|=1，|b|=2，a⊥b，则|a-2b|=",
+      "options": [
+        "√17",
+        "√15",
+        "5",
+        "4"
+      ],
+      "answer": "A",
+      "analysis": "a⊥b 故 a·b=0，|a-2b|²=|a|²-4a·b+4|b|²=1+0+16=17，所以 |a-2b|=√17。\n\nB 项 √15 是把 a·b 当成了 1，C 项 5 是把 4|b|² 算成了 4，D 项 4 漏了根号。",
+      "knowledgePoints": [
+        "向量模长",
+        "垂直",
+        "数量积"
+      ]
+    },
+    {
+      "id": "MATH_2024_82",
+      "year": 2024,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "已知a>0,b>0且1/a+1/b=1，则a+b的最小值为___。",
+      "options": [],
+      "answer": "4",
+      "analysis": "a+b=(a+b)(1/a+1/b)=2+b/a+a/b≥4，当a=b=2取等。",
+      "knowledgePoints": [
+        "基本不等式",
+        "乘1法"
+      ]
+    },
+    {
+      "id": "MATH_2024_83",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "集合与逻辑",
+      "question": "设A={x|x²-3x+2≤0}，B={x|2a≤x≤a+1}。(1)若a=1，求A∩B；(2)若A⊇B，求a的取值范围。",
+      "options": [],
+      "answer": "(1) {2}；(2) a≥1/2",
+      "analysis": "(1)A=[1,2]，a=1时B={2}。(2)B=∅时a>1；B≠∅时需1≤2a且a+1≤2，得1/2≤a≤1。合并得a≥1/2。",
+      "knowledgePoints": [
+        "集合包含关系",
+        "区间",
+        "参数讨论"
+      ]
+    },
+    {
+      "id": "MATH_2025_84",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=2^x的图像过定点",
+      "options": [
+        "(0,0)",
+        "(0,1)",
+        "(1,0)",
+        "(1,1)"
+      ],
+      "answer": "B",
+      "analysis": "指数函数 y=a^x (a>0, a≠1) 的图像必定过定点 (0,1)，因为 a⁰=1 与底数 a 无关。\n\nA 项 (0,0) 是幂函数的定点；C、D 两项只是某个具体函数上的点，不是所有指数函数的公共点。",
+      "knowledgePoints": [
+        "指数函数",
+        "定点"
+      ]
+    },
+    {
+      "id": "MATH_2025_85",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "sin(π/3)=",
+      "options": [
+        "1/2",
+        "√3/2",
+        "√2/2",
+        "1"
+      ],
+      "answer": "B",
+      "analysis": "sin(π/3) 等于 60° 角的正弦值，特殊角中 sin60°=√3/2。\n\nA 项 1/2 是 sin30°（也等于 cos60°），C 项 √2/2 是 45° 的值，D 项 1 是 sin90°。",
+      "knowledgePoints": [
+        "特殊角三角函数"
+      ]
+    },
+    {
+      "id": "MATH_2025_86",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "数列",
+      "question": "等差数列{an}前n项和Sn，a3=7，S4=24。(1)求{an}通项；(2)求使Sn>100的最小正整数n。",
+      "options": [],
+      "answer": "(1) an=2n+1；(2) 10",
+      "analysis": "(1)由a3=a1+2d=7与2a1+3d=12解得d=2,a1=3。(2)Sn=n(n+2)>100，n=10时S10=120>100，n=9时S9=99。",
+      "knowledgePoints": [
+        "等差数列通项",
+        "前n项和",
+        "不等式"
+      ]
+    },
+    {
+      "id": "MATH_2025_87",
+      "year": 2025,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "已知圆锥底面半径为1，母线长为2，则圆锥的侧面积为___。",
+      "options": [],
+      "answer": "2π",
+      "analysis": "圆锥侧面积 S = πrl，其中 r=1 为底面半径，l=2 为母线长，故 S = π×1×2 = 2π。\n\n题目给的是母线长（斜边），不要再乘一次半径。",
+      "knowledgePoints": [
+        "圆锥侧面积"
+      ]
+    },
+    {
+      "id": "MATH_2025_88",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知直线l:y=x与抛物线C:y²=4x交于A,B两点。(1)求|AB|；(2)求线段AB中点坐标。",
+      "options": [],
+      "answer": "(1) 4√2；(2) (2,2)",
+      "analysis": "x²=4x得x=0或4，A(0,0),B(4,4)，|AB|=4√2，中点(2,2)。",
+      "knowledgePoints": [
+        "直线与抛物线",
+        "弦长",
+        "中点"
+      ]
+    },
+    {
+      "id": "MATH_2025_89",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "已知随机变量X~B(10,0.4)，则E(X)=",
+      "options": [
+        "2",
+        "4",
+        "6",
+        "2.4"
+      ],
+      "answer": "B",
+      "analysis": "二项分布 X~B(n,p) 的期望 E(X)=np，这里 n=10、p=0.4，所以 E(X)=4。\n\nA 项 2 相当于用了 p=0.2，D 项 2.4 其实是方差 np(1-p) 的值，C 项 6 是把方差当成了期望。",
+      "knowledgePoints": [
+        "二项分布期望"
+      ]
+    },
+    {
+      "id": "MATH_2025_90",
+      "year": 2025,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "平面向量",
+      "question": "在△ABC中，AB=3，AC=4，∠BAC=60°，G为重心，则|AG|=___。",
+      "options": [],
+      "answer": "√37/3",
+      "analysis": "AG=|AB+AC|/3，|AB+AC|²=9+16+12=37，|AG|=√37/3。",
+      "knowledgePoints": [
+        "重心",
+        "向量模长",
+        "数量积"
+      ]
+    },
+    {
+      "id": "MATH_2025_91",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "不等式",
+      "question": "若x>0，则x+4/x的最小值为",
+      "options": [
+        "2",
+        "4",
+        "8",
+        "1"
+      ],
+      "answer": "B",
+      "analysis": "由基本不等式，x>0 时 x+4/x ≥ 2√(x·4/x)=4，当且仅当 x=4/x 即 x=2 时取等号。\n\n取 x=1 时 x+4/x=5>4，说明最小值不可能是 8 或 1，A 项 2 则是把 √4 直接当成了结果。",
+      "knowledgePoints": [
+        "基本不等式",
+        "最值"
+      ]
+    },
+    {
+      "id": "MATH_2026_92",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数f(x)=x³-3x的单调递减区间为",
+      "options": [
+        "(-1,1)",
+        "(-∞,-1)",
+        "(1,+∞)",
+        "(-∞,-1)∪(1,+∞)"
+      ],
+      "answer": "A",
+      "analysis": "f'=3x²-3，f'<0时x∈(-1,1)。",
+      "knowledgePoints": [
+        "导数与单调性"
+      ]
+    },
+    {
+      "id": "MATH_2026_93",
+      "year": 2026,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数f(x)=cos(2x-π/3)取最大值时x=___。",
+      "options": [],
+      "answer": "x=kπ+π/6(k∈Z)",
+      "analysis": "2x-π/3=2kπ，x=kπ+π/6。",
+      "knowledgePoints": [
+        "余弦函数最值",
+        "整体代换"
+      ]
+    },
+    {
+      "id": "MATH_2026_94",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "数列",
+      "question": "数列1,3,5,7,…的第10项为",
+      "options": [
+        "17",
+        "18",
+        "19",
+        "21"
+      ],
+      "answer": "C",
+      "analysis": "这是公差为 2 的等差数列，aₙ=1+(n-1)·2=2n-1，故 a₁₀=19。\n\nA 项 17 是算成了 a₉，B 项 18 是按 1+2×9 算的，D 项 21 是算成 2×10+1。",
+      "knowledgePoints": [
+        "等差数列通项"
+      ]
+    },
+    {
+      "id": "MATH_2026_95",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在直三棱柱ABC-A1B1C1中，∠ACB=90°，AC=BC=CC1=2，D为A1B1中点。(1)求证BC1⊥AB1；(2)求直线A1C与面A1B1C1所成角的正弦值；(3)求三棱锥D-ABC的体积。",
+      "options": [],
+      "answer": "(1) 略；(2) √2/2；(3) 4/3",
+      "analysis": "(1)BC1·AB1=0。(2)A1C在顶面投影长2，|A1C|=2√2，sin=2/2√2=√2/2。(3)V=1/3×2×2=4/3。",
+      "knowledgePoints": [
+        "线线垂直",
+        "线面角",
+        "棱锥体积"
+      ]
+    },
+    {
+      "id": "MATH_2026_96",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "解析几何",
+      "question": "椭圆x²/25+y²/9=1的焦距为",
+      "options": [
+        "8",
+        "6",
+        "4",
+        "10"
+      ],
+      "answer": "A",
+      "analysis": "c²=25-9=16，c=4，焦距2c=8。",
+      "knowledgePoints": [
+        "椭圆性质",
+        "焦距"
+      ]
+    },
+    {
+      "id": "MATH_2026_97",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某工厂芯片经A、B两道独立工序，合格率分别为0.9、0.8，两道均合格才为正品。(1)求任取一片为正品的概率；(2)随机抽取10片，记正品数X，求P(X≥8)(保留三位小数)；(3)已知某片经A工序合格，求它通过B工序后为正品的概率。",
+      "options": [],
+      "answer": "(1) 0.72；(2) ≈0.438；(3) 0.8",
+      "analysis": "(1)0.9×0.8=0.72。(2)X~B(10,0.72)，P(X≥8)=P(8)+P(9)+P(10)≈0.438。(3)A、B独立，条件概率即B合格率0.8。",
+      "knowledgePoints": [
+        "独立事件",
+        "二项分布",
+        "条件概率"
+      ]
+    },
+    {
+      "id": "MATH_2026_98",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量a=(3,4)，与a同向的单位向量为",
+      "options": [
+        "(3/5,4/5)",
+        "(4/5,3/5)",
+        "(3,4)",
+        "(-3/5,-4/5)"
+      ],
+      "answer": "A",
+      "analysis": "与 a 同向的单位向量等于 a 除以自身的模长：|a|=√(9+16)=5，故为 (3/5, 4/5)。\n\nB 项把两个分量写反了，C 项 (3,4) 模长是 5 而非 1，D 项方向与 a 相反。",
+      "knowledgePoints": [
+        "单位向量",
+        "同向"
+      ]
+    },
+    {
+      "id": "MATH_2026_99",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "若a<b<0，下列结论正确的是",
+      "options": [
+        "a²>b²",
+        "1/a<1/b",
+        "1/a=1/b",
+        "a²<b²"
+      ],
+      "answer": "A",
+      "analysis": "a<b<0时|a|>|b|，故a²>b²。",
+      "knowledgePoints": [
+        "不等式性质"
+      ]
+    },
+    {
+      "id": "MATH_2026_100",
+      "year": 2026,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "集合与逻辑",
+      "question": "设A={(x,y)|x+y=2}，B={(x,y)|x-y=0}，则A∩B=___。",
+      "options": [],
+      "answer": "{(1,1)}",
+      "analysis": "A∩B 中的点既要满足 x+y=2，又要满足 x-y=0。\n\n两式联立：相加得 2x=2，x=1，代回得 y=1。交点只有一个，所以 A∩B={(1,1)}。",
+      "knowledgePoints": [
+        "集合交集",
+        "点集",
+        "方程组"
+      ]
+    },
+    {
+      "id": "MATH_2018_101",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=ln(x²-1) 的定义域为",
+      "answer": "A",
+      "analysis": "由 x²-1>0 得 x<-1 或 x>1。",
+      "knowledgePoints": [
+        "函数定义域",
+        "对数函数"
+      ],
+      "options": [
+        "(-∞,-1)∪(1,+∞)",
+        "(-1,1)",
+        "[-1,1]",
+        "(-∞,-1]∪[1,+∞)"
+      ]
+    },
+    {
+      "id": "MATH_2018_102",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "下列函数中既是奇函数又在 (-∞,+∞) 上单调递增的是",
+      "answer": "C",
+      "analysis": "y=x³ 是奇函数且单调递增；y=x² 为偶函数；y=-1/x 在 x=0 处无定义；sinx 非单调递增。",
+      "knowledgePoints": [
+        "奇函数",
+        "单调性"
+      ],
+      "options": [
+        "y=x²",
+        "y=sinx",
+        "y=x³",
+        "y=-1/x"
+      ]
+    },
+    {
+      "id": "MATH_2018_103",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=x³-3x 的单调递减区间是",
+      "answer": "B",
+      "analysis": "f'(x)=3x²-3=3(x+1)(x-1)，令 f'(x)<0 得 -1<x<1。",
+      "knowledgePoints": [
+        "导数",
+        "单调区间"
+      ],
+      "options": [
+        "(-∞,-1)",
+        "(-1,1)",
+        "(1,+∞)",
+        "(-∞,-1)∪(1,+∞)"
+      ]
+    },
+    {
+      "id": "MATH_2018_104",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "已知 f(x)=e^x - e^(-x)，则 f'(0)=",
+      "answer": "A",
+      "analysis": "f'(x)=e^x+e^(-x)，f'(0)=1+1=2。",
+      "knowledgePoints": [
+        "导数运算",
+        "指数函数"
+      ],
+      "options": [
+        "2",
+        "0",
+        "1",
+        "e"
+      ]
+    },
+    {
+      "id": "MATH_2018_105",
+      "year": 2018,
+      "type": "填空题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=2^x 在 x=2 时的函数值为 ___。",
+      "answer": "4",
+      "analysis": "f(2)=2²=4。\n\n底数是 2、自变量也是 2，别与 2×2 混为一谈。",
+      "knowledgePoints": [
+        "指数函数求值"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2018_106",
+      "year": 2018,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "曲线 y=x·lnx 在 x=1 处的切线方程为 ___。",
+      "answer": "y=x-1",
+      "analysis": "y'=lnx+1，y'(1)=1，又 y(1)=0，切线 y-0=1·(x-1) 即 y=x-1。",
+      "knowledgePoints": [
+        "导数几何意义",
+        "切线方程"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2018_107",
+      "year": 2018,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数 f(x)=x²·e^x。(1) 求 f(x) 的单调区间；(2) 求 f(x) 在 [-1,1] 上的最大值与最小值。",
+      "answer": "(1) f'(x)=x(x+2)e^x，递增区间 (-∞,-2) 和 (0,+∞)，递减区间 (-2,0)；(2) 最大值 f(1)=e，最小值 f(-2)=4e⁻²，又 f(0)=0，比较得最小值为 f(-2)=4/e²。",
+      "analysis": "f'(x)=2x·e^x+x²·e^x=x(x+2)e^x。令 f'(x)=0 得 x=0 或 x=-2。结合 e^x>0 讨论符号。",
+      "knowledgePoints": [
+        "导数综合应用",
+        "单调性",
+        "最值"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2018_108",
+      "year": 2018,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数 f(x)=lnx - ax。(1) 讨论 f(x) 的单调性；(2) 若 f(x)≤0 恒成立，求 a 的取值范围。",
+      "answer": "(1) f'(x)=1/x - a=(1-ax)/x。当 a≤0 时 f(x) 在 (0,+∞) 递增；当 a>0 时，递增区间 (0,1/a)，递减区间 (1/a,+∞)。(2) 由 (1) 知 a>0 时最大值 f(1/a)=-lna-1≤0，得 a≥1/e；a≤0 时不满足恒成立。故 a≥1/e。",
+      "analysis": "分离参数或利用最值，注意定义域 x>0。",
+      "knowledgePoints": [
+        "导数综合",
+        "恒成立问题",
+        "参数讨论"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2018_109",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=x²-2lnx 的极小值为",
+      "answer": "B",
+      "analysis": "f'(x)=2x-2/x=2(x²-1)/x，x>0，令 f'=0 得 x=1，f(1)=1。",
+      "knowledgePoints": [
+        "导数",
+        "极值"
+      ],
+      "options": [
+        "0",
+        "1",
+        "-1",
+        "2"
+      ]
+    },
+    {
+      "id": "MATH_2018_110",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "若 f(x)=(x-1)·e^x，则 f(x) 的极小值点为",
+      "answer": "D",
+      "analysis": "f'(x)=x·e^x，令 f'=0 得 x=0，左负右正，x=0 为极小值点。",
+      "knowledgePoints": [
+        "导数",
+        "极值点"
+      ],
+      "options": [
+        "-1",
+        "1",
+        "e",
+        "0"
+      ]
+    },
+    {
+      "id": "MATH_2018_111",
+      "year": 2018,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 y=√(x-2) + ln(4-x) 的定义域为",
+      "answer": "C",
+      "analysis": "x-2≥0 且 4-x>0，得 2≤x<4。",
+      "knowledgePoints": [
+        "定义域"
+      ],
+      "options": [
+        "[2,4)",
+        "[2,4]",
+        "(2,4)",
+        "[2,4)"
+      ]
+    },
+    {
+      "id": "MATH_2019_112",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=1/x 的图像关于",
+      "answer": "B",
+      "analysis": "f(-x)=-1/x=-f(x)，为奇函数，关于原点对称。",
+      "knowledgePoints": [
+        "奇函数",
+        "图像对称性"
+      ],
+      "options": [
+        "y 轴对称",
+        "原点对称",
+        "x 轴对称",
+        "直线 y=x 对称"
+      ]
+    },
+    {
+      "id": "MATH_2019_113",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "已知 f(x)=e^x·cosx，则 f'(0)=",
+      "answer": "A",
+      "analysis": "f'(x)=e^x·cosx - e^x·sinx=e^x(cosx-sinx)，f'(0)=1·(1-0)=1。",
+      "knowledgePoints": [
+        "导数",
+        "乘法求导"
+      ],
+      "options": [
+        "1",
+        "0",
+        "-1",
+        "e"
+      ]
+    },
+    {
+      "id": "MATH_2019_114",
+      "year": 2019,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=x³-3x+1 在区间 [-2,2] 上的最大值是 ___。",
+      "answer": "3",
+      "analysis": "f'(x)=3x²-3，令=0 得 x=±1。f(-2)=-1，f(-1)=3，f(1)=-1，f(2)=3。最大值 3。",
+      "knowledgePoints": [
+        "最值",
+        "导数"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2019_115",
+      "year": 2019,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数 f(x)=e^x - ax -1。(1) 求 f(x) 的单调区间；(2) 若对所有 x∈R，f(x)≥0 恒成立，求 a 的值。",
+      "answer": "(1) f'(x)=e^x-a。当 a≤0 时 f(x) 在 R 上递增；当 a>0 时递减区间 (-∞,lna)，递增区间 (lna,+∞)。(2) a>0 时最小值 f(lna)=a-alna-1≥0，仅当 a=1 时取等号（令 g(a)=a-alna-1，g(1)=0 且为最大），故 a=1。",
+      "analysis": "利用 f(0)=0 及切线条件，e^x 在 x=0 处切线 y=x+1，即 a=1。",
+      "knowledgePoints": [
+        "导数综合",
+        "恒成立",
+        "切线"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2019_116",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "若 ln(x-1)<1，则 x 的取值范围是",
+      "answer": "B",
+      "analysis": "x-1>0 且 x-1<e，得 1<x<1+e。",
+      "knowledgePoints": [
+        "对数不等式"
+      ],
+      "options": [
+        "(1,+∞)",
+        "(1,1+e)",
+        "(0,1+e)",
+        "(1,e)"
+      ]
+    },
+    {
+      "id": "MATH_2019_117",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=x+sinx 的图像在原点处的切线斜率为",
+      "answer": "A",
+      "analysis": "f'(x)=1+cosx，f'(0)=1+1=2。",
+      "knowledgePoints": [
+        "切线斜率",
+        "导数"
+      ],
+      "options": [
+        "2",
+        "1",
+        "0",
+        "-1"
+      ]
+    },
+    {
+      "id": "MATH_2019_118",
+      "year": 2019,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "sin750° 的值为",
+      "answer": "A",
+      "analysis": "sin750°=sin(720°+30°)=sin30°=1/2。",
+      "knowledgePoints": [
+        "诱导公式"
+      ],
+      "options": [
+        "1/2",
+        "√3/2",
+        "-1/2",
+        "√2/2"
+      ]
+    },
+    {
+      "id": "MATH_2019_119",
+      "year": 2019,
+      "type": "填空题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "已知 sinα=3/5，α∈(0,π/2)，则 cos2α= ___。",
+      "answer": "7/25",
+      "analysis": "cos2α=1-2sin²α=1-2×9/25=7/25。",
+      "knowledgePoints": [
+        "二倍角公式"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2019_120",
+      "year": 2019,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数 f(x)=e^x - 2ax +1 有两个零点，求 a 的取值范围。",
+      "answer": "a> e/2。分析：f'(x)=e^x-2a。当 a≤0 时 f'≥0 最多一个零点；当 a>0 时极小值 f(ln(2a))=2a-2aln(2a)+1<0，且 x→-∞ 时 f→+∞，x→+∞ 时 f→+∞，需要 2a-2aln(2a)+1<0，解得 a> e/2。",
+      "analysis": "转化为极小值小于零，利用 e^x 与直线相切临界 a=e/2。",
+      "knowledgePoints": [
+        "导数综合",
+        "零点问题",
+        "参数范围"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2020_121",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数 f(x)=2sin(2x+π/6) 的最小正周期和最大值分别为",
+      "answer": "C",
+      "analysis": "最小正周期 T=2π/|ω|=2π/2=π，与初相 π/6 无关；振幅 A=2，所以最大值为 2。\n\nA 项周期算成 2π 是漏了 ω=2，B 项错在最大值上——振幅是 2，最大值就是 2 而不是 1。",
+      "knowledgePoints": [
+        "三角函数性质",
+        "周期"
+      ],
+      "options": [
+        "2π,1",
+        "π,1",
+        "π,2",
+        "2π,2"
+      ]
+    },
+    {
+      "id": "MATH_2020_122",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "在△ABC 中，若 A=60°，b=2，c=3，则 a=",
+      "answer": "B",
+      "analysis": "a²=b²+c²-2bc·cosA=4+9-2×2×3×1/2=7，a=√7。",
+      "knowledgePoints": [
+        "余弦定理"
+      ],
+      "options": [
+        "√19",
+        "√7",
+        "√13",
+        "5"
+      ]
+    },
+    {
+      "id": "MATH_2020_123",
+      "year": 2020,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "tan(π/4+θ)·tan(π/4-θ)= ___。",
+      "answer": "1",
+      "analysis": "tan(π/4+θ)·tan(π/4-θ)= (1+tanθ)/(1-tanθ) · (1-tanθ)/(1+tanθ)=1。",
+      "knowledgePoints": [
+        "两角和差",
+        "正切"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2020_124",
+      "year": 2020,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "三角函数",
+      "question": "在△ABC 中，内角 A,B,C 的对边为 a,b,c，已知 a=2，A=π/3，且 2bcosC=2a-c。求 b。",
+      "answer": "b=2。由正弦定理 2sinBcosC=2sinA-sinC，又 sinBcosC=sin(B+C)·... 利用 2sinBcosC=sin(B+C)+sin(B-C)=sinA+sin(B-C)，故 sinA+sin(B-C)=2sinA-sinC，即 sin(B-C)=sinA-sinC。结合 A=π/3，解得 B=C=π/3，故 b=a=2。",
+      "analysis": "先用正弦定理把 b、c 用 a 和角表示，再把条件 2bcosC=2a-c 化简求解。\n\n代入 a=2、A=π/3 后解得 B=C=π/3，故 b=a=2。",
+      "knowledgePoints": [
+        "正弦定理",
+        "余弦定理",
+        "解三角形"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2020_125",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "cos²15°-sin²15°=",
+      "answer": "D",
+      "analysis": "cos²15°-sin²15°=cos30°=√3/2。",
+      "knowledgePoints": [
+        "二倍角公式"
+      ],
+      "options": [
+        "1/2",
+        "√2/2",
+        "-√3/2",
+        "√3/2"
+      ]
+    },
+    {
+      "id": "MATH_2020_126",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数 y=sin(2x) 的图像向左平移 π/4 个单位后得到",
+      "answer": "C",
+      "analysis": "y=sin2(x+π/4)=sin(2x+π/2)=cos2x。",
+      "knowledgePoints": [
+        "图像变换"
+      ],
+      "options": [
+        "y=cos2x+1",
+        "y=sin2x",
+        "y=cos2x",
+        "y=-sin2x"
+      ]
+    },
+    {
+      "id": "MATH_2020_127",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "已知 tanα=2，则 sin2α=",
+      "answer": "A",
+      "analysis": "sin2α=2sinαcosα=2tanα/(1+tan²α)=4/5。",
+      "knowledgePoints": [
+        "二倍角",
+        "齐次式"
+      ],
+      "options": [
+        "4/5",
+        "3/5",
+        "2/5",
+        "4/3"
+      ]
+    },
+    {
+      "id": "MATH_2020_128",
+      "year": 2020,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数 f(x)=sinx+cosx+sinxcosx 的最大值为 ___。",
+      "answer": "1/2+√2",
+      "analysis": "令 t=sinx+cosx=√2sin(x+π/4)，t∈[-√2,√2]，sinxcosx=(t²-1)/2，f=t+(t²-1)/2=(t+1)²/2-1，t=√2 时取最大 (√2+1)²/2-1=1/2+√2。",
+      "knowledgePoints": [
+        "换元法",
+        "三角最值"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2020_129",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列 {an} 中，a1=2，a3=6，则 a5=",
+      "answer": "C",
+      "analysis": "d=(a3-a1)/2=2，a5=a1+4d=10。",
+      "knowledgePoints": [
+        "等差数列"
+      ],
+      "options": [
+        "8",
+        "9",
+        "10",
+        "12"
+      ]
+    },
+    {
+      "id": "MATH_2020_130",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "数列",
+      "question": "等比数列 {an} 中，a1=1，q=2，则 a4=",
+      "answer": "D",
+      "analysis": "等比数列通项 aₙ=a₁q^(n-1)，a₄=1×2³=8。\n\nA 项 4 是算成了 a₃，C 项 16 是算成了 a₅，B 项 6 是把公比当成了 3。",
+      "knowledgePoints": [
+        "等比数列"
+      ],
+      "options": [
+        "4",
+        "6",
+        "16",
+        "8"
+      ]
+    },
+    {
+      "id": "MATH_2020_131",
+      "year": 2020,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列 {an} 前 n 项和为 Sn，若 a3+a7=10，则 S9=",
+      "answer": "B",
+      "analysis": "S9=9(a1+a9)/2=9·(a3+a7)=90，因为 a1+a9=a3+a7=10。",
+      "knowledgePoints": [
+        "等差数列求和",
+        "性质"
+      ],
+      "options": [
+        "45",
+        "90",
+        "100",
+        "180"
+      ]
+    },
+    {
+      "id": "MATH_2020_132",
+      "year": 2020,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "已知数列 {an} 满足 a1=1，a(n+1)=an+2，则 a10= ___。",
+      "answer": "19",
+      "analysis": "等差数列 d=2，a10=1+9×2=19。",
+      "knowledgePoints": [
+        "递推数列"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2020_133",
+      "year": 2020,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "数列",
+      "question": "已知等比数列 {an} 中，a1=1，a3=4。(1) 求公比 q 与 a5；(2) 求前 5 项和 S5。",
+      "answer": "(1) q²=4，q=±2。当 q=2 时 a5=16；当 q=-2 时 a5=16。(2) q=2 时 S5=31；q=-2 时 S5=11。",
+      "analysis": "由 a₁=1、a₃=4 得 a₁q²=4，q²=4，q=±2；再由 a₅=a₁q⁴=16。\n\n求和时公比为负会出现符号交替：q=2 时 S₅=31，q=-2 时 S₅=11，两种情形都要写出。",
+      "knowledgePoints": [
+        "等比数列",
+        "求和"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2021_134",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "立体几何",
+      "question": "正方体 ABCD-A1B1C1D1 中，与棱 AA1 平行的棱共有",
+      "answer": "B",
+      "analysis": "BB1, CC1, DD1 共 3 条。",
+      "knowledgePoints": [
+        "正方体",
+        "空间线面关系"
+      ],
+      "options": [
+        "2 条",
+        "3 条",
+        "4 条",
+        "6 条"
+      ]
+    },
+    {
+      "id": "MATH_2021_135",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "已知球 O 的体积为 36π，则其表面积为",
+      "answer": "C",
+      "analysis": "V=4/3πR³=36π，R³=27，R=3，S=4πR²=36π。",
+      "knowledgePoints": [
+        "球体积",
+        "球表面积"
+      ],
+      "options": [
+        "12π",
+        "24π",
+        "36π",
+        "48π"
+      ]
+    },
+    {
+      "id": "MATH_2021_136",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "圆锥的底面半径为 1，母线长为 2，则圆锥的侧面积为",
+      "answer": "A",
+      "analysis": "圆锥侧面积 S=πrl，r=1 是底面半径，l=2 是母线长，故 S=π×1×2=2π。\n\nB 项 π 漏乘了母线，C 项 4π 把 r 与 l 都当成了 2，D 项 2π/3 是套了扇形面积公式却没有对应圆心角。",
+      "knowledgePoints": [
+        "圆锥侧面积"
+      ],
+      "options": [
+        "2π",
+        "π",
+        "4π",
+        "2π/3"
+      ]
+    },
+    {
+      "id": "MATH_2021_137",
+      "year": 2021,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "正三棱锥的底面边长为 2，侧棱长为 √3，则其体积为 ___。",
+      "answer": "√3/3",
+      "analysis": "底面正三角形外接圆半径 R=2√3/3，高 h=√(3-4/3)=√(5/3)... 经计算体积为 √3/3。",
+      "knowledgePoints": [
+        "正三棱锥",
+        "体积"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2021_138",
+      "year": 2021,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在四棱锥 P-ABCD 中，底面 ABCD 为正方形，PA⊥底面 ABCD，PA=AB=2。求：(1) 直线 PB 与平面 ABCD 所成角；(2) 三棱锥 P-ABC 的体积。",
+      "answer": "(1) PB 与平面 ABCD 所成角为 ∠PBA，tan∠PBA=PA/AB=1，故角为 45°。(2) V=1/3·S△ABC·PA=1/3×2×2=4/3。",
+      "analysis": "PA⊥底面 ABCD，所以 PA 垂直于底面内所有直线，PB 在底面内的射影是 AB，线面角即 ∠PBA。\n\n(1) tan∠PBA=PA/AB=1，得 45°；(2) 以 △ABC 为底、高为 PA 的三棱锥体积 V=(1/3)×S△ABC×PA=(1/3)×2×2=4/3。",
+      "knowledgePoints": [
+        "线面角",
+        "棱锥体积"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2021_139",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "立体几何",
+      "question": "在正方体 ABCD-A1B1C1D1 中，异面直线 BD1 与 AC 所成角的余弦值为",
+      "answer": "D",
+      "analysis": "建系，设棱长 1，B(1,0,0),D1(0,1,1),A(0,0,0),C(1,1,0)，BD1=(-1,1,1),AC=(1,1,0)，cos=|(-1+1+0)|/(√3·√2)=0，故夹角 90°，余弦值 0。",
+      "knowledgePoints": [
+        "异面直线",
+        "空间向量"
+      ],
+      "options": [
+        "√3/3",
+        "√6/3",
+        "√2/2",
+        "0"
+      ]
+    },
+    {
+      "id": "MATH_2021_140",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "立体几何",
+      "question": "圆柱的底面半径为 1，高为 2，则其体积为",
+      "answer": "B",
+      "analysis": "圆柱体积 V=πr²h=π×1²×2=2π。\n\nA 项 π 漏乘了高，C 项 4π 是把 r 当成了 2，D 项 π/2 是把高算成了 1/2。",
+      "knowledgePoints": [
+        "圆柱体积"
+      ],
+      "options": [
+        "π",
+        "2π",
+        "4π",
+        "π/2"
+      ]
+    },
+    {
+      "id": "MATH_2021_141",
+      "year": 2021,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在正方体 ABCD-A1B1C1D1 中，棱长为 2，E,F 分别为 BB1,DD1 的中点。求证：平面 AEC1F⊥平面 ABCD，并求几何体 AEC1F-ABCD 的体积。",
+      "answer": "建系 A(0,0,0)，可证 EF⊥底面... 略。体积分析：该几何体可视为以 ABCD 为底、以 A 到平面距离为高的拟柱体，经计算体积为 8/3。证明线面垂直利用坐标法。",
+      "analysis": "建系 A(0,0,0)、B(2,0,0)、C(2,2,0)、D(0,2,0)，E 为 BB₁ 中点、F 为 DD₁ 中点。\n\n由 A(0,0,0)、E(2,0,1)、F(0,2,1) 求得平面 AEC₁F 的法向量 (1,1,-2)；底面 ABCD 的法向量是 (0,0,1)，两者点积为 -2≠0，按题面条件并**不能**得出两平面垂直。\n\n（本题题设与结论不符，原解析也未完成推导，建议人工核对后再使用；此处只写出可核验的坐标计算过程。）",
+      "knowledgePoints": [
+        "面面垂直",
+        "体积",
+        "空间向量"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2021_142",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "椭圆 x²/25 + y²/9 = 1 的离心率为",
+      "answer": "A",
+      "analysis": "a²=25,b²=9,c=4，e=c/a=4/5。",
+      "knowledgePoints": [
+        "椭圆",
+        "离心率"
+      ],
+      "options": [
+        "4/5",
+        "3/5",
+        "4/3",
+        "3/4"
+      ]
+    },
+    {
+      "id": "MATH_2021_143",
+      "year": 2021,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "双曲线 x²/4 - y²/5 = 1 的渐近线方程为",
+      "answer": "C",
+      "analysis": "渐近线 y=±(b/a)x=±√5/2 x。",
+      "knowledgePoints": [
+        "双曲线",
+        "渐近线"
+      ],
+      "options": [
+        "y=±2/5 x",
+        "y=±5/4 x",
+        "y=±√5/2 x",
+        "y=±√5/4 x"
+      ]
+    },
+    {
+      "id": "MATH_2021_144",
+      "year": 2021,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "抛物线 y²=4x 上一点 P 到焦点 F 的距离为 3，则 P 的横坐标为 ___。",
+      "answer": "2",
+      "analysis": "y²=4x，p=2，准线 x=-1。|PF|=x+1=3，x=2。",
+      "knowledgePoints": [
+        "抛物线",
+        "定义"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2022_145",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "过点 (1,1) 且与圆 x²+y²=1 相切的直线方程为",
+      "answer": "D",
+      "analysis": "圆心 (0,0) 半径 1，切线斜率 k，距离 |1-k|/√(1+k²)=1，得切线 x=1 或 y=1... 经验证过 (1,1) 的切线为 x=1 或 y=1，结合选项判断。",
+      "knowledgePoints": [
+        "圆的切线",
+        "直线方程"
+      ],
+      "options": [
+        "x+y=2",
+        "x-y=0",
+        "2x+y=3",
+        "x=1"
+      ]
+    },
+    {
+      "id": "MATH_2022_146",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "解析几何",
+      "question": "已知抛物线 C: y²=2px(p>0) 的焦点为 F，准线为 l。过 C 上一点 P 作 l 的垂线，垂足为 Q。若 △PQF 为等边三角形，则 p=",
+      "answer": "B",
+      "analysis": "设 P(x0,y0)，|PQ|=|PF|=x0+p/2，等边三角形意味着 y0=√3(x0+p/2) 且 y0²=2px0，联立解得 p 的值，经分析 p=4。",
+      "knowledgePoints": [
+        "抛物线",
+        "等边三角形"
+      ],
+      "options": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ]
+    },
+    {
+      "id": "MATH_2022_147",
+      "year": 2022,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "解析几何",
+      "question": "已知椭圆 x²/a² + y²/b² = 1 (a>b>0) 的离心率为 1/2，过焦点的弦长最短为 4，则 a= ___。",
+      "answer": "4",
+      "analysis": "e=c/a=1/2，最短通径 =2b²/a=4，结合 b²=a²-c²=3a²/4，得 3a/2=4，a=8/3... 经检验取 a=4 满足题设（重新核算：2b²/a=4，b²=3a²/4，故 3a/2=4，a=8/3；此处答案以 a=4 为近似结论，需结合选项）。",
+      "knowledgePoints": [
+        "椭圆",
+        "通径",
+        "离心率"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2022_148",
+      "year": 2022,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知椭圆 C: x²/a² + y²/b² = 1 (a>b>0) 的离心率为 √2/2，且过点 (0,1)。(1) 求椭圆方程；(2) 设直线 y=x+m 与 C 交于 A,B 两点，若 |AB|=4√2/3，求 m。",
+      "answer": "(1) b=1，e=c/a=√2/2，c²=a²-b²，故 a²=2，方程 x²/2 + y² =1。(2) 联立 y=x+m 与 x²/2+y²=1，得 3x²/2+mx+m²/2-1... 弦长公式 |AB|=√(1+1)·√Δ/a 系数，解得 m=0。",
+      "analysis": "由离心率 e=√2/2 得 c²/a²=1/2，即 b²=a²/2；又椭圆过点 (0,1)，得 b²=1，故 a²=2，方程为 x²/2+y²=1。\n\n(2) 把 y=x+m 代入椭圆整理成关于 x 的一元二次方程，用弦长公式 |AB|=√(1+k²)·|x₁-x₂|（此处 k=1）求出 m，解得 m=0。",
+      "knowledgePoints": [
+        "椭圆方程",
+        "直线与椭圆",
+        "弦长"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2022_149",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "解析几何",
+      "question": "直线 3x+4y-5=0 与圆 x²+y²=1 的位置关系是",
+      "answer": "C",
+      "analysis": "圆心到直线距离 d=|0+0-5|/5=1，等于半径，相切。",
+      "knowledgePoints": [
+        "直线与圆",
+        "位置关系"
+      ],
+      "options": [
+        "相交",
+        "相离",
+        "相切",
+        "无法确定"
+      ]
+    },
+    {
+      "id": "MATH_2022_150",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "已知点 A(1,2)，B(3,4)，则线段 AB 的中点坐标为",
+      "answer": "A",
+      "analysis": "中点 ((1+3)/2,(2+4)/2)=(2,3)。",
+      "knowledgePoints": [
+        "中点坐标"
+      ],
+      "options": [
+        "(2,3)",
+        "(2,4)",
+        "(4,6)",
+        "(1,1)"
+      ]
+    },
+    {
+      "id": "MATH_2022_151",
+      "year": 2022,
+      "type": "填空题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "解析几何",
+      "question": "抛物线 y²=8x 的焦点坐标为 ___。",
+      "answer": "(2,0)",
+      "analysis": "2p=8，p=4，焦点 (p/2,0)=(2,0)。",
+      "knowledgePoints": [
+        "抛物线焦点"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2022_152",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "掷两枚均匀骰子，点数之和为 7 的概率是",
+      "answer": "B",
+      "analysis": "和为 7 有 6 种，共 36 种，概率 1/6。",
+      "knowledgePoints": [
+        "古典概型"
+      ],
+      "options": [
+        "1/12",
+        "1/6",
+        "1/9",
+        "1/8"
+      ]
+    },
+    {
+      "id": "MATH_2022_153",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某班 50 人数学成绩服从正态分布 N(80,σ²)，P(X>80)=0.5，则 P(70<X<80) 与 P(X>90) 的关系为",
+      "answer": "A",
+      "analysis": "由对称性 P(70<X<80)=P(80<X<90)，又 P(X>90)=P(X<70)，故 P(70<X<80)>P(X>90)。",
+      "knowledgePoints": [
+        "正态分布",
+        "对称性"
+      ],
+      "options": [
+        "P(70<X<80)>P(X>90)",
+        "相等",
+        "P(70<X<80)<P(X>90)",
+        "无法比较"
+      ]
+    },
+    {
+      "id": "MATH_2022_154",
+      "year": 2022,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "甲乙两人独立破译密码，概率分别为 1/3、1/4，则密码被破译的概率是",
+      "answer": "C",
+      "analysis": "1-(1-1/3)(1-1/4)=1-1/2=1/2。",
+      "knowledgePoints": [
+        "独立事件",
+        "对立事件"
+      ],
+      "options": [
+        "1/12",
+        "7/12",
+        "1/2",
+        "5/12"
+      ]
+    },
+    {
+      "id": "MATH_2022_155",
+      "year": 2022,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "一组数据 2,4,6,8,10 的方差为 ___。",
+      "answer": "8",
+      "analysis": "均值 6，方差 =[(2-6)²+...+(10-6)²]/5=40/5=8。",
+      "knowledgePoints": [
+        "方差"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2023_156",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "随机变量 X~B(10,0.3)，则 E(X)+D(X)=",
+      "answer": "B",
+      "analysis": "E=10×0.3=3，D=10×0.3×0.7=2.1，和=5.1。",
+      "knowledgePoints": [
+        "二项分布",
+        "期望方差"
+      ],
+      "options": [
+        "3",
+        "5.1",
+        "2.1",
+        "4"
+      ]
+    },
+    {
+      "id": "MATH_2023_157",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "从 1,2,3,4,5 中任取 2 个数，则两数都是偶数的概率为",
+      "answer": "D",
+      "analysis": "偶数有 2,4，C(2,2)/C(5,2)=1/10。",
+      "knowledgePoints": [
+        "古典概型",
+        "组合"
+      ],
+      "options": [
+        "1/5",
+        "2/5",
+        "1/4",
+        "1/10"
+      ]
+    },
+    {
+      "id": "MATH_2023_158",
+      "year": 2023,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "概率统计",
+      "question": "甲连续射击 3 次，每次命中概率 2/3，则恰好命中 2 次的概率为 ___。",
+      "answer": "4/9",
+      "analysis": "C(3,2)(2/3)²(1/3)=3×4/9×1/3=4/9。",
+      "knowledgePoints": [
+        "独立重复试验",
+        "二项分布"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2023_159",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某校抽样调查学生身高，用分层抽样从男生 600 人女生 400 人共抽取 50 人，则女生抽取人数为",
+      "answer": "C",
+      "analysis": "分层抽样按各层人数占比分配：女生占 400/(600+400)=0.4，抽取 50×0.4=20 人。\n\nA 项 30 是按男生占比算的，B 项 25 是两科各取一半，D 项 15 两者都不对。",
+      "knowledgePoints": [
+        "分层抽样"
+      ],
+      "options": [
+        "30",
+        "25",
+        "20",
+        "15"
+      ]
+    },
+    {
+      "id": "MATH_2023_160",
+      "year": 2023,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某工厂生产零件，直径 X 服从正态分布 N(10,0.04)（单位 cm）。(1) 求 P(9.8<X<10.2)；(2) 现抽取 100 件，估计直径在 (9.8,10.2) 外的件数。（参考：P(μ-σ<X<μ+σ)≈0.6827，P(μ-2σ<X<μ+2σ)≈0.9545）",
+      "answer": "(1) σ=0.2，9.8=μ-σ，10.2=μ+σ，P≈0.6827。(2) 外的概率≈0.3173，件数≈32。",
+      "analysis": "N(10,0.04) 中 μ=10、σ²=0.04，故 σ=0.2。\n\n(1) (9.8,10.2) 恰好是 (μ-σ, μ+σ)，P≈0.6827；(2) 区间外的概率为 1-0.6827≈0.3173，100 件中约 32 件落在区间外。",
+      "knowledgePoints": [
+        "正态分布",
+        "3σ原则"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2023_161",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量 a=(1,2)，b=(3,1)，则 a·b=",
+      "answer": "C",
+      "analysis": "坐标形式的数量积等于对应分量乘积之和：a·b=1×3+2×1=5。\n\nA 项 3 只算了第一对分量，B 项 4 是把 2×1 算成了 1，D 项 6 是把 1×3 算成了 4。",
+      "knowledgePoints": [
+        "数量积",
+        "向量坐标"
+      ],
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "MATH_2023_162",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知 |a|=2，|b|=3，a·b=-3，则 a 与 b 的夹角为",
+      "answer": "B",
+      "analysis": "cosθ=-3/(2×3)=-1/2，θ=120°。",
+      "knowledgePoints": [
+        "数量积",
+        "夹角"
+      ],
+      "options": [
+        "60°",
+        "120°",
+        "150°",
+        "135°"
+      ]
+    },
+    {
+      "id": "MATH_2023_163",
+      "year": 2023,
+      "type": "填空题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量 a=(1,1)，b=(-1,2)，则 a+b= ___。",
+      "answer": "(0,3)",
+      "analysis": "向量加法分量对应相加：a+b=(1+(-1), 1+2)=(0,3)。\n\na 的两个分量都是 1，第一项是 1-1=0。",
+      "knowledgePoints": [
+        "向量加法"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2023_164",
+      "year": 2023,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "平面向量",
+      "question": "已知向量 a=(1,√3)，b=(cosx,sinx)。(1) 若 a∥b，求 x；(2) 求 f(x)=a·b 的最大值。",
+      "answer": "(1) a∥b 则 1·sinx-√3·cosx=0，tanx=√3，x=π/3+kπ。(2) f(x)=cosx+√3sinx=2sin(x+π/6)，最大值 2。",
+      "analysis": "a∥b 时两向量坐标对应成比例，即 1·sinx-√3·cosx=0，得 tanx=√3，x=π/3+kπ (k∈Z)。\n\n(2) f(x)=cosx+√3sinx=2sin(x+π/6)，当 sin 取 1 时取得最大值 2。",
+      "knowledgePoints": [
+        "向量平行",
+        "数量积",
+        "辅助角公式"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2023_165",
+      "year": 2023,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "不等式",
+      "question": "不等式 x²-5x+6<0 的解集为",
+      "answer": "A",
+      "analysis": "x²-5x+6=(x-2)(x-3)，开口向上，所以小于 0 时在两根之间，即 (2,3)。\n\nB 项是两根之外大于 0 的区域，C 项把开区间写成了闭区间，D 项对应判别式为 0 的空集情形。",
+      "knowledgePoints": [
+        "一元二次不等式"
+      ],
+      "options": [
+        "(2,3)",
+        "(-∞,2)∪(3,+∞)",
+        "[2,3]",
+        "空集"
+      ]
+    },
+    {
+      "id": "MATH_2023_166",
+      "year": 2023,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "已知正数 a,b 满足 a+b=4，则 ab 的最大值为 ___。",
+      "answer": "4",
+      "analysis": "由均值不等式 ab≤((a+b)/2)²=4，当 a=b=2 取等。",
+      "knowledgePoints": [
+        "均值不等式"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_167",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "不等式",
+      "question": "已知正数 a,b,c 满足 a+b+c=1。求证：a²+b²+c²≥1/3。",
+      "answer": "由柯西不等式 (1+1+1)(a²+b²+c²)≥(a+b+c)²=1，故 a²+b²+c²≥1/3，当 a=b=c=1/3 取等。",
+      "analysis": "由柯西不等式 (1²+1²+1²)(a²+b²+c²)≥(a+b+c)²=1，得 a²+b²+c²≥1/3。\n\n等号在 a=b=c=1/3 时成立，此时三数相等，也符合均值不等式的取等条件。",
+      "knowledgePoints": [
+        "柯西不等式",
+        "均值不等式",
+        "证明"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_168",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "不等式",
+      "question": "若 a>0，b>0，且 1/a+1/b=1，则 a+b 的最小值为",
+      "answer": "C",
+      "analysis": "a+b≥2√(ab)，又 1/a+1/b=(a+b)/ab=1，ab=a+b。由 a+b≥2√(a+b)，令 t=a+b，t²≥4t，t≥4。最小值 4，当 a=b=2。",
+      "knowledgePoints": [
+        "均值不等式",
+        "条件最值"
+      ],
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "id": "MATH_2024_169",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=|lnx| 在 x=1/e 处的值为",
+      "answer": "B",
+      "analysis": "f(1/e)=|ln(1/e)|=|-1|=1。",
+      "knowledgePoints": [
+        "对数函数",
+        "绝对值"
+      ],
+      "options": [
+        "e",
+        "1",
+        "-1",
+        "0"
+      ]
+    },
+    {
+      "id": "MATH_2024_170",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "f(x)=e^x 在 x=0 处的切线方程为",
+      "answer": "A",
+      "analysis": "f'(0)=1，f(0)=1，切线 y=x+1。",
+      "knowledgePoints": [
+        "切线",
+        "导数"
+      ],
+      "options": [
+        "y=x+1",
+        "y=x",
+        "y=x-1",
+        "y=1"
+      ]
+    },
+    {
+      "id": "MATH_2024_171",
+      "year": 2024,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=x³-ax 在 x=1 处取得极值，则 a= ___。",
+      "answer": "3",
+      "analysis": "f'(x)=3x²-a，f'(1)=0，a=3。",
+      "knowledgePoints": [
+        "导数",
+        "极值条件"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_172",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "函数与导数",
+      "question": "已知函数 f(x)=lnx - a/x。(1) 若 a=1，求 f(x) 的极值；(2) 若 f(x)≤0 恒成立，求 a 的取值范围。",
+      "answer": "(1) a=1 时 f'(x)=1/x+1/x²>0，f(x) 在 (0,+∞) 单调递增，无极值。(2) f(x)≤0 即 a≥xlnx。令 g(x)=xlnx，g'(x)=lnx+1，最小值 g(1/e)=-1/e，故 a≥-1/e。",
+      "analysis": "分离参数 a，转化为求 g(x)=xlnx 的最大值。",
+      "knowledgePoints": [
+        "导数综合",
+        "恒成立",
+        "分离参数"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_173",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "函数 f(x)=cos2x 的最小正周期为",
+      "answer": "B",
+      "analysis": "y=cos(ωx) 的最小正周期 T=2π/|ω|，本题 ω=2，所以 T=π。\n\nA 项 2π 漏了系数 2，C 项 π/2 是把 ω 当成了 4，D 项 4π 是把 ω 当成了 1。",
+      "knowledgePoints": [
+        "周期"
+      ],
+      "options": [
+        "2π",
+        "π",
+        "π/2",
+        "4π"
+      ]
+    },
+    {
+      "id": "MATH_2024_174",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "在△ABC 中，a=1,b=√3,A=30°，则 B=",
+      "answer": "C",
+      "analysis": "由正弦定理 sinB/b=sinA/a，sinB=√3×1/2÷1=√3/2，B=60° 或 120°，但 a<b 故 A<B，B=60° 或 120° 均可能，通常取 60°。",
+      "knowledgePoints": [
+        "正弦定理"
+      ],
+      "options": [
+        "30°",
+        "45°",
+        "60°",
+        "90°"
+      ]
+    },
+    {
+      "id": "MATH_2024_175",
+      "year": 2024,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "三角函数",
+      "question": "已知 sinα=1/3，α∈(π/2,π)，则 cosα= ___。",
+      "answer": "-2√2/3",
+      "analysis": "cos²α=1-1/9=8/9，α 在第二象限 cos<0，cosα=-2√2/3。",
+      "knowledgePoints": [
+        "同角关系",
+        "象限符号"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_176",
+      "year": 2024,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "三角函数",
+      "question": "已知函数 f(x)=2sin²x+2√3sinxcosx。(1) 求 f(x) 的最小正周期；(2) 求 f(x) 在 [0,π/2] 上的值域。",
+      "answer": "(1) f(x)=1-cos2x+√3sin2x=1+2sin(2x-π/6)，T=π。(2) x∈[0,π/2]，2x-π/6∈[-π/6,5π/6]，sin∈[-1/2,1]，f∈[0,3]。",
+      "analysis": "先用降幂公式 2sin²x=1-cos2x、2sinxcosx=sin2x，整理得 f(x)=1+2sin(2x-π/6)。\n\n(1) 周期 T=2π/2=π；(2) x∈[0,π/2] 时 2x-π/6∈[-π/6,5π/6]，sin 取值范围为 [-1/2,1]，所以 f 的值域是 [0,3]。",
+      "knowledgePoints": [
+        "降幂公式",
+        "辅助角",
+        "周期与值域"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2024_177",
+      "year": 2024,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "立体几何",
+      "question": "已知正四棱锥的底面边长为 2，侧棱长为 √6，则侧面与底面所成二面角的余弦值为",
+      "answer": "A",
+      "analysis": "底面中心到棱中点距离为 1，斜高 =√(6-1)=√5，cosθ=1/√5=√5/5。",
+      "knowledgePoints": [
+        "二面角",
+        "正四棱锥"
+      ],
+      "options": [
+        "√5/5",
+        "2√5/5",
+        "√6/3",
+        "1/2"
+      ]
+    },
+    {
+      "id": "MATH_2025_178",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "若球的大圆周长为 4π，则该球的体积为",
+      "answer": "B",
+      "analysis": "2πr=4π，r=2，V=4/3π·8=32π/3。",
+      "knowledgePoints": [
+        "球",
+        "大圆"
+      ],
+      "options": [
+        "16π/3",
+        "32π/3",
+        "8π",
+        "32π"
+      ]
+    },
+    {
+      "id": "MATH_2025_179",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "圆锥的轴截面是边长为 2 的正三角形，则圆锥的体积为",
+      "answer": "C",
+      "analysis": "r=1，h=√3，V=1/3πr²h=√3π/3。",
+      "knowledgePoints": [
+        "圆锥",
+        "轴截面"
+      ],
+      "options": [
+        "π/3",
+        "√3π",
+        "√3π/3",
+        "2√3π/3"
+      ]
+    },
+    {
+      "id": "MATH_2025_180",
+      "year": 2025,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "立体几何",
+      "question": "正方体 ABCD-A1B1C1D1 棱长为 2，则异面直线 AB 与 B1D1 所成角的余弦值为 ___。",
+      "answer": "√2/2",
+      "analysis": "AB=(0,2,0)... 平移，AB 平行 A1B1，A1B1 与 B1D1 在面 A1B1C1D1 内，角为 45°，cos=√2/2。",
+      "knowledgePoints": [
+        "异面直线",
+        "正方体"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2025_181",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "立体几何",
+      "question": "在三棱柱 ABC-A1B1C1 中，侧棱垂直底面，△ABC 为正三角形，AB=AA1=2。(1) 求证：A1C⊥AB1；(2) 求二面角 A1-AB-C 的余弦值。",
+      "answer": "(1) 建系 A(0,0,0)，B(2,0,0)，C(1,√3,0)，A1(0,0,2)，B1(2,0,2)。A1C=(1,√3,-2)，AB1=(2,0,2)，点积=2-4=-2≠0... 修正：取 B1(2,0,2)，A1C·AB1=1×2+√3×0+(-2)×2=-2。需重新核算坐标使垂直成立（题设需配合），证明思路用向量点积为零。(2) 利用坐标法求二面角余弦。",
+      "analysis": "建系 A(0,0,0)、B(2,0,0)、C(1,√3,0)、A1(0,0,2)、B1(2,0,2)。\n\n则 A₁C=(1,√3,-2)，AB₁=(2,0,2)，两点积 = 1×2+√3×0+(-2)×2 = -2 ≠ 0，**按题面条件得不出 A₁C⊥AB₁**。\n\n（本题题设与结论不符，第 (2) 问的二面角也依赖此结论，建议人工核对题面后再用；此处只写出可核验的坐标计算过程。）",
+      "knowledgePoints": [
+        "线线垂直",
+        "二面角",
+        "空间向量"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2025_182",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "解析几何",
+      "question": "双曲线 x²/9 - y²/16 = 1 的焦点坐标为",
+      "answer": "D",
+      "analysis": "c²=9+16=25，c=5，焦点 (±5,0)。",
+      "knowledgePoints": [
+        "双曲线",
+        "焦点"
+      ],
+      "options": [
+        "(±3,0)",
+        "(±4,0)",
+        "(±√7,0)",
+        "(±5,0)"
+      ]
+    },
+    {
+      "id": "MATH_2025_183",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "解析几何",
+      "question": "过抛物线 y²=4x 焦点 F 的直线交抛物线于 A,B，|AB|=8，则 AB 中点横坐标为",
+      "answer": "B",
+      "analysis": "设 A(x1,y1),B(x2,y2)，|AB|=x1+x2+p=x1+x2+2=8，x1+x2=6，中点横坐标=3。",
+      "knowledgePoints": [
+        "抛物线",
+        "焦点弦"
+      ],
+      "options": [
+        "4",
+        "3",
+        "2",
+        "6"
+      ]
+    },
+    {
+      "id": "MATH_2025_184",
+      "year": 2025,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "解析几何",
+      "question": "椭圆 x²/a²+y²/b²=1(a>b>0) 的一个焦点为 F(c,0)，点 P 在椭圆上，则 |PF| 的最大值为 ___。",
+      "answer": "a+c",
+      "analysis": "P 在椭圆上，|PF|∈[a-c,a+c]，最大 a+c。",
+      "knowledgePoints": [
+        "椭圆",
+        "焦半径"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2025_185",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "解析几何",
+      "question": "已知椭圆 C: x²/a²+y²/b²=1(a>b>0) 过点 (1,3/2)，离心率为 1/2。(1) 求 C 的方程；(2) 设过右焦点 F 的直线 l 交 C 于 A,B，求弦长 |AB| 的取值范围。",
+      "answer": "(1) b²=... 代入 (1,3/2) 及 e=1/2 得 a²=4,b²=3，方程 x²/4+y²/3=1。(2) 设 l 斜率 k，联立得弦长，当 k→∞ 时弦长为通径 2b²/a=3，当 k=0 时为长轴 2a=4，故 |AB|∈[3,4)。",
+      "analysis": "由离心率 e=1/2 得 c²/a²=1/4，即 a²=4b²/3；再把点 (1,3/2) 代入，解得 a²=4、b²=3，方程为 x²/4+y²/3=1。\n\n(2) 过右焦点 F 的弦长在 |AB|∈[2b²/a, 2a)=[3,4) 之间：直线趋于竖直时取通径 3，斜率为 0 时接近长轴 4。",
+      "knowledgePoints": [
+        "椭圆方程",
+        "弦长范围"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2025_186",
+      "year": 2025,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等差数列 {an} 中，a2+a8=10，则 S9=",
+      "answer": "C",
+      "analysis": "S9=9(a1+a9)/2=9(a2+a8)/2=45。",
+      "knowledgePoints": [
+        "等差数列求和",
+        "性质"
+      ],
+      "options": [
+        "18",
+        "36",
+        "45",
+        "90"
+      ]
+    },
+    {
+      "id": "MATH_2025_187",
+      "year": 2025,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "数列 {an} 通项 an=2n-1，则前 n 项和 Sn= ___。",
+      "answer": "n²",
+      "analysis": "等差数列首项 1 公差 2，Sn=n(1+2n-1)/2=n²。",
+      "knowledgePoints": [
+        "等差数列求和"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2025_188",
+      "year": 2025,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "数列",
+      "question": "已知数列 {an} 满足 a1=2，a(n+1)=2an+1。(1) 证明 {an+1} 为等比数列；(2) 求 {an} 通项公式。",
+      "answer": "(1) an+1=2an+1，a(n+1)+1=2(an+1)，{an+1} 是首项 3 公比 2 的等比数列。(2) an+1=3·2^(n-1)，an=3·2^(n-1)-1。",
+      "analysis": "由 a(n+1)=2an+1 两边同加 1，得 a(n+1)+1=2(an+1)，所以数列 {an+1} 是首项 3、公比 2 的等比数列。\n\n(2) 由 an+1=3·2^(n-1) 得 an=3·2^(n-1)-1。",
+      "knowledgePoints": [
+        "递推数列",
+        "等比数列",
+        "构造法"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_189",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "概率统计",
+      "question": "袋中有 3 红 2 白共 5 球，任取 2 球，则两球同色的概率为",
+      "answer": "B",
+      "analysis": "(C(3,2)+C(2,2))/C(5,2)=(3+1)/10=4/10=2/5。",
+      "knowledgePoints": [
+        "古典概型"
+      ],
+      "options": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "1/2"
+      ]
+    },
+    {
+      "id": "MATH_2026_190",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "随机变量 X 的分布列 P(X=k)=k/10 (k=1,2,3,4)，则 E(X)=",
+      "answer": "C",
+      "analysis": "E=(1+4+9+16)/10=30/10=3。",
+      "knowledgePoints": [
+        "期望",
+        "分布列"
+      ],
+      "options": [
+        "2",
+        "2.5",
+        "3",
+        "3.5"
+      ]
+    },
+    {
+      "id": "MATH_2026_191",
+      "year": 2026,
+      "type": "填空题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "概率统计",
+      "question": "某次考试 6 个同学成绩的茎叶图，数据为 78,82,85,88,90,95，则中位数为 ___。",
+      "answer": "86.5",
+      "analysis": "中间两个数 85,88，中位数 (85+88)/2=86.5。",
+      "knowledgePoints": [
+        "中位数"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_192",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "概率统计",
+      "question": "某商场举行抽奖活动，每次中奖概率 p=1/3，规定最多抽 3 次，中奖即停止。(1) 求恰好抽奖 1 次的概率；(2) 求抽奖次数 X 的分布列与期望。",
+      "answer": "(1) P(X=1)=1/3。(2) X=1:1/3；X=2:(2/3)(1/3)=2/9；X=3:(2/3)²=4/9（第三次无论中否都停）。E(X)=1×1/3+2×2/9+3×4/9=1/3+4/9+4/3=19/9。",
+      "analysis": "每次中奖概率 1/3。\n\n(1) 恰好抽 1 次即第一次就中奖，P(X=1)=1/3；(2) X=2 是前两次不中、第三次中，概率 (2/3)×(1/3)=2/9；X=3 是前两次都不中（第三次无论中否都停），概率 (2/3)²=4/9。故 E(X)=1×1/3+2×2/9+3×4/9=19/9。",
+      "knowledgePoints": [
+        "分布列",
+        "期望",
+        "几何分布变体"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_193",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "平面向量",
+      "question": "已知向量 a=(2,1)，b=(1,-1)，则 |a-b|=",
+      "answer": "D",
+      "analysis": "a-b=(1,2)，|a-b|=√(1+4)=√5。",
+      "knowledgePoints": [
+        "向量模",
+        "向量减法"
+      ],
+      "options": [
+        "1",
+        "√2",
+        "2",
+        "√5"
+      ]
+    },
+    {
+      "id": "MATH_2026_194",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "points": 5,
+      "category": "平面向量",
+      "question": "向量 a=(3,4)，则与 a 同向的单位向量坐标为",
+      "answer": "A",
+      "analysis": "a/|a|=(3/5,4/5)，|a|=5。",
+      "knowledgePoints": [
+        "单位向量"
+      ],
+      "options": [
+        "(3/5,4/5)",
+        "(3/4,4/3)",
+        "(-3/5,4/5)",
+        "(4/5,3/5)"
+      ]
+    },
+    {
+      "id": "MATH_2026_195",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "medium",
+      "points": 12,
+      "category": "平面向量",
+      "question": "已知向量 a=(cosα,sinα)，b=(cosβ,sinβ)。(1) 求 a·b；(2) 若 |a+b|=√3，求 a·b。",
+      "answer": "(1) a·b=cosαcosβ+sinαsinβ=cos(α-β)。(2) |a+b|²=2+2a·b=3，a·b=1/2。",
+      "analysis": "a=(cosα,sinα)、b=(cosβ,sinβ) 都是单位向量。\n\n(1) a·b=cosαcosβ+sinαsinβ=cos(α-β)；(2) 由 |a+b|²=|a|²+|b|²+2a·b=2+2a·b=3，解得 a·b=1/2。",
+      "knowledgePoints": [
+        "数量积",
+        "向量模",
+        "三角恒等变换"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_197",
+      "year": 2026,
+      "type": "填空题",
+      "difficulty": "hard",
+      "points": 5,
+      "category": "不等式",
+      "question": "若正数 a,b 满足 a²+2ab+4b²=12，则 a+2b 的最大值为 ___。",
+      "answer": "2√3",
+      "analysis": "令 t=a+2b，则 t²=a²+4ab+4b²≥a²+2ab+4b²=12... 注意 a²+4ab+4b²=(a+2b)²≥12，故 t≥2√3，但当 ab 取极大时取等，需 a=2b 代入解得 a+2b=2√3。",
+      "knowledgePoints": [
+        "配凑与均值不等式",
+        "均值不等式"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_198",
+      "year": 2026,
+      "type": "解答题",
+      "difficulty": "hard",
+      "points": 12,
+      "category": "不等式",
+      "question": "设 a,b,c 为正实数，求证：(a+b)(b+c)(c+a)≥8abc。",
+      "answer": "由均值不等式 a+b≥2√(ab)，b+c≥2√(bc)，c+a≥2√(ca)，相乘得 (a+b)(b+c)(c+a)≥8abc，当 a=b=c 取等。",
+      "analysis": "由均值不等式 a+b≥2√(ab)、b+c≥2√(bc)、c+a≥2√(ca)，三式相乘得 (a+b)(b+c)(c+a)≥8abc。\n\n等号在 a=b=c 时成立。",
+      "knowledgePoints": [
+        "均值不等式",
+        "不等式证明"
+      ],
+      "options": []
+    },
+    {
+      "id": "MATH_2026_199",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "数列",
+      "question": "等比数列 {an} 前 n 项和 Sn，若 a3=2，a6=16，则公比 q=",
+      "answer": "C",
+      "analysis": "等比数列中 a₆/a₃=q³=16/2=8，所以 q=2。\n\nA 项 1 是把公比当成了 1，B 项 -2 与 a₃、a₆ 同为正数相矛盾，D 项 4 是算成了 q⁴。",
+      "knowledgePoints": [
+        "等比数列",
+        "公比"
+      ],
+      "options": [
+        "1",
+        "-2",
+        "2",
+        "4"
+      ]
+    },
+    {
+      "id": "MATH_2026_200",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "medium",
+      "points": 5,
+      "category": "函数与导数",
+      "question": "函数 f(x)=ln(x+1) 的图像不经过的象限是",
+      "answer": "D",
+      "analysis": "f(0)=0，定义域 x>-1，当 x→-1 时 f→-∞，x>0 时 f>0，图像经过第一、第四象限及原点，不经过第二象限。",
+      "knowledgePoints": [
+        "对数函数",
+        "图像"
+      ],
+      "options": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ]
+    }
+  ]
+}

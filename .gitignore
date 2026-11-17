@@ -26,3 +26,13 @@ build/
 .uploads/
 .trae-html-share-packages/
 *.zip
+
+# 安卓产物与密钥不入库（v1.8 P1）：
+# assets/web/ 副本由 build-apk.sh 第 0 步构建时从 1.2/ 同步生成（单一事实源）；
+# APK 通过 GitHub Release 分发（见 .github/workflows/apk-release.yml）；
+# 签名密钥只存维护者本地 / CI Secrets，任何情况下不得再入库。
+android/app/assets/web/
+android/releases/
+android/debug.keystore
+*.apk
+*.keystore

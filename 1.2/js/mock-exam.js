@@ -881,9 +881,17 @@ window.mockExam = (function() {
 
     // EXAM START / TIMER / SUBMIT
 
-    function startExam(subject) {
+    function startExam(subject, _bankRetried) {
         var config = EXAM_CONFIG[subject];
         if (!config) return;
+
+        // v1.8 题库按科懒加载：该科题目未就绪时先补载再组卷（只重试一次防死循环）
+        var eps = window.examPracticeSystem;
+        if (!_bankRetried && eps && typeof eps.ensureSubject === 'function'
+            && eps._hasQuestions && !eps._hasQuestions(subject)) {
+            eps.ensureSubject(subject).then(function () { startExam(subject, true); });
+            return;
+        }
 
         state.subject = subject;
         // buildExam 现返回 { questions, slotSummary }

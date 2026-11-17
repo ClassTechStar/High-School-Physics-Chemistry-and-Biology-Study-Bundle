@@ -22,29 +22,73 @@ const examPracticeSystem = {
 
     async init() {
         try {
-            const response = await fetch('data/exam-bank.json');
+            // v1.8：题库按学科拆分（data/exam/{subject}.json），这里只拉 index.json
+            // 清单（约 2 KB），题目按科懒加载（ensureSubject）——进题库不再首屏拉全量 1 MB
+            const response = await fetch('data/exam/index.json');
             this.examData = await response.json();
             this.loadStats();
             window.examBank = this.examData; // 供 mock-exam 等模块共享，避免各自再拉取
-            console.log('真题库加载成功:', this.examData.meta.totalQuestions + '道题目');
+            console.log('题库清单加载成功:', this.examData.meta.totalQuestions + '道题目');
         } catch (e) {
-            console.error('加载真题库失败，使用内置数据', e);
+            console.error('加载题库清单失败，使用内置数据', e);
             this.examData = this.getFallbackData();
         }
         return this.examData;
     },
 
-    // 惰性加载：首屏不拉取 1.4MB 题库，首次进入题库模块或空闲预热时才加载
+    // 惰性加载：首屏只拉清单，题目按科按需加载
     _bankPromise: null,
-    ensureLoaded() {
+    ensureIndex() {
         if (this.examData) return Promise.resolve(this.examData);
         if (!this._bankPromise) {
             this._bankPromise = this.init().catch((e) => {
-                console.error('ensureLoaded 兜底', e);
+                console.error('ensureIndex 兜底', e);
                 return (this.examData = this.examData || this.getFallbackData());
             });
         }
         return this._bankPromise;
+    },
+
+    // 按科懒加载：单科一个 JSON（约 150 KB），选了哪科拉哪科，其余科目零成本延迟
+    _subjectPromises: {},
+    ensureSubject(subject) {
+        if (this._hasQuestions(subject)) return Promise.resolve(this.examData[subject]);
+        if (!this._subjectPromises[subject]) {
+            this._subjectPromises[subject] = this.ensureIndex().then(() => {
+                if (this._hasQuestions(subject)) return this.examData[subject];
+                return fetch('data/exam/' + subject + '.json')
+                    .then((res) => {
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        return res.json();
+                    })
+                    .then((node) => {
+                        this.examData[subject] = node;
+                        return node;
+                    })
+                    .catch((e) => {
+                        console.error('加载题库失败，使用内置数据', subject, e);
+                        const fb = this.getFallbackData()[subject];
+                        if (fb) this.examData[subject] = fb;
+                        return this.examData[subject];
+                    });
+            });
+        }
+        return this._subjectPromises[subject];
+    },
+
+    // 全库就绪（随机出题/模拟考试/学习路径等需要跨科取题的场景）
+    ensureLoaded() {
+        return this.ensureIndex().then(() => Promise.all(
+            ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'].map((s) => this.ensureSubject(s))
+        )).then(() => this.examData);
+    },
+
+    _hasQuestions(subject) {
+        const node = this.examData && this.examData[subject];
+        return !!(node && (node.questions || node.exams));
+    },
+    _hasAllQuestions() {
+        return ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'].every((s) => this._hasQuestions(s));
     },
 
     getFallbackData() {
@@ -390,7 +434,7 @@ const examPracticeSystem = {
     renderExamDashboard(container) {
         if (!this.examData) {
             container.innerHTML = '<div class="no-results">📚 题库加载中，请稍候…</div>';
-            this.ensureLoaded().then(() => this.renderExamDashboard(container));
+            this.ensureIndex().then(() => this.renderExamDashboard(container));
             return;
         }
         container.innerHTML = `
@@ -534,7 +578,17 @@ const examPracticeSystem = {
 
     updateExamList() {
         this._examPage = 1;
-        this._renderExamPage();
+        const subject = document.getElementById('exam-subject-filter').value;
+        // v1.8 按科懒加载：选了哪科拉哪科；「全部学科」才拉六科。
+        // 题目已就绪时同步渲染（假 DOM 门禁依赖同步路径），未就绪先占位再补绘。
+        const ready = subject === 'all' ? this._hasAllQuestions() : this._hasQuestions(subject);
+        if (ready) {
+            this._renderExamPage();
+            return;
+        }
+        const listEl = document.getElementById('exam-list');
+        if (listEl) listEl.innerHTML = '<div class="no-results">📚 题目加载中，请稍候…</div>';
+        (subject === 'all' ? this.ensureLoaded() : this.ensureSubject(subject)).then(() => this._renderExamPage());
     },
 
     // v1.5：题库列表分页渲染（每页 50 条，避免一次性渲染全量题库）
@@ -591,7 +645,11 @@ const examPracticeSystem = {
     showExamDetail(examId) {
         const exam = this.startExam(examId);
         if (!exam) {
-            console.warn(`[showExamDetail] 找不到题目: ${examId}`);
+            // 按科懒加载下可能是深链接/搜索跳转：目标科题目尚未拉取，补载后重试
+            this.ensureLoaded().then(() => {
+                if (!this.startExam(examId)) console.warn(`[showExamDetail] 找不到题目: ${examId}`);
+                else this.showExamDetail(examId);
+            });
             return;
         }
         const detailEl = document.getElementById('exam-detail');
@@ -820,13 +878,15 @@ const examPracticeSystem = {
     },
 
     startRandomQuiz() {
-        const exams = this.getRandomExams(1,
-            document.getElementById('exam-subject-filter').value,
-            document.getElementById('exam-difficulty-filter').value
-        );
-        if (exams.length > 0) {
-            this.showExamDetail(exams[0].id);
-        }
+        const subject = document.getElementById('exam-subject-filter').value;
+        const difficulty = document.getElementById('exam-difficulty-filter').value;
+        const pick = () => {
+            const exams = this.getRandomExams(1, subject, difficulty);
+            if (exams.length > 0) this.showExamDetail(exams[0].id);
+        };
+        const ready = subject === 'all' ? this._hasAllQuestions() : this._hasQuestions(subject);
+        if (ready) pick();
+        else (subject === 'all' ? this.ensureLoaded() : this.ensureSubject(subject)).then(pick);
     },
 
     // v1.6: 首页「随机挑战一题」入口——先确保题库模块就绪并渲染，再随机出题
@@ -930,9 +990,9 @@ const examPracticeSystem = {
     }
 };
 
-// 初始化真题系统：首屏不阻塞加载，浏览器空闲时预热题库
-// 预热按网络/设备分级。弱网、省流模式、低内存设备不预热，
-// 避免首访白下 978 KB；这类设备进入题库时由 ensureLoaded() 按需加载。
+// 初始化真题系统：首屏不阻塞加载，浏览器空闲时只预热题库清单（index.json，约 2 KB）。
+// 题目按科懒加载（ensureSubject），不整库预热——选了哪科拉哪科，六科外的题零成本延迟。
+// 预热按网络/设备分级：弱网、省流模式、低内存设备连清单也不预热，进题库时按需加载。
 document.addEventListener('DOMContentLoaded', () => {
     const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     if (conn) {
@@ -942,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 2) return;
 
-    const warm = () => examPracticeSystem.ensureLoaded();
+    const warm = () => examPracticeSystem.ensureIndex();
     if (typeof requestIdleCallback === 'function') requestIdleCallback(warm, { timeout: 6000 });
     else setTimeout(warm, 3000);
 });

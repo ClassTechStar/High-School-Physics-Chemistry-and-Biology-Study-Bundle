@@ -2,6 +2,21 @@
 
 ## 未发布
 
+### 结构治理与真移动适配（v1.8.0）
+> 主轴：把「人工记得做」变成「结构上不可能错」——资产单一事实源、版本一致性门禁、Release 流水线；题库按科拆分实现懒加载；撤掉安卓桌面视口 hack，Web 与安卓共用真移动布局。
+
+- **【结构】安卓资产副本移出 git**：`android/app/assets/web/`（112 文件副本）不再入库，`1.2/` 成为唯一事实源，`build-apk.sh` 第 0 步构建时同步——「Web 更新后忘记同步副本」这类漂移从根源上不可能发生，仓库同时瘦身。
+- **【结构】APK 与签名密钥移出 git**：`android/releases/*.apk` 与 `debug.keystore` 不再入库，`.gitignore` 拦截 `*.apk`/`*.keystore`；新增 `apk-release.yml`（发布 Release 时自动构建 APK 挂附件，签名密钥走 `APK_KEYSTORE_BASE64` Secrets 注入）。android/README 新增「签名与分发」明示风险：历史里曾公开提交过旧 debug 密钥（git 历史不可抹除），正式分发必须换独立 release keystore。
+- **【结构】新增 `check:version` 版本一致性门禁**：以 `package.json` 为单一事实源，锁死 `1.2/manifest.json`（新增 version 字段）、`AndroidManifest` versionName/versionCode、`build.gradle.kts` 两处版本字面量，并要求 CHANGELOG 含当前版本条目、`sw.js` CACHE_NAME 符合 `hspcb-v<N>` 且与头注释一致；接入 verify 链与 CI。
+- **【结构】`check:asset-sync` 改造为同步演练**：按 build-apk.sh 第 0 步语义把 `1.2/` 拷到临时目录再逐文件哈希比对（CI 无需 Android SDK）；本地存在 `assets/web/` 副本时仅告警不拦截（副本是构建产物，陈旧属正常）。
+- **【结构】CI 门禁差集修复**：`verify.yml` 此前漏跑 `check:asset-sync`（v1.7.1 新增的门禁恰恰没进 CI）——补入「⑤-b 安卓资产同步演练」与「⓪ 版本一致性门禁」，本地与 CI 门禁集重新对齐。
+- **【性能】题库按学科拆分（P2）**：`data/exam-bank.json`（1001 KB 六科合一，进题库必拉全量）拆为 `data/exam/index.json`（1.7 KB 清单）+ `data/exam/{subject}.json`（六科分文件）；`app-exam.js` 改按科懒加载（`ensureIndex`/`ensureSubject`/`ensureLoaded` 三级），选了哪科拉哪科，六科外的题零成本延迟，SW 按文件缓存天然衔接。拆分后 1198 题 id 与内容逐题一致；mock-exam / 全局搜索 / 学习路径推荐同步适配（搜索索引未齐时后台补载并自动重搜）。
+- **【体验】移动端真适配（P2）**：撤掉 `AssetResponder.java` 的 `width=1280` 视口改写 hack（此前手机上靠捏合缩放看桌面排版），`responsive.css` 补齐题库仪表盘 768px 断点收拢规则（grid 子项 `min-width:0`、筛选栏全宽、卡片换行、进度条弹性）；浏览器 390px 实测首页与题库页零水平溢出。
+- **【工具】一次性修复脚本归位**：`dedupe-by-content.mjs`、`fix-answer-analysis-mismatch.mjs` 迁入 `scripts/legacy/`（面向拆分前布局的历史脚本，legacy/README 补录说明）；`scripts/lib/exam-bank.mjs` 提供拆分后题库的整库读取视图，供质检/冒烟门禁共用。
+- **【缓存】CACHE_NAME hspcb-v21 → hspcb-v22**：本轮 CSS/JS/数据均有变更，递增缓存版本使存量用户自动换新。
+- 版本 1.7.1 → **1.8.0**（package.json / PWA manifest / AndroidManifest / Gradle 四处同步，versionCode 8 → 9，`check:version` 门禁把关）。
+- **验证**：`npm run verify` 十二阶段全绿（含 121 项运行时检查、77 项冒烟）；真实浏览器全链路（题库懒加载 → 答题 → 判分 → 解析）通过，`data/exam/*.json` 七文件均 200、无 404；`build-apk.sh` 端到端构建通过（资产同步 118 文件、签名校验通过）；390px 移动视口首页/题库页布局复验通过。
+
 ### 第二轮全量 bug 排查修复（v1.7.1，聚焦 v1.5.2–v1.7.0 三批新文件）
 > 门禁基线全绿后，深度代理逐文件复查液态玻璃 / 参赛包 / 安卓端三批新增文件与既有代码集成点，确认并修复 6 处缺陷，另新增 1 道防漂移门禁。
 

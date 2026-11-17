@@ -22,6 +22,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP = join(ROOT, '1.2');
@@ -40,7 +41,7 @@ const baseCount = (key) => {
 };
 
 // ---------------------------------------------------------------- 载入题库
-const bank = JSON.parse(readFileSync(join(APP, 'data', 'exam-bank.json'), 'utf8'));
+const bank = loadExamBank(APP);
 const SUBJECTS = Object.keys(bank).filter((k) => k !== 'meta');
 const allQs = [];
 for (const s of SUBJECTS) {

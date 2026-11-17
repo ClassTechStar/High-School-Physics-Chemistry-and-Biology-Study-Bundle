@@ -25,11 +25,12 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const APP = join(ROOT, '1.2');
-const BANK = join(APP, 'data', 'exam-bank.json');
+const EXAM_INDEX = join(APP, 'data', 'exam', 'index.json'); // v1.8 拆分后题库清单
 const THES = join(APP, 'data', 'knowledgePoints-thesaurus.json');
 
 const SUBJECTS = ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'];
@@ -69,11 +70,11 @@ function collectTopics(kj) {
 }
 
 function main() {
-    if (!existsSync(BANK) || !existsSync(THES)) {
+    if (!existsSync(EXAM_INDEX) || !existsSync(THES)) {
         console.error('缺少题库或同义词表');
         process.exit(1);
     }
-    const bank = JSON.parse(readFileSync(BANK, 'utf8'));
+    const bank = loadExamBank(APP);
     const th = JSON.parse(readFileSync(THES, 'utf8'));
 
     const lines = [];
@@ -84,7 +85,7 @@ function main() {
     lines.push('');
     lines.push('## 背景');
     lines.push('');
-    lines.push('题库 `exam-bank.json` 的 `knowledgePoints` 字段与 `data/{subject}/knowledge.json` 的');
+    lines.push('题库 `data/exam/{subject}.json` 的 `knowledgePoints` 字段与 `data/{subject}/knowledge.json` 的');
     lines.push('`chapters[].topics[].name` 无法一一对应，导致错题无法归因到具体知识点，');
     lines.push('「学习路径推荐」拿不到复习条目。');
     lines.push('');

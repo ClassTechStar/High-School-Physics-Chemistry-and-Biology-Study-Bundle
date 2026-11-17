@@ -421,6 +421,17 @@ window.globalSearch = (function() {
         // 4. Exam questions
         index.exams = extractExamQuestions();
 
+        // v1.8 题库按科懒加载：索引先收录已加载的科目；未齐时后台补载，
+        // 完成后作废索引并（若搜索框仍有词）自动重搜，避免首搜漏掉题目
+        var epsBank = window.examPracticeSystem;
+        if (epsBank && typeof epsBank.ensureLoaded === 'function'
+            && !(epsBank._hasAllQuestions && epsBank._hasAllQuestions())) {
+            epsBank.ensureLoaded().then(function () {
+                state.searchIndex = null;
+                if (state.isOpen && state.query) performSearch();
+            });
+        }
+
         // 5. Cross-subject topics
         index.crossSubject = extractCrossSubjectTopics();
 

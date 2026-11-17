@@ -2,7 +2,7 @@
 // 容器 ID: learning-path-recommender-app
 // 功能：
 // 1. 加载六科 knowledge.json，构建知识点索引
-// 2. 加载 exam-bank.json，建立知识点→题目映射
+// 2. 加载题库（data/exam/ 拆分文件），建立知识点→题目映射
 // 3. 读取错题本，分析薄弱知识点
 // 4. 基于薄弱点推荐题目、模板、学习路径
 // 5. 可视化学习路径（Canvas 知识图谱）
@@ -234,10 +234,16 @@ window.learningPathRecommender = (function () {
             }).catch(function () { callback(null); });
             return;
         }
-        fetch('data/exam-bank.json').then(function (res) {
-            if (!res.ok) throw new Error('加载失败: ' + res.status);
-            return res.json();
-        }).then(function (data) {
+        // 兜底：真题系统不可用时自行按科拉取拆分文件（v1.8）并合并为整库形状
+        var SUBJ_FILES = ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'];
+        Promise.all(['index'].concat(SUBJ_FILES).map(function (name) {
+            return fetch('data/exam/' + name + '.json').then(function (res) {
+                if (!res.ok) throw new Error('加载失败: ' + res.status);
+                return res.json();
+            });
+        })).then(function (parts) {
+            var data = { meta: parts[0].meta };
+            SUBJ_FILES.forEach(function (s, i) { data[s] = parts[i + 1]; });
             examCache = data;
             buildTopicQuestionIndex();
             callback(data);

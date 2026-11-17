@@ -1,6 +1,7 @@
-# 构建产物（脚本生成；assets/web/ 有意入库使 android/ 自包含）
-android/build/
-android/app/build/
-android/.gradle/
-android/local.properties
+# 构建产物（脚本生成；v1.8 起 assets/web/ 不再入库 ——
+# 它是 build-apk.sh 第 0 步从仓库 1.2/ 同步的产物，单一事实源在 1.2/）
+build/
+app/build/
+.gradle/
+local.properties
 *.apk.idsig

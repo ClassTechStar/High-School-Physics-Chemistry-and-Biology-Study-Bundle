@@ -4,6 +4,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP = join(ROOT, '1.2');
@@ -15,7 +16,7 @@ function E(m) { errors++; console.log('E', m); }
 function W(m) { warns++; console.log('W', m); }
 
 /* exam bank deeper */
-const eb = JSON.parse(readFileSync(join(DATA, 'exam-bank.json'), 'utf8'));
+const eb = loadExamBank(APP);
 const answerIssues = [];
 const shortAnalysis = [];
 const emptyOptionsChoice = [];

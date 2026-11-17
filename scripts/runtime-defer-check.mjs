@@ -21,6 +21,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP = join(ROOT, '1.2');
@@ -325,7 +326,7 @@ ok(dclErrors.length === 0,
 {
   const sys = sandbox.examPracticeSystem;
   if (sys) {
-    const bank = JSON.parse(readFileSync(join(APP, 'data/exam-bank.json'), 'utf8'));
+    const bank = loadExamBank(APP);
     sys.examData = bank;
     sys.loadStats = () => {};
     sys.saveStats = () => {};
@@ -564,7 +565,7 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
   const sys = sandbox.examPracticeSystem;
   ok(!!sys, 'examPracticeSystem 已挂到 window');
   if (sys && typeof sys.showExamDetail === 'function') {
-    const bank = JSON.parse(readFileSync(join(APP, 'data/exam-bank.json'), 'utf8'));
+    const bank = loadExamBank(APP);
     const all = [];
     for (const k of ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english']) {
       for (const q of (bank[k] && bank[k].questions) || []) all.push(Object.assign({ subject: k }, q));

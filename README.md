@@ -6,7 +6,8 @@
 在线版：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>
 
 参赛与答辩：见 [COMPETITION.md](COMPETITION.md)（评审维度映射、三分钟演示脚本、答辩 Q&A）；作品展示页：[showcase.html](1.2/showcase.html)。
-安卓端：原生 APK（源码在 [`android/`](android/)，构建说明见 [`android/README.md`](android/README.md)）；APK 产物随仓库发布于 `android/releases/`。
+安卓端：原生 APK（源码在 [`android/`](android/)，构建说明见 [`android/README.md`](android/README.md)）；
+APK 从 [GitHub Releases](https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle/releases) 下载（二进制不入库，发布时 CI 自动构建）。
 
 ## 怎么用
 
@@ -51,15 +52,20 @@ python -m http.server 8000     # 然后打开 http://localhost:8000
 ## 目录说明
 
 ```
-1.1/    早期版本（物化生三科），只读归档，不再改
-1.2/    当前版本，所有功能在这里
+1.1/                早期版本（物化生三科），只读归档，不再改
+1.2/                当前版本，所有功能在这里
         ├── index.html     入口
-        ├── css/           样式
+        ├── css/           样式（含 css/responsive.css 移动端断点）
         ├── js/            功能脚本
-        ├── data/          知识点、题库与作息表
+        ├── data/          知识点、作息表
+        │   └── exam/      题库：index.json 清单 + {subject}.json 六科分文件
         ├── plugins/       轻插件（清单 + 入口脚本）
         └── sw.js          离线缓存
-scripts/                    数据校验等开发工具
+android/                    原生安卓壳（Kotlin/Java，build-apk.sh 免 Gradle 构建）
+scripts/                    数据校验等开发工具（npm run verify 的 12 道门禁）
+COMPETITION.md              参赛评审维度映射、演示脚本与答辩 Q&A
+ITERATION-PLAN.md           历次迭代计划与验收记录
+CHANGELOG.md                更新日志
 ```
 
 ## 改代码前
@@ -74,7 +80,9 @@ npm run verify
 
 - 进度、错题这些存在浏览器 `localStorage` 里，用 `HSPCBProgress` 或 `HSPCBStore`
   读写，别直接操作 `localStorage`（三处历史例外在 `scripts/check-lint.mjs` 里登记过）。
-- 加题目写进 `1.2/data/exam-bank.json`，每科一个 `questions` 数组。
+- 加题目写进 `1.2/data/exam/{subject}.json`（每科一个 `questions` 数组），
+  题量变化记得同步该科 `total` 与 `1.2/data/exam/index.json` 的 `meta.totalQuestions`
+  （`npm run check:data` 会交叉核对这三处）。
   `analysis` 字段写解析本身，别放「修正后」「TODO」这类草稿标记。
 - 样式改动如果涉及颜色，尽量用 `css/tokens.css` 里已有的变量，明暗主题会一起生效。
 - 模板里不要写 `onclick=` 和 `style=`（CSP 禁止），用 `data-call` / `data-hook` 事件委托

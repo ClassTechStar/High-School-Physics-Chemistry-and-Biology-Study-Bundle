@@ -1,8 +1,8 @@
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v21（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v22（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 
-var CACHE_NAME = 'hspcb-v21';
+var CACHE_NAME = 'hspcb-v22';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -123,7 +123,13 @@ var DEFERRED_ASSETS = [
 // 消费方（对应功能跑的是 js/ 内硬编码数据），已归档至 data/_archive/ 并从本清单移除；
 // knowledgePoints-thesaurus.json 已由 learning-path-recommender.js 接线（），保留。
 var DATA_ASSETS = [
-    'data/exam-bank.json',
+    'data/exam/index.json',
+    'data/exam/physics.json',
+    'data/exam/chemistry.json',
+    'data/exam/biology.json',
+    'data/exam/math.json',
+    'data/exam/chinese.json',
+    'data/exam/english.json',
     'data/framework-questions.json',
     'data/answer-templates.json',
     'data/cross-subject.json',

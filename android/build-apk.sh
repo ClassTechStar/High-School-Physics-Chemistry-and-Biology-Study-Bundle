@@ -3,7 +3,7 @@
 # build-apk.sh — HSPCB 安卓端一键构建（免 Gradle/AGP）
 # 依赖：JDK 11+（javac/keytool）、Android SDK（platforms;android-34 +
 #       build-tools 36.0.0）、python3（打包 zip）。零 Maven 依赖。
-# 产物：releases/HSPCB-v<ver>-debug.apk（debug 签名，见 android/debug.keystore）
+# 产物：releases/HSPCB-v<ver>-debug.apk（签名密钥见 android/README.md「签名与分发」）
 # 用法：cd android && bash build-apk.sh
 # ============================================================
 set -euo pipefail
@@ -62,16 +62,20 @@ echo "   assets/web: $(find app/assets/web -type f | wc -l) 个文件"
 # 注意：assets 必须与 1.2/ 字节一致（scripts/check-asset-sync.mjs 会比对哈希）。
 # 安卓端要的桌面视口由 AssetResponder 在返回 index.html 时改写，不落盘。
 
-# ---------- 1. debug keystore（项目内固定，保证升级安装签名一致） ----------
-KEYSTORE="debug.keystore"
+# ---------- 1. 签名密钥（不入库，见 android/README.md「签名与分发」） ----------
+# HSPCB_KEYSTORE 可指定正式签名密钥；缺省用本地 debug.keystore（gitignored）。
+# 注意：旧 debug.keystore 曾入库公开，历史不可抹除 —— 正式分发必须换独立
+# release keystore 并经 Secrets 注入（apk-release.yml 读 APK_KEYSTORE_BASE64）。
+KEYSTORE="${HSPCB_KEYSTORE:-debug.keystore}"
 if [ ! -f "$KEYSTORE" ]; then
-  echo "── [1/7] 生成项目 debug keystore（入库，仅用于本应用测试签名）"
+  echo "── [1/7] 生成本地 debug keystore（gitignored，仅用于测试签名）"
+  echo "   ⚠ 仅保证本机后续构建的升级签名一致；正式分发请用独立 release keystore"
   "$KEYTOOL" -genkeypair -v \
     -keystore "$KEYSTORE" -storepass android -keypass android \
     -alias androiddebug -keyalg RSA -keysize 2048 -validity 10000 \
     -dname "CN=HSPCB Debug, OU=ClassTechStar, O=ClassTechStar, L=GD, C=CN" >/dev/null 2>&1
 else
-  echo "── [1/7] 复用已有 debug.keystore"
+  echo "── [1/7] 复用已有签名密钥: $KEYSTORE"
 fi
 
 # ---------- 2. 编译资源 ----------

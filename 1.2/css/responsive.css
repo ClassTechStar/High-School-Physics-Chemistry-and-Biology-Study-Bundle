@@ -3,7 +3,9 @@
    原位置：index.html L21-35（15 行，768px 响应式媒体查询）
    加载序：tokens.css → style.css → theme-dark.css → responsive.css
            → chinese-knowledge.css（接替原内联块的层叠地位）
-   本文件为纯移动：规则内容与原块逐字节一致（仅新增本头注释）
+   本文件为纯移动补充层：前 12 条规则与原内联块逐字节一致；
+   v1.8 起新增题库仪表盘的窄屏收拢规则（撤掉安卓 width=1280 视口
+   hack 后，768px 断点需独立接住手机宽度）
    ============================================================ */
 @media (max-width: 768px) {
   .subject-nav { flex-wrap: wrap; gap: 4px; }
@@ -17,4 +19,26 @@
   .container { padding: 8px; }
   .main-header h1 { font-size: 20px; }
   .theme-toggle { width: 36px; height: 36px; font-size: 16px; bottom: 12px; right: 12px; }
+
+  /* v1.8 真移动布局：题库仪表盘收拢（此前靠安卓端 width=1280 桌面视口绕过，
+     撤掉后 768px 断点必须自己接住窄屏，否则统计面板/筛选栏横向溢出被 clip 裁掉） */
+  .dashboard-grid > * { min-width: 0; }
+  .stats-panel, .practice-area { min-width: 0; padding: var(--space-4); }
+  .overall-score { padding: var(--space-4) var(--space-3); }
+  .score-circle { width: 96px; height: 96px; }
+  .score-circle::before { width: 74px; height: 74px; }
+  .score-number { font-size: 2rem; }
+  .subject-score-item { flex-wrap: wrap; }
+  .score-bar-container { width: auto; flex: 1 1 120px; min-width: 0; }
+  .score-bar { min-width: 0; flex: 1; }
+  .quick-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+  .qs-num { font-size: 1.25rem; }
+  .filter-bar { gap: var(--space-2); }
+  .filter-bar select { flex: 1 1 100%; min-width: 0; }
+  .filter-bar .btn-random-exam { flex: 1 1 100%; }
+  .exam-item { flex-wrap: wrap; gap: var(--space-2); padding: var(--space-3); min-width: 0; }
+  .exam-question-preview { flex: 1 1 100%; min-width: 0; }
+  .exam-detail-content { min-width: 0; }
+  .question-passage-box, .subjective-box { padding: var(--space-3); }
+  .options-box .option-label { min-width: 0; }
 }

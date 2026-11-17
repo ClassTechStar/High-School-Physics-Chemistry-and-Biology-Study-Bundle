@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: ⓪ 版本一致性门禁
+        run: npm run check:version
       - name: ① 数据与题库结构质检
         run: npm run check:data
       - name: ② 全局声明碰撞扫描（真的会失败）
@@ -39,6 +41,8 @@ jobs:
         run: npm run check:content
       - name: ⑤ defer 时序运行时复现
         run: npm run check:runtime
+      - name: ⑤-b 安卓资产同步演练
+        run: npm run check:asset-sync
       - name: ⑥ 进度存储单测
         run: npm test
       - name: ⑦ 功能冒烟
@@ -61,11 +65,11 @@ jobs:
       - name: 自检 B · 内容门禁能否检出解析/答案矛盾
         run: |
           set -e
-          cp 1.2/data/exam-bank.json /tmp/bank.bak
+          cp 1.2/data/exam/physics.json /tmp/bank.bak
           node -e "
-            const fs=require('fs');const p='1.2/data/exam-bank.json';
+            const fs=require('fs');const p='1.2/data/exam/physics.json';
             const b=JSON.parse(fs.readFileSync(p,'utf8'));
-            const q=b.physics.questions[0];
+            const q=b.questions[0];
             const other='ABCD'.split('').filter(c=>c!==String(q.answer).toUpperCase())[0];
             q.analysis='故应选'+other+'。'+q.analysis;
             fs.writeFileSync(p,JSON.stringify(b));
@@ -73,7 +77,7 @@ jobs:
           rc=0
           npm run check:data >/dev/null 2>&1 || rc=1
           npm run check:content >/dev/null 2>&1 || rc=1
-          cp /tmp/bank.bak 1.2/data/exam-bank.json
+          cp /tmp/bank.bak 1.2/data/exam/physics.json
           if [ "$rc" = "0" ]; then
             echo "::error::解析/答案矛盾未被任何门禁检出 —— P0-1 防回归失效"
             exit 1

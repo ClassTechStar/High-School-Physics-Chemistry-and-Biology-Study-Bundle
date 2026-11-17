@@ -23,13 +23,14 @@
  * node scripts/balance-answers.mjs # dry-run，只报告
  * node scripts/balance-answers.mjs --apply # 实际写入
  */
-import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const APPLY = process.argv.includes('--apply');
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const BANK = resolve(ROOT, '1.2/data/exam-bank.json');
+// v1.8 起题库按学科拆分：data/exam/{subject}.json，逐科读写
+const EXAM_DIR = resolve(ROOT, '1.2/data/exam');
 
 const SUBJECTS = ['physics', 'chemistry', 'biology', 'math', 'chinese', 'english'];
 
@@ -144,16 +145,16 @@ function balance(list, target) {
 }
 
 function main() {
-    const data = JSON.parse(readFileSync(BANK, 'utf8'));
-    const subjects = SUBJECTS.filter((s) => data[s]);
-
     console.log('=== T1-3 / P0-2 选择题答案分布均衡（按学科分桶）===');
     console.log(`模式: ${APPLY ? 'APPLY（会写文件）' : 'dry-run（只读）'}\n`);
     console.log('  学科        可换位  换位  均衡后分布             最大占比');
 
     let grand = 0;
-    for (const subj of subjects) {
-        const list = data[subj].questions || data[subj].exams || [];
+    for (const subj of SUBJECTS) {
+        const file = join(EXAM_DIR, `${subj}.json`);
+        if (!existsSync(file)) continue;
+        const data = JSON.parse(readFileSync(file, 'utf8'));
+        const list = data.questions || data.exams || [];
         const eligible = list.filter(isEligible);
         const n = eligible.length;
         const target = Math.round(n / 4);
@@ -166,6 +167,13 @@ function main() {
         if (!APPLY && n) {
             console.log(`             （换位前 ${JSON.stringify(before)} → 目标 ${target}）`);
         }
+
+        if (APPLY && changed) {
+            // 换位后同步各科 total（题量未变，仅兜底）
+            if (Number(data.total) !== list.length) data.total = list.length;
+            writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+            console.log(`             ✓ 已写入 ${file}`);
+        }
     }
 
     console.log('');
@@ -173,17 +181,7 @@ function main() {
         console.log(`[dry-run] 计划换位 ${grand} 题，未写入任何文件。确认无误后加 --apply 执行。`);
         return;
     }
-    if (!grand) {
-        console.log('✓ 分布已均衡，无需换位');
-        return;
-    }
-    // 换位后同步各科 total（题量未变，仅兜底）
-    for (const subj of subjects) {
-        const list = data[subj].questions || data[subj].exams || [];
-        if (Number(data[subj].total) !== list.length) data[subj].total = list.length;
-    }
-    writeFileSync(BANK, JSON.stringify(data, null, 2), 'utf8');
-    console.log(`✓ 已写入 ${BANK}（共换位 ${grand} 题）`);
+    console.log(grand ? `✓ 共换位 ${grand} 题` : '✓ 分布已均衡，无需换位');
 }
 
 main();

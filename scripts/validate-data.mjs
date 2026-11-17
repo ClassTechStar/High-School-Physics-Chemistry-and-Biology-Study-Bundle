@@ -12,6 +12,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadExamBank } from './lib/exam-bank.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -213,32 +214,32 @@ function contentFingerprint(q) {
 
 function validateQuestion(q, subject, index, stats) {
   const id = q.id || `${subject}#${index}`;
-  const tag = `exam-bank.${subject}[${index}](${id})`;
+  const tag = `exam.${subject}[${index}](${id})`;
 
-  if (!isNonEmptyString(q.id)) error('exam-bank.json', `${tag}: 缺少 id`, id);
-  if (!isNonEmptyString(q.question)) error('exam-bank.json', `${tag}: 题干为空`, id);
+  if (!isNonEmptyString(q.id)) error('exam/' + subject + '.json', `${tag}: 缺少 id`, id);
+  if (!isNonEmptyString(q.question)) error('exam/' + subject + '.json', `${tag}: 题干为空`, id);
   if (!isNonEmptyString(q.answer) && !(Array.isArray(q.answer) && q.answer.length)) {
-    error('exam-bank.json', `${tag}: answer 缺失`, id);
+    error('exam/' + subject + '.json', `${tag}: answer 缺失`, id);
   }
 
   const opts = q.options;
   if (opts != null) {
     if (!Array.isArray(opts)) {
-      error('exam-bank.json', `${tag}: options 必须为数组`, id);
+      error('exam/' + subject + '.json', `${tag}: options 必须为数组`, id);
     } else if (isChoiceType(q.type)) {
       if (opts.length < 2 || opts.length > 6) {
-        error('exam-bank.json', `${tag}: 选择题 options 数量异常 (${opts.length})`, id);
+        error('exam/' + subject + '.json', `${tag}: 选择题 options 数量异常 (${opts.length})`, id);
       }
       if (isNonEmptyString(q.answer)) {
         const a = q.answer.trim().toUpperCase();
         const letters = opts.map((_, i) => String.fromCharCode(65 + i));
         if (!letters.includes(a) && !/^[0-9]+$/.test(a)) {
-          error('exam-bank.json', `${tag}: 选择题答案 "${q.answer}" 不在选项域 ${letters.join('/')}`, id);
+          error('exam/' + subject + '.json', `${tag}: 选择题答案 "${q.answer}" 不在选项域 ${letters.join('/')}`, id);
         }
         if (/^[0-9]+$/.test(a)) {
           const idx = Number(a);
           if (idx < 0 || idx >= opts.length) {
-            error('exam-bank.json', `${tag}: 答案下标 ${a} 越界`, id);
+            error('exam/' + subject + '.json', `${tag}: 答案下标 ${a} 越界`, id);
           }
         }
       }
@@ -249,7 +250,7 @@ function validateQuestion(q, subject, index, stats) {
   if (q.analysis != null && isNonEmptyString(q.analysis)) {
     for (const re of INTERNAL_NOTE_PATTERNS) {
       if (re.test(q.analysis)) {
-        error('exam-bank.json', `${tag}: 解析含内部备注模式 ${re}`, id);
+        error('exam/' + subject + '.json', `${tag}: 解析含内部备注模式 ${re}`, id);
         stats.internalNote += 1;
         break;
       }
@@ -269,7 +270,7 @@ function validateQuestion(q, subject, index, stats) {
       const wrong = [...new Set(cited.filter((c) => c !== ansLetter))];
       if (wrong.length) {
         error(
-          'exam-bank.json',
+          'exam/' + subject + '.json',
           `${tag}: 解析声明了与 answer=${ansLetter} 冲突的答案字母 ${wrong.join('/')}`,
           id,
         );
@@ -281,7 +282,7 @@ function validateQuestion(q, subject, index, stats) {
   if (q.year != null) {
     const y = Number(q.year);
     if (!Number.isFinite(y) || y < 2000 || y > 2100) {
-      warn('exam-bank.json', `${tag}: year 异常 (${q.year})`, id);
+      warn('exam/' + subject + '.json', `${tag}: year 异常 (${q.year})`, id);
     }
   }
 
@@ -289,21 +290,26 @@ function validateQuestion(q, subject, index, stats) {
     const d = String(q.difficulty).toLowerCase();
     const ok = ['easy', 'medium', 'hard', '基础', '中等', '较难', '困难', '1', '2', '3'];
     if (!ok.some((k) => d.includes(k) || d === k)) {
-      warn('exam-bank.json', `${tag}: difficulty 非常规值 "${q.difficulty}"`, id);
+      warn('exam/' + subject + '.json', `${tag}: difficulty 非常规值 "${q.difficulty}"`, id);
     }
   }
 
   if (q.knowledgePoints != null && !Array.isArray(q.knowledgePoints)) {
-    warn('exam-bank.json', `${tag}: knowledgePoints 应为数组`, id);
+    warn('exam/' + subject + '.json', `${tag}: knowledgePoints 应为数组`, id);
   }
 
   stats.total += 1;
 }
 
 function validateExamBank() {
-  const rel = 'exam-bank.json';
-  const data = readJson(rel);
-  if (!data) return null;
+  const rel = 'data/exam';
+  let data;
+  try {
+    data = loadExamBank(join(ROOT, '1.2'));
+  } catch (e) {
+    error(rel, `题库读取失败（index.json / {subject}.json 拆分文件）: ${e.message}`);
+    return null;
+  }
 
   if (!data.meta) warn(rel, '缺少 meta');
   if (!Array.isArray(data.meta?.subjects)) warn(rel, 'meta.subjects 缺失');

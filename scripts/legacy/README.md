@@ -15,6 +15,11 @@
 | `enrich-short-analyses.mjs` | 批量生成模板化解析 —— 正是 P1-7「105 道模板解析」的成因 |
 | `polish-analyses.mjs` | 解析润色。批量改写解析正文，可能破坏 P0-1 已修好的答案字母引用 |
 
+> v1.8 补录：`dedupe-by-content.mjs`（T11 内容去重）与 `fix-answer-analysis-mismatch.mjs`
+> （T8 换位修复）同属一次性数据修复脚本，自 scripts/ 顶层迁入。它们面向**拆分前**的
+> 单文件 `exam-bank.json` 布局（v1.8 起为 `data/exam/{subject}.json`），无熔断保护，
+> 仅作历史留档，不要在当前布局上执行。
+
 ## 熔断保护
 
 所有脚本均已改造为：
