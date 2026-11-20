@@ -12,6 +12,8 @@
 - **修复（自测发现）**：多附件 Release 的 APK 选择改为「文件名含 tag 版本串且最后上传者优先」——beta 验证附件（人工签名）与 CI 构建附件（一次性密钥）并存时选中可覆盖安装的那个；JS/Java 双端实现。
 - **新增测试** `scripts/test-update-check.mjs`（14 项，入 npm test 链）：stub XHR 覆盖多源回退顺序 / asset 选择 / isNewer 边界 / 并发共享。
 - **门禁**：`check:version` 新增 `index.html data-app-version` 断言（本轮发现的版本漂移缺口：该属性是 update-check 的本地版本依据，此前停留在 1.6.0 无人校验）。
+- **发布工程**：新增 `scripts/publish-release.py`（创建 Release / 上传 APK 附件 / 删除，指数退避重试，token 经 git credential）；`apk-release.yml` 的 CI 构建修复（`set -u` 下 Windows 变量 unbound，runner 实测失败后修复并已推送）。
+- **验证**：逻辑单测 14 项全绿；真网数据链验证通过（GH API latest=v1.8.1、asset 选择避让、APK 下载地址 HEAD 200/7.3MB、beta release 发现新版→删除回退 latest）；真机/模拟器安装器端到端因设备断开与镜像故障未跑完，待真机重连补验。
 - 版本 1.8.0 → **1.8.1**（四处字面量 + data-app-version）。
 
 ### 结构治理与真移动适配（v1.8.0）

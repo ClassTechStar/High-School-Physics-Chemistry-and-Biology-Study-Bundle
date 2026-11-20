@@ -6,7 +6,7 @@
 在线版：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>
 
 参赛与答辩：见 [COMPETITION.md](COMPETITION.md)（评审维度映射、三分钟演示脚本、答辩 Q&A）；作品展示页：[showcase.html](1.2/showcase.html)。
-安卓端：原生 APK（源码在 [`android/`](android/)，构建说明见 [`android/README.md`](android/README.md)）；
+安卓端：原生 APK；**检查更新**内置：启动静默检查（24h 频控）+ 设置 → 通用「检查更新」按钮，更新源默认 GitHub Release（Gitee 回退），安卓端应用内下载 APK 并唤起系统安装器（工具：`scripts/publish-release.py`）（源码在 [`android/`](android/)，构建说明见 [`android/README.md`](android/README.md)）；
 APK 从 [GitHub Releases](https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle/releases) 下载（二进制不入库，发布时 CI 自动构建）。
 
 ## 怎么用
