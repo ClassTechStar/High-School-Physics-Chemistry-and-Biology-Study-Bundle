@@ -7,7 +7,7 @@
        不受本文件位置影响；本文件为纯移动，规则内容与原块逐字节一致。
    ============================================================ */
 .chinese-knowledge {
-    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    font-family: MiSans, "Microsoft YaHei", sans-serif;
     line-height: 1.8;
     color: #444;
     background: #f8fafc;

@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: MiSans, "Microsoft YaHei", sans-serif;
     background: #171b1d;
     min-height: 100vh;
     color: #e6e3dc;

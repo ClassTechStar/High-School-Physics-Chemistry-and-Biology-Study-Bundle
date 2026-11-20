@@ -26,7 +26,7 @@
 
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-family: MiSans, "Microsoft YaHei", sans-serif;
     background: var(--sc-bg);
     color: var(--sc-text);
     line-height: 1.65;

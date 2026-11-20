@@ -719,7 +719,7 @@ main {
 
 /* 数学/英语知识体系面板：原 2 处静态 padding/font-family/background/border-radius
    与 2 处 h2 标题色（#3b82f6 / #8b5cf6）。 */
-.knowledge-panel { padding: var(--space-5); font-family: 'Microsoft YaHei', sans-serif; border-radius: var(--radius-lg); }
+.knowledge-panel { padding: var(--space-5); font-family: MiSans, "Microsoft YaHei", sans-serif; border-radius: var(--radius-lg); }
 .knowledge-panel--math { background: var(--panel-math-bg); }
 .knowledge-panel--math h2 { color: var(--panel-math-title); }
 .knowledge-panel--english { background: var(--panel-english-bg); }

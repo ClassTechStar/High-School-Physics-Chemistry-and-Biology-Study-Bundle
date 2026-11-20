@@ -1,3 +1,10 @@
+@font-face {
+    font-family: MiSans;
+    src: url("../fonts/MiSans-Normal.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 /* ============================================================
    tokens.css — HSPCB 共享设计令牌（CSS变量）
    三套CSS共享的变量定义，确保视觉色系统一
@@ -58,7 +65,7 @@
     --radius-full: 9999px;
 
     /* 字体 */
-    --font-sans: "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+    --font-sans: "MiSans", "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
     --font-mono: "Consolas", "Courier New", monospace;
 
     /* 阴影 */
@@ -79,7 +86,7 @@
     --rule-strong: rgba(28, 39, 51, 0.28);
     --paper-grain: rgba(28, 39, 51, 0.022);
     --ink-accent: #b4453c;
-    --font-display: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, serif;
+    --font-display: "MiSans", "Songti SC", "Noto Serif CJK SC", Georgia, serif;
     --step-label: 0.75rem;
     --step-lede: 1.0625rem;
     --tag-math-bg: #dbeafe;
