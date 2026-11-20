@@ -8,6 +8,9 @@
 - **安卓端真自动更新**：`UpdateManager`（Java，零依赖 org.json）拉 GitHub Release → 版本比较（isNewer）→ 发现新版弹原生 AlertDialog → 确认后后台下载 APK（进度 toast）→ `MiniFileProvider`（手写最小 content:// 提供器，零 androidx）以 `FLAG_GRANT_READ_URI_PERMISSION` 唤起系统安装器；`REQUEST_INSTALL_PACKAGES` 权限声明。启动静默检查 24h 频控（SharedPreferences）。
 - **原生桥**：`HSPCBNative`（addJavascriptInterface，仅本资产域页面可调）暴露 getVersion/checkUpdate/downloadUpdate，结果经 `window.__hspcbUpdateResult` 回调由 update-check.js 统一消费。
 - **CSP**：`connect-src` 精确放行四个更新源域（api.github.com / raw.githubusercontent.com / gitee.com / raw.giteeusercontent.com），其余保持 'self'。
+- **修复（自测发现）**：启动自动检查（autoCheck）与用户手动检查并发时，`checking` 守卫把手动请求短路成空对象——改为共享进行中的 Promise（同一检查只跑一次、结果人人可得）。
+- **修复（自测发现）**：多附件 Release 的 APK 选择改为「文件名含 tag 版本串且最后上传者优先」——beta 验证附件（人工签名）与 CI 构建附件（一次性密钥）并存时选中可覆盖安装的那个；JS/Java 双端实现。
+- **新增测试** `scripts/test-update-check.mjs`（14 项，入 npm test 链）：stub XHR 覆盖多源回退顺序 / asset 选择 / isNewer 边界 / 并发共享。
 - **门禁**：`check:version` 新增 `index.html data-app-version` 断言（本轮发现的版本漂移缺口：该属性是 update-check 的本地版本依据，此前停留在 1.6.0 无人校验）。
 - 版本 1.8.0 → **1.8.1**（四处字面量 + data-app-version）。
 
