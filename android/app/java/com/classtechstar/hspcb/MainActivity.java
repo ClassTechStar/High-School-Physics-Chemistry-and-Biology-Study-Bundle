@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,11 +21,33 @@ import android.webkit.WebViewClient;
  * https 语义下 localStorage / fetch / Web Speech 均正常，全程无网络请求。
  *
  * 原生职责：生命周期、系统返回键映射 WebView 后退、外部链接移交系统浏览器、
- * 随系统明暗的主题（values-night）。
+ * 随系统明暗的主题（values-night）、检查更新与自动更新（v1.8.1：HSPCBNative JS 桥）。
  */
 public class MainActivity extends Activity {
 
     private WebView webView;
+
+    /** 暴露给页面的原生能力（仅本资产域页面可调）。 */
+    private class NativeBridge {
+
+        @JavascriptInterface
+        public String getVersion() {
+            return UpdateManager.localVersion(MainActivity.this);
+        }
+
+        /** 异步检查；结果经 window.__hspcbUpdateResult(json) 回调页面。 */
+        @JavascriptInterface
+        public void checkUpdate() {
+            UpdateManager.check(MainActivity.this, webView, false);
+        }
+
+        /** 下载 apkUrl 并唤起系统安装器。 */
+        @JavascriptInterface
+        public void downloadUpdate() {
+            String url = UpdateManager.lastApkUrl();
+            UpdateManager.downloadAndInstall(MainActivity.this, url);
+        }
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -73,6 +96,10 @@ public class MainActivity extends Activity {
                 return super.shouldInterceptRequest(view, request);
             }
         });
+
+        // v1.8.1：原生桥（检查更新/下载更新）+ 启动静默检查（24h 频控）
+        webView.addJavascriptInterface(new NativeBridge(), "HSPCBNative");
+        UpdateManager.autoCheck(this);
 
         String url = "https://" + AssetResponder.HOST + "/index.html";
         if (savedInstanceState != null) {

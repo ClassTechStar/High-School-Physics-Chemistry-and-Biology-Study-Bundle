@@ -1,0 +1,6 @@
+{
+  "version": "1.8.1",
+  "notes": "检查更新与自动更新：双端可从 GitHub Release 检查新版本；安卓端支持应用内下载 APK 并唤起系统安装器。",
+  "apk": "HSPCB-v1.8.1-debug.apk",
+  "updated": "2026-11-20"
+}

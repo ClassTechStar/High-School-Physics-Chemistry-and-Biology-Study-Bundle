@@ -82,6 +82,43 @@ window.HSPCBSettingsUI = (function () {
             function (v) { window.HSPCBTheme && HSPCBTheme.setPack(v); }));
         frag.appendChild(rPack);
 
+        // v1.8.1 检查更新：双端统一入口（浏览器提示刷新/开发布页；安卓下载 APK 唤起安装器）
+        var updCard = el('div', 'hspcb-card');
+        updCard.appendChild(el('div', 'hspcb-row-label', '检查更新'));
+        updCard.appendChild(el('div', 'hspcb-row-hint', '更新源：GitHub Release（Gitee 回退）。当前版本 ' + HSPCBUpdate.currentVersion() + '。'));
+        var updStatus = el('div', 'hspcb-muted', '尚未检查');
+        var updActions = el('div', 'hspcb-entry-row');
+        var updBtn = btn('检查更新', 'hspcb-btn-primary', function () {
+            updBtn.disabled = true;
+            updStatus.textContent = '正在检查…';
+            window.HSPCBUpdate.check(true).then(function (r) {
+                updBtn.disabled = false;
+                if (!r || (r.ok === false && !r.hasUpdate)) {
+                    updStatus.textContent = '检查失败：' + (r && r.error || '无法访问更新源');
+                    return;
+                }
+                updStatus.textContent = '当前 ' + r.localVersion + (r.hasUpdate
+                    ? ' · 发现新版本 ' + r.version + '（' + r.source + '）'
+                    : ' · 已是最新（' + r.source + '）');
+                if (r.hasUpdate && HSPCBUpdate.isNative()) {
+                    var dl = el('button', 'hspcb-btn hspcb-btn-primary', '下载并安装');
+                    dl.type = 'button';
+                    dl.addEventListener('click', function () { HSPCBUpdate.downloadApk(); });
+                    updActions.appendChild(dl);
+                } else if (r.hasUpdate && r.releaseUrl) {
+                    var open = el('a', 'hspcb-btn', '打开发布页');
+                    open.href = r.releaseUrl;
+                    open.target = '_blank';
+                    open.rel = 'noopener';
+                    updActions.appendChild(open);
+                }
+            });
+        });
+        updActions.appendChild(updBtn);
+        updCard.appendChild(updActions);
+        updCard.appendChild(updStatus);
+        frag.appendChild(updCard);
+
         // v1.6 评委演示模式：一键填充示例学习数据，注入前自动快照
         var demoCard = el('div', 'hspcb-card');
         demoCard.appendChild(el('div', 'hspcb-row-label', '评委演示模式'));

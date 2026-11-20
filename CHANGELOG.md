@@ -2,6 +2,15 @@
 
 ## 未发布
 
+### 检查更新与自动更新（v1.8.1，更新源默认 GitHub Release）
+- **双端统一入口** `1.2/js/update-check.js`（`HSPCBUpdate`）：多源按序回退 —— GitHub Releases API → Gitee Releases API → GitHub raw 清单 → Gitee raw 清单（`1.2/update-manifest.json`）；24h 频控存 settings.update.lastCheck，手动检查跳过。设置 → 通用 新增「检查更新」卡片（当前版本 / 检查状态 / 「打开发布页」或「下载并安装」）。
+- **浏览器 / PWA**：发现新版经通知中心提示并可打开发布页；GitHub Pages 部署即最新代码，刷新即得。
+- **安卓端真自动更新**：`UpdateManager`（Java，零依赖 org.json）拉 GitHub Release → 版本比较（isNewer）→ 发现新版弹原生 AlertDialog → 确认后后台下载 APK（进度 toast）→ `MiniFileProvider`（手写最小 content:// 提供器，零 androidx）以 `FLAG_GRANT_READ_URI_PERMISSION` 唤起系统安装器；`REQUEST_INSTALL_PACKAGES` 权限声明。启动静默检查 24h 频控（SharedPreferences）。
+- **原生桥**：`HSPCBNative`（addJavascriptInterface，仅本资产域页面可调）暴露 getVersion/checkUpdate/downloadUpdate，结果经 `window.__hspcbUpdateResult` 回调由 update-check.js 统一消费。
+- **CSP**：`connect-src` 精确放行四个更新源域（api.github.com / raw.githubusercontent.com / gitee.com / raw.giteeusercontent.com），其余保持 'self'。
+- **门禁**：`check:version` 新增 `index.html data-app-version` 断言（本轮发现的版本漂移缺口：该属性是 update-check 的本地版本依据，此前停留在 1.6.0 无人校验）。
+- 版本 1.8.0 → **1.8.1**（四处字面量 + data-app-version）。
+
 ### 结构治理与真移动适配（v1.8.0）
 > 主轴：把「人工记得做」变成「结构上不可能错」——资产单一事实源、版本一致性门禁、Release 流水线；题库按科拆分实现懒加载；撤掉安卓桌面视口 hack，Web 与安卓共用真移动布局。
 

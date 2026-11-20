@@ -74,6 +74,13 @@ if (cacheComment && cacheName && cacheComment !== cacheName) {
   fail(`1.2/sw.js 头注释版本 "${cacheComment}" 与 CACHE_NAME "${cacheName}" 不一致`);
 }
 
+// ---------- 7. index.html data-app-version（update-check.js 的本地版本依据） ----------
+const html = read('1.2/index.html');
+const appVersion = (html.match(/data-app-version="([^"]+)"/) || [])[1];
+if (appVersion !== version) {
+  fail(`1.2/index.html data-app-version "${appVersion}" 与 package.json "${version}" 不一致`);
+}
+
 // ---------- 输出 ----------
 if (problems.length) {
   for (const p of problems) console.error(`  ✗ ${p}`);
