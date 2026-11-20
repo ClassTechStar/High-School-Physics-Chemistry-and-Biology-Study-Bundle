@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 ROOT="$(cd .. && pwd)"
 
 # ---------- 工具链探测 ----------
-SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$LOCALAPPDATA/Android/Sdk}}"
+SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-${LOCALAPPDATA:-}/Android/Sdk}}"
 if [ ! -d "$SDK" ]; then echo "❌ 未找到 Android SDK（设 ANDROID_HOME 后重试）"; exit 1; fi
 BT="$SDK/build-tools/36.0.0"
 [ -d "$BT" ] || BT="$SDK/build-tools/$(ls "$SDK/build-tools" | sort -V | tail -1)"
