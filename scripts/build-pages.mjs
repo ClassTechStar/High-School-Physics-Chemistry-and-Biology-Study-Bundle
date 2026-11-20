@@ -35,6 +35,9 @@ let jsN = 0, cssN = 0, jsBefore = 0, jsAfter = 0, cssBefore = 0, cssAfter = 0;
 for (const rel of files) {
   const abs = join(OUT, rel);
   const ext = extname(rel).toLowerCase();
+  // 只按 UTF-8 读取需要压缩的文本文件。字体/图片等二进制按 utf8 读会生成
+  // 大量替换字符，8MB 的 ttf 在 CI 的 Node 20 上足以把 deploy 拖到失败。
+  if (ext !== '.js' && ext !== '.mjs' && ext !== '.css') continue;
   const raw = readFileSync(abs, 'utf8');
 
   if (ext === '.js' || ext === '.mjs') {
