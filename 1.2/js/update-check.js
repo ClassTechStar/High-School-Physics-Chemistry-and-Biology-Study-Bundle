@@ -23,7 +23,7 @@ window.HSPCBUpdate = (function () {
     var DAY = 24 * 3600 * 1000;
 
     var lastResult = null;
-    var checking = false;
+    var currentCheck = null; // 进行中的检查（autoCheck 与手动检查共享同一 Promise）
 
     function currentVersion() {
         var v = document.documentElement.getAttribute('data-app-version');
@@ -239,13 +239,20 @@ window.HSPCBUpdate = (function () {
     /**
      * 统一入口。
      * manual=true 时跳过频控并在失败/已是最新时给出即时反馈。
+     * 并发调用（如启动自动检查与用户手点）共享同一次检查结果。
      */
     function check(manual) {
-        if (checking) return Promise.resolve(lastResult || { ok: false, hasUpdate: false });
-        checking = true;
-        var p = isNative() ? checkNative(manual) : checkWeb(manual);
-        return p.then(function (r) { checking = false; return r; })
-            .catch(function (e) { checking = false; return { ok: false, error: String(e), hasUpdate: false }; });
+        if (currentCheck) return currentCheck;
+        currentCheck = Promise.resolve(
+            isNative() ? checkNative(manual) : checkWeb(manual)
+        ).then(function (r) {
+            currentCheck = null;
+            return r;
+        }).catch(function (e) {
+            currentCheck = null;
+            return { ok: false, error: String(e), hasUpdate: false, localVersion: currentVersion() };
+        });
+        return currentCheck;
     }
 
     /** 安卓：触发原生下载（完成后原生自动唤起安装器） */
