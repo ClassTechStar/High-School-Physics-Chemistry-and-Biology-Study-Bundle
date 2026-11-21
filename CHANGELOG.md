@@ -11,6 +11,7 @@
 - **修复（自测发现）**：启动自动检查（autoCheck）与用户手动检查并发时，`checking` 守卫把手动请求短路成空对象——改为共享进行中的 Promise（同一检查只跑一次、结果人人可得）。
 - **修复（自测发现）**：多附件 Release 的 APK 选择改为「文件名含 tag 版本串且最后上传者优先」——beta 验证附件（人工签名）与 CI 构建附件（一次性密钥）并存时选中可覆盖安装的那个；JS/Java 双端实现。
 - **新增测试** `scripts/test-update-check.mjs`（14 项，入 npm test 链）：stub XHR 覆盖多源回退顺序 / asset 选择 / isNewer 边界 / 并发共享。
+- **修复（悬浮按钮重叠）**：v1.8.0 把 🌙 移到 `right:80px` 而设置 ⚙️ 仍是旧布局的 `right:62px`，桌面端两钮重叠（用户报告）。结构级修复：两钮包进 `.hspcb-fab-stack` 固定容器，纵向 flex + 10px 间距——间距由结构保证，后续任何定位调整都不可能再重叠；移动端断点同步收拢（36px 尺寸 + 12px 边距）。
 - **修复（布局崩坏）**：`craft.css` 的 `.subject-cards/.tool-grid { minmax(0,1fr) }` 抹掉最小列宽，`auto-fill` 按内容 min-content 塞满几十列——首页「常用工具快速入口」整排卡片被压成竖条（用户报告）。改 `minmax(min(280px/300px, 100%), 1fr)`：宽屏保最小列宽、窄容器退化为单列防溢出；Edge headless 截图前后对比确认。
 - **门禁**：`check:version` 新增 `index.html data-app-version` 断言（本轮发现的版本漂移缺口：该属性是 update-check 的本地版本依据，此前停留在 1.6.0 无人校验）。
 - **发布工程**：新增 `scripts/publish-release.py`（创建 Release / 上传 APK 附件 / 删除，指数退避重试，token 经 git credential）；`apk-release.yml` 的 CI 构建修复（`set -u` 下 Windows 变量 unbound，runner 实测失败后修复并已推送）。
