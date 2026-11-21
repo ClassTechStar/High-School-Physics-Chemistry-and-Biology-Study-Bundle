@@ -18,7 +18,8 @@
   canvas { max-width: 100% !important; height: auto !important; }
   .container { padding: 8px; }
   .main-header h1 { font-size: 20px; }
-  .theme-toggle { width: 36px; height: 36px; font-size: 16px; bottom: 12px; right: 12px; }
+  .hspcb-fab-stack { bottom: 12px; right: 12px; }
+  .hspcb-fab-stack .theme-toggle { width: 36px; height: 36px; font-size: 16px; }
 
   /* v1.8 真移动布局：题库仪表盘收拢（此前靠安卓端 width=1280 桌面视口绕过，
      撤掉后 768px 断点必须自己接住窄屏，否则统计面板/筛选栏横向溢出被 clip 裁掉） */

@@ -17,10 +17,23 @@
     --hspcb-toast-shadow: 0 6px 22px rgba(0, 0, 0, .5);
 }
 
-/* ---------- 设置入口按钮（与 theme-toggle 并列） ---------- */
-.hspcb-settings-btn {
-    right: 62px;
-    font-size: 17px;
+/* ---------- 悬浮按钮组（⚙️ 设置 + 🌙 主题）：容器统一定位，间距由 flex 管理 ---------- */
+.hspcb-fab-stack {
+    position: fixed;
+    bottom: 20px;
+    right: 80px;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+/* style.css 的 .theme-toggle 是 fixed 独立定位；入容器后改为容器内流式 */
+.hspcb-fab-stack .theme-toggle { position: static; }
+.hspcb-settings-btn { font-size: 17px; }
+@media (max-width: 768px) {
+    .hspcb-fab-stack { bottom: 12px; right: 12px; }
+    .hspcb-fab-stack .theme-toggle { width: 36px; height: 36px; font-size: 16px; }
 }
 
 /* ---------- 通知中心 ---------- */
