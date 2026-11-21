@@ -11,6 +11,7 @@
 - **修复（自测发现）**：启动自动检查（autoCheck）与用户手动检查并发时，`checking` 守卫把手动请求短路成空对象——改为共享进行中的 Promise（同一检查只跑一次、结果人人可得）。
 - **修复（自测发现）**：多附件 Release 的 APK 选择改为「文件名含 tag 版本串且最后上传者优先」——beta 验证附件（人工签名）与 CI 构建附件（一次性密钥）并存时选中可覆盖安装的那个；JS/Java 双端实现。
 - **新增测试** `scripts/test-update-check.mjs`（14 项，入 npm test 链）：stub XHR 覆盖多源回退顺序 / asset 选择 / isNewer 边界 / 并发共享。
+- **修复（布局崩坏）**：`craft.css` 的 `.subject-cards/.tool-grid { minmax(0,1fr) }` 抹掉最小列宽，`auto-fill` 按内容 min-content 塞满几十列——首页「常用工具快速入口」整排卡片被压成竖条（用户报告）。改 `minmax(min(280px/300px, 100%), 1fr)`：宽屏保最小列宽、窄容器退化为单列防溢出；Edge headless 截图前后对比确认。
 - **门禁**：`check:version` 新增 `index.html data-app-version` 断言（本轮发现的版本漂移缺口：该属性是 update-check 的本地版本依据，此前停留在 1.6.0 无人校验）。
 - **发布工程**：新增 `scripts/publish-release.py`（创建 Release / 上传 APK 附件 / 删除，指数退避重试，token 经 git credential）；`apk-release.yml` 的 CI 构建修复（`set -u` 下 Windows 变量 unbound，runner 实测失败后修复并已推送）。
 - **验证**：逻辑单测 14 项全绿；真网数据链验证通过（GH API latest=v1.8.1、asset 选择避让、APK 下载地址 HEAD 200/7.3MB、beta release 发现新版→删除回退 latest）；真机/模拟器安装器端到端因设备断开与镜像故障未跑完，待真机重连补验。

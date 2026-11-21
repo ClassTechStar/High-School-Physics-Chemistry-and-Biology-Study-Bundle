@@ -96,9 +96,11 @@ body {
     box-shadow: 0 1px 2px var(--rule);
 }
 
-/* 图片/表格网格不撑破容器 */
-.subject-cards,
-.tool-grid { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+/* 图片/表格网格不撑破容器 —— minmax(0,1fr) 会把列压到内容 min-content
+   （工具卡中文逐字换行，整排竖条），必须保留最小列宽；
+   min(x, 100%) 在窄容器时退化为单列防溢出 */
+.subject-cards { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+.tool-grid { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
 .section h2,
 .welcome-card h2 { overflow-wrap: break-word; min-width: 0; }
 

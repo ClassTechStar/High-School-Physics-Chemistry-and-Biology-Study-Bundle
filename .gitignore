@@ -39,3 +39,4 @@ android/releases/
 android/debug.keystore
 *.apk
 *.keystore
+build-shots/
