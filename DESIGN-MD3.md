@@ -349,6 +349,53 @@ presentation.html 有 16 处 `style=""`。CSP `style-src 'self'` 会全部拦掉
 - 都有必须保留的语义色，不能一律映射成 MD3 角色
 - 迁移后都要跑一遍「变量定义 vs 引用」对账
 
+---
+
+## 附三：index.html 评估（结论：不迁移视觉层）
+
+主应用是最后一个待迁移页面。做了依赖面量化后，结论是**不动它的视觉层**——这不是工作量问题，是**契约问题**。
+
+### 量化数据
+
+| 指标 | 值 | 说明 |
+| --- | --- | --- |
+| 规模 | 1687 行 HTML / 7 个 CSS（约 180KB）/ 60+ JS 模块 | 前三刀合计约 1000 条规则，这里单 `style.css` 就 712 条 |
+| HTML class 种类 | 85 | |
+| JS 操控的 class 种类 | 183（含动态生成） | |
+| **契约类**（HTML 与 JS 共同使用） | **19** | `section` `nav-btn` `active` `show` `tool-card` `knowledge-card` `nav-item-title` `nav-children` `module-tab` `quick-access` `tools-section` `module-content` `chinese-knowledge` `container` `back-btn` 等 |
+| 纯视觉类 | 66 | 理论可动，但改动会与契约类规则交织 |
+| `!important` | 13 | 特异性已拉满 |
+| 硬编码色 | 344 处（24.4%） | `var()` 有 1064 处，变量驱动度尚可 |
+
+### 为什么不能迁（三条硬理由）
+
+1. **`.active` 是功能状态，不是视觉状态**。`style.css:229` 有
+   `.section.active { display: block !important; }`，JS 靠切这个 class 控制区块显隐；
+   `:393` 起有 15 条 `.active` 规则覆盖导航高亮、模块标签。改它们等于改交互逻辑。
+2. **`theme-dark.css` 也覆盖这些状态**（3 处 `.active`），主应用的暗色主题与交互状态是绑死的。
+3. **视觉由 `style.css` 完整定义**，MD3 化要么改这 712 条规则（动核心视觉），要么用 `!important`
+   覆盖（与已有 13 处 `!important` 叠加，特异性地狱）。两条路都会让 `check:theme`、
+   `check:runtime`、`handler-integrity` 这些门禁暴露大面积漂移。
+
+### 如果将来真要迁（路线图，不是建议）
+
+按风险从低到高，不要一次做完：
+
+1. **只引入 token 层**（零风险）：`index.html` 加载 `md3-tokens.css`，现有视觉零变化。
+   代价是 15KB 未使用变量（约 8% 体积增量，SW 会缓存）。
+   需要时再走下一步，**不要现在就引入**——现在引入等于把不使用的变量推给所有用户。
+2. **新组件用 MD3**：`index.html` 里新增的卡片/按钮走 `.md3-*`，旧组件不动。
+   这样新旧共存，视觉上可能不协调，但功能安全。
+3. **逐 section 渐进**：挑一个**无 JS 契约**的 section（如纯展示区）单独迁移，跑 `handler-integrity`
+   + `check:runtime` + E2E 验证。每刀一个 section，出问题好回滚。
+4. **`tokens.css` 转接最后做**：它是所有页面的基线，动它等于全局换肤。必须在前面三步都验证过之后。
+
+### 现状定位
+
+`index.html` 保留其自研设计体系（`tokens.css` + `style.css` + `theme-dark.css` + `craft.css`），
+**MD3 层不覆盖它**。两者并存：MD3 用于新建页面（`md3.html`、后续新页面），
+自研体系用于主应用。这不是妥协，是契约约束下的正确分工。
+
 
 
 

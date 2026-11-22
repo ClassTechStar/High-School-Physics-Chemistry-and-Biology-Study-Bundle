@@ -2,6 +2,24 @@
 
 ## 未发布
 
+### 迁移收尾：index.html 评估 + 孤儿 CSS 清理
+> 前三刀（showcase / promo / presentation）已完成；本轮收尾，给主应用一个明确结论。
+
+- **`index.html` 结论：不迁移视觉层**。做了依赖面量化后确认这不是工作量问题而是**契约问题**——
+  19 个 class 是 HTML 与 JS 的契约类（`section` `nav-btn` `active` `show` `tool-card` 等），
+  其中 `style.css:229` 的 `.section.active { display: block !important; }` 由 JS 切换来控制区块显隐，
+  是功能状态不是视觉状态；`theme-dark.css` 也覆盖了这些状态。主应用保留自研设计体系
+  （tokens/style/theme-dark/craft 四件套），MD3 层只服务新建页面，两者并存。
+  完整量化数据与「将来若要迁」的四步路线图见 [DESIGN-MD3.md](DESIGN-MD3.md) 附三。
+- **清理孤儿 CSS**：迁移后 `css/showcase.css` 与 `promo.css` 无任何页面引用，予以删除。
+  清理需三步同步，缺一步都会留坑：① `sw.js` 预缓存清单移除（否则 SW 安装遇到 404 失败）；
+  ② 删除文件；③ `scripts/smoke-app.mjs` 的关键资产清单同步（本轮第一次清理时漏了这一步，
+  冒烟立即报 `存在 css/showcase.css` 失败，补上后 77 项全过）。
+  `css/craft.css` 与 `css/tokens.css` 仍被 `index.html` 使用，未动。
+- **缓存**：CACHE_NAME hspcb-v28 → **hspcb-v29**。
+- **验证**：SW 实测正常安装与激活（`hspcb-v29` 缓存建立，105 条目无 404）；
+  `npm run verify` 14 道门禁全绿；Playwright E2E 5/5。
+
 ### 第三个页面迁移：presentation.html → MD3（含内联样式清零）
 > 95KB / 1631 行 / 12 页幻灯片。本轮重点是「内联样式转 class」，这是它加 CSP 的前置条件。
 

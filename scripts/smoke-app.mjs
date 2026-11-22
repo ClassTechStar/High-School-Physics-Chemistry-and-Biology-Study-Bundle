@@ -38,7 +38,7 @@ for (const p of [
   'css/tokens.css', 'css/style.css', 'css/theme-dark.css',
   'js/progress.js', 'js/app.js', 'js/enhanced-tools.js',
   'data/exam/index.json', 'data/exam/physics.json', 'data/physics/knowledge.json',
-  'showcase.html', 'css/showcase.css', 'js/demo-mode.js', 'js/liquid-glass.js',
+  'showcase.html', 'css/showcase-md3.css', 'js/demo-mode.js', 'js/liquid-glass.js',
 ]) {
   ok(existsSync(join(APP, p)), `存在 ${p}`);
 }
