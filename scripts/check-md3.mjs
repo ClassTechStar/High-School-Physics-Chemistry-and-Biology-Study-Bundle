@@ -176,6 +176,7 @@ for (const css of ['css/md3-tokens.css', 'css/md3-components.css', 'css/md3-doc.
 const MIGRATED_PAGES = [
   { file: 'showcase.html', retired: ['css/showcase.css', 'css/craft.css'] },
   { file: 'promo.html', retired: ['promo.css', 'css/craft.css'] },
+  { file: 'presentation.html', retired: ['css/tokens.css', 'css/craft.css'] },
 ];
 
 for (const { file, retired } of MIGRATED_PAGES) {

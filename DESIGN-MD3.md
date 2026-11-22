@@ -257,6 +257,7 @@ npm run verify        # 全套 14 道门禁（check:md3 已并入）
 | --- | --- | --- | --- |
 | `showcase.html` | 2026-11-22 | `css/showcase.css` + `css/craft.css` | MD3 令牌 + 组件层 + `css/showcase-md3.css` 版面骨架 |
 | `promo.html` | 2026-11-22 | `promo.css` + `css/craft.css` | 转接层方案：`css/promo-md3.css` 保留 172 个选择器，只把变量映射到 MD3；固定 `data-md3-theme="dark"` |
+| `presentation.html` | 2026-11-22 | `css/tokens.css` + `css/craft.css` | 转接层 + 内联样式清零（16→0）；97 处裸色值批替换；固定 `data-md3-theme="dark"` |
 
 登记后门禁会校验：必须继续引用 MD3 令牌与组件层、不得再引旧样式、不得有内联样式。
 
@@ -302,5 +303,21 @@ promo.html 有 172 个选择器、21KB CSS，重写风险高。改用「转接�
 | 学科区分色 | `--physics` / `--chemistry` / `--biology` | 保留原值，MD3 允许品牌扩展色 |
 | 学科沉浸区底色 | `--physics-deep` / `--biology-deep` | 由学科色派生的深色变体 |
 | 专业语义色 | `--pedigree-female` / `--pedigree-affected`（遗传图女/患病） | **独立命名**，绝不能映射成 `--md3-error` |
+
+### 迁移手法三：内联样式清零（加 CSP 的前置条件）
+
+presentation.html 有 16 处 `style=""`。CSP `style-src 'self'` 会全部拦掉，而且**不报错、只是样式静默失效**。四类分别处理：
+
+| 类型 | 原写法 | 外置方式 |
+| --- | --- | --- |
+| 一次性间距 | `style="margin-top:20px"` | 工具类 `.spaced-top` |
+| 少数固定值 | `style="width:92%"` | 枚举修饰类 `.bar-w-92`（8 档） |
+| 覆盖型配色 | `style="background:rgba(...);color:#27ae60"` | `.tl-details span.tag-vivid` |
+| SVG 渐变 | `<stop style="stop-color:#667eea" />` | 改用 **SVG 表现属性** `stop-color` / `stop-opacity`——CSP 管不着属性 |
+
+**不能一律转 class 的情况**：动态值（如幻灯片进度条 `width = (index+1)/total*100 + '%'`）只能留在 JS 里用 CSSOM 赋值。CSP 拦 `<style>` 元素和 `style` 属性，**不拦 `el.style.x = ...`**，所以这类是安全的，不必强行转。
+
+判断某个 `[style]` 该不该转：看它是**静态**（写在 HTML 里）还是**动态**（运行时算出来）。静态必须转，动态可留。
+
 
 

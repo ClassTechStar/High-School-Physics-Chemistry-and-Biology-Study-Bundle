@@ -2,6 +2,22 @@
 
 ## 未发布
 
+### 第三个页面迁移：presentation.html → MD3（含内联样式清零）
+> 95KB / 1631 行 / 12 页幻灯片。本轮重点是「内联样式转 class」，这是它加 CSP 的前置条件。
+
+- **内联样式清零（16 → 0）**：按四类分别外置，全部落在 `presentation.css` 新增的工具类里——
+  - `margin-top:20px` ×2 → `.spaced-top`
+  - 条形图 `width:N%` ×8 → `.bar-w-92/88/85/82/78/75/70/68`
+  - 绿色强调标签 ×4 → `.tl-details span.tag-vivid`
+  - SVG 渐变 `style="stop-color:..."` ×2 → 改用 SVG 表现属性 `stop-color` / `stop-opacity`（style 属性在 CSP 下同样会被拦，SVG 属性不会）
+  - 剩余 1 处 `[style]` 是幻灯片进度条，由 `presentation.html:1375` 的 CSSOM 赋值（`el.style.width = ...`）动态生成，CSP 不拦，合理保留。
+- **迁移方式**：仍是转接层，但工作量比 promo 大——这个文件原本只有 `--pres-primary` 一个变量，其余颜色散落在 1460 行里。先把高频裸值提升为具名变量（`--pres-bg` / `--pres-on-bg` / `--pres-muted` / `--pres-outline` / `--pres-surface`）并指向 MD3，再批量替换：`#e6e3dc`×31、`#888`×18、`#aaa`×9、`#999`×8、`#bbb`×4、`#ccc`×2、`#171b1d`×2，加上三个学科色，**共 97 处**。
+- **固定深色**：`data-md3-theme="dark"`（演示页原本就是 `#171b1d` 深色）。
+- **保留的语义色**：remaining 18 种颜色全部有明确视觉语义，不做 MD3 映射——macOS 交通灯（`#ff5f56`/`#ffbd2e`/`#27c93f`）、终端窗口底色（`#1e1e2e`/`#2d2d3d`）、成功绿（`#27ae60`）、警告红（`#e74c3c`）、强调紫（`#a5b4fc`）、深蓝卡片（`#0a1525`）。
+- **依赖清理**：`presentation.css` 原本从 `tokens.css` 取 `--radius-sm/md/lg`，现改为在自身 `:root` 内转接到 MD3 形状令牌（4/8/12 同值），因此 `tokens.css` 与 `craft.css` 引用一并移除。
+- **缓存**：CACHE_NAME hspcb-v27 → **hspcb-v28**。
+- **验证**：`npm run verify` 14 道门禁全绿；Playwright E2E 5/5；浏览器实测 `--pres-primary` 解析为 `#86d6be`、`--radius-md` 为 8px、12 页幻灯片正常、零 console 错误、零水平溢出、`.tag-vivid` 与 `.spaced-top` 均生效。
+
 ### 第二个页面迁移：promo.html → MD3
 > 比 showcase 复杂一个量级（743 行 / 172 个选择器 / 11 个区块 / 7 个锚点 + 3 个跨页深链）。结论：**不冲突**，7 道门禁全过。
 

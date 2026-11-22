@@ -1,8 +1,8 @@
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v27（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v28（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 
-var CACHE_NAME = 'hspcb-v27';
+var CACHE_NAME = 'hspcb-v28';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，

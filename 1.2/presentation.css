@@ -1,5 +1,24 @@
 :root {
-    --pres-primary: #79a8ae;
+    /* ---- MD3 转接层 ----
+       presentation 原本只有 --pres-primary 一个变量，其余颜色散落在 1460 行里。
+       这里把高频裸值提升为具名变量并指向 MD3 令牌，再批量替换选择器里的裸值。
+       presentation 是深色演示页，HTML 上固定 data-md3-theme="dark"。 */
+    --pres-primary: var(--md3-primary);
+    --pres-bg: var(--md3-background);              /* 原 #171b1d */
+    --pres-on-bg: var(--md3-on-surface);           /* 原 #e6e3dc 主文字 */
+    --pres-muted: var(--md3-on-surface-variant);   /* 原 #aaa/#999/#888 次文字 */
+    --pres-outline: var(--md3-outline-variant);    /* 原 #ccc/#bbb 描边与弱文字 */
+    --pres-surface: var(--md3-surface-container-low); /* 卡片底 */
+
+    /* 圆角梯度：原 tokens.css 与 MD3 形状体系同值（4/8/12），直接转接 */
+    --radius-sm: var(--md3-shape-extra-small);
+    --radius-md: var(--md3-shape-small);
+    --radius-lg: var(--md3-shape-medium);
+
+    /* 学科色：与 promo / 主应用一致的业务扩展色，MD3 无对应角色 */
+    --pres-physics: #4A90D9;
+    --pres-chemistry: #48A9A6;
+    --pres-biology: #7CB342;
 }
 
 * {
@@ -10,9 +29,9 @@
 
 body {
     font-family: MiSans, "Microsoft YaHei", sans-serif;
-    background: #171b1d;
+    background: var(--pres-bg);
     min-height: 100vh;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     overflow: hidden;
 }
 
@@ -79,14 +98,14 @@ h1 {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 18px;
-    color: #f0eee8;
+    color: var(--pres-on-bg);
     z-index: 1;
     position: relative;
 }
 
 .subtitle {
     font-size: 1.35rem;
-    color: #aaa;
+    color: var(--pres-muted);
     margin-bottom: 40px;
     z-index: 1;
     position: relative;
@@ -120,7 +139,7 @@ h1 {
 
 .label {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--pres-muted);
 }
 
 .subject-icons {
@@ -143,9 +162,9 @@ h1 {
 
 .s-icon { font-size: 1.3rem; }
 
-.subject.physics { background: rgba(74,144,217,0.3); border: 1px solid #4A90D9; }
-.subject.chemistry { background: rgba(72,169,166,0.3); border: 1px solid #48A9A6; }
-.subject.biology { background: rgba(124,179,66,0.3); border: 1px solid #7CB342; }
+.subject.physics { background: rgba(74,144,217,0.3); border: 1px solid var(--pres-physics); }
+.subject.chemistry { background: rgba(72,169,166,0.3); border: 1px solid var(--pres-chemistry); }
+.subject.biology { background: rgba(124,179,66,0.3); border: 1px solid var(--pres-biology); }
 
 /* Visual Preview Row */
 .visual-preview-row {
@@ -168,14 +187,14 @@ h1 {
 .mini-demo span:last-child {
     display: block;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--pres-muted);
     margin-top: 8px;
 }
 
 .mini-equation {
     font-family: 'Times New Roman', serif;
     font-size: 0.85rem;
-    color: #48A9A6;
+    color: var(--pres-chemistry);
     padding: 5px 0;
 }
 
@@ -198,7 +217,7 @@ h1 {
 .intro-text-large {
     font-size: 1.25rem;
     line-height: 1.8;
-    color: #ddd;
+    color: var(--pres-outline);
     margin-bottom: 15px;
 }
 
@@ -224,7 +243,7 @@ h1 {
     padding: 22px;
 }
 
-.workflow-diagram h4 { margin-bottom: 16px; color: #e6e3dc; font-size: 1.05rem; }
+.workflow-diagram h4 { margin-bottom: 16px; color: var(--pres-on-bg); font-size: 1.05rem; }
 
 .workflow-steps {
     display: flex;
@@ -242,8 +261,8 @@ h1 {
 }
 
 .wf-icon { font-size: 1.6rem; margin-bottom: 6px; }
-.wf-label { font-weight: 600; font-size: 0.9rem; color: #e6e3dc; }
-.wf-desc { font-size: 0.75rem; color: #888; margin-top: 4px; }
+.wf-label { font-weight: 600; font-size: 0.9rem; color: var(--pres-on-bg); }
+.wf-desc { font-size: 0.75rem; color: var(--pres-muted); margin-top: 4px; }
 
 .wf-arrow { color: var(--pres-primary); font-size: 1.3rem; font-weight: bold; }
 
@@ -289,8 +308,8 @@ h1 {
 .biology-bg { background: rgba(124,179,66,0.2); }
 .highlight-bg { background: rgba(102,126,234,0.3); }
 
-.feature-card-enhanced h3 { font-size: 1.05rem; margin-bottom: 6px; color: #e6e3dc; }
-.feature-card-enhanced p { font-size: 0.85rem; color: #999; line-height: 1.5; }
+.feature-card-enhanced h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--pres-on-bg); }
+.feature-card-enhanced p { font-size: 0.85rem; color: var(--pres-muted); line-height: 1.5; }
 
 .fc-stats {
     display: flex;
@@ -303,7 +322,7 @@ h1 {
     padding: 3px 10px;
     border-radius: var(--radius-md);
     font-size: 0.75rem;
-    color: #aaa;
+    color: var(--pres-muted);
 }
 
 /* Slide 3: Physics Tools Enhanced */
@@ -332,8 +351,8 @@ h1 {
 .physics-header { background: rgba(74,144,217,0.1); border-bottom-color: rgba(74,144,217,0.2); }
 
 .tool-icon-lg { font-size: 2.2rem; }
-.tool-header-enhanced h3 { font-size: 1.4rem; color: #e6e3dc; }
-.tool-subtitle { font-size: 0.9rem; color: #888; margin-top: 3px; }
+.tool-header-enhanced h3 { font-size: 1.4rem; color: var(--pres-on-bg); }
+.tool-subtitle { font-size: 0.9rem; color: var(--pres-muted); margin-top: 3px; }
 
 .tool-body-enhanced {
     display: flex;
@@ -374,7 +393,7 @@ h1 {
 .dot.yellow { background: #ffbd2e; }
 .dot.green { background: #27c93f; }
 
-.window-title { font-size: 0.8rem; color: #888; margin-left: 8px; }
+.window-title { font-size: 0.8rem; color: var(--pres-muted); margin-left: 8px; }
 
 .mockup-content { padding: 18px; }
 
@@ -388,7 +407,7 @@ h1 {
 .formula-input {
     font-family: 'Times New Roman', serif;
     font-size: 1.8rem;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     margin-bottom: 5px;
 }
 
@@ -409,7 +428,7 @@ h1 {
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
-    color: #ccc;
+    color: var(--pres-outline);
 }
 
 .input-group input {
@@ -417,7 +436,7 @@ h1 {
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: var(--radius-md);
     padding: 6px 12px;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     font-size: 0.9rem;
     width: 80px;
 }
@@ -436,8 +455,8 @@ h1 {
     font-size: 0.85rem;
 }
 
-.voice-btn { background: rgba(74,144,217,0.2); color: #4A90D9; border: 1px solid #4A90D9; }
-.btn-calc.primary { background: var(--pres-primary); color: #e6e3dc; }
+.voice-btn { background: rgba(74,144,217,0.2); color: var(--pres-physics); border: 1px solid var(--pres-physics); }
+.btn-calc.primary { background: var(--pres-primary); color: var(--pres-on-bg); }
 
 .calc-steps {
     background: rgba(0,0,0,0.2);
@@ -451,7 +470,7 @@ h1 {
     gap: 10px;
     padding: 6px 0;
     font-size: 0.85rem;
-    color: #bbb;
+    color: var(--pres-outline);
 }
 
 .step-num {
@@ -467,19 +486,19 @@ h1 {
     font-weight: 600;
 }
 
-.step-item.highlight-step { color: #7CB342; }
+.step-item.highlight-step { color: var(--pres-biology); }
 
 .tool-features-list ul { list-style: none; }
 .tool-features-list li {
     padding: 8px 0;
-    color: #ccc;
+    color: var(--pres-outline);
     font-size: 0.92rem;
     border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .tool-features-list li strong { color: var(--pres-primary); }
 
 .supported-formulas { margin-top: 18px; }
-.supported-formulas h5 { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
+.supported-formulas h5 { font-size: 0.9rem; color: var(--pres-muted); margin-bottom: 10px; }
 
 .formula-tags {
     display: flex;
@@ -489,7 +508,7 @@ h1 {
 
 .formula-tags span {
     background: rgba(74,144,217,0.15);
-    color: #4A90D9;
+    color: var(--pres-physics);
     padding: 4px 12px;
     border-radius: var(--radius-lg);
     font-size: 0.78rem;
@@ -518,12 +537,12 @@ h1 {
     gap: 10px;
     margin-bottom: 8px;
     font-size: 0.85rem;
-    color: #aaa;
+    color: var(--pres-muted);
 }
 
 .control-row input[type="range"] {
     flex: 1;
-    accent-color: #4A90D9;
+    accent-color: var(--pres-physics);
 }
 
 .data-readout {
@@ -540,11 +559,11 @@ h1 {
     text-align: center;
 }
 
-.data-label { display: block; font-size: 0.75rem; color: #888; }
-.data-value { display: block; font-size: 1rem; color: #4A90D9; font-weight: 600; margin-top: 4px; }
+.data-label { display: block; font-size: 0.75rem; color: var(--pres-muted); }
+.data-value { display: block; font-size: 1rem; color: var(--pres-physics); font-weight: 600; margin-top: 4px; }
 
 .physics-scenarios { margin-top: 18px; }
-.physics-scenarios h5 { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
+.physics-scenarios h5 { font-size: 0.9rem; color: var(--pres-muted); margin-bottom: 10px; }
 
 .scenario-cards {
     display: flex;
@@ -561,13 +580,13 @@ h1 {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: var(--radius-md);
     font-size: 0.82rem;
-    color: #aaa;
+    color: var(--pres-muted);
     cursor: pointer;
 }
 
 .sc-card.active {
-    border-color: #4A90D9;
-    color: #4A90D9;
+    border-color: var(--pres-physics);
+    color: var(--pres-physics);
     background: rgba(74,144,217,0.1);
 }
 
@@ -609,8 +628,8 @@ h1 {
     background: rgba(72,169,166,0.3);
 }
 
-.tool-tile h4 { font-size: 0.95rem; color: #e6e3dc; margin-bottom: 6px; }
-.tool-tile p { font-size: 0.78rem; color: #888; line-height: 1.4; }
+.tool-tile h4 { font-size: 0.95rem; color: var(--pres-on-bg); margin-bottom: 6px; }
+.tool-tile p { font-size: 0.78rem; color: var(--pres-muted); line-height: 1.4; }
 
 .tile-example {
     margin-top: 12px;
@@ -621,19 +640,19 @@ h1 {
 .tile-example code {
     font-family: 'Consolas', monospace;
     font-size: 0.75rem;
-    color: #48A9A6;
+    color: var(--pres-chemistry);
     background: rgba(72,169,166,0.1);
     padding: 3px 8px;
     border-radius: var(--radius-sm);
 }
 
-.tile-example .balanced { color: #7CB342; background: rgba(124,179,66,0.1); }
+.tile-example .balanced { color: var(--pres-biology); background: rgba(124,179,66,0.1); }
 .tile-example .arrow { color: var(--pres-primary); margin: 0 6px; }
 
 .quiz-type {
     display: inline-block;
     font-size: 0.72rem;
-    color: #48A9A6;
+    color: var(--pres-chemistry);
     background: rgba(72,169,166,0.1);
     padding: 3px 10px;
     border-radius: var(--radius-md);
@@ -656,7 +675,7 @@ h1 {
 }
 
 .org-chain span {
-    color: #48A9A6;
+    color: var(--pres-chemistry);
     font-family: 'Times New Roman', serif;
 }
 
@@ -668,7 +687,7 @@ h1 {
     top: 8px;
     right: 8px;
     background: #E74C3C;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     padding: 2px 10px;
     border-radius: var(--radius-md);
     font-size: 0.7rem;
@@ -687,7 +706,7 @@ h1 {
 .pa-badge {
     display: inline-block;
     background: #ff9800;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     padding: 5px 16px;
     border-radius: var(--radius-lg);
     font-size: 0.85rem;
@@ -695,7 +714,7 @@ h1 {
 }
 
 .pa-tool-info h3 { font-size: 1.4rem; margin-bottom: 10px; }
-.pa-desc { font-size: 0.95rem; color: #bbb; line-height: 1.7; margin-bottom: 20px; }
+.pa-desc { font-size: 0.95rem; color: var(--pres-outline); line-height: 1.7; margin-bottom: 20px; }
 
 .pa-capabilities { display: flex; flex-direction: column; gap: 14px; }
 
@@ -718,8 +737,8 @@ h1 {
     flex-shrink: 0;
 }
 
-.cap-text h5 { font-size: 0.95rem; color: #e6e3dc; margin-bottom: 4px; }
-.cap-text p { font-size: 0.82rem; color: #999; line-height: 1.4; }
+.cap-text h5 { font-size: 0.95rem; color: var(--pres-on-bg); margin-bottom: 4px; }
+.cap-text p { font-size: 0.82rem; color: var(--pres-muted); line-height: 1.4; }
 
 .process-flow-diagram {
     background: rgba(255,255,255,0.03);
@@ -728,7 +747,7 @@ h1 {
     padding: 22px;
 }
 
-.process-flow-diagram h4 { font-size: 1.05rem; margin-bottom: 15px; color: #e6e3dc; }
+.process-flow-diagram h4 { font-size: 1.05rem; margin-bottom: 15px; color: var(--pres-on-bg); }
 
 .flow-svg { width: 100%; height: auto; }
 
@@ -739,7 +758,7 @@ h1 {
     padding: 16px;
 }
 
-.analysis-results h5 { font-size: 0.9rem; color: #888; margin-bottom: 12px; }
+.analysis-results h5 { font-size: 0.9rem; color: var(--pres-muted); margin-bottom: 12px; }
 
 .result-grid {
     display: grid;
@@ -754,9 +773,9 @@ h1 {
     border-radius: var(--radius-md);
 }
 
-.ri-label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 4px; }
-.ri-value { font-size: 0.95rem; color: #e6e3dc; font-weight: 600; }
-.ri-value.highlight { color: #7CB342; }
+.ri-label { display: block; font-size: 0.75rem; color: var(--pres-muted); margin-bottom: 4px; }
+.ri-value { font-size: 0.95rem; color: var(--pres-on-bg); font-weight: 600; }
+.ri-value.highlight { color: var(--pres-biology); }
 
 /* Slide 6: Biology Tools Grid */
 .bio-tools-grid {
@@ -802,13 +821,13 @@ h1 {
 .exp-header { background: rgba(0,151,167,0.1); border-bottom: 1px solid rgba(0,151,167,0.2); }
 
 .btc-icon { font-size: 1.6rem; }
-.btc-header h3 { font-size: 1.05rem; color: #e6e3dc; }
+.btc-header h3 { font-size: 1.05rem; color: var(--pres-on-bg); }
 
 .featured-tag {
     position: absolute;
     right: 16px;
-    background: #7CB342;
-    color: #e6e3dc;
+    background: var(--pres-biology);
+    color: var(--pres-on-bg);
     padding: 3px 12px;
     border-radius: var(--radius-lg);
     font-size: 0.72rem;
@@ -822,12 +841,12 @@ h1 {
 .btc-body.compact { padding: 14px 16px; }
 
 .genetics-demo svg { width: 100%; max-width: 280px; margin: 0 auto; display: block; }
-.btc-features p { font-size: 0.85rem; color: #999; text-align: center; margin-top: 10px; }
+.btc-features p { font-size: 0.85rem; color: var(--pres-muted); text-align: center; margin-top: 10px; }
 
 .eco-chart-mini, .curve-mini, .pedigree-mini { margin: 10px 0; }
 .eco-chart-mini svg, .curve-mini svg, .pedigree-mini svg { width: 100%; }
 
-.pm-male { fill: #4A90D9; }
+.pm-male { fill: var(--pres-physics); }
 .pm-female { fill: #E91E63; }
 .pm-affected { fill: #E74C3C; }
 
@@ -843,7 +862,7 @@ h1 {
 
 .mm-center {
     background: var(--pres-primary);
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     padding: 8px 16px;
     border-radius: var(--radius-md);
     font-weight: 600;
@@ -855,7 +874,7 @@ h1 {
     padding: 6px 12px;
     border-radius: var(--radius-md);
     font-size: 0.78rem;
-    color: #aaa;
+    color: var(--pres-muted);
 }
 
 .exp-template-mini {
@@ -896,10 +915,10 @@ h1 {
 }
 
 .pd-intro h3 { font-size: 1.3rem; margin-bottom: 10px; }
-.pd-intro p { font-size: 0.92rem; color: #bbb; line-height: 1.7; }
+.pd-intro p { font-size: 0.92rem; color: var(--pres-outline); line-height: 1.7; }
 
 .pd-types-grid { margin-bottom: 20px; }
-.pd-types-grid h5 { font-size: 0.88rem; color: #888; margin-bottom: 10px; }
+.pd-types-grid h5 { font-size: 0.88rem; color: var(--pres-muted); margin-bottom: 10px; }
 
 .type-tags {
     display: flex;
@@ -928,8 +947,8 @@ h1 {
 }
 
 .pdf-icon { font-size: 1.3rem; flex-shrink: 0; }
-.pdf-item strong { display: block; font-size: 0.9rem; color: #e6e3dc; margin-bottom: 3px; }
-.pdf-item p { font-size: 0.8rem; color: #999; }
+.pdf-item strong { display: block; font-size: 0.9rem; color: var(--pres-on-bg); margin-bottom: 3px; }
+.pdf-item p { font-size: 0.8rem; color: var(--pres-muted); }
 
 .pedigree-example-large {
     background: rgba(255,255,255,0.03);
@@ -938,11 +957,11 @@ h1 {
     padding: 22px;
 }
 
-.pedigree-example-large h4 { font-size: 1rem; color: #e6e3dc; margin-bottom: 15px; }
+.pedigree-example-large h4 { font-size: 1rem; color: var(--pres-on-bg); margin-bottom: 15px; }
 
 .pedigree-large-svg { width: 100%; height: auto; }
 
-.pl-male { fill: #4A90D9; stroke: #2E5C8A; stroke-width: 1; }
+.pl-male { fill: var(--pres-physics); stroke: #2E5C8A; stroke-width: 1; }
 .pl-female { fill: #E91E63; stroke: #AD1457; stroke-width: 1; }
 .pl-affected { fill: #E74C3C; stroke: #B71C1C; stroke-width: 1; }
 
@@ -953,7 +972,7 @@ h1 {
     padding: 16px;
 }
 
-.analysis-question h5 { font-size: 0.92rem; color: #e6e3dc; margin-bottom: 10px; }
+.analysis-question h5 { font-size: 0.92rem; color: var(--pres-on-bg); margin-bottom: 10px; }
 
 .answer-reveal {
     background: rgba(124,179,66,0.15);
@@ -963,11 +982,11 @@ h1 {
     margin-bottom: 12px;
 }
 
-.correct-answer { font-size: 0.95rem; color: #7CB342; font-weight: 600; }
+.correct-answer { font-size: 0.95rem; color: var(--pres-biology); font-weight: 600; }
 
-.reasoning-steps h5 { font-size: 0.88rem; color: #888; margin-bottom: 8px; }
+.reasoning-steps h5 { font-size: 0.88rem; color: var(--pres-muted); margin-bottom: 8px; }
 .reasoning-steps ol { padding-left: 18px; }
-.reasoning-steps li { font-size: 0.85rem; color: #bbb; margin-bottom: 5px; }
+.reasoning-steps li { font-size: 0.85rem; color: var(--pres-outline); margin-bottom: 5px; }
 
 .legend-enhanced {
     display: flex;
@@ -981,7 +1000,7 @@ h1 {
     align-items: center;
     gap: 8px;
     font-size: 0.82rem;
-    color: #aaa;
+    color: var(--pres-muted);
 }
 
 /* Slide 8: Architecture Enhanced */
@@ -1022,7 +1041,7 @@ h1 {
 }
 
 .spec-num { display: block; font-size: 1.5rem; font-weight: 700; color: var(--pres-primary); }
-.spec-label { font-size: 0.78rem; color: #888; margin-top: 4px; }
+.spec-label { font-size: 0.78rem; color: var(--pres-muted); margin-top: 4px; }
 
 .tech-stack-list { display: flex; flex-direction: column; gap: 10px; }
 
@@ -1038,12 +1057,12 @@ h1 {
 .ts-name {
     font-weight: 600;
     font-size: 0.88rem;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     min-width: 130px;
     flex-shrink: 0;
 }
 
-.ts-desc { font-size: 0.8rem; color: #999; flex: 1; min-width: 0; }
+.ts-desc { font-size: 0.8rem; color: var(--pres-muted); flex: 1; min-width: 0; }
 .ts-item { flex-wrap: wrap; }
 
 .spec-stat {
@@ -1081,8 +1100,8 @@ h1 {
 }
 
 .vce-icon { font-size: 2.2rem; margin-bottom: 10px; }
-.value-card-enhanced h3 { font-size: 1.05rem; color: #e6e3dc; margin-bottom: 8px; }
-.value-card-enhanced p { font-size: 0.82rem; color: #999; line-height: 1.5; margin-bottom: 12px; }
+.value-card-enhanced h3 { font-size: 1.05rem; color: var(--pres-on-bg); margin-bottom: 8px; }
+.value-card-enhanced p { font-size: 0.82rem; color: var(--pres-muted); line-height: 1.5; margin-bottom: 12px; }
 
 .vce-data {
     display: block;
@@ -1101,7 +1120,7 @@ h1 {
     padding: 25px;
 }
 
-.exam-focus-area h4 { font-size: 1.1rem; color: #e6e3dc; margin-bottom: 18px; }
+.exam-focus-area h4 { font-size: 1.1rem; color: var(--pres-on-bg); margin-bottom: 18px; }
 
 .focus-charts {
     display: grid;
@@ -1110,7 +1129,7 @@ h1 {
     margin-bottom: 25px;
 }
 
-.focus-chart h5 { font-size: 0.92rem; color: #888; margin-bottom: 12px; }
+.focus-chart h5 { font-size: 0.92rem; color: var(--pres-muted); margin-bottom: 12px; }
 
 .bar-chart { display: flex; flex-direction: column; gap: 10px; }
 
@@ -1123,7 +1142,7 @@ h1 {
 .bar-label {
     width: 70px;
     font-size: 0.8rem;
-    color: #aaa;
+    color: var(--pres-muted);
     flex-shrink: 0;
 }
 
@@ -1144,13 +1163,13 @@ h1 {
     justify-content: flex-end;
     padding-right: 10px;
     font-size: 0.72rem;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     font-weight: 600;
 }
 
-.bar-fill.bio-fill { background: #7CB342; }
+.bar-fill.bio-fill { background: var(--pres-biology); }
 
-.exam-tips-enhanced h4 { font-size: 1.05rem; color: #e6e3dc; margin-bottom: 15px; }
+.exam-tips-enhanced h4 { font-size: 1.05rem; color: var(--pres-on-bg); margin-bottom: 15px; }
 
 .tips-grid {
     display: grid;
@@ -1168,8 +1187,8 @@ h1 {
 }
 
 .tip-icon { font-size: 1.6rem; flex-shrink: 0; }
-.tip-content strong { display: block; font-size: 0.9rem; color: #e6e3dc; margin-bottom: 4px; }
-.tip-content p { font-size: 0.8rem; color: #999; line-height: 1.4; }
+.tip-content strong { display: block; font-size: 0.9rem; color: var(--pres-on-bg); margin-bottom: 4px; }
+.tip-content p { font-size: 0.8rem; color: var(--pres-muted); line-height: 1.4; }
 
 /* Slide 10: Roadmap */
 .roadmap-enhanced { padding: 10px 0; }
@@ -1213,12 +1232,12 @@ h1 {
     justify-content: center;
     font-size: 0.8rem;
     font-weight: bold;
-    background: #171b1d;
+    background: var(--pres-bg);
     border: 2px solid #555;
 }
 
-.timeline-item.completed .tl-marker { background: #27ae60; border-color: #27ae60; color: #e6e3dc; }
-.timeline-item.current .tl-marker { background: var(--pres-primary); border-color: var(--pres-primary); color: #e6e3dc; animation: pulse 2s infinite; }
+.timeline-item.completed .tl-marker { background: #27ae60; border-color: #27ae60; color: var(--pres-on-bg); }
+.timeline-item.current .tl-marker { background: var(--pres-primary); border-color: var(--pres-primary); color: var(--pres-on-bg); animation: pulse 2s infinite; }
 
 @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(102,126,234,0.4); }
@@ -1229,14 +1248,14 @@ h1 {
     display: inline-block;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #888;
+    color: var(--pres-muted);
     margin-bottom: 6px;
 }
 
 .phase-active { color: var(--pres-primary); }
 
-.tl-content h4 { font-size: 1.05rem; color: #e6e3dc; margin-bottom: 6px; }
-.tl-content p { font-size: 0.85rem; color: #999; line-height: 1.5; }
+.tl-content h4 { font-size: 1.05rem; color: var(--pres-on-bg); margin-bottom: 6px; }
+.tl-content p { font-size: 0.85rem; color: var(--pres-muted); line-height: 1.5; }
 
 .tl-details {
     display: flex;
@@ -1247,7 +1266,7 @@ h1 {
 
 .tl-details span {
     font-size: 0.78rem;
-    color: #7CB342;
+    color: var(--pres-biology);
     background: rgba(124,179,66,0.1);
     padding: 4px 12px;
     border-radius: var(--radius-lg);
@@ -1278,7 +1297,7 @@ h1 {
 .tl-progress span { font-size: 0.78rem; color: var(--pres-primary); font-weight: 600; }
 
 /* Ending slide enhancements */
-.promo-text { font-size: 1.2rem; color: #aaa; margin: 25px 0; z-index: 1; position: relative; }
+.promo-text { font-size: 1.2rem; color: var(--pres-muted); margin: 25px 0; z-index: 1; position: relative; }
 
 .final-stats {
     display: flex;
@@ -1291,7 +1310,7 @@ h1 {
 
 .fs-item { text-align: center; }
 .fs-num { display: block; font-size: 2rem; font-weight: 700; color: var(--pres-primary); }
-.fs-label { font-size: 0.85rem; color: #888; }
+.fs-label { font-size: 0.85rem; color: var(--pres-muted); }
 
 .fs-divider {
     width: 1px;
@@ -1324,7 +1343,7 @@ h1 {
     padding: 12px 24px;
     border-radius: var(--radius-md);
     font-size: 0.85rem;
-    color: #888;
+    color: var(--pres-muted);
 }
 
 /* Navigation */
@@ -1347,7 +1366,7 @@ h1 {
 .nav-btn {
     background: var(--pres-primary);
     border: none;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     padding: 10px 24px;
     border-radius: 25px;
     cursor: pointer;
@@ -1362,7 +1381,7 @@ h1 {
 
 .slide-indicator {
     font-size: 1rem;
-    color: #aaa;
+    color: var(--pres-muted);
 }
 
 .slide-indicator span { color: var(--pres-primary); font-weight: 600; }
@@ -1387,7 +1406,7 @@ h1 {
 .slide-content h2 {
     font-size: 2rem;
     margin-bottom: 30px;
-    color: #e6e3dc;
+    color: var(--pres-on-bg);
     padding-bottom: 12px;
     border-bottom: 2px solid rgba(102,126,234,0.3);
 }
@@ -1428,4 +1447,33 @@ h1 {
     .visual-preview-row { flex-direction: column; align-items: center; }
     .workflow-steps { flex-wrap: wrap; justify-content: center; }
     .cta-buttons { flex-direction: column; }
+}
+/* ============================================================
+   工具类（原内联 style 外置）
+   ------------------------------------------------------------
+   这些样式原先以 style="" 写在 presentation.html 上。CSP 的
+   style-src 'self' 会拦掉内联 style 属性，导致布局静默失效，
+   故统一外置为类。
+   ============================================================ */
+
+/* 区块顶部留白（原 style="margin-top: 20px"） */
+.spaced-top {
+    margin-top: 20px;
+}
+
+/* 条形图宽度档位（原 style="width:N%"） */
+.bar-w-92 { width: 92%; }
+.bar-w-88 { width: 88%; }
+.bar-w-85 { width: 85%; }
+.bar-w-82 { width: 82%; }
+.bar-w-78 { width: 78%; }
+.bar-w-75 { width: 75%; }
+.bar-w-70 { width: 70%; }
+.bar-w-68 { width: 68%; }
+
+/* 强调标签：比 .tl-details span 的默认绿更饱和
+   （原 style="background:rgba(39,174,96,.15);color:#27ae60"） */
+.tl-details span.tag-vivid {
+    background: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
 }
