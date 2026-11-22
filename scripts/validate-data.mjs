@@ -212,9 +212,24 @@ function contentFingerprint(q) {
   return `${norm(q.question)}||${opts}||${norm(q.options[ci])}`;
 }
 
+// 题目合法字段白名单。字段名拼错不会让 JSON 失效，却会让对应功能静默丢数据：
+// 实证——BIO_2024_07 的 key 写成中文「知识要点」，knowledgePoints 缺失，
+// 该题的考点关联/错题归因/搜索索引全部落空，而旧校验器一句都不报。
+const QUESTION_FIELDS = new Set([
+  'id', 'year', 'type', 'difficulty', 'points', 'category',
+  'question', 'answer', 'analysis', 'knowledgePoints', 'options', 'passage',
+]);
+
 function validateQuestion(q, subject, index, stats) {
   const id = q.id || `${subject}#${index}`;
   const tag = `exam.${subject}[${index}](${id})`;
+
+  for (const key of Object.keys(q)) {
+    if (!QUESTION_FIELDS.has(key)) {
+      warn('exam/' + subject + '.json',
+        `${tag}: 未知字段 "${key}"（拼写错误会让该字段静默失效）`, id);
+    }
+  }
 
   if (!isNonEmptyString(q.id)) error('exam/' + subject + '.json', `${tag}: 缺少 id`, id);
   if (!isNonEmptyString(q.question)) error('exam/' + subject + '.json', `${tag}: 题干为空`, id);

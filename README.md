@@ -62,7 +62,7 @@ python -m http.server 8000     # 然后打开 http://localhost:8000
         ├── plugins/       轻插件（清单 + 入口脚本）
         └── sw.js          离线缓存
 android/                    原生安卓壳（Kotlin/Java，build-apk.sh 免 Gradle 构建）
-scripts/                    数据校验等开发工具（npm run verify 的 12 道门禁）
+scripts/                    数据校验等开发工具（npm run verify 的 13 道门禁）
 COMPETITION.md              参赛评审维度映射、演示脚本与答辩 Q&A
 ITERATION-PLAN.md           历次迭代计划与验收记录
 CHANGELOG.md                更新日志

@@ -2,6 +2,19 @@
 
 ## 未发布
 
+### 跨项目优秀实践迁移（源：high-school-chemical-notes / cn-math-taxonomy / whk-wiki）
+> 详见 [MIGRATION-REPORT.md](MIGRATION-REPORT.md)。原则：只补本项目真正缺的，不机械复制。
+
+- **【数据安全】备份/导入事务回滚**（参考 cn-math `children.js` 的补偿事务）：`progress.js` 的 `importData` 此前忽略 `saveAll()` 返回值，配额满时返回 `ok:true` 但实际没写入，`replace` 模式还会留下内存/磁盘不一致。现在进入时做 `clone(_cache)` 快照，merge/replace 两条路径写入失败均回滚并返回 `{ok:false, error:'storage-full'}`；`settings-center.js` 恢复失败时按错误类型提示"原记录未被改动"。新增 `scripts/test-import-transaction.mjs`（17 项，含 QuotaExceeded 精确注入），接入 npm test。
+- **【门禁】新增链接完整性门禁**（参考 whk `onBrokenLinks: 'throw'`）：`scripts/check-anchors.mjs` 校验页内 `#锚点` 有对应 id、跨页 `?goto=` 的值在 `deep-link.js` 路由表内（直接解析源码，不维护副本）。**首次运行即抓到 5 处失效链接**并已修复：index 的 `#m1-s3`/`#m4-s4`（内容早已合并但导航没跟）、promo 的 `#english`/`#math`/`#chinese`（该页无对应 section，改走 `?goto=` 深链）。CI 增步骤 ④-b + 自检 D（注入坏锚点断言门禁失败）。
+- **【数据契约】未知字段守卫 + 字段文档**（参考 cn-math `validate.py` 逐字段校验与 README 字段表）：`validate-data.mjs` 新增 12 字段白名单，白名单外报"未知字段（拼写错误会让该字段静默失效）"。**实际修了两处脏数据**：`BIO_2024_07` 的 `知识要点` 改正为 `knowledgePoints`（该题考点关联此前一直无效）、`ENG_2022_08` 删空废弃字段 `解析_ignored`。新增 `DATA-SCHEMA.md` 记录字段契约与 6 条已知陷阱。
+- **【体验】PWA 安装入口**（参考 cn-math `pwa.js` 分平台引导）：新增 `js/pwa-install.js`（ES5/零依赖），监听 `beforeinstallprompt`/`appinstalled`，处理 iOS `navigator.standalone` 与 iPadOS 的 UA 伪装。设置中心通用页新增"安装到桌面"卡片，**复用现有卡片与按钮、零新增样式**；条件不满足时整卡不渲染。
+- **【安全】CI 最小权限**（参考 whk deploy.yml）：`verify.yml` / `e2e.yml` 补 `permissions: contents: read`（此前未声明，走仓库默认权限）。`apk-release.yml` 的 `contents: write` 为发布必需，保留。
+- **【规范】新增 `.editorconfig`**：统一 charset/final newline/尾空格与缩进（JS/CSS/HTML 4 空格、JSON/YAML 2 空格，与现状一致）；`*.md` 保留行尾两空格（硬换行语义）。刻意不声明 `end_of_line`，行尾交给 git 的 autocrlf。
+- **缓存**：CACHE_NAME hspcb-v23 → **hspcb-v24**（本轮 JS/CSS/数据均有变更）；SW 清单加入 pwa-install.js。
+- **验证**：`npm run verify` 全绿（13 道门禁，含新增 check:anchors；运行时 121 项、单测 61+14+29+15+14+17、冒烟 77 项、资产同步 124 文件一致）；Playwright E2E 5/5；`build:pages` JS −30.1% / CSS −28.8%；两条新门禁均做反向验证（注入缺陷确认会失败）。
+
+
 ### 检查更新与自动更新（v1.8.1，更新源默认 GitHub Release）
 - **双端统一入口** `1.2/js/update-check.js`（`HSPCBUpdate`）：多源按序回退 —— GitHub Releases API → Gitee Releases API → GitHub raw 清单 → Gitee raw 清单（`1.2/update-manifest.json`）；24h 频控存 settings.update.lastCheck，手动检查跳过。设置 → 通用 新增「检查更新」卡片（当前版本 / 检查状态 / 「打开发布页」或「下载并安装」）。
 - **浏览器 / PWA**：发现新版经通知中心提示并可打开发布页；GitHub Pages 部署即最新代码，刷新即得。

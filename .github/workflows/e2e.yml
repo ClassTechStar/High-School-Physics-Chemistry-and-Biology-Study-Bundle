@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+# 最小权限：E2E 只读代码 + 跑浏览器，不上传 Release、不写仓库。
+permissions:
+  contents: read
+
 jobs:
   e2e:
     runs-on: ubuntu-latest

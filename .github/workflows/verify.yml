@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main]
 
+# 最小权限：本工作流只读代码跑门禁，不发布、不写仓库。
+# 显式声明可避免仓库默认权限放宽时，第三方 action 借 GITHUB_TOKEN 获得多余写权限。
+permissions:
+  contents: read
+
 # T0-5 门禁自举：故意制造的缺陷必须让 CI 变红。
 # 下方「自检 A/B/C」步骤会在 CI 内注入 3 类已知缺陷并断言对应门禁会失败 ——
 # 如果某个门禁又变成「永远 exit 0」（如修复前的 check-global-collisions），
@@ -39,6 +44,8 @@ jobs:
         run: npm run check:lint
       - name: ④ 内容语义门禁
         run: npm run check:content
+      - name: ④-b 链接完整性门禁（页内锚点 + 跨页深链）
+        run: npm run check:anchors
       - name: ⑤ defer 时序运行时复现
         run: npm run check:runtime
       - name: ⑤-b 安卓资产同步演练
@@ -114,3 +121,33 @@ jobs:
             exit 1
           fi
           echo "OK: 运行时门禁正确失败"
+
+      - name: 自检 D · 锚点门禁能否检出坏锚点
+        run: |
+          set -e
+          # 与自检 A/B/C 同标准：注入一个不存在的锚点，check:anchors 必须失败。
+          # 先断言 probe 真实落盘，避免注入锚点漂移导致 replace 空转、把
+          # 「自检装置失效」误报成「门禁失效」。
+          cp 1.2/index.html /tmp/index-anchors.bak
+          python3 - <<'PY'
+          p = '1.2/index.html'
+          s = open(p, encoding='utf-8').read()
+          anchor = '<main>'
+          if anchor not in s:
+              raise SystemExit('注入锚点不存在: ' + anchor + ' —— 自检装置需随代码迁移更新')
+          s = s.replace(anchor, anchor + '\n<a href="#gate-selftest-missing">自检注入</a>', 1)
+          open(p, 'w', encoding='utf-8').write(s)
+          PY
+          if ! grep -q 'gate-selftest-missing' 1.2/index.html; then
+            echo "::error::probe 注入未生效 —— 自检装置失效（锚点漂移）"
+            cp /tmp/index-anchors.bak 1.2/index.html
+            exit 1
+          fi
+          rc=0
+          npm run check:anchors >/dev/null 2>&1 || rc=1
+          cp /tmp/index-anchors.bak 1.2/index.html
+          if [ "$rc" = "0" ]; then
+            echo "::error::坏锚点未被检出 —— check:anchors 失效"
+            exit 1
+          fi
+          echo "OK: 锚点门禁正确失败"

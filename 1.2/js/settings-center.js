@@ -119,6 +119,34 @@ window.HSPCBSettingsUI = (function () {
         updCard.appendChild(updStatus);
         frag.appendChild(updCard);
 
+        // PWA 安装入口：仅在浏览器支持且尚未安装时出现；条件不满足时整卡不渲染，
+        // 设置页与改动前完全一致（复用现有卡片与按钮，不新增样式）。
+        (function () {
+            var pwa = window.HSPCBPwaInstall;
+            if (!pwa || !pwa.available()) return;
+            var pwaCard = el('div', 'hspcb-card');
+            pwaCard.appendChild(el('div', 'hspcb-row-label', '安装到桌面'));
+            pwaCard.appendChild(el('div', 'hspcb-row-hint', pwa.hint()));
+            var pwaRow = el('div', 'hspcb-entry-row');
+            if (pwa.canPrompt()) {
+                var pwaBtn = btn('安装', 'hspcb-btn-primary', function () {
+                    pwaBtn.disabled = true;
+                    pwa.prompt().then(function (ok) {
+                        pwaBtn.disabled = false;
+                        if (!ok) return;
+                        if (pwaCard.parentNode) pwaCard.parentNode.removeChild(pwaCard);
+                        window.HSPCBNotify && HSPCBNotify.notify({
+                            id: 'pwa.installed', level: 'info', duration: 5000,
+                            title: '已添加到桌面', message: '下次可以从桌面图标直接打开。'
+                        });
+                    });
+                });
+                pwaRow.appendChild(pwaBtn);
+            }
+            pwaCard.appendChild(pwaRow);
+            frag.appendChild(pwaCard);
+        })();
+
         // v1.6 评委演示模式：一键填充示例学习数据，注入前自动快照
         var demoCard = el('div', 'hspcb-card');
         demoCard.appendChild(el('div', 'hspcb-row-label', '评委演示模式'));
@@ -359,7 +387,17 @@ window.HSPCBSettingsUI = (function () {
             r.appendChild(btn('恢复', 'hspcb-btn-danger', function () {
                 if (!window.confirm('确定恢复到 ' + s.date + ' 的快照？当前学习记录将被覆盖。')) return;
                 var res = HSPCBProgress.restoreSnapshot(s.slot);
-                if (res && res.ok) window.location.reload();
+                if (res && res.ok) { window.location.reload(); return; }
+                // 失败不能静默：用户点了「恢复」必须有反馈，并说明原记录未动
+                var reason = res && res.error === 'storage-full'
+                    ? '本地存储空间不足，原记录未被改动。'
+                    : (res && res.error === 'corrupt'
+                        ? '快照已损坏，原记录未被改动。'
+                        : '快照不可用，原记录未被改动。');
+                window.HSPCBNotify && HSPCBNotify.notify({
+                    id: 'backup.restore.fail', level: 'error', duration: 7000,
+                    title: '恢复失败', message: reason
+                });
             }));
             card.appendChild(r);
         });

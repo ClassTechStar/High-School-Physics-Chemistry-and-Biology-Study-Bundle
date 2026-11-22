@@ -1,0 +1,27 @@
+# .editorconfig — 统一编辑器行为，让「格式差异」不再混进 diff
+#
+# 行尾交给 git 管（core.autocrlf=true：仓库内 LF、Windows 工作区 CRLF），
+# 这里刻意不声明 end_of_line，避免编辑器与 git 的转换规则互相覆盖。
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# 前端源码：4 空格（与 1.2/js、1.2/css 现状一致）
+[*.{js,mjs,css,html}]
+indent_size = 4
+
+# 配置与数据：2 空格（与 package.json、workflows、data/*.json 现状一致）
+[*.{json,yml,yaml,webmanifest}]
+indent_size = 2
+
+# Markdown 行尾两个空格是硬换行，有语义，不能裁
+[*.md]
+trim_trailing_whitespace = false
+
+# Windows 脚本必须 CRLF
+[*.{bat,cmd}]
+end_of_line = crlf

@@ -486,6 +486,9 @@ window.HSPCBProgress = (function () {
         }
 
         var data = loadAll();
+        // 事务快照：localStorage 配额满时 saveAll 会失败，若不回滚内存态，
+        // 就会出现「提示恢复成功、实际没写进去」或半覆盖的脏数据。
+        var prevCache = _cache ? clone(_cache) : null;
         if (mode === 'replace') {
             var next = clone(DEFAULTS);
             for (var k in incoming) {
@@ -493,7 +496,10 @@ window.HSPCBProgress = (function () {
                 next[k] = incoming[k];
             }
             _cache = next;
-            saveAll();
+            if (!saveAll()) {
+                _cache = prevCache;
+                return { ok: false, error: 'storage-full' };
+            }
             return { ok: true, mode: 'replace' };
         }
 
@@ -520,7 +526,10 @@ window.HSPCBProgress = (function () {
                 data[key] = val;
             }
         }
-        saveAll();
+        if (!saveAll()) {
+            _cache = prevCache;
+            return { ok: false, error: 'storage-full' };
+        }
         return { ok: true, mode: 'merge' };
     }
 
