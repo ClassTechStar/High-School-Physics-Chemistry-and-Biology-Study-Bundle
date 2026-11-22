@@ -168,6 +168,32 @@ for (const css of ['css/md3-tokens.css', 'css/md3-components.css', 'css/md3-doc.
   if (!docHtml.includes(css)) fail(`md3.html 未引入 ${css}`);
 }
 
+/* ---------------- F. 已迁移页面不得回退 ---------------- */
+
+// 已迁到 MD3 的业务页面。迁一个登记一个：
+// 这些页面必须继续引用 MD3 令牌与组件层，且不得再引旧的专属样式
+// （否则会与 MD3 层抢同名元素样式，出现「改了没生效」的诡异状态）。
+const MIGRATED_PAGES = [
+  { file: 'showcase.html', retired: ['css/showcase.css', 'css/craft.css'] },
+];
+
+for (const { file, retired } of MIGRATED_PAGES) {
+  const p = join(WEB, file);
+  if (!existsSync(p)) {
+    fail(`已迁移页面不存在：${file}（清单需同步）`);
+    continue;
+  }
+  const html = readFileSync(p, 'utf8');
+  for (const css of ['css/md3-tokens.css', 'css/md3-components.css']) {
+    if (!html.includes(css)) fail(`${file} 已迁 MD3，但未引用 ${css}`);
+  }
+  for (const old of retired) {
+    if (html.includes(old)) fail(`${file} 仍引用已弃用的 ${old}，会与 MD3 层样式打架`);
+  }
+  if (/<style[\s>]/i.test(html)) fail(`${file} 含内联 <style>，CSP 会拦掉`);
+  if (/\sstyle\s*=\s*"/.test(html)) fail(`${file} 含 style 属性，CSP 会拦掉`);
+}
+
 /* ---------------- 输出 ---------------- */
 
 if (problems.length) {

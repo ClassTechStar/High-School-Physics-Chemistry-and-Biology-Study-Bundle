@@ -248,3 +248,27 @@ npm run verify        # 全套 14 道门禁（check:md3 已并入）
 
 两者**互不覆盖**：MD3 层只定义 `--md3-*`，不改 `--primary` 等既有变量；反之亦然。
 若将来要把现有页面迁到 MD3，按页迁移、逐页验收，不要一次性替换。
+
+### 已迁移页面登记表
+
+迁一个登记一个（同步到 `scripts/check-md3.mjs` 的 `MIGRATED_PAGES`，门禁会守住不回退）：
+
+| 页面 | 迁移日期 | 旧样式（已弃用） | 现状 |
+| --- | --- | --- | --- |
+| `showcase.html` | 2026-11-22 | `css/showcase.css` + `css/craft.css` | MD3 令牌 + 组件层 + `css/showcase-md3.css` 版面骨架 |
+
+登记后门禁会校验：必须继续引用 MD3 令牌与组件层、不得再引旧样式、不得有内联样式。
+
+**迁移后仍在用 `craft.css` 的页面**（未迁移，不受影响）：`index.html`、`presentation.html`、`promo.html`。
+
+### 试跑结论（showcase.html）
+
+用最小页面先试，结果：**MD3 层与既有门禁体系不冲突**——`check:version` / `check:theme` / `check:csp` / `check:anchors` / `check:md3` / `check:content` / `check:lint` 七道全过，E2E 5/5。
+
+踩到的两个真问题，迁移其余页面时会重复遇到，记在这里：
+
+1. **响应式不能被字阶吃掉**。原版 `h1` 是 `clamp(26px,5vw,44px)`，直接用 `--md3-type-headline-large-size`（固定 32px）会在大屏缩水。
+   正确写法是让 clamp 的两端都落在 MD3 字阶上：
+   `font-size: clamp(var(--md3-type-headline-medium-size), 5vw, var(--md3-type-display-medium-size))`。
+2. **旧样式必须整份移除**，不能「新旧都引着」。同名元素上两套规则会互相覆盖，症状是「改了没生效」，排查成本极高。门禁的 `retired` 列表就是防这个。
+

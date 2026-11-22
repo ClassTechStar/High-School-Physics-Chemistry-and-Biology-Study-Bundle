@@ -2,6 +2,17 @@
 
 ## 未发布
 
+### 首个页面迁移试跑：showcase.html → MD3
+> 目的：用最小页面验证「MD3 层」与「项目既有门禁/设计」是否会冲突。结论：**不冲突**，7 道相关门禁全过。
+
+- **迁移方式**：只换样式层，不动内容与语义——`showcase.css` + `craft.css` 换成 `md3-tokens.css` + `md3-components.css` + 新的 `css/showcase-md3.css`（只做版面骨架）；两个 CTA 从自研 `.sc-btn` 换成 `.md3-btn--filled` / `--outlined`；**全部文案、5 个锚点 id、ol/ul/article 语义原样保留**。
+- **顺带修正两处迁移中自己引入的回归**：h1 从 `clamp(26px,5vw,44px)` 被改成固定 32px（大屏缩水）→ 改为 `clamp(headline-medium 28px, 5vw, display-medium 45px)`，两端都落在 MD3 字阶上；副标题同理收在 body-medium↔body-large。断点从 600px 对齐回原版的 640px。
+- **门禁扩展**：`check:md3` 新增「已迁移页面不得回退」校验——登记表里的页面必须继续引用 MD3 令牌与组件层、不得再引旧的专属样式、不得有内联 `<style>`/`style` 属性。`showcase.html` 为首个登记项。反向验证：把 `craft.css` 加回去，门禁立即报错。
+- **视觉变化（可接受）**：主色 `#2d5a63` → MD3 `primary #0e6b58`（同色系，更亮一档）；卡片圆角 8px → 12px（`--md3-shape-medium`）；阴影改为 MD3 双层 elevation-low；统计块由实底改描边卡片。
+- **保留项**：暗色模式原版已有（`--sc-bg:#171b1d`），迁移后沿用 MD3 明暗两套角色；`craft.css` 仍被 index/presentation/promo 使用，未删除；`showcase.css` 迁移后无页面引用，成孤儿文件，本轮保留未删（避免误伤动态引用）。
+- **缓存**：CACHE_NAME hspcb-v25 → **hspcb-v26**；SW 清单加 `css/showcase-md3.css`。
+- **验证**：`npm run verify` 14 道门禁全绿；Playwright E2E 5/5；浏览器实测浅/深色零 CSP 违规、零 console 错误、5 个锚点俱在；响应式实测桌面 h1=45px、移动 h1=28px、390px 视口零水平溢出。
+
 ### Material Design 3 设计层（对齐 mochi-compose）
 > 规范见 [DESIGN-MD3.md](DESIGN-MD3.md)。新页面/新组件一律走 MD3 层；现有页面保留原生设计，两套令牌命名空间隔离、互不覆盖。
 

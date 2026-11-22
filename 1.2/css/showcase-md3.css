@@ -1,0 +1,199 @@
+/* ============================================================
+   showcase-md3.css — 展示页版面骨架（MD3 版）
+   ------------------------------------------------------------
+   只负责布局与节奏，组件外观一律来自 md3-components.css。
+   颜色/圆角/间距/字号全部引用 --md3-* 令牌，不出现裸数值色值。
+   ============================================================ */
+
+body {
+    margin: 0;
+    background: var(--md3-background);
+    color: var(--md3-on-background);
+    font-family: "MiSans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+}
+
+/* 顶部主视觉 */
+.sc-hero {
+    padding: var(--md3-space-3xl) var(--md3-space-lg) var(--md3-space-2xl);
+    text-align: center;
+    background: var(--md3-surface-container-low);
+    border-bottom: 1px solid var(--md3-outline-variant);
+}
+.sc-hero h1 {
+    margin: 0 0 var(--md3-space-md);
+    /* 保留原版的流式缩放：下限 headline-medium(28)、上限 display-medium(45)，
+       两端都落在 MD3 字阶上，大屏不缩水、小屏不挤爆 */
+    font-size: clamp(var(--md3-type-headline-medium-size), 5vw, var(--md3-type-display-medium-size));
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: var(--md3-type-headline-large-tracking);
+    color: var(--md3-on-surface);
+}
+.sc-sub {
+    max-width: 620px;
+    margin: 0 auto var(--md3-space-xl);
+    color: var(--md3-on-surface-variant);
+    /* 原版 clamp(14, 2.4vw, 17)，收在 MD3 的 body-medium(14) ↔ body-large(16) */
+    font-size: clamp(var(--md3-type-body-medium-size), 2.4vw, var(--md3-type-body-large-size));
+    line-height: var(--md3-type-body-large-line);
+}
+.sc-cta {
+    display: flex;
+    gap: var(--md3-space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+/* 按钮外观交给 MD3，这里只补链接语义需要的文本装饰重置 */
+.sc-cta a { text-decoration: none; }
+
+/* 主体 */
+.sc-main {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: var(--md3-space-2xl) var(--md3-space-lg) var(--md3-space-3xl);
+}
+
+.sc-section { margin-top: var(--md3-space-3xl); }
+.sc-section:first-child { margin-top: 0; }
+
+.sc-section h2 {
+    margin: 0 0 var(--md3-space-lg);
+    font-size: var(--md3-type-headline-small-size);
+    line-height: var(--md3-type-headline-small-line);
+    font-weight: 600;
+    letter-spacing: var(--md3-type-headline-small-tracking);
+    color: var(--md3-on-surface);
+}
+.sc-section h3 {
+    margin: 0 0 var(--md3-space-sm);
+    font-size: var(--md3-type-title-medium-size);
+    line-height: var(--md3-type-title-medium-line);
+    font-weight: var(--md3-type-title-medium-weight);
+    color: var(--md3-on-surface);
+}
+.sc-section p {
+    margin: 0;
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-body-medium-size);
+    line-height: var(--md3-type-body-large-line);
+}
+
+/* 数据条：六个统计块 */
+.sc-stats {
+    display: grid;
+    gap: var(--md3-space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}
+.sc-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--md3-space-xs);
+    padding: var(--md3-space-lg);
+    border-radius: var(--md3-shape-medium);
+    background: var(--md3-surface-container-low);
+    border: 1px solid var(--md3-outline-variant);
+    text-align: center;
+}
+.sc-stat strong {
+    font-size: var(--md3-type-headline-medium-size);
+    line-height: var(--md3-type-headline-medium-line);
+    font-weight: 700;
+    color: var(--md3-primary);
+    font-variant-numeric: tabular-nums;
+}
+.sc-stat span {
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-label-medium-size);
+    line-height: var(--md3-type-label-medium-line);
+}
+
+/* 功能卡片网格 */
+.sc-grid {
+    display: grid;
+    gap: var(--md3-space-lg);
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+}
+.sc-card {
+    padding: var(--md3-space-lg);
+    border-radius: var(--md3-shape-medium);
+    background: var(--md3-surface-container-lowest);
+    box-shadow: var(--md3-elevation-low-shadow);
+}
+.sc-card h3 { margin: 0 0 var(--md3-space-sm); }
+
+/* 三列区 */
+.sc-cols {
+    display: grid;
+    gap: var(--md3-space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+.sc-col {
+    padding: var(--md3-space-lg);
+    border-radius: var(--md3-shape-large);
+    background: var(--md3-surface-container-low);
+}
+.sc-col h3 { margin: 0 0 var(--md3-space-md); }
+
+/* 列表：保留 ol/ul 语义，换成 MD3 排版与间距 */
+.sc-list {
+    margin: 0;
+    padding-left: var(--md3-space-lg);
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-body-medium-size);
+    line-height: 1.7;
+}
+.sc-list li { margin-bottom: var(--md3-space-xs); }
+.sc-list li::marker { color: var(--md3-primary); }
+.sc-list code,
+.sc-section code {
+    padding: 1px var(--md3-space-xs);
+    border-radius: var(--md3-shape-extra-small);
+    background: var(--md3-surface-container-high);
+    color: var(--md3-on-surface);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.9em;
+}
+
+/* 体验步骤 */
+.sc-steps {
+    margin: 0;
+    padding: var(--md3-space-lg) var(--md3-space-lg) var(--md3-space-lg) var(--md3-space-2xl);
+    border-radius: var(--md3-shape-large);
+    background: var(--md3-surface-container-low);
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-body-medium-size);
+    line-height: 1.8;
+}
+.sc-steps li { margin-bottom: var(--md3-space-xs); }
+.sc-steps li::marker { color: var(--md3-primary); font-weight: 600; }
+.sc-steps a { color: var(--md3-primary); text-decoration: none; }
+.sc-steps a:hover { text-decoration: underline; }
+
+/* 说明区 */
+.sc-note {
+    padding: var(--md3-space-lg);
+    border-radius: var(--md3-shape-large);
+    background: var(--md3-surface-container);
+    border: 1px solid var(--md3-outline-variant);
+}
+
+/* 页脚 */
+.sc-footer {
+    padding: var(--md3-space-xl) var(--md3-space-lg) var(--md3-space-3xl);
+    text-align: center;
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-body-small-size);
+    border-top: 1px solid var(--md3-outline-variant);
+}
+.sc-footer a { color: var(--md3-primary); text-decoration: none; }
+.sc-footer a:hover { text-decoration: underline; }
+
+/* 窄屏收拢 */
+@media (max-width: 640px) {
+    .sc-hero { padding: var(--md3-space-2xl) var(--md3-space-md) var(--md3-space-xl); }
+    .sc-main { padding: var(--md3-space-xl) var(--md3-space-md) var(--md3-space-2xl); }
+    .sc-section { margin-top: var(--md3-space-2xl); }
+    .sc-card, .sc-col, .sc-note { padding: var(--md3-space-md); }
+}
