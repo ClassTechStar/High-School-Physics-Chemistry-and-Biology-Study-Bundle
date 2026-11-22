@@ -236,6 +236,14 @@ npm run build:pages     → ✓ JS 压缩 72 个 3.82 MB → 2.67 MB (−30.1%)
 - `window.HSPCBPwaInstall` 存在，设置中心可打开
 - 打开设置中心**前后 CSP 违规数均为 2**（未新增）
 
+### 4.5 CI 结果（推送后）
+
+| Job | 结果 |
+| --- | --- |
+| verify (18 / 20 / 22) | ✅ success（含新增步骤 ④-b 与自检 D） |
+| e2e | ✅ success（5 条主路径） |
+| pages / deploy | ⚠️ 首次 `actions/deploy-pages@v4` 失败，与构建无关（构建步骤成功），疑似 Pages 服务侧/并发问题，重试确认中 |
+
 ---
 
 ## 五、剩余风险点
