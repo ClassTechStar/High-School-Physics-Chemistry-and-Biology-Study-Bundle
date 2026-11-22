@@ -2,6 +2,19 @@
 
 ## 未发布
 
+### 第二个页面迁移：promo.html → MD3
+> 比 showcase 复杂一个量级（743 行 / 172 个选择器 / 11 个区块 / 7 个锚点 + 3 个跨页深链）。结论：**不冲突**，7 道门禁全过。
+
+- **迁移方式**：改用「转接层」而非重写——`css/promo-md3.css` 保留全部 172 个选择器的布局与定位，只把旧变量名映射到 MD3 令牌（`--primary → var(--md3-primary)`、`--dark-bg → background` 等 6 条），170+ 个选择器一行不改即完成 MD3 化。圆角梯度 `--radius-sm/md/lg` 与 MD3 形状体系完全同值（4/8/12），直接转接，视觉零变化。
+- **固定深色**：promo 原本就是深色宣传页（`--dark-bg:#0f0f23` 深紫蓝），故 HTML 上加 `data-md3-theme="dark"` 锁定 MD3 深色套，不随系统切浅色。
+- **业务扩展色命名化**：学科色（physics/chemistry/biology）、学科沉浸区底色（`--physics-deep` / `--biology-deep`）、高亮徽标（`--promo-highlight`）、遗传系谱图标记（`--pedigree-female` / `--pedigree-affected`）全部从裸色值提升为具名 token。**系谱图的红/粉是生物学语义（患病/女性），不是 MD3 的 error 色**，独立命名防止被误改。迁移后全文件只在 `:root` 出现 3 个学科色裸值。
+- **顺手修一处既有 bug**：`.footer-subjects` 缺 `flex-wrap`，390px 视口下 6 个学科标签挤一行、右侧溢出 6px。加上换行后 390/768/1280 三档零溢出。
+- **内容同步**：「技术架构 → 文件结构」卡片里展示的 `promo.css` 已弃用，改为 `md3-tokens.css`，避免文档与事实不符。
+- **门禁修正**：`check:md3` 的已迁移页面校验原来用 `html.includes('promo.css')` 扫全文，被正文那棵文件树误伤（它写着 `promo.css` 几个字）。改为只匹配 `<link href>`，并补登记 `promo.html`。反向验证：把 `href` 改回 `promo.css` 立即报错。
+- **未动**：页面内的内联 `<script>`（移动菜单 + canvas 抛体模拟）保持原样，因此**未给 promo 加 CSP meta**——加 `script-src 'self'` 会拦掉它。promo 目前无 CSP，与主应用安全基线不一致，记为遗留项。
+- **缓存**：CACHE_NAME hspcb-v26 → **hspcb-v27**；SW 清单加 `css/promo-md3.css`。
+- **验证**：`npm run verify` 14 道门禁全绿；Playwright E2E 5/5；浏览器实测 `--primary` 解析为 `#86d6be` 与 `--md3-primary` 一致、区块背景层次正确（hero 深 / features 亮一档）、零 console 错误、三档视口零水平溢出。
+
 ### 首个页面迁移试跑：showcase.html → MD3
 > 目的：用最小页面验证「MD3 层」与「项目既有门禁/设计」是否会冲突。结论：**不冲突**，7 道相关门禁全过。
 

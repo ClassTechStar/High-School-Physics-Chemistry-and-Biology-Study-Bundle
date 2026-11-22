@@ -175,6 +175,7 @@ for (const css of ['css/md3-tokens.css', 'css/md3-components.css', 'css/md3-doc.
 // （否则会与 MD3 层抢同名元素样式，出现「改了没生效」的诡异状态）。
 const MIGRATED_PAGES = [
   { file: 'showcase.html', retired: ['css/showcase.css', 'css/craft.css'] },
+  { file: 'promo.html', retired: ['promo.css', 'css/craft.css'] },
 ];
 
 for (const { file, retired } of MIGRATED_PAGES) {
@@ -184,11 +185,15 @@ for (const { file, retired } of MIGRATED_PAGES) {
     continue;
   }
   const html = readFileSync(p, 'utf8');
+  // 只看真正生效的 <link href>，不能扫全文：
+  // promo.html 正文里有一棵「项目文件树」，写着 promo.css 这几个字，
+  // 用 includes() 扫全文会把它当成样式引用而误报。
+  const linkHrefs = [...html.matchAll(/<link[^>]+href="([^"]+\.css)"/g)].map((m) => m[1]);
   for (const css of ['css/md3-tokens.css', 'css/md3-components.css']) {
-    if (!html.includes(css)) fail(`${file} 已迁 MD3，但未引用 ${css}`);
+    if (!linkHrefs.includes(css)) fail(`${file} 已迁 MD3，但未引用 ${css}`);
   }
   for (const old of retired) {
-    if (html.includes(old)) fail(`${file} 仍引用已弃用的 ${old}，会与 MD3 层样式打架`);
+    if (linkHrefs.includes(old)) fail(`${file} 仍引用已弃用的 ${old}，会与 MD3 层样式打架`);
   }
   if (/<style[\s>]/i.test(html)) fail(`${file} 含内联 <style>，CSP 会拦掉`);
   if (/\sstyle\s*=\s*"/.test(html)) fail(`${file} 含 style 属性，CSP 会拦掉`);

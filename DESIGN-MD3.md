@@ -256,6 +256,7 @@ npm run verify        # 全套 14 道门禁（check:md3 已并入）
 | 页面 | 迁移日期 | 旧样式（已弃用） | 现状 |
 | --- | --- | --- | --- |
 | `showcase.html` | 2026-11-22 | `css/showcase.css` + `css/craft.css` | MD3 令牌 + 组件层 + `css/showcase-md3.css` 版面骨架 |
+| `promo.html` | 2026-11-22 | `promo.css` + `css/craft.css` | 转接层方案：`css/promo-md3.css` 保留 172 个选择器，只把变量映射到 MD3；固定 `data-md3-theme="dark"` |
 
 登记后门禁会校验：必须继续引用 MD3 令牌与组件层、不得再引旧样式、不得有内联样式。
 
@@ -271,4 +272,35 @@ npm run verify        # 全套 14 道门禁（check:md3 已并入）
    正确写法是让 clamp 的两端都落在 MD3 字阶上：
    `font-size: clamp(var(--md3-type-headline-medium-size), 5vw, var(--md3-type-display-medium-size))`。
 2. **旧样式必须整份移除**，不能「新旧都引着」。同名元素上两套规则会互相覆盖，症状是「改了没生效」，排查成本极高。门禁的 `retired` 列表就是防这个。
+
+### 迁移手法二：转接层（适用于选择器多的页面）
+
+promo.html 有 172 个选择器、21KB CSS，重写风险高。改用「转接层」：
+
+```css
+:root {
+    /* 旧变量名保留，值指向 MD3 令牌 —— 170+ 个选择器一行不改即可 MD3 化 */
+    --primary: var(--md3-primary);
+    --dark-bg: var(--md3-background);
+    --text-primary: var(--md3-on-surface);
+    --radius-md: var(--md3-shape-small);   /* 原 tokens.css 与 MD3 形状同值 */
+}
+```
+
+适用条件：原页面用变量驱动颜色/圆角（而非到处写裸值）。裸值多的页面要先做一遍「命名化」。
+
+**必须做的两步自检**（我用脚本跑的，建议写成惯例）：
+
+1. **变量定义 vs 引用一致性**：`for each var(--x) used → 必须在文件内或 MD3 层有定义`。
+   否则变量解析成空值，背景变透明、文字变黑，而且不报错。
+2. **裸色值审计**：迁移后裸色值只应出现在 `:root` 定义处。散落在选择器里的裸值会绕过令牌体系。
+
+**业务扩展色要单独命名**，不要硬塞进 MD3 角色：
+
+| 类型 | 例子 | 处理 |
+| --- | --- | --- |
+| 学科区分色 | `--physics` / `--chemistry` / `--biology` | 保留原值，MD3 允许品牌扩展色 |
+| 学科沉浸区底色 | `--physics-deep` / `--biology-deep` | 由学科色派生的深色变体 |
+| 专业语义色 | `--pedigree-female` / `--pedigree-affected`（遗传图女/患病） | **独立命名**，绝不能映射成 `--md3-error` |
+
 
