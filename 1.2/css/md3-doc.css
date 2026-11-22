@@ -1,0 +1,105 @@
+/* ============================================================
+   md3-doc.css — MD3 组件目录页的版面骨架
+   只负责页面布局；所有组件外观一律来自 md3-components.css。
+   单独成文件的原因：该页 CSP 为 style-src 'self'，内联 <style> 会被拦掉。
+   ============================================================ */
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--md3-background);
+    color: var(--md3-on-background);
+    font-family: "MiSans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 1040px; margin: 0 auto; padding: var(--md3-space-xl) var(--md3-space-lg) 96px; }
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: var(--md3-space-lg);
+    padding: var(--md3-space-md) var(--md3-space-lg);
+    background: var(--md3-surface-container);
+    border-bottom: 1px solid var(--md3-outline-variant);
+    backdrop-filter: blur(12px);
+}
+.topbar__title { flex: 1 1 auto; margin: 0; }
+
+.section { margin-top: var(--md3-space-3xl); }
+.section--first { margin-top: var(--md3-space-xl); }
+.section__head { display: flex; align-items: baseline; gap: var(--md3-space-md); margin-bottom: var(--md3-space-lg); flex-wrap: wrap; }
+.section__note { color: var(--md3-on-surface-variant); margin: var(--md3-space-xs) 0 0; }
+
+.row { display: flex; flex-wrap: wrap; gap: var(--md3-space-md); align-items: center; }
+.row--wide { gap: var(--md3-space-xl); }
+.row--spaced { margin-top: var(--md3-space-lg); }
+
+.grid { display: grid; gap: var(--md3-space-lg); grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); }
+.stack { display: flex; flex-direction: column; gap: var(--md3-space-md); }
+
+.demo-box {
+    padding: var(--md3-space-lg);
+    border-radius: var(--md3-shape-large);
+    background: var(--md3-surface-container-low);
+}
+
+/* 色板 */
+.swatches { display: grid; gap: var(--md3-space-sm); grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr)); }
+.swatch { border-radius: var(--md3-shape-medium); overflow: hidden; border: 1px solid var(--md3-outline-variant); }
+.swatch__chip { height: 48px; }
+.swatch__meta { padding: var(--md3-space-sm); background: var(--md3-surface-container-low); }
+.swatch__name { font-size: var(--md3-type-label-small-size); color: var(--md3-on-surface-variant); overflow-wrap: break-word; line-height: 1.35; }
+
+/* 字阶 */
+.type-row { display: flex; align-items: baseline; gap: var(--md3-space-lg); padding: var(--md3-space-sm) 0; border-bottom: 1px solid var(--md3-outline-variant); flex-wrap: wrap; }
+.type-row__label { flex: 0 0 150px; color: var(--md3-on-surface-variant); }
+
+/* 形状 */
+.shape-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 84px;
+    background: var(--md3-primary-container);
+    color: var(--md3-on-primary-container);
+    font-size: var(--md3-type-label-medium-size);
+}
+.shape-card__meta { padding: var(--md3-space-sm) var(--md3-space-xs) 0; color: var(--md3-on-surface-variant); font-size: var(--md3-type-label-small-size); }
+.shape-card { border-radius: var(--md3-shape-medium); overflow: hidden; }
+
+/* 阴影 */
+.elev-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 84px;
+    border-radius: var(--md3-shape-medium);
+    background: var(--md3-surface-container-lowest);
+    color: var(--md3-on-surface-variant);
+    font-size: var(--md3-type-label-medium-size);
+}
+.elev-rest { box-shadow: var(--md3-elevation-rest-shadow); }
+.elev-low { box-shadow: var(--md3-elevation-low-shadow); }
+.elev-raised { box-shadow: var(--md3-elevation-raised-shadow); }
+.elev-lifted { box-shadow: var(--md3-elevation-lifted-shadow); }
+.elev-floating { box-shadow: var(--md3-elevation-floating-shadow); }
+
+/* 代码片段 */
+code {
+    padding: 1px var(--md3-space-xs);
+    border-radius: var(--md3-shape-extra-small);
+    background: var(--md3-surface-container-high);
+    color: var(--md3-on-surface);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+    .page { padding: var(--md3-space-lg) var(--md3-space-md) 96px; }
+    .type-row__label { flex-basis: 100%; }
+}

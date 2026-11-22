@@ -2,6 +2,19 @@
 
 ## 未发布
 
+### Material Design 3 设计层（对齐 mochi-compose）
+> 规范见 [DESIGN-MD3.md](DESIGN-MD3.md)。新页面/新组件一律走 MD3 层；现有页面保留原生设计，两套令牌命名空间隔离、互不覆盖。
+
+- **【设计体系】新增 MD3 令牌层** `1.2/css/md3-tokens.css`（267 个变量）：37 个色彩角色（明暗双套）+ 20 级字阶 + 9 档形状 + 6 档阴影 + 10 档动效 + 7 级间距 + 组件尺寸 + 状态层透明度。**全部数值可追溯**——色彩用 material-color-utilities 官方算法以种子色 `#2B6A5A`（mochi `DefaultKeyColor`）生成，字阶/形状/阴影/动效逐项取自 mochi-compose 源码（`MochiTextStyles.kt` / `MochiShapes.kt` / `MochiShadows.kt` / `MochiMotionTokens.kt`），无自定义数值。
+- **【设计体系】动效参数转换为 CSS 可执行形式**：mochi 的 8 档弹簧 `(response, damping)` 按阻尼振荡公式采样 32 点，转成 CSS `linear()`；`prefers-reduced-motion` 全档退化为瞬时。
+- **【组件库】新增 19 个 MD3 组件** `1.2/css/md3-components.css` + `1.2/js/md3.js`（ES5/IIFE/零依赖）：按钮（filled/tonal/elevated/outlined/text × 三尺寸）、图标按钮、FAB、卡片（elevated/filled/outlined）、输入框（outlined/filled/多行）、芯片、开关、复选/单选、列表、对话框（含遮罩/Esc/焦点管理）、Snackbar、进度条、标签栏、徽标、头像、分隔线。状态层用 `::before` 叠色（hover 8% / focus 12% / pressed 12%），符合 MD3 而非 iOS 缩放。
+- **【页面】新增 MD3 组件目录** `1.2/md3.html`（可交互、深浅色可切）—— 全部组件与令牌的活文档，也是后续新页面的参考实现。
+- **【门禁】新增 `check:md3`**（第 14 道）：① 令牌完整性（37 角色明暗各一份、20 字阶、9 形状、阴影/动效齐全）；② 组件层禁硬编码颜色；③ 圆角只能取形状令牌；④ 19 个组件族必须存在；⑤ `md3.html` 禁内联 `<style>`/`style` 属性（CSP 会拦）。CI 增步骤 ④-c。
+- **【合规】CSP 适配**：MD3 层不使用 `<style>` 元素或 `style` 属性，色板/圆角等动态值走 CSSOM（`el.style.x = 'var(--md3-*)'`），实测浏览器零 CSP 违规。`md3.js` 不直接碰 `localStorage`，主题持久化经 `HSPCBStore`（可选注入，未引入时仅本会话生效）。
+- **缓存**：CACHE_NAME hspcb-v24 → **hspcb-v25**；SW 清单加入 md3.html 与 5 个新资源。
+- **验证**：`npm run verify` 全绿（14 道门禁，含新增 check:md3）；Playwright E2E 5/5；真实浏览器实测 MD3 页面零 CSP 违规、零 console 错误、主题切换 `#0e6b58 ↔ #86d6be` 生效、`style.background='var(...)'` 正确解析为 `rgb(14,107,88)`。
+
+
 ### 跨项目优秀实践迁移（源：high-school-chemical-notes / cn-math-taxonomy / whk-wiki）
 > 详见 [MIGRATION-REPORT.md](MIGRATION-REPORT.md)。原则：只补本项目真正缺的，不机械复制。
 

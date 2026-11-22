@@ -1,0 +1,322 @@
+/* ============================================================
+   md3-tokens.css — Material Design 3 设计令牌
+   ------------------------------------------------------------
+   全部数值来自 C:/Users/18948/Documents/GitHub/mochi-compose 源码实测：
+   · 色彩：material-color-utilities 官方算法，种子 #2B6A5A
+           （mochi-compose MochiColorScheme.kt:73 DefaultKeyColor）
+   · 字阶：MochiTextStyles.kt defaultTextStyles() 的 15 级 MD3
+           + largeTitle/navTitle/body/subhead/footnote 5 级 iOS 字阶
+   · 形状：MochiShapes.kt（4/8/12/16/20/28/32/48 + 胶囊）
+   · 阴影：MochiShadows.kt（双层 ambient+key，elevation(e) 线性插值）
+   · 动效：MochiMotionTokens.kt 的 8 档弹簧（response + damping）
+   · 间距：4dp 基准递进
+   命名一律 --md3-*，与项目既有 --primary/--bg-* 体系并存不冲突。
+   ============================================================ */
+
+:root {
+    /* ---------- 色彩 · Light（37 个 MD3 角色） ---------- */
+    --md3-primary: #0e6b58;
+    --md3-on-primary: #ffffff;
+    --md3-primary-container: #a2f2da;
+    --md3-on-primary-container: #005141;
+    --md3-inverse-primary: #86d6be;
+    --md3-secondary: #4b635b;
+    --md3-on-secondary: #ffffff;
+    --md3-secondary-container: #cde9de;
+    --md3-on-secondary-container: #344c44;
+    --md3-tertiary: #416277;
+    --md3-on-tertiary: #ffffff;
+    --md3-tertiary-container: #c5e7ff;
+    --md3-on-tertiary-container: #294a5e;
+    --md3-background: #f5fbf7;
+    --md3-on-background: #171d1b;
+    --md3-surface: #f5fbf7;
+    --md3-on-surface: #171d1b;
+    --md3-surface-variant: #dbe5e0;
+    --md3-on-surface-variant: #3f4945;
+    --md3-surface-tint: #0e6b58;
+    --md3-inverse-surface: #2b322f;
+    --md3-inverse-on-surface: #ecf2ee;
+    --md3-error: #ba1a1a;
+    --md3-on-error: #ffffff;
+    --md3-error-container: #ffdad6;
+    --md3-on-error-container: #93000a;
+    --md3-outline: #6f7975;
+    --md3-outline-variant: #bfc9c4;
+    --md3-scrim: #000000;
+    --md3-shadow: #000000;
+    --md3-surface-bright: #f5fbf7;
+    --md3-surface-dim: #d5dbd7;
+    --md3-surface-container-lowest: #ffffff;
+    --md3-surface-container-low: #eff5f1;
+    --md3-surface-container: #e9efeb;
+    --md3-surface-container-high: #e3eae6;
+    --md3-surface-container-highest: #dee4e0;
+
+    /* ---------- 字阶 ---------- */
+    --md3-type-display-large-size: 57px;
+    --md3-type-display-large-line: 64px;
+    --md3-type-display-large-weight: 400;
+    --md3-type-display-large-tracking: -0.25px;
+    --md3-type-display-medium-size: 45px;
+    --md3-type-display-medium-line: 52px;
+    --md3-type-display-medium-weight: 400;
+    --md3-type-display-medium-tracking: 0px;
+    --md3-type-display-small-size: 36px;
+    --md3-type-display-small-line: 44px;
+    --md3-type-display-small-weight: 400;
+    --md3-type-display-small-tracking: 0px;
+    --md3-type-headline-large-size: 32px;
+    --md3-type-headline-large-line: 40px;
+    --md3-type-headline-large-weight: 400;
+    --md3-type-headline-large-tracking: 0px;
+    --md3-type-headline-medium-size: 28px;
+    --md3-type-headline-medium-line: 36px;
+    --md3-type-headline-medium-weight: 400;
+    --md3-type-headline-medium-tracking: 0px;
+    --md3-type-headline-small-size: 24px;
+    --md3-type-headline-small-line: 32px;
+    --md3-type-headline-small-weight: 400;
+    --md3-type-headline-small-tracking: 0px;
+    --md3-type-title-large-size: 22px;
+    --md3-type-title-large-line: 28px;
+    --md3-type-title-large-weight: 400;
+    --md3-type-title-large-tracking: 0px;
+    --md3-type-title-medium-size: 16px;
+    --md3-type-title-medium-line: 24px;
+    --md3-type-title-medium-weight: 500;
+    --md3-type-title-medium-tracking: 0.15px;
+    --md3-type-title-small-size: 14px;
+    --md3-type-title-small-line: 20px;
+    --md3-type-title-small-weight: 500;
+    --md3-type-title-small-tracking: 0.1px;
+    --md3-type-body-large-size: 16px;
+    --md3-type-body-large-line: 24px;
+    --md3-type-body-large-weight: 400;
+    --md3-type-body-large-tracking: 0.5px;
+    --md3-type-body-medium-size: 14px;
+    --md3-type-body-medium-line: 20px;
+    --md3-type-body-medium-weight: 400;
+    --md3-type-body-medium-tracking: 0.25px;
+    --md3-type-body-small-size: 12px;
+    --md3-type-body-small-line: 16px;
+    --md3-type-body-small-weight: 400;
+    --md3-type-body-small-tracking: 0.4px;
+    --md3-type-label-large-size: 14px;
+    --md3-type-label-large-line: 20px;
+    --md3-type-label-large-weight: 500;
+    --md3-type-label-large-tracking: 0.1px;
+    --md3-type-label-medium-size: 12px;
+    --md3-type-label-medium-line: 16px;
+    --md3-type-label-medium-weight: 500;
+    --md3-type-label-medium-tracking: 0.5px;
+    --md3-type-label-small-size: 11px;
+    --md3-type-label-small-line: 16px;
+    --md3-type-label-small-weight: 500;
+    --md3-type-label-small-tracking: 0.5px;
+    --md3-type-large-title-size: 34px;
+    --md3-type-large-title-line: 41px;
+    --md3-type-large-title-weight: 700;
+    --md3-type-large-title-tracking: 0px;
+    --md3-type-nav-title-size: 17px;
+    --md3-type-nav-title-line: 22px;
+    --md3-type-nav-title-weight: 600;
+    --md3-type-nav-title-tracking: 0px;
+    --md3-type-body-size: 17px;
+    --md3-type-body-line: 22px;
+    --md3-type-body-weight: 400;
+    --md3-type-body-tracking: 0px;
+    --md3-type-subhead-size: 15px;
+    --md3-type-subhead-line: 20px;
+    --md3-type-subhead-weight: 400;
+    --md3-type-subhead-tracking: 0px;
+    --md3-type-footnote-size: 13px;
+    --md3-type-footnote-line: 18px;
+    --md3-type-footnote-weight: 400;
+    --md3-type-footnote-tracking: 0px;
+
+    /* ---------- 形状 ---------- */
+    --md3-shape-extra-small: 4px;
+    --md3-shape-small: 8px;
+    --md3-shape-medium: 12px;
+    --md3-shape-large: 16px;
+    --md3-shape-large-increased: 20px;
+    --md3-shape-extra-large: 28px;
+    --md3-shape-extra-large-increased: 32px;
+    --md3-shape-extra-extra-large: 48px;
+    --md3-shape-full: 9999px;
+    /* MD3 复选框规范圆角（2dp），单列成 token 以免组件层出现裸数值 */
+    --md3-shape-checkbox: 2px;
+
+    /* ---------- 阴影（light） ---------- */
+    --md3-elevation-rest-shadow-light: 0 0.5px 2.5px rgba(0,0,0,0.025), 0 4.0px 10.0px rgba(0,0,0,0.070);
+    --md3-elevation-rest-shadow-dark: 0 0.5px 2.5px rgba(0,0,0,0.100), 0 4.0px 10.0px rgba(0,0,0,0.160);
+    --md3-elevation-low-shadow-light: 0 0.7px 2.8px rgba(0,0,0,0.027), 0 6.0px 13.6px rgba(0,0,0,0.078);
+    --md3-elevation-low-shadow-dark: 0 0.7px 2.8px rgba(0,0,0,0.108), 0 6.0px 13.6px rgba(0,0,0,0.180);
+    --md3-elevation-raised-shadow-light: 0 0.8px 3.0px rgba(0,0,0,0.029), 0 7.5px 16.3px rgba(0,0,0,0.084);
+    --md3-elevation-raised-shadow-dark: 0 0.8px 3.0px rgba(0,0,0,0.114), 0 7.5px 16.3px rgba(0,0,0,0.195);
+    --md3-elevation-lifted-shadow-light: 0 1.1px 3.4px rgba(0,0,0,0.031), 0 10.0px 20.8px rgba(0,0,0,0.094);
+    --md3-elevation-lifted-shadow-dark: 0 1.1px 3.4px rgba(0,0,0,0.124), 0 10.0px 20.8px rgba(0,0,0,0.220);
+    --md3-elevation-floating-shadow-light: 0 1.5px 4.0px rgba(0,0,0,0.060), 0 14.0px 28.0px rgba(0,0,0,0.170);
+    --md3-elevation-floating-shadow-dark: 0 1.5px 4.0px rgba(0,0,0,0.200), 0 14.0px 28.0px rgba(0,0,0,0.340);
+    --md3-elevation-contact-shadow-light: 0 1.5px 3.0px rgba(0,0,0,0.500), 0 0.0px 0.0px rgba(0,0,0,0.000);
+    --md3-elevation-contact-shadow-dark: 0 1.5px 3.0px rgba(0,0,0,0.500), 0 0.0px 0.0px rgba(0,0,0,0.000);
+    --md3-elevation-contact-pressed-shadow-light: 0 3.5px 7.0px rgba(0,0,0,0.800), 0 0.0px 0.0px rgba(0,0,0,0.000);
+    --md3-elevation-contact-pressed-shadow-dark: 0 3.5px 7.0px rgba(0,0,0,0.800), 0 0.0px 0.0px rgba(0,0,0,0.000);
+
+    /* ---------- 动效 ---------- */
+    --md3-motion-page: linear(0.0000, 0.0295, 0.0995, 0.1895, 0.2864, 0.3821, 0.4720, 0.5535, 0.6256, 0.6884, 0.7423, 0.7879, 0.8263, 0.8583, 0.8848, 0.9067, 0.9246, 0.9392, 0.9511, 0.9608, 0.9686, 0.9749, 0.9800, 0.9840, 0.9873, 0.9899, 0.9920, 0.9936, 0.9950, 0.9960, 0.9968, 0.9975, 1);
+    --md3-motion-present: linear(0.0000, 0.0302, 0.1037, 0.2006, 0.3069, 0.4131, 0.5134, 0.6042, 0.6840, 0.7523, 0.8095, 0.8564, 0.8942, 0.9241, 0.9473, 0.9650, 0.9782, 0.9877, 0.9945, 0.9991, 1.0020, 1.0038, 1.0047, 1.0050, 1.0049, 1.0046, 1.0041, 1.0036, 1.0031, 1.0026, 1.0021, 1.0017, 1);
+    --md3-motion-pop: linear(0.0000, 0.0306, 0.1063, 0.2074, 0.3197, 0.4329, 0.5401, 0.6374, 0.7225, 0.7946, 0.8541, 0.9017, 0.9389, 0.9669, 0.9874, 1.0016, 1.0110, 1.0165, 1.0192, 1.0199, 1.0192, 1.0177, 1.0157, 1.0134, 1.0112, 1.0090, 1.0071, 1.0054, 1.0040, 1.0028, 1.0019, 1.0012, 1);
+    --md3-motion-control: linear(0.0000, 0.0302, 0.1037, 0.2006, 0.3069, 0.4131, 0.5134, 0.6042, 0.6840, 0.7523, 0.8095, 0.8564, 0.8942, 0.9241, 0.9473, 0.9650, 0.9782, 0.9877, 0.9945, 0.9991, 1.0020, 1.0038, 1.0047, 1.0050, 1.0049, 1.0046, 1.0041, 1.0036, 1.0031, 1.0026, 1.0021, 1.0017, 1);
+    --md3-motion-settle: linear(0.0000, 0.0295, 0.0995, 0.1895, 0.2864, 0.3821, 0.4720, 0.5535, 0.6256, 0.6884, 0.7423, 0.7879, 0.8263, 0.8583, 0.8848, 0.9067, 0.9246, 0.9392, 0.9511, 0.9608, 0.9686, 0.9749, 0.9800, 0.9840, 0.9873, 0.9899, 0.9920, 0.9936, 0.9950, 0.9960, 0.9968, 0.9975, 1);
+    --md3-motion-bounce: linear(0.0000, 0.0318, 0.1142, 0.2294, 0.3622, 0.5000, 0.6333, 0.7551, 0.8609, 0.9484, 1.0169, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0084, 0.9993, 0.9926, 0.9880, 0.9853, 0.9841, 0.9842, 0.9853, 0.9870, 1);
+    --md3-motion-press-down: linear(0.0000, 0.0314, 0.1117, 0.2223, 0.3483, 0.4778, 0.6021, 0.7152, 0.8137, 0.8956, 0.9608, 1.0101, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0164, 1.0094, 1.0038, 0.9995, 0.9965, 0.9945, 0.9934, 0.9930, 0.9932, 1);
+    --md3-motion-press-release: linear(0.0000, 0.0314, 0.1117, 0.2223, 0.3483, 0.4778, 0.6021, 0.7152, 0.8137, 0.8956, 0.9608, 1.0101, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0200, 1.0164, 1.0094, 1.0038, 0.9995, 0.9965, 0.9945, 0.9934, 0.9930, 0.9932, 1);
+    --md3-motion-fade: 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    --md3-motion-fade-out: 120ms cubic-bezier(0.4, 0.0, 1, 1);
+    --md3-motion-duration-page: 420ms;
+    --md3-motion-duration-settle: 280ms;
+
+    /* ---------- 间距 ---------- */
+    --md3-space-xs: 4px;
+    --md3-space-sm: 8px;
+    --md3-space-md: 12px;
+    --md3-space-lg: 16px;
+    --md3-space-xl: 24px;
+    --md3-space-2xl: 32px;
+    --md3-space-3xl: 48px;
+
+    /* ---------- 组件尺寸（MochiButtonDefaults 实测） ---------- */
+    --md3-button-height: 48px;
+    --md3-button-pad-x: 24px;
+    --md3-button-pad-y: 12px;
+    --md3-touch-target: 44px;
+    --md3-bar-item-size: 44px;
+
+    /* ---------- 状态层（MD3 state layer 透明度） ---------- */
+    --md3-state-hover: 0.08;
+    --md3-state-focus: 0.12;
+    --md3-state-pressed: 0.12;
+    --md3-state-dragged: 0.16;
+    --md3-disabled-alpha: 0.4;
+}
+
+/* ---------- 色彩 · Dark ---------- */
+:root[data-md3-theme="dark"],
+.md3-dark {
+    --md3-primary: #86d6be;
+    --md3-on-primary: #00382c;
+    --md3-primary-container: #005141;
+    --md3-on-primary-container: #a2f2da;
+    --md3-inverse-primary: #0e6b58;
+    --md3-secondary: #b2ccc2;
+    --md3-on-secondary: #1d352e;
+    --md3-secondary-container: #344c44;
+    --md3-on-secondary-container: #cde9de;
+    --md3-tertiary: #a9cbe3;
+    --md3-on-tertiary: #0f3447;
+    --md3-tertiary-container: #294a5e;
+    --md3-on-tertiary-container: #c5e7ff;
+    --md3-background: #0f1513;
+    --md3-on-background: #dee4e0;
+    --md3-surface: #0f1513;
+    --md3-on-surface: #dee4e0;
+    --md3-surface-variant: #3f4945;
+    --md3-on-surface-variant: #bfc9c4;
+    --md3-surface-tint: #86d6be;
+    --md3-inverse-surface: #dee4e0;
+    --md3-inverse-on-surface: #2b322f;
+    --md3-error: #ffb4ab;
+    --md3-on-error: #690005;
+    --md3-error-container: #93000a;
+    --md3-on-error-container: #ffdad6;
+    --md3-outline: #89938e;
+    --md3-outline-variant: #3f4945;
+    --md3-scrim: #000000;
+    --md3-shadow: #000000;
+    --md3-surface-bright: #343b38;
+    --md3-surface-dim: #0f1513;
+    --md3-surface-container-lowest: #090f0d;
+    --md3-surface-container-low: #171d1b;
+    --md3-surface-container: #1b211f;
+    --md3-surface-container-high: #252b29;
+    --md3-surface-container-highest: #303634;
+
+    --md3-elevation-rest-shadow: var(--md3-elevation-rest-shadow-dark);
+    --md3-elevation-low-shadow: var(--md3-elevation-low-shadow-dark);
+    --md3-elevation-raised-shadow: var(--md3-elevation-raised-shadow-dark);
+    --md3-elevation-lifted-shadow: var(--md3-elevation-lifted-shadow-dark);
+    --md3-elevation-floating-shadow: var(--md3-elevation-floating-shadow-dark);
+}
+
+/* light 模式的阴影别名 */
+:root {
+    --md3-elevation-rest-shadow: var(--md3-elevation-rest-shadow-light);
+    --md3-elevation-low-shadow: var(--md3-elevation-low-shadow-light);
+    --md3-elevation-raised-shadow: var(--md3-elevation-raised-shadow-light);
+    --md3-elevation-lifted-shadow: var(--md3-elevation-lifted-shadow-light);
+    --md3-elevation-floating-shadow: var(--md3-elevation-floating-shadow-light);
+}
+
+/* 跟随系统深色（未显式指定 data-md3-theme 时） */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-md3-theme="light"]) {
+        --md3-primary: #86d6be;
+        --md3-on-primary: #00382c;
+        --md3-primary-container: #005141;
+        --md3-on-primary-container: #a2f2da;
+        --md3-inverse-primary: #0e6b58;
+        --md3-secondary: #b2ccc2;
+        --md3-on-secondary: #1d352e;
+        --md3-secondary-container: #344c44;
+        --md3-on-secondary-container: #cde9de;
+        --md3-tertiary: #a9cbe3;
+        --md3-on-tertiary: #0f3447;
+        --md3-tertiary-container: #294a5e;
+        --md3-on-tertiary-container: #c5e7ff;
+        --md3-background: #0f1513;
+        --md3-on-background: #dee4e0;
+        --md3-surface: #0f1513;
+        --md3-on-surface: #dee4e0;
+        --md3-surface-variant: #3f4945;
+        --md3-on-surface-variant: #bfc9c4;
+        --md3-surface-tint: #86d6be;
+        --md3-inverse-surface: #dee4e0;
+        --md3-inverse-on-surface: #2b322f;
+        --md3-error: #ffb4ab;
+        --md3-on-error: #690005;
+        --md3-error-container: #93000a;
+        --md3-on-error-container: #ffdad6;
+        --md3-outline: #89938e;
+        --md3-outline-variant: #3f4945;
+        --md3-scrim: #000000;
+        --md3-shadow: #000000;
+        --md3-surface-bright: #343b38;
+        --md3-surface-dim: #0f1513;
+        --md3-surface-container-lowest: #090f0d;
+        --md3-surface-container-low: #171d1b;
+        --md3-surface-container: #1b211f;
+        --md3-surface-container-high: #252b29;
+        --md3-surface-container-highest: #303634;
+        --md3-elevation-rest-shadow: var(--md3-elevation-rest-shadow-dark);
+        --md3-elevation-low-shadow: var(--md3-elevation-low-shadow-dark);
+        --md3-elevation-raised-shadow: var(--md3-elevation-raised-shadow-dark);
+        --md3-elevation-lifted-shadow: var(--md3-elevation-lifted-shadow-dark);
+        --md3-elevation-floating-shadow: var(--md3-elevation-floating-shadow-dark);
+    }
+}
+
+/* 减少动效偏好：全部退化为瞬时 */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --md3-motion-page: linear(0, 1);
+        --md3-motion-present: linear(0, 1);
+        --md3-motion-pop: linear(0, 1);
+        --md3-motion-control: linear(0, 1);
+        --md3-motion-settle: linear(0, 1);
+        --md3-motion-bounce: linear(0, 1);
+        --md3-motion-press-down: linear(0, 1);
+        --md3-motion-press-release: linear(0, 1);
+    }
+}

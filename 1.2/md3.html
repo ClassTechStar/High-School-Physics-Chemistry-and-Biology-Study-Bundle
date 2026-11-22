@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>MD3 组件目录 · 物化生学习大礼包</title>
+    <meta name="description" content="Material Design 3 组件目录：按钮、卡片、输入、芯片、开关、列表、对话框、进度与导航，全部基于与 mochi-compose 对齐的设计令牌。">
+    <link rel="stylesheet" href="css/md3-tokens.css">
+    <link rel="stylesheet" href="css/md3-components.css">
+    <link rel="stylesheet" href="css/md3-doc.css">
+</head>
+<body>
+<div class="topbar">
+    <h1 class="topbar__title md3-title-large">MD3 组件目录</h1>
+    <button class="md3-icon-btn" id="themeBtn" type="button" aria-label="切换深浅色主题">◐</button>
+</div>
+
+<main class="page">
+
+    <section class="section section--first">
+        <h2 class="md3-headline-small">设计令牌来源</h2>
+        <p class="md3-body-medium section__note">
+            色彩由 material-color-utilities 以种子色 <code>#2B6A5A</code> 生成（mochi-compose 的
+            <code>DefaultKeyColor</code>）；字阶、形状、阴影、动效逐项取自 mochi-compose 源码，无自定义数值。
+            组件只引用 <code>--md3-*</code> 变量，由 <code>check:md3</code> 门禁把关。
+        </p>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">色彩</h2></div>
+        <p class="md3-body-medium section__note">37 个 MD3 角色，浅色/深色双套。点右上角 ◐ 切换。</p>
+        <div class="swatches" id="swatches"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">字阶</h2></div>
+        <p class="md3-body-medium section__note">MD3 标准 15 级 + mochi 的 iOS 字阶 5 级。</p>
+        <div id="typeScale"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">按钮</h2></div>
+        <p class="md3-body-medium section__note">五种形态 + 三种尺寸 + 图标按钮与 FAB。</p>
+        <div class="demo-box stack">
+            <div class="row" id="btnRow"></div>
+            <div class="row" id="btnSizeRow"></div>
+            <div class="row" id="btnMiscRow"></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">卡片</h2></div>
+        <div class="grid" id="cardGrid"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">输入</h2></div>
+        <div class="demo-box stack" id="fieldStack"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">选择控件</h2></div>
+        <div class="demo-box row row--wide" id="choiceRow"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">芯片</h2></div>
+        <div class="row" id="chipRow"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">列表</h2></div>
+        <div id="listHost"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">进度与反馈</h2></div>
+        <div class="demo-box stack" id="progressStack"></div>
+        <div class="row row--spaced" id="feedbackRow"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">导航与覆盖层</h2></div>
+        <div id="navHost"></div>
+        <div class="row row--spaced" id="overlayRow"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">形状</h2></div>
+        <p class="md3-body-medium section__note">9 档形状，含胶囊。</p>
+        <div class="grid" id="shapeGrid"></div>
+    </section>
+
+    <section class="section">
+        <div class="section__head"><h2 class="md3-headline-small">阴影</h2></div>
+        <p class="md3-body-medium section__note">mochi 的双层阴影（ambient + key），6 档 elevation。</p>
+        <div class="grid" id="elevGrid"></div>
+    </section>
+
+</main>
+
+<script src="js/md3.js" defer></script>
+<script src="js/md3-demo.js" defer></script>
+</body>
+</html>

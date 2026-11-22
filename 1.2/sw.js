@@ -1,8 +1,8 @@
 // sw.js — HSPCB Service Worker
-// 版本: hspcb-v24（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
+// 版本: hspcb-v25（发布时必须递增，旧缓存随 CACHE_NAME 变更自动清理）
 // 策略: 预缓存核心资源 + 运行时缓存数据文件 + 旧缓存自动清理
 
-var CACHE_NAME = 'hspcb-v24';
+var CACHE_NAME = 'hspcb-v25';
 
 // 预缓存的核心资源（HTML/CSS/核心JS）
 // icons/ 下 4 个真实图标文件纳入预缓存（PWA 安装与离线启动需要，
@@ -74,6 +74,12 @@ var CORE_ASSETS = [
 var DEFERRED_ASSETS = [
     'presentation.html',
     'promo.html',
+    'md3.html',
+    'css/md3-tokens.css',
+    'css/md3-components.css',
+    'css/md3-doc.css',
+    'js/md3.js',
+    'js/md3-demo.js',
     'presentation.css',
     'promo.css',
     'css/print-report.css',

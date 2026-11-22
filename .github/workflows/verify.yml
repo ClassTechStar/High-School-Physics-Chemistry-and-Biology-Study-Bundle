@@ -46,6 +46,8 @@ jobs:
         run: npm run check:content
       - name: ④-b 链接完整性门禁（页内锚点 + 跨页深链）
         run: npm run check:anchors
+      - name: ④-c MD3 设计一致性门禁
+        run: npm run check:md3
       - name: ⑤ defer 时序运行时复现
         run: npm run check:runtime
       - name: ⑤-b 安卓资产同步演练
