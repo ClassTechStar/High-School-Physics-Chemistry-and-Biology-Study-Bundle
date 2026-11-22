@@ -242,7 +242,7 @@ npm run build:pages     → ✓ JS 压缩 72 个 3.82 MB → 2.67 MB (−30.1%)
 | --- | --- |
 | verify (18 / 20 / 22) | ✅ success（含新增步骤 ④-b 与自检 D） |
 | e2e | ✅ success（5 条主路径） |
-| pages / deploy | ⚠️ 首次 `actions/deploy-pages@v4` 失败，与构建无关（构建步骤成功），疑似 Pages 服务侧/并发问题，重试确认中 |
+| pages / deploy | ✅ success（首次 `actions/deploy-pages@v4` 因 Pages 服务侧临时故障失败，构建步骤本身成功；重试后通过） |
 
 ---
 
