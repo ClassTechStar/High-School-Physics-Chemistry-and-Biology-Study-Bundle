@@ -53,9 +53,31 @@ const inlineScripts = scripts.filter((s) => !s.src);
 const deferScripts = scripts.filter((s) => s.src && s.defer);
 const plainScripts = scripts.filter((s) => s.src && !s.defer);
 
+// v1.9 按需加载：42 个工具脚本已从 index.html 移除，改由 js/lazy-loader.js
+// 在空闲分片 / 首次导航时**按原文档顺序**注入。对时序门禁而言，它们等价于
+// 「最后一批 defer」——因此并入 deferScripts 参与后续装载与断言。
+const lazyLoaderSrc = readFileSync(join(APP, 'js', 'lazy-loader.js'), 'utf8');
+const lazyList = [...(lazyLoaderSrc.match(/var LIST = \[([\s\S]*?)\];/) || [, ''])[1]
+  .matchAll(/'([^']+)'/g)].map((m) => m[1]);
+const lazyScripts = lazyList.map((src, i) => ({ src, code: null, defer: true, pos: 1e9 + i }));
+deferScripts.push(...lazyScripts);
+
 console.log(`=== 1. 脚本构成 ===`);
-console.log(`  内联 ${inlineScripts.length} · defer ${deferScripts.length} · 非 defer 外部 ${plainScripts.length}`);
+console.log(`  内联 ${inlineScripts.length} · defer ${deferScripts.length - lazyScripts.length} · 按需加载 ${lazyScripts.length} · 非 defer 外部 ${plainScripts.length}`);
 ok(scripts.length > 0, `解析出 ${scripts.length} 个 <script>`);
+
+// 双清单一致性：同一脚本不得既是 defer 标签又在 lazy-list 里（会二次执行）
+{
+  const deferInHtml = new Set(scripts.filter((s) => s.src && s.defer).map((s) => s.src));
+  const dup = lazyList.filter((s) => deferInHtml.has(s));
+  ok(dup.length === 0, dup.length === 0
+    ? '核心 defer 清单与按需加载清单无重叠'
+    : `脚本重复登记（会执行两次）: ${dup.join(', ')}`);
+  const missing = lazyList.filter((s) => !existsSync(join(APP, s)));
+  ok(missing.length === 0, missing.length === 0
+    ? `按需加载清单 ${lazyList.length} 个脚本均存在`
+    : `按需加载清单引用不存在的文件: ${missing.join(', ')}`);
+}
 
 // ------------------------------------------- 2. 静态检查：解析期不得捕获 defer 模块
 console.log('=== 2. 解析期捕获检查（静态） ===');

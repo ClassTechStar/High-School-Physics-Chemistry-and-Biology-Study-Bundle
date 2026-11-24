@@ -7,6 +7,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="六科题库、错题归因与学习仪表盘——纯静态、可离线、数据零上传的高中学习工具。">
 <title>高中物化生语数英学习大礼包</title>
+<!-- v1.9 性能：子集字体预加载（woff2 0.87MB），与 font-display: swap 配合避免首屏字体抖动 -->
+<link rel="preload" href="fonts/MiSans-subset.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-dark.css">
@@ -1628,48 +1630,6 @@
 <script defer src="js/theme-toggle.js"></script>
 <script defer src="js/sw-register.js"></script>
 <script defer src="js/app.js"></script>
-<script defer src="js/app-chemistry.js"></script>
-<script defer src="js/app-physics.js"></script>
-<script defer src="js/app-biology.js"></script>
-<script defer src="js/app-exam.js"></script>
-<script defer src="js/enhanced-tools.js"></script>
-<script defer src="js/content.js"></script>
-<script defer src="js/comprehensive-data.js"></script>
-<script defer src="js/exam-review-system.js"></script>
-<script defer src="js/platform-system.js"></script>
-<script defer src="js/missing-tools-part2.js"></script>
-<script defer src="js/guangdong-features.js"></script>
-<script defer src="js/study-enhanced.js"></script>
-<script defer src="js/visual-enhanced.js"></script>
-<script defer src="js/auxiliary-tools.js"></script>
-<script defer src="js/math-tools.js"></script>
-<script defer src="js/chinese-tools.js"></script>
-<script defer src="js/spaced-repetition.js"></script>
-<script defer src="js/error-notebook.js"></script>
-<script defer src="js/mock-exam.js"></script>
-<script defer src="js/global-search.js"></script>
-<script defer src="js/chinese-sentence-correction.js"></script>
-<script defer src="js/physics-wave-optics.js"></script>
-<script defer src="js/chemistry-3d-molecules.js"></script>
-<script defer src="js/biology-cell-division.js"></script>
-<script defer src="js/study-dashboard.js"></script>
-<script defer src="js/onboarding.js"></script>
-<script defer src="js/english-vocabulary.js"></script>
-<script defer src="js/game-scratchpad.js"></script>
-<script defer src="js/learning-tools.js"></script>
-<script defer src="js/open-answer-trainer.js"></script>
-<script defer src="js/english-tools.js"></script>
-<script defer src="js/study-tools-v2.js"></script>
-<script defer src="js/study-tools-enhanced.js"></script>
-<script defer src="js/interactive-physics-bio.js"></script>
-<script defer src="js/interactive-chemistry.js"></script>
-<script defer src="js/subject-gap-1.js"></script>
-<script defer src="js/subject-gap-2.js"></script>
-<script defer src="js/subject-gap-3.js"></script>
-<script defer src="js/gamification-system.js"></script>
-<script defer src="js/data-analysis-enhanced.js"></script>
-<script defer src="js/utility-tools-v2.js"></script>
-<script defer src="js/learning-path-recommender.js"></script>
 <script defer src="js/dashboard-widgets.js"></script>
 <script defer src="js/settings-center.js"></script>
 <script defer src="js/automation.js"></script>
@@ -1680,6 +1640,7 @@
 <script src="js/main-views.js"></script>
 <script src="js/main-nav.js"></script>
 <script src="js/main-tools.js"></script>
+<script src="js/lazy-loader.js"></script>
 <div class="hspcb-fab-stack" role="group" aria-label="页面工具">
 <button class="theme-toggle hspcb-settings-btn" id="hspcbSettingsBtn" data-hook="open-settings" title="设置" aria-label="打开设置">⚙️</button>
 <button class="theme-toggle" id="themeToggle" data-action="toggle-theme" title="切换暗色模式" aria-label="切换明暗主题" aria-pressed="false">🌙</button>

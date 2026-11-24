@@ -54,7 +54,6 @@ var CORE_ASSETS = [
     'js/demo-mode.js',
     'js/update-check.js',
     'update-manifest.json',
-    'showcase.html',
     'plugins/index.json',
     'plugins/example/hspcb-plugin.json',
     'plugins/example/example.js',
@@ -65,23 +64,15 @@ var CORE_ASSETS = [
     'js/home-collapse.js',
     'js/theme-toggle.js',
     'js/sw-register.js',
+    'js/lazy-loader.js',
     'js/app.js'
 ];
 
-// 后台补齐（idle 时由 sw-register.js 发 warm 消息）：工具脚本、演示页与打印样式。
+// 后台补齐（idle 时由 sw-register.js 发 warm 消息）：工具脚本与打印样式。
+// v1.9：演示/展示页（presentation / promo / showcase / md3）已移出预缓存 —— 学生
+// 用户的离线预算不该花在评委演示页上；需要离线看时联网访问一次即由运行时缓存接管。
 // 不包含 DATA_ASSETS —— 数据按需加载，避免「没打开工具也下载全部题库」。
 var DEFERRED_ASSETS = [
-    'presentation.html',
-    'promo.html',
-    'md3.html',
-    'css/md3-tokens.css',
-    'css/md3-components.css',
-    'css/md3-doc.css',
-    'css/showcase-md3.css',
-    'css/promo-md3.css',
-    'js/md3.js',
-    'js/md3-demo.js',
-    'presentation.css',
     'css/print-report.css',
     'css/study-plan-print.css',
     'css/knowledge-card-print.css',

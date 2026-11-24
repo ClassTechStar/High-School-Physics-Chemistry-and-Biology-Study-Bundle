@@ -8,6 +8,7 @@
  */
 import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { join, dirname, resolve, relative, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { transform } from 'esbuild';
@@ -68,6 +69,30 @@ for (const [p, needle] of probes) {
     process.exit(1);
   }
 }
+
+// SW 缓存版本自动生成（§5）：对 CORE_ASSETS 的实际内容求哈希，写进发布产物的
+// CACHE_NAME。收益：不再依赖人手记得「发布时必须递增」，只要核心资源有变化，
+// 新版本号必然不同 → 旧缓存自动清理；内容没变则版本不变 → 用户不会被迫重下。
+const distSwPath = join(OUT, 'sw.js');
+let swCode = readFileSync(distSwPath, 'utf8');
+const coreMatch = swCode.match(/CORE_ASSETS\s*=\s*\[([\s\S]*?)\]/);
+if (!coreMatch) {
+  console.error('  ✗ 无法从 sw.js 解析 CORE_ASSETS，无法自动生成缓存版本');
+  process.exit(1);
+}
+const coreNames = [...coreMatch[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1]);
+const swHash = createHash('sha256');
+for (const rel of coreNames) {
+  try {
+    swHash.update(rel).update(readFileSync(join(OUT, rel)));
+  } catch {
+    swHash.update(rel).update('missing'); // 清单里有但产物缺失：计入哈希，避免静默通过
+  }
+}
+const swVersion = 'hspcb-' + swHash.digest('hex').slice(0, 12);
+swCode = swCode.replace(/CACHE_NAME\s*=\s*["'][^"']+["']/, `CACHE_NAME = '${swVersion}'`);
+writeFileSync(distSwPath, swCode);
+console.log(`  ✓ SW 缓存版本自动生成: ${swVersion}（覆盖 ${coreNames.length} 个核心资源）`);
 
 const pct = (before, after) => before ? ((1 - after / before) * 100).toFixed(1) : '0';
 console.log(`  ✓ JS  压缩 ${jsN} 个: ${jsBefore} → ${jsAfter} B（−${pct(jsBefore, jsAfter)}%）`);

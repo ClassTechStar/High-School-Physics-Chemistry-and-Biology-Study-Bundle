@@ -448,6 +448,20 @@ main {
     display: block;
 }
 
+/* v1.9 性能（§4.2）：长章节里的知识卡片按需渲染 —— 只绘制视口附近的卡片，
+   其余跳过布局/绘制但仍可用 Ctrl+F 与锚点跳转命中（浏览器会即时展开）。
+   非激活 section 本就是 display:none，真正开销在激活章节的数百张卡片上。
+   旧浏览器不认识 content-visibility 会整条忽略，行为回到改动前。 */
+.knowledge-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
+}
+
+/* 打印必须完整渲染：content-visibility 会让未展开的卡片印成空白 */
+@media print {
+    .knowledge-card { content-visibility: visible; }
+}
+
 @keyframes fadeSlideIn {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }

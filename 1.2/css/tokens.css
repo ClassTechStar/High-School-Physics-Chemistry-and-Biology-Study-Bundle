@@ -1,6 +1,9 @@
 @font-face {
     font-family: MiSans;
-    src: url("../fonts/MiSans-Normal.ttf") format("truetype");
+    /* v1.9 性能：子集化 woff2（ASCII + GB2312 6763 字 + 仓库实际用字，7.82MB → 0.87MB）。
+       构建脚本 scripts/build-font.py；缺失字形自动回退系统字体（font-family 链）。
+       font-display: swap 配合 index.html 的 preload，避免首屏被字体重排阻塞。 */
+    src: url("../fonts/MiSans-subset.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
