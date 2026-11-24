@@ -365,11 +365,8 @@ window.examTimerPro = (function () {
 
     // 初始化样式
     function initStyle() {
-        if (document.getElementById('etp-style')) return;
-        var style = document.createElement('style');
-        style.id = 'etp-style';
-        style.textContent = '@keyframes etp-slide-in{from{opacity:0;transform:translateX(-50%) translateY(-12px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}';
-        document.head.appendChild(style);
+        // v1.9：@keyframes 已迁入 css/style.css —— CSP style-src 'self' 禁止运行时
+        // 创建 <style>（旧实现会被浏览器拦截，动画静默失效）。
     }
 
     // 自动初始化

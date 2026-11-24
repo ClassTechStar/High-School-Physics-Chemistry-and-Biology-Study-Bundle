@@ -467,6 +467,12 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* v1.9：自 utility-tools-v2.js 内联注入迁入（CSP 禁止运行时 <style>） */
+@keyframes etp-slide-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1763,6 +1769,8 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
     border-left: 4px solid transparent;
 }
 .exam-item:hover { background: var(--primary-lighter); box-shadow: var(--shadow-sm); }
+/* v1.9 键盘导航（§4.3）：J/K 移动光标时的焦点态 */
+.exam-item.kb-focus { outline: 2px solid var(--primary); outline-offset: 2px; background: var(--primary-lighter); }
 .exam-item.easy { border-left-color: var(--secondary); }
 .exam-item.medium { border-left-color: var(--accent); }
 .exam-item.hard { border-left-color: var(--danger); }

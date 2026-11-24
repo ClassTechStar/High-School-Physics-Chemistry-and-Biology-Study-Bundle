@@ -893,8 +893,23 @@ window.globalSearch = (function() {
         return html;
     }
 
+    // v1.9 修复重复 id：工具 section 与搜索覆盖层都含 #global-search-app /
+    // #gs-search-input。document.getElementById 永远返回文档中第一个（隐藏的
+    // section 那份），导致覆盖层渲染空白、焦点落到隐藏输入框。
+    // 统一改为「当前活动根」查询：覆盖层存在则只在覆盖层内找。
+    function activeRoot() {
+        return document.getElementById('global-search-overlay')
+            || document.getElementById('global-search-section')
+            || document;
+    }
+    function rootById(id) {
+        var root = activeRoot();
+        return (root.querySelector ? root.querySelector('#' + id) : null)
+            || document.getElementById(id);
+    }
+
     function render() {
-        var app = document.getElementById('global-search-app');
+        var app = rootById('global-search-app');
         if (!app) return;
 
         var q = state.query;
@@ -915,7 +930,7 @@ window.globalSearch = (function() {
     // EVENT BINDING
 
     function bindEvents() {
-        var input = document.getElementById('gs-search-input');
+        var input = rootById('gs-search-input');
         if (input) {
             input.addEventListener('input', function() {
                 state.query = this.value;
@@ -928,7 +943,7 @@ window.globalSearch = (function() {
             setTimeout(function() { input.focus(); }, 50);
         }
 
-        var clearBtn = document.getElementById('gs-search-clear');
+        var clearBtn = rootById('gs-search-clear');
         if (clearBtn) {
             clearBtn.addEventListener('click', function() {
                 state.query = '';
@@ -938,7 +953,7 @@ window.globalSearch = (function() {
             });
         }
 
-        var closeBtn = document.getElementById('gs-search-close');
+        var closeBtn = rootById('gs-search-close');
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
                 closeSearch();
@@ -981,7 +996,7 @@ window.globalSearch = (function() {
             });
         }
 
-        var clearRecentBtn = document.getElementById('gs-recent-clear');
+        var clearRecentBtn = rootById('gs-recent-clear');
         if (clearRecentBtn) {
             clearRecentBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1003,11 +1018,11 @@ window.globalSearch = (function() {
     }
 
     function bindScopeCheckbox(id, scopeKey) {
-        var cb = document.getElementById(id);
+        var cb = rootById(id);
         if (cb) {
             cb.addEventListener('change', function() {
                 state.scope[scopeKey] = this.checked;
-                var allCb = document.getElementById('gs-scope-all');
+                var allCb = rootById('gs-scope-all');
                 if (allCb) {
                     allCb.checked = state.scope.tools && state.scope.knowledge && state.scope.exams;
                 }
@@ -1211,139 +1226,11 @@ window.globalSearch = (function() {
 
     function injectStyles() {
         if (document.getElementById('gs-styles')) return;
-
-        var css = [
-            '.gs-overlay {',
-            '  position:fixed;top:0;left:0;width:100%;height:100%;',
-            '  background:rgba(0,0,0,0.5);z-index:10000;',
-            '  display:flex;align-items:flex-start;justify-content:center;',
-            '  padding-top:8vh;animation:gsFadeIn 0.15s ease;',
-            '}',
-            '@keyframes gsFadeIn { from{opacity:0} to{opacity:1} }',
-            '.gs-modal {',
-            '  width:680px;max-width:95vw;max-height:82vh;',
-            '  background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.3);',
-            '  display:flex;flex-direction:column;overflow:hidden;',
-            '  animation:gsSlideDown 0.2s ease;',
-            '}',
-            '@keyframes gsSlideDown { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }',
-            '.gs-app { display:flex;flex-direction:column;overflow:hidden;max-height:82vh; }',
-            '.gs-search-input-wrap {',
-            '  display:flex;align-items:center;padding:16px 20px 8px;gap:10px;',
-            '  border-bottom:1px solid #e5e7eb;',
-            '}',
-            '.gs-search-icon { font-size:20px;flex-shrink:0; }',
-            '.gs-search-input {',
-            '  flex:1;border:0;outline:0;font-size:17px;color:#1f2937;',
-            '  background:transparent;padding:8px 0;font-family:inherit;',
-            '}',
-            '.gs-search-input::placeholder { color:#9ca3af; }',
-            '.gs-search-clear, .gs-search-close {',
-            '  border:0;background:none;font-size:22px;cursor:pointer;',
-            '  color:#9ca3af;padding:4px 8px;border-radius:6px;line-height:1;',
-            '}',
-            '.gs-search-clear:hover, .gs-search-close:hover { color:#374151;background:#f3f4f6; }',
-            '.gs-scope-bar {',
-            '  display:flex;gap:6px;padding:8px 20px;flex-wrap:wrap;',
-            '  border-bottom:1px solid #f3f4f6;',
-            '}',
-            '.gs-scope-item {',
-            '  font-size:12px;padding:4px 12px;border-radius:14px;cursor:pointer;',
-            '  background:#f3f4f6;color:#6b7280;display:flex;align-items:center;gap:4px;',
-            '  user-select:none;transition:background 0.15s,color 0.15s;',
-            '}',
-            '.gs-scope-item.active { background:#dbeafe;color:#2563eb; }',
-            '.gs-scope-item input { display:none; }',
-            '.gs-scope-item:hover { background:#e5e7eb; }',
-            '.gs-scope-item.active:hover { background:#bfdbfe; }',
-            '.gs-scope-all { font-weight:600; }',
-            '.gs-results-container {',
-            '  flex:1;overflow-y:auto;padding:8px 0;',
-            '  max-height:55vh;',
-            '}',
-            '.gs-result-group { margin-bottom:4px; }',
-            '.gs-group-header {',
-            '  display:flex;align-items:center;justify-content:space-between;',
-            '  padding:8px 20px 4px;',
-            '}',
-            '.gs-group-label { font-size:13px;font-weight:700;color:#374151; }',
-            '.gs-group-count { font-size:11px;color:#9ca3af; }',
-            '.gs-result-item {',
-            '  display:flex;align-items:flex-start;gap:12px;padding:10px 20px;',
-            '  cursor:pointer;transition:background 0.1s;',
-            '  border-left:3px solid transparent;',
-            '}',
-            '.gs-result-item:hover, .gs-result-item.gs-selected {',
-            '  background:#f0f7ff;border-left-color:#3b82f6;',
-            '}',
-            '.gs-result-icon { font-size:20px;flex-shrink:0;margin-top:2px;width:28px;text-align:center; }',
-            '.gs-result-content { flex:1;min-width:0; }',
-            '.gs-result-title {',
-            '  font-size:14px;font-weight:600;color:#111827;line-height:1.5;',
-            '  display:flex;align-items:center;gap:8px;flex-wrap:wrap;',
-            '}',
-            '.gs-result-title mark {',
-            '  background:#fef08a;color:#854d0e;padding:1px 3px;border-radius:2px;',
-            '}',
-            '.gs-result-excerpt {',
-            '  font-size:12px;color:#6b7280;margin-top:2px;line-height:1.5;',
-            '  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;',
-            '  -webkit-line-clamp:2;-webkit-box-orient:vertical;',
-            '}',
-            '.gs-result-excerpt mark {',
-            '  background:#fef08a;color:#854d0e;padding:1px 2px;border-radius:2px;',
-            '}',
-            '.gs-result-tag {',
-            '  font-size:10px;padding:2px 8px;border-radius:10px;',
-            '  background:#e5e7eb;color:#6b7280;font-weight:500;white-space:nowrap;',
-            '}',
-            '.gs-result-meta {',
-            '  font-size:11px;color:#9ca3af;',
-            '}',
-            '.gs-empty {',
-            '  display:flex;flex-direction:column;align-items:center;',
-            '  padding:40px 20px;text-align:center;',
-            '}',
-            '.gs-empty-icon { font-size:48px;margin-bottom:12px; }',
-            '.gs-empty-text { font-size:16px;color:#6b7280;margin-bottom:6px; }',
-            '.gs-empty-hint { font-size:12px;color:#9ca3af; }',
-            '.gs-recent-section {',
-            '  margin-top:20px;width:100%;max-width:400px;text-align:left;',
-            '}',
-            '.gs-recent-header {',
-            '  display:flex;justify-content:space-between;align-items:center;',
-            '  margin-bottom:8px;font-size:13px;font-weight:600;color:#374151;',
-            '}',
-            '.gs-recent-clear {',
-            '  border:0;background:none;font-size:12px;color:#9ca3af;cursor:pointer;',
-            '  padding:2px 8px;border-radius:4px;',
-            '}',
-            '.gs-recent-clear:hover { color:#ef4444;background:#fef2f2; }',
-            '.gs-recent-list { display:flex;flex-wrap:wrap;gap:6px; }',
-            '.gs-recent-item {',
-            '  display:flex;align-items:center;gap:4px;',
-            '  padding:6px 12px;background:#f3f4f6;border:0;border-radius:8px;',
-            '  font-size:13px;color:#374151;cursor:pointer;font-family:inherit;',
-            '  transition:background 0.15s;',
-            '}',
-            '.gs-recent-item:hover { background:#e5e7eb; }',
-            '.gs-recent-icon { font-size:12px; }',
-            '.gs-results-footer {',
-            '  text-align:center;padding:12px 20px;font-size:12px;',
-            '  color:#9ca3af;border-top:1px solid #f3f4f6;',
-            '}',
-            '@media (max-width:700px) {',
-            '  .gs-modal { width:100vw;max-width:100vw;max-height:100vh;border-radius:0; }',
-            '  .gs-app { max-height:100vh; }',
-            '  .gs-results-container { max-height:65vh; }',
-            '  .gs-overlay { padding-top:0;align-items:stretch; }',
-            '}'
-        ].join('\n');
-
-        var style = document.createElement('style');
-        style.id = 'gs-styles';
-        style.textContent = css;
-        document.head.appendChild(style);
+        var link = document.createElement('link');
+        link.id = 'gs-styles';
+        link.rel = 'stylesheet';
+        link.href = 'css/global-search.css';
+        document.head.appendChild(link);
     }
 
     if (document.readyState === 'loading') {

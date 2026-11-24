@@ -23,11 +23,14 @@
     }
 
     // 初始化折叠状态
+    // v1.9 信息架构：工具区块**默认折叠** —— 首页首屏只保留金刚区（真题练习/
+    // 错题本/今日计划）与六科金刚区共 9 个入口，122 个工具收进「展开全部工具」。
+    // 用户手动展开过的分组会被记住（saved[key] === false 表示已展开）。
     function initCollapseState(){
         var saved = getSavedState();
         sections.forEach(function(el){
             var key = getSectionKey(el);
-            if (saved[key] === true) el.classList.add('collapsed');
+            if (saved[key] !== false) el.classList.add('collapsed');
         });
     }
 
@@ -58,7 +61,7 @@
         toggleAllBtn = document.createElement('button');
         toggleAllBtn.className = 'tool-collapse-toggle';
         toggleAllBtn.style.cssText = 'display:block;margin:0 0 12px auto;padding:6px 16px;border:1px solid var(--border-medium,#cbd5e1);border-radius:var(--radius-full,9999px);background:var(--bg-card,#fff);color:var(--text-secondary,#64748b);font-size:13px;cursor:pointer;transition:all .15s;';
-        toggleAllBtn.textContent = '全部折叠';
+        toggleAllBtn.textContent = '展开全部工具';
         toggleAllBtn.addEventListener('click', function(){
             var allCollapsed = true;
             sections.forEach(function(el){ if(!el.classList.contains('collapsed')) allCollapsed = false; });
@@ -81,7 +84,10 @@
         if (!toggleAllBtn) return;
         var allCollapsed = true;
         sections.forEach(function(el){ if(!el.classList.contains('collapsed')) allCollapsed = false; });
-        toggleAllBtn.textContent = allCollapsed ? '全部展开' : '全部折叠';
+        toggleAllBtn.textContent = allCollapsed ? '展开全部工具' : '收起全部工具';
+        // 全部折叠时连分组标题一并隐藏，首屏只保留 9 个入口（见 css/icons.css）
+        var homeSection = document.getElementById('home-section');
+        if (homeSection) homeSection.classList.toggle('tools-min', allCollapsed);
     }
 
     initCollapseState();

@@ -1,0 +1,76 @@
+/* icons.css — 内联 SVG 图标（v1.9 §4.2）
+   替代 emoji 当图标：emoji 在 Windows 低分屏/不同字体回退下像素发虚、尺寸不可控，
+   SVG 用 currentColor 跟随主题与字号，任意 DPI 清晰。
+   用法：<span data-icon="exam"></span> 由 js/ui-icons.js 注入内联 <svg>；
+   或在 JS 里 HSPCBIcon.svg('exam') 取字符串。 */
+.hspcb-i {
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    align-items: center;
+    justify-content: center;
+    vertical-align: -0.125em;
+    flex: none;
+}
+.hspcb-i svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+/* 金刚区：首页首屏只保留三个高频入口 */
+.primary-entries {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin: var(--space-5) 0;
+}
+.primary-entry {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-card);
+}
+.primary-entry:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.primary-entry .pe-icon {
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+.primary-entry .pe-title {
+    display: block;
+    font-size: var(--text-base);
+    font-weight: 700;
+}
+.primary-entry .pe-desc {
+    display: block;
+    font-size: var(--text-2xs);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+}
+@media (max-width: 768px) {
+    .primary-entries { grid-template-columns: 1fr; }
+}
+
+/* v1.9 信息架构（§4.2）：122 个工具默认收进「展开全部工具」。
+   全部折叠时连分组标题一起隐藏，首屏只剩 9 个入口（3 金刚 + 6 学科卡）。 */
+#home-section.tools-min .tools-section.collapsed,
+#home-section.tools-min .quick-access.collapsed {
+    display: none;
+}
