@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "@hspcb/": "./js/modules/"
+  }
+}

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-app-version="1.8.1">
+<html lang="zh-CN" data-app-version="1.9.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net https://gitee.com https://raw.giteeusercontent.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https: https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net https://gitee.com https://raw.giteeusercontent.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="六科题库、错题归因与学习仪表盘——纯静态、可离线、数据零上传的高中学习工具。">
 <title>高中物化生语数英学习大礼包</title>
@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="css/chinese-knowledge.css">
 <link rel="stylesheet" href="css/platform.css">
 <link rel="stylesheet" href="css/craft.css">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/global-search.css" id="gs-styles">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -29,6 +31,10 @@
 <script src="js/error-fallback.js"></script>
 
 <script src="js/theme-bootstrap.js"></script>
+<script src="js/ui-icons.js"></script>
+<!-- v1.9 §3.2-B 渐进模块化：importmap 只影响 ES Module 的裸说明符解析，
+     存量 IIFE 脚本不受影响。外部文件形式是为了不违反 script-src 'self'（禁内联）。 -->
+<script type="importmap" src="js/importmap.json"></script>
 
 </head>
 <body>
@@ -69,6 +75,21 @@
 <button class="hero-btn" data-call="navigateToolPage" data-arg1="@s:study-dashboard">学习仪表盘</button>
 <a class="hero-btn hero-btn-ghost" href="showcase.html">作品展示</a>
 </div>
+</div>
+
+<div class="primary-entries" role="group" aria-label="高频入口">
+<button class="primary-entry" data-subject="exam">
+<span class="pe-icon" data-icon="exam"></span>
+<span><span class="pe-title">真题练习</span><span class="pe-desc">1198 道广东卷真题，按科/年份/难度筛</span></span>
+</button>
+<button class="primary-entry" data-tool="error-notebook">
+<span class="pe-icon" data-icon="notebook"></span>
+<span><span class="pe-title">错题本</span><span class="pe-desc">按考点归类，SM-2 排期提醒复习</span></span>
+</button>
+<button class="primary-entry" data-tool="study-plan-generator">
+<span class="pe-icon" data-icon="calendar"></span>
+<span><span class="pe-title">今日计划</span><span class="pe-desc">按弱科自动组卷，可打印</span></span>
+</button>
 </div>
 
 <div class="subject-cards">
@@ -179,86 +200,86 @@
 <div class="tools-section mt-20">
 <h3>广东卷特色专项</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="guangdong-analysis">📊 命题规律白皮书</button>
-<button class="tool-access-btn" data-tool="situational-quiz">🌍 情境化试题训练</button>
-<button class="tool-access-btn" data-tool="cross-subject-enhanced">🔬 跨学科融合专题</button>
-<button class="tool-access-btn" data-tool="tech-frontiers">🏆 科技前沿关联</button>
+<button class="tool-access-btn" data-tool="guangdong-analysis">命题规律白皮书</button>
+<button class="tool-access-btn" data-tool="situational-quiz">情境化试题训练</button>
+<button class="tool-access-btn" data-tool="cross-subject-enhanced">跨学科融合专题</button>
+<button class="tool-access-btn" data-tool="tech-frontiers">科技前沿关联</button>
 </div>
 </div>
 <div class="tools-section mt-16">
 <h3>答题规范与提分</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="answer-template">📋 大题答题模板库</button>
-<button class="tool-access-btn" data-tool="calc-step">🧮 计算题分步训练</button>
-<button class="tool-access-btn" data-tool="interactive-mistakes">⚠️ 交互式易错点</button>
-<button class="tool-access-btn" data-tool="exam-strategy">🎯 考前策略指南</button>
+<button class="tool-access-btn" data-tool="answer-template">大题答题模板库</button>
+<button class="tool-access-btn" data-tool="calc-step">计算题分步训练</button>
+<button class="tool-access-btn" data-tool="interactive-mistakes">交互式易错点</button>
+<button class="tool-access-btn" data-tool="exam-strategy">考前策略指南</button>
 </div>
 </div>
 <div class="tools-section mt-16">
 <h3>记忆与诊断</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="spaced-repetition">🔁 间隔重复记忆系统</button>
-<button class="tool-access-btn" data-tool="textbook-fill">📖 教材原文挖空</button>
-<button class="tool-access-btn" data-tool="adaptive-diagnosis">🔍 自适应诊断测试</button>
-<button class="tool-access-btn" data-tool="knowledge-heatmap">🌡️ 知识盲区热力图</button>
+<button class="tool-access-btn" data-tool="spaced-repetition">间隔重复记忆系统</button>
+<button class="tool-access-btn" data-tool="textbook-fill">教材原文挖空</button>
+<button class="tool-access-btn" data-tool="adaptive-diagnosis">自适应诊断测试</button>
+<button class="tool-access-btn" data-tool="knowledge-heatmap">知识盲区热力图</button>
 </div>
 </div>
 <div class="tools-section mt-16">
 <h3>可视化与变式</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="formula-derivation">🎬 公式推导动画</button>
-<button class="tool-access-btn" data-tool="physics-model">⚙️ 物理模型可视化</button>
-<button class="tool-access-btn" data-tool="chem-transform">🔗 化学转化网络</button>
-<button class="tool-access-btn" data-tool="bio-chart">📈 生物图表题专项</button>
-<button class="tool-access-btn" data-tool="exam-variation">🔄 真题变式生成</button>
-<button class="tool-access-btn" data-tool="wrong-variation">❌ 错题变式生成</button>
-<button class="tool-access-btn" data-tool="study-calendar">📅 学习日历</button>
-<button class="tool-access-btn" data-tool="chem-lab-builder">🧪 实验装置拼装</button>
-<button class="tool-access-btn" data-tool="physics-graph-lab">📐 物理图像实验室</button>
-<button class="tool-access-btn" data-tool="chem-equilibrium">⚖️ 化学平衡模拟器</button>
-<button class="tool-access-btn" data-tool="periodic-table">🔬 交互式元素周期表</button>
-<button class="tool-access-btn" data-tool="punnett-square">🧬 遗传棋盘计算器</button>
-<button class="tool-access-btn" data-tool="open-answer-trainer">✍️ 开放题答题训练</button>
-<button class="tool-access-btn" data-tool="framework-trainer">📝 框架式答题训练</button>
-<button class="tool-access-btn" data-tool="exam-heatmap">🌡️ 考点热力图分析</button>
-<button class="tool-access-btn" data-tool="terminology">📖 术语易错字速查</button>
-<button class="tool-access-btn" data-tool="countdown-task">⏰ 高考倒计时任务</button>
-<button class="tool-access-btn" data-tool="concept-match">🎮 概念辨析对对碰</button>
-<button class="tool-access-btn" data-tool="scratchpad">✏️ 内置草稿画板</button>
-<button class="tool-access-btn" data-tool="study-report">📊 学习报告生成器</button>
-<button class="tool-access-btn" data-tool="experiment-table">🔬 教材实验六栏全表</button>
-<button class="tool-access-btn" data-tool="thinking-chain">💡 大题解题思维链</button>
-<button class="tool-access-btn" data-tool="variation-rec">🔄 变式题推荐系统</button>
+<button class="tool-access-btn" data-tool="formula-derivation">公式推导动画</button>
+<button class="tool-access-btn" data-tool="physics-model">物理模型可视化</button>
+<button class="tool-access-btn" data-tool="chem-transform">化学转化网络</button>
+<button class="tool-access-btn" data-tool="bio-chart">生物图表题专项</button>
+<button class="tool-access-btn" data-tool="exam-variation">真题变式生成</button>
+<button class="tool-access-btn" data-tool="wrong-variation">错题变式生成</button>
+<button class="tool-access-btn" data-tool="study-calendar">学习日历</button>
+<button class="tool-access-btn" data-tool="chem-lab-builder">实验装置拼装</button>
+<button class="tool-access-btn" data-tool="physics-graph-lab">物理图像实验室</button>
+<button class="tool-access-btn" data-tool="chem-equilibrium">化学平衡模拟器</button>
+<button class="tool-access-btn" data-tool="periodic-table">交互式元素周期表</button>
+<button class="tool-access-btn" data-tool="punnett-square">遗传棋盘计算器</button>
+<button class="tool-access-btn" data-tool="open-answer-trainer">开放题答题训练</button>
+<button class="tool-access-btn" data-tool="framework-trainer">框架式答题训练</button>
+<button class="tool-access-btn" data-tool="exam-heatmap">考点热力图分析</button>
+<button class="tool-access-btn" data-tool="terminology">术语易错字速查</button>
+<button class="tool-access-btn" data-tool="countdown-task">高考倒计时任务</button>
+<button class="tool-access-btn" data-tool="concept-match">概念辨析对对碰</button>
+<button class="tool-access-btn" data-tool="scratchpad">内置草稿画板</button>
+<button class="tool-access-btn" data-tool="study-report">学习报告生成器</button>
+<button class="tool-access-btn" data-tool="experiment-table">教材实验六栏全表</button>
+<button class="tool-access-btn" data-tool="thinking-chain">大题解题思维链</button>
+<button class="tool-access-btn" data-tool="variation-rec">变式题推荐系统</button>
 </div>
 <div class="tools-section mt-16">
 <h3>学科内容补全</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="poem-appreciation">🎨 古诗文鉴赏交互器</button>
-<button class="tool-access-btn" data-tool="classical-translation">📜 文言文翻译对照器</button>
-<button class="tool-access-btn" data-tool="solid-geometry-3d">📐 立体几何3D查看器</button>
-<button class="tool-access-btn" data-tool="trig-unit-circle">🎡 三角函数单位圆</button>
-<button class="tool-access-btn" data-tool="english-listening">🎧 英语听力训练</button>
-<button class="tool-access-btn" data-tool="english-cloze">📝 英语完形填空</button>
-<button class="tool-access-btn" data-tool="celestial-motion">🪐 天体运动模拟器</button>
-<button class="tool-access-btn" data-tool="crystal-structure-3d">💎 晶体结构3D查看器</button>
-<button class="tool-access-btn" data-tool="dna-central-dogma">🧬 DNA中心法则动画</button>
+<button class="tool-access-btn" data-tool="poem-appreciation">古诗文鉴赏交互器</button>
+<button class="tool-access-btn" data-tool="classical-translation">文言文翻译对照器</button>
+<button class="tool-access-btn" data-tool="solid-geometry-3d">立体几何3D查看器</button>
+<button class="tool-access-btn" data-tool="trig-unit-circle">三角函数单位圆</button>
+<button class="tool-access-btn" data-tool="english-listening">英语听力训练</button>
+<button class="tool-access-btn" data-tool="english-cloze">英语完形填空</button>
+<button class="tool-access-btn" data-tool="celestial-motion">天体运动模拟器</button>
+<button class="tool-access-btn" data-tool="crystal-structure-3d">晶体结构3D查看器</button>
+<button class="tool-access-btn" data-tool="dna-central-dogma">DNA中心法则动画</button>
 </div>
 </div>
 <div class="tools-section mt-16">
 <h3>学习激励与数据分析</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="achievement-system">🏆 成就徽章系统</button>
-<button class="tool-access-btn" data-tool="study-share-card">📸 学习打卡分享图</button>
-<button class="tool-access-btn" data-tool="score-calculator">🔢 分数计算器/志愿参考</button>
-<button class="tool-access-btn" data-tool="error-analysis-report">📊 错题智能分析报告</button>
-<button class="tool-access-btn" data-tool="time-management">⏱️ 时间管理分析器</button>
-<button class="tool-access-btn" data-tool="score-line">📈 广东历年分数线</button>
-<button class="tool-access-btn" data-tool="experiment-exam-special">🔬 实验题专项训练</button>
-<button class="tool-access-btn" data-tool="choice-tricks">⚡ 选择题秒杀技巧库</button>
-<button class="tool-access-btn" data-tool="sentence-analyzer">📝 英语长难句分析器</button>
-<button class="tool-access-btn" data-tool="exam-timer-pro">⏲️ 考试计时器Pro</button>
-<button class="tool-access-btn" data-tool="knowledge-card-exporter">📇 知识点卡片导出</button>
-<button class="tool-access-btn" data-tool="learning-path-recommender">🧭 学习路径推荐</button>
+<button class="tool-access-btn" data-tool="achievement-system">成就徽章系统</button>
+<button class="tool-access-btn" data-tool="study-share-card">学习打卡分享图</button>
+<button class="tool-access-btn" data-tool="score-calculator">分数计算器/志愿参考</button>
+<button class="tool-access-btn" data-tool="error-analysis-report">错题智能分析报告</button>
+<button class="tool-access-btn" data-tool="time-management">时间管理分析器</button>
+<button class="tool-access-btn" data-tool="score-line">广东历年分数线</button>
+<button class="tool-access-btn" data-tool="experiment-exam-special">实验题专项训练</button>
+<button class="tool-access-btn" data-tool="choice-tricks">选择题秒杀技巧库</button>
+<button class="tool-access-btn" data-tool="sentence-analyzer">英语长难句分析器</button>
+<button class="tool-access-btn" data-tool="exam-timer-pro">考试计时器Pro</button>
+<button class="tool-access-btn" data-tool="knowledge-card-exporter">知识点卡片导出</button>
+<button class="tool-access-btn" data-tool="learning-path-recommender">学习路径推荐</button>
 </div>
 </div>
 </div>
@@ -276,17 +297,17 @@
 <div class="tools-section mt-24">
 <h3>物理专项工具</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="physics-formula">📐 物理公式计算器</button>
-<button class="tool-access-btn" data-tool="physics-mechanics">🔧 受力分析工具</button>
-<button class="tool-access-btn" data-tool="physics-projectile">🎯 抛体运动模拟</button>
-<button class="tool-access-btn" data-tool="physics-electricity">⚡ 电路分析工具</button>
-<button class="tool-access-btn" data-tool="physics-optics">🔍 光学模拟</button>
-<button class="tool-access-btn" data-tool="physics-measurement">📏 测量仪器精读指南</button>
-<button class="tool-access-btn" data-tool="formula-handbook">📐 公式手册速查</button>
-<button class="tool-access-btn" data-tool="timed-quiz">⏱️ 计时刷题</button>
-<button class="tool-access-btn" data-tool="daily-learning">📅 每日一题</button>
-<button class="tool-access-btn" data-tool="interdisciplinary">🌐 学科交叉</button>
-<button class="tool-access-btn" data-tool="secondary-conclusions">📋 物理二级结论速查</button>
+<button class="tool-access-btn" data-tool="physics-formula">物理公式计算器</button>
+<button class="tool-access-btn" data-tool="physics-mechanics">受力分析工具</button>
+<button class="tool-access-btn" data-tool="physics-projectile">抛体运动模拟</button>
+<button class="tool-access-btn" data-tool="physics-electricity">电路分析工具</button>
+<button class="tool-access-btn" data-tool="physics-optics">光学模拟</button>
+<button class="tool-access-btn" data-tool="physics-measurement">测量仪器精读指南</button>
+<button class="tool-access-btn" data-tool="formula-handbook">公式手册速查</button>
+<button class="tool-access-btn" data-tool="timed-quiz">计时刷题</button>
+<button class="tool-access-btn" data-tool="daily-learning">每日一题</button>
+<button class="tool-access-btn" data-tool="interdisciplinary">学科交叉</button>
+<button class="tool-access-btn" data-tool="secondary-conclusions">物理二级结论速查</button>
 </div>
 </div>
 </section>
@@ -303,17 +324,17 @@
 <div class="tools-section mt-24">
 <h3>化学专项工具</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="chemistry-balancer">⚖️ 方程式配平器</button>
-<button class="tool-access-btn" data-tool="chemistry-quiz">📝 化学知识闯关</button>
-<button class="tool-access-btn" data-tool="chemistry-safety">⚠️ 实验室安全</button>
-<button class="tool-access-btn" data-tool="chemistry-electrochem">🔋 电化学模拟</button>
-<button class="tool-access-btn" data-tool="chemistry-process">🏭 化工流程分析</button>
-<button class="tool-access-btn" data-tool="chemistry-organic">🧬 有机化学工具</button>
-<button class="tool-access-btn" data-tool="chemistry-equipment">🔬 实验器材全解</button>
-<button class="tool-access-btn" data-tool="chemistry-notebook">📓 方程式抄本</button>
-<button class="tool-access-btn" data-tool="chemistry-process-analyzer">📊 流程分析器</button>
-<button class="tool-access-btn" data-tool="valence-atlas">⚗️ 元素价态图谱</button>
-<button class="tool-access-btn" data-tool="secondary-conclusions">📋 化学二级结论速查</button>
+<button class="tool-access-btn" data-tool="chemistry-balancer">方程式配平器</button>
+<button class="tool-access-btn" data-tool="chemistry-quiz">化学知识闯关</button>
+<button class="tool-access-btn" data-tool="chemistry-safety">实验室安全</button>
+<button class="tool-access-btn" data-tool="chemistry-electrochem">电化学模拟</button>
+<button class="tool-access-btn" data-tool="chemistry-process">化工流程分析</button>
+<button class="tool-access-btn" data-tool="chemistry-organic">有机化学工具</button>
+<button class="tool-access-btn" data-tool="chemistry-equipment">实验器材全解</button>
+<button class="tool-access-btn" data-tool="chemistry-notebook">方程式抄本</button>
+<button class="tool-access-btn" data-tool="chemistry-process-analyzer">流程分析器</button>
+<button class="tool-access-btn" data-tool="valence-atlas">元素价态图谱</button>
+<button class="tool-access-btn" data-tool="secondary-conclusions">化学二级结论速查</button>
 </div>
 </div>
 </section>
@@ -330,19 +351,19 @@
 <div class="tools-section mt-24">
 <h3>生物专项工具</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="biology-genetics">🧬 遗传规律模拟器</button>
-<button class="tool-access-btn" data-tool="biology-ecosystem">🌍 生态系统模拟</button>
-<button class="tool-access-btn" data-tool="biology-mindmap">🗺️ 知识思维导图</button>
-<button class="tool-access-btn" data-tool="biology-knowledge-graph">🔥 13大热点知识图谱</button>
-<button class="tool-access-btn" data-tool="biology-exam-skills">📝 答题技巧全解</button>
-<button class="tool-access-btn" data-tool="biology-pcr-sim">🧬 PCR模拟动画</button>
-<button class="tool-access-btn" data-tool="biology-electrophoresis">🔬 凝胶电泳模拟</button>
-<button class="tool-access-btn" data-tool="biology-pedigree">👨‍👩‍👧 遗传系谱分析</button>
-<button class="tool-access-btn" data-tool="biology-photosynthesis">🌿 光合作用训练</button>
-<button class="tool-access-btn" data-tool="biology-experiment">🧪 实验方案设计</button>
-                    <button class="tool-access-btn" data-tool="biology-metabolism">🍬 糖类·脂质·ATP</button>
-                    <button class="tool-access-btn" data-tool="biology-evolution">🦎 进化理论</button>
-                    <button class="tool-access-btn" data-tool="biology-biotech">🔬 微生物·发酵·细胞工程</button>
+<button class="tool-access-btn" data-tool="biology-genetics">遗传规律模拟器</button>
+<button class="tool-access-btn" data-tool="biology-ecosystem">生态系统模拟</button>
+<button class="tool-access-btn" data-tool="biology-mindmap">知识思维导图</button>
+<button class="tool-access-btn" data-tool="biology-knowledge-graph">13大热点知识图谱</button>
+<button class="tool-access-btn" data-tool="biology-exam-skills">答题技巧全解</button>
+<button class="tool-access-btn" data-tool="biology-pcr-sim">PCR模拟动画</button>
+<button class="tool-access-btn" data-tool="biology-electrophoresis">凝胶电泳模拟</button>
+<button class="tool-access-btn" data-tool="biology-pedigree">遗传系谱分析</button>
+<button class="tool-access-btn" data-tool="biology-photosynthesis">光合作用训练</button>
+<button class="tool-access-btn" data-tool="biology-experiment">实验方案设计</button>
+                    <button class="tool-access-btn" data-tool="biology-metabolism">糖类·脂质·ATP</button>
+                    <button class="tool-access-btn" data-tool="biology-evolution">进化理论</button>
+                    <button class="tool-access-btn" data-tool="biology-biotech">微生物·发酵·细胞工程</button>
 </div>
 </div>
 </section>
@@ -377,13 +398,13 @@
 <div class="tools-section mt-24">
 <h3>数学专项工具</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="math-grapher">📈 函数图像绘制器</button>
-<button class="tool-access-btn" data-tool="math-derivative">📐 导数计算器</button>
+<button class="tool-access-btn" data-tool="math-grapher">函数图像绘制器</button>
+<button class="tool-access-btn" data-tool="math-derivative">导数计算器</button>
 <button class="tool-access-btn" data-tool="math-integral">∫ 积分计算器</button>
-<button class="tool-access-btn" data-tool="math-geometry">📏 几何画板</button>
-<button class="tool-access-btn" data-tool="math-sequence">📊 数列可视化</button>
-<button class="tool-access-btn" data-tool="math-probability">🎲 概率模拟器</button>
-<button class="tool-access-btn" data-tool="math-handbook">📖 数学公式手册</button>
+<button class="tool-access-btn" data-tool="math-geometry">几何画板</button>
+<button class="tool-access-btn" data-tool="math-sequence">数列可视化</button>
+<button class="tool-access-btn" data-tool="math-probability">概率模拟器</button>
+<button class="tool-access-btn" data-tool="math-handbook">数学公式手册</button>
 </div>
 </div>
 </div>
@@ -432,10 +453,10 @@
 <div class="tools-section mt-24">
 <h3>英语专项工具</h3>
 <div class="tools-access">
-<button class="tool-access-btn" data-tool="english-grammar-quiz">📝 语法闯关</button>
-<button class="tool-access-btn" data-tool="english-reading-trainer">📚 阅读训练</button>
-<button class="tool-access-btn" data-tool="english-composition-templates">✍️ 作文模板</button>
-<button class="tool-access-btn" data-tool="english-vocabulary">📖 词汇记忆系统</button>
+<button class="tool-access-btn" data-tool="english-grammar-quiz">语法闯关</button>
+<button class="tool-access-btn" data-tool="english-reading-trainer">阅读训练</button>
+<button class="tool-access-btn" data-tool="english-composition-templates">作文模板</button>
+<button class="tool-access-btn" data-tool="english-vocabulary">词汇记忆系统</button>
 </div>
 </div>
 </div>
@@ -1630,6 +1651,7 @@
 <script defer src="js/theme-toggle.js"></script>
 <script defer src="js/sw-register.js"></script>
 <script defer src="js/app.js"></script>
+<script defer src="js/data-sync.js"></script>
 <script defer src="js/dashboard-widgets.js"></script>
 <script defer src="js/settings-center.js"></script>
 <script defer src="js/automation.js"></script>

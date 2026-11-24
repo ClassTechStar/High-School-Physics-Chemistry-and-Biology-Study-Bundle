@@ -133,6 +133,103 @@ window.HSPCBSettingsUI = (function () {
         updCard.appendChild(el('div', 'hspcb-muted', '默认只走 GitHub（含 jsDelivr 镜像）。Gitee 镜像存在整仓投毒风险，仅在网络受限时开启；APK 下载始终校验 SHA-256。'));
         frag.appendChild(updCard);
 
+        // v1.9 §3.3 数据同步（实验）：换设备不丢数据 —— 文件导出/导入 + WebDAV
+        if (window.HSPCBDatasync) {
+            var syncCard = el('div', 'hspcb-card');
+            syncCard.appendChild(el('div', 'hspcb-row-label', '数据同步（实验）'));
+            syncCard.appendChild(el('div', 'hspcb-row-hint', '错题本、进度、设置全部打包为一份 JSON 快照：可导出文件换设备导入，也可填自己的 WebDAV（坚果云/Nextcloud 等）一键上传/下载。'));
+
+            var cfg = HSPCBDatasync.getConfig();
+            function field(label, value, type, placeholder) {
+                var row = el('div', 'hspcb-entry-row');
+                row.appendChild(el('div', 'hspcb-row-label', label));
+                var inp = document.createElement('input');
+                inp.type = type || 'text';
+                inp.value = value || '';
+                inp.placeholder = placeholder || '';
+                inp.className = 'hspcb-input';
+                inp.style.cssText = 'flex:1;min-width:0;padding:6px 10px;border:1px solid var(--border-default,#cbd5e1);border-radius:8px;background:var(--bg-primary,#fff);color:var(--text-primary,#0f172a);';
+                row.appendChild(inp);
+                return { row: row, input: inp };
+            }
+            var fUrl = field('WebDAV 地址', cfg.url, 'url', 'https://dav.jianguoyun.com/dav/我的文件');
+            var fUser = field('账号', cfg.user, 'text', '邮箱/用户名');
+            var fPass = field('密码', cfg.pass, 'password', '应用专用密码');
+            var fFile = field('远端文件名', cfg.file || 'hspcb-sync.json', 'text', 'hspcb-sync.json');
+            [fUrl, fUser, fPass, fFile].forEach(function (f) { syncCard.appendChild(f.row); });
+
+            var syncStatus = el('div', 'hspcb-muted', '尚未同步');
+            var syncActions = el('div', 'hspcb-entry-row');
+
+            // v1.9 §3.2-B：时间格式化由首个 ES Module 提供；加载失败（旧浏览器
+            // 不支持动态 import / 模块 404）时静默回退到原来的 slice 写法。
+            var stamp = function (iso) { return (iso || '').slice(0, 19).replace('T', ' '); };
+            import(new URL('js/modules/time-format.js', document.baseURI).href).then(function (m) {
+                if (m && typeof m.formatStamp === 'function') stamp = m.formatStamp;
+            }).catch(function () {});
+
+            function currentCfg() {
+                return HSPCBDatasync.saveConfig({
+                    url: fUrl.input.value,
+                    user: fUser.input.value,
+                    pass: fPass.input.value,
+                    file: fFile.input.value
+                });
+            }
+
+            var saveBtn = btn('保存配置', 'hspcb-btn', function () {
+                currentCfg();
+                syncStatus.textContent = '配置已保存到本机（密码为明文存储，建议使用应用专用密码）';
+            });
+            saveBtn.type = 'button';
+            syncActions.appendChild(saveBtn);
+
+            var upBtn = btn('上传到 WebDAV', 'hspcb-btn-primary', function () {
+                upBtn.disabled = true;
+                syncStatus.textContent = '正在上传…';
+                HSPCBDatasync.webdavPut(currentCfg()).then(function (r) {
+                    upBtn.disabled = false;
+                    syncStatus.textContent = r.ok ? ('已上传（' + stamp(r.at) + '）') : ('上传失败：' + (r.error || '未知错误'));
+                });
+            });
+            upBtn.type = 'button';
+            syncActions.appendChild(upBtn);
+
+            var downBtn = btn('从 WebDAV 恢复', 'hspcb-btn', function () {
+                if (!confirm('从远端快照恢复会覆盖本机同名的学习数据，确定继续？')) return;
+                downBtn.disabled = true;
+                syncStatus.textContent = '正在下载…';
+                HSPCBDatasync.webdavGet(currentCfg()).then(function (r) {
+                    downBtn.disabled = false;
+                    if (!r.ok) { syncStatus.textContent = '恢复失败：' + (r.error || '未知错误'); return; }
+                    syncStatus.textContent = '已恢复 ' + r.written + ' 项数据，请刷新页面生效';
+                });
+            });
+            downBtn.type = 'button';
+            syncActions.appendChild(downBtn);
+
+            var expBtn = btn('导出快照文件', 'hspcb-btn', function () {
+                HSPCBDatasync.saveToFile().then(function (r) {
+                    syncStatus.textContent = r.ok ? (r.fallback ? '已下载快照文件' : '已保存快照文件') : ('保存失败：' + (r.error || ''));
+                });
+            });
+            expBtn.type = 'button';
+            syncActions.appendChild(expBtn);
+
+            var impBtn = btn('导入快照文件', 'hspcb-btn', function () {
+                HSPCBDatasync.pickAndImport().then(function (r) {
+                    syncStatus.textContent = r.ok ? ('已导入 ' + r.written + ' 项数据，请刷新页面生效') : ('导入失败：' + (r.error || ''));
+                });
+            });
+            impBtn.type = 'button';
+            syncActions.appendChild(impBtn);
+
+            syncCard.appendChild(syncActions);
+            syncCard.appendChild(syncStatus);
+            syncCard.appendChild(el('div', 'hspcb-muted', '凭据只存本机 localStorage；WebDAV 文件为整份覆盖，不做双向合并。'));
+            frag.appendChild(syncCard);
+        }
+
         // PWA 安装入口：仅在浏览器支持且尚未安装时出现；条件不满足时整卡不渲染，
         // 设置页与改动前完全一致（复用现有卡片与按钮，不新增样式）。
         (function () {

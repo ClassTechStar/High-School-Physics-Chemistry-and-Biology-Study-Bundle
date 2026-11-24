@@ -765,8 +765,78 @@ window.HSPCBStore = (function () {
     // "旧 key 永存 → 直读裸 key 的代码看到已清除数据"的隐患。
     var config = { removeLegacyAfterMigrate: false };
 
+    /* ---------------- v1.9 §3.3 存储后端抽象 ----------------
+       默认后端 = localStorage（行为与改造前逐字节一致）。
+       抽象的价值不在替换存储引擎，而在给「数据可携」留出正式接口：
+       data-sync.js 通过 listKeys()/dump() 导出全量快照，再经文件或 WebDAV
+       推到另一台设备；未来接 IndexedDB/文件系统后端时，这一层就是落点。
+       注意：所有后端方法必须同步——现有调用方（数百处）都按同步语义使用。 */
+    var lsBackend = {
+        name: 'localstorage',
+        getItem: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        setItem: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
+        removeItem: function (k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } },
+        keys: function () {
+            var out = [];
+            try {
+                for (var i = 0; i < localStorage.length; i++) out.push(localStorage.key(i));
+            } catch (e) { /* ignore */ }
+            return out;
+        }
+    };
+    var backend = lsBackend;
+
+    /** 切换存储后端（须实现 name/getItem/setItem/removeItem/keys 同步方法）。 */
+    function setBackend(b) {
+        if (!b || typeof b.getItem !== 'function' || typeof b.setItem !== 'function') return false;
+        backend = b;
+        return true;
+    }
+
+    function useDefaultBackend() {
+        backend = lsBackend;
+        return true;
+    }
+
+    function currentBackendName() {
+        return backend && backend.name ? backend.name : 'unknown';
+    }
+
+    /** 本命名空间下的全部 key（不含前缀），供数据导出/同步使用。 */
+    function listKeys() {
+        var all = backend.keys ? backend.keys() : [];
+        var out = [];
+        for (var i = 0; i < all.length; i++) {
+            var k = all[i];
+            if (k && k.indexOf(NS) === 0) out.push(k.slice(NS.length));
+        }
+        return out;
+    }
+
+    /** 导出命名空间内全部键值（浅对象，值为原始字符串）。 */
+    function dump() {
+        var out = {};
+        var keys = listKeys();
+        for (var i = 0; i < keys.length; i++) {
+            out[keys[i]] = backend.getItem(NS + keys[i]);
+        }
+        return out;
+    }
+
+    /** 批量写入（导入/同步落盘用）；逐键容错，返回成功条数。 */
+    function restore(obj) {
+        if (!obj || typeof obj !== 'object') return 0;
+        var n = 0;
+        for (var k in obj) {
+            if (!Object.prototype.hasOwnProperty.call(obj, k)) continue;
+            if (typeof obj[k] !== 'string') continue;
+            if (backend.setItem(NS + k, obj[k])) n++;
+        }
+        return n;
+    }
+
     function raw(k) {
-        try { return localStorage.getItem(k); } catch (e) { return null; }
+        return backend.getItem(k);
     }
 
  /** 运行期配置（目前仅 removeLegacyAfterMigrate） */
@@ -795,9 +865,9 @@ window.HSPCBStore = (function () {
     function get(key) {
         if (typeof key !== 'string') return null;
         if (shouldMigrate(key)) {
-            try { localStorage.setItem(NS + key, raw(key)); } catch (e) { /* ignore */ }
+            backend.setItem(NS + key, raw(key));
             if (config.removeLegacyAfterMigrate) {
-                try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+                backend.removeItem(key);
             }
         }
         return raw(NS + key);
@@ -805,7 +875,7 @@ window.HSPCBStore = (function () {
 
     function set(key, value) {
         if (typeof key !== 'string') return false;
-        try { localStorage.setItem(NS + key, String(value)); return true; } catch (e) { return false; }
+        return backend.setItem(NS + key, String(value));
     }
 
     // remove 必须同时清掉旧裸 key。
@@ -813,8 +883,8 @@ window.HSPCBStore = (function () {
     // 下次 get() 的自动搬迁会把它原样搬回来 → 用户点了清除，数据又复活。
     function remove(key) {
         if (typeof key !== 'string') return;
-        try { localStorage.removeItem(NS + key); } catch (e) { /* ignore */ }
-        try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+        backend.removeItem(NS + key);
+        backend.removeItem(key);
         migratedKeys[key] = null;
     }
 
@@ -957,6 +1027,13 @@ window.HSPCBStore = (function () {
         checkinDays: checkinDays,
         legacyKeys: legacyKeys,
         purgeAll: purgeAll,
-        configure: configure
+        configure: configure,
+        // v1.9 存储后端抽象与数据可携接口（默认 localStorage，行为不变）
+        setBackend: setBackend,
+        useDefaultBackend: useDefaultBackend,
+        currentBackendName: currentBackendName,
+        listKeys: listKeys,
+        dump: dump,
+        restore: restore
     };
 })();
