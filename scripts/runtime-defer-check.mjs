@@ -40,6 +40,8 @@ const scripts = [];
 const scriptRe = /<script\b([^>]*)>([\s\S]*?)<\/script>/g;
 for (const m of html.matchAll(scriptRe)) {
   const attrs = m[1] || '';
+  // v1.9 §3.2-B：<script type="importmap"> 是数据块，浏览器不执行，不参与时序复现
+  if (/\btype\s*=\s*["']importmap["']/i.test(attrs)) continue;
   const srcM = /\bsrc\s*=\s*["']([^"']+)["']/.exec(attrs);
   scripts.push({
     src: srcM ? srcM[1] : null,
@@ -922,62 +924,20 @@ if (missingIds.size && missingIds.size < 25) console.log('         ', [...missin
 }
 }
 
-// 归档宣传页（promo/presentation）的工具数量必须与 index.html 的
-// data-tool 注册表一致，且页面内部自洽（分科之和 = 总数，无重复计数）。
-// 期望值从 1.1/index.html 实时推导，避免门禁与事实漂移。
+// §7.1：1.1 旧版已移出主仓（归档于 tag v1.1），原「归档页数字与 1.1 注册表一致」
+// 门禁随之退休（被检查对象已不存在）；保留存在性断言防误检回归，并继续约束
+// 1.2/ 下宣传页的旧口径文案。
 {
-  const ARCH = join(ROOT, '1.1');
-  const idxHtml = readFileSync(join(ARCH, 'index.html'), 'utf8');
-  const tools = [...new Set([...idxHtml.matchAll(/data-tool="([^"]+)"/g)].map((m) => m[1]))];
-  // 按主标签归类（secondary-conclusions 为物化共用，按其 tool-tag=physics 归物理，只计一次）
-  const subjectOf = (t) =>
-    t.startsWith('physics-') || t === 'secondary-conclusions' ? 'physics'
-      : t.startsWith('chemistry-') || t === 'valence-atlas' ? 'chemistry'
-        : t.startsWith('biology-') ? 'biology' : 'platform';
-  const counts = { physics: 0, chemistry: 0, biology: 0, platform: 0 };
-  for (const t of tools) counts[subjectOf(t)]++;
-  const total = tools.length;
-  ok(total === 32,
-    `1.1 data-tool 注册表共 ${total} 个工具（物理 ${counts.physics} / 化学 ${counts.chemistry} / 生物 ${counts.biology} / 平台 ${counts.platform}）`);
-  ok(counts.physics + counts.chemistry + counts.biology + counts.platform === total,
-    '分科数量之和等于总数（共用工具只计一次）');
-
-  const promo = readFileSync(join(ARCH, 'promo.html'), 'utf8');
-  const pres = readFileSync(join(ARCH, 'presentation.html'), 'utf8');
+  ok(!existsSync(join(ROOT, '1.1', 'index.html')),
+    '1.1 旧版已移出主仓（需要时从 tag v1.1 取回）');
+  const promo = readFileSync(join(APP, 'promo.html'), 'utf8');
+  const pres = readFileSync(join(APP, 'presentation.html'), 'utf8');
   // 早期只允许以「首期18款」里程碑形态存在于路线图 slide
   const withoutMilestone = (s) => s.replace(/首期18款核心工具开发完成/g, '');
   ok(!/18款|27款/.test(withoutMilestone(promo)),
     'promo.html 不再出现旧口径「18款/27款」');
   ok(!/18款|27款/.test(withoutMilestone(pres)),
     'presentation.html 除「首期18款」里程碑外不再出现旧口径「18款/27款」');
-
-  const N = { total, ...counts };
-  // 只锁「数字与注册表一致」，不锁营销措辞。措辞已去营销腔（「款交互式学习工具」→「个工具入口」），
-  // 若继续用字面量匹配，改一次文案就要改一次门禁，门禁反而在保护旧话术。
-  const num = (n) => new RegExp(`(?<![\\d.])${n}(?![\\d.])`);
-  const inTag = (s, tag, n) => new RegExp(`<${tag}[^>]*>\\s*${n}(?![\\d.])`).test(s);
-  const near = (s, n, ...ctx) => ctx.every((c) => num(n).test(c) && num(n).test(s));
-
-  ok(num(N.total).test(promo.match(/<p class="hero-subtitle">([^<]*)</)?.[1] || '')
-    && inTag(promo, 'span class="hero-stat-num"', N.total)
-    && inTag(promo, 'span class="stats-value"', N.total),
-    `promo.html 总量三处（hero 副标题/hero 数字/统计卡）均为 ${N.total}`);
-  ok([N.physics, N.chemistry, N.biology, N.platform].every((n) =>
-      new RegExp(`<span class="stats-value">\\s*${n}\\b`).test(promo)),
-    `promo.html 统计卡分科数量与注册表一致（${N.physics}/${N.chemistry}/${N.biology}/${N.platform}）`);
-  ok([N.physics, N.chemistry, N.biology].every((n) =>
-      new RegExp(`<p class="section-desc">\\s*${n}\\b[^<]*</p>`).test(promo)),
-    `promo.html 分科 section-desc 与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
-
-  ok(num(N.total).test(pres.match(/<p class="subtitle">([^<]*)</)?.[1] || '')
-    && pres.includes(`data-count="${N.total}"`)
-    && num(N.total).test(pres.match(/<p class="intro-text-large">([\s\S]*?)<\/p>/)?.[1] || '')
-    && num(N.total).test(pres.match(/<p class="promo-text">([^<]*)</)?.[1] || '')
-    && inTag(pres, 'span class="fs-num"', N.total),
-    `presentation.html 总量六处（副标题/计数动画/简介/价值卡/结尾口号/尾页统计）均为 ${N.total}`);
-  ok([N.physics, N.chemistry, N.biology].every((n) =>
-      new RegExp(`<span class="tool-count">\\s*${n}\\b`).test(pres)),
-    `presentation.html 分科角标与注册表一致（${N.physics}/${N.chemistry}/${N.biology}）`);
 }
 
 // 设计令牌一致性 —— 六科卡片必须走令牌类，明暗两套色板各自互异，

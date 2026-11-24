@@ -21,6 +21,30 @@
 选择「拦截式资产域」而非本地 HTTP 服务器的原因：部分 ROM（Android 16 真机实测）
 对应用绑定 loopback 端口报 `EPERM`；拦截方案零 socket、零 cleartext、零依赖。
 
+## WebView 兼容性矩阵
+
+`minSdk = 24`（Android 7.0，`build.gradle.kts` 与 `build-apk.sh --min-api 24` 一致）。
+Android 的 WebView 自 Android 5 起可独立于系统更新，所以**实际能力由 WebView 版本
+决定，而不是系统版本**；下表按特性给出最低 WebView/Chrome 版本与降级行为：
+
+| 能力 | 最低版本 | 不满足时 |
+|---|---|---|
+| CSS 变量 / flex / grid | 49 / 57 | 版式退化（minSdk 24 出厂 WebView 已普遍 ≥50） |
+| ES2015（let/const/箭头/模板串） | 49 | 脚本语法错误 —— 仓内存量代码不用更高阶的新语法糖 |
+| `async/await`、`Object.entries` | 55 | 同上 |
+| `IntersectionObserver` | 51 | 懒渲染退回一次性渲染（需守卫，见 `knowledge-card`） |
+| 动态 `import()` | 63 | 新 ESM 模块加载失败 → 调用方回退旧逻辑（`settings-center.js` 已写 catch） |
+| import maps | 89；外部 src 形式 128 | 旧 WebView 直接忽略 `importmap.json`，不影响 IIFE 存量 |
+| `content-visibility` | 85 | 仅失去渲染优化，布局与功能不变 |
+| Web Speech（朗读） | 取决于 ROM | `HSPCBSpeech.supported === false` 时提示「当前浏览器不支持朗读」 |
+| Service Worker | 40 | 壳内注册失败被静默（资产已在 APK 内，离线不依赖 SW） |
+
+**CI 不跑 api 24/28/34 模拟器矩阵**：本仓 CI 无 Android SDK/emulator 环境，GitHub
+Actions 上的模拟器无硬件加速、冷启动与稳定性成本高，收益低于替代保障。现有替代：
+`build-apk.sh` 全链构建（aapt2 → javac → d8 → 签名）+ `check:asset-sync`
+（站点与 APK assets 字节一致）+ 本矩阵 + 真机手测（`android/screenshots/`）。
+需要扩展矩阵时，用本地 `avdmanager` 启三档 AVD 跑安装/启动冒烟即可，无需改站点代码。
+
 ## 构建（已验证路径：一键脚本）
 
 依赖：JDK 11+、Android SDK（`platforms;android-34` + `build-tools 36.0.0`）、Python 3。

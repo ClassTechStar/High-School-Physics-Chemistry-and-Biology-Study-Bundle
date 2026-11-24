@@ -15,7 +15,7 @@
  *
  * 退出码：0 = 全部有效；1 = 存在失效链接。
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -74,6 +74,35 @@ for (const page of pages) {
       fail(`${page} 深链 ?goto=${g} 不在 js/deep-link.js 路由表内（会停在首页）`);
     }
   }
+}
+
+// ---------- 3. PWA manifest 字段消费方（§6.3） ----------
+// history: `?subject=` 曾是「manifest 声明了但无人消费」的断链（app.js 注释记录了修复史）。
+// 这里把同类问题固化成门禁：
+//   - shortcuts[].url 的 ?subject= 必须落在导航白名单（.nav-btn[data-subject]）内；
+//   - screenshots[]（可选）若有，文件必须存在且是图片；
+//   - categories 是安装器元数据字段，本就没有运行时消费方，不设断言。
+{
+  const manifest = JSON.parse(read('manifest.json'));
+  const idx = read('index.html');
+  const navSubjects = new Set([...idx.matchAll(/data-subject="([^"]+)"/g)].map((m) => m[1]));
+  const shortcuts = Array.isArray(manifest.shortcuts) ? manifest.shortcuts : [];
+  if (!shortcuts.length) fail('manifest.json 缺 shortcuts（PWA 长按快捷入口无法使用）');
+  for (const s of shortcuts) {
+    const m = /\?subject=([^&]+)/.exec(s.url || '');
+    if (!m) { fail(`manifest shortcut "${s.name}" 的 url 未带 ?subject=（深链无消费方）`); continue; }
+    if (!navSubjects.has(decodeURIComponent(m[1]))) {
+      fail(`manifest shortcut "${s.name}" 的 subject=${m[1]} 不在导航白名单内（会停在首页）`);
+    }
+  }
+  for (const shot of (manifest.screenshots || [])) {
+    if (!/\.(png|jpe?g|webp)$/i.test(shot.src || '')) {
+      fail(`manifest screenshot src 不是图片: ${shot.src}`);
+    } else if (!existsSync(join(WEB, shot.src))) {
+      fail(`manifest screenshot 文件不存在: ${shot.src}`);
+    }
+  }
+  console.log(`  ✓ manifest 审计：${shortcuts.length} 个 shortcuts 的 subject 均有导航消费方（screenshots ${(manifest.screenshots || []).length} 个）`);
 }
 
 // ---------- 输出 ----------

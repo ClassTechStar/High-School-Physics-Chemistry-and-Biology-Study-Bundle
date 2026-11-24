@@ -1,5 +1,80 @@
 # 更新日志
 
+## v1.9.0
+
+> 依据《物化生大礼包深度优化方案》v1.8.1 审计报告逐项落地：P0 更新链、
+> 性能减重、首页信息架构、交互修复、数据许可与投稿、架构抽象、可维护性文档。
+> 版本号 1.8.1 → 1.9.0；CACHE_NAME hspcb-v29 → hspcb-v30。
+
+### 安全（§2.1，P0）
+
+- **更新链三修**：Release 附件新增 `checksums.sha256`（CI `sha256sum` 生成并断言
+  「每个 APK 恰好一行」）；`UpdateManager` 下载后强制校验 SHA-256，**缺期望值直接拒绝**、
+  不匹配即删文件并提示，安装只发生在校验通过之后（常量时间比较）。
+- **Gitee 降级为实验项**：默认只走 GitHub（API → raw 清单 → jsDelivr 镜像），
+  设置中心新增「允许 Gitee 回退（实验）」开关，默认关闭。
+- **门禁**：新增 `check:update-security`（17 项静态断言，锁住校验顺序与默认值）；
+  `test-update-check` 扩到 21 项。
+
+### 数据许可与投稿（§2.3）
+
+- `1.2/data/DATA-LICENSE`：数据库采用 **ODbL 1.0**，题目原文版权归原命题机构，
+  其余内容 CC BY-NC-SA 4.0（README 许可段落同步拆分）。
+- 社区投稿通道：`contrib/`（JSON Schema + 示例）、`check:contrib`（Schema 子集校验 +
+  id/题干去重 + 答案域）、`merge-contrib.mjs`（并入题库并同步题量与 meta）。
+
+### 性能（§3.2-A / §5）
+
+- **字体子集化**：MiSans TTF 7.82MB → woff2 **0.87MB**（GB2312 + ASCII + 仓库实用字
+  共 7354 字，`scripts/build-font.py` 可复现），head 加 `preload`。
+- **脚本按需加载**：首屏 defer 61 → **20**（工具脚本 3.33MB → **0.22MB**），
+  其余 42 个工具脚本由 `js/lazy-loader.js` 空闲分片 / 首次点击按原序注入并重放点击。
+- **SW**：演示页移出预缓存（12 条），CACHE_NAME 发布期由核心资产哈希自动生成；
+  新增 `build:pages` 压缩（esbuild，JS −30.2% / CSS −28.1%）。
+
+### 首页信息架构与界面（§4.2）
+
+- 金刚区 **9 入口**（3 个高频：真题练习 / 错题本 / 今日计划 + 6 张学科卡），
+  工具分组默认折叠（`home-collapse.js`，`tools-min`）。
+- **SVG 图标系统**：`ui-icons.js` 22 个 24×24 stroke 图标 + `icons.css`；
+  剥离 101 处按钮/标题前置 emoji。
+- `content-visibility: auto` 控制知识卡渲染成本，打印时恢复。
+
+### 交互修复（§4.3）
+
+- 快捷键：`/` 搜索、`E` 错题本、`J/K` 换题、`1-4` 选答案、`Enter` 打开，
+  且 `1-6` 切学科仅在题目详情未展开时生效（上下文感知，互不抢键）。
+- **清除 e2e `force: true`**：根因是 `mock-exam` 选科卡误用 `data-subject`
+  触发全局导航，改为 `data-mock-subject` 后按真实事件点击。
+- **修复全局搜索覆盖层空白**：section 与 overlay 重复 id 导致 `getElementById`
+  命中隐藏节点，改为 `activeRoot/rootById` 取覆盖层；内联 `<style>` 外置为
+  `css/global-search.css`，消除 CSP 违规。
+
+### 架构（§3.2-B / §3.3）
+
+- `HSPCBStore` 增加 Backend 抽象（`setBackend/listKeys/dump/restore`），
+  localStorage 行为不变。
+- 数据同步 MVP：`HSPCBDatasync`（快照 bundle 打包/合并替换/文件导入导出/WebDAV），
+  设置中心新增「数据同步（实验）」卡；17 项单测。
+- **ESM 渐进迁移**：外部 `js/importmap.json`（`@hspcb/` → `js/modules/`）+
+  首个模块 `modules/time-format.js`（设置中心动态 `import()` 使用，失败回退）。
+
+### 修复
+
+- **化学配平器**：重写线性方程组求解（RREF → 零空间 → 连分数有理逼近），
+  修正 `Fe+O2→Fe2O3`、`Al+HCl` 等多处系数错误（17 项单测覆盖）。
+- `demo-mode` 用 `_hasAllQuestions()` 判定，注入后去掉 `?demo=1` 参数。
+
+### 测试与文档（§7）
+
+- **E2E 扩容**：5 spec / 27 断言 → **17 用例 / 102 断言**，覆盖六科判分、
+  错题本 SM-2、快照往返、键盘、模考计时、搜索、筛选。
+- 新增 `ARCHITECTURE.md`（脚本三层、全局命名空间、数据流、ESM 约定）与
+  `SECURITY.md`（更新链、签名、CSP、WebDAV、插件与已知风险）。
+- `1.1/` 移出主仓（归档于 tag `v1.1`），相关门禁断言同步退休。
+- 单测链新增：`test-datasync`（17）、`test-chemistry-balancer`（17）、
+  `test-esm-module`（7）。
+
 ## 未发布
 
 ### 迁移收尾：index.html 评估 + 孤儿 CSS 清理

@@ -1,6 +1,6 @@
 {
-  "version": "1.8.1",
-  "notes": "检查更新与自动更新：双端可从 GitHub Release 检查新版本；安卓端支持应用内下载 APK 并唤起系统安装器。",
-  "apk": "HSPCB-v1.8.1-debug.apk",
-  "updated": "2026-11-20"
+  "version": "1.9.0",
+  "notes": "v1.9：更新链强制 SHA-256 校验、首屏脚本按需加载、首页九入口与 SVG 图标、数据同步（实验）、ESM 渐进模块化。",
+  "apk": "HSPCB-v1.9.0-debug.apk",
+  "updated": "2026-11-25"
 }

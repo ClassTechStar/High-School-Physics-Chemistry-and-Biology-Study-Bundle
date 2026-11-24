@@ -52,22 +52,28 @@ python -m http.server 8000     # 然后打开 http://localhost:8000
 ## 目录说明
 
 ```
-1.1/                早期版本（物化生三科），只读归档，不再改
-1.2/                当前版本，所有功能在这里
+1.2/                当前版本（站点根），所有功能在这里
         ├── index.html     入口
         ├── css/           样式（含 css/responsive.css 移动端断点）
-        ├── js/            功能脚本
-        ├── data/          知识点、作息表
+        ├── js/            功能脚本（js/modules/ 为新代码的 ES Module 目录）
+        ├── data/          知识点、作息表（ODbL，见 data/DATA-LICENSE）
         │   └── exam/      题库：index.json 清单 + {subject}.json 六科分文件
         ├── plugins/       轻插件（清单 + 入口脚本）
+        ├── fonts/         MiSans 子集 woff2（由 scripts/build-font.py 生成）
         └── sw.js          离线缓存
 android/                    原生安卓壳（Kotlin/Java，build-apk.sh 免 Gradle 构建）
+contrib/                    题库投稿（JSON Schema + 示例 + 合入脚本）
+e2e/                        Playwright 端到端测试
 scripts/                    数据校验等开发工具（npm run verify 的 14 道门禁）
+ARCHITECTURE.md             脚本分层、全局命名空间、数据流与迁移约定
+SECURITY.md                 威胁模型：更新链、签名、CSP、WebDAV、插件
 COMPETITION.md              参赛评审维度映射、演示脚本与答辩 Q&A
 DESIGN-MD3.md               MD3 设计规范（令牌来源、组件清单、校验规则）
 ITERATION-PLAN.md           历次迭代计划与验收记录
 CHANGELOG.md                更新日志
 ```
+
+> `1.1/` 旧版（物化生三科）已移出主仓，需要时从 tag `v1.1` 取回。
 
 ## 改代码前
 
@@ -91,6 +97,9 @@ npm run verify
 - 样式改动如果涉及颜色，尽量用 `css/tokens.css` 里已有的变量，明暗主题会一起生效。
 - 模板里不要写 `onclick=` 和 `style=`（CSP 禁止），用 `data-call` / `data-hook` 事件委托
   和 `data-style` 声明式样式（`csp-delegation.js` / `cssom-style-bridge.js` 会接管）。
+- **新代码走 ES Module**：放 `1.2/js/modules/`，用 `export`；调用方用相对路径动态
+  `import()`（参考 `settings-center.js` 引入 `modules/time-format.js` 的写法）。
+  存量 IIFE 维持现状，不需要也无需要求一次性迁移；详见 [ARCHITECTURE.md](ARCHITECTURE.md)。
 
 ## 写一个插件
 
