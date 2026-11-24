@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ClassTechStar/High-School-Physics-Chemistry-and-Biology-Study-Bundle/contrib/schema/question.schema.json",
+  "title": "HSPCB 题目投稿",
+  "type": "object",
+  "required": ["id", "subject", "year", "type", "question", "answer"],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "description": "全局唯一题目 id，建议 <学科前缀>_<年份>_<序号>"
+    },
+    "subject": {
+      "type": "string",
+      "enum": ["physics", "chemistry", "biology", "math", "chinese", "english"]
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 2018,
+      "maximum": 2026
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "question": {
+      "type": "string",
+      "minLength": 4
+    },
+    "passage": {
+      "type": "string",
+      "description": "英语阅读/完形等题型的材料正文"
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 8,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "选择题选项；主观题可省略"
+    },
+    "answer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "analysis": {
+      "type": "string",
+      "minLength": 10,
+      "description": "解析正文；禁止 TODO/修正后 等草稿标记"
+    },
+    "knowledgePoints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "maxItems": 8
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "category": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "points": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 30
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["options"]
+      },
+      "then": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "pattern": "^[A-Ha-h]$",
+            "description": "有选项的题目，answer 必须是单个选项字母"
+          }
+        },
+        "required": ["analysis"]
+      }
+    }
+  ]
+}

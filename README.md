@@ -122,7 +122,27 @@ if (window.HSPCBPlugin) {
 
 ## 许可
 
-仅供学习交流。题目和知识点整理自公开教材与考纲，版权归原作者所有。
-代码部分遵循仓库根目录的 `LICENSE`（CC BY-NC-SA 4.0）。
+仅供学习交流。题目和知识点整理自公开教材与考纲，题目原文版权归原命题机构所有。
+
+- **代码与文档**：仓库根目录 `LICENSE`（CC BY-NC-SA 4.0）。
+- **数据库与汇编（`1.2/data/`）**：单独采用 **ODbL 1.0**，见
+  [`1.2/data/DATA-LICENSE`](1.2/data/DATA-LICENSE)。教师与公益学习组织可自由复用
+  这份题库编排，衍生数据库需以同协议开放。
+
+贡献题目见 [`contrib/README.md`](contrib/README.md)（JSON Schema 校验 + 评测脚本）。
+
+## 安卓端安全提示（重要）
+
+**请卸载 v1.7.x 及更早的旧 debug 签名版本后再安装 v1.8+**。
+这些历史版本曾使用一份已公开入库的 `debug.keystore` 签名——任何拿到该密钥的人都能
+签发「同签名覆盖升级」的恶意 APK。新版本已改为：
+
+- 签名密钥不入库（CI 经 Secrets 注入，本地构建密钥 gitignored）；
+- 应用内自动更新**下载后强制校验 SHA-256**（期望值来自 Release 附件
+  `checksums.sha256`），校验失败或缺少校验值一律删除文件、拒绝安装；
+- Gitee 镜像回退改为设置里显式开启的实验项，默认只走 GitHub（含 jsDelivr 镜像）。
+
+正式对外分发请使用独立 release keystore；风险详情见
+[`android/README.md`](android/README.md) 的「签名与分发」。
 
 问题和建议在 GitHub 提 Issue。

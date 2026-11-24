@@ -1,10 +1,12 @@
 // ============================================================
-// update-check.js — 检查更新（v1.8.1，双端统一入口）
+// update-check.js — 检查更新（v1.9，双端统一入口）
 // 更新源（按序尝试，任一成功即用）：
 //   1. GitHub Releases API   —— 权威源（tag + 说明 + CI 自动构建的 APK 附件）
-//   2. Gitee Releases API    —— 大陆网络回退（仅版本号与发布页）
-//   3. GitHub raw 清单        —— 仓库 1.2/update-manifest.json（轻量兜底）
-//   4. Gitee raw 清单         —— 同上，大陆网络兜底
+//   2. GitHub raw 清单        —— 仓库 1.2/update-manifest.json（轻量兜底）
+//   3. jsDelivr 镜像清单      —— 同源 CDN 镜像（校园网连不上 raw 时的回退）
+//   4. Gitee Releases / 清单  —— 实验项：仅当设置里显式开启「允许 Gitee 回退」
+// 安全：Gitee 仓库镜像可整仓投毒，故默认不在检查链里；安卓端下载 APK 后必须
+// 通过 SHA-256 校验（期望值来自 Release 附件 checksums.sha256）才会唤起安装器。
 // 结果写入 HSPCBUpdate.lastResult 并派发 'hspcb-update-result' 事件
 //（设置中心据此渲染）；24h 频控存 settings.update.lastCheck，手动检查跳过。
 //
@@ -12,7 +14,7 @@
 //   checkUpdate/downloadUpdate 走原生 —— 发现新版可下载 APK 并唤起系统安装器；
 //   原生结果经 window.__hspcbUpdateResult(json) 回调回本文件。
 // 浏览器/PWA：发现新版提示刷新（GitHub Pages 部署即最新代码）或打开发布页。
-// 隐私：仅向上述两个代码托管域发起只读 GET，无任何用户数据上传。
+// 隐私：仅向上述代码托管域发起只读 GET，无任何用户数据上传。
 // ============================================================
 window.HSPCBUpdate = (function () {
     'use strict';
@@ -79,44 +81,79 @@ window.HSPCBUpdate = (function () {
         });
     }
 
-    /** 逐源尝试，返回 {version, notes, releaseUrl, apkUrl, source} 或 null */
+    /** 是否允许 Gitee 镜像回退（实验项，默认关闭；安卓端以原生设置为准）。 */
+    function allowGitee() {
+        try {
+            if (isNative() && typeof window.HSPCBNative.getAllowGitee === 'function') {
+                return !!window.HSPCBNative.getAllowGitee();
+            }
+            var s = window.HSPCBProgress && HSPCBProgress.getSettings();
+            return !!(s && s.update && s.update.allowGitee);
+        } catch (e) { return false; }
+    }
+
+    function setAllowGitee(on) {
+        try {
+            if (isNative() && typeof window.HSPCBNative.setAllowGitee === 'function') {
+                window.HSPCBNative.setAllowGitee(!!on);
+            }
+            if (window.HSPCBProgress && HSPCBProgress.updateSettings) {
+                HSPCBProgress.updateSettings(function (s) {
+                    s.update = s.update || {};
+                    s.update.allowGitee = !!on;
+                });
+            }
+        } catch (e) { /* ignore */ }
+    }
+
+    /** 逐源尝试，返回 {version, notes, releaseUrl, apkUrl, sha256, source} 或 null */
     function fetchRemote() {
         var GH_API = 'https://api.github.com/repos/' + GH_REPO + '/releases/latest';
-        var GITEE_API = 'https://gitee.com/api/v5/repos/' + GITEE_REPO + '/releases/latest';
         var GH_RAW = 'https://raw.githubusercontent.com/' + GH_REPO + '/main/1.2/update-manifest.json';
+        var JSD_RAW = 'https://cdn.jsdelivr.net/gh/' + GH_REPO + '@main/1.2/update-manifest.json';
+        var GITEE_API = 'https://gitee.com/api/v5/repos/' + GITEE_REPO + '/releases/latest';
         var GITEE_RAW = 'https://gitee.com/' + GITEE_REPO + '/raw/main/1.2/update-manifest.json';
 
-        return xhrJSON(GH_API, 8000).then(function (rel) {
-            if (!rel || !rel.tag_name) throw new Error('empty');
-            var apk = pickApk(rel, rel.tag_name);
-            return {
-                version: rel.tag_name,
-                notes: rel.body || '',
-                releaseUrl: rel.html_url || RELEASE_URL,
-                apkUrl: apk,
-                source: 'github-release'
-            };
-        }).catch(function () {
-            return xhrJSON(GITEE_API, 8000).then(function (rel) {
+        function fromReleaseApi(url, source) {
+            return xhrJSON(url, 8000).then(function (rel) {
                 if (!rel || !rel.tag_name) throw new Error('empty');
+                var apk = pickApk(rel, rel.tag_name);
                 return {
                     version: rel.tag_name,
                     notes: rel.body || '',
-                    releaseUrl: rel.html_url || ('https://gitee.com/' + GITEE_REPO + '/releases'),
-                    apkUrl: null,
-                    source: 'gitee-release'
+                    releaseUrl: rel.html_url || RELEASE_URL,
+                    apkUrl: apk,
+                    sha256: '',
+                    source: source
                 };
-            }).catch(function () {
-                return xhrJSON(GH_RAW, 8000).then(function (m) {
-                    if (!m || !m.version) throw new Error('empty');
-                    return {
-                        version: m.version,
-                        notes: m.notes || '',
-                        releaseUrl: RELEASE_URL,
-                        apkUrl: m.apk ? 'https://github.com/' + GH_REPO + '/releases/download/v' + m.version + '/' + m.apk : null,
-                        source: 'github-manifest'
-                    };
-                }).catch(function () {
+            });
+        }
+
+        function fromManifest(url, source) {
+            return xhrJSON(url, 8000).then(function (m) {
+                if (!m || !m.version) throw new Error('empty');
+                return {
+                    version: m.version,
+                    notes: m.notes || '',
+                    releaseUrl: RELEASE_URL,
+                    apkUrl: m.apk ? 'https://github.com/' + GH_REPO + '/releases/download/v' + m.version + '/' + m.apk : null,
+                    sha256: m.sha256 || '',
+                    source: source
+                };
+            });
+        }
+
+        // 默认链：GitHub API → GitHub raw → jsDelivr 镜像（均为 GitHub 同源信道）
+        var chain = Promise.resolve()
+            .then(function () { return fromReleaseApi(GH_API, 'github-release'); })
+            .catch(function () { return fromManifest(GH_RAW, 'github-manifest'); })
+            .catch(function () { return fromManifest(JSD_RAW, 'jsdelivr-manifest'); });
+
+        // 实验链：仅在显式开启时追加 Gitee（整仓镜像可被投毒，默认不参与）
+        if (allowGitee()) {
+            chain = chain
+                .catch(function () { return fromReleaseApi(GITEE_API, 'gitee-release'); })
+                .catch(function () {
                     return xhrJSON(GITEE_RAW, 8000).then(function (m) {
                         if (!m || !m.version) throw new Error('empty');
                         return {
@@ -124,12 +161,13 @@ window.HSPCBUpdate = (function () {
                             notes: m.notes || '',
                             releaseUrl: 'https://gitee.com/' + GITEE_REPO + '/releases',
                             apkUrl: m.apk ? 'https://gitee.com/' + GITEE_REPO + '/releases/download/v' + m.version + '/' + m.apk : null,
+                            sha256: m.sha256 || '',
                             source: 'gitee-manifest'
                         };
                     });
                 });
-            });
-        });
+        }
+        return chain;
     }
 
     function publish(result) {
@@ -287,6 +325,8 @@ window.HSPCBUpdate = (function () {
         autoCheck: autoCheck,
         currentVersion: currentVersion,
         isNewer: isNewer,
+        allowGitee: allowGitee,
+        setAllowGitee: setAllowGitee,
         get lastResult() { return lastResult; }
     };
 })();

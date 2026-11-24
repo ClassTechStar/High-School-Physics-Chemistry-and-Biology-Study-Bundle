@@ -82,10 +82,10 @@ window.HSPCBSettingsUI = (function () {
             function (v) { window.HSPCBTheme && HSPCBTheme.setPack(v); }));
         frag.appendChild(rPack);
 
-        // v1.8.1 检查更新：双端统一入口（浏览器提示刷新/开发布页；安卓下载 APK 唤起安装器）
+        // v1.9 检查更新：双端统一入口（浏览器提示刷新/开发布页；安卓下载校验 SHA-256 后安装）
         var updCard = el('div', 'hspcb-card');
         updCard.appendChild(el('div', 'hspcb-row-label', '检查更新'));
-        updCard.appendChild(el('div', 'hspcb-row-hint', '更新源：GitHub Release（Gitee 回退）。当前版本 ' + HSPCBUpdate.currentVersion() + '。'));
+        updCard.appendChild(el('div', 'hspcb-row-hint', '更新源：GitHub Release + jsDelivr 镜像回退。当前版本 ' + HSPCBUpdate.currentVersion() + '。'));
         var updStatus = el('div', 'hspcb-muted', '尚未检查');
         var updActions = el('div', 'hspcb-entry-row');
         var updBtn = btn('检查更新', 'hspcb-btn-primary', function () {
@@ -117,6 +117,20 @@ window.HSPCBSettingsUI = (function () {
         updActions.appendChild(updBtn);
         updCard.appendChild(updActions);
         updCard.appendChild(updStatus);
+
+        // 实验项：Gitee 镜像回退。默认关闭 —— Gitee 仓库镜像可被整仓投毒，
+        // 仅在校园网完全连不上 GitHub 时才建议开启（安卓端下载仍强制 SHA-256 校验）。
+        var giteeRow = el('div', 'hspcb-entry-row');
+        giteeRow.appendChild(el('div', 'hspcb-row-label', '允许 Gitee 回退（实验）'));
+        var giteeBtn = btn(window.HSPCBUpdate.allowGitee() ? '已开启 · 点击关闭' : '已关闭 · 点击开启', 'hspcb-btn', function () {
+            var next = !window.HSPCBUpdate.allowGitee();
+            window.HSPCBUpdate.setAllowGitee(next);
+            giteeBtn.textContent = next ? '已开启 · 点击关闭' : '已关闭 · 点击开启';
+        });
+        giteeBtn.type = 'button';
+        giteeRow.appendChild(giteeBtn);
+        updCard.appendChild(giteeRow);
+        updCard.appendChild(el('div', 'hspcb-muted', '默认只走 GitHub（含 jsDelivr 镜像）。Gitee 镜像存在整仓投毒风险，仅在网络受限时开启；APK 下载始终校验 SHA-256。'));
         frag.appendChild(updCard);
 
         // PWA 安装入口：仅在浏览器支持且尚未安装时出现；条件不满足时整卡不渲染，

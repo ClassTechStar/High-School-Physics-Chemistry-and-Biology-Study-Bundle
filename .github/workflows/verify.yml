@@ -48,6 +48,8 @@ jobs:
         run: npm run check:anchors
       - name: ④-c MD3 设计一致性门禁
         run: npm run check:md3
+      - name: ④-d 更新链安全门禁（checksums + 哈希校验 + Gitee 默认关闭）
+        run: npm run check:update-security
       - name: ⑤ defer 时序运行时复现
         run: npm run check:runtime
       - name: ⑤-b 安卓资产同步演练

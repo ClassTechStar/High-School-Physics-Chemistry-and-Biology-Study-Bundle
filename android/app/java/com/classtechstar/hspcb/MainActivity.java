@@ -41,11 +41,22 @@ public class MainActivity extends Activity {
             UpdateManager.check(MainActivity.this, webView, false);
         }
 
-        /** 下载 apkUrl 并唤起系统安装器。 */
+        /** 下载 apkUrl → SHA-256 校验通过后才唤起系统安装器。 */
         @JavascriptInterface
         public void downloadUpdate() {
             String url = UpdateManager.lastApkUrl();
             UpdateManager.downloadAndInstall(MainActivity.this, url);
+        }
+
+        /** 实验项：是否允许 Gitee 镜像回退（默认关闭）。 */
+        @JavascriptInterface
+        public boolean getAllowGitee() {
+            return UpdateManager.isGiteeAllowed(MainActivity.this);
+        }
+
+        @JavascriptInterface
+        public void setAllowGitee(boolean allow) {
+            UpdateManager.setGiteeAllowed(MainActivity.this, allow);
         }
     }
 

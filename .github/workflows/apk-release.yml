@@ -44,15 +44,31 @@ jobs:
       - name: 构建 APK
         run: bash android/build-apk.sh
 
-      - name: 上传 Release 附件
+      # 更新链安全（v1.9 P0）：APK 的 SHA-256 必须与 APK 同源发布。
+      # 安卓 UpdateManager 只信任 Release 附件里的 checksums.sha256，
+      # 缺失即拒绝自动安装（安全默认），因此这一步是发布的硬前提。
+      - name: 生成 SHA-256 校验清单
+        run: |
+          cd android/releases
+          sha256sum *.apk > checksums.sha256
+          cat checksums.sha256
+          # 断言：清单非空且每个 APK 都有一行
+          test -s checksums.sha256
+          for f in *.apk; do grep -q "  $f$" checksums.sha256 || { echo "::error::checksums 缺少 $f"; exit 1; }; done
+
+      - name: 上传 Release 附件（APK + 校验清单）
         if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.event.release.tag_name }}" android/releases/*.apk --clobber
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            android/releases/*.apk android/releases/checksums.sha256 --clobber
 
       - name: 手动构建产物留档
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: hspcb-apk
-          path: android/releases/*.apk
+          path: |
+            android/releases/*.apk
+            android/releases/checksums.sha256

@@ -1,7 +1,7 @@
 /**
- * test-update-check.mjs — update-check.js 逻辑单测（v1.8.1）
- * stub XMLHttpRequest 按 URL 路由 fixture，验证：多源回退顺序、Release asset
- * 选择（多附件时优先文件名含 tag 版本串且最后上传者）、版本比较边界。
+ * test-update-check.mjs — update-check.js 逻辑单测（v1.9）
+ * stub XMLHttpRequest 按 URL 路由 fixture，验证：多源回退顺序（默认不含 Gitee）、
+ * Gitee 实验开关、jsDelivr 镜像回退、Release asset 选择、sha256 透传、版本比较边界。
  * 不发起真实网络请求。
  */
 import { readFileSync } from 'node:fs';
@@ -18,8 +18,8 @@ function ok(cond, msg) {
   else { fail++; console.error('  ✗', msg); }
 }
 
-/** 按 URL 前缀返回的 fixture 表：{ prefix, body|status } */
-function boot(fixtures) {
+/** 按 URL 前缀返回的 fixture 表：{ prefix, body|status }；settings 可预置 HSPCBProgress */
+function boot(fixtures, settings) {
   const routes = fixtures.map((f) => ({ ...f, prefix: f.prefix }));
   const classList = { add() {}, remove() {}, contains: () => false };
   const documentStub = {
@@ -59,6 +59,12 @@ function boot(fixtures) {
   };
   sandbox.window = sandbox;
   sandbox.globalThis = sandbox;
+  if (settings) {
+    sandbox.HSPCBProgress = {
+      getSettings: () => settings,
+      updateSettings: (fn) => { fn(settings); },
+    };
+  }
   vm.createContext(sandbox);
   vm.runInContext(readFileSync(join(APP, 'js', 'update-check.js'), 'utf8'), sandbox, { filename: 'update-check.js' });
   return sandbox.window.HSPCBUpdate;
@@ -80,7 +86,7 @@ const REL = (tag, assets) => ({
   ok(U.isNewer('1.8.1', '1.8.1') === false, 'isNewer: 相等不算更新');
 }
 
-// ---- 多源回退：GH API 命中（当前真实状态：latest=v1.3 无附件） ----
+// ---- GH API 命中 ----
 {
   const U = boot([{ prefix: 'https://api.github.com', body: REL('v1.3') }]);
   const r = await U.check(false);
@@ -88,26 +94,62 @@ const REL = (tag, assets) => ({
   ok(r.hasUpdate === false, '本地 1.8.1 > 远端 v1.3：无更新');
 }
 
-// ---- GH API 404 → Gitee 404 → GH raw 清单兜底 ----
+// ---- 默认链：GH API 404 → GH raw 清单（Gitee 不参与） ----
 {
   const U = boot([
     { prefix: 'https://api.github.com', status: 404 },
-    { prefix: 'https://gitee.com/api', status: 404 },
-    { prefix: 'https://raw.githubusercontent.com', body: { version: '1.8.1', notes: 'manifest', apk: 'HSPCB-v1.8.1-debug.apk' } },
+    { prefix: 'https://raw.githubusercontent.com', body: { version: '1.8.1', notes: 'manifest', apk: 'HSPCB-v1.8.1-debug.apk', sha256: 'a'.repeat(64) } },
   ]);
   const r = await U.check(false);
   ok(r.source === 'github-manifest' && r.version === '1.8.1', '回退到 GH raw 清单');
-  ok(r.apkUrl === 'https://github.com/x/y/releases/download/v1.8.1/HSPCB-v1.8.1-debug.apk'
-     || (r.apkUrl || '').indexOf('HSPCB-v1.8.1-debug.apk') >= 0, 'manifest 的 apk 拼接下载地址');
+  ok((r.apkUrl || '').indexOf('HSPCB-v1.8.1-debug.apk') >= 0, 'manifest 的 apk 拼接下载地址');
+  ok(r.sha256 === 'a'.repeat(64), 'manifest 的 sha256 透传（供安卓端校验）');
   ok(r.hasUpdate === false, '1.8.1 == 1.8.1 无更新');
+}
+
+// ---- 默认链：Gitee 可用也不走（实验项默认关闭） ----
+{
+  const U = boot([
+    { prefix: 'https://api.github.com', status: 404 },
+    { prefix: 'https://raw.githubusercontent.com', status: 404 },
+    { prefix: 'https://cdn.jsdelivr.net', status: 404 },
+    { prefix: 'https://gitee.com', body: REL('v9.9.9') },
+  ]);
+  const r = await U.check(false);
+  ok(r.hasUpdate === false, '默认链不因 Gitee 可用而报告 v9.9.9 更新（Gitee 默认关闭）');
+  ok(r.source !== 'gitee-release' && r.source !== 'gitee-manifest', '默认链不产生 Gitee 来源');
+}
+
+// ---- 默认链：jsDelivr 镜像回退 ----
+{
+  const U = boot([
+    { prefix: 'https://api.github.com', status: 404 },
+    { prefix: 'https://raw.githubusercontent.com', status: 404 },
+    { prefix: 'https://cdn.jsdelivr.net', body: { version: '1.8.1', notes: 'jsd', apk: 'HSPCB-v1.8.1-debug.apk' } },
+  ]);
+  const r = await U.check(false);
+  ok(r.source === 'jsdelivr-manifest' && r.version === '1.8.1', 'raw 失败后回退 jsDelivr 镜像清单');
+}
+
+// ---- 实验开关打开：Gitee 参与回退 ----
+{
+  const U = boot([
+    { prefix: 'https://api.github.com', status: 404 },
+    { prefix: 'https://raw.githubusercontent.com', status: 404 },
+    { prefix: 'https://cdn.jsdelivr.net', status: 404 },
+    { prefix: 'https://gitee.com/api', body: REL('v1.8.1') },
+  ], { update: { allowGitee: true } });
+  ok(U.allowGitee() === true, 'allowGitee 读取设置（true）');
+  const r = await U.check(false);
+  ok(r.source === 'gitee-release' && r.version === 'v1.8.1', '开关打开后 Gitee API 回退命中');
 }
 
 // ---- 全源失败 ----
 {
   const U = boot([
     { prefix: 'https://api.github.com', status: 404 },
-    { prefix: 'https://gitee.com', status: 404 },
     { prefix: 'https://raw.githubusercontent.com', status: 404 },
+    { prefix: 'https://cdn.jsdelivr.net', status: 404 },
   ]);
   const r = await U.check(false);
   ok(r.hasUpdate === false && (r.error || r.source === undefined || r.ok === false), '全源失败返回失败结果');
@@ -120,22 +162,19 @@ const REL = (tag, assets) => ({
   ok((r.apkUrl || '').indexOf('HSPCB-v1.8.1-debug.apk') >= 0, '多附件：选含 tag 版本串的 APK');
 }
 {
-  // beta 场景：tag=v1.8.2-beta，CI 附件名是旧版本串、人工附件名含 1.8.2-beta
   const U = boot([{ prefix: 'https://api.github.com', body: REL('v1.8.2-beta', ['HSPCB-v1.8.1-debug.apk', 'HSPCB-v1.8.2-beta.apk']) }]);
   const r = await U.check(false);
   ok((r.apkUrl || '').indexOf('HSPCB-v1.8.2-beta.apk') >= 0, 'beta 场景：选含 1.8.2-beta 的附件');
   ok(r.hasUpdate === true, 'beta 1.8.2 > 本地 1.8.1：有更新');
 }
 
-// ---- Gitee API 命中（GH 404） ----
+// ---- setAllowGitee 写入设置 ----
 {
-  const U = boot([
-    { prefix: 'https://api.github.com', status: 404 },
-    { prefix: 'https://gitee.com/api', body: REL('v1.8.1') },
-    { prefix: 'https://raw.githubusercontent.com', status: 404 },
-  ]);
-  const r = await U.check(false);
-  ok(r.source === 'gitee-release' && r.version === 'v1.8.1', '源2 Gitee API 回退命中');
+  const settings = { update: {} };
+  const U = boot([{ prefix: 'https://api.github.com', body: REL('v1.8.1') }], settings);
+  ok(U.allowGitee() === false, '默认 allowGitee=false');
+  U.setAllowGitee(true);
+  ok(settings.update.allowGitee === true, 'setAllowGitee 持久化到 settings.update.allowGitee');
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
