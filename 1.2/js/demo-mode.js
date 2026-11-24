@@ -173,18 +173,36 @@ window.HSPCBDemo = (function () {
         } catch (e) { return false; }
     }
 
-    // ?demo=1 自动注入（每次页面会话最多一次；题库未就绪时延迟到预热完成后）
+    // ?demo=1 显式触发演示数据（默认不注入）。
+    // v1.9：注入成功后把 demo=1 从地址栏移除 —— 避免「清除演示数据 → 刷新」
+    // 又自动灌回一份，学生误以为清不掉。
     function autoRun() {
         try {
             if (autoInjected) return;
             if (typeof location === 'undefined' || !/(?:^|[?&])demo=1/.test(location.search || '')) return;
             autoInjected = true;
             var tryInject = function (n) {
-                if (window.examPracticeSystem && examPracticeSystem.examData) { inject(); return; }
+                var ready = window.examPracticeSystem &&
+                    (examPracticeSystem._hasAllQuestions ? examPracticeSystem._hasAllQuestions() : !!examPracticeSystem.examData);
+                if (ready) {
+                    if (inject()) stripDemoParam();
+                    return;
+                }
                 if (n <= 0) return;
                 setTimeout(function () { tryInject(n - 1); }, 800);
             };
             tryInject(15);
+        } catch (e) { /* ignore */ }
+    }
+
+    function stripDemoParam() {
+        try {
+            if (!window.history || !history.replaceState) return;
+            var q = (location.search || '').replace(/^\?/, '');
+            if (!q) return;
+            var kept = q.split('&').filter(function (kv) { return kv && kv !== 'demo=1'; });
+            var url = location.pathname + (kept.length ? '?' + kept.join('&') : '') + (location.hash || '');
+            history.replaceState(null, '', url);
         } catch (e) { /* ignore */ }
     }
 

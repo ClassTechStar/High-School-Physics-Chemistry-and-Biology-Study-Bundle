@@ -176,73 +176,105 @@ const chemistryBalancer = {
 
         const solution = this.solveLinearSystem(equations, totalSpecies);
 
-        if (solution) {
-            const minCoeff = Math.min(...solution.filter(n => n > 0));
-            return solution.map(n => Math.round(n / minCoeff));
-        }
+        // 求解器直接给出「互质的最小正整数系数」，无需再除以最小值——
+        // 旧实现除以 minCoeff 会把 [2,6,2,3] 变成 [1,3,1,1.5] 再四舍五入成
+        // [1,3,1,2]，原子不守恒（Fe+HCl 类反应必错）。
+        if (solution) return solution;
 
         return new Array(totalSpecies).fill(1);
     },
 
+    /**
+     * 线性方程组求零空间（配平系数的数学本质：A·x = 0，x 为正整数）。
+     * v1.9 重写：旧实现是「前向消元 + 猜测自由变量」，对 4 物种以上的
+     * 反应会给出不守恒的系数（Fe+O2→Fe2O3 得 [2,2,1]）。现改为：
+     *   RREF 消元 → 取一维零空间 → 连分数有理逼近 → LCM 通分 → GCD 约简。
+     * 返回互质最小正整数数组；无唯一解（自由度为 0 或 ≥2）时返回 null。
+     */
     solveLinearSystem(equations, numVars) {
         const n = equations.length;
         const m = numVars;
+        const eps = 1e-9;
+        const A = equations.map((r) => r.slice(0, m));
 
-        if (n >= m - 1) {
-            const result = new Array(m).fill(1);
-            for (let i = 0; i < m - 1 && i < n; i++) {
-                const pivot = equations[i][i];
-                if (pivot !== 0) {
-                    for (let j = i; j < m; j++) {
-                        equations[i][j] /= pivot;
-                    }
-                    for (let k = 0; k < n; k++) {
-                        if (k !== i && equations[k][i] !== 0) {
-                            const factor = equations[k][i];
-                            for (let j = i; j < m; j++) {
-                                equations[k][j] -= factor * equations[i][j];
-                            }
-                        }
-                    }
-                }
+        const gcd = (a, b) => {
+            a = Math.abs(a); b = Math.abs(b);
+            while (b) { const t = a % b; a = b; b = t; }
+            return a || 1;
+        };
+        /** 连分数有理逼近；分母超过 maxDen 视为无法还原 */
+        const toFraction = (v, maxDen) => {
+            const neg = v < 0;
+            const x = Math.abs(v);
+            let h1 = 1, h0 = 0, k1 = 0, k0 = 1, b = x;
+            for (let i = 0; i < 24; i++) {
+                const a = Math.floor(b);
+                const h2 = a * h1 + h0;
+                const k2 = a * k1 + k0;
+                if (k2 > maxDen) break;
+                h0 = h1; h1 = h2; k0 = k1; k1 = k2;
+                if (Math.abs(x - h1 / k1) < 1e-10) break;
+                const frac = b - a;
+                if (frac < eps) break;
+                b = 1 / frac;
+                if (!isFinite(b)) break;
             }
+            if (!k1) return null;
+            return { n: neg ? -h1 : h1, d: k1 };
+        };
 
-            for (let i = 0; i < m; i++) {
-                let found = false;
-                for (let j = 0; j < n; j++) {
-                    if (Math.abs(equations[j][i]) > 0.001) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    result[i] = 1;
-                }
+        // ---- RREF ----
+        const pivots = [];
+        let row = 0;
+        for (let col = 0; col < m && row < n; col++) {
+            let best = row;
+            for (let k = row + 1; k < n; k++) {
+                if (Math.abs(A[k][col]) > Math.abs(A[best][col])) best = k;
             }
-
-            const freeVar = m - 1;
-            result[freeVar] = 1;
-
-            for (let i = Math.min(n, m) - 1; i >= 0; i--) {
-                let sum = 0;
-                let pivotCol = -1;
-                for (let j = 0; j < m; j++) {
-                    if (Math.abs(equations[i][j]) > 0.001) {
-                        sum += equations[i][j] * (result[j] || 0);
-                        if (Math.abs(equations[i][j] - 1) < 0.001) {
-                            pivotCol = j;
-                        }
-                    }
-                }
-                if (pivotCol >= 0) {
-                    result[pivotCol] = -sum + equations[i][pivotCol];
-                }
+            if (Math.abs(A[best][col]) < eps) continue;
+            if (best !== row) { const t = A[best]; A[best] = A[row]; A[row] = t; }
+            const p = A[row][col];
+            for (let j = col; j < m; j++) A[row][j] /= p;
+            for (let k = 0; k < n; k++) {
+                if (k === row) continue;
+                const f = A[k][col];
+                if (Math.abs(f) < eps) continue;
+                for (let j = col; j < m; j++) A[k][j] -= f * A[row][j];
             }
-
-            return result.map(n => Math.abs(Math.round(n)) || 1);
+            pivots.push({ row, col });
+            row++;
         }
 
-        return null;
+        const rank = pivots.length;
+        if (rank === 0 || m - rank !== 1) return null; // 仅处理一维零空间
+
+        const pivotCols = new Set(pivots.map((p) => p.col));
+        let freeCol = -1;
+        for (let c = 0; c < m; c++) if (!pivotCols.has(c)) { freeCol = c; break; }
+        if (freeCol < 0) return null;
+
+        // ---- 回代求零空间向量（自由变量取 1）----
+        const vec = new Array(m).fill(0);
+        vec[freeCol] = 1;
+        for (let i = rank - 1; i >= 0; i--) {
+            const { row: r, col: c } = pivots[i];
+            let sum = 0;
+            for (let j = c + 1; j < m; j++) sum += A[r][j] * vec[j];
+            vec[c] = -sum;
+        }
+        if (vec.some((v) => !isFinite(v))) return null;
+        if (vec.every((v) => v <= eps)) for (let i = 0; i < m; i++) vec[i] = -vec[i];
+
+        // ---- 有理化 + 最小正整数 ----
+        const fracs = vec.map((v) => toFraction(v, 10000));
+        if (fracs.some((f) => !f)) return null;
+        let lcm = 1;
+        for (const f of fracs) lcm = (lcm * f.d) / gcd(lcm, f.d);
+        let ints = fracs.map((f) => Math.round(f.n * (lcm / f.d)));
+        const g = ints.reduce((a, b) => gcd(a, b), 0) || 1;
+        ints = ints.map((v) => Math.abs(v / g));
+        if (ints.some((v) => !v || v > 1000)) return null;
+        return ints;
     },
 
     tryBalance(reactants, products) {

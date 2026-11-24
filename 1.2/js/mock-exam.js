@@ -802,7 +802,7 @@ window.mockExam = (function() {
         html += '<div class="mock-exam-subject-grid">';
         for (var i = 0; i < subjects.length; i++) {
             var sub = subjects[i];
-            html += '<div class="mock-exam-subject-card" data-subject="' + sub.key + '" data-style="border-top: 4px solid ' + sub.color + ';">';
+            html += '<div class="mock-exam-subject-card" data-mock-subject="' + sub.key + '" data-style="border-top: 4px solid ' + sub.color + ';">';
             html += '<div class="mock-exam-card-icon">' + sub.icon + '</div>';
             html += '<h3>' + sub.name + '</h3>';
             html += '<span class="mock-exam-badge" data-style="background:' + sub.color + ';">' + sub.badge + '</span>';
@@ -821,7 +821,7 @@ window.mockExam = (function() {
         for (var c = 0; c < cards.length; c++) {
             (function(card) {
                 card.addEventListener('click', function() {
-                    var subject = card.getAttribute('data-subject');
+                    var subject = card.getAttribute('data-mock-subject');
                     startExam(subject);
                 });
             })(cards[c]);

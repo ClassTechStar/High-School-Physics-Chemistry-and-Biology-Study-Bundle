@@ -154,6 +154,11 @@ window.keyboardShortcuts = (function () {
 
         var shortcuts = [
             { keys: 'Ctrl + K', desc: 'Open Global Search' },
+            { keys: '/', desc: '聚焦全局搜索（v1.9）' },
+            { keys: 'E', desc: '打开错题本（v1.9）' },
+            { keys: 'J / K', desc: '下一题 / 上一题（题库列表与详情通用，v1.9）' },
+            { keys: '1 - 4', desc: '题目详情内选择 A/B/C/D（v1.9）' },
+            { keys: 'Enter', desc: '打开光标所在题目（v1.9）' },
             { keys: 'Ctrl + E', desc: 'Open Error Notebook' },
             { keys: 'Ctrl + M', desc: 'Open Mock Exam' },
             { keys: 'Ctrl + D', desc: 'Open Study Dashboard' },
@@ -211,6 +216,66 @@ window.keyboardShortcuts = (function () {
         } else {
             showHelpOverlay();
         }
+    }
+
+    /* ---------------- v1.9 五键快捷操作（§4.3） ----------------
+       与既有 1-6 学科切换的冲突处理：只有在「题目详情已打开且尚未判分」时，
+       1-4 才解释为选答案；其余情况仍按学科切换。J/K 在题库列表与详情间通用。 */
+
+    function examDetailOpen() {
+        var detail = document.getElementById('exam-detail');
+        return !!(detail && detail.style.display !== 'none' &&
+            document.getElementById('exam-subject-filter'));
+    }
+
+    function examAlreadySubmitted() {
+        var box = document.getElementById('result-box');
+        return !!(box && box.style.display !== 'none');
+    }
+
+    /** 1-4 选当前题目的选项；返回 true 表示已消费该按键。 */
+    function selectOptionByNumber(n) {
+        if (!examDetailOpen() || examAlreadySubmitted()) return false;
+        var inputs = document.querySelectorAll('.options-box .option-label input[type="radio"]');
+        if (!inputs.length || n < 1 || n > Math.min(4, inputs.length)) return false;
+        inputs[n - 1].click();
+        return true;
+    }
+
+    var examCursor = -1;
+    function examItems() {
+        return Array.prototype.slice.call(document.querySelectorAll('#exam-list .exam-item'));
+    }
+
+    /** J/K：详情态切换题目；列表态移动光标；返回 true 表示已消费。 */
+    function stepExam(delta) {
+        var eps = window.examPracticeSystem;
+        if (!eps) return false;
+        if (examDetailOpen()) {
+            var all = eps.getAllExams('all');
+            var cur = eps.currentExam && eps.currentExam.id;
+            var idx = -1;
+            for (var i = 0; i < all.length; i++) { if (all[i].id === cur) { idx = i; break; } }
+            if (idx < 0) return false;
+            var next = all[(idx + delta + all.length) % all.length];
+            if (next) { eps.showExamDetail(next.id); return true; }
+            return false;
+        }
+        var items = examItems();
+        if (!items.length) return false;
+        examCursor = Math.max(0, Math.min(items.length - 1, examCursor + delta));
+        items.forEach(function (el) { el.classList.remove('kb-focus'); });
+        items[examCursor].classList.add('kb-focus');
+        try { items[examCursor].scrollIntoView({ block: 'nearest' }); } catch (e) { /* ignore */ }
+        return true;
+    }
+
+    function openFocusedExam() {
+        var items = examItems();
+        if (examCursor < 0 || !items[examCursor]) return false;
+        var btn = items[examCursor].querySelector('.btn-start-exam');
+        if (btn) { btn.click(); return true; }
+        return false;
     }
 
     function handleKeyDown(e) {
@@ -272,12 +337,41 @@ window.keyboardShortcuts = (function () {
         }
 
         // Number keys 1-6: subject switching (no modifier)
+        // v1.9：题目详情打开且未判分时，1-4 优先解释为「选答案」；其余情况按学科切换
         if (!ctrl && !e.altKey && !e.shiftKey) {
+            var num = Number(e.key);
+            if (num >= 1 && num <= 4 && selectOptionByNumber(num)) {
+                e.preventDefault();
+                return;
+            }
             var subject = SUBJECT_MAP[e.key];
             if (subject) {
                 e.preventDefault();
                 navigateToSection(subject.section, subject.nav);
                 return;
+            }
+        }
+
+        // v1.9 五键：/ 聚焦搜索、E 错题本、J/K 换题、Enter 打开光标题目
+        if (!ctrl && !e.altKey && !e.shiftKey) {
+            if (e.key === '/') {
+                e.preventDefault();
+                openGlobalSearch();
+                return;
+            }
+            if (e.key === 'e' || e.key === 'E') {
+                e.preventDefault();
+                openErrorNotebook();
+                return;
+            }
+            if (e.key === 'j' || e.key === 'J') {
+                if (stepExam(1)) { e.preventDefault(); return; }
+            }
+            if (e.key === 'k' || e.key === 'K') {
+                if (stepExam(-1)) { e.preventDefault(); return; }
+            }
+            if (e.key === 'Enter') {
+                if (openFocusedExam()) { e.preventDefault(); return; }
             }
         }
     }
