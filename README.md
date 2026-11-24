@@ -3,6 +3,9 @@
 一个网页版的高中学习工具，覆盖物理、化学、生物、数学、语文、英语六科。
 知识点、题库、错题本、模拟考试都在一个页面里，纯静态实现，不依赖后端。
 
+> v1.9：首屏脚本约 0.45MB（工具按需加载）、字体 0.87MB；安卓更新包强制 SHA-256 校验；
+> 支持快照文件 / WebDAV 数据同步（实验）。详见 [CHANGELOG.md](CHANGELOG.md)。
+
 在线版：<https://classtechstar.github.io/High-School-Physics-Chemistry-and-Biology-Study-Bundle/>
 
 参赛与答辩：见 [COMPETITION.md](COMPETITION.md)（评审维度映射、三分钟演示脚本、答辩 Q&A）；作品展示页：[showcase.html](1.2/showcase.html)。
@@ -44,6 +47,9 @@ python -m http.server 8000     # 然后打开 http://localhost:8000
 - **作息表**：定义每天的学习时段（支持单双周、假期覆写），驱动「当前时段」卡片和到点提醒；可在设置里可视化编辑。
 - **迷你组件**：仪表盘底部的时钟 / 当前时段 / 错题概览 / 打卡连击 / 今日应复习（SM-2 排期）卡片，可增删排序。
 - **备份快照**：每日自动快照最近 3 份，设置里可一键恢复。
+- **数据同步（实验）**：错题本、进度、设置打包为一份 JSON 快照——可导出文件换设备导入，
+  也可填自己的 WebDAV（坚果云 / Nextcloud 等）一键上传/下载；密码为本地明文存储，
+  建议使用应用专用密码。
 - **朗读**：英语题目和单词卡可点击朗读（Web Speech API）。
 - **主题包**：内置「护眼纸色」与「液态玻璃」外观包（后者含背景折射增强，非 Chromium 浏览器自动回退纯磨砂），加载失败自动回退默认外观。
 - **锁定模式**：机房共用电脑可设 PIN 隐藏「清除数据」入口（防误触，非加密）。
@@ -100,6 +106,8 @@ npm run verify
 - **新代码走 ES Module**：放 `1.2/js/modules/`，用 `export`；调用方用相对路径动态
   `import()`（参考 `settings-center.js` 引入 `modules/time-format.js` 的写法）。
   存量 IIFE 维持现状，不需要也无需要求一次性迁移；详见 [ARCHITECTURE.md](ARCHITECTURE.md)。
+- 脚本分层、全局命名空间与门禁地图见 [ARCHITECTURE.md](ARCHITECTURE.md)；
+  更新链、CSP、WebDAV、插件等安全边界与已知风险见 [SECURITY.md](SECURITY.md)。
 
 ## 写一个插件
 
