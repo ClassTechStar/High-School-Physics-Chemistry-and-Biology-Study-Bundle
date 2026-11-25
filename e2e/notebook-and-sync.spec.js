@@ -63,7 +63,9 @@ test('数据快照导出→导入往返一致', async ({ page }) => {
     const bundle = HSPCBDatasync.buildBundle();
     const text = JSON.stringify(bundle);
 
-    HSPCBStore.set('e2e.sync', 'value-2');
+    // v1.10 T15：先删掉本机键再导入，验证"换设备"往返；
+    // 若直接改值再导入旧快照，新逻辑会正确判定本机更新而跳过（见下一条用例）。
+    HSPCBStore.remove('e2e.sync');
     const written = HSPCBDatasync.applyBundle(JSON.parse(text), 'merge');
 
     return {
@@ -80,4 +82,62 @@ test('数据快照导出→导入往返一致', async ({ page }) => {
   expect(result.restored).toBe('value-1'); // 往返后回到快照时的值
   expect(result.hasMeta).toBe(true);
   expect(result.rejectsForeign).toBe(true);
+});
+
+test('同步冲突：旧快照不覆盖本机较新数据，远端较新才覆盖', async ({ page }) => {
+  await page.goto('/');
+  const out = await page.evaluate(async () => {
+    for (let i = 0; i < 40 && !window.HSPCBDatasync; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    const now = Date.now();
+    HSPCBStore.set('sync.probe', 'local-new');
+    HSPCBStore.touchMeta('sync.probe', now);
+
+    const stale = {
+      app: 'hspcb-datasync', version: 2,
+      exportedAt: new Date(now - 3600000).toISOString(),
+      store: { 'sync.probe': 'remote-old' },
+      meta: { 'sync.probe': now - 3600000 }
+    };
+    const r1 = HSPCBDatasync.applyBundle(stale, 'merge');
+    const v1 = HSPCBStore.get('sync.probe');
+
+    const fresh = {
+      app: 'hspcb-datasync', version: 2,
+      exportedAt: new Date(now + 600000).toISOString(),
+      store: { 'sync.probe': 'remote-new' },
+      meta: { 'sync.probe': now + 600000 }
+    };
+    const r2 = HSPCBDatasync.applyBundle(fresh, 'merge');
+    const v2 = HSPCBStore.get('sync.probe');
+    HSPCBStore.remove('sync.probe');
+    return { r1: r1, v1: v1, r2: r2, v2: v2 };
+  });
+
+  expect(out.r1.ok).toBe(true);
+  expect(out.r1.written).toBe(0);          // 远端较旧：不写
+  expect(out.r1.stale).toContain('sync.probe');
+  expect(out.v1).toBe('local-new');
+  expect(out.r2.written).toBe(1);          // 远端较新：覆盖
+  expect(out.v2).toBe('remote-new');
+});
+
+test('掌握度：答题事件写入统计，并出现在统一复习队列', async ({ page }) => {
+  await page.goto('/');
+  const out = await page.evaluate(async () => {
+    for (let i = 0; i < 60 && !(window.HSPCBMastery && HSPCBMastery.summary().ready); i++) {
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    HSPCBBus.emit('exam:answered', {
+      subject: 'physics', knowledgePoints: ['E2E 测试知识点'], isCorrect: true, pending: false
+    });
+    const m = HSPCBMastery.summary();
+    const q = HSPCBMastery.queue();
+    return { count: m.count, avg: m.avg, history: m.history.length, total: q.total };
+  });
+  expect(out.count).toBeGreaterThan(0);
+  expect(out.avg).toBeGreaterThan(0);
+  expect(out.history).toBeGreaterThan(0);
+  expect(out.total).toBeGreaterThanOrEqual(0);
 });

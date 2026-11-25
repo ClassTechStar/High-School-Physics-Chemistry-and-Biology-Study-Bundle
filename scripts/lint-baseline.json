@@ -3,6 +3,11 @@
   "lint": {
     "L1-bare-localStorage": [
       {
+        "file": "data-sync.js",
+        "issue": "T15",
+        "note": "deviceId 刻意不进 Store 命名空间：设备身份不应随快照同步到其他设备"
+      },
+      {
         "file": "common-utils.js",
         "issue": "P1-4",
         "note": "存储抽象层本身，localStorage 是其底层原语"

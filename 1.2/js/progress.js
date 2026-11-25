@@ -786,6 +786,39 @@ window.HSPCBStore = (function () {
     };
     var backend = lsBackend;
 
+    /* ---------------- v1.10 T15 键级更新时间 ----------------
+       同步冲突检测需要回答「这个 key 是本地新还是远端新」。
+       实现不为每个 key 增加存储键（会污染 listKeys/dump 与旧代码的枚举），
+       而是在同一命名空间内用保留键 __meta__ 存 { key: epochMs }：
+       · listKeys/dump 过滤它 → 导出/同步不会把它当业务数据；
+       · set/remove 自动维护；restore 由调用方显式传入远端 meta（导入不刷新时间）；
+       · 旧数据没有时间戳 → data-sync 按 bundle.exportedAt 兜底比较。 */
+    var META_KEY = '__meta__';
+
+    function readMeta() {
+        try {
+            var raw = backend.getItem(NS + META_KEY);
+            var obj = raw ? JSON.parse(raw) : null;
+            return obj && typeof obj === 'object' ? obj : {};
+        } catch (e) { return {}; }
+    }
+
+    function writeMeta(meta) {
+        try { return backend.setItem(NS + META_KEY, JSON.stringify(meta || {})); } catch (e) { return false; }
+    }
+
+    function touchMeta(key, ts) {
+        if (!key || key === META_KEY) return;
+        var meta = readMeta();
+        meta[key] = Number(ts) || Date.now();
+        writeMeta(meta);
+    }
+
+    /** 导出键级更新时间（供 data-sync 写入 bundle.meta）。 */
+    function metaDump() {
+        return readMeta();
+    }
+
     /** 切换存储后端（须实现 name/getItem/setItem/removeItem/keys 同步方法）。 */
     function setBackend(b) {
         if (!b || typeof b.getItem !== 'function' || typeof b.setItem !== 'function') return false;
@@ -808,7 +841,10 @@ window.HSPCBStore = (function () {
         var out = [];
         for (var i = 0; i < all.length; i++) {
             var k = all[i];
-            if (k && k.indexOf(NS) === 0) out.push(k.slice(NS.length));
+            if (!k || k.indexOf(NS) !== 0) continue;
+            var bare = k.slice(NS.length);
+            if (bare === META_KEY) continue; // 保留键：只给冲突检测用，不算业务数据
+            out.push(bare);
         }
         return out;
     }
@@ -823,14 +859,30 @@ window.HSPCBStore = (function () {
         return out;
     }
 
-    /** 批量写入（导入/同步落盘用）；逐键容错，返回成功条数。 */
-    function restore(obj) {
+    /**
+     * 批量写入（导入/同步落盘用）；逐键容错，返回成功条数。
+     * meta 可选：远端键级时间戳，导入时**按原值写入**，不刷新为当前时间
+     * （否则一份旧快照导入后会被误判成最新，下一轮同步反而覆盖别的设备）。
+     */
+    function restore(obj, meta) {
         if (!obj || typeof obj !== 'object') return 0;
         var n = 0;
         for (var k in obj) {
             if (!Object.prototype.hasOwnProperty.call(obj, k)) continue;
+            if (k === META_KEY) continue;
             if (typeof obj[k] !== 'string') continue;
             if (backend.setItem(NS + k, obj[k])) n++;
+        }
+        if (meta && typeof meta === 'object') {
+            var current = readMeta();
+            // 只更新**实际写入**的键：未写入（较旧被跳过/冲突保留本机）的键必须保留本机时间，
+            // 否则把它们的 meta 改成远端时间，下一轮同步会误判新旧。
+            for (var k2 in obj) {
+                if (!Object.prototype.hasOwnProperty.call(obj, k2)) continue;
+                var ts = Number(meta[k2]);
+                if (ts > 0) current[k2] = ts;
+            }
+            writeMeta(current);
         }
         return n;
     }
@@ -875,7 +927,9 @@ window.HSPCBStore = (function () {
 
     function set(key, value) {
         if (typeof key !== 'string') return false;
-        return backend.setItem(NS + key, String(value));
+        var okWrite = backend.setItem(NS + key, String(value));
+        if (okWrite) touchMeta(key);
+        return okWrite;
     }
 
     // remove 必须同时清掉旧裸 key。
@@ -886,6 +940,11 @@ window.HSPCBStore = (function () {
         backend.removeItem(NS + key);
         backend.removeItem(key);
         migratedKeys[key] = null;
+        var meta = readMeta();
+        if (Object.prototype.hasOwnProperty.call(meta, key)) {
+            delete meta[key];
+            writeMeta(meta);
+        }
     }
 
     /**
@@ -1034,6 +1093,9 @@ window.HSPCBStore = (function () {
         currentBackendName: currentBackendName,
         listKeys: listKeys,
         dump: dump,
-        restore: restore
+        restore: restore,
+        // v1.10 T15：键级更新时间（冲突检测）
+        metaDump: metaDump,
+        touchMeta: touchMeta
     };
 })();

@@ -160,6 +160,41 @@ window.HSPCBSettingsUI = (function () {
 
             var syncStatus = el('div', 'hspcb-muted', '尚未同步');
             var syncActions = el('div', 'hspcb-entry-row');
+            // v1.10 T15：冲突提示（默认隐藏）——两端在 5 分钟内都改过时默认保留本机，
+            // 用户可在这里选择用远端值覆盖冲突项。
+            var syncConflict = el('div', 'hspcb-muted', '');
+            syncConflict.hidden = true;
+            var syncConflictBtn = btn('用远端覆盖冲突项', 'hspcb-btn-danger', function () {
+                var res = HSPCBDatasync.resolveConflicts('remote');
+                if (!res || !res.ok) {
+                    syncStatus.textContent = '覆盖失败：' + ((res && res.error) || '未知错误');
+                    return;
+                }
+                syncStatus.textContent = '已用远端覆盖 ' + (res.written || 0) + ' 项冲突数据，请刷新页面生效';
+                showConflicts(0);
+            });
+            syncConflictBtn.type = 'button';
+            syncConflictBtn.hidden = true;
+
+            function showConflicts(n) {
+                if (!n) { syncConflict.hidden = true; syncConflictBtn.hidden = true; return; }
+                syncConflict.textContent = n + ' 项冲突：本机与远端在 5 分钟内都修改过，已默认保留本机。';
+                syncConflict.hidden = false;
+                syncConflictBtn.hidden = false;
+            }
+
+            /** 把 applyBundle 的结果翻译成用户能看懂的一句话，并驱动冲突按钮。 */
+            function describeApply(r, verb) {
+                if (!r || !r.ok) return verb + '失败：' + ((r && r.error) || '未知错误');
+                var staleCount = (r.stale && r.stale.length) || 0;
+                var conflictCount = (r.conflicts && r.conflicts.length) || 0;
+                showConflicts(conflictCount);
+                var msg = verb + '完成：合并 ' + (r.written || 0) + ' 项数据';
+                if (r.progress === 'merged' || r.progress === 'applied') msg += '（含学习进度）';
+                if (staleCount) msg += '；跳过 ' + staleCount + ' 项（本机较新）';
+                if (conflictCount) msg += '；' + conflictCount + ' 项冲突待确认';
+                return msg;
+            }
 
             // v1.9 §3.2-B：时间格式化由首个 ES Module 提供；加载失败（旧浏览器
             // 不支持动态 import / 模块 404）时静默回退到原来的 slice 写法。
@@ -201,8 +236,7 @@ window.HSPCBSettingsUI = (function () {
                 syncStatus.textContent = '正在下载…';
                 HSPCBDatasync.webdavGet(currentCfg()).then(function (r) {
                     downBtn.disabled = false;
-                    if (!r.ok) { syncStatus.textContent = '恢复失败：' + (r.error || '未知错误'); return; }
-                    syncStatus.textContent = '已恢复 ' + r.written + ' 项数据，请刷新页面生效';
+                    syncStatus.textContent = describeApply(r, '恢复');
                 });
             });
             downBtn.type = 'button';
@@ -218,7 +252,7 @@ window.HSPCBSettingsUI = (function () {
 
             var impBtn = btn('导入快照文件', 'hspcb-btn', function () {
                 HSPCBDatasync.pickAndImport().then(function (r) {
-                    syncStatus.textContent = r.ok ? ('已导入 ' + r.written + ' 项数据，请刷新页面生效') : ('导入失败：' + (r.error || ''));
+                    syncStatus.textContent = describeApply(r, '导入');
                 });
             });
             impBtn.type = 'button';
@@ -226,7 +260,9 @@ window.HSPCBSettingsUI = (function () {
 
             syncCard.appendChild(syncActions);
             syncCard.appendChild(syncStatus);
-            syncCard.appendChild(el('div', 'hspcb-muted', '凭据只存本机 localStorage；WebDAV 文件为整份覆盖，不做双向合并。'));
+            syncCard.appendChild(syncConflict);
+            syncCard.appendChild(syncConflictBtn);
+            syncCard.appendChild(el('div', 'hspcb-muted', '凭据只存本机 localStorage；恢复与导入按更新时间合并，本机较新的数据不会被旧快照覆盖。'));
             frag.appendChild(syncCard);
         }
 
