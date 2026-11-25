@@ -1,6 +1,6 @@
 {
   "name": "数学",
-  "total": 197,
+  "total": 201,
   "categories": [
     "集合与逻辑",
     "函数与导数",
@@ -3743,6 +3743,92 @@
         "第二象限",
         "第三象限",
         "第四象限"
+      ]
+    },
+    {
+      "id": "CONTRIB_MATH_01",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "函数与导数",
+      "points": 6,
+      "question": "函数 f(x)=x²-2x+3 的最小值是：",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "B",
+      "analysis": "配方得 f(x)=(x-1)²+2，当 x=1 时取最小值 2。",
+      "knowledgePoints": [
+        "函数的概念及表示",
+        "二次函数最值",
+        "配方法"
+      ]
+    },
+    {
+      "id": "CONTRIB_MATH_02",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "数列",
+      "points": 6,
+      "question": "已知等差数列 {aₙ} 的首项 a₁=1，公差 d=2，则 a₁₀ 等于：",
+      "options": [
+        "17",
+        "18",
+        "19",
+        "20"
+      ],
+      "answer": "C",
+      "analysis": "等差数列通项公式 aₙ=a₁+(n-1)d，代入得 a₁₀=1+9×2=19。",
+      "knowledgePoints": [
+        "等差数列",
+        "通项公式",
+        "数列"
+      ]
+    },
+    {
+      "id": "CONTRIB_MATH_03",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "函数与导数",
+      "points": 6,
+      "question": "log₂8 的值等于：",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "8"
+      ],
+      "answer": "B",
+      "analysis": "因为 2³=8，所以 log₂8=3。",
+      "knowledgePoints": [
+        "对数与对数运算",
+        "对数的定义"
+      ]
+    },
+    {
+      "id": "CONTRIB_MATH_04",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "三角函数",
+      "points": 6,
+      "question": "sin 30° + cos 60° 的值等于：",
+      "options": [
+        "0.5",
+        "1",
+        "1.5",
+        "2"
+      ],
+      "answer": "B",
+      "analysis": "sin30°=1/2，cos60°=1/2，两者相加等于 1。",
+      "knowledgePoints": [
+        "三角函数",
+        "特殊角三角函数值"
       ]
     }
   ]

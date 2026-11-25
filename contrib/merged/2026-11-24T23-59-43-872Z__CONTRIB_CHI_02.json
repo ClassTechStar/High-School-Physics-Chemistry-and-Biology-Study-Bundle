@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_CHI_02",
+  "subject": "chinese",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "古诗词鉴赏",
+  "points": 6,
+  "question": "“会当凌绝顶，一览众山小”的作者是：",
+  "options": [
+    "李白",
+    "杜甫",
+    "王维",
+    "白居易"
+  ],
+  "answer": "B",
+  "analysis": "该句出自杜甫《望岳》，写诗人登临泰山绝顶、俯瞰群山的豪情，体现了杜甫青年时期的远大抱负。",
+  "knowledgePoints": [
+    "古诗词鉴赏",
+    "名句作者",
+    "杜甫"
+  ]
+}

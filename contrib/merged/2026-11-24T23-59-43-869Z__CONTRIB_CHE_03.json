@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_CHE_03",
+  "subject": "chemistry",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "原理综合",
+  "points": 6,
+  "question": "在氧化还原反应中，还原剂在反应中：",
+  "options": [
+    "得到电子，被还原",
+    "失去电子，被氧化",
+    "得到电子，被氧化",
+    "失去电子，被还原"
+  ],
+  "answer": "B",
+  "analysis": "还原剂具有还原性，在反应中失去电子、化合价升高、自身被氧化；氧化剂得到电子被还原。",
+  "knowledgePoints": [
+    "氧化还原反应",
+    "还原剂",
+    "电子转移"
+  ]
+}

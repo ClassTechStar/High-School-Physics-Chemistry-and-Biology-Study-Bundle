@@ -42,6 +42,11 @@ for (const f of files) {
     process.exitCode = 1;
     continue;
   }
+  // 示例投稿只是模板（题干自带占位提示），永远不进正式题库
+  if (/^example-/i.test(basename(src))) {
+    console.log(`  - 跳过示例投稿: ${basename(src)}`);
+    continue;
+  }
   const q = JSON.parse(readFileSync(src, 'utf8'));
   const subject = q.subject;
   if (!EXAM_SUBJECTS.includes(subject)) {

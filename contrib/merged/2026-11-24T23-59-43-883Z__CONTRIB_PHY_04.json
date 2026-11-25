@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_PHY_04",
+  "subject": "physics",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "实验",
+  "points": 6,
+  "question": "用分度值为 1 mm 的刻度尺测量物体长度时，正确的读数要求是：",
+  "options": [
+    "读到分度值本身即可",
+    "读到分度值的一半",
+    "估读到分度值的下一位",
+    "不需要估读"
+  ],
+  "answer": "C",
+  "analysis": "使用刻度尺测量长度时必须估读一位，即估读到分度值的下一位；分度值 1 mm 的刻度尺应读到 0.1 mm。",
+  "knowledgePoints": [
+    "刻度尺读数",
+    "估读",
+    "实验数据处理"
+  ]
+}

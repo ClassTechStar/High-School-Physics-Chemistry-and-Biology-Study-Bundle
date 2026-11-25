@@ -1,0 +1,22 @@
+{
+  "id": "CONTRIB_CHE_02",
+  "subject": "chemistry",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "原理综合",
+  "points": 6,
+  "question": "标准状况下，22.4 L 二氧化碳气体的物质的量约为：",
+  "options": [
+    "0.5 mol",
+    "1 mol",
+    "2 mol",
+    "22.4 mol"
+  ],
+  "answer": "B",
+  "analysis": "标准状况下气体摩尔体积约为 22.4 L/mol，n=V/Vm=22.4/22.4=1 mol。",
+  "knowledgePoints": [
+    "物质的量",
+    "气体摩尔体积"
+  ]
+}

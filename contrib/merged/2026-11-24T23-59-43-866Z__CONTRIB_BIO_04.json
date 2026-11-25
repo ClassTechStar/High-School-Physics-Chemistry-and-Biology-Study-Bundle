@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_BIO_04",
+  "subject": "biology",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "代谢调节",
+  "points": 6,
+  "question": "下列液体中，不属于人体内环境组成成分的是：",
+  "options": [
+    "血浆",
+    "组织液",
+    "淋巴",
+    "细胞内液"
+  ],
+  "answer": "D",
+  "analysis": "内环境即细胞外液，主要由血浆、组织液和淋巴组成；细胞内液位于细胞内部，不属于内环境。",
+  "knowledgePoints": [
+    "内环境与稳态",
+    "内环境组成",
+    "细胞外液"
+  ]
+}

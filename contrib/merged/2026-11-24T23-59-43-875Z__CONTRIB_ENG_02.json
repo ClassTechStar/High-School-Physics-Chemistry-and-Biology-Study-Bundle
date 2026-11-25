@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_ENG_02",
+  "subject": "english",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "语法选择",
+  "points": 6,
+  "question": "The book ______ I bought yesterday is very interesting.",
+  "options": [
+    "who",
+    "whom",
+    "which",
+    "what"
+  ],
+  "answer": "C",
+  "analysis": "先行词 The book 指物，在定语从句中作 bought 的宾语，关系代词用 which（或 that）；who/whom 指人，what 不能引导定语从句。",
+  "knowledgePoints": [
+    "语法选择",
+    "定语从句",
+    "关系代词"
+  ]
+}

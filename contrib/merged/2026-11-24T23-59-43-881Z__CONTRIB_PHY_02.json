@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_PHY_02",
+  "subject": "physics",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "电磁学",
+  "points": 6,
+  "question": "关于电场强度 E=F/q 的理解，下列说法正确的是：",
+  "options": [
+    "E 的大小与试探电荷 q 成正比",
+    "E 由场源电荷及该点位置决定，与 q 无关",
+    "E 与试探电荷受到的力 F 无关",
+    "q 越大，该点的 E 越小"
+  ],
+  "answer": "B",
+  "analysis": "电场强度是描述电场本身性质的物理量，由场源电荷和空间位置决定；F/q 只是定义式，不能理解为 E 与 F 成正比或与 q 成反比。",
+  "knowledgePoints": [
+    "静电场",
+    "电场强度",
+    "试探电荷"
+  ]
+}

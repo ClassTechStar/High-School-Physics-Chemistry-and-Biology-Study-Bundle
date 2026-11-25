@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_CHE_01",
+  "subject": "chemistry",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "原理综合",
+  "points": 6,
+  "question": "钠、镁、铝三种元素按原子序数递增的顺序排列，其金属性强弱变化是：",
+  "options": [
+    "依次增强",
+    "依次减弱",
+    "先增强后减弱",
+    "完全相同"
+  ],
+  "answer": "B",
+  "analysis": "同周期从左到右，原子半径减小、核对外层电子吸引增强，失电子能力减弱，金属性依次减弱，故 Na>Mg>Al。",
+  "knowledgePoints": [
+    "元素周期律",
+    "金属性",
+    "同周期递变"
+  ]
+}

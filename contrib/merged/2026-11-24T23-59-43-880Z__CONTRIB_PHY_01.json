@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_PHY_01",
+  "subject": "physics",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "力学",
+  "points": 6,
+  "question": "某物体做匀速圆周运动，在运动过程中保持不变的物理量是：",
+  "options": [
+    "线速度",
+    "角速度",
+    "向心加速度",
+    "合外力"
+  ],
+  "answer": "B",
+  "analysis": "匀速圆周运动中角速度大小和方向都不变；线速度、向心加速度与合外力的方向始终在改变，因此只有角速度保持不变。",
+  "knowledgePoints": [
+    "圆周运动",
+    "线速度",
+    "角速度"
+  ]
+}

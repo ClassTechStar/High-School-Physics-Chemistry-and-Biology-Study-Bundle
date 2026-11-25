@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_BIO_03",
+  "subject": "biology",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "代谢调节",
+  "points": 6,
+  "question": "光合作用光反应阶段的产物不包括：",
+  "options": [
+    "ATP",
+    "NADPH",
+    "氧气",
+    "葡萄糖"
+  ],
+  "answer": "D",
+  "analysis": "光反应产生 ATP、NADPH 和氧气；葡萄糖是暗反应阶段固定二氧化碳后经还原生成的，不属于光反应产物。",
+  "knowledgePoints": [
+    "光合作用",
+    "光反应",
+    "ATP与NADPH"
+  ]
+}

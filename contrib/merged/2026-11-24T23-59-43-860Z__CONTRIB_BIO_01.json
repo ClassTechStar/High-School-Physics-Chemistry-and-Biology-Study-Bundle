@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_BIO_01",
+  "subject": "biology",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "代谢调节",
+  "points": 6,
+  "question": "真核细胞中被称为细胞“动力车间”的细胞器是：",
+  "options": [
+    "核糖体",
+    "线粒体",
+    "高尔基体",
+    "溶酶体"
+  ],
+  "answer": "B",
+  "analysis": "线粒体是有氧呼吸的主要场所，能为细胞生命活动提供大量能量，因此被称为细胞的“动力车间”。",
+  "knowledgePoints": [
+    "细胞器",
+    "线粒体",
+    "细胞的结构与功能"
+  ]
+}

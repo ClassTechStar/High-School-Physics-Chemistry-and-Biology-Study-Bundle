@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "description": "广东省高考真题库 (9年完整覆盖)",
-    "totalQuestions": 1198,
+    "totalQuestions": 1218,
     "subjects": [
       "physics",
       "chemistry",
@@ -27,7 +27,7 @@
   },
   "physics": {
     "name": "物理",
-    "total": 184,
+    "total": 188,
     "categories": [
       "力学",
       "电磁学",
@@ -37,7 +37,7 @@
   },
   "chemistry": {
     "name": "化学",
-    "total": 183,
+    "total": 187,
     "categories": [
       "工艺流程",
       "实验探究",
@@ -47,7 +47,7 @@
   },
   "biology": {
     "name": "生物",
-    "total": 214,
+    "total": 218,
     "categories": [
       "遗传与变异",
       "代谢调节",
@@ -57,7 +57,7 @@
   },
   "math": {
     "name": "数学",
-    "total": 197,
+    "total": 201,
     "categories": [
       "集合与逻辑",
       "函数与导数",
@@ -72,7 +72,7 @@
   },
   "chinese": {
     "name": "语文",
-    "total": 200,
+    "total": 202,
     "categories": [
       "现代文阅读",
       "文言文阅读",
@@ -84,7 +84,7 @@
   },
   "english": {
     "name": "英语",
-    "total": 220,
+    "total": 222,
     "categories": [
       "语法选择",
       "阅读理解",

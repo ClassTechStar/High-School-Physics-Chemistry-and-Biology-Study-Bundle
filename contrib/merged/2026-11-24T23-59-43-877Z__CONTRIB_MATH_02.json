@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_MATH_02",
+  "subject": "math",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "数列",
+  "points": 6,
+  "question": "已知等差数列 {aₙ} 的首项 a₁=1，公差 d=2，则 a₁₀ 等于：",
+  "options": [
+    "17",
+    "18",
+    "19",
+    "20"
+  ],
+  "answer": "C",
+  "analysis": "等差数列通项公式 aₙ=a₁+(n-1)d，代入得 a₁₀=1+9×2=19。",
+  "knowledgePoints": [
+    "等差数列",
+    "通项公式",
+    "数列"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "CONTRIB_BIO_02",
+  "subject": "biology",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "遗传与变异",
+  "points": 6,
+  "question": "DNA 分子复制的方式是：",
+  "options": [
+    "全保留复制",
+    "半保留复制",
+    "分散复制",
+    "混合复制"
+  ],
+  "answer": "B",
+  "analysis": "DNA 复制时双链解开，各自作为模板合成互补链，每个子代 DNA 都保留一条母链，属于半保留复制。",
+  "knowledgePoints": [
+    "DNA复制",
+    "半保留复制",
+    "遗传与变异"
+  ]
+}

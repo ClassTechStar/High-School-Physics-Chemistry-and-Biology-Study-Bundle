@@ -1,0 +1,22 @@
+{
+  "id": "CONTRIB_MATH_03",
+  "subject": "math",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "函数与导数",
+  "points": 6,
+  "question": "log₂8 的值等于：",
+  "options": [
+    "2",
+    "3",
+    "4",
+    "8"
+  ],
+  "answer": "B",
+  "analysis": "因为 2³=8，所以 log₂8=3。",
+  "knowledgePoints": [
+    "对数与对数运算",
+    "对数的定义"
+  ]
+}

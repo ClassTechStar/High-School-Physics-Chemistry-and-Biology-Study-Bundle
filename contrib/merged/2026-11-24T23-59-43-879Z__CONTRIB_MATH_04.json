@@ -1,0 +1,22 @@
+{
+  "id": "CONTRIB_MATH_04",
+  "subject": "math",
+  "year": 2026,
+  "type": "选择题",
+  "difficulty": "easy",
+  "category": "三角函数",
+  "points": 6,
+  "question": "sin 30° + cos 60° 的值等于：",
+  "options": [
+    "0.5",
+    "1",
+    "1.5",
+    "2"
+  ],
+  "answer": "B",
+  "analysis": "sin30°=1/2，cos60°=1/2，两者相加等于 1。",
+  "knowledgePoints": [
+    "三角函数",
+    "特殊角三角函数值"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "生物",
-  "total": 214,
+  "total": 218,
   "categories": [
     "遗传与变异",
     "代谢调节",
@@ -4492,6 +4492,94 @@
       "knowledgePoints": [
         "现代进化理论",
         "自然选择"
+      ]
+    },
+    {
+      "id": "CONTRIB_BIO_01",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "代谢调节",
+      "points": 6,
+      "question": "真核细胞中被称为细胞“动力车间”的细胞器是：",
+      "options": [
+        "核糖体",
+        "线粒体",
+        "高尔基体",
+        "溶酶体"
+      ],
+      "answer": "B",
+      "analysis": "线粒体是有氧呼吸的主要场所，能为细胞生命活动提供大量能量，因此被称为细胞的“动力车间”。",
+      "knowledgePoints": [
+        "细胞器",
+        "线粒体",
+        "细胞的结构与功能"
+      ]
+    },
+    {
+      "id": "CONTRIB_BIO_02",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "遗传与变异",
+      "points": 6,
+      "question": "DNA 分子复制的方式是：",
+      "options": [
+        "全保留复制",
+        "半保留复制",
+        "分散复制",
+        "混合复制"
+      ],
+      "answer": "B",
+      "analysis": "DNA 复制时双链解开，各自作为模板合成互补链，每个子代 DNA 都保留一条母链，属于半保留复制。",
+      "knowledgePoints": [
+        "DNA复制",
+        "半保留复制",
+        "遗传与变异"
+      ]
+    },
+    {
+      "id": "CONTRIB_BIO_03",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "代谢调节",
+      "points": 6,
+      "question": "光合作用光反应阶段的产物不包括：",
+      "options": [
+        "ATP",
+        "NADPH",
+        "氧气",
+        "葡萄糖"
+      ],
+      "answer": "D",
+      "analysis": "光反应产生 ATP、NADPH 和氧气；葡萄糖是暗反应阶段固定二氧化碳后经还原生成的，不属于光反应产物。",
+      "knowledgePoints": [
+        "光合作用",
+        "光反应",
+        "ATP与NADPH"
+      ]
+    },
+    {
+      "id": "CONTRIB_BIO_04",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "代谢调节",
+      "points": 6,
+      "question": "下列液体中，不属于人体内环境组成成分的是：",
+      "options": [
+        "血浆",
+        "组织液",
+        "淋巴",
+        "细胞内液"
+      ],
+      "answer": "D",
+      "analysis": "内环境即细胞外液，主要由血浆、组织液和淋巴组成；细胞内液位于细胞内部，不属于内环境。",
+      "knowledgePoints": [
+        "内环境与稳态",
+        "内环境组成",
+        "细胞外液"
       ]
     }
   ]

@@ -1,6 +1,6 @@
 {
   "name": "化学",
-  "total": 183,
+  "total": 187,
   "categories": [
     "工艺流程",
     "实验探究",
@@ -3836,6 +3836,93 @@
       "knowledgePoints": [
         "元素化合物",
         "高频考点"
+      ]
+    },
+    {
+      "id": "CONTRIB_CHE_01",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "原理综合",
+      "points": 6,
+      "question": "钠、镁、铝三种元素按原子序数递增的顺序排列，其金属性强弱变化是：",
+      "options": [
+        "依次增强",
+        "依次减弱",
+        "先增强后减弱",
+        "完全相同"
+      ],
+      "answer": "B",
+      "analysis": "同周期从左到右，原子半径减小、核对外层电子吸引增强，失电子能力减弱，金属性依次减弱，故 Na>Mg>Al。",
+      "knowledgePoints": [
+        "元素周期律",
+        "金属性",
+        "同周期递变"
+      ]
+    },
+    {
+      "id": "CONTRIB_CHE_02",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "原理综合",
+      "points": 6,
+      "question": "标准状况下，22.4 L 二氧化碳气体的物质的量约为：",
+      "options": [
+        "0.5 mol",
+        "1 mol",
+        "2 mol",
+        "22.4 mol"
+      ],
+      "answer": "B",
+      "analysis": "标准状况下气体摩尔体积约为 22.4 L/mol，n=V/Vm=22.4/22.4=1 mol。",
+      "knowledgePoints": [
+        "物质的量",
+        "气体摩尔体积"
+      ]
+    },
+    {
+      "id": "CONTRIB_CHE_03",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "原理综合",
+      "points": 6,
+      "question": "在氧化还原反应中，还原剂在反应中：",
+      "options": [
+        "得到电子，被还原",
+        "失去电子，被氧化",
+        "得到电子，被氧化",
+        "失去电子，被还原"
+      ],
+      "answer": "B",
+      "analysis": "还原剂具有还原性，在反应中失去电子、化合价升高、自身被氧化；氧化剂得到电子被还原。",
+      "knowledgePoints": [
+        "氧化还原反应",
+        "还原剂",
+        "电子转移"
+      ]
+    },
+    {
+      "id": "CONTRIB_CHE_04",
+      "year": 2026,
+      "type": "选择题",
+      "difficulty": "easy",
+      "category": "实验探究",
+      "points": 6,
+      "question": "实验室稀释浓硫酸时，正确的操作是：",
+      "options": [
+        "将水沿烧杯壁缓慢倒入浓硫酸中",
+        "将浓硫酸沿器壁缓慢倒入水中并不断搅拌",
+        "将两者快速混合",
+        "先加热浓硫酸再加入水"
+      ],
+      "answer": "B",
+      "analysis": "浓硫酸稀释放出大量热，必须把浓硫酸沿器壁缓慢倒入水中并不断搅拌，使热量及时扩散；把水倒入浓硫酸会因局部过热造成液滴飞溅。",
+      "knowledgePoints": [
+        "基本实验操作",
+        "浓硫酸稀释",
+        "实验安全"
       ]
     }
   ]
