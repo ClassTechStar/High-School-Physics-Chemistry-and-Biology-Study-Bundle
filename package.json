@@ -12,9 +12,9 @@
     "check:data": "node scripts/validate-data.mjs",
     "check:data:json": "node scripts/validate-data.mjs --json",
     "check:collisions": "node scripts/check-global-collisions.mjs",
-    "test": "node scripts/test-progress.mjs && node scripts/test-cross-subject.mjs && node scripts/test-schedule.mjs && node scripts/test-sm2.mjs && node scripts/test-update-check.mjs && node scripts/test-import-transaction.mjs && node scripts/test-datasync.mjs && node scripts/test-chemistry-balancer.mjs && node scripts/test-esm-module.mjs",
+    "test": "node scripts/test-progress.mjs && node scripts/test-cross-subject.mjs && node scripts/test-schedule.mjs && node scripts/test-sm2.mjs && node scripts/test-update-check.mjs && node scripts/test-import-transaction.mjs && node scripts/test-datasync.mjs && node scripts/test-chemistry-balancer.mjs && node scripts/test-esm-module.mjs && node scripts/test-mastery.mjs && node scripts/test-esm-batch2.mjs",
     "test:smoke": "node scripts/smoke-app.mjs",
-    "verify": "npm run check:version && npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:schedule && npm run check:lint && npm run check:content && npm run check:anchors && npm run check:md3 && npm run check:update-security && npm run check:contrib && npm run check:runtime && npm run check:asset-sync && npm run test && npm run test:smoke",
+    "verify": "npm run check:version && npm run check:data && npm run check:collisions && npm run check:theme && npm run check:csp && npm run check:render-safety && npm run check:schedule && npm run check:lint && npm run check:content && npm run check:anchors && npm run check:md3 && npm run check:update-security && npm run check:contrib && npm run check:runtime && npm run check:asset-sync && npm run test && npm run test:smoke",
     "check:runtime": "node scripts/runtime-defer-check.mjs",
     "check:asset-sync": "node scripts/check-asset-sync.mjs",
     "check:lint": "node scripts/check-lint.mjs",
@@ -25,13 +25,17 @@
     "check:csp": "node scripts/check-csp-inline.mjs",
     "check:schedule": "node scripts/check-schedule.mjs",
     "check:update-security": "node scripts/check-update-security.mjs",
-    "check:contrib": "node scripts/validate-contrib.mjs"
+    "check:contrib": "node scripts/validate-contrib.mjs",
+    "check:render-safety": "node scripts/check-render-safety.mjs",
+    "check:coverage": "node scripts/coverage-report.mjs --strict",
+    "coverage": "node scripts/coverage-report.mjs"
   },
   "engines": {
     "node": ">=18"
   },
   "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.1",
     "@playwright/test": "^1.65.1",
     "esbuild": "^0.28.2"
   }

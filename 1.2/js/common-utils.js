@@ -145,6 +145,19 @@ window.CommonUtils = (function () {
 })();
 
 // ============================================================
+// v1.10 T19：纯函数单一来源迁移到 js/modules/text.js（ESM）
+// 本文件保留同实现作为 fallback（解析期同步调用不能等模块），
+// 模块就绪后覆盖同名导出；两份由 scripts/test-esm-batch2.mjs 对拍。
+// ============================================================
+try {
+    import(new URL('js/modules/text.js', document.baseURI).href).then(function (m) {
+        for (var k in m) {
+            if (typeof m[k] === 'function') window.CommonUtils[k] = m[k];
+        }
+    }).catch(function () { /* 旧浏览器不支持动态 import：保留内置实现 */ });
+} catch (e) { /* 同上 */ }
+
+// ============================================================
 // HSPCBBus — 全局命名信号事件总线（v1.5 / T10，借鉴 Class-Widgets-2 ActionsAPI）
 // 模块间解耦：发布方不感知订阅方。事件名集中在各发布方注释中登记。
 // 当前事件：exam:answered（app-exam.js）、checkin:done（learning-tools.js）

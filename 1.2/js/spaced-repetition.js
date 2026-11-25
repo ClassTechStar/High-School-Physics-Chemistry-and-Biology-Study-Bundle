@@ -57,3 +57,13 @@ window.HSPCBSpacedRepetition = (function () {
         dueLabel: dueLabel
     };
 })();
+
+// v1.10 T19：ESM 单一来源 js/modules/sm2.js；模块就绪后覆盖同名方法，
+// 不支持动态 import 的旧浏览器继续用上方内置实现（两份由单测对拍）。
+try {
+    import(new URL('js/modules/sm2.js', document.baseURI).href).then(function (m) {
+        for (var k in m) {
+            if (typeof m[k] === 'function') window.HSPCBSpacedRepetition[k] = m[k];
+        }
+    }).catch(function () { /* 保留内置实现 */ });
+} catch (e) { /* 同上 */ }

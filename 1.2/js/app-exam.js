@@ -492,7 +492,7 @@ const examPracticeSystem = {
                     <!-- 右侧：练习区域 -->
                     <div class="practice-area">
                         <div class="filter-bar">
-                            <select id="exam-subject-filter" data-call=\"examPracticeSystem.updateExamList\">
+                            <select id="exam-subject-filter" aria-label=\"按学科筛选题目\" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部学科</option>
                                 <option value="physics">物理</option>
                                 <option value="chemistry">化学</option>
@@ -501,11 +501,11 @@ const examPracticeSystem = {
                                 <option value="chinese">语文</option>
                                 <option value="english">英语</option>
                             </select>
-                            <select id="exam-year-filter" data-call=\"examPracticeSystem.updateExamList\">
+                            <select id="exam-year-filter" aria-label=\"按年份筛选题目\" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部年份</option>
                                 ${[2026,2025,2024,2023,2022,2021,2020,2019,2018].map(y => `<option value="${y}">${y}年</option>`).join('')}
                             </select>
-                            <select id="exam-difficulty-filter" data-call=\"examPracticeSystem.updateExamList\">
+                            <select id="exam-difficulty-filter" aria-label=\"按难度筛选题目\" data-call=\"examPracticeSystem.updateExamList\">
                                 <option value="all">全部难度</option>
                                 <option value="easy">简单</option>
                                 <option value="medium">中等</option>
