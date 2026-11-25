@@ -111,6 +111,16 @@ window.errorNotebook = (function() {
                     if (e.correctCount >= 3) e.mastered = true;
                 }
                 saveData(data);
+                // v1.10 T16：把自评质量回流给掌握度统计（学科 + 章节/知识点）
+                if (window.HSPCBBus) {
+                    HSPCBBus.emit('sm2:reviewed', {
+                        id: e.id,
+                        subject: e.subject,
+                        chapter: e.chapter || '',
+                        knowledgePoints: Array.isArray(e.knowledgePoints) ? e.knowledgePoints : [],
+                        remembered: !!remembered
+                    });
+                }
                 return true;
             }
         }
@@ -739,6 +749,7 @@ window.errorNotebook = (function() {
 
         var subjSel = document.createElement('select');
         subjSel.id = 'enb-filter-subject';
+        subjSel.setAttribute('aria-label', '按学科筛选错题');
         subjSel.onchange = function() {
             currentFilters.subject = subjSel.value;
             refreshErrorList();
@@ -763,6 +774,7 @@ window.errorNotebook = (function() {
 
         var diffSel = document.createElement('select');
         diffSel.id = 'enb-filter-difficulty';
+        diffSel.setAttribute('aria-label', '按难度筛选错题');
         diffSel.onchange = function() {
             currentFilters.difficulty = diffSel.value;
             refreshErrorList();
@@ -789,6 +801,7 @@ window.errorNotebook = (function() {
 
         var statSel = document.createElement('select');
         statSel.id = 'enb-filter-mastered';
+        statSel.setAttribute('aria-label', '按掌握状态筛选错题');
         statSel.onchange = function() {
             currentFilters.mastered = statSel.value;
             refreshErrorList();
@@ -812,6 +825,7 @@ window.errorNotebook = (function() {
         kwInput.placeholder = '搜索关键词...';
         kwInput.style.cssText = 'min-width:120px;margin-left:8px;';
         kwInput.id = 'enb-filter-keyword';
+        kwInput.setAttribute('aria-label', '按关键词搜索错题');
         var kwTimeout = null;
         kwInput.oninput = function() {
             if (kwTimeout) clearTimeout(kwTimeout);
@@ -830,6 +844,7 @@ window.errorNotebook = (function() {
         var dateFrom = document.createElement('input');
         dateFrom.type = 'date';
         dateFrom.id = 'enb-filter-datefrom';
+        dateFrom.setAttribute('aria-label', '起始日期');
         dateFrom.style.cssText = 'width:130px;';
         dateFrom.onchange = function() {
             currentFilters.dateFrom = dateFrom.value;
@@ -844,6 +859,7 @@ window.errorNotebook = (function() {
         var dateTo = document.createElement('input');
         dateTo.type = 'date';
         dateTo.id = 'enb-filter-dateto';
+        dateTo.setAttribute('aria-label', '结束日期');
         dateTo.style.cssText = 'width:130px;';
         dateTo.onchange = function() {
             currentFilters.dateTo = dateTo.value;
@@ -1394,10 +1410,18 @@ window.errorNotebook = (function() {
         var feedback = document.getElementById('enb-redo-feedback');
         if (feedback) {
             feedback.className = 'enb-redo-feedback show ' + (isCorrect ? 'correct' : 'wrong');
+            // v1.10 T18：用户答案/解析走 textContent，结构用 createElement —— 结构上无法漏转义
+            feedback.textContent = '';
+            var verdict = document.createElement('strong');
+            verdict.textContent = isCorrect ? '正确！' : '错误！';
+            feedback.appendChild(verdict);
             if (isCorrect) {
-                feedback.innerHTML = '<strong>正确！</strong> ' + (err.explanation || '');
+                feedback.appendChild(document.createTextNode(' ' + (err.explanation || '')));
             } else {
-                feedback.innerHTML = '<strong>错误！</strong> 你的答案: ' + userAnswer + '，正确答案: ' + correctAnswer + '<br>' + (err.explanation || '');
+                feedback.appendChild(document.createTextNode(
+                    ' 你的答案: ' + userAnswer + '，正确答案: ' + correctAnswer));
+                feedback.appendChild(document.createElement('br'));
+                feedback.appendChild(document.createTextNode(err.explanation || ''));
             }
         }
 

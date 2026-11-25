@@ -262,28 +262,77 @@ window.HSPCBDashboard = (function () {
     });
 
     // v1.8：SM-2 间隔重复排期 —— 今天该复习几道错题
+    // v1.10 T16：与掌握度薄弱点合并为统一复习队列，并加近 30 天掌握度曲线
     register({
         id: 'review', name: '今日应复习',
         render: function (body) {
-            var due = [];
-            try {
-                due = (window.errorNotebook && typeof errorNotebook.dueErrors === 'function')
-                    ? errorNotebook.dueErrors() : [];
-            } catch (e) { due = []; }
-            var big = el('div', 'hspcb-stat-big', String(due.length));
-            big.style !== undefined && (big.style.color = due.length > 0 ? 'var(--exam, #ef4444)' : 'var(--success, #10b981)');
+            var m = window.HSPCBMastery;
+            var sum = m && m.summary ? m.summary() : null;
+            if (!sum || !sum.ready) {
+                body.appendChild(el('div', 'hspcb-muted', '掌握度统计加载中…'));
+                if (m && m.onReady) {
+                    m.onReady(function () {
+                        try { if (window.HSPCBDashboard) window.HSPCBDashboard.remount(); } catch (e) { /* ignore */ }
+                    });
+                }
+                return;
+            }
+
+            var total = sum.queueTotal || 0;
+            var big = el('div', 'hspcb-stat-big', String(total));
+            if (big.style !== undefined) {
+                big.style.color = total > 0 ? 'var(--exam, #ef4444)' : 'var(--success, #10b981)';
+            }
             body.appendChild(big);
-            body.appendChild(el('div', 'hspcb-muted', due.length > 0 ? '按 SM-2 排期该复习了' : '今天没有到期待复习的错题'));
-            if (due.length > 0 && typeof navigateToolPage === 'function') {
-                var btn = el('button', 'hspcb-widget-btn', '去复习');
+            body.appendChild(el('div', 'hspcb-muted',
+                '到期 ' + (sum.due || 0) + ' · 薄弱 ' + ((sum.weak && sum.weak.length) || 0) +
+                ' · 平均掌握度 ' + Math.round((sum.avg || 0) * 100) + '%'));
+
+            if (sum.history && sum.history.length > 1) {
+                body.appendChild(sparkline(sum.history));
+            }
+
+            if (total > 0 && typeof navigateToolPage === 'function') {
+                var btn = el('button', 'hspcb-widget-btn', (sum.due || 0) > 0 ? '去复习' : '去看薄弱点');
                 btn.type = 'button';
                 btn.addEventListener('click', function () {
-                    try { navigateToolPage('error-notebook'); } catch (e) { /* ignore */ }
+                    try {
+                        navigateToolPage((sum.due || 0) > 0 ? 'error-notebook' : 'learning-path-recommender');
+                    } catch (e) { /* ignore */ }
                 });
                 body.appendChild(btn);
             }
         }
     });
+
+    /** 近 30 天掌握度 sparkline（内联 SVG，纯表现属性，不写 style 属性）。 */
+    function sparkline(history) {
+        var NS = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('class', 'hspcb-spark');
+        svg.setAttribute('viewBox', '0 0 100 28');
+        svg.setAttribute('preserveAspectRatio', 'none');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', '近 ' + history.length + ' 天掌握度曲线');
+        var pts = [];
+        var n = history.length;
+        for (var i = 0; i < n; i++) {
+            var v = Math.max(0, Math.min(100, Number(history[i].v) || 0));
+            var x = n === 1 ? 50 : (i / (n - 1)) * 100;
+            var y = 27 - (v / 100) * 26;
+            pts.push(x.toFixed(1) + ',' + y.toFixed(1));
+        }
+        var line = document.createElementNS(NS, 'polyline');
+        line.setAttribute('points', pts.join(' '));
+        line.setAttribute('fill', 'none');
+        line.setAttribute('stroke', 'var(--primary, #2d5a63)');
+        line.setAttribute('stroke-width', '2');
+        line.setAttribute('stroke-linecap', 'round');
+        line.setAttribute('stroke-linejoin', 'round');
+        line.setAttribute('vector-effect', 'non-scaling-stroke');
+        svg.appendChild(line);
+        return svg;
+    }
 
     return {
         register: register,

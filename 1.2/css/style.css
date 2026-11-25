@@ -457,6 +457,26 @@ main {
     contain-intrinsic-size: auto 320px;
 }
 
+/* v1.10 T16：仪表盘掌握度曲线（SVG 表现属性绘制，不依赖内联样式） */
+.hspcb-spark {
+    width: 100%;
+    height: 28px;
+    display: block;
+    margin: 2px 0 4px;
+}
+
+/* v1.10 T20：尊重系统「减少动效」偏好（前庭敏感用户） */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* 打印必须完整渲染：content-visibility 会让未展开的卡片印成空白 */
 @media print {
     .knowledge-card { content-visibility: visible; }
