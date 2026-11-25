@@ -35,7 +35,7 @@ JAVAC="$(dirname "$JAVA")/javac"
 PY=""
 for C in $(command -v python3 2>/dev/null || true) \
          $(command -v python 2>/dev/null || true) \
-         "$LOCALAPPDATA/Python"/pythoncore-*/python.exe; do
+         ${LOCALAPPDATA:+"$LOCALAPPDATA/Python"/pythoncore-*/python.exe}; do
   if [ -n "$C" ] && "$C" -c "print('ok')" >/dev/null 2>&1; then
     PY="$C"; break
   fi
