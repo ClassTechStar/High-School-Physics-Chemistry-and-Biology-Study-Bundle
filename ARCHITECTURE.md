@@ -44,7 +44,7 @@ e2e/                      Playwright 端到端测试
 | 层 | 数量 | 位置 | 内容 |
 |---|---|---|---|
 | 解析期（无 defer） | 4 + 8 | head 4 个；body 中部 8 个 | 样式桥、错误兜底、主题引导、图标；`common-utils`/`progress`/`csp-delegation`/`main-*`/`lazy-loader` |
-| `defer` | 20 | body 尾部 | 应用壳：存储、通知、作息、设置、更新、演示、PWA、SW 注册等 |
+| `defer` | 21 | body 尾部 | 应用壳：存储、通知、作息、设置、更新、演示、PWA、SW 注册、掌握度统计等 |
 | 按需加载 | 42 | `js/lazy-loader.js` 的 `LIST` | 各学科/工具脚本，空闲分片或首次点击时按原序注入 |
 
 规则：
@@ -62,7 +62,8 @@ e2e/                      Playwright 端到端测试
 | `HSPCBProgress` | progress.js | 学习进度、错误记录、快照（`restoreSnapshot`） |
 | `HSPCBDatasync` | data-sync.js | 快照打包/导入导出/WebDAV（`buildBundle/applyBundle/webdavPut/webdavGet`） |
 | `HSPCBSchedule` | schedule-engine.js | 作息时段、单双周、假期覆写 |
-| `HSPCBSpacedRepetition` | spaced-repetition.js | SM-2：`initCard/schedule/isDue/dueLabel` |
+| `HSPCBSpacedRepetition` | spaced-repetition.js | SM-2：`initCard/schedule/isDue/dueLabel`（实现单一来源在 `modules/sm2.js`） |
+| `HSPCBMastery` | mastery-tracker.js | 掌握度与统一复习队列：`summary/queue/onReady`（公式在 `modules/mastery.js`） |
 | `HSPCBUpdate` | update-check.js | 更新链：GitHub → raw → jsDelivr（Gitee 默认关闭）、SHA-256 透传 |
 | `HSPCBNotify` | notification-center.js | 应用内通知 |
 | `HSPCBSettingsUI` | settings-center.js | 设置中心（含数据同步卡） |
@@ -113,6 +114,8 @@ e2e/                      Playwright 端到端测试
 | `check:collisions` | 全局声明碰撞 |
 | `check:theme` / `check:md3` | 令牌一致性 / MD3 迁移页 |
 | `check:csp` | 内联事件/脚本/样式清零 |
+| `check:render-safety` | 用户数据拼接 innerHTML 清零（`render-safety:ok` 可审计豁免） |
+| `coverage`（手动） | 题库 × 知识点覆盖度报告（未覆盖/薄弱主题清单） |
 | `check:schedule` / `check:content` / `check:lint` | 作息数据 / 内容完整性 / 编码约定 |
 | `check:anchors` | 页面锚点与 manifest 消费方 |
 | `check:update-security` | 更新链 17 项断言（校验、常量时间、Gitee 默认关闭等） |

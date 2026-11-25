@@ -75,6 +75,28 @@
 - 单测链新增：`test-datasync`（17）、`test-chemistry-balancer`（17）、
   `test-esm-module`（7）。
 
+### 学习闭环与数据可靠（v1.10 规划转正，T15–T20）
+
+- **T15 同步可靠性**：bundle 升到 v2，补上此前遗漏的 `hspcb.v2.progress` 全量学习数据
+  + `deviceId`；`HSPCBStore` 增加键级 `updatedAt`（保留键 `__meta__`，不污染导出）；
+  合并时「远端更新才覆盖、本机更新跳过并标记 stale、两端 5 分钟内都改过列为冲突」，
+  冲突默认保留本机，设置页可一键「用远端覆盖」。单测扩到 **39 项**，E2E 新增 2 条。
+- **T16 掌握度与统一复习队列**：新增 ESM `modules/mastery.js`（正确率 ×0.6 + SM-2 质量 ×0.4，
+  14 天半衰）；`mastery-tracker.js` 订阅 `exam:answered` 与新增的 `sm2:reviewed`，
+  按「学科::知识点」持久化并记每日快照；仪表盘复习卡改为「到期 + 薄弱」统一队列 +
+  近 30 天掌握度 SVG 曲线。单测 14 项。
+- **T17 题库覆盖度与投稿**：新增 `npm run coverage`（知识点 × 题量报告，含未覆盖/薄弱清单）；
+  合入首批 20 题社区投稿（六科基础题），题库 **1198 → 1218**；
+  `merge-contrib` 自动跳过 `example-*` 模板，避免示例题混入正式题库。
+- **T18 渲染安全**：错题重做反馈改为 `createElement + textContent`；
+  新增 `check:render-safety` 门禁（扫描 79 个 JS / 6.3 万行，反向注入验证会红）。
+- **T19 ESM 第二批**：`modules/text.js`（escapeHtml/debounce 等）与 `modules/sm2.js`
+  成为单一来源，IIFE 保留同实现并在模块就绪后覆盖；`test-esm-batch2` 27 项对拍。
+- **T20 无障碍**：axe-core 接入 Playwright，首页/题库/错题本 critical=0；
+  题库与错题本筛选项补 `aria-label`；新增 `prefers-reduced-motion` 降级与
+  200% 字体缩放无横向溢出 e2e。
+- 缓存 hspcb-v30 → **v31**；Android versionCode 11 → 12；`npm run verify` 增至 15 道门禁。
+
 ## 未发布
 
 ### 迁移收尾：index.html 评估 + 孤儿 CSS 清理

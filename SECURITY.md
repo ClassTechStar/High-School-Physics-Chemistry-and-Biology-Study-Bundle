@@ -52,6 +52,8 @@
   没有任何出站请求；无统计、无远程日志。
 - **WebDAV 凭据明文**：地址/账号/密码存在 localStorage（`hspcb_datasync_cfg`），
   仅适合「应用专用密码」，不建议填主账号密码；共用电脑请使用锁定模式。
+- **同步内容**：快照包含 `hspcb.v2.progress` 全量学习数据与 Store 业务键；恢复/导入
+  按更新时间合并（远端更新才覆盖，冲突默认保留本机），不会用旧快照静默覆盖新进度。
 - **快照文件**：导出的 JSON 含全部学习数据，分享前请自行确认内容。
 - **锁定模式**是防误触 UI 遮挡，不是加密；能打开 DevTools 的人可读 localStorage。
 
@@ -81,7 +83,8 @@ media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'
 
 - 题库/知识点内容来自本仓静态 JSON，不接收用户文本；**注入用户数据的路径**主要是
   错题本（用户笔记）与快照导入。
-- 错题本渲染（`buildErrorCard`）已使用 `createElement + textContent`，结构上无法漏转义。
+- 错题本渲染（`buildErrorCard`）与错题重做反馈已使用 `createElement + textContent`，
+  结构上无法漏转义；`check:render-safety` 门禁拦截「用户字段 + innerHTML」的新增写法。
 - 其余大量视图仍是「字符串模板 + `esc()` 转义」（约 465 处 innerHTML 的历史基数）。
   §3.2-C 的模板化迁移是渐进项，尚未全量完成；新增渲染代码**必须**用 `createElement`
   或先过 `esc()`，禁止拼接未经转义的 `innerHTML`。
